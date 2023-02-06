@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
         ShowInTaskbar="False"
@@ -27,7 +28,7 @@
 
             <StackPanel>
                 <CheckBox x:Name="onceCheckbox" 
-                          Content="Do not ask again"
+                          Content="{l:Loc Key='MessageBox_DoNotAskAgain'}"
                           Margin="3,-3,3,6"
                           Style="{x:Null}"/>
 
@@ -35,7 +36,7 @@
                         HorizontalAlignment="Right">
 
                     <Button x:Name="yesButton"
-                            Content="_Yes" 
+                            Content="{l:Loc Key='MessageBox_Yes'}" 
                             Padding="4"
                             Margin="8,0,0,0"
                             MinWidth="80" 
@@ -43,7 +44,7 @@
                             Style="{StaticResource btnStyle}"/>
 
                     <Button x:Name="yesToAllButton"
-                            Content="Yes to _All" 
+                            Content="{l:Loc Key='MessageBox_YesToAll'}" 
                             Padding="4"
                             Margin="8,0,0,0"
                             MinWidth="80" 
@@ -51,7 +52,7 @@
                             Style="{StaticResource btnStyle}"/>
 
                     <Button x:Name="noButton"
-                            Content="_No" 
+                            Content="{l:Loc Key='MessageBox_No'}" 
                             Padding="4"
                             Margin="8,0,0,0"
                             MinWidth="80" 
@@ -59,7 +60,7 @@
                             Style="{StaticResource btnStyle}"/>
 
                     <Button x:Name="noToAllButton"
-                            Content="No to A_ll" 
+                            Content="{l:Loc Key='MessageBox_NoToAll'}" 
                             Padding="4"
                             Margin="8,0,0,0"
                             MinWidth="80" 
@@ -67,7 +68,7 @@
                             Style="{StaticResource btnStyle}"/>
 
                     <Button x:Name="okButton"
-                            Content="OK" 
+                            Content="{l:Loc Key='MessageBox_OK'}" 
                             Margin="8,0,0,0"
                             Padding="4"
                             MinWidth="80" 
@@ -75,7 +76,7 @@
                             Style="{StaticResource btnStyle}"/>
 
                     <Button x:Name="cancelButton"
-                            Content="Cancel" 
+                            Content="{l:Loc Key='MessageBox_Cancel'}" 
                             Padding="4"
                             Margin="8,0,0,0"
                             MinWidth="80" 

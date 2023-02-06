@@ -120,6 +120,10 @@
       <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
       <Name>dnGREP.Everything</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj">
+      <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
+      <Name>dnGREP.Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

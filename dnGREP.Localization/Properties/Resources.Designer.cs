@@ -3294,6 +3294,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string MessageBox_Cancel {
+            get {
+                return ResourceManager.GetString("MessageBox_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check editor path via &quot;Options…&quot;..
         /// </summary>
         public static string MessageBox_CheckEditorPath {
@@ -3420,6 +3429,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not ask again.
+        /// </summary>
+        public static string MessageBox_DoNotAskAgain {
+            get {
+                return ResourceManager.GetString("MessageBox_DoNotAskAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue?.
         /// </summary>
         public static string MessageBox_DoYouWantToContinue {
@@ -3515,6 +3533,33 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_NewVersionOfDnGREP0IsAvailableForDownload {
             get {
                 return ResourceManager.GetString("MessageBox_NewVersionOfDnGREP0IsAvailableForDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _No.
+        /// </summary>
+        public static string MessageBox_No {
+            get {
+                return ResourceManager.GetString("MessageBox_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No to A_ll.
+        /// </summary>
+        public static string MessageBox_NoToAll {
+            get {
+                return ResourceManager.GetString("MessageBox_NoToAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string MessageBox_OK {
+            get {
+                return ResourceManager.GetString("MessageBox_OK", resourceCulture);
             }
         }
         
@@ -3857,6 +3902,24 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_WouldYouLikeToDownloadItNow {
             get {
                 return ResourceManager.GetString("MessageBox_WouldYouLikeToDownloadItNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Yes.
+        /// </summary>
+        public static string MessageBox_Yes {
+            get {
+                return ResourceManager.GetString("MessageBox_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes to _All.
+        /// </summary>
+        public static string MessageBox_YesToAll {
+            get {
+                return ResourceManager.GetString("MessageBox_YesToAll", resourceCulture);
             }
         }
         
