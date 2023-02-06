@@ -2597,4 +2597,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>…</value>
     <comment>Main window, open folder button label (accel)</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>취소</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>확인</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>
