@@ -2773,4 +2773,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Mover Ficheiros</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>
