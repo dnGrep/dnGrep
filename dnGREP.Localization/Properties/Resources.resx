@@ -1595,6 +1595,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Replace the search pattern with an empty string?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Message box button text</comment>
+  </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
     <value>Check editor path via "Options…".</value>
     <comment>Message box text for: Open file failed</comment>
@@ -1651,6 +1655,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>dnGrep is up to date.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Do not ask again</value>
+    <comment>Message box check box label</comment>
+  </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
     <value>Continue?</value>
     <comment>Message box text for: Main window, bookmark button</comment>
@@ -1694,6 +1702,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
     <value>New version of dnGrep ({0}) is available for download.</value>
     <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_No</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>No to A_ll</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
     <value>Please select another directory and try again.</value>
@@ -1846,6 +1866,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
     <value>Download it now?</value>
     <comment>Message box text for: New dnGrep version</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Yes</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Yes to _All</value>
+    <comment>Message box button text (accel)</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
     <value>Attention, you are about to delete files found during search.</value>
