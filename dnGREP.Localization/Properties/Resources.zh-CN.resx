@@ -3466,4 +3466,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>文件中的匹配数</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>确定</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>
