@@ -2765,4 +2765,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Repor</value>
     <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Copiar Ficheiros</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Mover Ficheiros</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
 </root>
