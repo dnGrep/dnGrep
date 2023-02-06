@@ -3396,4 +3396,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>應用書籤設定</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>確定</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>
