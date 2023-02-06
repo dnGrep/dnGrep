@@ -98,6 +98,10 @@
     <Compile Include="UtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
+      <Project>{da182974-5fd2-4dfb-938d-dcdc2d232547}</Project>
+      <Name>dnGREP.Common.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj">
       <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
       <Name>dnGREP.Common</Name>

@@ -122,6 +122,10 @@
     <None Include="Resources\line-icon.gif" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
+      <Project>{da182974-5fd2-4dfb-938d-dcdc2d232547}</Project>
+      <Name>dnGREP.Common.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
       <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
       <Name>dnGREP.Everything</Name>

@@ -39,7 +39,7 @@ namespace dnGREP.Common.UI
                     if (Directory.Exists(dialog.FileName))
                         dialog.InitialDirectory = dialog.FileName;
                     else
-                        dialog.InitialDirectory = Utils.GetBaseFolder("\"" + dialog.FileName + "\"");
+                        dialog.InitialDirectory = UiUtils.GetBaseFolder("\"" + dialog.FileName + "\"");
                 }
             }
             catch
@@ -70,16 +70,16 @@ namespace dnGREP.Common.UI
                         (dialog.FileName.EndsWith("Folder Selection.") || !File.Exists(dialog.FileName)) &&
                         !Directory.Exists(dialog.FileName))
                     {
-                        return Utils.QuoteIfNeeded(Path.GetDirectoryName(dialog.FileName));
+                        return UiUtils.QuoteIfNeeded(Path.GetDirectoryName(dialog.FileName));
                     }
                     else
                     {
-                        return Utils.QuoteIfNeeded(dialog.FileName);
+                        return UiUtils.QuoteIfNeeded(dialog.FileName);
                     }
                 }
                 catch
                 {
-                    return Utils.QuoteIfNeeded(dialog.FileName);
+                    return UiUtils.QuoteIfNeeded(dialog.FileName);
                 }
             }
             set
@@ -92,7 +92,7 @@ namespace dnGREP.Common.UI
         }
 
         public bool HasMultiSelectedFiles
-        { 
+        {
             get { return dialog.FileNames != null && dialog.FileNames.Length > 1; }
         }
 
@@ -110,7 +110,7 @@ namespace dnGREP.Common.UI
                     try
                     {
                         if (File.Exists(fileName))
-                            sb.Append(Utils.QuoteIfNeeded(fileName) + separator);
+                            sb.Append(UiUtils.QuoteIfNeeded(fileName) + separator);
                     }
                     catch
                     {

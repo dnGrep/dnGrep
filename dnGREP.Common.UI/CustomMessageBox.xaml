@@ -1,0 +1,113 @@
+﻿<Window x:Class="dnGREP.Common.UI.CustomMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStyle="SingleBorderWindow"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        d:DesignHeight="160" 
+        d:DesignWidth="600">
+
+    <Window.Resources>
+        <Style x:Key="btnStyle" TargetType="{x:Type Button}" BasedOn="{x:Null}">
+            <Setter Property="Background" Value="#FFFDFDFD" />
+            <Setter Property="BorderBrush" Value="#FFD0D0D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel Background="White" LastChildFill="True">
+
+        <Border DockPanel.Dock="Bottom"
+                Background="#FFF0F0F0"
+                Padding="20,12">
+
+            <StackPanel>
+                <CheckBox x:Name="onceCheckbox" 
+                          Content="Do not ask again"
+                          Margin="3,-3,3,6"
+                          Style="{x:Null}"/>
+
+                <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+
+                    <Button x:Name="yesButton"
+                            Content="_Yes" 
+                            Padding="4"
+                            Margin="8,0,0,0"
+                            MinWidth="80" 
+                            Click="Button_Click"
+                            Style="{StaticResource btnStyle}"/>
+
+                    <Button x:Name="yesToAllButton"
+                            Content="Yes to _All" 
+                            Padding="4"
+                            Margin="8,0,0,0"
+                            MinWidth="80" 
+                            Click="Button_Click"
+                            Style="{StaticResource btnStyle}"/>
+
+                    <Button x:Name="noButton"
+                            Content="_No" 
+                            Padding="4"
+                            Margin="8,0,0,0"
+                            MinWidth="80" 
+                            Click="Button_Click"
+                            Style="{StaticResource btnStyle}"/>
+
+                    <Button x:Name="noToAllButton"
+                            Content="No to A_ll" 
+                            Padding="4"
+                            Margin="8,0,0,0"
+                            MinWidth="80" 
+                            Click="Button_Click"
+                            Style="{StaticResource btnStyle}"/>
+
+                    <Button x:Name="okButton"
+                            Content="OK" 
+                            Margin="8,0,0,0"
+                            Padding="4"
+                            MinWidth="80" 
+                            Click="Button_Click"
+                            Style="{StaticResource btnStyle}"/>
+
+                    <Button x:Name="cancelButton"
+                            Content="Cancel" 
+                            Padding="4"
+                            Margin="8,0,0,0"
+                            MinWidth="80" 
+                            IsCancel="True"
+                            Click="Button_Click"
+                            Style="{StaticResource btnStyle}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Background="White"
+                Padding="8,0,8,0"
+                MinWidth="128">
+            <DockPanel LastChildFill="True">
+
+                <Image x:Name="mbIcon"
+                       DockPanel.Dock="Left" 
+                       HorizontalAlignment="Center"
+                       Margin="16,27,0,27"
+                       Width="32" Height="32"/>
+                <!--Source="/dnGREP;component/Images/dnGrep96.png"-->
+
+                <TextBlock x:Name="mbText"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="8,27,20,27"
+                           MaxWidth="360"
+                           TextWrapping="WrapWithOverflow"/>
+                <!--Text="Hello world!"-->
+            </DockPanel>
+        </Border>
+
+
+    </DockPanel>
+</Window>

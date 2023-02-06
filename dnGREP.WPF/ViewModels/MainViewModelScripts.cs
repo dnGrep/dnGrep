@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Input;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using dnGREP.Common.UI;
 using dnGREP.Localization.Properties;
 using Microsoft.Win32;
 
@@ -44,7 +45,7 @@ namespace dnGREP.WPF
         {
             if (SetCommandMap.Count == 0)
             {
-                SetCommandMap.Add("folder", new ScriptCommand<string>(p => FileOrFolderPath = Utils.QuoteIfNeeded(p)));
+                SetCommandMap.Add("folder", new ScriptCommand<string>(p => FileOrFolderPath = UiUtils.QuoteIfNeeded(p)));
                 SetCommandMap.Add("pathtomatch", new ScriptCommand<string>(p => FilePattern = p));
                 SetCommandMap.Add("pathtoignore", new ScriptCommand<string>(p => FilePatternIgnore = p));
                 SetCommandMap.Add("searchinarchives", new ScriptCommand<bool>(p => IncludeArchive = p));

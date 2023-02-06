@@ -279,6 +279,10 @@ namespace dnGREP.Common
             public const string PdfNumberStyle = "PdfNumberStyle";
             [DefaultValue(false)]
             public const string PinBookmarkWindow = "PinBookmarkWindow";
+            [DefaultValue(OverwriteFile.Prompt)]
+            public const string OverwriteFilesOnCopy = "OverwriteFilesOnCopy";
+            [DefaultValue(OverwriteFile.Prompt)]
+            public const string OverwriteFilesOnMove = "OverwriteFilesOnMove";
         }
 
         private static GrepSettings instance;

@@ -153,6 +153,8 @@ namespace dnGREP.WPF
                     ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly) ||
                 DeleteOption != (Settings.Get<bool>(GrepSettings.Key.DeleteToRecycleBin) ?
                     DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent) ||
+                CopyOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy) ||
+                MoveOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
@@ -773,6 +775,40 @@ namespace dnGREP.WPF
             }
         }
 
+
+        private OverwriteFile copyOverwriteFileOption = OverwriteFile.Prompt;
+        public OverwriteFile CopyOverwriteFileOption
+        {
+            get { return copyOverwriteFileOption; }
+            set
+            {
+                if (copyOverwriteFileOption == value)
+                {
+                    return;
+                }
+
+                copyOverwriteFileOption = value;
+                OnPropertyChanged(nameof(CopyOverwriteFileOption));
+            }
+        }
+
+
+        private OverwriteFile moveOverwriteFileOption = OverwriteFile.Prompt;
+        public OverwriteFile MoveOverwriteFileOption
+        {
+            get { return moveOverwriteFileOption; }
+            set
+            {
+                if (moveOverwriteFileOption == value)
+                {
+                    return;
+                }
+
+                moveOverwriteFileOption = value;
+                OnPropertyChanged(nameof(MoveOverwriteFileOption));
+            }
+        }
+
         public List<int> HexLengthOptions { get; }
 
         private int hexResultByteLength = 16;
@@ -1098,10 +1134,12 @@ namespace dnGREP.WPF
 
         private void LoadResxFile()
         {
-            var dlg = new OpenFileDialog();
-            dlg.Filter = "resx files|*.resx";
-            dlg.CheckFileExists = true;
-            dlg.DefaultExt = "resx";
+            var dlg = new OpenFileDialog
+            {
+                Filter = "resx files|*.resx",
+                CheckFileExists = true,
+                DefaultExt = "resx"
+            };
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)
             {
@@ -1180,6 +1218,8 @@ namespace dnGREP.WPF
                 ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly;
             DeleteOption = Settings.Get<bool>(GrepSettings.Key.DeleteToRecycleBin) ?
                 DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent;
+            CopyOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy);
+            MoveOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
 
             UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
@@ -1209,10 +1249,10 @@ namespace dnGREP.WPF
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
             {
-                string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey, 
+                string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey,
                     ArchiveDirectory.DefaultExtensions));
 
-                ArchiveOptions = new PluginOptions(ArchiveNameKey, true, false, 
+                ArchiveOptions = new PluginOptions(ArchiveNameKey, true, false,
                     extensionList, string.Join(", ", ArchiveDirectory.DefaultExtensions));
             }
 
@@ -1234,7 +1274,7 @@ namespace dnGREP.WPF
                     previewTextEnabled = GrepSettings.Instance.Get<bool>(previewTextKey);
 
                 var pluginOptions = new PluginOptions(
-                    plugin.Name, isEnabled, previewTextEnabled, 
+                    plugin.Name, isEnabled, previewTextEnabled,
                     extensionList, string.Join(", ", plugin.DefaultExtensions));
 
                 Plugins.Add(pluginOptions);
@@ -1310,6 +1350,9 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
             Settings.Set(GrepSettings.Key.DeleteToRecycleBin, DeleteOption == DeleteFilesDestination.Recycle);
+            Settings.Set(GrepSettings.Key.OverwriteFilesOnCopy, CopyOverwriteFileOption);
+            Settings.Set(GrepSettings.Key.OverwriteFilesOnMove, MoveOverwriteFileOption);
+
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
             Settings.Set(GrepSettings.Key.CurrentCulture, CurrentCulture);

@@ -1,4 +1,6 @@
-﻿namespace dnGREP.Common
+﻿using dnGREP.Common.UI;
+
+namespace dnGREP.Common
 {
     /// <summary>
     /// This class maps the text entered into the 'Search in Folder' box on the main window.
@@ -47,12 +49,12 @@
                 {
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
-                        string path = Utils.CleanPath(FileOrFolderPath).Replace('|', ';');
-                        baseFolder = Utils.GetBaseFolder(path);
+                        string path = UiUtils.CleanPath(FileOrFolderPath).Replace('|', ';');
+                        baseFolder = UiUtils.GetBaseFolder(path);
                     }
                     else
                     {
-                        baseFolder = Utils.GetBaseFolder(FileOrFolderPath);
+                        baseFolder = UiUtils.GetBaseFolder(FileOrFolderPath);
                     }
                 }
                 return baseFolder;
