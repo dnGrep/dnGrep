@@ -2605,15 +2605,21 @@ namespace dnGREP.WPF
                             return;
                         }
 
+                        var overwritePref = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy);
+                        if (IsScriptRunning && overwritePref == OverwriteFile.Prompt)
+                        {
+                            overwritePref = OverwriteFile.No;
+                        }
+
                         int count = 0;
                         if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
-                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
+                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, overwritePref);
                         }
                         else
                         {
                             // without a common base path, copy all files to a single directory 
-                            count = Utils.CopyFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
+                            count = Utils.CopyFiles(fileList, destinationFolder, overwritePref);
                         }
 
                         if (IsScriptRunning)
@@ -2696,15 +2702,21 @@ namespace dnGREP.WPF
                             return;
                         }
 
+                        var overwritePref = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
+                        if (IsScriptRunning && overwritePref == OverwriteFile.Prompt)
+                        {
+                            overwritePref = OverwriteFile.No;
+                        }
+
                         int count = 0;
                         if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
-                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
+                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, overwritePref);
                         }
                         else
                         {
                             // without a common base path, move all files to a single directory 
-                            count = Utils.MoveFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
+                            count = Utils.MoveFiles(fileList, destinationFolder, overwritePref);
                         }
 
                         if (IsScriptRunning)

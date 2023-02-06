@@ -556,6 +556,34 @@
                     </StackPanel>
                 </GroupBox>
 
+                <GroupBox Header="{l:Loc Key='Options_CopyFiles'}">
+                    <StackPanel>
+                        <Label Content="{l:Loc Key='Options_OnFileCopyOverwrite'}"/>
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Yes'}" GroupName="copyOverwrite"
+                                         IsChecked="{Binding CopyOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Yes}"/>
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_No'}" GroupName="copyOverwrite"
+                                         IsChecked="{Binding CopyOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=No}"/>
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Ask'}" GroupName="copyOverwrite"
+                                         IsChecked="{Binding CopyOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Prompt}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="{l:Loc Key='Options_MoveFiles'}">
+                    <StackPanel>
+                        <Label Content="{l:Loc Key='Options_OnFileMoveOverwrite'}"/>
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Yes'}" GroupName="moveOverwrite"
+                                         IsChecked="{Binding MoveOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Yes}"/>
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_No'}" GroupName="moveOverwrite"
+                                         IsChecked="{Binding MoveOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=No}"/>
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Ask'}" GroupName="moveOverwrite"
+                                         IsChecked="{Binding MoveOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Prompt}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
                 <GroupBox Header="{l:Loc Key='Options_DeleteFiles'}">
                     <StackPanel>
                         <StackPanel Margin="0,6,0,0">

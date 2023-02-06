@@ -119,26 +119,26 @@ namespace dnGREP.Common
                     if (sourceFileInfo.FullName != destinationFileInfo.FullName)
                     {
                         bool overwrite = action == OverwriteFile.Yes;
-                        if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
+                        if (destinationFileInfo.Exists)
                         {
-                            var answer = MessageBox.Show(
-                                TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
-                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.MessageBox_DnGrep,
-                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question,
-                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
-
-                            if (answer == MessageBoxResult.Cancel)
+                            if (action == OverwriteFile.Prompt &&
+                                !AskUserOverwrite(destinationFileInfo.Name, destinationFileInfo.DirectoryName,
+                                deleteAfterCopy, ref overwrite, ref action))
+                            {
                                 return count;
-                            if (answer == MessageBoxResult.No)
-                                continue;
+                            }
 
-                            overwrite = true;
+                            if (!overwrite)
+                            {
+                                continue;
+                            }
                         }
 
                         CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
                         if (deleteAfterCopy)
+                        {
                             DeleteFile(sourceFileInfo.FullName);
+                        }
                         count++;
                     }
                 }
@@ -189,26 +189,26 @@ namespace dnGREP.Common
                     if (sourceFileInfo.FullName != destinationFileInfo.FullName)
                     {
                         bool overwrite = action == OverwriteFile.Yes;
-                        if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
+                        if (destinationFileInfo.Exists)
                         {
-                            var answer = MessageBox.Show(
-                                TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
-                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.MessageBox_DnGrep,
-                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question,
-                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
-
-                            if (answer == MessageBoxResult.Cancel)
+                            if (action == OverwriteFile.Prompt &&
+                                !AskUserOverwrite(destinationFileInfo.Name, destinationFileInfo.DirectoryName,
+                                    deleteAfterCopy, ref overwrite, ref action))
+                            {
                                 return count;
-                            if (answer == MessageBoxResult.No)
-                                continue;
+                            }
 
-                            overwrite = true;
+                            if (!overwrite)
+                            {
+                                continue;
+                            }
                         }
 
                         CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
                         if (deleteAfterCopy)
+                        {
                             DeleteFile(sourceFileInfo.FullName);
+                        }
                         count++;
                     }
                 }
@@ -243,6 +243,77 @@ namespace dnGREP.Common
                 }
             }
 
+            return true;
+        }
+
+        private static bool AskUserOverwrite(string fileName, string directoryName, bool deleteAfterCopy,
+            ref bool overwrite, ref OverwriteFile action)
+        {
+            var answer = CustomMessageBox.Show(
+                TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting, fileName, directoryName),
+                Resources.MessageBox_DnGrep,
+                MessageBoxButtonEx.YesAllNoAllCancel, MessageBoxImage.Question,
+                MessageBoxResultEx.No, MessageBoxCustoms.Once,
+                TranslationSource.Instance.FlowDirection);
+
+            if (answer.Result == MessageBoxResultEx.Cancel)
+            {
+                return false;
+            }
+            else if (answer.Result == MessageBoxResultEx.No)
+            {
+                overwrite = false;
+
+                if (answer.OnceOnly)
+                {
+                    // set the action to overwrite:no for the remainder of the set of files
+                    action = OverwriteFile.No;
+
+                    // set user option to no for future operations
+                    string key = deleteAfterCopy ? GrepSettings.Key.OverwriteFilesOnMove : GrepSettings.Key.OverwriteFilesOnCopy;
+                    GrepSettings.Instance.Set(key, OverwriteFile.No);
+                }
+            }
+            else if (answer.Result == MessageBoxResultEx.NoToAll)
+            {
+                overwrite = false;
+                // set the action to overwrite:no for the remainder of the set of files
+                action = OverwriteFile.No;
+
+                if (answer.OnceOnly)
+                {
+                    // set user option to no for future operations
+                    string key = deleteAfterCopy ? GrepSettings.Key.OverwriteFilesOnMove : GrepSettings.Key.OverwriteFilesOnCopy;
+                    GrepSettings.Instance.Set(key, OverwriteFile.No);
+                }
+            }
+            else if (answer.Result == MessageBoxResultEx.Yes)
+            {
+                overwrite = true;
+
+                if (answer.OnceOnly)
+                {
+                    // set the action to overwrite:yes for the remainder of the set of files
+                    action = OverwriteFile.Yes;
+
+                    // set user option to yes for future operations
+                    string key = deleteAfterCopy ? GrepSettings.Key.OverwriteFilesOnMove : GrepSettings.Key.OverwriteFilesOnCopy;
+                    GrepSettings.Instance.Set(key, OverwriteFile.Yes);
+                }
+            }
+            else if (answer.Result == MessageBoxResultEx.YesToAll)
+            {
+                overwrite = true;
+                // set the action to overwrite:yes for the remainder of the set of files
+                action = OverwriteFile.Yes;
+
+                if (answer.OnceOnly)
+                {
+                    // set user option to yes for future operations
+                    string key = deleteAfterCopy ? GrepSettings.Key.OverwriteFilesOnMove : GrepSettings.Key.OverwriteFilesOnCopy;
+                    GrepSettings.Instance.Set(key, OverwriteFile.Yes);
+                }
+            }
             return true;
         }
 
@@ -2218,7 +2289,7 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static bool IsValidBeginText(string beginText)
         {
-            if (beginText == null) 
+            if (beginText == null)
                 return false;
 
             if (beginText.Equals(string.Empty) ||
@@ -2258,7 +2329,7 @@ namespace dnGREP.Common
 
         public static string ReplaceSpecialCharacters(string input)
         {
-            if (string.IsNullOrEmpty(input)) 
+            if (string.IsNullOrEmpty(input))
                 return string.Empty;
 
             string result = input.Replace(@"\\a", "\a")

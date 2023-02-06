@@ -3915,6 +3915,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask.
+        /// </summary>
+        public static string Options_Ask {
+            get {
+                return ResourceManager.GetString("Options_Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ….
         /// </summary>
         public static string Options_BrowseFileLocation {
@@ -4010,6 +4019,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ContextBeforeAnd {
             get {
                 return ResourceManager.GetString("Options_ContextBeforeAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Files.
+        /// </summary>
+        public static string Options_CopyFiles {
+            get {
+                return ResourceManager.GetString("Options_CopyFiles", resourceCulture);
             }
         }
         
@@ -4289,6 +4307,42 @@ namespace dnGREP.Localization.Properties {
         public static string Options_MaximizeResultsPanelOnSearch {
             get {
                 return ResourceManager.GetString("Options_MaximizeResultsPanelOnSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Files.
+        /// </summary>
+        public static string Options_MoveFiles {
+            get {
+                return ResourceManager.GetString("Options_MoveFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string Options_No {
+            get {
+                return ResourceManager.GetString("Options_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On file copy, when destination file exists, overwrite existing file?.
+        /// </summary>
+        public static string Options_OnFileCopyOverwrite {
+            get {
+                return ResourceManager.GetString("Options_OnFileCopyOverwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On file move, when destination file exists, overwrite existing file?.
+        /// </summary>
+        public static string Options_OnFileMoveOverwrite {
+            get {
+                return ResourceManager.GetString("Options_OnFileMoveOverwrite", resourceCulture);
             }
         }
         
@@ -4766,6 +4820,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_WhenDeletingFiles {
             get {
                 return ResourceManager.GetString("Options_WhenDeletingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Options_Yes {
+            get {
+                return ResourceManager.GetString("Options_Yes", resourceCulture);
             }
         }
         

@@ -1871,6 +1871,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Reset</value>
     <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Ask</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>…</value>
     <comment>Options dialog, browse for file button label</comment>
@@ -1914,6 +1918,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
     <value>before and</value>
     <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Copy Files</value>
+    <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
     <value>Custom editor</value>
@@ -2038,6 +2046,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
     <value>Maximize results panel on search</value>
     <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Move Files</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>No</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>On file copy, when destination file exists, overwrite existing file?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>On file move, when destination file exists, overwrite existing file?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
     <value>on the main panel</value>
@@ -2250,6 +2274,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_WhenDeletingFiles" xml:space="preserve">
     <value>When deleting files</value>
     <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
     <value>Changes text editor zoom</value>
