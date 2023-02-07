@@ -3467,11 +3467,59 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>确定</value>
+    <value>是</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_Cancel" xml:space="preserve">
     <value>取消</value>
     <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>是(_Y)</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>全是(_A)</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>询问</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>复制文件</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>否</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>复制文件时，若目标文件存在，是否覆盖现有文件？</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>复制文件时，若目标文件存在，是否覆盖现有文件？</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>是</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>移动文件</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>不再询问</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>否(_N)</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>全否(_L)</value>
+    <comment>Message box button text (accel)</comment>
   </data>
 </root>
