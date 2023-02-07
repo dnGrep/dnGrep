@@ -2649,4 +2649,12 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Ükski</value>
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Tühista</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>Olgu</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>

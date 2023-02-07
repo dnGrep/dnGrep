@@ -914,4 +914,12 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Màxima profunditat</value>
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>D'acord</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>

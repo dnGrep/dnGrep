@@ -2829,4 +2829,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Ресетовање</value>
     <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Поништити</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>У реду</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>

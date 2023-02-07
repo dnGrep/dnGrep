@@ -118,4 +118,8 @@
     <value>ตกลง</value>
     <comment>Script Messages dialog button text</comment>
   </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>ตกลง</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>

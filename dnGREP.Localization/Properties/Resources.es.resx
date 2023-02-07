@@ -2428,4 +2428,8 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>_Delete</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>BIEN</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>

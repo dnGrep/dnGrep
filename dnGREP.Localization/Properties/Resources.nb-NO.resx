@@ -2402,4 +2402,12 @@
     <value>Innstillinger</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>
