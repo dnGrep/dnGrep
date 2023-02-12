@@ -42,9 +42,6 @@
           <netfx:NativeImage Id="ngen_dnGREP.exe" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
-      <!--<Component Id="cmp3C0B9E685307149FAB49326CFDE9664B" Guid="{8670B4D7-22A8-4204-BD7C-74B331677E44}">
-        <File Id="fil9A87CBB83F920A2DCE4E2100C929412F" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.exe.config" />
-      </Component>-->
       
       <Component Id="cmp076536C5D88900C40C1A61CB5902CCD6" Guid="{84D03197-FCD9-4697-B32E-A0999989253C}">
         <File Id="filB6B9C08742F4F91E23D2367C46744F87" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)7z.dll" />
@@ -77,6 +74,9 @@
         <File Id="filB9D0C89E2BE03F54B6210850B37C7B82" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\NLog.dll" >
           <netfx:NativeImage Id="ngen_NLog.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
+      </Component>
+      <Component Id="cmpB7F588B270AD4EFBBB04FF288C419407" Guid="{BA3A44E7-B855-4E0A-93F8-B03ED4483DF5}">
+        <File Id="fil{55023CD4F0864DEBB35EEC9FD4EFDAAB" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\nlog.config" />
       </Component>
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\UtfUnknown.dll" >
@@ -185,7 +185,7 @@
       <ComponentRef Id="cmp5D64364BE848D8D880558DFAFA0DE81C" />
       <ComponentRef Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" />
       <ComponentRef Id="cmpE75E380769873171E1689F576B0BBBD1" />
-      <!--<ComponentRef Id="cmp3C0B9E685307149FAB49326CFDE9664B" />-->
+      <ComponentRef Id="cmpB7F588B270AD4EFBBB04FF288C419407" />
       <ComponentRef Id="cmp076536C5D88900C40C1A61CB5902CCD6" />
       <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
       <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
