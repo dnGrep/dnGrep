@@ -1538,34 +1538,20 @@ namespace dnGREP.Common
         {
             string filename = Path.Combine(folderPath, "~temp.dat");
             bool canAccess = true;
-            //1. Provide early notification that the user does not have permission to write.
-            FileIOPermission writePermission = new FileIOPermission(FileIOPermissionAccess.Write, filename);
-            var permissionSet = new PermissionSet(PermissionState.None);
-            permissionSet.AddPermission(writePermission);
-            bool isGranted = permissionSet.IsSubsetOf(AppDomain.CurrentDomain.PermissionSet);
-            if (!isGranted)
+
+            //2. Attempt the action but handle permission changes.
+            try
+            {
+                using (FileStream fstream = File.Open(filename, FileMode.Create))
+                using (TextWriter writer = new StreamWriter(fstream))
+                {
+                    writer.WriteLine("sometext");
+                }
+            }
+            catch
             {
                 //No permission. 
                 canAccess = false;
-            }
-
-
-            //2. Attempt the action but handle permission changes.
-            if (canAccess)
-            {
-                try
-                {
-                    using (FileStream fstream = File.Open(filename, FileMode.Create))
-                    using (TextWriter writer = new StreamWriter(fstream))
-                    {
-                        writer.WriteLine("sometext");
-                    }
-                }
-                catch
-                {
-                    //No permission. 
-                    canAccess = false;
-                }
             }
 
             // Cleanup
