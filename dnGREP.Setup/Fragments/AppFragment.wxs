@@ -76,7 +76,7 @@
         </File>
       </Component>
       <Component Id="cmpB7F588B270AD4EFBBB04FF288C419407" Guid="{BA3A44E7-B855-4E0A-93F8-B03ED4483DF5}">
-        <File Id="fil{55023CD4F0864DEBB35EEC9FD4EFDAAB" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\nlog.config" />
+        <File Id="fil55023CD4F0864DEBB35EEC9FD4EFDAAB" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\nlog.config" />
       </Component>
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\UtfUnknown.dll" >
