@@ -23,8 +23,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\Dependencies\Microsoft.Office.Tools.Word.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfoCommon.cs">
