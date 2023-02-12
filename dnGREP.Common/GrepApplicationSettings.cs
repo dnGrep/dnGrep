@@ -391,8 +391,6 @@ namespace dnGREP.Common
                         foreach (KeyValuePair<string, string> pair in appData)
                             settings[pair.Key] = pair.Value;
                     }
-
-                    ConvertSettingsToV2();
                 }
             }
             catch (Exception ex)
@@ -809,59 +807,6 @@ namespace dnGREP.Common
             {
                 settings[key] = value.ToString();
             }
-        }
-
-        private void ConvertSettingsToV2()
-        {
-            var binaryValueKeys = new[]
-            {
-                Key.FastSearchBookmarks,
-                Key.FastReplaceBookmarks,
-                Key.FastFileMatchBookmarks,
-                Key.FastFileNotMatchBookmarks,
-                Key.FastPathBookmarks,
-            };
-
-            foreach (string key in binaryValueKeys)
-            {
-                Set(key, FromBinary<List<string>>(key));
-            }
-
-            foreach (string key in new[] { Key.LastCheckedVersion })
-            {
-                Set(key, FromBinary<DateTime>(key));
-            }
-
-            foreach (string key in new[] { Key.StartDate, Key.EndDate })
-            {
-                Set(key, FromBinary<DateTime?>(key));
-            }
-
-            foreach (string key in new[] { Key.PreviewWindowWrap, Key.ReplaceWindowWrap })
-            {
-                Set(key, FromBinary<bool?>(key));
-            }
-
-            Version = 2;
-        }
-
-        private T FromBinary<T>(string key)
-        {
-            if (settings.TryGetValue(key, out string value) && !string.IsNullOrEmpty(value))
-            {
-                using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(value)))
-                {
-                    IFormatter formatter = new BinaryFormatter();
-                    T result = (T)formatter.Deserialize(stream);
-
-                    if (typeof(T) == typeof(DateTime?) && result is DateTime dt && dt == DateTime.MinValue)
-                    {
-                        return default;
-                    }
-                    return result;
-                }
-            }
-            return default;
         }
 
         private bool IsNullable(Type type) => Nullable.GetUnderlyingType(type) != null;

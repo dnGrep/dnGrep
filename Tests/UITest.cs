@@ -21,7 +21,7 @@ namespace Tests
         public void TestDefaultDictionariesMatch()
         {
             string solutionPath = Directory.GetParent(GetDllPath())
-                .Parent.Parent.Parent.FullName;
+                .Parent.Parent.Parent.Parent.FullName;
 
             var path1 = Path.Combine(solutionPath, @"dnGREP.WPF\Themes\LightBrushes.xaml");
             var path2 = Path.Combine(solutionPath, @"dnGREP.WPF\Themes\DarkBrushes.xaml");

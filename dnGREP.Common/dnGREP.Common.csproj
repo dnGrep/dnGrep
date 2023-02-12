@@ -1,25 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</ProjectGuid>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dnGREP.Common</RootNamespace>
-    <AssemblyName>dnGREP.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -27,40 +12,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>dnGrep.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfoCommon.cs">
@@ -69,96 +23,33 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
-    <Compile Include="ArchiveDirectory.cs" />
-    <Compile Include="BookmarkLibrary.cs" />
-    <Compile Include="ConfigurationTemplate.cs" />
-    <Compile Include="DataEventArgs.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="FileData.cs" />
-    <Compile Include="FileFilter.cs" />
-    <Compile Include="GitUtil.cs" />
-    <Compile Include="GrepCaptureGroup.cs" />
-    <Compile Include="GrepLine.cs" />
-    <Compile Include="GrepMatch.cs" />
-    <Compile Include="Boolean\BooleanExpression.cs" />
-    <Compile Include="Boolean\BooleanToken.cs" />
-    <Compile Include="NativeMethods.cs" />
-    <Compile Include="PathSearchText.cs" />
-    <Compile Include="ReportOptions.cs" />
-    <Compile Include="ReportWriter.cs" />
-    <Compile Include="SafeDirectory.cs" />
-    <Compile Include="GrepSearchResult.cs" />
-    <Compile Include="EolReader.cs" />
-    <Compile Include="OpenFileArgs.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="PublishedVersionExtractor.cs" />
-    <Compile Include="SearchDelegates.cs" />
-    <Compile Include="GrepApplicationSettings.cs" />
-    <Compile Include="ReplaceDef.cs" />
-    <Compile Include="Boolean\Token.cs" />
-    <Compile Include="Boolean\BooleanTokenizer.cs" />
-    <Compile Include="Boolean\TokenMatch.cs" />
-    <Compile Include="Boolean\TokenType.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="dnGrep.snk" />
-    <None Include="Resources\na-icon.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\line-icon.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
-      <Project>{da182974-5fd2-4dfb-938d-dcdc2d232547}</Project>
-      <Name>dnGREP.Common.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
-      <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
-      <Name>dnGREP.Everything</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj">
-      <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
-      <Name>dnGREP.Localization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SevenZip\SevenZip.csproj">
-      <Project>{ce51eb4c-0c64-4162-b95e-527ae438cfd8}</Project>
-      <Name>SevenZip</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />
+    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj" />
+    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
+    <ProjectReference Include="..\SevenZip\SevenZip.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS.New">
       <Version>2.3.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>5.1.0</Version>
+      <Version>5.1.1</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="UTF.Unknown">
       <Version>2.5.1</Version>
     </PackageReference>
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

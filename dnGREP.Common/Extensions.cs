@@ -141,6 +141,14 @@ namespace dnGREP.Common
         {
             if (DateTime.TryParseExact(input, "yyyy-MM-ddTHH:mm:ss.fffzzz", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime dt))
             {
+                if (input.EndsWith("00:00") || input.EndsWith("Z"))
+                {
+                    if (dt.Kind == DateTimeKind.Local)
+                    {
+                        dt = dt.ToUniversalTime();
+                    }
+                }
+
                 return dt;
             }
             return null;

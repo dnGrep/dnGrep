@@ -1,44 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CBC7AEC0-59FF-4050-B02D-ADB15359CED4}</ProjectGuid>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dnGREP.WPF</RootNamespace>
     <AssemblyName>dnGREP</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
     <ApplicationIcon>nGREP.ico</ApplicationIcon>
-    <Utf8Output>true</Utf8Output>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>dnGREP.pfx</AssemblyOriginatorKeyFile>
@@ -47,259 +17,27 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
     <Compile Include="..\AssemblyInfoCommon.cs">
       <Link>Properties\AssemblyInfoCommon.cs</Link>
     </Compile>
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
-    <Compile Include="CommandLineArgs.cs" />
-    <Compile Include="Controls\DepthTextBox.cs" />
-    <Compile Include="Controls\MultilineComboBox.cs" />
-    <Compile Include="Controls\RadioMenuItem.cs" />
-    <Compile Include="Controls\SplitButton.cs" />
-    <Compile Include="Controls\ThemedWindow.cs" />
-    <Compile Include="MVHelpers\BoolToTextWrappingConverter.cs" />
-    <Compile Include="MVHelpers\BoolToScrollbarVisibilityConverter.cs" />
-    <Compile Include="MVHelpers\DockSiteVisibilityConverter.cs" />
-    <Compile Include="MVHelpers\FileDragDropHelper.cs" />
-    <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />
-    <Compile Include="MVHelpers\LeadingTextTrimming.cs" />
-    <Compile Include="MVHelpers\Messenger.cs" />
-    <Compile Include="MVHelpers\IntToImageValueConverter.cs" />
-    <Compile Include="MVHelpers\PercentValueConverter.cs" />
-    <Compile Include="MVHelpers\PreviewLineNumberMargin.cs" />
-    <Compile Include="MVHelpers\ResizeModeConverter.cs" />
-    <Compile Include="MVHelpers\ColorInverter.cs" />
-    <Compile Include="MVHelpers\ResultSorter.cs" />
-    <Compile Include="MVHelpers\StringNotNullOrEmptyConverter.cs" />
-    <Compile Include="MVHelpers\StringToVisibilityConverter.cs" />
-    <Compile Include="MVHelpers\ValueRangeRule.cs" />
-    <Compile Include="MVHelpers\TextBoxWidthConverter.cs" />
-    <Compile Include="MVHelpers\TitleFontSizeConverter.cs" />
-    <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
-    <Compile Include="MVHelpers\ValidationColorConverter.cs" />
-    <Compile Include="Properties\LayoutProperties.cs" />
-    <Compile Include="Scripting\ScriptCommand.cs" />
-    <Compile Include="Scripting\ScriptCommandDefinition.cs" />
-    <Compile Include="Scripting\ScriptCommandInitializer.cs" />
-    <Compile Include="Scripting\ScriptingCompletionData.cs" />
-    <Compile Include="Scripting\ScriptManager.cs" />
-    <Compile Include="Scripting\ScriptStatement.cs" />
-    <Compile Include="Scripting\ScriptTargetDefinition.cs" />
-    <Compile Include="Scripting\ScriptValueDefinition.cs" />
-    <Compile Include="ThemedHighlightingManager.cs" />
-    <Compile Include="ViewModels\MainViewModelProps.cs" />
-    <Compile Include="ViewModels\CultureAwareViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModelScripts.cs" />
-    <Compile Include="ViewModels\MenuItemViewModel.cs" />
-    <Compile Include="ViewModels\ReportOptionsViewModel.cs" />
-    <Compile Include="ViewModels\ScriptViewModel.cs" />
-    <Compile Include="Views\MessagesWindow.xaml.cs">
-      <DependentUpon>MessagesWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReportOptionsWindow.xaml.cs">
-      <DependentUpon>ReportOptionsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RenameWindow.xaml.cs">
-      <DependentUpon>RenameWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BookmarkDetailWindow.xaml.cs">
-      <DependentUpon>BookmarkDetailWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
-    <Compile Include="MVHelpers\FocusExtension.cs" />
-    <Compile Include="MVHelpers\GridLengthConverter.cs" />
-    <Compile Include="MVHelpers\LazyResultsList.cs" />
-    <Compile Include="MVHelpers\ReplaceViewHighlighter.cs" />
-    <Compile Include="MVHelpers\ReplaceViewLineNumberMargin.cs" />
-    <Compile Include="MVHelpers\TotalValueConverter.cs" />
-    <Compile Include="MVHelpers\UIServices.cs" />
-    <Compile Include="UserControls\MultiSelectTreeView.cs" />
-    <Compile Include="MVHelpers\ResultEventArgs.cs" />
-    <Compile Include="RelayCommand.cs" />
-    <Compile Include="UserControls\BusyIndicator.xaml.cs">
-      <DependentUpon>BusyIndicator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ResultsTree.xaml.cs">
-      <DependentUpon>ResultsTree.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="ViewModels\BaseMainViewModel.cs" />
-    <Compile Include="ViewModels\BookmarksViewModel.cs" />
-    <Compile Include="ViewModels\OptionsViewModel.cs" />
-    <Compile Include="ViewModels\PreviewViewModel.cs" />
-    <Compile Include="ViewModels\ReplaceViewModel.cs" />
-    <Compile Include="ViewModels\SearchReplaceCriteria.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BookmarksWindow.xaml.cs">
-      <DependentUpon>BookmarksWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HelpWindow.xaml.cs">
-      <DependentUpon>HelpWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PreviewControl.xaml.cs">
-      <DependentUpon>PreviewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVHelpers\PreviewHighlighter.cs" />
-    <Compile Include="AppTheme.cs" />
-    <Page Include="ThemedControls\CompletionList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\SearchPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ThemedControls\SplitButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\Button.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\CheckBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\ComboBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\CustomTemplates.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\DataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\DatePicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\DockSite.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\Expander.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\FloatWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\GroupBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\Menu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\PreviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ThemedControls\ProgressBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\RadioButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\ScrollViewer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\Slider.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\TextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\ThemedWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\ToggleButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\TreeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedControls\MarkerScrollViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\DarkBrushes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\LightBrushes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Content Include="..\Dependencies\7z.dll">
       <Link>7z.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Dependencies\7z64.dll">
       <Link>7z64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Sunset.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\dnGrep48.png" />
@@ -319,122 +57,8 @@
     <Resource Include="Images\unpin.png" />
     <Resource Include="Images\pinDark.png" />
     <Resource Include="Images\unpinDark.png" />
-    <Content Include="Themes\Sunset.xaml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Page Include="Views\MessagesWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ReportOptionsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RenameWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\BookmarkDetailWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
-    </Page>
-    <Page Include="UserControls\BusyIndicator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ResultsTree.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AboutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BookmarksWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\HelpWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OptionsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PreviewControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ReplaceWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ScriptEditorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TestPatternView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MVHelpers\InverseBooleanConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVHelpers\EnumBooleanConverter.cs" />
-    <Compile Include="HelpProvider.cs" />
-    <Compile Include="MVHelpers\InlineTextBlock.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="MVHelpers\ObservableGrepSearchResults.cs" />
-    <Compile Include="Views\OptionsView.xaml.cs">
-      <DependentUpon>OptionsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="ShellIntegration.cs" />
-    <Compile Include="ViewModels\TestPatternViewModel.cs" />
-    <Compile Include="Views\ReplaceWindow.xaml.cs">
-      <DependentUpon>ReplaceWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ScriptEditorWindow.xaml.cs">
-      <DependentUpon>ScriptEditorWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestPatternView.xaml.cs">
-      <DependentUpon>TestPatternView.xaml</DependentUpon>
-    </Compile>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="dnGREP.pfx" />
-    <None Include="Properties\app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
     <EmbeddedResource Include="Resources\ASPX.xshd" />
     <EmbeddedResource Include="Resources\Boo.xshd" />
@@ -533,61 +157,40 @@
     <Resource Include="nGREP.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
-      <Project>{DA182974-5FD2-4DFB-938D-DCDC2D232547}</Project>
-      <Name>dnGREP.Common.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj">
-      <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
-      <Name>dnGREP.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj">
-      <Project>{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4}</Project>
-      <Name>dnGREP.Engines</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
-      <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
-      <Name>dnGREP.Everything</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj">
-      <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
-      <Name>dnGREP.Localization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dnGREP.DockFloat\dnGREP.DockFloat.csproj">
-      <Project>{86c22db6-4211-44a1-93ba-b21027cc90f9}</Project>
-      <Name>dnGREP.DockFloat</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
-      <Project>{a18eeae0-260f-4fc1-bdf2-6bf0ba335cb7}</Project>
-      <Name>ICSharpCode.AvalonEdit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SevenZip\SevenZip.csproj">
-      <Project>{ce51eb4c-0c64-4162-b95e-527ae438cfd8}</Project>
-      <Name>SevenZip</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />
+    <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj" />
+    <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj" />
+    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj" />
+    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
+    <ProjectReference Include="..\dnGREP.DockFloat\dnGREP.DockFloat.csproj" />
+    <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj" />
+    <ProjectReference Include="..\SevenZip\SevenZip.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS.New">
       <Version>2.3.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
     <PackageReference Include="NLog">
-      <Version>5.1.0</Version>
+      <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Management" Version="7.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.0" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.0" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+  <ItemGroup>
+    <Page Remove="Properties\DesignTimeResources.xaml" />
+    <Page Remove="Themes\Sunset.xaml" />
+  </ItemGroup>
+  <PropertyGroup />
 </Project>
