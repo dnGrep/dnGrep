@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Common.UI;
@@ -18,8 +16,8 @@ namespace Tests
 {
     public class UtilsTest : TestBase, IDisposable
     {
-        static string sourceFolder;
-        static string destinationFolder;
+        private string sourceFolder;
+        private string destinationFolder;
 
         public UtilsTest()
         {
@@ -1293,34 +1291,34 @@ namespace Tests
             Assert.Equal(expected, Utils.IsBinary(sourceFolder + file));
         }
 
-        public static IEnumerable<object[]> TestGetPaths_Source
+        public static IEnumerable<object?[]> TestGetPaths_Source
         {
             get
             {
-                yield return new object[] { "{0}\\TestCase5\\big-word-document.doc", 1 };
-                yield return new object[] { "{0}\\TestCase7;{0}\\TestCase7", 2 };
-                yield return new object[] { "{0}\\TestCase5;{0}\\TestCase7", 2 };
-                yield return new object[] { "{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7", 2 };
-                yield return new object[] { "{0}\\TestCase7\\Test;Folder\\;{0}\\TestCase7", 2 };
-                yield return new object[] { "{0}\\TestCase7\\Test;Folder\\;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder\\", 3 };
-                yield return new object[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", 3 };
-                yield return new object[] { "{0}\\TestCase7\\Test;Folder ;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", 3 };
-                yield return new object[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7 ;{0}\\TestCase7\\Test;Folder", 3 };
-                yield return new object[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder ", 3 };
-                yield return new object[] { null, 0 };
-                yield return new object[] { "", 0 };
-                yield return new object[] { "{0}\\TestCase7\\log*", 2 };
-                yield return new object[] { "{0}\\TestCase7\\log?", 2 };
-                yield return new object[] { "{0}\\TestCase7\\Test*", 3 };
-                yield return new object[] { "{0}\\TestCase7\\logA\\*.txt", 1 };
-                yield return new object[] { "{0}\\TestCase7\\Test,Folder\\log?", 2 };
-                yield return new object[] { "{0}\\TestCase7\\Test,Folder\\logA\\*.txt", 1 };
+                yield return new object?[] { "{0}\\TestCase5\\big-word-document.doc", 1 };
+                yield return new object?[] { "{0}\\TestCase7;{0}\\TestCase7", 2 };
+                yield return new object?[] { "{0}\\TestCase5;{0}\\TestCase7", 2 };
+                yield return new object?[] { "{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7", 2 };
+                yield return new object?[] { "{0}\\TestCase7\\Test;Folder\\;{0}\\TestCase7", 2 };
+                yield return new object?[] { "{0}\\TestCase7\\Test;Folder\\;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder\\", 3 };
+                yield return new object?[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", 3 };
+                yield return new object?[] { "{0}\\TestCase7\\Test;Folder ;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", 3 };
+                yield return new object?[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7 ;{0}\\TestCase7\\Test;Folder", 3 };
+                yield return new object?[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder ", 3 };
+                yield return new object?[] { null, 0 };
+                yield return new object?[] { "", 0 };
+                yield return new object?[] { "{0}\\TestCase7\\log*", 2 };
+                yield return new object?[] { "{0}\\TestCase7\\log?", 2 };
+                yield return new object?[] { "{0}\\TestCase7\\Test*", 3 };
+                yield return new object?[] { "{0}\\TestCase7\\logA\\*.txt", 1 };
+                yield return new object?[] { "{0}\\TestCase7\\Test,Folder\\log?", 2 };
+                yield return new object?[] { "{0}\\TestCase7\\Test,Folder\\logA\\*.txt", 1 };
             }
         }
 
         [Theory]
         [MemberData(nameof(TestGetPaths_Source))]
-        public void TestGetPathsCount(string source, int? expected)
+        public void TestGetPathsCount(string? source, int? expected)
         {
             if (source != null && source.Contains("{0}"))
                 source = string.Format(source, sourceFolder);

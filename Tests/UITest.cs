@@ -28,8 +28,8 @@ namespace Tests
             Assert.True(File.Exists(path1));
             Assert.True(File.Exists(path2));
 
-            ResourceDictionary dict1 = LoadXaml(path1);
-            ResourceDictionary dict2 = LoadXaml(path2);
+            ResourceDictionary? dict1 = LoadXaml(path1);
+            ResourceDictionary? dict2 = LoadXaml(path2);
 
             Assert.NotNull(dict1);
             Assert.NotNull(dict2);
@@ -54,7 +54,7 @@ namespace Tests
             }
         }
 
-        private ResourceDictionary LoadXaml(string path)
+        private ResourceDictionary? LoadXaml(string path)
         {
             using (FileStream s = new FileStream(path, FileMode.Open))
             {
