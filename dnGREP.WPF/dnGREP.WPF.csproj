@@ -193,6 +193,11 @@
     <Page Remove="Properties\DesignTimeResources.xaml" />
     <Page Remove="Themes\Sunset.xaml" />
   </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="dnGREP.WPF.Properties.BuildDateTime">
+      <_Parameter1>$([System.DateTime]::UtcNow.ToString("s"))</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
   <PropertyGroup>
     <Authors>dnGrep Community Contributors</Authors>
     <Description>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</Description>

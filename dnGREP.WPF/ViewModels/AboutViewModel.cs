@@ -2,8 +2,8 @@
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Input;
-using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using dnGREP.WPF.Properties;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -13,7 +13,7 @@ namespace dnGREP.WPF
         public AboutViewModel()
         {
             Version = $"{Resources.About_Version} {AssemblyVersion}";
-            BuildDate = $"{Resources.About_BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentCulture)}";
+            BuildDate = $"{Resources.About_BuiltOn} {AssemblyBuildDate?.ToString(CultureInfo.CurrentCulture)}";
             Copyright = AssemblyCopyright;
             Description = AssemblyDescription;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
@@ -110,9 +110,9 @@ namespace dnGREP.WPF
         }
 
 
-        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -126,7 +126,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -140,30 +140,16 @@ namespace dnGREP.WPF
             }
         }
 
-        public DateTime AssemblyBuildDate => GetLinkerTime(Assembly.GetExecutingAssembly());
+        public static DateTime? AssemblyBuildDate => GetAssemblyBuildDateTime(Assembly.GetExecutingAssembly());
 
-        // http://stackoverflow.com/questions/1600962/displaying-the-build-date
-        public static DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)
+        // https://stackoverflow.com/questions/1600962/displaying-the-build-date
+        private static DateTime? GetAssemblyBuildDateTime(Assembly assembly)
         {
-            var filePath = assembly.Location;
-            const int c_PeHeaderOffset = 60;
-            const int c_LinkerTimestampOffset = 8;
-
-            var buffer = new byte[2048];
-
-            using (var stream = File.Open(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read))
-                stream.Read(buffer, 0, 2048);
-
-            var offset = BitConverter.ToInt32(buffer, c_PeHeaderOffset);
-            var secondsSince1970 = BitConverter.ToInt32(buffer, offset + c_LinkerTimestampOffset);
-            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-            var linkTimeUtc = epoch.AddSeconds(secondsSince1970);
-
-            var tz = target ?? TimeZoneInfo.Local;
-            var localTime = TimeZoneInfo.ConvertTimeFromUtc(linkTimeUtc, tz);
-
-            return localTime;
+            var attr = Attribute.GetCustomAttribute(assembly, typeof(BuildDateTimeAttribute)) as BuildDateTimeAttribute;
+            if (DateTime.TryParse(attr?.Date, out DateTime dt))
+                return dt.ToLocalTime();
+            else
+                return null;
         }
     }
 }

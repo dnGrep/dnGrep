@@ -579,7 +579,7 @@ namespace dnGREP.WPF
         public string GetHelpString()
         {
             string assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string buildDate = AboutViewModel.GetLinkerTime(Assembly.GetExecutingAssembly()).ToString(CultureInfo.CurrentCulture);
+            string buildDate = AboutViewModel.AssemblyBuildDate?.ToString(CultureInfo.CurrentCulture);
 
             StringBuilder sb = new StringBuilder();
 
