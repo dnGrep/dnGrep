@@ -13,7 +13,7 @@
   <?define NGenPlatform = "32bit" ?>
   <?endif ?>
   <!-- Version number. Should be overwritten during build. Revision is NOT used by Windows Installer during upgrade procedure. -->
-  <?define MajorVersion="3" ?>
+  <?define MajorVersion="4" ?>
   <?define MinorVersion="0" ?>
   <?define BuildVersion="0" ?>
   <?define Revision="0" ?>

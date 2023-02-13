@@ -241,7 +241,7 @@ namespace dnGREP.DockFloat
                 floatingWindow.Show();
         }
 
-        private Rect GetPopupPosition()
+        private static Rect GetPopupPosition()
         {
             var wind = Application.Current.MainWindow;
             var position = new Point(wind.Left + wind.ActualWidth, wind.Top);
