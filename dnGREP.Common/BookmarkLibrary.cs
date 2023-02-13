@@ -55,8 +55,15 @@ namespace dnGREP.Common
                     using (TextReader reader = new StreamReader(BookmarksFile))
                     {
                         bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
-                        bookmarkLib.Initialize();
-                        bookmarks = bookmarkLib;
+                        if (bookmarkLib != null)
+                        {
+                            bookmarkLib.Initialize();
+                            bookmarks = bookmarkLib;
+                        }
+                        else
+                        {
+                            bookmarks = new BookmarkEntity();
+                        }
                     }
                 }
             }
