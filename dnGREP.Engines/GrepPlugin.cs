@@ -145,7 +145,8 @@ namespace dnGREP.Engines
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    logger.Error(ex);
+                    throw;
                 }
             }
             return result;

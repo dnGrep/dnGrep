@@ -501,7 +501,7 @@ namespace dnGREP.Common
                     {
                         string name = intermediateFiles.First();
                         var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
-                        if (fd != null)
+                        if (fd != default)
                         {
                             index = fd.Index;
                         }
@@ -611,7 +611,7 @@ namespace dnGREP.Common
                     {
                         string name = intermediateFiles.First();
                         var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
-                        if (fd != null)
+                        if (fd != default)
                         {
                             index = fd.Index;
                         }
@@ -638,7 +638,7 @@ namespace dnGREP.Common
                     else
                     {
                         var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, innerFileName));
-                        if (fd != null)
+                        if (fd != default)
                         {
                             index = fd.Index;
                         }
