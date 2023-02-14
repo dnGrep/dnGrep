@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x86;x64</Platforms>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -37,6 +39,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="mkdir &quot;$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)&quot;\&#xD;&#xA;xcopy /Y /R &quot;$(ProjectDir)x64\Everything64.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\net7.0-windows\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(ProjectDir)x86\Everything32.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\net7.0-windows\&quot;" />
+    <Exec Command="mkdir &quot;$(SolutionDir)dnGREP.WPF\bin\x64\$(ConfigurationName)&quot;\&#xD;&#xA;xcopy /Y /R &quot;$(ProjectDir)x64\Everything64.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\x64\$(ConfigurationName)\net7.0-windows\&quot;&#xD;&#xA;mkdir &quot;$(SolutionDir)dnGREP.WPF\bin\x86\$(ConfigurationName)&quot;\&#xD;&#xA;xcopy /Y /R &quot;$(ProjectDir)x86\Everything32.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\x86\$(ConfigurationName)\net7.0-windows\&quot;" />
   </Target>
 </Project>

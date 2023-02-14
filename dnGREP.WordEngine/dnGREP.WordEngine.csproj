@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x86;x64</Platforms>
     <RootNamespace>dnGREP.Engines.Word</RootNamespace>
     <AssemblyName>dnGREP.Engines.Word</AssemblyName>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
