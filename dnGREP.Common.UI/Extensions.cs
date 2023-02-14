@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Windows.Win32;
-using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Gdi;
 using Windows.Win32.UI.HiDpi;
 
@@ -103,7 +102,7 @@ namespace dnGREP.Common.UI
                 scaleY = dpiScale.DpiScaleY;
             }
 
-            Rect result = new Rect(
+            Rect result = new(
                 rect.X * scaleX,
                 rect.Y * scaleY,
                 rect.Width * scaleX,
@@ -127,9 +126,7 @@ namespace dnGREP.Common.UI
 
         public static bool IsOnScreen(this Window window)
         {
-            Rect windowBounds = new Rect(
-                window.Left, window.Top, window.ActualWidth, window.ActualHeight);
-
+            Rect windowBounds = new(window.Left, window.Top, window.ActualWidth, window.ActualHeight);
             return windowBounds.IsOnScreen();
         }
 
@@ -138,7 +135,7 @@ namespace dnGREP.Common.UI
             // test to see if the center of the title bar is on a screen
             // this will allow the user to easily move the window if partially off screen
             // 44 is the width of a title bar button, 30 is the height
-            Rect bounds = new Rect(
+            Rect bounds = new(
                 windowBounds.Left + 5 + 44,
                 windowBounds.Top + 5,
                 Math.Max(windowBounds.Width - 3 * 44, 44),  // can't be negative!
@@ -157,7 +154,7 @@ namespace dnGREP.Common.UI
 
         public static Screen ScreenFromWpfPoint(this Point pt)
         {
-            Rect bounds = new Rect(pt, new Size(2, 2));
+            Rect bounds = new(pt, new Size(2, 2));
             foreach (Screen screen in Screen.AllScreens)
             {
                 Rect deviceRect = screen.ToDevicePixels(bounds);
@@ -173,11 +170,11 @@ namespace dnGREP.Common.UI
         {
             double width = window.Width;
             double height = window.Height;
-            Point pt = new Point(x, y);
+            Point pt = new(x, y);
             Screen screen = pt.ScreenFromWpfPoint();
             if (screen != null)
             {
-                Rect bounds = new Rect(x, y, window.ActualWidth, window.ActualHeight);
+                Rect bounds = new(x, y, window.ActualWidth, window.ActualHeight);
                 Rect r = screen.ToDevicePixels(bounds);
                 if (PInvoke.MoveWindow(new(new WindowInteropHelper(window).Handle), (int)r.Left, (int)r.Top, (int)r.Width, (int)r.Height, true))
                 {
