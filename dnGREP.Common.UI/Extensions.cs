@@ -5,6 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.Graphics.Gdi;
+using Windows.Win32.UI.HiDpi;
 
 namespace dnGREP.Common.UI
 {
@@ -82,8 +86,11 @@ namespace dnGREP.Common.UI
             if (Environment.OSVersion.Version.Major >= 10 ||
                 (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
             {
-                IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
-                NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
+                var pt = new System.Drawing.Point((int)(screen.Bounds.Left + screen.Bounds.Width / 2),
+                    (int)(screen.Bounds.Top + screen.Bounds.Height / 2));
+
+                var hMonitor = PInvoke.MonitorFromPoint(pt, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
+                _ = PInvoke.GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
                 scaleX = (double)dpiX / 96;
                 scaleY = (double)dpiY / 96;
             }
@@ -172,7 +179,7 @@ namespace dnGREP.Common.UI
             {
                 Rect bounds = new Rect(x, y, window.ActualWidth, window.ActualHeight);
                 Rect r = screen.ToDevicePixels(bounds);
-                if (NativeMethods.MoveWindow(new WindowInteropHelper(window).Handle, (int)r.Left, (int)r.Top, (int)r.Width, (int)r.Height, true))
+                if (PInvoke.MoveWindow(new(new WindowInteropHelper(window).Handle), (int)r.Left, (int)r.Top, (int)r.Width, (int)r.Height, true))
                 {
                     window.Dispatcher.Invoke(() =>
                     {
