@@ -1,9 +1,7 @@
 ﻿DeleteObject
 DestroyIcon
 EnumDisplayMonitors
-ExtractIconEx
 GetDpiForMonitor
-GetSystemMetrics
 GetWindowLong
 MonitorFromPoint
 MoveWindow
