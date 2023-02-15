@@ -1,0 +1,4 @@
+﻿GetOpenClipboardWindow
+GetWindowThreadProcessId
+SHGetFileInfo
+StrFormatByteSize
