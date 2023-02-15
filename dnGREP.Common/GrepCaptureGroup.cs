@@ -32,13 +32,7 @@ namespace dnGREP.Common
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = 13;
-                hashCode = (hashCode * 397) ^ StartLocation;
-                hashCode = (hashCode * 397) ^ Length;
-                return hashCode;
-            }
+            return HashCode.Combine(StartLocation, Length);
         }
 
         public bool Equals(GrepCaptureGroup other)
@@ -61,8 +55,8 @@ namespace dnGREP.Common
         {
             if (obj == null)
                 return 1;
-            if (obj is GrepMatch)
-                return StartLocation.CompareTo(((GrepMatch)obj).StartLocation);
+            if (obj is GrepMatch match)
+                return StartLocation.CompareTo(match.StartLocation);
             else
                 return 1;
         }

@@ -5,8 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows;
 using System.Xml;
@@ -306,7 +304,7 @@ namespace dnGREP.Common
             }
         }
 
-        private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> settings = new();
 
         public int Version { get; private set; } = 1;
 
@@ -350,7 +348,7 @@ namespace dnGREP.Common
             InitializeFonts();
         }
 
-        private int GetFileVersion(string path)
+        private static int GetFileVersion(string path)
         {
             if (File.Exists(path))
             {
@@ -381,16 +379,14 @@ namespace dnGREP.Common
             {
                 if (File.Exists(path))
                 {
-                    using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    {
-                        if (stream == null)
-                            return;
-                        XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
-                        settings.Clear();
-                        SerializableDictionary appData = (SerializableDictionary)serializer.Deserialize(stream);
-                        foreach (KeyValuePair<string, string> pair in appData)
-                            settings[pair.Key] = pair.Value;
-                    }
+                    using FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    if (stream == null)
+                        return;
+                    XmlSerializer serializer = new(typeof(SerializableDictionary));
+                    settings.Clear();
+                    SerializableDictionary appData = (SerializableDictionary)serializer.Deserialize(stream);
+                    foreach (KeyValuePair<string, string> pair in appData)
+                        settings[pair.Key] = pair.Value;
                 }
             }
             catch (Exception ex)
@@ -405,35 +401,33 @@ namespace dnGREP.Common
             {
                 if (File.Exists(path))
                 {
-                    using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    if (stream != null)
                     {
-                        if (stream != null)
+                        XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
+                        if (doc != null && doc.Root.Name.LocalName.Equals("dictionary"))
                         {
-                            XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
-                            if (doc != null && doc.Root.Name.LocalName.Equals("dictionary"))
+                            settings.Clear();
+
+                            XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+
+                            foreach (XElement elem in doc.Root.Descendants("item"))
                             {
-                                settings.Clear();
-
-                                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
-
-                                foreach (XElement elem in doc.Root.Descendants("item"))
+                                if (elem.Attribute("key") is XAttribute key &&
+                                    !string.IsNullOrEmpty(key.Value))
                                 {
-                                    if (elem.Attribute("key") is XAttribute key &&
-                                        !string.IsNullOrEmpty(key.Value))
+                                    var nil = elem.Attribute(xsi + "nil");
+                                    if (nil != null && nil.Value == "true")
                                     {
-                                        var nil = elem.Attribute(xsi + "nil");
-                                        if (nil != null && nil.Value == "true")
-                                        {
-                                            settings[key.Value] = "xsi:nil";
-                                        }
-                                        else if (elem.HasElements)
-                                        {
-                                            settings[key.Value] = elem.Element("stringArray").ToString();
-                                        }
-                                        else
-                                        {
-                                            settings[key.Value] = elem.Value;
-                                        }
+                                        settings[key.Value] = "xsi:nil";
+                                    }
+                                    else if (elem.HasElements)
+                                    {
+                                        settings[key.Value] = elem.Element("stringArray").ToString();
+                                    }
+                                    else
+                                    {
+                                        settings[key.Value] = elem.Value;
                                     }
                                 }
                             }
@@ -500,42 +494,40 @@ namespace dnGREP.Common
             if (Environment.GetCommandLineArgs().Contains("/warmUp", StringComparison.OrdinalIgnoreCase))
                 return;
 
-            using (var mutex = new Mutex(false, mutexId))
+            using var mutex = new Mutex(false, mutexId);
+            bool hasHandle = false;
+            try
             {
-                bool hasHandle = false;
                 try
                 {
-                    try
+                    hasHandle = mutex.WaitOne(5000, false);
+                    if (hasHandle == false)
                     {
-                        hasHandle = mutex.WaitOne(5000, false);
-                        if (hasHandle == false)
-                        {
-                            logger.Info("Timeout waiting for exclusive access to save app settings.");
-                            return;
-                        }
+                        logger.Info("Timeout waiting for exclusive access to save app settings.");
+                        return;
                     }
-                    catch (AbandonedMutexException)
-                    {
-                        // The mutex was abandoned in another process,
-                        // it will still get acquired
-                        hasHandle = true;
-                    }
-
-                    // Perform work here.
-                    if (!Directory.Exists(Path.GetDirectoryName(path)))
-                        Directory.CreateDirectory(Path.GetDirectoryName(path));
-
-                    SaveV2(path);
                 }
-                catch (Exception ex)
+                catch (AbandonedMutexException)
                 {
-                    logger.Error(ex, "Failed to save app settings: " + ex.Message);
+                    // The mutex was abandoned in another process,
+                    // it will still get acquired
+                    hasHandle = true;
                 }
-                finally
-                {
-                    if (hasHandle)
-                        mutex.ReleaseMutex();
-                }
+
+                // Perform work here.
+                if (!Directory.Exists(Path.GetDirectoryName(path)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+                SaveV2(path);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to save app settings: " + ex.Message);
+            }
+            finally
+            {
+                if (hasHandle)
+                    mutex.ReleaseMutex();
             }
         }
 
@@ -566,7 +558,7 @@ namespace dnGREP.Common
                 XNamespace xml = "http://www.w3.org/XML/1998/namespace";
                 XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
 
-                XDocument doc = new XDocument();
+                XDocument doc = new();
                 doc.Add(new XElement("dictionary"));
                 doc.Root.SetAttributeValue("version", "2");
                 doc.Root.SetAttributeValue(XNamespace.Xmlns + "xml", xml);
@@ -604,14 +596,14 @@ namespace dnGREP.Common
             Utils.DeleteFile(path + "~");
         }
 
-        private string Serialize(List<string> list)
+        private static string Serialize(List<string> list)
         {
             if (list.Count > 0)
             {
                 XNamespace xml = "http://www.w3.org/XML/1998/namespace";
                 XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
 
-                XElement root = new XElement("stringArray");
+                XElement root = new("stringArray");
                 foreach (string value in list)
                 {
                     if (value == null)
@@ -636,9 +628,9 @@ namespace dnGREP.Common
             return string.Empty;
         }
 
-        private List<string> Deserialize(string xmlContent)
+        private static List<string> Deserialize(string xmlContent)
         {
-            List<string> list = new List<string>();
+            List<string> list = new();
 
             if (!string.IsNullOrEmpty(xmlContent))
             {
@@ -809,7 +801,7 @@ namespace dnGREP.Common
             }
         }
 
-        private bool IsNullable(Type type) => Nullable.GetUnderlyingType(type) != null;
+        private static bool IsNullable(Type type) => Nullable.GetUnderlyingType(type) != null;
 
         private List<FieldInfo> constantKeys;
 
@@ -908,7 +900,7 @@ namespace dnGREP.Common
             settings.Remove(remKey);
         }
 
-        private string CleanExtensions(string extensions)
+        private static string CleanExtensions(string extensions)
         {
             if (string.IsNullOrWhiteSpace(extensions))
                 return string.Empty;

@@ -63,8 +63,8 @@ namespace dnGREP.Common
         {
             if (obj == null)
                 return 1;
-            if (obj is GrepLine)
-                return LineNumber.CompareTo(((GrepLine)obj).LineNumber);
+            if (obj is GrepLine line)
+                return LineNumber.CompareTo(line.LineNumber);
             else
                 return 1;
         }

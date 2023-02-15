@@ -79,11 +79,11 @@ namespace dnGREP.Common
         {
             var savedState = Operands.Select(o => o.EvaluatedResult).ToList();
 
-            List<List<bool>> values = new List<List<bool>>();
+            List<List<bool>> values = new();
             for (int idx = 0; idx < Math.Pow(2, Operands.Count); idx++)
             {
                 values.Add(new List<bool>());
-                string binary = Convert.ToString(idx, 2).PadLeft(Operands.Count(), '0');
+                string binary = Convert.ToString(idx, 2).PadLeft(Operands.Count, '0');
 
                 for (int jdx = 0; jdx < Operands.Count; jdx++)
                 {
@@ -152,10 +152,10 @@ namespace dnGREP.Common
 
         private bool EvaluateExpression(bool modifyMatches)
         {
-            Stack<bool> operandStack = new Stack<bool>();
+            Stack<bool> operandStack = new();
             // this stack is used to remove matches from sub-expressions
             // that evaluate to false.
-            Stack<List<BooleanToken>> tokens = new Stack<List<BooleanToken>>();
+            Stack<List<BooleanToken>> tokens = new();
 
             foreach (var token in PostfixTokens)
             {
@@ -287,7 +287,7 @@ namespace dnGREP.Common
             bool result = true;
             try
             {
-                BooleanTokenizer tokenizer = new BooleanTokenizer();
+                BooleanTokenizer tokenizer = new();
                 var list = tokenizer.Tokenize(input).ToList();
 
                 result = BuildExpression(list);
@@ -297,7 +297,7 @@ namespace dnGREP.Common
 
                 int numUnaryOperators = PostfixTokens.Where(t => t.TokenType == TokenType.NOT).Count();
                 int numBinaryOperators = PostfixTokens.Where(t => TokenType.Operator.HasFlag(t.TokenType)).Count() - numUnaryOperators;
-                int numOperands = Operands.Count();
+                int numOperands = Operands.Count;
 
                 if (numBinaryOperators < numOperands - 1)
                 {
@@ -321,7 +321,7 @@ namespace dnGREP.Common
         }
 
         // the shunting-yard algorithm
-        private IEnumerable<BooleanToken> InfixToPostfix(IEnumerable<BooleanToken> tokens)
+        private static IEnumerable<BooleanToken> InfixToPostfix(IEnumerable<BooleanToken> tokens)
         {
             if (tokens.Count(t => t.TokenType == TokenType.OpenParens) !=
                 tokens.Count(t => t.TokenType == TokenType.CloseParens))
@@ -401,7 +401,7 @@ namespace dnGREP.Common
 
         private bool BuildExpression(IEnumerable<BooleanToken> tokens)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             char key = 'a';
             foreach (BooleanToken token in tokens)
             {
@@ -409,7 +409,7 @@ namespace dnGREP.Common
                 {
                     if (!string.IsNullOrWhiteSpace(token.Value))
                     {
-                        sb.Append(key.ToString());
+                        sb.Append(key);
                         key++;
                     }
                 }

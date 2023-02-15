@@ -12,7 +12,7 @@ namespace dnGREP.Common
             BackupName = Guid.NewGuid().ToString() + Path.GetExtension(originalFile);
             ReplaceItems = replaceItems;
 
-            FileInfo fileInfo = new FileInfo(originalFile);
+            FileInfo fileInfo = new(originalFile);
             fileInfo.Refresh();
             LastWriteTime = fileInfo.LastWriteTime;
         }

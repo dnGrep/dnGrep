@@ -42,7 +42,7 @@ namespace dnGREP.Common
 
                 if (bestMatch.StartIndex > currentIndex)
                 {
-                    string value = input.Substring(currentIndex, bestMatch.StartIndex - currentIndex).Trim();
+                    string value = input[currentIndex..bestMatch.StartIndex].Trim();
                     if (!string.IsNullOrWhiteSpace(value))
                     {
                         yield return new BooleanToken(TokenType.StringValue, value, 0);
@@ -57,7 +57,7 @@ namespace dnGREP.Common
 
             if (currentIndex < input.Length)
             {
-                string value = input.Substring(currentIndex, input.Length - currentIndex).Trim();
+                string value = input[currentIndex..].Trim();
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     yield return new BooleanToken(TokenType.StringValue, value, 0);

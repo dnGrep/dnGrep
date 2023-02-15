@@ -12,7 +12,7 @@ namespace dnGREP.Common
         public static bool Contains(this string source, string toCheck, StringComparison comp)
         {
             if (source == null) return false;
-            return source.IndexOf(toCheck, comp) >= 0;
+            return source.Contains(toCheck, comp);
         }
 
         public static bool Contains(this IEnumerable<string> source, string toCheck, StringComparison comp)
@@ -39,7 +39,7 @@ namespace dnGREP.Common
         public static bool ConstainsNotEscaped(this string input, string toCheck)
         {
             if (toCheck == null)
-                throw new ArgumentNullException("toCheck");
+                throw new ArgumentNullException(nameof(toCheck));
 
             bool found = false;
             int startIndex = 0;
@@ -71,10 +71,10 @@ namespace dnGREP.Common
         public static string ReplaceIfNotEscaped(this string input, string oldValue, string newValue)
         {
             if (oldValue == null)
-                throw new ArgumentNullException("oldValue");
+                throw new ArgumentNullException(nameof(oldValue));
             // Note that if newValue is null, we treat it like string.Empty.
 
-            StringBuilder sb = new StringBuilder(input.Length + newValue?.Length ?? 0);
+            StringBuilder sb = new(input.Length + newValue?.Length ?? 0);
 
             int startIndex = 0;
             while (startIndex < input.Length)
@@ -82,7 +82,7 @@ namespace dnGREP.Common
                 int pos = input.IndexOf(oldValue, startIndex);
                 if (pos > -1)
                 {
-                    sb.Append(input.Substring(startIndex, pos - startIndex));
+                    sb.Append(input[startIndex..pos]);
 
                     if (pos > 0 && input[pos - 1] == '\\')
                     {
@@ -97,7 +97,7 @@ namespace dnGREP.Common
                 }
                 else
                 {
-                    sb.Append(input.Substring(startIndex));
+                    sb.Append(input[startIndex..]);
                     startIndex = input.Length;
                 }
             }

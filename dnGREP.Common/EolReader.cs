@@ -11,8 +11,8 @@ namespace dnGREP.Common
 {
     public class EolReader : IDisposable
     {
-        private TextReader baseReader;
-        private char[] charBuffer;
+        private readonly TextReader baseReader;
+        private readonly char[] charBuffer;
         private int charPos;
         private int charLen;
 
@@ -25,6 +25,7 @@ namespace dnGREP.Common
 
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
         }
 
         private int ReadBuffer()
@@ -102,7 +103,7 @@ namespace dnGREP.Common
 
                 i = charLen - charPos;
 
-                if (sb == null) sb = new StringBuilder(i + 80);
+                sb ??= new StringBuilder(i + 80);
                 sb.Append(charBuffer, charPos, i);
 
             } while (ReadBuffer() > 0);

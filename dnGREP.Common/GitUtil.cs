@@ -24,7 +24,7 @@ namespace dnGREP.Common
 
         private static bool CheckGitInstalled()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            ProcessStartInfo startInfo = new()
             {
                 FileName = "git",
                 Arguments = "--version",
@@ -34,7 +34,7 @@ namespace dnGREP.Common
                 CreateNoWindow = true
             };
 
-            using (Process proc = new Process())
+            using (Process proc = new())
             {
                 proc.StartInfo = startInfo;
                 try
@@ -54,11 +54,11 @@ namespace dnGREP.Common
 
         public static Gitignore GetGitignore(string path)
         {
-            List<string> list = new List<string>();
+            List<string> list = new();
 
             if (IsGitInstalled)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                ProcessStartInfo startInfo = new()
                 {
                     FileName = "git",
                     Arguments = "status --short --ignored",
@@ -69,22 +69,20 @@ namespace dnGREP.Common
                     CreateNoWindow = true
                 };
 
-                using (Process proc = new Process())
+                using Process proc = new();
+                proc.StartInfo = startInfo;
+                try
                 {
-                    proc.StartInfo = startInfo;
-                    try
+                    proc.Start();
+                    while (!proc.StandardOutput.EndOfStream)
                     {
-                        proc.Start();
-                        while (!proc.StandardOutput.EndOfStream)
-                        {
-                            string line = proc.StandardOutput.ReadLine();
-                            if (line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
-                                list.Add(line.Substring(3).Trim('"'));
-                        }
+                        string line = proc.StandardOutput.ReadLine();
+                        if (line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
+                            list.Add(line[3..].Trim('"'));
                     }
-                    catch (InvalidOperationException) { }
-                    catch (Win32Exception) { }
                 }
+                catch (InvalidOperationException) { }
+                catch (Win32Exception) { }
             }
 
             return new Gitignore(path, list);
@@ -95,7 +93,7 @@ namespace dnGREP.Common
             if (paths == null)
                 throw new ArgumentNullException(nameof(paths));
 
-            Gitignore results = new Gitignore();
+            Gitignore results = new();
 
             foreach (var path in paths)
             {
@@ -109,8 +107,8 @@ namespace dnGREP.Common
     public class Gitignore
     {
         private const string gitSeparator = "/";
-        private HashSet<string> directories = new HashSet<string>();
-        private HashSet<string> files = new HashSet<string>();
+        private readonly HashSet<string> directories = new();
+        private readonly HashSet<string> files = new();
 
         public Gitignore()
         {

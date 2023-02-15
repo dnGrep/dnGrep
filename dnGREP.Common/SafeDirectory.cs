@@ -42,7 +42,7 @@ namespace dnGREP.Common
             if (followSymlinks)
                 fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
-            List<string> dontRecurseBelow = new List<string>
+            List<string> dontRecurseBelow = new()
             {
                 @"C:\$Recycle.Bin"
             };
@@ -58,7 +58,7 @@ namespace dnGREP.Common
                     dontRecurseBelow.Add(p);
             }
 
-            DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
+            DirectoryEnumerationFilters fileFilters = new()
             {
                 ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
                 {
@@ -97,7 +97,7 @@ namespace dnGREP.Common
                 if (list.Count == 0)
                 {
                     // not found, search up the tree
-                    DirectoryInfo di = new DirectoryInfo(path);
+                    DirectoryInfo di = new(path);
                     while (di.Parent != null)
                     {
                         if (File.Exists(Path.Combine(di.Parent.FullName, ".gitignore")))
@@ -153,7 +153,7 @@ namespace dnGREP.Common
             if (followSymlinks)
                 fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
-            DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
+            DirectoryEnumerationFilters fileFilters = new()
             {
                 ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
                 {
@@ -203,7 +203,7 @@ namespace dnGREP.Common
         private static IEnumerable<string> EnumerateFilesWithFilters(string path, IList<string> patterns,
             Gitignore gitignore, FileFilter filter)
         {
-            DirectoryInfo di = new DirectoryInfo(path);
+            DirectoryInfo di = new(path);
             // the root of the drive has the hidden attribute set, so don't stop on this hidden directory
             if (di.Attributes.HasFlag(FileAttributes.Hidden) && (di.Root != di))
                 yield break;
@@ -234,7 +234,7 @@ namespace dnGREP.Common
             if (filter.FollowSymlinks)
                 dirOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
-            DirectoryEnumerationFilters dirFilters = new DirectoryEnumerationFilters
+            DirectoryEnumerationFilters dirFilters = new()
             {
                 ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
                 {
@@ -303,7 +303,7 @@ namespace dnGREP.Common
         private static IEnumerable<string> EnumerateFilesImpl(string path, IList<string> patterns,
             FileFilter filter, Gitignore gitignore)
         {
-            DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
+            DirectoryEnumerationFilters fileFilters = new()
             {
                 ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
                 {
@@ -441,8 +441,8 @@ namespace dnGREP.Common
             if (pattern == ".*")
                 return fileName.StartsWith(dot, StringComparison.OrdinalIgnoreCase);
 
-            if (pattern.StartsWith(star, StringComparison.OrdinalIgnoreCase) && pattern.IndexOf('*', 1) == -1 && pattern.IndexOf('?') == -1)
-                return fileName.EndsWith(pattern.Substring(1), StringComparison.CurrentCulture);
+            if (pattern.StartsWith(star, StringComparison.OrdinalIgnoreCase) && pattern.IndexOf('*', 1) == -1 && !pattern.Contains('?'))
+                return fileName.EndsWith(pattern[1..], StringComparison.CurrentCulture);
 
             int fileNameIndex = 0;
             int patternIndex = 0;

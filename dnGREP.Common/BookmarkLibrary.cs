@@ -45,25 +45,23 @@ namespace dnGREP.Common
             {
                 IsDeserializing = true;
                 BookmarkEntity bookmarkLib;
-                XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
+                XmlSerializer serializer = new(typeof(BookmarkEntity));
                 if (!File.Exists(BookmarksFile))
                 {
                     bookmarks = new BookmarkEntity();
                 }
                 else
                 {
-                    using (TextReader reader = new StreamReader(BookmarksFile))
+                    using TextReader reader = new StreamReader(BookmarksFile);
+                    bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
+                    if (bookmarkLib != null)
                     {
-                        bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
-                        if (bookmarkLib != null)
-                        {
-                            bookmarkLib.Initialize();
-                            bookmarks = bookmarkLib;
-                        }
-                        else
-                        {
-                            bookmarks = new BookmarkEntity();
-                        }
+                        bookmarkLib.Initialize();
+                        bookmarks = bookmarkLib;
+                    }
+                    else
+                    {
+                        bookmarks = new BookmarkEntity();
                     }
                 }
             }
@@ -81,11 +79,9 @@ namespace dnGREP.Common
         {
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
-                using (TextWriter writer = new StreamWriter(BookmarksFile))
-                {
-                    serializer.Serialize(writer, bookmarks);
-                }
+                XmlSerializer serializer = new(typeof(BookmarkEntity));
+                using TextWriter writer = new StreamWriter(BookmarksFile);
+                serializer.Serialize(writer, bookmarks);
             }
             catch (Exception ex)
             {
@@ -97,7 +93,7 @@ namespace dnGREP.Common
     [Serializable]
     public class BookmarkEntity
     {
-        public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
+        public List<Bookmark> Bookmarks { get; private set; } = new();
 
         internal void Initialize()
         {
@@ -247,7 +243,7 @@ namespace dnGREP.Common
         public bool IncludeArchive { get; set; }
         public bool FollowSymlinks { get; set; }
         public int CodePage { get; set; } = -1;
-        public List<string> FolderReferences { get; set; } = new List<string>();
+        public List<string> FolderReferences { get; set; } = new();
         public bool ApplyFileSourceFilters { get; set; } = true;
         public bool ApplyFilePropertyFilters { get; set; } = true;
         public bool ApplyContentSearchFilters { get; set; } = true;

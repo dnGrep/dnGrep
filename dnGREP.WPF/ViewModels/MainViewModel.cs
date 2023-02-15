@@ -3130,7 +3130,7 @@ namespace dnGREP.WPF
             try
             {
                 var versionChk = new PublishedVersionExtractor();
-                string version = await versionChk.QueryLatestVersion();
+                string version = await PublishedVersionExtractor.QueryLatestVersion();
 
                 if (!string.IsNullOrEmpty(version))
                 {

@@ -9,8 +9,8 @@ namespace dnGREP.Common
     public class ConfigurationTemplate
     {
         public static Dictionary<string, ConfigurationTemplate> EditorConfigurationTemplates =>
-            new Dictionary<string, ConfigurationTemplate>
-        {
+            new()
+            {
             {string.Empty, null},
             {"Atom", new ConfigurationTemplate("atom.exe", @"%file:%line:%column", "AppDataLocal") },
             {"GVim", new ConfigurationTemplate("gvim.exe", @"+/""%match"" +%line %file", "ProgramFilesx86") },
@@ -19,8 +19,8 @@ namespace dnGREP.Common
         };
 
         public static Dictionary<string, ConfigurationTemplate> CompareConfigurationTemplates =>
-            new Dictionary<string, ConfigurationTemplate>
-        {
+            new()
+            {
             {string.Empty, null},
             {"Beyond Compare", new ConfigurationTemplate("BComp.exe", string.Empty, "ProgramFiles") },
             {"KDiff3", new ConfigurationTemplate("kdiff3.exe", string.Empty, "ProgramFiles") },
@@ -31,7 +31,7 @@ namespace dnGREP.Common
             {"VsDiffMerge", new ConfigurationTemplate("vsDiffMerge.exe", string.Empty, "ProgramFiles", "ProgramFilesx86") },
         };
 
-        private static readonly Dictionary<string, string> SearchPaths = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> SearchPaths = new()
         {
             { "ProgramFiles", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) },
             { "ProgramFilesx86", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) },
@@ -50,7 +50,7 @@ namespace dnGREP.Common
 
         private static IEnumerable<string> GetSearchPaths(string[] hintPaths)
         {
-            List<string> triedPaths = new List<string>();
+            List<string> triedPaths = new();
             foreach (string hint in hintPaths)
             {
                 if (SearchPaths.TryGetValue(hint, out string path))
@@ -72,8 +72,7 @@ namespace dnGREP.Common
             {
                 foreach (string path in GetSearchPaths(template.HintPath))
                 {
-                    FileFilter fileParams = new FileFilter(path, template.ExeFileName, string.Empty,
-                        false, false, false, true, -1, true, true, false, false, 0, 0, FileDateFilter.None, null, null, true);
+                    FileFilter fileParams = new(path, template.ExeFileName, string.Empty, false, false, false, true, -1, true, true, false, false, 0, 0, FileDateFilter.None, null, null, true);
 
                     var exePath = SafeDirectory.EnumerateFiles(path, new string[] { template.ExeFileName }, 
                         null, fileParams).FirstOrDefault();
