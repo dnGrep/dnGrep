@@ -1,0 +1,7 @@
+﻿DeleteObject
+SetParent
+ShellExecuteEx
+
+HWND_MESSAGE
+SHOW_WINDOW_CMD
+SEE_MASK_INVOKEIDLIST

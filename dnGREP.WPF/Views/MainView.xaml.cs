@@ -12,6 +12,8 @@ using dnGREP.Common.UI;
 using dnGREP.DockFloat;
 using dnGREP.Localization;
 using dnGREP.WPF.Properties;
+using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace dnGREP.WPF
 {
@@ -112,11 +114,6 @@ namespace dnGREP.WPF
             SetWatermark(dpTo);
         }
 
-        [DllImport("user32.dll")]
-        static extern IntPtr SetParent(IntPtr hwnd, IntPtr hwndNewParent);
-
-        private const int HWND_MESSAGE = -3;
-
         protected override void OnSourceInitialized(EventArgs e)
         {
             if (isVisible)
@@ -129,7 +126,7 @@ namespace dnGREP.WPF
                 if (PresentationSource.FromVisual(this) is HwndSource hwndSource)
                 {
                     // make this a message-only window
-                    SetParent(hwndSource.Handle, (IntPtr)HWND_MESSAGE);
+                    PInvoke.SetParent(new(hwndSource.Handle), HWND.HWND_MESSAGE);
                     Visibility = Visibility.Hidden;
                 }
             }

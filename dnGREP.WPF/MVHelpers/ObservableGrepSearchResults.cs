@@ -17,6 +17,7 @@ using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.UserControls;
+using Windows.Win32;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
@@ -232,8 +233,6 @@ namespace dnGREP.WPF
         /// </summary>
         public SearchType TypeOfSearch { get; set; }
 
-        [DllImport("gdi32.dll")]
-        static extern bool DeleteObject(IntPtr hObject);
         public static BitmapSource GetBitmapSource(System.Drawing.Bitmap source)
         {
             IntPtr ip = source.GetHbitmap();
@@ -246,7 +245,7 @@ namespace dnGREP.WPF
             }
             finally
             {
-                DeleteObject(ip);
+                PInvoke.DeleteObject(new(ip));
             }
         }
 
