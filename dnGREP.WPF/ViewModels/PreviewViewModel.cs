@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
-using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;

@@ -7,11 +7,6 @@ using System.Linq;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
@@ -74,7 +69,7 @@ namespace dnGREP.WPF
                 string fileFolder = Path.GetDirectoryName(fileName);
                 if (dataFolder != fileFolder)
                 {
-                    name = Path.GetRelativePath(dataFolder, fileFolder) + Path.DirectorySeparator + name;
+                    name = Path.GetRelativePath(dataFolder, fileFolder) + Path.DirectorySeparatorChar + name;
                 }
                 if (!_scripts.ContainsKey(name))
                 {

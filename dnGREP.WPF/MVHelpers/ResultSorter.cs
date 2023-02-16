@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Alphaleonis.Win32.Filesystem;
+using System.IO;
 
 namespace dnGREP.WPF.MVHelpers
 {

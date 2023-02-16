@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit;

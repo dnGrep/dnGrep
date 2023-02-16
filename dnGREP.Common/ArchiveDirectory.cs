@@ -6,11 +6,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NLog;
 using SevenZip;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common
 {
@@ -64,7 +59,7 @@ namespace dnGREP.Common
                 file = @"\\?\" + file;
             }
 
-            using FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
+            using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
             foreach (var item in EnumerateFiles(fileStream, file, filter))
             {
                 yield return item;
@@ -149,7 +144,7 @@ namespace dnGREP.Common
                     if (!fileFilter.IncludeHidden && attr.HasFlag(FileAttributes.Hidden) &&
                         !hiddenDirectories.Contains(innerFileName))
                     {
-                        hiddenDirectories.Add(innerFileName + Path.DirectorySeparator);
+                        hiddenDirectories.Add(innerFileName + Path.DirectorySeparatorChar);
                     }
 
                     continue;

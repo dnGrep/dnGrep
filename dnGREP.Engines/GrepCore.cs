@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Alphaleonis.Win32.Filesystem;
+using dnGREP.Common.IO;
 using dnGREP.Engines;
 using NLog;
 
@@ -433,7 +434,7 @@ namespace dnGREP.Common
         public bool Undo(IEnumerable<ReplaceDef> undoMap)
         {
             string undoFolder = Utils.GetUndoFolder();
-            if (!Directory.Exists(undoFolder) || Directory.IsEmpty(undoFolder))
+            if (!Directory.Exists(undoFolder) || DirectoryEx.IsEmpty(undoFolder))
             {
                 logger.Error("Failed to undo replacement as temporary directory was removed.");
                 return false;

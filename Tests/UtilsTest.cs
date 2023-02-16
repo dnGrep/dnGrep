@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.Common.IO;
 using dnGREP.Common.UI;
 using dnGREP.WPF;
 using Xunit;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Tests
 {
@@ -857,7 +854,7 @@ namespace Tests
             if (!di.Exists)
             {
                 di.Create();
-                Directory.Copy(testCase2, destFolder);
+                DirectoryEx.Copy(testCase2, destFolder);
             }
             di = new DirectoryInfo(hiddenFolder);
             if (!di.Exists)
@@ -891,7 +888,7 @@ namespace Tests
             if (!di.Exists)
             {
                 di.Create();
-                Directory.Copy(testCase2, destFolder);
+                DirectoryEx.Copy(testCase2, destFolder);
             }
             di = new DirectoryInfo(hiddenFolder);
             if (!di.Exists)
@@ -917,7 +914,7 @@ namespace Tests
             if (!di.Exists)
             {
                 di.Create();
-                Directory.Copy(testCase17, destFolder);
+                DirectoryEx.Copy(testCase17, destFolder);
             }
 
             FileFilter filter = new FileFilter(destFolder, namePattern, null, false, false, false, true, -1, true,
@@ -940,7 +937,7 @@ namespace Tests
             if (!di.Exists)
             {
                 di.Create();
-                Directory.Copy(testCase17, destFolder);
+                DirectoryEx.Copy(testCase17, destFolder);
             }
 
             FileFilter filter = new FileFilter(destFolder, namePattern, null, false, false, false, true, -1, true,
@@ -964,7 +961,7 @@ namespace Tests
             if (!di.Exists)
             {
                 di.Create();
-                Directory.Copy(testCase19, destFolder);
+                DirectoryEx.Copy(testCase19, destFolder);
             }
 
             // all files
@@ -1047,25 +1044,24 @@ namespace Tests
         {
             string testCase1 = Path.Combine(sourceFolder, @"TestCase1");
 
-            // 05-Sep-2020 AlphaFS doesn't support long path to target file
             string targetFolder = destinationFolder;
             targetFolder = Path.Combine(targetFolder, @"TestCase1");
             string targetFile = Path.Combine(targetFolder, @"test-file-plain.txt");
 
             DirectoryInfo di = new DirectoryInfo(targetFolder);
             if (!di.Exists) di.Create();
-            Directory.Copy(testCase1, targetFolder);
+            DirectoryEx.Copy(testCase1, targetFolder);
 
             string linkFolder = useLongPathLink ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
             linkFolder = Path.Combine(linkFolder, @"TestSymlink");
             string linkFile = Path.Combine(linkFolder, @"myfile.txt");
             if (useLongPathLink)
-                linkFile = Path.GetLongPath(linkFile);
+                linkFile = PathEx.GetLongPath(linkFile);
 
             di = new DirectoryInfo(linkFolder);
             if (!di.Exists) di.Create();
 
-            File.CreateSymbolicLink(linkFile, targetFile, Alphaleonis.Win32.Filesystem.PathFormat.FullPath);
+            FileEx.CreateSymbolicLink(linkFile, targetFile);
 
             bool followSymlinks = false;
             string[] files = Utils.GetFileList(linkFolder, "*.txt", null, false, false, true, true,

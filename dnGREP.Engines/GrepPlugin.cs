@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
-using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using NLog;
 

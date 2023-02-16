@@ -6,11 +6,6 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using Xunit;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Tests
 {
@@ -21,7 +16,7 @@ namespace Tests
         public void TestDefaultDictionariesMatch()
         {
             string solutionPath = Directory.GetParent(GetDllPath())
-                .Parent.Parent.Parent.Parent.FullName;
+                ?.Parent?.Parent?.Parent?.Parent?.FullName ?? string.Empty;
 
             var path1 = Path.Combine(solutionPath, @"dnGREP.WPF\Themes\LightBrushes.xaml");
             var path2 = Path.Combine(solutionPath, @"dnGREP.WPF\Themes\DarkBrushes.xaml");

@@ -6,11 +6,6 @@ using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using NLog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Pdf
 {
@@ -75,8 +70,8 @@ namespace dnGREP.Engines.Pdf
 
                 if (results.Count > 0)
                 {
-                    using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan))
-                    using (StreamReader streamReader = new StreamReader(reader, encoding, false, 4096, true))
+                    using (FileStream reader = new(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan))
+                    using (StreamReader streamReader = new(reader, encoding, false, 4096, true))
                     {
                         foreach (var result in results)
                         {

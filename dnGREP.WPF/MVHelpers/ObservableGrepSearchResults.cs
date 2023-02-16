@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -18,7 +19,6 @@ using dnGREP.Localization.Properties;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.UserControls;
 using Windows.Win32;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {

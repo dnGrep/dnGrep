@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using dnGREP.Everything;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 using TextFieldParser = Microsoft.VisualBasic.FileIO.TextFieldParser;
 
 namespace dnGREP.Common.UI
@@ -214,9 +211,9 @@ namespace dnGREP.Common.UI
                 {
                     commonPath = pathSegment;
                 }
-                else if (paths.All(str => str.StartsWith(commonPath + Path.DirectorySeparator + pathSegment, StringComparison.CurrentCultureIgnoreCase)))
+                else if (paths.All(str => str.StartsWith(commonPath + Path.DirectorySeparatorChar + pathSegment, StringComparison.CurrentCultureIgnoreCase)))
                 {
-                    commonPath += Path.DirectorySeparator + pathSegment;
+                    commonPath += Path.DirectorySeparatorChar + pathSegment;
                 }
                 else
                 {
@@ -349,6 +346,7 @@ namespace dnGREP.Common.UI
             return output.ToArray();
         }
 
+
         /// <summary>
         /// If the last path segment contains wild card chars, return the set of matching paths or files.
         /// </summary>
@@ -363,7 +361,7 @@ namespace dnGREP.Common.UI
                 if (!string.IsNullOrWhiteSpace(parent) && Directory.Exists(parent))
                 {
                     string pattern = Path.GetFileName(path);
-                    if (pattern.Contains(Path.WildcardQuestion) || pattern.Contains(Path.WildcardStarMatchAll))
+                    if (pattern.Contains('?') || pattern.Contains('*'))
                     {
                         string[] subDirs = Directory.GetDirectories(parent, pattern, SearchOption.TopDirectoryOnly);
                         output.AddRange(subDirs);

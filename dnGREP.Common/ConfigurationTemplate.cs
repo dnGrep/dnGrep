@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using Alphaleonis.Win32.Filesystem;
 
 namespace dnGREP.Common
 {

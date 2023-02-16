@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 
 namespace dnGREP.WPF

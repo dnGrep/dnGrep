@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using NLog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Everything
 {
@@ -124,7 +119,7 @@ namespace dnGREP.Everything
                         continue;
                     }
 
-                    if (!Directory.ExistsDrive(root))
+                    if (string.IsNullOrEmpty(Path.GetPathRoot(root)))
                     {
                         CountMissingFiles++;
                         invalidDrives.Add(root);

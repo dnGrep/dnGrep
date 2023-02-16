@@ -11,15 +11,12 @@ using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using dnGREP.Common.IO;
 using dnGREP.Common.UI;
 using dnGREP.Everything;
 using dnGREP.Localization;
 using NLog;
 using UtfUnknown;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
@@ -402,7 +399,7 @@ namespace dnGREP.Common
                 File.SetAttributes(file, FileAttributes.Normal);
                 File.Delete(file);
             }
-            Directory.Delete(path, true, true);
+            Directory.Delete(path, true);
         }
 
         /// <summary>
@@ -1269,7 +1266,7 @@ namespace dnGREP.Common
         {
             string filePath = args.SearchResult.FileNameDisplayed;
             if (filePath != null && filePath.Length > 260)
-                filePath = Path.GetShort83Path(filePath);
+                filePath = PathEx.GetShort83Path(filePath);
 
             if (!args.UseCustomEditor || string.IsNullOrWhiteSpace(args.CustomEditor))
             {
@@ -1399,7 +1396,7 @@ namespace dnGREP.Common
         public static void OpenContainingFolder(string fileName)
         {
             if (fileName.Length > 260)
-                fileName = Path.GetShort83Path(fileName);
+                fileName = PathEx.GetShort83Path(fileName);
 
             using (Process.Start("explorer.exe", "/select,\"" + fileName + "\""))
             {
@@ -1595,33 +1592,6 @@ namespace dnGREP.Common
                 }
             }
             return files;
-        }
-
-        /// <summary>
-        /// Checks if another process has a lock on the file
-        /// </summary>
-        /// <remarks>
-        /// This test can be very slow, do not use for UI updates or on a long list of files
-        /// </remarks>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        public static bool IsFileLocked(string filePath)
-        {
-            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
-            {
-                try
-                {
-                    var list = File.GetProcessForFileLock(filePath);
-
-                    return list != null && list.Count > 0;
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "Failure in file lock check");
-                }
-            }
-
-            return false;
         }
 
         public static bool IsReadOnly(GrepSearchResult result)

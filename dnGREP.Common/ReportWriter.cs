@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common

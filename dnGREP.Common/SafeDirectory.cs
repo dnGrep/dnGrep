@@ -6,10 +6,9 @@ using System.Linq;
 using NLog;
 using Alphaleonis.Win32.Filesystem;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
+using DirectoryInfo = System.IO.DirectoryInfo;
+using File = System.IO.File;
+using Path = System.IO.Path;
 
 namespace dnGREP.Common
 {

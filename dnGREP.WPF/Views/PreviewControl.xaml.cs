@@ -12,7 +12,6 @@ using System.Windows.Shapes;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Search;
-using File = Alphaleonis.Win32.Filesystem.File;
 
 namespace dnGREP.WPF
 {

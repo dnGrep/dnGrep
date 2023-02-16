@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -11,11 +12,6 @@ using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Everything;
 using dnGREP.Localization;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using Alphaleonis.Win32.Filesystem;
 
 namespace dnGREP.Common
 {
@@ -106,6 +106,7 @@ namespace dnGREP.Common
 
     public class Gitignore
     {
+        private const char gitSeparatorChar = '/';
         private const string gitSeparator = "/";
         private readonly HashSet<string> directories = new();
         private readonly HashSet<string> files = new();
@@ -124,7 +125,7 @@ namespace dnGREP.Common
 
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
                     s.EndsWith(gitSeparator, StringComparison.CurrentCulture))
-                .Select(s => Path.Combine(path, s.Replace(gitSeparator, Path.DirectorySeparator)
+                .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
                     .TrimEnd(Path.DirectorySeparatorChar))))
             {
                 if (!directories.Contains(item))
@@ -133,7 +134,7 @@ namespace dnGREP.Common
 
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
                    !s.EndsWith(gitSeparator, StringComparison.CurrentCulture))
-                .Select(s => Path.Combine(path, s.Replace(gitSeparator, Path.DirectorySeparator)
+                .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
                     .TrimEnd(Path.DirectorySeparatorChar))))
             {
                 if (!files.Contains(item))

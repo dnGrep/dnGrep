@@ -15,8 +15,6 @@ using dnGREP.Common;
 using dnGREP.Localization;
 using Microsoft.Win32;
 using NLog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {

@@ -1,4 +1,6 @@
-﻿GetOpenClipboardWindow
+﻿CreateSymbolicLink
+GetOpenClipboardWindow
+GetShortPathName
 GetWindowThreadProcessId
 SHGetFileInfo
 StrFormatByteSize

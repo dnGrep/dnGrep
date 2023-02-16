@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,7 +15,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.DockFloat;
@@ -3336,9 +3336,9 @@ namespace dnGREP.WPF
         private void OpenAppDataFolder()
         {
             string dataFolder = Utils.GetDataFolderPath();
-            if (!dataFolder.EndsWith(Path.DirectorySeparator))
+            if (!dataFolder.EndsWith(Path.DirectorySeparatorChar))
             {
-                dataFolder += Path.DirectorySeparator;
+                dataFolder += Path.DirectorySeparatorChar;
             }
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
