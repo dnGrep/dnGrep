@@ -1582,7 +1582,7 @@ namespace dnGREP.WPF
                         {
                             StatusMessage += enQuad + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
                         }
-                        logger.Info($"{StatusMessage} Search for: {SearchFor}\t{duration.GetPrettyString()}\t{totalMatchCount}\t{successFileCount}\t{processedFiles}");
+                        logger.Info($"{StatusMessage} {Resources.Main_SearchFor} {SearchFor}\t{duration.GetPrettyString()}\t{totalMatchCount}\t{successFileCount}\t{processedFiles}");
                     }
                     else
                     {
