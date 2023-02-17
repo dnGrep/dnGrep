@@ -491,6 +491,21 @@
                     </StackPanel>
                 </GroupBox>
 
+                <GroupBox Header="{l:Loc Key='Options_SearchOptions'}">
+                    <StackPanel Margin="0,3,0,0">
+                        <Label Content="{l:Loc Key='Options_MaximumNumberOfParallelSearches'}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Slider Width="250" HorizontalAlignment="Left"
+                                    Minimum="1" Maximum="{Binding TaskLimit}" 
+                                    AutoToolTipPlacement="BottomRight"
+                                    TickPlacement="BottomRight"
+                                    Value="{Binding ParallelismCount}"/>
+                            <CheckBox Margin="12,0" Content="{l:Loc Key='Options_NoFixedLimit'}"
+                                      IsChecked="{Binding ParallelismUnlimited}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
                 <GroupBox Header="{l:Loc Key='Options_ResultsOptions'}">
                     <StackPanel Margin="0,3,0,0">
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_MaximizeResultsPanelOnSearch'}"

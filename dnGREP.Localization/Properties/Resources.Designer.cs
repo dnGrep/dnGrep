@@ -4374,6 +4374,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum number of parallel searches.
+        /// </summary>
+        public static string Options_MaximumNumberOfParallelSearches {
+            get {
+                return ResourceManager.GetString("Options_MaximumNumberOfParallelSearches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move files.
         /// </summary>
         public static string Options_MoveFiles {
@@ -4388,6 +4397,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_No {
             get {
                 return ResourceManager.GetString("Options_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No fixed limit.
+        /// </summary>
+        public static string Options_NoFixedLimit {
+            get {
+                return ResourceManager.GetString("Options_NoFixedLimit", resourceCulture);
             }
         }
         
@@ -4730,6 +4748,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_Save {
             get {
                 return ResourceManager.GetString("Options_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search options.
+        /// </summary>
+        public static string Options_SearchOptions {
+            get {
+                return ResourceManager.GetString("Options_SearchOptions", resourceCulture);
             }
         }
         
