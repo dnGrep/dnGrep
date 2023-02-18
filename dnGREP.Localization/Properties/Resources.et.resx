@@ -2657,4 +2657,8 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Olgu</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>Otsingu valikud</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
 </root>

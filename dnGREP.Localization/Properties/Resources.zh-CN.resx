@@ -3522,4 +3522,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>全否(_L)</value>
     <comment>Message box button text (accel)</comment>
   </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>搜索选项</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>系统自行决定并行任务数</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>最大并行搜索数</value>
+    <comment>Options dialog, parallel options label</comment>
+  </data>
 </root>

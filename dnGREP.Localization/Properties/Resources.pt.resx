@@ -2781,4 +2781,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>OK</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>Opções de pesquisa</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
 </root>
