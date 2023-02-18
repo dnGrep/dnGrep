@@ -3522,4 +3522,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>全否(_L)</value>
     <comment>Message box button text (accel)</comment>
   </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>搜索选项</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
 </root>
