@@ -60,6 +60,9 @@ namespace dnGREP.Engines
                 int idx = 0;
                 while (idx > -1 && idx < text.Length)
                 {
+                    if (Utils.CancelSearch)
+                        break;
+
                     idx = text.IndexOfAny(new char[] { '\r', '\n' }, idx);
                     if (idx == -1)
                     {
@@ -246,6 +249,9 @@ namespace dnGREP.Engines
             int start = 0, pos;
             while (start < text.Length)
             {
+                if (Utils.CancelSearch)
+                    break;
+
                 pos = text.IndexOf("\r\n", start);
                 if (pos > -1)
                 {
@@ -464,6 +470,9 @@ namespace dnGREP.Engines
             int index = 0;
             while (index >= 0)
             {
+                if (Utils.CancelSearch)
+                    break;
+
                 index = text.IndexOf(searchText, index, comparisonType);
                 if (index >= 0)
                 {
@@ -560,6 +569,9 @@ namespace dnGREP.Engines
                     int foundCounter = 0;
                     while (xpni.MoveNext())
                     {
+                        if (Utils.CancelSearch)
+                            break;
+
                         foundCounter++;
                         var xn = xpni.Current;
 
@@ -640,6 +652,9 @@ namespace dnGREP.Engines
 
             while (node.MoveToPrevious())
             {
+                if (Utils.CancelSearch)
+                    break;
+
                 pos++;
             }
 
@@ -682,6 +697,9 @@ namespace dnGREP.Engines
                 {
                     while (!reader.EndOfStream)
                     {
+                        if (Utils.CancelSearch)
+                            break;
+
                         lineLengths.Add(reader.ReadLine().Length);
                     }
                 }
@@ -704,6 +722,9 @@ namespace dnGREP.Engines
                         // Parse the XML and display each node.
                         while (reader.Read())
                         {
+                            if (Utils.CancelSearch)
+                                break;
+
                             switch (reader.NodeType)
                             {
                                 case XmlNodeType.Element:
@@ -879,6 +900,9 @@ namespace dnGREP.Engines
             int counter = 0;
             while (counter < text.Length)
             {
+                if (Utils.CancelSearch)
+                    break;
+
                 int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
                 if (matchLocation == -1)
                     break;

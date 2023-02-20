@@ -3404,4 +3404,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>確定</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>搜尋選項</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
 </root>

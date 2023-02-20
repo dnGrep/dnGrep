@@ -106,6 +106,9 @@ namespace dnGREP.Common
             processedFilesCount = 0;
             foundfilesCount = 0;
 
+            int maxParallel = GrepSettings.Instance.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
+            int counter = 0, highWater = 0;
+
             try
             {
                 if (SearchParams.SearchParallel)
@@ -114,16 +117,16 @@ namespace dnGREP.Common
 
                     ParallelOptions po = new ParallelOptions
                     {
-                        MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount * 4 / 5),
+                        MaxDegreeOfParallelism = maxParallel == -1 ? -1 : Math.Max(1, maxParallel),
                         CancellationToken = cancellationTokenSource.Token
                     };
-                    Parallel.ForEach(files, po, f => Search(f, searchType, searchPattern, searchOptions, codePage));
+                    Parallel.ForEach(files, po, f => Search(f, searchType, searchPattern, searchOptions, codePage, ref counter, ref highWater));
                 }
                 else
                 {
                     foreach (var file in files)
                     {
-                        Search(file, searchType, searchPattern, searchOptions, codePage);
+                        Search(file, searchType, searchPattern, searchOptions, codePage, ref counter, ref highWater);
 
                         if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
                             break;
@@ -143,6 +146,8 @@ namespace dnGREP.Common
             }
             finally
             {
+                logger.Info($"Maximum concurrent tasks used in search: {highWater}");
+
                 if (cancellationTokenSource != null)
                 {
                     cancellationTokenSource.Dispose();
@@ -182,7 +187,8 @@ namespace dnGREP.Common
                         continue;
                     }
 
-                    Search(filePath, searchType, modSearchPattern, searchOptions, codePage);
+                    int counter = 0, highWater = 0;
+                    Search(filePath, searchType, modSearchPattern, searchOptions, codePage, ref counter, ref highWater);
 
                     if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
                         break;
@@ -226,10 +232,13 @@ namespace dnGREP.Common
             }
         }
 
-        private void Search(string file, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage)
+        private void Search(string file, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage,
+            ref int counter, ref int highWater)
         {
             try
             {
+                InterlockedMax(ref highWater, Interlocked.Increment(ref counter));
+
                 ProcessedFile(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, file));
 
                 bool isArchive = Utils.IsArchive(file);
@@ -300,12 +309,30 @@ namespace dnGREP.Common
             }
             finally
             {
+                Interlocked.Decrement(ref counter);
+
                 if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
                 {
                     if (cancellationTokenSource != null)
                         cancellationTokenSource.Cancel();
                 }
             }
+        }
+
+        // from Raymond Chen:
+        // https://devblogs.microsoft.com/oldnewthing/20140516-00/?p=973
+        // https://devblogs.microsoft.com/oldnewthing/20040915-00/?p=37863
+        private static int InterlockedMax(ref int location, int value)
+        {
+            int initialValue, newValue;
+            do
+            {
+                initialValue = location;
+                newValue = Math.Max(initialValue, value);
+            }
+            while (Interlocked.CompareExchange(ref location, newValue,
+                                               initialValue) != initialValue);
+            return initialValue;
         }
 
         private void ArchiveEngine_StartingFileSearch(object sender, DataEventArgs<string> e)
@@ -372,14 +399,14 @@ namespace dnGREP.Common
                         {
                             throw new ApplicationException("Replace failed for file: " + item.OrginalFile);
                         }
-                        
+
 
                         if (!Utils.CancelSearch)
                             ProcessedFile(this, new ProgressStatus(false, processedFiles, processedFiles, null, item.OrginalFile));
 
 
                         File.SetAttributes(item.OrginalFile, File.GetAttributes(undoFileName));
-                        
+
                         if (restoreLastModifiedDate)
                         {
                             try

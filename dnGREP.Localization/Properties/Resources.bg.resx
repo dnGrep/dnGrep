@@ -3023,4 +3023,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Отказ</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>Настройки на търсене</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
 </root>

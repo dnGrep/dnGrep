@@ -27,6 +27,8 @@ namespace dnGREP.WPF
 
         public OptionsViewModel()
         {
+            TaskLimit = Environment.ProcessorCount * 4;
+
             LoadSettings();
 
             foreach (string name in AppTheme.Instance.ThemeNames)
@@ -156,6 +158,7 @@ namespace dnGREP.WPF
                 CopyOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy) ||
                 MoveOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
+                MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
                 CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
@@ -740,6 +743,78 @@ namespace dnGREP.WPF
             }
         }
 
+
+        public int MaxDegreeOfParallelism
+        {
+            get
+            {
+                return ParallelismUnlimited ? -1 : ParallelismCount;
+            }
+            set
+            {
+                if (value == -1)
+                {
+                    ParallelismUnlimited = true;
+                    ParallelismCount = TaskLimit;
+                }
+                else
+                {
+                    ParallelismUnlimited = false;
+                    ParallelismCount = value;
+                }
+            }
+        }
+
+        private int taskLimit = 1;
+        public int TaskLimit
+        {
+            get { return taskLimit; }
+            set
+            {
+                if (taskLimit == value)
+                {
+                    return;
+                }
+
+                taskLimit = value;
+                OnPropertyChanged(nameof(TaskLimit));
+            }
+        }
+
+        private int parallelismCount = 1;
+        public int ParallelismCount
+        {
+            get { return parallelismCount; }
+            set
+            {
+                if (parallelismCount == value)
+                {
+                    return;
+                }
+
+                parallelismCount = value;
+                OnPropertyChanged(nameof(ParallelismCount));
+            }
+        }
+
+
+        private bool parallelismUnlimited = true;
+        public bool ParallelismUnlimited
+        {
+            get { return parallelismUnlimited; }
+            set
+            {
+                if (parallelismUnlimited == value)
+                {
+                    return;
+                }
+
+                parallelismUnlimited = value;
+                OnPropertyChanged(nameof(ParallelismUnlimited));
+            }
+        }
+
+
         public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
 
         private ReplaceDialogConfiguration replaceDialogLayout;
@@ -1221,6 +1296,7 @@ namespace dnGREP.WPF
             CopyOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy);
             MoveOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
+            MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
 
             UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
             ApplicationFontFamily = EditApplicationFontFamily =
@@ -1348,6 +1424,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
+            Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
             Settings.Set(GrepSettings.Key.DeleteToRecycleBin, DeleteOption == DeleteFilesDestination.Recycle);
             Settings.Set(GrepSettings.Key.OverwriteFilesOnCopy, CopyOverwriteFileOption);

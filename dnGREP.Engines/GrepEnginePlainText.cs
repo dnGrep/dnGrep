@@ -122,6 +122,9 @@ namespace dnGREP.Engines
                     List<GrepMatch> matches = new List<GrepMatch>();
                     while (!readStream.EndOfStream)
                     {
+                        if (Utils.CancelSearch)
+                            break;
+
                         line = readStream.ReadLine();
 
                         if (Utils.CancelSearch)
