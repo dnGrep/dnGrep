@@ -2,6 +2,9 @@
 
 namespace dnGREP.Common.IO
 {
+    /// <summary>
+    /// File extensions 
+    /// </summary>
     public static class FileEx
     {
         /// <summary>Creates a symbolic link (similar to CMD command: "MKLINK") to a file.</summary>

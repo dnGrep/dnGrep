@@ -55,11 +55,6 @@
         </File>
       </Component>
 
-      <Component Id="cmpD4888A65714D466980CC2FDDE5C5CBE0" Guid="{AEFA748D-9B01-45A4-913B-49ED0E435DBA}">
-        <File Id="fil54C0F2C082F04A4082A00120E15B872C" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\AlphaFS.dll" >
-          <netfx:NativeImage Id="ngen_AlphaFS.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
-      </Component>
       <Component Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" Guid="{499E357F-9822-4945-A800-82BF6979E072}">
         <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ICSharpCode.AvalonEdit.dll" >
           <netfx:NativeImage Id="ngen_ICSharpCode.AvalonEdit.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
@@ -189,7 +184,6 @@
       <ComponentRef Id="cmp076536C5D88900C40C1A61CB5902CCD6" />
       <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
       <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
-      <ComponentRef Id="cmpD4888A65714D466980CC2FDDE5C5CBE0" />
       <ComponentRef Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" />
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />

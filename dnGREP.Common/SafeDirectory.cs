@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using dnGREP.Common.IO;
 using NLog;
-using Alphaleonis.Win32.Filesystem;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = System.IO.DirectoryInfo;
-using File = System.IO.File;
-using Path = System.IO.Path;
 
 namespace dnGREP.Common
 {
@@ -90,7 +86,7 @@ namespace dnGREP.Common
             try
             {
                 // search down subdirectories
-                var list = Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath)
+                var list = DirectoryEx.EnumerateFiles(path, fileOptions, fileFilters)
                     .Select(s => Path.GetDirectoryName(s)).ToList();
 
                 if (list.Count == 0)
@@ -196,7 +192,7 @@ namespace dnGREP.Common
                 };
             }
 
-            return Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath);
+            return DirectoryEx.EnumerateFiles(path, fileOptions, fileFilters);
         }
 
         private static IEnumerable<string> EnumerateFilesWithFilters(string path, IList<string> patterns,
@@ -296,7 +292,7 @@ namespace dnGREP.Common
                 },
             };
 
-            return Directory.EnumerateDirectories(path, dirOptions, dirFilters, PathFormat.FullPath);
+            return DirectoryEx.EnumerateDirectories(path, dirOptions, dirFilters);
         }
 
         private static IEnumerable<string> EnumerateFilesImpl(string path, IList<string> patterns,
@@ -367,7 +363,7 @@ namespace dnGREP.Common
             if (filter.FollowSymlinks)
                 fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
-            return Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath);
+            return DirectoryEx.EnumerateFiles(path, fileOptions, fileFilters);
         }
 
         private static int GetDepth(DirectoryInfo di)
