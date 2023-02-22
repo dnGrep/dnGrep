@@ -47,7 +47,7 @@ namespace dnGREP.Common.IO
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="NotSupportedException"/>
         /// <param name="path">The path of a file or directory.</param>
-        internal static string GetDirectoryRoot(string path)
+        internal static string? GetDirectoryRoot(string path)
         {
             var pathLp = PathEx.GetRegularPath(path);
 

@@ -104,7 +104,7 @@ namespace dnGREP.Common.IO
 
             if (path.StartsWith(UncPrefix, StringComparison.Ordinal))
             {
-                return LongPathUncPrefix + path.Substring(UncPrefix.Length);
+                return string.Concat(LongPathUncPrefix, path.AsSpan(UncPrefix.Length));
             }
 
             if (!Path.IsPathRooted(path) || !IsLogicalDrive(path))
@@ -115,6 +115,8 @@ namespace dnGREP.Common.IO
             return LongPathPrefix + path;
         }
 
+
+#pragma warning disable IDE0057
         /// <summary>Gets the regular path from a long path.</summary>
         /// <returns>
         ///   Returns the regular form of a long <paramref name="path"/>.
@@ -135,7 +137,7 @@ namespace dnGREP.Common.IO
                 throw new ArgumentException("Path is zero length or only whitespace", nameof(path));
 
             if (path.StartsWith(DosDeviceUncPrefix, StringComparison.OrdinalIgnoreCase))
-                return UncPrefix + path.Substring(DosDeviceUncPrefix.Length);
+                return string.Concat(UncPrefix, path.AsSpan(DosDeviceUncPrefix.Length));
 
 
             if (path.StartsWith(LogicalDrivePrefix, StringComparison.Ordinal))
@@ -150,7 +152,7 @@ namespace dnGREP.Common.IO
                    !path.StartsWith(LongPathPrefix, StringComparison.Ordinal)
 
                ? path
-               : (path.StartsWith(LongPathUncPrefix, StringComparison.OrdinalIgnoreCase) ? UncPrefix + path.Substring(LongPathUncPrefix.Length) : path.Substring(LongPathPrefix.Length));
+               : (path.StartsWith(LongPathUncPrefix, StringComparison.OrdinalIgnoreCase) ? string.Concat(UncPrefix, path.AsSpan(LongPathUncPrefix.Length)) : path.Substring(LongPathPrefix.Length));
         }
 
         /// <summary>[AlphaFS] Checks if <paramref name="path"/> is in a logical drive format, such as "C:", "D:".</summary>
@@ -169,11 +171,12 @@ namespace dnGREP.Common.IO
 
             return false;
         }
+#pragma warning restore IDE0057
 
         /// <summary>Adds a trailing <see cref="DirectorySeparatorChar"/> character to the string, when absent.</summary>
         /// <returns>A text string with a trailing <see cref="DirectorySeparatorChar"/> character. The function returns <c>null</c> when <paramref name="path"/> is <c>null</c>.</returns>
         /// <param name="path">A text string to which the trailing <see cref="DirectorySeparatorChar"/> is to be added, when absent.</param>
-        internal static string AddTrailingDirectorySeparator(string path)
+        internal static string? AddTrailingDirectorySeparator(string path)
         {
             return null == path ? null : 
                 (Path.EndsInDirectorySeparator(path) ? path : path + Path.DirectorySeparatorChar);

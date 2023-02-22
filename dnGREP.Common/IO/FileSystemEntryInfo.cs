@@ -8,8 +8,8 @@ namespace dnGREP.Common.IO
     /// </summary>
     public class FileSystemEntryInfo
     {
-        private string _fullPath;
-        private string _longFullPath;
+        private string? _fullPath;
+        private string? _longFullPath;
         private WIN32_FIND_DATAW findData;
 
         internal FileSystemEntryInfo(WIN32_FIND_DATAW win32FindData)
@@ -18,7 +18,7 @@ namespace dnGREP.Common.IO
         }
         public string FullPath
         {
-            get { return _fullPath; }
+            get { return _fullPath ?? string.Empty; }
 
             set
             {
@@ -29,7 +29,7 @@ namespace dnGREP.Common.IO
 
         public string LongFullPath
         {
-            get { return _longFullPath; }
+            get { return _longFullPath ?? string.Empty; }
 
             private set { _longFullPath = PathEx.GetLongPath(value); }
         }

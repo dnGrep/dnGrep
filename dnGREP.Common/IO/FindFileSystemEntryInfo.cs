@@ -55,7 +55,7 @@ namespace dnGREP.Common.IO
 
             IsRelativePath = !Path.IsPathRooted(OriginalInputPath);
 
-            RelativeAbsolutePrefix = IsRelativePath ? InputPath.Replace(OriginalInputPath, string.Empty) : null;
+            RelativeAbsolutePrefix = IsRelativePath ? InputPath.Replace(OriginalInputPath, string.Empty) : string.Empty;
 
             FileSystemObjectType = null;
 
@@ -193,17 +193,17 @@ namespace dnGREP.Common.IO
 
         /// <summary>Gets or sets the custom enumeration in/exclusion filter.</summary>
         /// <value>The method determining if the object should be in/excluded from the output or not.</value>
-        public Predicate<FileSystemEntryInfo> InclusionFilter { get; private set; }
+        public Predicate<FileSystemEntryInfo>? InclusionFilter { get; private set; }
 
 
         /// <summary>Gets or sets the custom enumeration recursion filter.</summary>
         /// <value>The method determining if the directory should be recursively traversed or not.</value>
-        public Predicate<FileSystemEntryInfo> RecursionFilter { get; private set; }
+        public Predicate<FileSystemEntryInfo>? RecursionFilter { get; private set; }
 
 
         /// <summary>Gets or sets the handler of errors that may occur.</summary>
         /// <value>The error handler method.</value>
-        public ErrorHandler ErrorHandler { get; private set; }
+        public ErrorHandler? ErrorHandler { get; private set; }
 
 
         /// <summary>Gets or sets the cancellation token to abort the enumeration.</summary>
@@ -215,14 +215,14 @@ namespace dnGREP.Common.IO
 
         #region Methods
 
-        unsafe private FindCloseSafeHandle FindFirstFile(string pathLp, out WIN32_FIND_DATAW win32FindData, out uint lastError, bool suppressException = false)
+        unsafe private FindCloseSafeHandle? FindFirstFile(string pathLp, out WIN32_FIND_DATAW win32FindData, out uint lastError, bool suppressException = false)
         {
 
             lastError = (uint)WIN32_ERROR.NO_ERROR;
 
             string searchFilter = "*";
             var searchOption = null != FileSystemObjectType && (bool)FileSystemObjectType ? FINDEX_SEARCH_OPS.FindExSearchLimitToDirectories : FINDEX_SEARCH_OPS.FindExSearchNameMatch;
-            FindCloseSafeHandle handle = null;
+            FindCloseSafeHandle? handle = null;
 
             win32FindData = new();
 
@@ -247,7 +247,7 @@ namespace dnGREP.Common.IO
                     }
 
 
-                    ThrowPossibleException((uint)lastError, pathLp);
+                    ThrowPossibleException(lastError, pathLp);
                 }
             }
 
@@ -263,13 +263,13 @@ namespace dnGREP.Common.IO
         }
 
 
-        private T NewFileSystemEntryType<T>(bool isFolder, FileSystemEntryInfo fsei, string fileName, string pathLp, WIN32_FIND_DATAW win32FindData)
+        private T? NewFileSystemEntryType<T>(bool isFolder, FileSystemEntryInfo fsei, string fileName, string pathLp, WIN32_FIND_DATAW win32FindData)
         {
             // Determine yield, e.g. don't return files when only folders are requested and vice versa.
 
             if (null != FileSystemObjectType && (!(bool)FileSystemObjectType || !isFolder) && (!(bool)!FileSystemObjectType || isFolder))
 
-                return (T)(object)null;
+                return (T?)(object?)null;
 
 
             if (null == fsei)
@@ -278,7 +278,7 @@ namespace dnGREP.Common.IO
 
             // Return object instance FullPath property as string, optionally in long path format.
 
-            return AsString ? null == InclusionFilter || InclusionFilter(fsei) ? (T)(object)(AsLongPath ? fsei.LongFullPath : fsei.FullPath) : (T)(object)null
+            return AsString ? null == InclusionFilter || InclusionFilter(fsei) ? (T)(object)(AsLongPath ? fsei.LongFullPath : fsei.FullPath) : (T?)(object?)null
 
 
                // Make sure the requested file system object type is returned.
@@ -287,7 +287,7 @@ namespace dnGREP.Common.IO
                // false = Return only files.
 
                : null != InclusionFilter && !InclusionFilter(fsei)
-                  ? (T)(object)null
+                  ? (T?)(object?)null
 
                   // Return object instance of type FileSystemInfo.
 
@@ -319,24 +319,22 @@ namespace dnGREP.Common.IO
 
             var dirs = new Queue<string>(4096);
 
-            dirs.Enqueue(PathEx.AddTrailingDirectorySeparator(InputPath));
-
+            var path = PathEx.AddTrailingDirectorySeparator(InputPath);
+            if (path != null)
+            {
+                dirs.Enqueue(path);
+            }
 
             //using (new NativeMethods.ChangeErrorMode(NativeMethods.ErrorMode.FailCriticalErrors))
 
             while (dirs.Count > 0 && !CancellationToken.IsCancellationRequested)
             {
-                uint lastError;
-
-                WIN32_FIND_DATAW win32FindData;
-
-
                 // Removes the object at the beginning of your Queue.
                 // The algorithmic complexity of this is O(1). It doesn't loop over elements.
 
                 var pathLp = dirs.Dequeue();
 
-                using var handle = FindFirstFile(pathLp + PathEx.WildcardStarMatchAll, out win32FindData, out lastError);
+                using var handle = FindFirstFile(pathLp + PathEx.WildcardStarMatchAll, out WIN32_FIND_DATAW win32FindData, out uint lastError);
 
                 // When the handle is null and we are still here, it means the ErrorHandler is active.
                 // We hit an inaccessible folder, so break and continue with the next one.
@@ -373,9 +371,13 @@ namespace dnGREP.Common.IO
 
                     // If recursion is requested, add it to the queue for later traversal.
                     if (isFolder && Recursive && (null == RecursionFilter || RecursionFilter(fsei)))
-
-                        dirs.Enqueue(PathEx.AddTrailingDirectorySeparator(pathLp + fileName));
-
+                    {
+                        path = PathEx.AddTrailingDirectorySeparator(pathLp + fileName);
+                        if (path != null)
+                        {
+                            dirs.Enqueue(path);
+                        }
+                    }
 
                     // Codacy: When constraints have not been applied to restrict a generic type parameter to be a reference type, then a value type,
                     // such as a struct, could also be passed. In such cases, comparing the type parameter to null would always be false,
@@ -385,8 +387,10 @@ namespace dnGREP.Common.IO
                     if (Equals(res, default(T)))
                         continue;
 
-
-                    yield return res;
+                    if (res !=  null)
+                    {
+                        yield return res;
+                    }
 
                 } while (!CancellationToken.IsCancellationRequested &&
                    PInvoke.FindNextFile(handle, out win32FindData));
@@ -495,62 +499,23 @@ namespace dnGREP.Common.IO
             }
 
 
-            switch (errorCode)
+            throw errorCode switch
             {
-                case (uint)WIN32_ERROR.ERROR_INVALID_DRIVE:
-                    throw new System.IO.DriveNotFoundException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_OPERATION_ABORTED:
-                    throw new OperationCanceledException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_FILE_NOT_FOUND:
-                    throw new System.IO.FileNotFoundException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_PATH_NOT_FOUND:
-                    throw new System.IO.DirectoryNotFoundException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_BAD_RECOVERY_POLICY:
-                    throw new System.Security.Policy.PolicyException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_FILE_READ_ONLY:
-                case (uint)WIN32_ERROR.ERROR_ACCESS_DENIED:
-                case (uint)WIN32_ERROR.ERROR_NETWORK_ACCESS_DENIED:
-                    throw new UnauthorizedAccessException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_ALREADY_EXISTS:
-                case (uint)WIN32_ERROR.ERROR_FILE_EXISTS:
-                    throw new Exception($"{readPath} already exists");// new AlreadyExistsException(readPath, true);
-
-
-                case (uint)WIN32_ERROR.ERROR_DIR_NOT_EMPTY:
-                    throw new Exception($"Directory not empty: {errorMessage}"); //new DirectoryNotEmptyException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_NOT_READY:
-                    throw new Exception($"Device not ready: {errorMessage}"); //new DeviceNotReadyException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_NOT_SAME_DEVICE:
-                    throw new Exception($"Not same Device: {errorMessage}"); //new NotSameDeviceException(errorMessage);
-
-
-                case (uint)WIN32_ERROR.ERROR_SUCCESS:
-                case (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_INITIATED:
-                case (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_REQUIRED:
-                case (uint)WIN32_ERROR.ERROR_SUCCESS_RESTART_REQUIRED:
-                    // We should really never get here, throwing an exception for a successful operation.
-                    throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "Incorrectly implemented function attempting to generate exception from successful operation {0}", errorMessage));
-
-                default:
-                    // We don't have a specific exception to generate for this error.               
-                    throw new System.IO.IOException(errorMessage, GetHrFromWin32Error(errorCode));
-            }
+                (uint)WIN32_ERROR.ERROR_INVALID_DRIVE => new DriveNotFoundException(errorMessage),
+                (uint)WIN32_ERROR.ERROR_OPERATION_ABORTED => new OperationCanceledException(errorMessage),
+                (uint)WIN32_ERROR.ERROR_FILE_NOT_FOUND => new FileNotFoundException(errorMessage),
+                (uint)WIN32_ERROR.ERROR_PATH_NOT_FOUND => new DirectoryNotFoundException(errorMessage),
+                (uint)WIN32_ERROR.ERROR_BAD_RECOVERY_POLICY => new System.Security.Policy.PolicyException(errorMessage),
+                (uint)WIN32_ERROR.ERROR_FILE_READ_ONLY or (uint)WIN32_ERROR.ERROR_ACCESS_DENIED or (uint)WIN32_ERROR.ERROR_NETWORK_ACCESS_DENIED => new UnauthorizedAccessException(errorMessage),
+                (uint)WIN32_ERROR.ERROR_ALREADY_EXISTS or (uint)WIN32_ERROR.ERROR_FILE_EXISTS => new Exception($"{readPath} already exists"),
+                (uint)WIN32_ERROR.ERROR_DIR_NOT_EMPTY => new Exception($"Directory not empty: {errorMessage}"),
+                (uint)WIN32_ERROR.ERROR_NOT_READY => new Exception($"Device not ready: {errorMessage}"),
+                (uint)WIN32_ERROR.ERROR_NOT_SAME_DEVICE => new Exception($"Not same Device: {errorMessage}"),
+                // We should really never get here, throwing an exception for a successful operation.
+                (uint)WIN32_ERROR.ERROR_SUCCESS or (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_INITIATED or (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_REQUIRED or (uint)WIN32_ERROR.ERROR_SUCCESS_RESTART_REQUIRED => new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "Incorrectly implemented function attempting to generate exception from successful operation {0}", errorMessage)),
+                // We don't have a specific exception to generate for this error.
+                _ => new IOException(errorMessage, GetHrFromWin32Error(errorCode)),               
+            };
         }
 
         private static int GetHrFromWin32Error(uint errorCode)

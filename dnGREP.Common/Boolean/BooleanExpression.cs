@@ -13,17 +13,17 @@ namespace dnGREP.Common
         /// <summary>
         /// Gets a simplified expression logically the same as the parser input string
         /// </summary>
-        public string Expression { get; private set; }
+        public string Expression { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets the parser input string in postfix order
         /// </summary>
-        public string PostfixExpression { get; private set; }
+        public string PostfixExpression { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets the parsed input as list of tokens in postfix order
         /// </summary>
-        public List<BooleanToken> PostfixTokens { get; private set; }
+        public List<BooleanToken> PostfixTokens { get; private set; } = new();
 
         /// <summary>
         /// Gets the list of operands from the parsed input

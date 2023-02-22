@@ -53,17 +53,17 @@ namespace dnGREP.Common.IO
     {
         /// <summary>Gets or sets the filter that returns <c>true</c> if the input file system entry should be included in the enumeration.</summary>
         /// <value>The delegate to a filtering method.</value>      
-        public Predicate<FileSystemEntryInfo> InclusionFilter { get; set; }
+        public Predicate<FileSystemEntryInfo>? InclusionFilter { get; set; }
 
 
         /// <summary>Gets or sets the filter that returns <c>true</c> if the input directory should be recursively traversed.</summary>
         /// <value>The delegate to a filtering method.</value>
-        public Predicate<FileSystemEntryInfo> RecursionFilter { get; set; }
+        public Predicate<FileSystemEntryInfo>? RecursionFilter { get; set; }
 
 
         /// <summary>Gets or sets the filter that returns <c>true</c> if the input error should not be thrown.</summary>
         /// <value>The delegate to a filtering method.</value>
-        public ErrorHandler ErrorFilter { get; set; }
+        public ErrorHandler? ErrorFilter { get; set; }
 
 
         /// <summary>The number of retries, excluding the first attempt. Default is <c>0</c>.</summary>

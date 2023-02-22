@@ -33,7 +33,7 @@ namespace dnGREP.Common
                 .ToList();
 
             int currentIndex = 0;
-            TokenMatch lastMatch = null;
+            TokenMatch? lastMatch = null;
             for (int i = 0; i < groupedByIndex.Count; i++)
             {
                 var bestMatch = groupedByIndex[i].First();
