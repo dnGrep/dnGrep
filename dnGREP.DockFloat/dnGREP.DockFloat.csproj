@@ -43,5 +43,7 @@
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
   </ItemGroup>
-  <PropertyGroup />
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 </Project>

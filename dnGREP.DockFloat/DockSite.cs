@@ -21,8 +21,8 @@ namespace dnGREP.DockFloat
     [TemplatePart(Name = "PART_PopOutButton", Type = typeof(ButtonBase))]
     public class DockSite : Control
     {
-        private Window floatingWindow;
-        private ContentState savedContentState;
+        private Window? floatingWindow;
+        private ContentState? savedContentState;
 
         static DockSite()
         {
@@ -35,7 +35,7 @@ namespace dnGREP.DockFloat
         }
 
         private static bool mainWindowClosing;
-        private static void MainWindow_Closing(object sender, CancelEventArgs e)
+        private static void MainWindow_Closing(object? sender, CancelEventArgs e)
         {
             if (sender is Window mainWindow)
             {
@@ -54,18 +54,20 @@ namespace dnGREP.DockFloat
         public static bool RunninginXamlDesigner { get; } =
             DesignerProperties.GetIsInDesignMode(new DependencyObject());
 
-        static void MinimizeOrRestoreWithMainWindow(object sender, EventArgs e)
+        static void MinimizeOrRestoreWithMainWindow(object? sender, EventArgs e)
         {
-            var mainWindow = sender as Window;
-            var floatWindows = GetAllFloatWindows(mainWindow);
-            foreach (var floatWindow in floatWindows)
+            if (sender is Window mainWindow)
             {
-                if (mainWindow.WindowState == WindowState.Minimized)
-                    floatWindow.WindowState = WindowState.Minimized;
-                else if (mainWindow.WindowState == WindowState.Normal)
-                    floatWindow.WindowState = WindowState.Normal;
+                var floatWindows = GetAllFloatWindows(mainWindow);
+                foreach (var floatWindow in floatWindows)
+                {
+                    if (mainWindow.WindowState == WindowState.Minimized)
+                        floatWindow.WindowState = WindowState.Minimized;
+                    else if (mainWindow.WindowState == WindowState.Normal)
+                        floatWindow.WindowState = WindowState.Normal;
+                }
+                mainWindow.Activate();
             }
-            mainWindow.Activate();
         }
 
         public static IEnumerable<Window> GetAllFloatWindows(Window mainWindow) =>
@@ -73,7 +75,7 @@ namespace dnGREP.DockFloat
             where dockSite.floatingWindow != null
             select dockSite.floatingWindow;
 
-        public FrameworkElement Content
+        public FrameworkElement? Content
         {
             get => (FrameworkElement)GetValue(ContentProperty);
             set => SetValue(ContentProperty, value);
@@ -141,8 +143,10 @@ namespace dnGREP.DockFloat
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            var popOutButton = GetTemplateChild("PART_PopOutButton") as Button;
-            popOutButton.Click += (s, e) => PopOut(false);
+            if (GetTemplateChild("PART_PopOutButton") is Button popOutButton)
+            {
+                popOutButton.Click += (s, e) => PopOut(false);
+            }
         }
 
         public static void InitFloatingWindows()
@@ -156,6 +160,8 @@ namespace dnGREP.DockFloat
 
         private void SavePlacement()
         {
+            if (floatingWindow == null) return;
+
             FloatWindowBounds = new Rect(
                 floatingWindow.Left, floatingWindow.Top,
                 floatingWindow.ActualWidth, floatingWindow.ActualHeight);

@@ -91,7 +91,7 @@ namespace dnGREP.DockFloat
 
 
         #region Private fields
-        private FrameworkElement element;     // element to resize (target element)
+        private FrameworkElement? element;    // element to resize (target element)
         private double width;                 // current desired width of the element, can be less than minwidth
         private double height;                // current desired height of the element, can be less than minheight
         private double previousParentWidth;   // current width of parent element, used for proportional resize
@@ -185,53 +185,61 @@ namespace dnGREP.DockFloat
 
         private void SetTargetWidth(double newWidth)
         {
-            Panel dp = Parent as Panel;
-            Dock dock = DockPanel.GetDock(this);
-            MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
-            if (dock == Dock.Left && newWidth > dp.ActualWidth - t.Matrix.OffsetX - Thickness)
-                newWidth = dp.ActualWidth - t.Matrix.OffsetX - Thickness;
+            if (Parent is Panel dp)
+            {
+                Dock dock = DockPanel.GetDock(this);
+                if (element?.TransformToAncestor(dp) is MatrixTransform t)
+                {
+                    if (dock == Dock.Left && newWidth > dp.ActualWidth - t.Matrix.OffsetX - Thickness)
+                        newWidth = dp.ActualWidth - t.Matrix.OffsetX - Thickness;
 
-            if (newWidth < element.MinWidth)
-                newWidth = element.MinWidth;
-            if (newWidth > element.MaxWidth)
-                newWidth = element.MaxWidth;
+                    if (newWidth < element.MinWidth)
+                        newWidth = element.MinWidth;
+                    if (newWidth > element.MaxWidth)
+                        newWidth = element.MaxWidth;
 
-            if (newWidth > dp.ActualWidth - Panel1MinSize)
-                newWidth = dp.ActualWidth - Panel1MinSize;
+                    if (newWidth > dp.ActualWidth - Panel1MinSize)
+                        newWidth = dp.ActualWidth - Panel1MinSize;
 
-            if (newWidth < Panel2MinSize)
-                newWidth = Panel2MinSize;
+                    if (newWidth < Panel2MinSize)
+                        newWidth = Panel2MinSize;
 
-            element.Width = newWidth;
+                    element.Width = newWidth;
+                }
+            }
         }
 
         private void SetTargetHeight(double newHeight)
         {
-            Panel dp = Parent as Panel;
-            Dock dock = DockPanel.GetDock(this);
-            MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
-            if (dock == Dock.Top && newHeight > dp.ActualHeight - t.Matrix.OffsetY - Thickness)
-                newHeight = dp.ActualHeight - t.Matrix.OffsetY - Thickness;
+            if (Parent is Panel dp)
+            {
+                Dock dock = DockPanel.GetDock(this);
+                if (element?.TransformToAncestor(dp) is MatrixTransform t)
+                {
+                    if (dock == Dock.Top && newHeight > dp.ActualHeight - t.Matrix.OffsetY - Thickness)
+                        newHeight = dp.ActualHeight - t.Matrix.OffsetY - Thickness;
 
-            if (newHeight < element.MinHeight)
-                newHeight = element.MinHeight;
-            if (newHeight > element.MaxHeight)
-                newHeight = element.MaxHeight;
+                    if (newHeight < element.MinHeight)
+                        newHeight = element.MinHeight;
+                    if (newHeight > element.MaxHeight)
+                        newHeight = element.MaxHeight;
 
-            if (newHeight > dp.ActualHeight - Panel1MinSize)
-                newHeight = dp.ActualHeight - Panel1MinSize;
+                    if (newHeight > dp.ActualHeight - Panel1MinSize)
+                        newHeight = dp.ActualHeight - Panel1MinSize;
 
-            if (newHeight < Panel2MinSize)
-                newHeight = Panel2MinSize;
+                    if (newHeight < Panel2MinSize)
+                        newHeight = Panel2MinSize;
 
-            element.Height = newHeight;
+                    element.Height = newHeight;
+                }
+            }
         }
 
         private void ParentSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (!ProportionalResize) return;
 
-            if (Parent is DockPanel dp)
+            if (Parent is DockPanel dp && element != null)
             {
                 if (!double.IsNaN(previousParentWidth) && previousParentWidth != 0 &&
                     !double.IsNaN(previousParentHeight) && previousParentHeight != 0)
@@ -305,7 +313,7 @@ namespace dnGREP.DockFloat
             if (IsMouseCaptured)
             {
                 Point ptCurrent = e.GetPosition(Parent as IInputElement);
-                Point delta = new Point(ptCurrent.X - StartDragPoint.X, ptCurrent.Y - StartDragPoint.Y);
+                Point delta = new(ptCurrent.X - StartDragPoint.X, ptCurrent.Y - StartDragPoint.Y);
                 Dock dock = DockPanel.GetDock(this);
 
                 if (IsHorizontal)
@@ -313,13 +321,13 @@ namespace dnGREP.DockFloat
                 else
                     delta.X = AdjustWidth(delta.X, dock);
 
-                bool isBottomOrRight = (dock == Dock.Right || dock == Dock.Bottom);
+                bool isBottomOrRight = dock == Dock.Right || dock == Dock.Bottom;
 
                 // When docked to the bottom or right, the position has changed after adjusting the size
                 if (isBottomOrRight)
                     StartDragPoint = e.GetPosition(Parent as IInputElement);
                 else
-                    StartDragPoint = new Point(StartDragPoint.X + delta.X, StartDragPoint.Y + delta.Y);
+                    StartDragPoint = new(StartDragPoint.X + delta.X, StartDragPoint.Y + delta.Y);
             }
             base.OnMouseMove(e);
         }
