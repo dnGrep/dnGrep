@@ -16,7 +16,7 @@ namespace dnGREP.Common.UI
 
     public class IconHandler
     {
-        unsafe public static Bitmap IconFromExtensionShell(string extension, IconSize size)
+        unsafe public static Bitmap? IconFromExtensionShell(string extension, IconSize size)
         {
             //add '.' if necessary
             if (extension[0] != '.') extension = '.' + extension;
@@ -32,7 +32,7 @@ namespace dnGREP.Common.UI
 
                 if (Marshal.PtrToStructure(fileInfoPtr, typeof(SHFILEINFOW)) is SHFILEINFOW fileInfo)
                 {
-                    return GetManagedIcon(fileInfo.hIcon).ToBitmap();
+                    return GetManagedIcon(fileInfo.hIcon)?.ToBitmap();
                 }
             }
             catch (Exception e)
@@ -46,7 +46,7 @@ namespace dnGREP.Common.UI
             return null;
         }
 
-        private static Icon GetManagedIcon(HICON hIcon)
+        private static Icon? GetManagedIcon(HICON hIcon)
         {
             try
             {

@@ -47,7 +47,7 @@ namespace dnGREP.Common.UI
             hMonitor = monitor;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is Screen screen &&
                    EqualityComparer<IntPtr>.Default.Equals(hMonitor, screen.hMonitor);

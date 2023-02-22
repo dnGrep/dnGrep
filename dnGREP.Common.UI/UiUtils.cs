@@ -58,7 +58,7 @@ namespace dnGREP.Common.UI
                 return path;
             }
 
-            if (path.Contains(" "))
+            if (path.Contains(' '))
             {
                 return Quote(path);
             }
@@ -157,12 +157,12 @@ namespace dnGREP.Common.UI
         /// </summary>
         /// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
         /// <returns>Base folder path or null if none exists</returns>
-        public static string GetBaseFolder(string path)
+        public static string? GetBaseFolder(string path)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(path))
-                    return null;
+                    return string.Empty;
 
                 string[] paths = SplitPath(path, false);
                 if (paths.Length > 0)
@@ -253,30 +253,26 @@ namespace dnGREP.Common.UI
             if (string.IsNullOrWhiteSpace(path))
                 return Array.Empty<string>();
 
-            List<string> output = new List<string>();
+            List<string> output = new();
 
-            string[] paths = new string[] { path };
+            string[]? paths = new string[] { path };
 
             // if path contains separators, parse it
-            if (path.Contains(";") || path.Contains(",") || path.Contains("|") || path.Contains("\""))
+            if (path.Contains(';') || path.Contains(',') || path.Contains('|') || path.Contains('\\'))
             {
-                using (TextReader reader = new StringReader(path))
-                {
-                    // using TextFieldParser take quoted strings as-is
-                    using (TextFieldParser parser = new TextFieldParser(reader))
-                    {
-                        parser.HasFieldsEnclosedInQuotes = path.Contains('"');
-                        parser.TrimWhiteSpace = false;
-                        parser.SetDelimiters(",", ";", "|");
-                        paths = parser.ReadFields();
-                    }
-                }
+                using TextReader reader = new StringReader(path);
+                // using TextFieldParser take quoted strings as-is
+                using TextFieldParser parser = new(reader);
+                parser.HasFieldsEnclosedInQuotes = path.Contains('"');
+                parser.TrimWhiteSpace = false;
+                parser.SetDelimiters(",", ";", "|");
+                paths = parser.ReadFields();
             }
 
             path = path.Replace("\"", string.Empty);
 
             int splitterIndex = -1;
-            for (int i = 0; i < paths.Length; i++)
+            for (int i = 0; i < paths?.Length; i++)
             {
                 string testPath = paths[i];
                 splitterIndex += testPath.Length + 1;
@@ -302,7 +298,7 @@ namespace dnGREP.Common.UI
                     if (!found)
                     {
                         // this handles folder names containing a comma or semicolon
-                        StringBuilder sb = new StringBuilder();
+                        StringBuilder sb = new();
                         int subSplitterIndex = 0;
                         sb.Append(testPath + splitter);
                         for (int j = i + 1; j < paths.Length; j++)
@@ -354,10 +350,10 @@ namespace dnGREP.Common.UI
         /// <returns></returns>
         private static IList<string> GetPathsByWildcard(string path)
         {
-            List<string> output = new List<string>();
+            List<string> output = new();
             if (!string.IsNullOrWhiteSpace(path))
             {
-                string parent = Path.GetDirectoryName(path);
+                string? parent = Path.GetDirectoryName(path);
                 if (!string.IsNullOrWhiteSpace(parent) && Directory.Exists(parent))
                 {
                     string pattern = Path.GetFileName(path);

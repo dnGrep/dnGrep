@@ -15,7 +15,7 @@ namespace dnGREP.Common.UI
     {
         public static IEnumerable<T> FindLogicalChildren<T>(this DependencyObject parent) where T : DependencyObject
         {
-            if (parent == null) yield return null;
+            if (parent == null) yield break;
 
             var dependencyChildren = LogicalTreeHelper.GetChildren(parent).OfType<DependencyObject>();
             foreach (var child in dependencyChildren)
@@ -28,7 +28,7 @@ namespace dnGREP.Common.UI
             }
         }
 
-        public static T GetVisualChild<T>(this DependencyObject depObj) where T : Visual
+        public static T? GetVisualChild<T>(this DependencyObject depObj) where T : Visual
         {
             if (depObj != null)
             {
@@ -41,7 +41,7 @@ namespace dnGREP.Common.UI
                         return typedChild;
                     }
 
-                    T childOfChild = child.GetVisualChild<T>();
+                    T? childOfChild = child?.GetVisualChild<T>();
                     if (childOfChild != null)
                     {
                         return childOfChild;
@@ -51,7 +51,7 @@ namespace dnGREP.Common.UI
             return null;
         }
 
-        public static T GetChildOfType<T>(this DependencyObject depObj) where T : DependencyObject
+        public static T? GetChildOfType<T>(this DependencyObject depObj) where T : DependencyObject
         {
             if (depObj == null) return null;
 
@@ -152,7 +152,7 @@ namespace dnGREP.Common.UI
             return false;
         }
 
-        public static Screen ScreenFromWpfPoint(this Point pt)
+        public static Screen? ScreenFromWpfPoint(this Point pt)
         {
             Rect bounds = new(pt, new Size(2, 2));
             foreach (Screen screen in Screen.AllScreens)
@@ -171,7 +171,7 @@ namespace dnGREP.Common.UI
             double width = window.Width;
             double height = window.Height;
             Point pt = new(x, y);
-            Screen screen = pt.ScreenFromWpfPoint();
+            Screen? screen = pt.ScreenFromWpfPoint();
             if (screen != null)
             {
                 Rect bounds = new(x, y, window.ActualWidth, window.ActualHeight);

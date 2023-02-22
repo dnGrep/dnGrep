@@ -178,7 +178,7 @@ namespace dnGREP.Common.UI
         {
             if (!string.IsNullOrEmpty(customs.OnceCheckboxText))
             {
-                onceCheckbox.Content = customs.OnceCheckboxText;
+                onceCheckbox.Content = customs. OnceCheckboxText;
             }
             if (!string.IsNullOrEmpty(customs.OKButtonText))
             {
@@ -251,7 +251,7 @@ namespace dnGREP.Common.UI
         {
             return Show(null, messageBoxText, caption, button, icon, defaultResult, MessageBoxOptions.None);
         }
-        public static CustomMessageBoxResult Show(Window owner, string messageBoxText, string caption,
+        public static CustomMessageBoxResult Show(Window? owner, string messageBoxText, string caption,
             MessageBoxButtonEx button, MessageBoxImage icon, MessageBoxResultEx defaultResult)
         {
             return Show(owner, messageBoxText, caption, button, icon, defaultResult, MessageBoxOptions.None);
@@ -264,7 +264,7 @@ namespace dnGREP.Common.UI
             return Show(null, messageBoxText, caption, button, icon, defaultResult, options);
         }
 
-        public static CustomMessageBoxResult Show(Window owner, string messageBoxText, string caption,
+        public static CustomMessageBoxResult Show(Window? owner, string messageBoxText, string caption,
             MessageBoxButtonEx button, MessageBoxImage icon, MessageBoxResultEx defaultResult,
             MessageBoxOptions options)
         {
@@ -278,7 +278,7 @@ namespace dnGREP.Common.UI
             return Show(null, messageBoxText, caption, button, icon, defaultResult, customs, options);
         }
 
-        public static CustomMessageBoxResult Show(Window owner, string messageBoxText, string caption,
+        public static CustomMessageBoxResult Show(Window? owner, string messageBoxText, string caption,
             MessageBoxButtonEx button, MessageBoxImage icon, MessageBoxResultEx defaultResult,
             MessageBoxCustoms customs, MessageBoxOptions options)
         {
@@ -474,15 +474,15 @@ namespace dnGREP.Common.UI
         /// bitmapImage.EndInit();
         /// var customs = new MessageBoxCustoms() { Icon = bitmapImage };
         /// </example>
-        public ImageSource Icon { get; set; }
+        public ImageSource? Icon { get; set; }
         public bool ShowOnceCheckbox { get; set; }
-        public string OnceCheckboxText { get; set; }
-        public string OKButtonText { get; set; }
-        public string CancelButtonText { get; set; }
-        public string NoButtonText { get; set; }
-        public string YesButtonText { get; set; }
-        public string NoToAllButtonText { get; set; }
-        public string YesToAllButtonText { get; set; }
+        public string OnceCheckboxText { get; set; } = string.Empty;
+        public string OKButtonText { get; set; } = string.Empty;
+        public string CancelButtonText { get; set; } = string.Empty;
+        public string NoButtonText { get; set; } = string.Empty;
+        public string YesButtonText { get; set; } = string.Empty;
+        public string NoToAllButtonText { get; set; } = string.Empty;
+        public string YesToAllButtonText { get; set; } = string.Empty;
     }
 
 
