@@ -34,21 +34,19 @@ namespace dnGREP.Common
                 CreateNoWindow = true
             };
 
-            using (Process proc = new())
+            using Process proc = new();
+            proc.StartInfo = startInfo;
+            try
             {
-                proc.StartInfo = startInfo;
-                try
+                proc.Start();
+                if (!proc.StandardOutput.EndOfStream)
                 {
-                    proc.Start();
-                    if (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        return !string.IsNullOrEmpty(line) && line.StartsWith("git ", StringComparison.CurrentCulture);
-                    }
+                    string? line = proc.StandardOutput.ReadLine();
+                    return !string.IsNullOrEmpty(line) && line.StartsWith("git ", StringComparison.CurrentCulture);
                 }
-                catch (InvalidOperationException) { }
-                catch (Win32Exception) { }
             }
+            catch (InvalidOperationException) { }
+            catch (Win32Exception) { }
             return false;
         }
 
@@ -76,8 +74,8 @@ namespace dnGREP.Common
                     proc.Start();
                     while (!proc.StandardOutput.EndOfStream)
                     {
-                        string line = proc.StandardOutput.ReadLine();
-                        if (line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
+                        string? line = proc.StandardOutput.ReadLine();
+                        if (!string.IsNullOrEmpty(line) && line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
                             list.Add(line[3..].Trim('"'));
                     }
                 }
@@ -90,9 +88,6 @@ namespace dnGREP.Common
 
         public static Gitignore GetGitignore(IList<string> paths)
         {
-            if (paths == null)
-                throw new ArgumentNullException(nameof(paths));
-
             Gitignore results = new();
 
             foreach (var path in paths)
@@ -117,12 +112,6 @@ namespace dnGREP.Common
 
         public Gitignore(string path, IList<string> list)
         {
-            if (string.IsNullOrWhiteSpace(path))
-                throw new ArgumentNullException(nameof(path));
-
-            if (list == null)
-                throw new ArgumentNullException(nameof(list));
-
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
                     s.EndsWith(gitSeparator, StringComparison.CurrentCulture))
                 .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
@@ -144,9 +133,6 @@ namespace dnGREP.Common
 
         public void Merge(Gitignore other)
         {
-            if (other == null)
-                throw new ArgumentNullException(nameof(other));
-
             foreach(var item in other.Directories)
             {
                 if (!directories.Contains(item))

@@ -114,7 +114,7 @@ namespace dnGREP.Common
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
 
-            List<string> orClauses = null;
+            List<string>? orClauses = null;
             if (booleanOperators)
             {
                 BooleanExpression exp = new();
@@ -134,7 +134,10 @@ namespace dnGREP.Common
             sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine().AppendLine();
-            sb.Append(GetResultLinesWithContext(source, orClauses));
+            if (orClauses != null)
+            {
+                sb.Append(GetResultLinesWithContext(source, orClauses));
+            }
 
             File.WriteAllText(destinationPath, sb.ToString(), Encoding.UTF8);
         }
@@ -168,7 +171,7 @@ namespace dnGREP.Common
                 var searchResults = result.SearchResults;
                 if (searchResults != null)
                 {
-                    int matchCount = result.Matches == null ? 0 : result.Matches.Count;
+                    int matchCount = result.Matches.Count;
                     var lineCount = result.Matches.Where(r => r.LineNumber > 0)
                         .Select(r => r.LineNumber).Distinct().Count();
 
@@ -364,7 +367,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                if (result.SearchResults != null)
+                if (result.SearchResults.Any())
                 {
                     bool mergeLines = !options.IncludeFileInformation && !options.OutputOnSeparateLines;
 
@@ -691,7 +694,7 @@ namespace dnGREP.Common
 
             foreach (GrepSearchResult result in source)
             {
-                if (result.SearchResults == null && options.IncludeFileInformation)
+                if (!result.SearchResults.Any() && options.IncludeFileInformation)
                 {
                     sb.AppendLine(Quote(result.FileNameDisplayed));
                     lineCount++;
@@ -795,7 +798,7 @@ namespace dnGREP.Common
 
             foreach (GrepSearchResult result in source)
             {
-                if (result.SearchResults == null && options.IncludeFileInformation)
+                if (!result.SearchResults.Any() && options.IncludeFileInformation)
                 {
                     sb.AppendLine(Quote(result.FileNameDisplayed));
                     lineCount++;

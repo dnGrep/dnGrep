@@ -8,7 +8,7 @@ namespace dnGREP.Common
 {
     public class ConfigurationTemplate
     {
-        public static Dictionary<string, ConfigurationTemplate> EditorConfigurationTemplates =>
+        public static Dictionary<string, ConfigurationTemplate?> EditorConfigurationTemplates =>
             new()
             {
             {string.Empty, null},
@@ -18,7 +18,7 @@ namespace dnGREP.Common
             {"VSCode", new ConfigurationTemplate("code.exe", @"-r -g %file:%line:%column", "AppDataLocal", "ProgramFiles") },
         };
 
-        public static Dictionary<string, ConfigurationTemplate> CompareConfigurationTemplates =>
+        public static Dictionary<string, ConfigurationTemplate?> CompareConfigurationTemplates =>
             new()
             {
             {string.Empty, null},
@@ -40,7 +40,7 @@ namespace dnGREP.Common
 
         static ConfigurationTemplate()
         {
-            var root = Directory.GetDirectoryRoot(Assembly.GetEntryAssembly().Location);
+            var root = Directory.GetDirectoryRoot(Assembly.GetEntryAssembly()?.Location ?? string.Empty);
             if (!string.IsNullOrEmpty(root) && !root.Equals("C:\\", StringComparison.OrdinalIgnoreCase))
             {
                 SearchPaths.Add("Portable", root);
@@ -53,7 +53,7 @@ namespace dnGREP.Common
             List<string> triedPaths = new();
             foreach (string hint in hintPaths)
             {
-                if (SearchPaths.TryGetValue(hint, out string path))
+                if (SearchPaths.TryGetValue(hint, out string? path))
                 {
                     triedPaths.Add(path);
                     yield return path;

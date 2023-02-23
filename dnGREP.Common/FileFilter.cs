@@ -8,6 +8,7 @@ namespace dnGREP.Common
         {
             Path = ".";
             NamePatternToInclude = "*.*";
+            NamePatternToExclude = string.Empty;
             MaxSubfolderDepth = -1;
         }
 

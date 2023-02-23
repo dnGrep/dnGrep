@@ -38,9 +38,6 @@ namespace dnGREP.Common
 
         public static bool ConstainsNotEscaped(this string input, string toCheck)
         {
-            if (toCheck == null)
-                throw new ArgumentNullException(nameof(toCheck));
-
             bool found = false;
             int startIndex = 0;
             while (startIndex < input.Length)
@@ -68,10 +65,8 @@ namespace dnGREP.Common
             return found;
         }
 
-        public static string ReplaceIfNotEscaped(this string input, string oldValue, string newValue)
+        public static string ReplaceIfNotEscaped(this string input, string oldValue, string? newValue)
         {
-            if (oldValue == null)
-                throw new ArgumentNullException(nameof(oldValue));
             // Note that if newValue is null, we treat it like string.Empty.
 
             StringBuilder sb = new(input.Length + newValue?.Length ?? 0);

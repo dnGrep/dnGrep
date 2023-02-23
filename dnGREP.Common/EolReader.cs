@@ -48,7 +48,7 @@ namespace dnGREP.Common
             }
         }
 
-        public string ReadLine()
+        public string? ReadLine()
         {
             if (baseReader == null)
                 return null;
@@ -58,7 +58,7 @@ namespace dnGREP.Common
                 if (ReadBuffer() == 0) return null;
             }
 
-            StringBuilder sb = null;
+            StringBuilder? sb = null;
             do
             {
                 int i = charPos;
@@ -71,7 +71,7 @@ namespace dnGREP.Common
 
                     if (ch == '\r' || ch == '\n')
                     {
-                        String s;
+                        string s;
                         if (sb != null)
                         {
                             sb.Append(charBuffer, charPos, i - charPos);
@@ -79,7 +79,7 @@ namespace dnGREP.Common
                         }
                         else
                         {
-                            s = new String(charBuffer, charPos, i - charPos);
+                            s = new string(charBuffer, charPos, i - charPos);
                         }
 
                         charPos = i;

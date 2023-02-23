@@ -76,7 +76,12 @@ namespace dnGREP.Common
 
                     if (fsei.FileName == ".gitignore")
                     {
-                        dontRecurseBelow.Add(Path.GetDirectoryName(fsei.FullPath));
+                        var dir = Path.GetDirectoryName(fsei.FullPath);
+                        if (!string.IsNullOrEmpty(dir))
+                        {
+                            dontRecurseBelow.Add(dir);
+                        }
+
                         return true;
                     }
                     return false;
@@ -87,7 +92,7 @@ namespace dnGREP.Common
             {
                 // search down subdirectories
                 var list = DirectoryEx.EnumerateFiles(path, fileOptions, fileFilters)
-                    .Select(s => Path.GetDirectoryName(s)).ToList();
+                    .Select(s => Path.GetDirectoryName(s) ?? string.Empty).ToList();
 
                 if (list.Count == 0)
                 {
@@ -105,7 +110,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                return list;
+                return list ?? new();
             }
             catch (OperationCanceledException)
             {
@@ -114,19 +119,10 @@ namespace dnGREP.Common
         }
 
         public static IEnumerable<string> EnumerateFiles(string path, IList<string> patterns,
-            Gitignore gitignore, FileFilter filter)
+            Gitignore? gitignore, FileFilter filter)
         {
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
                 return Enumerable.Empty<string>();
-
-            if (patterns == null)
-            {
-                throw new ArgumentNullException(nameof(patterns));
-            }
-            if (filter == null)
-            {
-                throw new ArgumentNullException(nameof(filter));
-            }
 
             bool simpleSearch = filter.IncludeHidden && filter.MaxSubfolderDepth == -1 &&
                 (gitignore == null || gitignore.IsEmpty) &&
@@ -196,7 +192,7 @@ namespace dnGREP.Common
         }
 
         private static IEnumerable<string> EnumerateFilesWithFilters(string path, IList<string> patterns,
-            Gitignore gitignore, FileFilter filter)
+            Gitignore? gitignore, FileFilter filter)
         {
             DirectoryInfo di = new(path);
             // the root of the drive has the hidden attribute set, so don't stop on this hidden directory
@@ -221,7 +217,7 @@ namespace dnGREP.Common
         }
 
         private static IEnumerable<string> EnumerateDirectoriesImpl(string path,
-            FileFilter filter, int startDepth, Gitignore gitignore)
+            FileFilter filter, int startDepth, Gitignore? gitignore)
         {
             var dirOptions = baseDirOptions;
             if (filter.IncludeSubfolders)
@@ -296,7 +292,7 @@ namespace dnGREP.Common
         }
 
         private static IEnumerable<string> EnumerateFilesImpl(string path, IList<string> patterns,
-            FileFilter filter, Gitignore gitignore)
+            FileFilter filter, Gitignore? gitignore)
         {
             DirectoryEnumerationFilters fileFilters = new()
             {
@@ -387,15 +383,6 @@ namespace dnGREP.Common
         /// <returns>True if match, otherwise false</returns>
         public static bool WildcardMatch(string fileName, string pattern, bool ignoreCase)
         {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
-            if (pattern == null)
-            {
-                throw new ArgumentNullException(nameof(pattern));
-            }
-
             if (ignoreCase)
                 return WildcardMatch(fileName.ToLower(CultureInfo.CurrentCulture), pattern.ToLower(CultureInfo.CurrentCulture));
             else
@@ -415,15 +402,6 @@ namespace dnGREP.Common
         /// <returns>True if match, otherwise false</returns>
         public static bool WildcardMatch(string fileName, string pattern)
         {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
-            if (pattern == null)
-            {
-                throw new ArgumentNullException(nameof(pattern));
-            }
-
             if (string.IsNullOrEmpty(pattern))
                 return fileName.Length == 0;
 

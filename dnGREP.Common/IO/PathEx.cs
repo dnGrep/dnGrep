@@ -82,16 +82,10 @@ namespace dnGREP.Common.IO
         /// <summary>[AlphaFS] Makes an extended long path from the specified <paramref name="path"/> by prefixing <see cref="LongPathPrefix"/>.</summary>
         /// <returns>The <paramref name="path"/> prefixed with a <see cref="LongPathPrefix"/>, the minimum required full path is: "C:\".</returns>
         /// <remarks>This method does not verify that the resulting path and file name are valid, or that they see an existing file on the associated volume.</remarks>
-        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="ArgumentException"/>
         /// <param name="path">The path to the file or directory, this can also be an UNC path.</param>
         public static string GetLongPath(string path)
         {
-            if (path == null)
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
             if (path.Trim().Length == 0)
             {
                 throw new ArgumentException("Argument is empty", nameof(path));
@@ -126,13 +120,9 @@ namespace dnGREP.Common.IO
         ///   MSDN: String.TrimEnd Method notes to Callers: http://msdn.microsoft.com/en-us/library/system.string.trimend%28v=vs.110%29.aspx
         /// </remarks>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <param name="path">The path.</param>
         internal static string GetRegularPath(string path)
         {
-            if (null == path)
-                throw new ArgumentNullException(nameof(path));
-
             if (path.Trim().Length == 0 || string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("Path is zero length or only whitespace", nameof(path));
 
@@ -158,7 +148,6 @@ namespace dnGREP.Common.IO
         /// <summary>[AlphaFS] Checks if <paramref name="path"/> is in a logical drive format, such as "C:", "D:".</summary>
         /// <returns>true when <paramref name="path"/> is in a logical drive format, such as "C:", "D:".</returns>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <param name="path">The absolute path to check.</param>
         public static bool IsLogicalDrive(string path)
         {

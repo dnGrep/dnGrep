@@ -47,13 +47,6 @@ namespace dnGREP.Common
 
         public static IEnumerable<FileData> EnumerateFiles(string file, FileFilter filter)
         {
-            if (file == null)
-                throw new ArgumentNullException(nameof(file));
-
-            if (filter == null)
-                throw new ArgumentNullException(nameof(filter));
-
-
             if (file.Length > 260 && !file.StartsWith(@"\\?\", StringComparison.InvariantCulture))
             {
                 file = @"\\?\" + file;
@@ -68,12 +61,6 @@ namespace dnGREP.Common
 
         private static IEnumerable<FileData> EnumerateFiles(Stream input, string fileName, FileFilter filter)
         {
-            if (fileName == null)
-                throw new ArgumentNullException(nameof(fileName));
-
-            if (filter == null)
-                throw new ArgumentNullException(nameof(filter));
-
             List<string> includeSearchPatterns = new();
             bool hasSearchPattern = Utils.PrepareSearchPatterns(filter, includeSearchPatterns);
 
@@ -184,7 +171,7 @@ namespace dnGREP.Common
 
                     while (true)
                     {
-                        FileData ret = null;
+                        FileData? ret = null;
                         try
                         {
                             if (!enumerator.MoveNext())
@@ -427,9 +414,6 @@ namespace dnGREP.Common
 
         public static void OpenFile(OpenFileArgs args)
         {
-            if (args == null)
-                throw new ArgumentNullException(nameof(args));
-
             string filePath = ExtractToTempFile(args.SearchResult);
 
             if (Utils.IsWordFile(filePath) || Utils.IsExcelFile(filePath) || Utils.IsPowerPointFile(filePath))
@@ -447,9 +431,6 @@ namespace dnGREP.Common
 
         public static List<GrepLine> GetLinesWithContext(GrepSearchResult searchResult, int linesBefore, int linesAfter)
         {
-            if (searchResult == null)
-                throw new ArgumentNullException(nameof(searchResult));
-
             string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator) || parts.Length < 2)
             {
@@ -539,9 +520,6 @@ namespace dnGREP.Common
 
         public static string ExtractToTempFile(GrepSearchResult searchResult)
         {
-            if (searchResult == null)
-                throw new ArgumentNullException(nameof(searchResult));
-
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-Archive", Utils.GetHash(searchResult.FileNameReal));
 
             string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
@@ -556,8 +534,8 @@ namespace dnGREP.Common
             if (!File.Exists(filePath))
             {
                 // use the directory name to also include folders within the archive
-                string directory = Path.GetDirectoryName(filePath);
-                if (!Directory.Exists(directory))
+                string? directory = Path.GetDirectoryName(filePath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
 
                 string zipFile = searchResult.FileNameReal;

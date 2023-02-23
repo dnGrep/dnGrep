@@ -280,7 +280,7 @@ namespace dnGREP.Common
             public const string MaxDegreeOfParallelism = "MaxDegreeOfParallelism";
         }
 
-        private static GrepSettings instance;
+        private static GrepSettings? instance;
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private const string storageFileName = "dnGREP.Settings.dat";
         private const string mutexId = "{83D660FA-E399-4BBC-A3FC-09897115D2E2}";
@@ -349,20 +349,15 @@ namespace dnGREP.Common
         {
             if (File.Exists(path))
             {
-                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
+                if (doc != null)
                 {
-                    if (stream != null)
+                    var attr = doc.Root?.Attribute("version");
+                    if (attr != null && !string.IsNullOrEmpty(attr.Value) &&
+                        int.TryParse(attr.Value, out int version))
                     {
-                        XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
-                        if (doc != null)
-                        {
-                            var attr = doc.Root.Attribute("version");
-                            if (attr != null && !string.IsNullOrEmpty(attr.Value) &&
-                                int.TryParse(attr.Value, out int version))
-                            {
-                                return version;
-                            }
-                        }
+                        return version;
                     }
                 }
                 return 1;
@@ -379,11 +374,14 @@ namespace dnGREP.Common
                     using FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     if (stream == null)
                         return;
-                    XmlSerializer serializer = new(typeof(SerializableDictionary));
+
                     settings.Clear();
-                    SerializableDictionary appData = (SerializableDictionary)serializer.Deserialize(stream);
-                    foreach (KeyValuePair<string, string> pair in appData)
-                        settings[pair.Key] = pair.Value;
+                    XmlSerializer serializer = new(typeof(SerializableDictionary));
+                    if (serializer.Deserialize(stream) is SerializableDictionary appData)
+                    {
+                        foreach (KeyValuePair<string, string> pair in appData)
+                            settings[pair.Key] = pair.Value;
+                    }
                 }
             }
             catch (Exception ex)
@@ -402,7 +400,7 @@ namespace dnGREP.Common
                     if (stream != null)
                     {
                         XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
-                        if (doc != null && doc.Root.Name.LocalName.Equals("dictionary"))
+                        if (doc != null && doc.Root != null && doc.Root.Name.LocalName.Equals("dictionary"))
                         {
                             settings.Clear();
 
@@ -420,7 +418,11 @@ namespace dnGREP.Common
                                     }
                                     else if (elem.HasElements)
                                     {
-                                        settings[key.Value] = elem.Element("stringArray").ToString();
+                                        var elem2 = elem.Element("stringArray");
+                                        if (elem2 != null)
+                                        {
+                                            settings[key.Value] = elem2.ToString();
+                                        }
                                     }
                                     else
                                     {
@@ -440,7 +442,7 @@ namespace dnGREP.Common
 
         private void InitializeFonts()
         {
-            if (!settings.TryGetValue(Key.ApplicationFontFamily, out string value) ||
+            if (!settings.TryGetValue(Key.ApplicationFontFamily, out string? value) ||
                 string.IsNullOrWhiteSpace(value))
             {
                 Set(Key.ApplicationFontFamily, SystemFonts.MessageFontFamily.Source);
@@ -461,7 +463,7 @@ namespace dnGREP.Common
                 Set(Key.DialogFontSize, SystemFonts.MessageFontSize);
             }
 
-            if (!settings.TryGetValue(Key.ResultsFontFamily, out string value2) ||
+            if (!settings.TryGetValue(Key.ResultsFontFamily, out string? value2) ||
                 string.IsNullOrWhiteSpace(value2))
             {
                 Set(Key.ResultsFontFamily, DefaultMonospaceFontFamily);
@@ -512,8 +514,11 @@ namespace dnGREP.Common
                 }
 
                 // Perform work here.
-                if (!Directory.Exists(Path.GetDirectoryName(path)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                var dirName = Path.GetDirectoryName(path);
+                if (!string.IsNullOrEmpty(dirName) && !Directory.Exists(Path.GetDirectoryName(path)))
+                {
+                    Directory.CreateDirectory(dirName);
+                }
 
                 SaveV2(path);
             }
@@ -527,21 +532,6 @@ namespace dnGREP.Common
                     mutex.ReleaseMutex();
             }
         }
-
-        //private void SaveV1(string path)
-        //{
-        //    // Create temp file in case save crashes
-        //    using (FileStream stream = File.OpenWrite(path + "~"))
-        //    using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
-        //    {
-        //        if (xmlStream == null)
-        //            return;
-        //        XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
-        //        serializer.Serialize(xmlStream, this);
-        //    }
-        //    File.Copy(path + "~", path, true);
-        //    Utils.DeleteFile(path + "~");
-        //}
 
         private void SaveV2(string path)
         {
@@ -557,13 +547,13 @@ namespace dnGREP.Common
 
                 XDocument doc = new();
                 doc.Add(new XElement("dictionary"));
-                doc.Root.SetAttributeValue("version", "2");
-                doc.Root.SetAttributeValue(XNamespace.Xmlns + "xml", xml);
-                doc.Root.SetAttributeValue(XNamespace.Xmlns + "xsi", xsi);
+                doc.Root?.SetAttributeValue("version", "2");
+                doc.Root?.SetAttributeValue(XNamespace.Xmlns + "xml", xml);
+                doc.Root?.SetAttributeValue(XNamespace.Xmlns + "xsi", xsi);
                 foreach (string key in settings.Keys)
                 {
                     XElement elem;
-                    if (!settings.TryGetValue(key, out string value) ||
+                    if (!settings.TryGetValue(key, out string? value) ||
                         value == "xsi:nil")
                     {
                         elem = new XElement("item");
@@ -584,7 +574,7 @@ namespace dnGREP.Common
                             elem.SetAttributeValue(xml + "space", "preserve");
                         }
                     }
-                    doc.Root.Add(elem);
+                    doc.Root?.Add(elem);
                 }
 
                 doc.Save(xmlStream);
@@ -625,9 +615,9 @@ namespace dnGREP.Common
             return string.Empty;
         }
 
-        private static List<string> Deserialize(string xmlContent)
+        private static List<string?> Deserialize(string xmlContent)
         {
-            List<string> list = new();
+            List<string?> list = new();
 
             if (!string.IsNullOrEmpty(xmlContent))
             {
@@ -657,7 +647,7 @@ namespace dnGREP.Common
         /// <typeparam name="T">Type of object to deserialize from</typeparam>
         /// <param name="key">Key</param>
         /// <returns></returns>
-        public T Get<T>(string key)
+        public T? Get<T>(string key)
         {
             if (!settings.ContainsKey(key))
             {
@@ -666,7 +656,7 @@ namespace dnGREP.Common
 
             try
             {
-                if (!settings.TryGetValue(key, out string value) || value == "xsi:nil")
+                if (!settings.TryGetValue(key, out string? value) || value == "xsi:nil")
                 {
                     return default;
                 }
@@ -688,14 +678,14 @@ namespace dnGREP.Common
 
                 if (typeof(T) == typeof(List<string>))
                 {
-                    List<string> list;
+                    List<string?> list;
                     if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray"))
                     {
                         list = Deserialize(value);
                     }
                     else
                     {
-                        list = new List<string>();
+                        list = new();
                     }
                     return (T)Convert.ChangeType(list, typeof(List<string>));
                 }
@@ -743,7 +733,7 @@ namespace dnGREP.Common
         /// <returns></returns>
         public bool IsSet(string key)
         {
-            return settings.TryGetValue(key, out string value) && !string.IsNullOrWhiteSpace(value);
+            return settings.TryGetValue(key, out string? value) && !string.IsNullOrWhiteSpace(value);
         }
 
         /// <summary>
@@ -758,13 +748,13 @@ namespace dnGREP.Common
             {
                 settings[key] = "xsi:nil";
             }
-            else if (typeof(T) == typeof(string))
+            else if (typeof(T) == typeof(string) && value is string str)
             {
-                settings[key] = value.ToString().Replace("\n", "&#010;").Replace("\r", "&#013;");
+                settings[key] = str.Replace("\n", "&#010;").Replace("\r", "&#013;");
             }
-            else if (typeof(T).IsEnum)
+            else if (typeof(T).IsEnum && value is Enum en)
             {
-                settings[key] = value.ToString();
+                settings[key] = en.ToString();
             }
             else if (typeof(T) == typeof(Rect))
             {
@@ -785,7 +775,7 @@ namespace dnGREP.Common
                 }
                 else
                 {
-                    settings[key] = value.ToString();
+                    settings[key] = value.ToString() ?? string.Empty;
                 }
             }
             else if (value is List<string> list)
@@ -794,13 +784,13 @@ namespace dnGREP.Common
             }
             else
             {
-                settings[key] = value.ToString();
+                settings[key] = value.ToString() ?? string.Empty;
             }
         }
 
         private static bool IsNullable(Type type) => Nullable.GetUnderlyingType(type) != null;
 
-        private List<FieldInfo> constantKeys;
+        private List<FieldInfo>? constantKeys;
 
         private void InitializeConstantKeys()
         {
@@ -818,16 +808,16 @@ namespace dnGREP.Common
             }
         }
 
-        private T GetDefaultValue<T>(string key)
+        private T? GetDefaultValue<T>(string key)
         {
             InitializeConstantKeys();
-            FieldInfo info = constantKeys.Find(fi => fi.Name == key);
+            FieldInfo? info = constantKeys?.Find(fi => fi.Name == key);
 
             if (info != null &&
                 info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr &&
                 attr.Length == 1)
             {
-                return (T)attr[0].Value;
+                return (T?)attr[0].Value;
             }
 
             return default;
@@ -840,15 +830,18 @@ namespace dnGREP.Common
             string remKey = "Rem" + nameKey + "Extensions";
             string listKey = nameKey + "Extensions";
 
-            List<string> list;
+            List<string> list = new();
 
             if (ContainsKey(listKey))
             {
-                string csv = Get<string>(listKey).Trim();
-                string[] split = csv.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var items = split.Select(s => s.TrimStart('.').Trim());
+                var csv = Get<string>(listKey)?.Trim();
+                if (!string.IsNullOrEmpty(csv))
+                {
+                    string[] split = csv.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    var items = split.Select(s => s.TrimStart('.').Trim());
 
-                list = new List<string>(items);
+                    list = new List<string>(items);
+                }
             }
             else
             {
@@ -856,7 +849,7 @@ namespace dnGREP.Common
 
                 if (ContainsKey(addKey))
                 {
-                    var addCsv = Get<string>(addKey).Trim();
+                    var addCsv = Get<string>(addKey)?.Trim();
                     if (!string.IsNullOrEmpty(addCsv))
                     {
                         var parts = addCsv.Split(new char[] { ',', ';', ' ' },
@@ -868,15 +861,18 @@ namespace dnGREP.Common
 
                 if (ContainsKey(remKey))
                 {
-                    var remCsv = Get<string>(remKey).Trim();
-                    var parts = remCsv.Split(new char[] { ',', ';', ' ' },
+                    var remCsv = Get<string>(remKey)?.Trim();
+                    if (!string.IsNullOrEmpty(remCsv))
+                    {
+                        var parts = remCsv.Split(new char[] { ',', ';', ' ' },
                           StringSplitOptions.RemoveEmptyEntries)
                           .Select(s => s.Trim(' ', '.').ToLower());
-                    foreach (var ext in parts)
-                    {
-                        if (list.Contains(ext))
+                        foreach (var ext in parts)
                         {
-                            list.Remove(ext);
+                            if (list.Contains(ext))
+                            {
+                                list.Remove(ext);
+                            }
                         }
                     }
                 }
@@ -919,12 +915,12 @@ namespace dnGREP.Common
     public class SerializableDictionary : Dictionary<string, string>, IXmlSerializable
     {
         #region IXmlSerializable Members
-        public System.Xml.Schema.XmlSchema GetSchema()
+        public System.Xml.Schema.XmlSchema? GetSchema()
         {
             return null;
         }
 
-        public void ReadXml(System.Xml.XmlReader reader)
+        public void ReadXml(XmlReader reader)
         {
             bool wasEmpty = reader.IsEmptyElement;
 
@@ -934,16 +930,19 @@ namespace dnGREP.Common
             reader.Read();
             while (reader.NodeType == XmlNodeType.Element)
             {
-                string key = reader.GetAttribute("key");
+                string? key = reader.GetAttribute("key");
                 string value = reader.ReadElementContentAsString();
-                this[key] = value;
+                if (!string.IsNullOrEmpty(key))
+                {
+                    this[key] = value;
+                }
             }
             reader.ReadEndElement();
         }
 
 
 
-        public void WriteXml(System.Xml.XmlWriter writer)
+        public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("xml", "http://www.w3.org/2000/xmlns/", "http://www.w3.org/XML/1998/namespace");
 

@@ -70,12 +70,12 @@ namespace dnGREP.Common
             return HashCode.Combine(LineNumber, StartLocation, Length);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Equals(obj as GrepMatch);
         }
 
-        public bool Equals(GrepMatch other)
+        public bool Equals(GrepMatch? other)
         {
             if (other == null) return false;
 
@@ -86,7 +86,7 @@ namespace dnGREP.Common
 
         #region IComparable<GrepMatch> Members
 
-        public int CompareTo(GrepMatch other)
+        public int CompareTo(GrepMatch? other)
         {
             if (other == null)
                 return 1;
@@ -98,7 +98,7 @@ namespace dnGREP.Common
 
         #region IComparable Members
 
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
             if (obj == null)
                 return 1;
@@ -133,7 +133,7 @@ namespace dnGREP.Common
             }
         }
 
-        private static Tuple<GrepMatch, GrepMatch, int> FirstOverlap(List<GrepMatch> matches)
+        private static Tuple<GrepMatch, GrepMatch, int>? FirstOverlap(List<GrepMatch> matches)
         {
             for (int idx = 0; idx < matches.Count - 1; idx++)
             {

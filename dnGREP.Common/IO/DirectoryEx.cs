@@ -44,7 +44,6 @@ namespace dnGREP.Common.IO
         /// <summary>Returns the volume information, root information, or both for the specified path.</summary>
         /// <returns>The volume information, root information, or both for the specified path, or <c>null</c> if <paramref name="path"/> path does not contain root directory information.</returns>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="NotSupportedException"/>
         /// <param name="path">The path of a file or directory.</param>
         internal static string? GetDirectoryRoot(string path)
@@ -74,7 +73,6 @@ namespace dnGREP.Common.IO
         /// <summary>[AlphaFS] Returns an enumerable collection of file system entries in a specified path using <see cref="DirectoryEnumerationOptions"/> and <see cref="DirectoryEnumerationFilters"/>.</summary>
         /// <returns>The matching file system entries. The type of the items is determined by the type <typeparamref name="T"/>.</returns>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="DirectoryNotFoundException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="NotSupportedException"/>
@@ -107,13 +105,8 @@ namespace dnGREP.Common.IO
         /// <param name="options"><see cref="DirectoryEnumerationOptions"/> flags that specify how the directory is to be enumerated.</param>
         /// <param name="filters">The specification of custom filters to be used in the process.</param>
         /// <param name="pathFormat">Indicates the format of the path parameter(s).</param>
-        [SecurityCritical]
-        internal static IEnumerable<T> EnumerateFileSystemEntryInfosCore<T>(bool? onlyFolders, /*KernelTransaction transaction,*/ string path, /*string searchPattern, SearchOption? searchOption,*/ DirectoryEnumerationOptions? options, DirectoryEnumerationFilters filters/*, PathFormat pathFormat*/)
+        internal static IEnumerable<T> EnumerateFileSystemEntryInfosCore<T>(bool? onlyFolders, string path, DirectoryEnumerationOptions options, DirectoryEnumerationFilters filters)
         {
-            if (null == options)
-                options = DirectoryEnumerationOptions.None;
-
-
             if (null != onlyFolders)
             {
                 // Adhere to the method name by validating the DirectoryEnumerationOptions value.

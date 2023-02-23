@@ -23,9 +23,11 @@ namespace dnGREP.Common
             using HttpResponseMessage response = await client.GetAsync(page);
             using HttpContent content = response.Content;
             var text = await content.ReadAsStringAsync();
-            var json = JsonConvert.DeserializeObject(text) as JArray;
-
-            return ExtractVersion(json);
+            if (JsonConvert.DeserializeObject(text) is JArray json)
+            {
+                return ExtractVersion(json);
+            }
+            return string.Empty;
         }
 
         private static string ExtractVersion(JArray json)
@@ -42,7 +44,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrEmpty(latest))
                 latest = latest.TrimStart('v');
 
-            return latest;
+            return latest ?? string.Empty;
         }
 
         public static bool IsUpdateNeeded(string currentVersion, string publishedVersion)

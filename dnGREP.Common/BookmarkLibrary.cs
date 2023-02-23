@@ -11,13 +11,13 @@ namespace dnGREP.Common
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static BookmarkEntity bookmarks;
+        private static BookmarkEntity? bookmarks;
 
         public static readonly int LatestVersion = 5;
 
         public static bool IsDeserializing { get; private set; } = false;
 
-        public static BookmarkEntity Instance
+        public static BookmarkEntity? Instance
         {
             get
             {
@@ -26,7 +26,7 @@ namespace dnGREP.Common
                 return bookmarks;
             }
         }
-
+            
         private BookmarkLibrary() { }
 
         private static string BookmarksFile
@@ -39,8 +39,7 @@ namespace dnGREP.Common
             try
             {
                 IsDeserializing = true;
-                BookmarkEntity bookmarkLib;
-                XmlSerializer serializer = new(typeof(BookmarkEntity));
+                BookmarkEntity? bookmarkLib;
                 if (!File.Exists(BookmarksFile))
                 {
                     bookmarks = new BookmarkEntity();
@@ -48,7 +47,8 @@ namespace dnGREP.Common
                 else
                 {
                     using TextReader reader = new StreamReader(BookmarksFile);
-                    bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
+                    XmlSerializer serializer = new(typeof(BookmarkEntity));
+                    bookmarkLib = (BookmarkEntity?)serializer.Deserialize(reader);
                     if (bookmarkLib != null)
                     {
                         bookmarkLib.Initialize();
@@ -105,16 +105,16 @@ namespace dnGREP.Common
             }
         }
 
-        public Bookmark Get(string id)
+        public Bookmark? Get(string id)
         {
             return Bookmarks.FirstOrDefault(b => b.Id == id);
         }
 
-        public Bookmark Find(Bookmark bookmark)
+        public Bookmark? Find(Bookmark bookmark)
         {
             if (!Bookmarks.Any()) return null;
 
-            Bookmark item = null;
+            Bookmark? item = null;
 
             item = Bookmarks.FirstOrDefault(bk => bk.Equals(bookmark));
             if (item != null) return item;
@@ -268,11 +268,11 @@ namespace dnGREP.Common
         public bool ShouldSerializeApplySearchFilters() { return Version > 2; }
         public bool ShouldSerializeSkipRemoteCloudStorageFiles() { return Version > 3; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Bookmark otherBookmark)
             {
-                return this.Equals(otherBookmark);
+                return Equals(otherBookmark);
             }
             return false;
         }
@@ -309,7 +309,7 @@ namespace dnGREP.Common
                     BooleanOperators == otherBookmark.BooleanOperators;
         }
 
-        public bool Equals(Bookmark otherBookmark)
+        public bool Equals(Bookmark? otherBookmark)
         {
             if (otherBookmark is null)
                 return false;
@@ -381,10 +381,10 @@ namespace dnGREP.Common
             }
         }
 
-        public static bool Equals(Bookmark b1, Bookmark b2) => b1 is null ? b2 is null : b1.Equals(b2);
+        public static bool Equals(Bookmark? b1, Bookmark? b2) => b1 is null ? b2 is null : b1.Equals(b2);
 
-        public static bool operator ==(Bookmark b1, Bookmark b2) => Equals(b1, b2);
-        public static bool operator !=(Bookmark b1, Bookmark b2) => !Equals(b1, b2);
+        public static bool operator ==(Bookmark? b1, Bookmark? b2) => Equals(b1, b2);
+        public static bool operator !=(Bookmark? b1, Bookmark? b2) => !Equals(b1, b2);
 
         public override string ToString()
         {

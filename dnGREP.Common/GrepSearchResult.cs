@@ -49,8 +49,7 @@ namespace dnGREP.Common
             Id = Guid.NewGuid().ToString();
 
             FileNameDisplayed = file;
-            if (matches != null)
-                Matches = matches;
+            Matches = matches;
             Pattern = pattern;
             Encoding = encoding;
             IsSuccess = success;
@@ -78,7 +77,6 @@ namespace dnGREP.Common
             Id = Guid.NewGuid().ToString();
 
             FileNameDisplayed = file;
-            Matches = new List<GrepMatch>();
             searchResults = new List<GrepLine> { new GrepLine(-1, errorMessage, false, null) };
             Pattern = pattern;
             IsSuccess = success;
@@ -87,19 +85,19 @@ namespace dnGREP.Common
 
         public string Id { get; }
 
-        public Encoding Encoding { get; }
+        public Encoding Encoding { get; } = Encoding.UTF8;
 
-        public string EOL { get; set; }
+        public string EOL { get; set; } = Environment.NewLine;
 
         public bool IsHexFile { get; set; }
 
-        public string FileNameDisplayed { get; set; }
+        public string FileNameDisplayed { get; set; } = string.Empty;
 
-        public string InnerFileName { get; set; }
+        public string InnerFileName { get; set; } = string.Empty;
 
-        public string Pattern { get; }
+        public string Pattern { get; } = string.Empty;
 
-        private string fileNameToOpen = null;
+        private string? fileNameToOpen = null;
 
         /// <summary>
         /// Use this property if FileNameDisplayed is not the same as FileNameReal.
@@ -121,7 +119,7 @@ namespace dnGREP.Common
             set { fileNameToOpen = value; }
         }
 
-        private FileData fileInfo;
+        private FileData? fileInfo = null;
         public FileData FileInfo
         {
             get
@@ -146,11 +144,11 @@ namespace dnGREP.Common
         /// <summary>
         /// Gets or sets additional information about the file to show in the results header
         /// </summary>
-        public string AdditionalInformation { get; set; }
+        public string AdditionalInformation { get; set; } = string.Empty;
 
         public bool IsReadOnlyFileType { get; set; } = false;
 
-        private List<GrepLine> searchResults;
+        private List<GrepLine>? searchResults;
 
         public bool HasSearchResults
         {
@@ -218,7 +216,7 @@ namespace dnGREP.Common
 
         public bool IsSuccess { get; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is GrepSearchResult gsr && gsr.Id == Id;
         }

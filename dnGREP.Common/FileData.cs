@@ -12,10 +12,10 @@ namespace dnGREP.Common
     /// </summary>
     public class FileData
     {
-        private readonly FileInfo systemFileInfo;
-        private readonly string archiveFileName;
+        private readonly FileInfo? systemFileInfo;
+        private readonly string? archiveFileName;
         private readonly ArchiveFileInfo? sevenZipFileInfo;
-        private readonly EverythingFileInfo everythingFileInfo;
+        private readonly EverythingFileInfo? everythingFileInfo;
 
         public FileData(string fileName)
         {
@@ -46,8 +46,9 @@ namespace dnGREP.Common
             TempFile = toCopy.TempFile;
         }
 
-        public string ErrorMsg { get; set; }
+        public string ErrorMsg { get; set; } = string.Empty;
 
+#pragma warning disable IDE0075 // the 'simplified' conditional expressions are not as clear
         public string FullName
         {
             get
@@ -74,8 +75,8 @@ namespace dnGREP.Common
         {
             get
             {
-                return systemFileInfo != null ? systemFileInfo.DirectoryName :
-                    sevenZipFileInfo != null ? Path.GetDirectoryName(sevenZipFileInfo.Value.FileName) :
+                return systemFileInfo != null ? systemFileInfo.DirectoryName ?? string.Empty :
+                    sevenZipFileInfo != null ? Path.GetDirectoryName(sevenZipFileInfo.Value.FileName) ?? string.Empty :
                     everythingFileInfo != null ? everythingFileInfo.DirectoryName :
                     string.Empty;
             }
@@ -179,10 +180,11 @@ namespace dnGREP.Common
                     DateTime.MinValue;
             }
         }
+#pragma warning restore IDE0075
 
         public bool IsBinary { get; set; }
 
-        public Encoding Encoding { get; set; }
+        public Encoding Encoding { get; set; } = Encoding.UTF8;
 
         public string TempFile { get; set; } = string.Empty;
 

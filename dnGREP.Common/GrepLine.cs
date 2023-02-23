@@ -5,7 +5,7 @@ namespace dnGREP.Common
 {
     public class GrepLine : IComparable<GrepLine>, IComparable
     {
-        public GrepLine(int number, string text, bool context, List<GrepMatch> matches)
+        public GrepLine(int number, string text, bool context, List<GrepMatch>? matches)
         {
             LineNumber = number;
             LineText = text;
@@ -47,7 +47,7 @@ namespace dnGREP.Common
 
         #region IComparable<GrepLine> Members
 
-        public int CompareTo(GrepLine other)
+        public int CompareTo(GrepLine? other)
         {
             if (other == null)
                 return 1;
@@ -59,7 +59,7 @@ namespace dnGREP.Common
 
         #region IComparable Members
 
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
             if (obj == null)
                 return 1;

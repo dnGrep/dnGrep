@@ -22,7 +22,7 @@ namespace dnGREP.Common
         /// <returns>the converted string</returns>
         unsafe public static string StrFormatByteSize(long filesize)
         {
-            string text = new string(' ', 11);
+            string text = new(' ', 11);
             fixed (char* pstr = text)
             {
                 PInvoke.StrFormatByteSize(filesize, new PWSTR(pstr), 11);
@@ -121,9 +121,9 @@ namespace dnGREP.Common
         }
         private static bool useClipboardSetDataObject;
 
-        unsafe private static Process ProcessHoldingClipboard()
+        unsafe private static Process? ProcessHoldingClipboard()
         {
-            Process process = null;
+            Process? process = null;
 
             HWND hwnd = PInvoke.GetOpenClipboardWindow();
 

@@ -43,12 +43,8 @@ namespace dnGREP.Common.IO
         /// <param name="options">The enumeration options.</param>
         /// <param name="customFilters">The custom filters.</param>
         /// <param name="typeOfT">The type of objects to be retrieved.</param>
-        public FindFileSystemEntryInfo(bool isFolder, string path, DirectoryEnumerationOptions? options, DirectoryEnumerationFilters customFilters, Type typeOfT)
+        public FindFileSystemEntryInfo(bool isFolder, string path, DirectoryEnumerationOptions options, DirectoryEnumerationFilters customFilters, Type typeOfT)
         {
-            if (null == options)
-                throw new ArgumentNullException(nameof(options));
-
-
             OriginalInputPath = path;
 
             InputPath = PathEx.GetLongPath(path).TrimEnd(Path.DirectorySeparatorChar);
