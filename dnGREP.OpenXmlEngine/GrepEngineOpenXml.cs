@@ -15,7 +15,7 @@ namespace dnGREP.Engines.OpenXml
     /// </summary>
     public class GrepEngineOpenXml : GrepEngineBase, IGrepPluginEngine
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public IList<string> DefaultFileExtensions
         {
@@ -28,10 +28,8 @@ namespace dnGREP.Engines.OpenXml
 
         public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            using (var input = File.Open(fileName, FileMode.Open, FileAccess.Read))
-            {
-                return Search(input, fileName, searchPattern, searchType, searchOptions, encoding);
-            }
+            using var input = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            return Search(input, fileName, searchPattern, searchType, searchOptions, encoding);
         }
 
         // the stream version will get called if the file is in an archive
@@ -58,7 +56,7 @@ namespace dnGREP.Engines.OpenXml
 
         private List<GrepSearchResult> SearchMultiline(Stream input, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
         {
-            List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+            List<GrepSearchResult> searchResults = new();
 
             string ext = Path.GetExtension(file);
 
@@ -88,11 +86,11 @@ namespace dnGREP.Engines.OpenXml
                     var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
-                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
+                        GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default)
                         {
                             AdditionalInformation = " " + TranslationSource.Format(Resources.Main_ExcelSheetName, kvPair.Key)
                         };
-                        using (StringReader reader = new StringReader(kvPair.Value))
+                        using (StringReader reader = new(kvPair.Value))
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
@@ -120,8 +118,8 @@ namespace dnGREP.Engines.OpenXml
                 var lines = searchMethod(-1, 0, text, searchPattern, searchOptions, true);
                 if (lines.Count > 0)
                 {
-                    GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
-                    using (StringReader reader = new StringReader(text))
+                    GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
+                    using (StringReader reader = new(text))
                     {
                         result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                     }
@@ -150,12 +148,12 @@ namespace dnGREP.Engines.OpenXml
                     var lines = searchMethod(-1, 0, slide.Item2, searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
-                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
+                        GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default)
                         {
                             AdditionalInformation = " " + TranslationSource.Format(Resources.Main_PowerPointSlideNumber, slide.Item1)
                         };
 
-                        using (StringReader reader = new StringReader(slide.Item2))
+                        using (StringReader reader = new(slide.Item2))
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
@@ -174,7 +172,7 @@ namespace dnGREP.Engines.OpenXml
             }
         }
 
-        private string WriteTempFile(string text, string filePath, string app)
+        private static string WriteTempFile(string text, string filePath, string app)
         {
             string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-{app}");
             if (!Directory.Exists(tempFolder))
@@ -194,10 +192,7 @@ namespace dnGREP.Engines.OpenXml
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public Version FrameworkVersion
-        {
-            get { return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version; }
-        }
+        public Version? FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine))?.GetName()?.Version;
 
         public void Unload()
         {

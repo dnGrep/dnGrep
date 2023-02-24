@@ -13,22 +13,24 @@ namespace dnGREP.Engines.OpenXml
     {
         public static string ExtractWordText(Stream stream)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             // Open a given Word document as readonly
             using (WordprocessingDocument doc = WordprocessingDocument.Open(stream, false))
             {
-                var body = doc.MainDocumentPart.Document.Body;
-                var docStyles = doc.MainDocumentPart.StyleDefinitionsPart.Styles
+                var body = doc.MainDocumentPart?.Document.Body;
+                var docStyles = doc.MainDocumentPart?.StyleDefinitionsPart?.Styles?
                     .Where(r => r is Style).Select(r => r as Style);
 
                 WordListManager wlm = WordListManager.Empty;
-                if (doc.MainDocumentPart.NumberingDefinitionsPart != null && doc.MainDocumentPart.NumberingDefinitionsPart.Numbering != null)
+                if (doc.MainDocumentPart?.NumberingDefinitionsPart != null && doc.MainDocumentPart.NumberingDefinitionsPart.Numbering != null)
                 {
                     wlm = new WordListManager(doc.MainDocumentPart.NumberingDefinitionsPart.Numbering);
                 }
-
-                ExtractText(body, docStyles, wlm, sb);
+                if (body != null && docStyles != null)
+                {
+                    ExtractText(body, docStyles, wlm, sb);
+                }
             }
 
             if (Utils.CancelSearch)
@@ -40,17 +42,15 @@ namespace dnGREP.Engines.OpenXml
         }
 
         private static bool isInTableRow;
-        private static void ExtractText(OpenXmlElement elem, IEnumerable<Style> docStyles, WordListManager wlm, StringBuilder sb)
+        private static void ExtractText(OpenXmlElement elem, IEnumerable<Style?> docStyles, WordListManager wlm, StringBuilder sb)
         {
             if (Utils.CancelSearch)
             {
                 return;
             }
 
-            if (elem is Paragraph)
+            if (elem is Paragraph para)
             {
-                var para = elem as Paragraph;
-
                 string indent = GetIndent(para, docStyles);
                 string fmtNum = wlm.GetFormattedNumber(para);
 
@@ -83,7 +83,7 @@ namespace dnGREP.Engines.OpenXml
             }
         }
 
-        private static string GetIndent(Paragraph para, IEnumerable<Style> docStyles)
+        private static string GetIndent(Paragraph para, IEnumerable<Style?> docStyles)
         {
             string indent = string.Empty;
             if (para != null && para.ParagraphProperties != null && para.ParagraphProperties.Indentation != null)
@@ -102,7 +102,7 @@ namespace dnGREP.Engines.OpenXml
                 para.ParagraphProperties.ParagraphStyleId.Val != null &&
                 para.ParagraphProperties.ParagraphStyleId.Val.HasValue)
             {
-                var style = docStyles.Where(r => r.StyleId == para.ParagraphProperties.ParagraphStyleId.Val.Value)
+                var style = docStyles.Where(r => r?.StyleId == para.ParagraphProperties.ParagraphStyleId.Val.Value)
                     .Select(r => r).FirstOrDefault();
 
                 if (style != null)
