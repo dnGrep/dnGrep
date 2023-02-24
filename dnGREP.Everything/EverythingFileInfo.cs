@@ -19,7 +19,7 @@ namespace dnGREP.Everything
 
         public string Name { get { return Path.GetFileName(FullName); } }
 
-        public string DirectoryName { get { return Path.GetDirectoryName(FullName); } }
+        public string? DirectoryName { get { return Path.GetDirectoryName(FullName); } }
 
         public string Extension { get { return Path.GetExtension(FullName); } }
 

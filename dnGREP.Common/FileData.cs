@@ -77,7 +77,7 @@ namespace dnGREP.Common
             {
                 return systemFileInfo != null ? systemFileInfo.DirectoryName ?? string.Empty :
                     sevenZipFileInfo != null ? Path.GetDirectoryName(sevenZipFileInfo.Value.FileName) ?? string.Empty :
-                    everythingFileInfo != null ? everythingFileInfo.DirectoryName :
+                    everythingFileInfo != null ? everythingFileInfo.DirectoryName ?? string.Empty :
                     string.Empty;
             }
         }

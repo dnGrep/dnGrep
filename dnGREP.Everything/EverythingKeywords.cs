@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace dnGREP.Everything
 {
-    public sealed class EverythingKeywords
+    public static class EverythingKeywords
     {
-        private EverythingKeywords() { }
-
-        public static readonly List<string> PathPrefixes = new List<string>
+        public static readonly List<string> PathPrefixes = new()
         {
             "parent:",
             "infolder:",
@@ -18,19 +12,19 @@ namespace dnGREP.Everything
         };
 
 
-        public static readonly List<string> Wildcards = new List<string>
+        public static readonly List<string> Wildcards = new()
         {
             "*",
             "?",
         };
 
-        public static readonly List<string> UnicodeChars = new List<string>
+        public static readonly List<string> UnicodeChars = new()
         {
             "#<n>:", // Literal unicode character <n> in decimal.
             "#x<n>:", // Literal unicode character <n> in hexadecimal.
         };
 
-        public static readonly List<string> Macros = new List<string>
+        public static readonly List<string> Macros = new()
         {
             "quot:", // Literal double quote "
             "apos:", // Literal apostrophe '
@@ -45,7 +39,7 @@ namespace dnGREP.Everything
             "video:", // Search for video files.
         };
 
-        public static readonly List<string> Modifiers = new List<string>
+        public static readonly List<string> Modifiers = new()
         {
             "ascii:", // Enable or disable fast ASCII case comparisons.
             "utf8:",
@@ -76,7 +70,7 @@ namespace dnGREP.Everything
             "nowildcards:",
         };
 
-        public static readonly List<string> Funcions = new List<string>
+        public static readonly List<string> Functions = new()
         {
             "album:", //<album>  Search for the ID3 or FLAC album.
             "artist:", //<artist> Search for the ID3 or FLAC artist.
@@ -138,7 +132,7 @@ namespace dnGREP.Everything
             "width:", //<width> Search for images with the specified width in pixels.
         };
 
-        public static readonly List<string> SizeConstraints = new List<string>
+        public static readonly List<string> SizeConstraints = new()
         {
             "empty",    //
             "tiny",     //  0 KB < size <= 10 KB
@@ -150,7 +144,7 @@ namespace dnGREP.Everything
             "unknown",  //
         };
 
-        public static readonly List<string> ID3Tags = new List<string>
+        public static readonly List<string> ID3Tags = new()
         {
             "track:",  //<track> Track number or track range.
             "year:",   //<year>  Year or year range.
@@ -161,7 +155,7 @@ namespace dnGREP.Everything
             "genre:",  //<genre>  Track genre.
         };
 
-        public static readonly List<string> ImageInfo = new List<string>
+        public static readonly List<string> ImageInfo = new()
         {
             "width:",  //<width>   The width of the image in pixels.
             "height:",  //<height> The height of the image in pixels.
@@ -170,7 +164,7 @@ namespace dnGREP.Everything
             "bitdepth:",  //<bitdepth> Find images with the specified bits per pixel.
         };
 
-        public static readonly List<string> DuplicatedFiles = new List<string>
+        public static readonly List<string> DuplicatedFiles = new()
         {
             "dupe:",  // Find files and folders with the same filename.
             "attribdupe:",  // Find files and folders with the same attributes. Sort by attributes for the best results.

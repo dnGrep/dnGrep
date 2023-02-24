@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NLog;
 
 namespace dnGREP.Everything
 {
-    public sealed class EverythingSearch
+    public static class EverythingSearch
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
-        private EverythingSearch()
-        {
-            // cannot construct...
-        }
-
         private const int maxPath = 32768;
 
         private static bool? isAvailable;
@@ -59,13 +51,7 @@ namespace dnGREP.Everything
             NativeMethods.Everything_RebuildDB();
         }
 
-        public static bool IsDbLoaded
-        {
-            get
-            {
-                return IsAvailable ? NativeMethods.Everything_IsDBLoaded() : false;
-            }
-        }
+        public static bool IsDbLoaded => IsAvailable && NativeMethods.Everything_IsDBLoaded();
 
         public static int CountMissingFiles { get; private set; }
 
@@ -74,7 +60,7 @@ namespace dnGREP.Everything
             if (!IsDbLoaded)
                 yield break;
 
-            List<string> invalidDrives = new List<string>();
+            List<string> invalidDrives = new();
             CountMissingFiles = 0;
 
             NativeMethods.Everything_SetSort((uint)SortType.NameAscending);
@@ -105,7 +91,7 @@ namespace dnGREP.Everything
 
                     DateTime lastWriteTime = NativeMethods.Everything_GetResultDateModified(idx);
 
-                    EverythingFileInfo fileInfo = new EverythingFileInfo(fullName, attr, length, createdTime, lastWriteTime);
+                    EverythingFileInfo fileInfo = new(fullName, attr, length, createdTime, lastWriteTime);
 
                     if (!includeHidden && fileInfo.Attributes.HasFlag(FileAttributes.Hidden))
                     {

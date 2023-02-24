@@ -16,6 +16,13 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>dnGrep.snk</AssemblyOriginatorKeyFile>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <DefineConstants>$(DefineConstants);x86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <DefineConstants>$(DefineConstants);x64</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfoCommon.cs">
