@@ -987,7 +987,7 @@ namespace Tests
             Assert.DoesNotContain("body", content);
             Assert.Contains("text", content);
 
-            core.Undo(files);
+            GrepCore.Undo(files);
             content = File.ReadAllText(testFile, Encoding.ASCII);
             Assert.DoesNotContain("text", content);
             Assert.Contains("body", content);
@@ -1158,7 +1158,7 @@ namespace Tests
             string content = File.ReadAllText(testFile, Encoding.ASCII);
             Assert.Contains("bodyText", content);
 
-            core.Undo(files);
+            GrepCore.Undo(files);
             content = File.ReadAllText(testFile, Encoding.ASCII);
             Assert.DoesNotContain("bodyText", content);
             Assert.Contains("body", content);
@@ -1195,7 +1195,7 @@ namespace Tests
             Assert.DoesNotContain("= -1;", content);
             Assert.Contains("= 1;", content);
 
-            core.Undo(files);
+            GrepCore.Undo(files);
             content = File.ReadAllText(testFile, Encoding.ASCII);
             Assert.DoesNotContain("= 1;", content);
             Assert.Contains("= -1;", content);

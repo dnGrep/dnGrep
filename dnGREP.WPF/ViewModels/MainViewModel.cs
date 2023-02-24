@@ -2044,8 +2044,7 @@ namespace dnGREP.WPF
 
                 if (response == MessageBoxResult.Yes)
                 {
-                    GrepCore core = new GrepCore();
-                    bool result = core.Undo(undoList);
+                    bool result = GrepCore.Undo(undoList);
                     if (result)
                     {
                         if (IsScriptRunning)

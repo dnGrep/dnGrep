@@ -29,9 +29,9 @@ namespace dnGREP.Common
         public FileFilter FileFilter { get; set; }
 
 
-        private readonly List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
-        private readonly object lockObj = new object();
-        private CancellationTokenSource cancellationTokenSource;
+        private readonly List<GrepSearchResult> searchResults = new();
+        private readonly object lockObj = new();
+        private CancellationTokenSource? cancellationTokenSource;
         private int processedFilesCount;
         private int foundfilesCount;
 
@@ -80,7 +80,7 @@ namespace dnGREP.Common
                     break;
             }
 
-            ProcessedFile(this, new ProgressStatus(false, searchResults.Count, successful, searchResults, null));
+            ProcessedFile(this, new ProgressStatus(false, searchResults.Count, successful, searchResults, string.Empty));
 
             return new List<GrepSearchResult>(searchResults);
         }
@@ -115,7 +115,7 @@ namespace dnGREP.Common
                 {
                     cancellationTokenSource = new CancellationTokenSource();
 
-                    ParallelOptions po = new ParallelOptions
+                    ParallelOptions po = new()
                     {
                         MaxDegreeOfParallelism = maxParallel == -1 ? -1 : Math.Max(1, maxParallel),
                         CancellationToken = cancellationTokenSource.Token
@@ -251,8 +251,7 @@ namespace dnGREP.Common
 
                 if (Utils.CancelSearch)
                 {
-                    if (cancellationTokenSource != null)
-                        cancellationTokenSource.Cancel();
+                    cancellationTokenSource?.Cancel();
                     return;
                 }
 
@@ -265,7 +264,7 @@ namespace dnGREP.Common
 
                     foreach (var fileSearchResults in archiveEngine.Search(file, searchPattern, searchType, searchOptions, encoding))
                     {
-                        if (fileSearchResults != null && fileSearchResults.Count > 0)
+                        if (fileSearchResults.Count > 0)
                         {
                             AddSearchResults(fileSearchResults);
                         }
@@ -282,7 +281,7 @@ namespace dnGREP.Common
 
                     var fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding).ToList();
 
-                    if (fileSearchResults != null && fileSearchResults.Count > 0)
+                    if (fileSearchResults.Count > 0)
                     {
                         AddSearchResults(fileSearchResults);
                     }
@@ -300,7 +299,7 @@ namespace dnGREP.Common
                 AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
                 if (ProcessedFile != null)
                 {
-                    List<GrepSearchResult> _results = new List<GrepSearchResult>
+                    List<GrepSearchResult> _results = new()
                     {
                         new GrepSearchResult(file, searchPattern, ex.Message, false)
                     };
@@ -313,8 +312,7 @@ namespace dnGREP.Common
 
                 if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
                 {
-                    if (cancellationTokenSource != null)
-                        cancellationTokenSource.Cancel();
+                    cancellationTokenSource?.Cancel();
                 }
             }
         }
@@ -335,7 +333,7 @@ namespace dnGREP.Common
             return initialValue;
         }
 
-        private void ArchiveEngine_StartingFileSearch(object sender, DataEventArgs<string> e)
+        private void ArchiveEngine_StartingFileSearch(object? sender, DataEventArgs<string> e)
         {
             Interlocked.Increment(ref processedFilesCount);
             ProcessedFile(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, e.Data));
@@ -356,7 +354,6 @@ namespace dnGREP.Common
 
             int processedFiles = 0;
             Utils.CancelSearch = false;
-            string undoFileName = null;
 
             try
             {
@@ -366,7 +363,7 @@ namespace dnGREP.Common
 
                     // the value in the files dictionary is the temp file name assigned by
                     // the caller for any possible Undo operation
-                    undoFileName = Path.Combine(undoFolder, item.BackupName);
+                    string undoFileName = Path.Combine(undoFolder, item.BackupName);
                     IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(item.OrginalFile, SearchParams, FileFilter);
 
                     try
@@ -411,8 +408,10 @@ namespace dnGREP.Common
                         {
                             try
                             {
-                                FileInfo info = new FileInfo(item.OrginalFile);
-                                info.LastWriteTime = item.LastWriteTime;
+                                FileInfo info = new(item.OrginalFile)
+                                {
+                                    LastWriteTime = item.LastWriteTime
+                                };
                             }
                             catch (System.IO.IOException ex)
                             {
@@ -458,7 +457,7 @@ namespace dnGREP.Common
             return processedFiles;
         }
 
-        public bool Undo(IEnumerable<ReplaceDef> undoMap)
+        public static bool Undo(IEnumerable<ReplaceDef> undoMap)
         {
             string undoFolder = Utils.GetUndoFolder();
             if (!Directory.Exists(undoFolder) || DirectoryEx.IsEmpty(undoFolder))
@@ -486,7 +485,7 @@ namespace dnGREP.Common
 
     public class ProgressStatus
     {
-        public ProgressStatus(bool beginSearch, int processed, int successful, List<GrepSearchResult> results, string fileName)
+        public ProgressStatus(bool beginSearch, int processed, int successful, List<GrepSearchResult>? results, string fileName)
         {
             BeginSearch = beginSearch;
             ProcessedFiles = processed;
@@ -497,7 +496,7 @@ namespace dnGREP.Common
         public bool BeginSearch { get; private set; }
         public int ProcessedFiles { get; private set; }
         public int SuccessfulFiles { get; private set; }
-        public List<GrepSearchResult> SearchResults { get; private set; }
+        public List<GrepSearchResult>? SearchResults { get; private set; }
         public string FileName { get; private set; }
     }
 }

@@ -48,7 +48,7 @@ namespace dnGREP.Engines
          * @param loc The location to search around.
          * @return Best match index or -1.
          */
-        public int match_main(string text, string pattern, int loc)
+        public int MatchMain(string text, string pattern, int loc)
         {
             // Check for null inputs not needed since null can't be passed in C#.
 
@@ -72,11 +72,11 @@ namespace dnGREP.Engines
             else
             {
                 // Do a fuzzy compare.
-                return match_bitap(text, pattern, loc);
+                return MatchBitap(text, pattern, loc);
             }
         }
 
-        public int match_length(string text, string pattern, int loc, bool isWholeWord, double threashold)
+        public static int MatchLength(string text, string pattern, int loc, bool isWholeWord, double threashold)
         {
             // Case 0: pattern.length = 0 or text.length = 0
             if (text == null || pattern == null || text.Length == 0 || pattern.Length == 0)
@@ -92,14 +92,14 @@ namespace dnGREP.Engines
             int counter = 0;
             double matchIndex = 0;
             string matchWord = "";
-            NeedlemanWunch nw = new NeedlemanWunch();
+            NeedlemanWunch nw = new();
             while (counter < pattern.Length * 2)
             {
                 if (counter + loc < text.Length)
                 {
                     counter++;
                     string tempMatchWord = text.Substring(loc, counter);
-                    if (isWholeWord && counter + loc < text.Length && !Utils.IsValidEndText(text.Substring(loc + counter)))
+                    if (isWholeWord && counter + loc < text.Length && !Utils.IsValidEndText(text[(loc + counter)..]))
                     {
                         continue;
                     }
@@ -130,13 +130,13 @@ namespace dnGREP.Engines
          * @param loc The location to search around.
          * @return Best match index or -1.
          */
-        protected int match_bitap(string text, string pattern, int loc)
+        protected int MatchBitap(string text, string pattern, int loc)
         {
             // assert (Match_MaxBits == 0 || pattern.Length <= Match_MaxBits)
             //    : "Pattern too long for this application.";
 
             // Initialise the alphabet.
-            Dictionary<char, int> s = match_alphabet(pattern);
+            Dictionary<char, int> s = MatchAlphabet(pattern);
 
             // Highest score beyond which we give up.
             double score_threshold = Match_Threshold;
@@ -144,7 +144,7 @@ namespace dnGREP.Engines
             int best_loc = text.IndexOf(pattern, loc, StringComparison.Ordinal);
             if (best_loc != -1)
             {
-                score_threshold = Math.Min(match_bitapScore(0, best_loc, loc,
+                score_threshold = Math.Min(MatchBitapScore(0, best_loc, loc,
                     pattern), score_threshold);
                 // What about in the other direction? (speedup)
                 best_loc = text.LastIndexOf(pattern,
@@ -152,7 +152,7 @@ namespace dnGREP.Engines
                     StringComparison.Ordinal);
                 if (best_loc != -1)
                 {
-                    score_threshold = Math.Min(match_bitapScore(0, best_loc, loc,
+                    score_threshold = Math.Min(MatchBitapScore(0, best_loc, loc,
                         pattern), score_threshold);
                 }
             }
@@ -164,7 +164,7 @@ namespace dnGREP.Engines
             int bin_min, bin_mid;
             int bin_max = pattern.Length + text.Length;
             // Empty initialization added to appease C# compiler.
-            int[] last_rd = new int[0];
+            int[] last_rd = Array.Empty<int>();
             for (int d = 0; d < pattern.Length; d++)
             {
                 // Scan for the best match; each iteration allows for one more error.
@@ -174,7 +174,7 @@ namespace dnGREP.Engines
                 bin_mid = bin_max;
                 while (bin_min < bin_mid)
                 {
-                    if (match_bitapScore(d, loc + bin_mid, loc, pattern)
+                    if (MatchBitapScore(d, loc + bin_mid, loc, pattern)
                         <= score_threshold)
                     {
                         bin_min = bin_mid;
@@ -217,7 +217,7 @@ namespace dnGREP.Engines
                     }
                     if ((rd[j] & matchmask) != 0)
                     {
-                        double score = match_bitapScore(d, j - 1, loc, pattern);
+                        double score = MatchBitapScore(d, j - 1, loc, pattern);
                         // This match will almost certainly be better than any existing
                         // match.  But check anyway.
                         if (score <= score_threshold)
@@ -238,7 +238,7 @@ namespace dnGREP.Engines
                         }
                     }
                 }
-                if (match_bitapScore(d + 1, loc, loc, pattern) > score_threshold)
+                if (MatchBitapScore(d + 1, loc, loc, pattern) > score_threshold)
                 {
                     // No hope for a (better) match at greater error levels.
                     break;
@@ -256,7 +256,7 @@ namespace dnGREP.Engines
          * @param pattern Pattern being sought.
          * @return Overall score for match (0.0 = good, 1.0 = bad).
          */
-        private double match_bitapScore(int e, int x, int loc, string pattern)
+        private double MatchBitapScore(int e, int x, int loc, string pattern)
         {
             float accuracy = (float)e / pattern.Length;
             int proximity = Math.Abs(loc - x);
@@ -273,9 +273,9 @@ namespace dnGREP.Engines
          * @param pattern The text to encode.
          * @return Hash of character locations.
          */
-        protected Dictionary<char, int> match_alphabet(string pattern)
+        protected static Dictionary<char, int> MatchAlphabet(string pattern)
         {
-            Dictionary<char, int> s = new Dictionary<char, int>();
+            Dictionary<char, int> s = new();
             char[] char_pattern = pattern.ToCharArray();
             foreach (char c in char_pattern)
             {

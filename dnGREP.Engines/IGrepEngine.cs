@@ -59,7 +59,7 @@ namespace dnGREP.Engines
         /// <summary>
         /// Return version of the framework (dgGREP.Engines.dll) that the plugin was compiled against
         /// </summary>
-        Version FrameworkVersion { get; }
+        Version? FrameworkVersion { get; }
 
         /// <summary>
         /// Can be used to provide custom file opening functionality

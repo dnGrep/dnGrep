@@ -96,10 +96,11 @@ namespace dnGREP.Engines
         /// the private cost function used in the levenstein distance.
         /// </summary>
         AbstractSubstitutionCost dCostFunction;
+
         /// <summary>
         /// a constant for calculating the estimated timing cost.
         /// </summary>
-        double estimatedTimingConstant = 0.0001842F;
+        readonly double estimatedTimingConstant = 0.0001842F;
         /// <summary>
         /// the cost of a gap.
         /// </summary>
@@ -269,7 +270,7 @@ namespace dnGREP.Engines
         /// <param name="setRenamed">an array of strings to test against the comparator string</param>
         /// <param name="comparator">the comparator string to test the array against</param>
         /// <returns>an array of results equal in length to the size of the given set of strings to test.</returns>
-        public double[] BatchCompareSet(string[] setRenamed, string comparator)
+        public double[]? BatchCompareSet(string[] setRenamed, string comparator)
         {
             if ((setRenamed != null) && (comparator != null))
             {
@@ -291,7 +292,7 @@ namespace dnGREP.Engines
         /// <param name="firstSet">an array of strings to test</param>
         /// <param name="secondSet">an array of strings to test the first array against</param>
         /// <returns>an array of results equal in length to the minimum size of the given sets of strings to test.</returns>
-        public double[] BatchCompareSets(string[] firstSet, string[] secondSet)
+        public double[]? BatchCompareSets(string[] firstSet, string[] secondSet)
         {
             if ((firstSet != null) && (secondSet != null))
             {
