@@ -56,8 +56,9 @@
   </ItemGroup>
   <PropertyGroup>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="REM Debug setup&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.plugin&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\net7.0-windows\Plugins\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.pdb&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)pdftotext.exe&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;" />
+    <Exec Command="REM Debug setup&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.plugin&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.pdb&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)pdftotext.exe&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;" />
   </Target>
 </Project>

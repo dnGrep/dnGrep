@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.Common.IO;
 using NLog;
 
 namespace dnGREP.Engines.Pdf
@@ -14,8 +15,8 @@ namespace dnGREP.Engines.Pdf
     /// </summary>
     public class GrepEnginePdf : GrepEngineBase, IGrepPluginEngine
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-        private string pathToPdfToText = "";
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private string pathToPdfToText = string.Empty;
 
         #region Initialization and disposal
         public override bool Initialize(GrepEngineInitParams param, FileFilter filter)
@@ -142,48 +143,33 @@ namespace dnGREP.Engines.Pdf
             string fileName = Path.GetFileNameWithoutExtension(pdfFilePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
             string tempFileName = Path.Combine(tempFolder, fileName);
 
-            if (pdfFilePath.Length > 260 && !pdfFilePath.StartsWith(@"\\?\"))
+            pdfFilePath = PathEx.GetLongPath(pdfFilePath);
+            string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions) ?? "-layout -enc UTF-8 -bom";
+
+            using Process process = new();
+            // use command prompt
+            process.StartInfo.FileName = pathToPdfToText;
+            process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, pdfFilePath, tempFileName);
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
+            process.StartInfo.CreateNoWindow = true;
+            // start cmd prompt, execute command
+            process.Start();
+            process.WaitForExit();
+
+            if (process.ExitCode == 0)
+                return tempFileName;
+            else
             {
-                pdfFilePath = @"\\?\" + pdfFilePath;
-            }
-
-            string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions);
-
-            using (Process process = new Process())
-            {
-                // use command prompt
-                process.StartInfo.FileName = pathToPdfToText;
-                process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, pdfFilePath, tempFileName);
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
-                process.StartInfo.CreateNoWindow = true;
-                // start cmd prompt, execute command
-                process.Start();
-                process.WaitForExit();
-
-                if (process.ExitCode == 0)
-                    return tempFileName;
-                else
+                string errorMessage = string.Empty;
+                errorMessage = process.ExitCode switch
                 {
-                    string errorMessage = string.Empty;
-                    switch (process.ExitCode)
-                    {
-                        case 1:
-                            errorMessage = "Error opening PDF file";
-                            break;
-                        case 2:
-                            errorMessage = "Error opening an output file";
-                            break;
-                        case 3:
-                            errorMessage = "Error related to PDF permissions";
-                            break;
-                        default:
-                            errorMessage = "Unknown error";
-                            break;
-                    }
-
-                    throw new Exception($"pdftotext returned '{errorMessage}' converting '{pdfFilePath}'");
-                }
+                    1 => "Error opening PDF file",
+                    2 => "Error opening an output file",
+                    3 => "Error related to PDF permissions",
+                    _ => "Unknown error",
+                };
+                throw new Exception($"pdftotext returned '{errorMessage}' converting '{pdfFilePath}'");
             }
         }
 
@@ -193,10 +179,7 @@ namespace dnGREP.Engines.Pdf
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public Version FrameworkVersion
-        {
-            get { return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version; }
-        }
+        public Version? FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine))?.GetName()?.Version;
 
         public void Unload()
         {
