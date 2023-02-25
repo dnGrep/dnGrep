@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -7,19 +8,32 @@ namespace dnGREP.Localization
 {
     public class ResourceManagerEx : ResourceManager
     {
-        public static ResourceManagerEx Instance { get; private set; }
+        private static ResourceManagerEx? instance = null;
+        public static ResourceManagerEx Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    Initialize();
+                }
+                return instance;
+            }
+        }
 
-        internal ResxFile FileResources { get; set; }
+        internal ResxFile? FileResources { get; set; }
 
+        [MemberNotNull(nameof(instance))]
         public static void Initialize()
         {
             Type resourcesType = typeof(dnGREP.Localization.Properties.Resources);
-            var manager = new ResourceManagerEx("dnGREP.Localization.Properties.Resources", resourcesType.Assembly);
+            ResourceManagerEx manager = new("dnGREP.Localization.Properties.Resources", resourcesType.Assembly);
 
-            FieldInfo fi = resourcesType.GetField("resourceMan", BindingFlags.NonPublic | BindingFlags.Static);
-            fi.SetValue(null, manager);
+            // set this class as the public static dnGREP.Localization.Properties.Resources.ResourceManager
+            FieldInfo? fi = resourcesType.GetField("resourceMan", BindingFlags.NonPublic | BindingFlags.Static);
+            fi?.SetValue(null, manager);
 
-            Instance = manager;
+            instance = manager;
         }
 
         public ResourceManagerEx(string baseName, Assembly assembly)
@@ -27,12 +41,12 @@ namespace dnGREP.Localization
         {
         }
 
-        public override string GetString(string name, CultureInfo culture)
+        public override string? GetString(string name, CultureInfo? culture)
         {
-            string result = null;
+            string? result = null;
             if (FileResources != null)
             {
-                if (FileResources.Resources.TryGetValue(name, out string value))
+                if (FileResources.Resources.TryGetValue(name, out string? value))
                 {
                     result = value;
                 }
@@ -45,7 +59,7 @@ namespace dnGREP.Localization
             }
             else
             {
-                if (culture != null && culture.Name != null && culture.Name.Equals("en"))
+                if (culture?.Name.Equals("en") is true)
                 {
                     // no need to check for RTL language
                     return base.GetString(name, CultureInfo.InvariantCulture);

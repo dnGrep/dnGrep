@@ -34,7 +34,7 @@ namespace dnGREP.WPF
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
 
-            CultureNames = TranslationSource.Instance.AppCultures
+            CultureNames = TranslationSource.AppCultures
                 .OrderBy(kv => kv.Value, StringComparer.CurrentCulture).ToArray();
 
             CustomEditorTemplates = ConfigurationTemplate.EditorConfigurationTemplates.ToArray();
