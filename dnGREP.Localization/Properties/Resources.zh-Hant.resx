@@ -3401,11 +3401,79 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>確定</value>
+    <value>是</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Options_SearchOptions" xml:space="preserve">
     <value>搜尋選項</value>
     <comment>Options dialog, search options group header label</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>檔案中的符合項計數值</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>符合項總計數值</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>行上的符合項計數值</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>詢問</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>複製檔案</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>移動檔案</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>不再詢問</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>否</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>全部皆否</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>是</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>全部皆是</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>否</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>複製檔案時, 若目標文件存在, 是否覆寫現有檔案?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>移動檔案時, 若目標文件存在, 是否覆寫現有檔案?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>是</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>最大並行搜尋數</value>
+    <comment>Options dialog, parallel options label</comment>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>由系統自行決定並行任務數量</value>
+    <comment>Options dialog, checkbox label</comment>
   </data>
 </root>
