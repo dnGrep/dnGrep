@@ -20,7 +20,7 @@ namespace dnGREP.Common
                 if (value == fileOrFolderPath)
                     return;
 
-                baseFolder = null;
+                baseFolder = string.Empty;
                 isValidPath = null;
                 fileOrFolderPath = value;
             }
