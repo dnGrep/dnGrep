@@ -29,6 +29,10 @@
     <WixVariables>SourcePathApp=$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone);SourcePathPdf=$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins;SourcePathWord=$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins;SourcePathArchive=$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins</WixVariables>
     <OutputPath>..\Release\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <SuppressSpecificWarnings>
+    </SuppressSpecificWarnings>
+    <SuppressAllWarnings>True</SuppressAllWarnings>
+    <Pedantic>False</Pedantic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
