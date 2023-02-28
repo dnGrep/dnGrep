@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -15,7 +16,7 @@ namespace dnGREP.WPF
 {
     public class BookmarkListViewModel : CultureAwareViewModel
     {
-        public event EventHandler<DataEventArgs<int>> SetFocus;
+        public event EventHandler<DataEventArgs<int>>? SetFocus;
 
         private readonly Action<Bookmark> ClearStar;
         private readonly Window ownerWnd;
@@ -35,6 +36,7 @@ namespace dnGREP.WPF
             IsPinned = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PinBookmarkWindow);
         }
 
+        [MemberNotNull(nameof(Bookmarks))]
         public void SynchToLibrary()
         {
             _bookmarks.Clear();
@@ -50,7 +52,7 @@ namespace dnGREP.WPF
             _bookmarks.Sort((x, y) => x.Ordinal.CompareTo(y.Ordinal));
         }
 
-        internal void BookmarksWindow_Closing(object sender, CancelEventArgs e)
+        internal void BookmarksWindow_Closing(object? sender, CancelEventArgs e)
         {
             GrepSettings.Instance.Set(GrepSettings.Key.PinBookmarkWindow, IsPinned);
 
@@ -65,7 +67,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -122,11 +124,11 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    return bmk.BookmarkName.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                           bmk.Description.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                           bmk.SearchFor.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                           bmk.ReplaceWith.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                           bmk.FilePattern.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0;
+                    return bmk.BookmarkName.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
+                           bmk.Description.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
+                           bmk.SearchFor.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
+                           bmk.ReplaceWith.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
+                           bmk.FilePattern.Contains(FilterText, StringComparison.OrdinalIgnoreCase);
                 }
             }
             return false;
@@ -148,8 +150,8 @@ namespace dnGREP.WPF
             }
         }
 
-        private BookmarkViewModel selectedBookmark = null;
-        public BookmarkViewModel SelectedBookmark
+        private BookmarkViewModel? selectedBookmark = null;
+        public BookmarkViewModel? SelectedBookmark
         {
             get { return selectedBookmark; }
             set
@@ -215,65 +217,80 @@ namespace dnGREP.WPF
             _isDirty = true;
             Sort();
             Bookmarks.Refresh();
-            int idx = _bookmarks.IndexOf(SelectedBookmark);
-            SetFocus?.Invoke(this, new DataEventArgs<int>(idx));
+            if (SelectedBookmark != null)
+            {
+                int idx = _bookmarks.IndexOf(SelectedBookmark);
+                SetFocus?.Invoke(this, new DataEventArgs<int>(idx));
+            }
         }
 
         private void MoveToTop()
         {
-            int idx = SelectedBookmark.Ordinal;
-            if (idx > 0)
+            if (SelectedBookmark != null)
             {
-                SelectedBookmark.Ordinal = 0;
-                foreach (BookmarkViewModel item in Bookmarks)
+                int idx = SelectedBookmark.Ordinal;
+                if (idx > 0)
                 {
-                    if (item != SelectedBookmark && item.Ordinal < idx)
+                    SelectedBookmark.Ordinal = 0;
+                    foreach (BookmarkViewModel item in Bookmarks)
                     {
-                        item.Ordinal++;
+                        if (item != SelectedBookmark && item.Ordinal < idx)
+                        {
+                            item.Ordinal++;
+                        }
                     }
+                    UpdateOrder();
                 }
-                UpdateOrder();
             }
         }
 
         private void MoveUp()
         {
-            int idx = SelectedBookmark.Ordinal;
-            if (idx > 0)
+            if (SelectedBookmark != null)
             {
-                var prev = _bookmarks.Where(b => b.Ordinal == idx - 1).First();
-                SelectedBookmark.Ordinal = prev.Ordinal;
-                prev.Ordinal = idx;
-                UpdateOrder();
+                int idx = SelectedBookmark.Ordinal;
+                if (idx > 0)
+                {
+                    var prev = _bookmarks.Where(b => b.Ordinal == idx - 1).First();
+                    SelectedBookmark.Ordinal = prev.Ordinal;
+                    prev.Ordinal = idx;
+                    UpdateOrder();
+                }
             }
         }
 
         private void MoveDown()
         {
-            int idx = SelectedBookmark.Ordinal;
-            if (idx < _bookmarks.Count - 1)
+            if (SelectedBookmark != null)
             {
-                var next = _bookmarks.Where(b => b.Ordinal == idx + 1).First();
-                SelectedBookmark.Ordinal = next.Ordinal;
-                next.Ordinal = idx;
-                UpdateOrder();
+                int idx = SelectedBookmark.Ordinal;
+                if (idx < _bookmarks.Count - 1)
+                {
+                    var next = _bookmarks.Where(b => b.Ordinal == idx + 1).First();
+                    SelectedBookmark.Ordinal = next.Ordinal;
+                    next.Ordinal = idx;
+                    UpdateOrder();
+                }
             }
         }
 
         private void MoveToBottom()
         {
-            int idx = SelectedBookmark.Ordinal;
-            if (idx < _bookmarks.Count - 1)
+            if (SelectedBookmark != null)
             {
-                SelectedBookmark.Ordinal = _bookmarks.Count - 1;
-                foreach (BookmarkViewModel item in Bookmarks)
+                int idx = SelectedBookmark.Ordinal;
+                if (idx < _bookmarks.Count - 1)
                 {
-                    if (item != SelectedBookmark && item.Ordinal > idx)
+                    SelectedBookmark.Ordinal = _bookmarks.Count - 1;
+                    foreach (BookmarkViewModel item in Bookmarks)
                     {
-                        item.Ordinal--;
+                        if (item != SelectedBookmark && item.Ordinal > idx)
+                        {
+                            item.Ordinal--;
+                        }
                     }
+                    UpdateOrder();
                 }
-                UpdateOrder();
             }
         }
 
@@ -516,7 +533,7 @@ namespace dnGREP.WPF
     {
         public static ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
 
-        private Bookmark _original;
+        private Bookmark? _original;
 
         public void SetEditMode(Bookmark original)
         {
@@ -628,7 +645,7 @@ namespace dnGREP.WPF
 
         internal void PushOrdinalUpdate()
         {
-            Bookmark bk = BookmarkLibrary.Instance.Get(Id);
+            Bookmark? bk = BookmarkLibrary.Instance.Get(Id);
             if (bk != null)
             {
                 bk.Ordinal = Ordinal;
@@ -786,7 +803,7 @@ namespace dnGREP.WPF
         }
 
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -1274,8 +1291,8 @@ namespace dnGREP.WPF
 
                 if (!value)
                 {
-                    FilePattern = null;
-                    IgnoreFilePattern = null;
+                    FilePattern = string.Empty;
+                    IgnoreFilePattern = string.Empty;
                 }
                 applyFileSourceFilters = value;
                 OnPropertyChanged(nameof(ApplyFileSourceFilters));
@@ -1309,8 +1326,8 @@ namespace dnGREP.WPF
 
                 if (!value)
                 {
-                    SearchFor = null;
-                    ReplaceWith = null;
+                    SearchFor = string.Empty;
+                    ReplaceWith = string.Empty;
                 }
                 applyContentSearchFilters = value;
                 OnPropertyChanged(nameof(ApplyContentSearchFilters));
@@ -1362,7 +1379,7 @@ namespace dnGREP.WPF
             return isUnique;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is BookmarkViewModel otherBookmark)
             {
@@ -1371,7 +1388,7 @@ namespace dnGREP.WPF
             return false;
         }
 
-        public bool Equals(BookmarkViewModel otherVM)
+        public bool Equals(BookmarkViewModel? otherVM)
         {
             if (otherVM is null)
                 return false;
@@ -1434,10 +1451,10 @@ namespace dnGREP.WPF
             }
         }
 
-        public static bool Equals(BookmarkViewModel b1, BookmarkViewModel b2) => b1 is null ? b2 is null : b1.Equals(b2);
+        public static bool Equals(BookmarkViewModel? b1, BookmarkViewModel? b2) => b1 is null ? b2 is null : b1.Equals(b2);
 
-        public static bool operator ==(BookmarkViewModel b1, BookmarkViewModel b2) => Equals(b1, b2);
-        public static bool operator !=(BookmarkViewModel b1, BookmarkViewModel b2) => !Equals(b1, b2);
+        public static bool operator ==(BookmarkViewModel? b1, BookmarkViewModel? b2) => Equals(b1, b2);
+        public static bool operator !=(BookmarkViewModel? b1, BookmarkViewModel? b2) => !Equals(b1, b2);
 
         public override string ToString()
         {

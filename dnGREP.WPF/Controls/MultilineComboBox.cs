@@ -9,7 +9,7 @@ namespace dnGREP.WPF
     /// </summary>
     public class MultilineComboBox : ComboBox
     {
-        private TextBox editTextBox;
+        private TextBox? editTextBox;
 
         public MultilineComboBox()
             : base()
@@ -43,14 +43,11 @@ namespace dnGREP.WPF
 
         private void SendKey(Key key)
         {
-            if (editTextBox != null)
-            {
-                editTextBox.RaiseEvent(
+            editTextBox?.RaiseEvent(
                   new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(editTextBox), 0, key)
                   {
                       RoutedEvent = Keyboard.KeyDownEvent
                   });
-            }
         }
 
         public static readonly DependencyProperty AllowMultilineProperty =

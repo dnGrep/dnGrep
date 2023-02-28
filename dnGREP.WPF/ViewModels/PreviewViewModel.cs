@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using dnGREP.Common;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;
@@ -13,7 +14,7 @@ using NLog;
 
 namespace dnGREP.WPF
 {
-    public class PreviewViewModel : CultureAwareViewModel, INotifyPropertyChanged
+    public class PreviewViewModel : CultureAwareViewModel
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -83,7 +84,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public event EventHandler ShowPreview;
+        public event EventHandler? ShowPreview;
 
         private bool isLargeOrBinary;
         public bool IsLargeOrBinary
@@ -113,7 +114,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string currentSyntax;
+        private string currentSyntax = string.Empty;
         public string CurrentSyntax
         {
             get { return currentSyntax; }
@@ -128,13 +129,13 @@ namespace dnGREP.WPF
             }
         }
 
-        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new ObservableCollection<MenuItemViewModel>();
+        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();
 
-        public ObservableCollection<Marker> Markers { get; } = new ObservableCollection<Marker>();
+        public ObservableCollection<Marker> Markers { get; } = new();
 
-        public Encoding Encoding { get; set; }
+        public Encoding Encoding { get; set; } = Encoding.UTF8;
 
-        private string filePath;
+        private string filePath = string.Empty;
         public string FilePath
         {
             get { return filePath; }
@@ -148,8 +149,8 @@ namespace dnGREP.WPF
             }
         }
 
-        private GrepSearchResult grepResult;
-        public GrepSearchResult GrepResult
+        private GrepSearchResult? grepResult;
+        public GrepSearchResult? GrepResult
         {
             get { return grepResult; }
             set
@@ -204,13 +205,8 @@ namespace dnGREP.WPF
             }
         }
 
-        public IHighlightingDefinition HighlightingDefinition
-        {
-            get
-            {
-                return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
-            }
-        }
+        public IHighlightingDefinition? HighlightingDefinition => 
+            ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
 
 
         private bool hasPageNumbers = false;
@@ -229,7 +225,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -257,7 +253,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string resultsFontFamily;
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
         public string ResultsFontFamily
         {
             get { return resultsFontFamily; }
@@ -271,16 +267,19 @@ namespace dnGREP.WPF
             }
         }
 
-        public List<int> MarkerLineNumbers = new List<int>();
+        public List<int> MarkerLineNumbers = new();
 
-        void PreviewViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        void PreviewViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            UpdateState(e.PropertyName);
+            if (!string.IsNullOrEmpty(e.PropertyName))
+            {
+                UpdateState(e.PropertyName);
+            }
         }
 
         private void UpdateState(string name)
         {
-            if (name == nameof(GrepResult))
+            if (name == nameof(GrepResult) && GrepResult != null)
             {
                 MarkerLineNumbers = GrepResult.SearchResults.Where(sr => !sr.IsContext)
                     .Select(sr => sr.LineNumber).Distinct().ToList();
@@ -352,9 +351,9 @@ namespace dnGREP.WPF
 
         internal void UpdatePersonalization(bool personalizationOn)
         {
-            PreviewZoomWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewZoomWndVisible) : true;
-            WrapTextPreviewWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextPreviewWndVisible) : true;
-            SyntaxPreviewWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SyntaxPreviewWndVisible) : true;
+            PreviewZoomWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewZoomWndVisible);
+            WrapTextPreviewWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextPreviewWndVisible);
+            SyntaxPreviewWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SyntaxPreviewWndVisible);
         }
 
 

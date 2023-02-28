@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -642,23 +644,51 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Gets value of a nullable object in dictionary and deserializes it to specified type
+        /// </summary>
+        /// <typeparam name="T">Type of object to deserialize from</typeparam>
+        /// <param name="key">Key</param>
+        /// <returns></returns>
+        public T? GetNullable<T>(string key)
+        {
+            if (!settings.ContainsKey(key))
+            {
+                return GetDefaultValueNullable<T>(key);
+            }
+
+            if (!settings.TryGetValue(key, out string? value) || value == "xsi:nil")
+            {
+                return default;
+            }
+
+            return Get<T>(key);
+        }
+
+        /// <summary>
         /// Gets value of object in dictionary and deserializes it to specified type
         /// </summary>
         /// <typeparam name="T">Type of object to deserialize from</typeparam>
         /// <param name="key">Key</param>
         /// <returns></returns>
-        public T? Get<T>(string key)
+        public T Get<T>(string key)
         {
             if (!settings.ContainsKey(key))
             {
                 return GetDefaultValue<T>(key);
             }
 
-            try
+            if (settings.TryGetValue(key, out string? value))
             {
-                if (!settings.TryGetValue(key, out string? value) || value == "xsi:nil")
+                if (value == "xsi:nil")
                 {
-                    return default;
+                    if (typeof(T) == typeof(string))
+                    {
+                        value = string.Empty;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Null is not allowed for key {key}");
+                    }
                 }
 
                 if (typeof(T) == typeof(string))
@@ -720,10 +750,8 @@ namespace dnGREP.Common
 
                 return (T)Convert.ChangeType(value, typeof(T));
             }
-            catch
-            {
-                return GetDefaultValue<T>(key);
-            }
+
+            return GetDefaultValue<T>(key);
         }
 
         /// <summary>
@@ -808,7 +836,36 @@ namespace dnGREP.Common
             }
         }
 
-        private T? GetDefaultValue<T>(string key)
+        private T GetDefaultValue<T>(string key)
+        {
+            InitializeConstantKeys();
+            FieldInfo? info = constantKeys?.Find(fi => fi.Name == key);
+
+            if (info != null &&
+                info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr &&
+                attr.Length == 1)
+            {
+                if (attr[0].Value is T val)
+                {
+                    return val;
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Null default is not allowed for key {key}");
+                }
+            }
+
+            if (default(T) is T defValue)
+            {
+                return defValue;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Null default is not allowed for key {key}");
+            }
+        }
+
+        private T? GetDefaultValueNullable<T>(string key)
         {
             InitializeConstantKeys();
             FieldInfo? info = constantKeys?.Find(fi => fi.Name == key);

@@ -15,10 +15,10 @@ namespace dnGREP.WPF
         private readonly TextEditor textEditor;
         private string originalScript = string.Empty;
 
-        public event EventHandler RequestRun;
-        public event EventHandler RequestClose;
-        public event EventHandler RequestSuggest;
-        public event EventHandler NewScriptFileSaved;
+        public event EventHandler? RequestRun;
+        public event EventHandler? RequestClose;
+        public event EventHandler? RequestSuggest;
+        public event EventHandler? NewScriptFileSaved;
 
         public ScriptViewModel(TextEditor textEditor)
         {
@@ -34,7 +34,7 @@ namespace dnGREP.WPF
         }
 
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -62,7 +62,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string resultsFontFamily;
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
         public string ResultsFontFamily
         {
             get { return resultsFontFamily; }
@@ -174,6 +174,7 @@ namespace dnGREP.WPF
             }
         }
 
+#pragma warning disable CA1822
         public ICommand NewCommand => new RelayCommand(
             p => NewScript(),
             q => true);
@@ -249,6 +250,7 @@ namespace dnGREP.WPF
         public ICommand RunCommand => new RelayCommand(
             p => RunScript(),
             q => true);
+#pragma warning restore CA1822
 
         private bool CanMoveLineUp
         {
@@ -377,7 +379,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void Document_TextChanged(object sender, EventArgs e)
+        private void Document_TextChanged(object? sender, EventArgs e)
         {
             IsModified = string.CompareOrdinal(originalScript, textEditor.Text) != 0;
             UpdateWindowTitle();
@@ -460,7 +462,7 @@ namespace dnGREP.WPF
                 return;
             }
 
-            SaveFileDialog dlg = new SaveFileDialog
+            SaveFileDialog dlg = new()
             {
                 Filter = Resources.Scripts_ScriptFiles + "|*" + ScriptManager.ScriptExt,
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
@@ -533,7 +535,7 @@ namespace dnGREP.WPF
             {
                 ValidationData.Add(new ValidationErrorViewModel(
                     error.Item1.ToString(),
-                    ScriptManager.Instance.ToErrorString(error.Item2)));
+                    ScriptManager.ToErrorString(error.Item2)));
             }
             HasValidationErrors = ValidationData.Count > 0;
 

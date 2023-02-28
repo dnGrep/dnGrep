@@ -27,9 +27,9 @@ namespace dnGREP.WPF
             };
         }
 
-        public string DestinationPath { get; private set; }
+        public string DestinationPath { get; private set; } = string.Empty;
 
-        public string SourcePath { get; set; }
+        public string SourcePath { get; set; } = string.Empty;
 
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -45,7 +45,7 @@ namespace dnGREP.WPF
                     return;
                 }
 
-                string destPath = Path.Combine(Path.GetDirectoryName(SourcePath), txtName.Text);
+                string destPath = Path.Combine(Path.GetDirectoryName(SourcePath) ?? string.Empty, txtName.Text);
                 if (File.Exists(destPath))
                 {
                     txtError.Text = dnGREP.Localization.Properties.Resources.Rename_FileNameAlreadyExistsInThisDirectory;
@@ -77,7 +77,7 @@ namespace dnGREP.WPF
                 DialogWidth = DialogFontSize * 30.0;
             }
 
-            private string applicationFontFamily;
+            private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
             public string ApplicationFontFamily
             {
                 get { return applicationFontFamily; }

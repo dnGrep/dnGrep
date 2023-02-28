@@ -17,13 +17,13 @@ namespace dnGREP.WPF
                 {
                     if (item.Foreground != null)
                     {
-                        string hex = item.Foreground.ToString();
+                        var hex = item.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.Background != null)
                     {
-                        string hex = item.Background.ToString();
+                        var hex = item.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
@@ -35,13 +35,13 @@ namespace dnGREP.WPF
                 {
                     if (item.Color.Foreground != null)
                     {
-                        string hex = item.Color.Foreground.ToString();
+                        var hex = item.Color.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.Color.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.Color.Background != null)
                     {
-                        string hex = item.Color.Background.ToString();
+                        var hex = item.Color.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.Color.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
@@ -53,13 +53,13 @@ namespace dnGREP.WPF
                 {
                     if (item.SpanColor.Foreground != null)
                     {
-                        string hex = item.SpanColor.Foreground.ToString();
+                        var hex = item.SpanColor.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.SpanColor.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.SpanColor.Background != null)
                     {
-                        string hex = item.SpanColor.Background.ToString();
+                        var hex = item.SpanColor.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.SpanColor.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
@@ -68,13 +68,13 @@ namespace dnGREP.WPF
                 {
                     if (item.StartColor.Foreground != null)
                     {
-                        string hex = item.StartColor.Foreground.ToString();
+                        var hex = item.StartColor.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.StartColor.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.StartColor.Background != null)
                     {
-                        string hex = item.StartColor.Background.ToString();
+                        var hex = item.StartColor.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.StartColor.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
@@ -83,13 +83,13 @@ namespace dnGREP.WPF
                 {
                     if (item.EndColor.Foreground != null)
                     {
-                        string hex = item.EndColor.Foreground.ToString();
+                        var hex = item.EndColor.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.EndColor.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.EndColor.Background != null)
                     {
-                        string hex = item.EndColor.Background.ToString();
+                        var hex = item.EndColor.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
                         item.EndColor.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
@@ -157,7 +157,7 @@ namespace dnGREP.WPF
         public static Color Invert(Color color)
         {
             byte shift = (byte)(byte.MaxValue - Math.Min(color.R, Math.Min(color.G, color.B)) - Math.Max(color.R, Math.Max(color.G, color.B)));
-            Color result = new Color
+            Color result = new()
             {
                 A = color.A,
                 R = (byte)(shift + color.R),
@@ -197,24 +197,22 @@ namespace dnGREP.WPF
 
         public static BitmapImage Convert(BitmapSource bitmapSource)
         {
-            if (!(bitmapSource is BitmapImage bitmapImage))
+            if (bitmapSource is not BitmapImage bitmapImage)
             {
                 bitmapImage = new BitmapImage();
 
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                PngBitmapEncoder encoder = new();
                 encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
 
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    encoder.Save(memoryStream);
-                    memoryStream.Position = 0;
+                using MemoryStream memoryStream = new();
+                encoder.Save(memoryStream);
+                memoryStream.Position = 0;
 
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.StreamSource = memoryStream;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
-                }
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = memoryStream;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
             }
 
             return bitmapImage;

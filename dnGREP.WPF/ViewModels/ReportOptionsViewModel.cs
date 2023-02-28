@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
 
@@ -10,7 +11,7 @@ namespace dnGREP.WPF
 
     public class ReportOptionsViewModel : CultureAwareViewModel
     {
-        public event EventHandler RequestClose;
+        public event EventHandler? RequestClose;
 
         private readonly List<GrepSearchResult> searchResults;
         private readonly SearchType typeOfSearch;
@@ -70,7 +71,7 @@ namespace dnGREP.WPF
             GrepSettings.Instance.Set(GrepSettings.Key.OutputOnSeparateLines, OutputOnSeparateLines);
             GrepSettings.Instance.Set(GrepSettings.Key.ListItemSeparator, ListItemSeparator);
 
-            RequestClose(this, EventArgs.Empty);
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ReportOptionsViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ReportOptionsViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -123,7 +124,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -151,7 +152,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string resultsFontFamily;
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
         public string ResultsFontFamily
         {
             get { return resultsFontFamily; }

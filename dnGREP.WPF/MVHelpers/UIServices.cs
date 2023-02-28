@@ -14,6 +14,7 @@ namespace dnGREP.WPF.MVHelpers
         ///   A value indicating whether the UI is currently busy
         /// </summary>
         private static bool IsBusy;
+        private static DispatcherTimer? timer;
 
         /// <summary>
         /// Sets the busy state as busy.
@@ -36,7 +37,8 @@ namespace dnGREP.WPF.MVHelpers
 
                 if (IsBusy)
                 {
-                    new DispatcherTimer(TimeSpan.FromSeconds(0), DispatcherPriority.ApplicationIdle, dispatcherTimer_Tick, Dispatcher.CurrentDispatcher);
+                    timer = new(TimeSpan.FromSeconds(0), DispatcherPriority.ApplicationIdle, DispatcherTimer_Tick, Dispatcher.CurrentDispatcher);
+                    timer.Start();
                 }
             }
         }
@@ -46,10 +48,9 @@ namespace dnGREP.WPF.MVHelpers
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void dispatcherTimer_Tick(object sender, EventArgs e)
+        private static void DispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            var dispatcherTimer = sender as DispatcherTimer;
-            if (dispatcherTimer != null)
+            if (sender is DispatcherTimer dispatcherTimer)
             {
                 SetBusyState(false);
                 dispatcherTimer.Stop();

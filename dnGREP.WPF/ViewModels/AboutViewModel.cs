@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.WPF.Properties;
@@ -24,7 +25,7 @@ namespace dnGREP.WPF
             p => NativeMethods.SetClipboardText(Version));
 
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -110,7 +111,7 @@ namespace dnGREP.WPF
         }
 
 
-        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? string.Empty;
 
         public static string AssemblyDescription
         {
@@ -120,7 +121,7 @@ namespace dnGREP.WPF
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 // If there aren't any Description attributes, return an empty string
                 if (attributes.Length == 0)
-                    return "";
+                    return string.Empty;
                 // If there is a Description attribute, return its value
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
@@ -134,7 +135,7 @@ namespace dnGREP.WPF
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 // If there aren't any Copyright attributes, return an empty string
                 if (attributes.Length == 0)
-                    return "";
+                    return string.Empty;
                 // If there is a Copyright attribute, return its value
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }

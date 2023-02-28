@@ -12,8 +12,7 @@ namespace dnGREP.WPF
             double total = 0;
             foreach (object o in values)
             {
-                double i;
-                bool parsed = double.TryParse(o.ToString(), out i);
+                bool parsed = double.TryParse(o.ToString(), out double i);
                 if (parsed)
                 {
                     total += i;

@@ -20,11 +20,11 @@ namespace dnGREP.WPF
         private static readonly IDictionary<string, IScriptCommand> BookmarkCommandMap = new Dictionary<string, IScriptCommand>();
         private static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
 
-        private readonly List<ScriptEditorWindow> scriptEditorWindows = new List<ScriptEditorWindow>();
+        private readonly List<ScriptEditorWindow> scriptEditorWindows = new();
         private bool cancelingScript = false;
         private bool showEmptyMessageWindow = false;
-        private string currentScriptFile;
-        private string currentScriptLine;
+        private string currentScriptFile = string.Empty;
+        private string currentScriptLine = string.Empty;
 
         private void AddScriptMessage(string message)
         {
@@ -157,7 +157,7 @@ namespace dnGREP.WPF
                 string[] parts = key.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length > 0)
                 {
-                    string header = parts[parts.Length - 1];
+                    string header = parts[^1];
 
                     ObservableCollection<MenuItemViewModel> menuItems = ScriptMenuItems;
 
@@ -191,9 +191,7 @@ namespace dnGREP.WPF
                 {
                     if (coll[i].Command != null && coll[j].Command == null)
                     {
-                        var temp = coll[j];
-                        coll[j] = coll[i];
-                        coll[i] = temp;
+                        (coll[i], coll[j]) = (coll[j], coll[i]);
                     }
 
                     if ((coll[i].Command == null && coll[j].Command == null) ||
@@ -201,9 +199,7 @@ namespace dnGREP.WPF
                     {
                         if (string.Compare(coll[i].Header, coll[j].Header) > 0)
                         {
-                            var temp = coll[j];
-                            coll[j] = coll[i];
-                            coll[i] = temp;
+                            (coll[i], coll[j]) = (coll[j], coll[i]);
                         }
                     }
                 }
@@ -233,7 +229,7 @@ namespace dnGREP.WPF
 
         private void NewScript()
         {
-            ScriptEditorWindow wnd = new ScriptEditorWindow();
+            ScriptEditorWindow wnd = new();
             wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
             wnd.RequestRun += ScriptEditor_RequestRun;
             scriptEditorWindows.Add(wnd);
@@ -245,7 +241,7 @@ namespace dnGREP.WPF
 
         private void EditScript()
         {
-            OpenFileDialog dlg = new OpenFileDialog
+            OpenFileDialog dlg = new()
             {
                 Filter = Resources.Scripts_ScriptFiles + "|*" + ScriptManager.ScriptExt,
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
@@ -266,7 +262,7 @@ namespace dnGREP.WPF
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)
             {
-                ScriptEditorWindow wnd = new ScriptEditorWindow();
+                ScriptEditorWindow wnd = new();
                 wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
                 wnd.RequestRun += ScriptEditor_RequestRun;
                 scriptEditorWindows.Add(wnd);
@@ -276,7 +272,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ScriptEditor_NewScriptFileSaved(object sender, EventArgs e)
+        private void ScriptEditor_NewScriptFileSaved(object? sender, EventArgs e)
         {
             ScriptManager.Instance.LoadScripts();
             AddScriptFilesToMenu();
@@ -293,9 +289,9 @@ namespace dnGREP.WPF
             }
         }
 
-        private Queue<ScriptStatement> currentScript = null;
+        private Queue<ScriptStatement>? currentScript = null;
 
-        private void ScriptEditor_RequestRun(object sender, EventArgs e)
+        private void ScriptEditor_RequestRun(object? sender, EventArgs e)
         {
             if (sender is ScriptEditorWindow wnd && currentScript == null)
             {
@@ -359,21 +355,21 @@ namespace dnGREP.WPF
                 switch (stmt.Command)
                 {
                     case "set":
-                        if (SetCommandMap.TryGetValue(stmt.Target, out IScriptCommand set))
+                        if (SetCommandMap.TryGetValue(stmt.Target, out IScriptCommand? set) && !string.IsNullOrEmpty(stmt.Value))
                         {
                             set.Execute(stmt.Value);
                         }
                         break;
 
                     case "bookmark":
-                        if (BookmarkCommandMap.TryGetValue(stmt.Target, out IScriptCommand use))
+                        if (BookmarkCommandMap.TryGetValue(stmt.Target, out IScriptCommand? use) && !string.IsNullOrEmpty(stmt.Value))
                         {
                             use.Execute(stmt.Value);
                         }
                         break;
 
                     case "report":
-                        if (ReportCommandMap.TryGetValue(stmt.Target, out IScriptCommand rpt))
+                        if (ReportCommandMap.TryGetValue(stmt.Target, out IScriptCommand? rpt) && !string.IsNullOrEmpty(stmt.Value))
                         {
                             rpt.Execute(stmt.Value);
                         }
@@ -412,15 +408,18 @@ namespace dnGREP.WPF
                         break;
 
                     case "expandfilefilters":
-                        ExpandFileFiltersCommand.Execute(stmt.Value);
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            ExpandFileFiltersCommand.Execute(stmt.Value);
                         break;
 
                     case "maximizeresults":
-                        MaximizeResultsCommand.Execute(stmt.Value);
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            MaximizeResultsCommand.Execute(stmt.Value);
                         break;
 
                     case "expandresultoptions":
-                        ExpandResultOptionsCommand.Execute(stmt.Value);
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            ExpandResultOptionsCommand.Execute(stmt.Value);
                         break;
 
                     case "search":
@@ -450,7 +449,8 @@ namespace dnGREP.WPF
                         break;
 
                     case "run":
-                        RunCommand(stmt.Target, stmt.Value);
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            RunCommand(stmt.Target, stmt.Value);
                         break;
 
                     case "exit":
@@ -476,7 +476,7 @@ namespace dnGREP.WPF
                         ScriptMessages.Add(Resources.Scripts_ScriptComplete);
                     }
 
-                    MessagesWindow dlg = new MessagesWindow(this);
+                    MessagesWindow dlg = new(this);
                     dlg.ShowDialog();
                 }
             }
@@ -513,8 +513,10 @@ namespace dnGREP.WPF
                             Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{value}\"",
                             UseShellExecute = false,
                         };
-                        var proc = Process.Start(startInfo);
-                        proc.WaitForExit(60 * 1000);
+                        if (Process.Start(startInfo) is Process proc)
+                        {
+                            proc.WaitForExit(60 * 1000);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -542,8 +544,10 @@ namespace dnGREP.WPF
                             FileName = $"\"{value}\"",
                             UseShellExecute = true,
                         };
-                        var proc = Process.Start(startInfo);
-                        proc.WaitForExit(60 * 1000);
+                        if (Process.Start(startInfo) is Process proc)
+                        {
+                            proc.WaitForExit(60 * 1000);
+                        }
                     }
                     catch (Exception ex)
                     {

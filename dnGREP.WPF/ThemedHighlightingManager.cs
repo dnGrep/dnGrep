@@ -13,16 +13,16 @@ namespace dnGREP.WPF
 {
     public class ThemedHighlightingManager : IHighlightingDefinitionReferenceResolver
     {
-        public static ThemedHighlightingManager Instance { get; } = new ThemedHighlightingManager();
+        public static ThemedHighlightingManager Instance { get; } = new();
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private readonly object lockObj = new object();
-        private readonly List<SyntaxDefinition> syntaxDefinitions = new List<SyntaxDefinition>();
-        private readonly Dictionary<string, string> extensionToNameMap = new Dictionary<string, string>();
-        private readonly HashSet<string> loadQueue = new HashSet<string>();
+        private readonly object lockObj = new();
+        private readonly List<SyntaxDefinition> syntaxDefinitions = new();
+        private readonly Dictionary<string, string> extensionToNameMap = new();
+        private readonly HashSet<string> loadQueue = new();
 
-        private readonly Dictionary<string, Lazy<IHighlightingDefinition>> normalHighlightingsByName = new Dictionary<string, Lazy<IHighlightingDefinition>>();
-        private readonly Dictionary<string, Lazy<IHighlightingDefinition>> invertedHighlightingsByName = new Dictionary<string, Lazy<IHighlightingDefinition>>();
+        private readonly Dictionary<string, Lazy<IHighlightingDefinition?>> normalHighlightingsByName = new();
+        private readonly Dictionary<string, Lazy<IHighlightingDefinition?>> invertedHighlightingsByName = new();
 
         private ThemedHighlightingManager()
         {
@@ -48,11 +48,11 @@ namespace dnGREP.WPF
         /// Gets a highlighting definition by name.
         /// Returns null if the definition is not found.
         /// </summary>
-        public IHighlightingDefinition GetDefinition(string name)
+        public IHighlightingDefinition? GetDefinition(string name)
         {
             lock (lockObj)
             {
-                IHighlightingDefinition highlighting = null;
+                IHighlightingDefinition? highlighting = null;
 
                 if (loadQueue.Contains(name))
                 {
@@ -64,12 +64,12 @@ namespace dnGREP.WPF
                 bool invertColors = (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
                 if (invertColors)
                 {
-                    if (invertedHighlightingsByName.TryGetValue(name, out Lazy<IHighlightingDefinition> definition))
+                    if (invertedHighlightingsByName.TryGetValue(name, out Lazy<IHighlightingDefinition?>? definition))
                         highlighting = definition.Value;
                 }
                 else
                 {
-                    if (normalHighlightingsByName.TryGetValue(name, out Lazy<IHighlightingDefinition> definition))
+                    if (normalHighlightingsByName.TryGetValue(name, out Lazy<IHighlightingDefinition?>? definition))
                         highlighting = definition.Value;
                 }
 
@@ -83,12 +83,12 @@ namespace dnGREP.WPF
         /// Gets a highlighting definition by extension.
         /// Returns null if the definition is not found.
         /// </summary>
-        public IHighlightingDefinition GetDefinitionByExtension(string extension)
+        public IHighlightingDefinition? GetDefinitionByExtension(string extension)
         {
             lock (lockObj)
             {
                 string key = extension.ToLowerInvariant();
-                if (extensionToNameMap.TryGetValue(key, out string name))
+                if (extensionToNameMap.TryGetValue(key, out string? name))
                 {
                     return GetDefinition(name);
                 }
@@ -108,9 +108,10 @@ namespace dnGREP.WPF
             foreach (string name in type.Assembly.GetManifestResourceNames()
                 .Where(n => n.EndsWith(".xshd")))
             {
-                using (var stream = type.Assembly.GetManifestResourceStream(name))
-                using (var reader = new XmlTextReader(stream))
+                using var stream = type.Assembly.GetManifestResourceStream(name);
+                if (stream != null)
                 {
+                    using var reader = new XmlTextReader(stream);
                     var xshd = HighlightingLoader.LoadXshd(reader);
                     if (!string.IsNullOrEmpty(xshd.Name))
                     {
@@ -145,34 +146,32 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    using (TextReader textReader = new StreamReader(fileName))
-                    using (XmlReader reader = XmlReader.Create(textReader))
+                    using TextReader textReader = new StreamReader(fileName);
+                    using XmlReader reader = XmlReader.Create(textReader);
+                    XshdSyntaxDefinition xshd = HighlightingLoader.LoadXshd(reader);
+                    if (string.IsNullOrEmpty(xshd.Name))
                     {
-                        XshdSyntaxDefinition xshd = HighlightingLoader.LoadXshd(reader);
-                        if (string.IsNullOrEmpty(xshd.Name))
+                        logger.Error($"Failed to load user syntax file '{fileName}': SyntaxDefinition name is missing.");
+                    }
+                    else
+                    {
+                        var existing = syntaxDefinitions.FirstOrDefault(s => s.Name == xshd.Name);
+                        if (existing != null)
                         {
-                            logger.Error($"Failed to load user syntax file '{fileName}': SyntaxDefinition name is missing.");
+                            syntaxDefinitions.Remove(existing);
                         }
-                        else
+                        var extensions = xshd.Extensions
+                            .Select(s => s.TrimStart('*').ToLowerInvariant()).ToArray();
+                        var syntax = new SyntaxDefinition(xshd.Name, fileName, extensions);
+                        syntaxDefinitions.Add(syntax);
+
+                        RegisterHighlighting(syntax);
+
+                        foreach (var extension in extensions)
                         {
-                            var existing = syntaxDefinitions.FirstOrDefault(s => s.Name == xshd.Name);
-                            if (existing != null)
+                            if (!extensionToNameMap.ContainsKey(extension))
                             {
-                                syntaxDefinitions.Remove(existing);
-                            }
-                            var extensions = xshd.Extensions
-                                .Select(s => s.TrimStart('*').ToLowerInvariant()).ToArray();
-                            var syntax = new SyntaxDefinition(xshd.Name, fileName, extensions);
-                            syntaxDefinitions.Add(syntax);
-
-                            RegisterHighlighting(syntax);
-
-                            foreach (var extension in extensions)
-                            {
-                                if (!extensionToNameMap.ContainsKey(extension))
-                                {
-                                    extensionToNameMap.Add(extension, xshd.Name);
-                                }
+                                extensionToNameMap.Add(extension, xshd.Name);
                             }
                         }
                     }
@@ -193,21 +192,21 @@ namespace dnGREP.WPF
             {
                 if (!normalHighlightingsByName.ContainsKey(syntax.Name))
                 {
-                    normalHighlightingsByName.Add(syntax.Name,
-                        new Lazy<IHighlightingDefinition>(() => LoadHighlightingDefinition(syntax, false)));
+                    normalHighlightingsByName.Add(syntax.Name, 
+                        new Lazy<IHighlightingDefinition?>(() => LoadHighlightingDefinition(syntax, false)));
                 }
 
                 if (!invertedHighlightingsByName.ContainsKey(syntax.Name))
                 {
-                    invertedHighlightingsByName.Add(syntax.Name,
-                        new Lazy<IHighlightingDefinition>(() => LoadHighlightingDefinition(syntax, true)));
+                    invertedHighlightingsByName.Add(syntax.Name, 
+                        new Lazy<IHighlightingDefinition?>(() => LoadHighlightingDefinition(syntax, true)));
                 }
             }
         }
 
-        private IHighlightingDefinition LoadHighlightingDefinition(SyntaxDefinition syntax, bool invertColors)
+        private IHighlightingDefinition? LoadHighlightingDefinition(SyntaxDefinition syntax, bool invertColors)
         {
-            IHighlightingDefinition highlighting;
+            IHighlightingDefinition? highlighting;
             if (syntax.IsEmbededResource)
             {
                 highlighting = LoadResourceHighlightingDefinition(syntax.FileName);
@@ -225,15 +224,13 @@ namespace dnGREP.WPF
             return highlighting;
         }
 
-        private IHighlightingDefinition LoadFileHighlightingDefinition(string fileName)
+        private IHighlightingDefinition? LoadFileHighlightingDefinition(string fileName)
         {
             try
             {
-                using (TextReader textReader = new StreamReader(fileName))
-                using (XmlReader reader = XmlReader.Create(textReader))
-                {
-                    return HighlightingLoader.Load(reader, this);
-                }
+                using TextReader textReader = new StreamReader(fileName);
+                using XmlReader reader = XmlReader.Create(textReader);
+                return HighlightingLoader.Load(reader, this);
             }
             catch (Exception ex)
             {
@@ -242,14 +239,15 @@ namespace dnGREP.WPF
             return null;
         }
 
-        private IHighlightingDefinition LoadResourceHighlightingDefinition(string resourceName)
+        private IHighlightingDefinition? LoadResourceHighlightingDefinition(string resourceName)
         {
             try
             {
                 var type = typeof(ThemedHighlightingManager);
-                using (var stream = type.Assembly.GetManifestResourceStream(resourceName))
-                using (var reader = new XmlTextReader(stream))
+                using var stream = type.Assembly.GetManifestResourceStream(resourceName);
+                if (stream != null)
                 {
+                    using var reader = new XmlTextReader(stream);
                     return HighlightingLoader.Load(reader, this);
                 }
             }
@@ -268,7 +266,7 @@ namespace dnGREP.WPF
             Name = name;
             FileName = fileName;
             IsEmbededResource = !Path.IsPathRooted(fileName);
-            Extensions = extensions ?? new string[0];
+            Extensions = extensions ?? Array.Empty<string>();
         }
 
         public string Name { get; private set; }

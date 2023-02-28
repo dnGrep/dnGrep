@@ -45,24 +45,23 @@ namespace dnGREP.WPF.MVHelpers
             Register(message, callback, typeof(T));
         }
 
-        void Register(string message, Delegate callback, Type parameterType)
+        void Register(string message, Delegate callback, Type? parameterType)
         {
             if (string.IsNullOrEmpty(message))
                 throw new ArgumentException("'message' cannot be null or empty.");
 
-            if (callback == null)
-                throw new ArgumentNullException("callback");
-
             VerifyParameterType(message, parameterType);
 
-            _messageToActionsMap.AddAction(message, callback.Target, callback.Method, parameterType);
+            if (callback.Target != null && parameterType != null)
+            {
+                _messageToActionsMap.AddAction(message, callback.Target, callback.Method, parameterType);
+            }
         }
 
         [Conditional("DEBUG")]
-        void VerifyParameterType(string message, Type parameterType)
+        void VerifyParameterType(string message, Type? parameterType)
         {
-            Type previouslyRegisteredParameterType = null;
-            if (_messageToActionsMap.TryGetParameterType(message, out previouslyRegisteredParameterType))
+            if (_messageToActionsMap.TryGetParameterType(message, out Type? previouslyRegisteredParameterType))
             {
                 if (previouslyRegisteredParameterType != null && parameterType != null)
                 {
@@ -102,16 +101,14 @@ namespace dnGREP.WPF.MVHelpers
             if (string.IsNullOrEmpty(message))
                 throw new ArgumentException("'message' cannot be null or empty.");
 
-            Type registeredParameterType;
-            if (_messageToActionsMap.TryGetParameterType(message, out registeredParameterType))
+            if (_messageToActionsMap.TryGetParameterType(message, out Type? registeredParameterType))
             {
                 if (registeredParameterType == null)
                     throw new TargetParameterCountException(string.Format("Cannot pass a parameter with message '{0}'. Registered action(s) expect no parameter.", message));
             }
 
             var actions = _messageToActionsMap.GetActions(message);
-            if (actions != null)
-                actions.ForEach(action => action.DynamicInvoke(parameter));
+            actions?.ForEach(action => action.DynamicInvoke(parameter));
         }
 
         /// <summary>
@@ -123,16 +120,14 @@ namespace dnGREP.WPF.MVHelpers
             if (string.IsNullOrEmpty(message))
                 throw new ArgumentException("'message' cannot be null or empty.");
 
-            Type registeredParameterType;
-            if (_messageToActionsMap.TryGetParameterType(message, out registeredParameterType))
+            if (_messageToActionsMap.TryGetParameterType(message, out Type? registeredParameterType))
             {
                 if (registeredParameterType != null)
                     throw new TargetParameterCountException(string.Format("Must pass a parameter of type {0} with this message. Registered action(s) expect it.", registeredParameterType.FullName));
             }
 
             var actions = _messageToActionsMap.GetActions(message);
-            if (actions != null)
-                actions.ForEach(action => action.DynamicInvoke());
+            actions?.ForEach(action => action.DynamicInvoke());
         }
 
         #endregion // NotifyColleauges
@@ -163,12 +158,6 @@ namespace dnGREP.WPF.MVHelpers
             /// <param name="actionType">The type of the Action delegate.</param>
             internal void AddAction(string message, object target, MethodInfo method, Type actionType)
             {
-                if (message == null)
-                    throw new ArgumentNullException("message");
-
-                if (method == null)
-                    throw new ArgumentNullException("method");
-
                 lock (_map)
                 {
                     if (!_map.ContainsKey(message))
@@ -187,11 +176,8 @@ namespace dnGREP.WPF.MVHelpers
             /// </summary>
             /// <param name="message">The message to get the actions for</param>
             /// <returns>Returns a list of actions that are registered to the specified message</returns>
-            internal List<Delegate> GetActions(string message)
+            internal List<Delegate>? GetActions(string message)
             {
-                if (message == null)
-                    throw new ArgumentNullException("message");
-
                 List<Delegate> actions;
                 lock (_map)
                 {
@@ -206,7 +192,7 @@ namespace dnGREP.WPF.MVHelpers
                         if (weakAction == null)
                             continue;
 
-                        Delegate action = weakAction.CreateAction();
+                        Delegate? action = weakAction.CreateAction();
                         if (action != null)
                         {
                             actions.Add(action);
@@ -244,13 +230,10 @@ namespace dnGREP.WPF.MVHelpers
             /// This parameter is passed uninitialized.
             /// </param>
             /// <returns>true if any actions were registered for the message</returns>
-            internal bool TryGetParameterType(string message, out Type parameterType)
+            internal bool TryGetParameterType(string message, out Type? parameterType)
             {
-                if (message == null)
-                    throw new ArgumentNullException("message");
-
                 parameterType = null;
-                List<WeakAction> weakActions;
+                List<WeakAction>? weakActions;
                 lock (_map)
                 {
                     if (!_map.TryGetValue(message, out weakActions) || weakActions.Count == 0)
@@ -265,7 +248,7 @@ namespace dnGREP.WPF.MVHelpers
             #region Fields
 
             // Stores a hash where the key is the message and the value is the list of callbacks to invoke.
-            readonly Dictionary<string, List<WeakAction>> _map = new Dictionary<string, List<WeakAction>>();
+            private readonly Dictionary<string, List<WeakAction>> _map = new();
 
             #endregion // Fields
         }
@@ -319,7 +302,7 @@ namespace dnGREP.WPF.MVHelpers
             /// <summary>
             /// Creates a "throw away" delegate to invoke the method on the target, or null if the target object is dead.
             /// </summary>
-            internal Delegate CreateAction()
+            internal Delegate? CreateAction()
             {
                 // Rehydrate into a real Action object, so that the method can be invoked.
                 if (_targetRef == null)
@@ -330,7 +313,7 @@ namespace dnGREP.WPF.MVHelpers
                 {
                     try
                     {
-                        object target = _targetRef.Target;
+                        object? target = _targetRef.Target;
                         if (target != null)
                             return Delegate.CreateDelegate(_delegateType, target, _method);
                     }
@@ -350,7 +333,7 @@ namespace dnGREP.WPF.MVHelpers
 
             readonly Type _delegateType;
             readonly MethodInfo _method;
-            readonly WeakReference _targetRef;
+            readonly WeakReference? _targetRef;
 
             #endregion // Fields
         }
@@ -359,7 +342,7 @@ namespace dnGREP.WPF.MVHelpers
 
         #region Fields
 
-        readonly MessageToActionsMap _messageToActionsMap = new MessageToActionsMap();
+        private readonly MessageToActionsMap _messageToActionsMap = new();
 
         #endregion // Fields
     }

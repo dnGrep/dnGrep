@@ -48,7 +48,7 @@ namespace dnGREP.WPF
             Height = LayoutProperties.MainWindowBounds.Height;
             WindowState = WindowState.Normal;
 
-            Rect windowBounds = new Rect(
+            Rect windowBounds = new(
                 LayoutProperties.MainWindowBounds.X,
                 LayoutProperties.MainWindowBounds.Y,
                 LayoutProperties.MainWindowBounds.Width,
@@ -70,11 +70,14 @@ namespace dnGREP.WPF
 
                         // after window is sized and positioned, asynchronously reset the preview
                         // splitter position (which got moved during the layout)
-                        Dispatcher.BeginInvoke((Action)(() =>
+                        Dispatcher.BeginInvoke(() =>
                         {
-                            viewModel.PreviewDockedWidth = LayoutProperties.PreviewDockedWidth;
-                            viewModel.PreviewDockedHeight = LayoutProperties.PreviewDockedHeight;
-                        }), null);
+                            if (viewModel != null)
+                            {
+                                viewModel.PreviewDockedWidth = LayoutProperties.PreviewDockedWidth;
+                                viewModel.PreviewDockedHeight = LayoutProperties.PreviewDockedHeight;
+                            }
+                        }, null);
                     }
                     else
                     {
@@ -105,7 +108,7 @@ namespace dnGREP.WPF
 
         public MainViewModel ViewModel => viewModel;
 
-        private void OnCurrentCultureChanged(object s, EventArgs e)
+        private void OnCurrentCultureChanged(object? s, EventArgs e)
         {
             dpFrom.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
             dpTo.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
@@ -163,7 +166,7 @@ namespace dnGREP.WPF
             };
         }
 
-        private void SetWatermark(DatePicker dp)
+        private static void SetWatermark(DatePicker dp)
         {
             if (dp == null) return;
 
@@ -238,7 +241,7 @@ namespace dnGREP.WPF
             }), null);
         }
 
-        private void MainForm_Closing(object sender, CancelEventArgs e)
+        private void MainForm_Closing(object? sender, CancelEventArgs e)
         {
             viewModel.CancelSearch();
 
@@ -266,7 +269,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ViewModel_PreviewShow(object sender, EventArgs e)
+        private void ViewModel_PreviewShow(object? sender, EventArgs e)
         {
             foreach (Window wnd in DockSite.GetAllFloatWindows(this))
             {
@@ -278,7 +281,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ViewModel_PreviewHide(object sender, EventArgs e)
+        private void ViewModel_PreviewHide(object? sender, EventArgs e)
         {
             foreach (Window wind in DockSite.GetAllFloatWindows(this))
             {
@@ -286,7 +289,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsPreviewDocked")
             {
@@ -329,8 +332,8 @@ namespace dnGREP.WPF
 
         private static bool IsTextAllowed(string text)
         {
-            Regex regex = new Regex("\\d+"); //regex that matches allowed text
-            return regex.IsMatch(text);
+            //regex that matches allowed text
+            return AllowedTextRegex().IsMatch(text);
         }
 
         // Use the DataObject.Pasting Handler 
@@ -423,5 +426,8 @@ namespace dnGREP.WPF
                 e.Handled = true;
             }
         }
+
+        [GeneratedRegex("\\d+")]
+        private static partial Regex AllowedTextRegex();
     }
 }

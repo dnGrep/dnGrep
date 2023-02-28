@@ -54,12 +54,20 @@ namespace Tests
             Assert.True(storage.Count == 0);
             storage.Set("size", 10);
             storage.Set("isTrue", true);
+            DateTime? start = null;
+            storage.Set("startDate", start);
+            DateTime? end = new(2023, 02, 28, 16, 14, 12, DateTimeKind.Local);
+            storage.Set("endDate", end);
+
             storage.Save(destinationFolder + "\\test.xml");
             storage.Clear();
             Assert.True(storage.Count == 0);
             storage.Load(destinationFolder + "\\test.xml");
+
             Assert.Equal(10, storage.Get<int>("size"));
             Assert.True(storage.Get<bool>("isTrue"));
+            Assert.Null(storage.GetNullable<DateTime?>("startDate"));
+            Assert.Equal(end, storage.GetNullable<DateTime?>("endDate"));
         }
     }
 }

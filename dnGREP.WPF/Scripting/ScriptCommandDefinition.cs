@@ -5,15 +5,15 @@ namespace dnGREP.WPF
 {
     public class ScriptCommandDefinition
     {
-        public string Command { get; set; }
+        public string Command { get; set; } = string.Empty;
 
         public int Priority { get; set; } = int.MaxValue;
 
-        public string Description { get; set; } = null;
+        public string Description { get; set; } = string.Empty;
 
-        public string ValueHint { get; set; } = null;
+        public string ValueHint { get; set; } = string.Empty;
 
-        public Type ValueType { get; set; } = null;
+        public Type? ValueType { get; set; } = null;
 
         public bool AllowNullValue { get; set; } = false;
 

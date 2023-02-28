@@ -10,12 +10,12 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class TestPattern : ThemedWindow
     {
-        private readonly TestPatternViewModel inputData = new TestPatternViewModel();
+        private readonly TestPatternViewModel inputData = new();
 
         public TestPattern()
         {
             InitializeComponent();
-            this.DataContext = inputData;
+            DataContext = inputData;
         }
 
         private void FormKeyDown(object sender, KeyEventArgs e)

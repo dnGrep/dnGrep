@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -17,7 +18,7 @@ namespace dnGREP.Common
 
         public static bool IsDeserializing { get; private set; } = false;
 
-        public static BookmarkEntity? Instance
+        public static BookmarkEntity Instance
         {
             get
             {
@@ -34,6 +35,7 @@ namespace dnGREP.Common
             get { return Path.Combine(Utils.GetDataFolderPath(), "bookmarks.xml"); }
         }
 
+        [MemberNotNull(nameof(bookmarks))]
         public static void Load()
         {
             try

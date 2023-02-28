@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.XPath;
@@ -16,7 +17,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class BaseMainViewModel : CultureAwareViewModel, IDataErrorInfo
+    public class BaseMainViewModel : CultureAwareViewModel
     {
         public static readonly int FastBookmarkCapacity = 20;
         public static readonly string STAR = "*";
@@ -39,11 +40,11 @@ namespace dnGREP.WPF
         }
 
         #region Private Variables and Properties
-        private readonly XmlDocument doc = new XmlDocument();
-        private XPathNavigator nav;
+        private readonly XmlDocument doc = new();
+        private XPathNavigator? nav;
 
         // list of properties that affect the search results
-        private static readonly HashSet<string> searchParameters = new HashSet<string>
+        private static readonly HashSet<string> searchParameters = new()
         {
             nameof(BooleanOperators),
             nameof(CaseSensitive),
@@ -81,7 +82,7 @@ namespace dnGREP.WPF
             nameof(WholeWord),
         };
 
-        protected GrepSettings Settings => GrepSettings.Instance;
+        protected static GrepSettings Settings => GrepSettings.Instance;
 
         protected PathSearchText PathSearchText { get; private set; } = new PathSearchText();
         #endregion
@@ -130,7 +131,7 @@ namespace dnGREP.WPF
                     // so check that it isn't a valid directory or file first
                     string trimmedPath = path.Trim('\"', ' ');
                     if (!(Directory.Exists(trimmedPath) || File.Exists(trimmedPath)) &&
-                        (path.Contains(",") || path.Contains(";") || path.Contains("|")))
+                        (path.Contains(',') || path.Contains(';') || path.Contains('|')))
                     {
                         try
                         {
@@ -149,7 +150,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string fileOrFolderPath;
+        private string fileOrFolderPath = string.Empty;
         public string FileOrFolderPath
         {
             get { return fileOrFolderPath; }
@@ -164,7 +165,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string searchFor;
+        private string searchFor = string.Empty;
         public string SearchFor
         {
             get { return searchFor; }
@@ -212,7 +213,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string replaceWith;
+        private string replaceWith = string.Empty;
         public string ReplaceWith
         {
             get { return replaceWith; }
@@ -315,7 +316,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string filePattern;
+        private string filePattern = string.Empty;
         public string FilePattern
         {
             get { return filePattern; }
@@ -329,7 +330,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string filePatternIgnore;
+        private string filePatternIgnore = string.Empty;
         public string FilePatternIgnore
         {
             get { return filePatternIgnore; }
@@ -357,7 +358,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public bool IsGitInstalled
+        public static bool IsGitInstalled
         {
             get { return Utils.IsGitInstalled; }
         }
@@ -644,7 +645,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public readonly static DateTime minDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
+        public readonly static DateTime minDate = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
 
         private DateTime minStartDate = minDate;
         public DateTime MinStartDate
@@ -1101,7 +1102,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string fileFiltersSummary;
+        private string fileFiltersSummary = string.Empty;
         public string FileFiltersSummary
         {
             get { return fileFiltersSummary; }
@@ -1144,7 +1145,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string validationMessage;
+        private string validationMessage = string.Empty;
         public string ValidationMessage
         {
             get { return validationMessage; }
@@ -1158,8 +1159,8 @@ namespace dnGREP.WPF
             }
         }
 
-        private string validationToolTip;
-        public string ValidationToolTip
+        private string? validationToolTip = null;
+        public string? ValidationToolTip
         {
             get { return validationToolTip; }
             set
@@ -1201,7 +1202,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string textBoxStyle;
+        private string textBoxStyle = string.Empty;
         public string TextBoxStyle
         {
             get { return textBoxStyle; }
@@ -1285,7 +1286,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -1299,7 +1300,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string resultsFontFamily;
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
         public string ResultsFontFamily
         {
             get { return resultsFontFamily; }
@@ -1504,7 +1505,8 @@ namespace dnGREP.WPF
                         try
                         {
                             nav = doc.CreateNavigator();
-                            XPathExpression expr = nav.Compile(SearchFor);
+                            XPathExpression? expr = (nav?.Compile(SearchFor)) ??
+                                throw new XPathException(SearchFor);
                             ValidationMessage = Resources.Main_Validation_XPathIsOK;
                             IsValidPattern = true;
                         }
@@ -1660,7 +1662,7 @@ namespace dnGREP.WPF
         {
             if (BooleanOperators && !string.IsNullOrEmpty(SearchFor))
             {
-                BooleanExpression exp = new BooleanExpression();
+                BooleanExpression exp = new();
                 if (exp.TryParse(SearchFor))
                 {
                     if (exp.Operands.Count > 0 && TypeOfSearch == SearchType.Regex)
@@ -1712,7 +1714,7 @@ namespace dnGREP.WPF
         {
             try
             {
-                Regex regex = new Regex(pattern);
+                Regex regex = new(pattern);
                 ValidationMessage = Resources.Main_Validation_RegexIsOK;
                 IsValidPattern = true;
             }
@@ -1746,7 +1748,7 @@ namespace dnGREP.WPF
         virtual public void LoadSettings()
         {
             List<string> fsb = Settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
-            string _searchFor = Settings.Get<string>(GrepSettings.Key.SearchFor);
+            string searchFor = Settings.Get<string>(GrepSettings.Key.SearchFor);
             if (fsb != null)
             {
                 var toRemove = FastSearchBookmarks.Except(fsb).ToList();
@@ -1761,9 +1763,9 @@ namespace dnGREP.WPF
                         FastSearchBookmarks.Add(bookmark);
                 }
             }
-            Settings.Set(GrepSettings.Key.SearchFor, _searchFor);
+            Settings.Set(GrepSettings.Key.SearchFor, searchFor);
 
-            string _replaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
+            string replaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
             List<string> frb = Settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
             if (frb != null)
             {
@@ -1779,11 +1781,10 @@ namespace dnGREP.WPF
                         FastReplaceBookmarks.Add(bookmark);
                 }
             }
-            Settings.Set(GrepSettings.Key.ReplaceWith, _replaceWith);
+            Settings.Set(GrepSettings.Key.ReplaceWith, replaceWith);
 
-            string _filePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
+            string filePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
             List<string> ffmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
-            if (ffmb != null)
             {
                 var toRemove = FastFileMatchBookmarks.Except(ffmb).ToList();
                 foreach (var item in toRemove)
@@ -1797,11 +1798,10 @@ namespace dnGREP.WPF
                         FastFileMatchBookmarks.Add(bookmark);
                 }
             }
-            Settings.Set(GrepSettings.Key.FilePattern, _filePattern);
+            Settings.Set(GrepSettings.Key.FilePattern, filePattern);
 
-            string _filePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
+            string filePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
             List<string> ffnmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
-            if (ffnmb != null)
             {
                 var toRemove = FastFileNotMatchBookmarks.Except(ffmb).ToList();
                 foreach (var item in toRemove)
@@ -1815,7 +1815,7 @@ namespace dnGREP.WPF
                         FastFileNotMatchBookmarks.Add(bookmark);
                 }
             }
-            Settings.Set(GrepSettings.Key.FilePatternIgnore, _filePatternIgnore);
+            Settings.Set(GrepSettings.Key.FilePatternIgnore, filePatternIgnore);
 
             List<string> pb = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
             if (pb != null)
@@ -1867,8 +1867,8 @@ namespace dnGREP.WPF
             OptionsOnMainPanel = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel);
             UseFileDateFilter = Settings.Get<FileDateFilter>(GrepSettings.Key.UseFileDateFilter);
             TypeOfTimeRangeFilter = Settings.Get<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter);
-            StartDate = Settings.Get<DateTime?>(GrepSettings.Key.StartDate);
-            EndDate = Settings.Get<DateTime?>(GrepSettings.Key.EndDate);
+            StartDate = Settings.GetNullable<DateTime?>(GrepSettings.Key.StartDate);
+            EndDate = Settings.GetNullable<DateTime?>(GrepSettings.Key.EndDate);
             HoursFrom = Settings.Get<int>(GrepSettings.Key.HoursFrom);
             HoursTo = Settings.Get<int>(GrepSettings.Key.HoursTo);
         }
@@ -1919,36 +1919,12 @@ namespace dnGREP.WPF
 
         #region Private Methods
 
-        void MainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        void MainViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            UpdateState(e.PropertyName);
-        }
-
-        #endregion
-
-        #region IDataErrorInfo Members
-
-        string IDataErrorInfo.this[string propertyName]
-        {
-            get
+            if (!string.IsNullOrEmpty(e.PropertyName))
             {
-                string error = null;
-
-                // Do validation
-
-                // Dirty the commands registered with CommandManager,
-                // such as our Save command, so that they are queried
-                // to see if they can execute now.
-                CommandManager.InvalidateRequerySuggested();
-
-                return error;
+                UpdateState(e.PropertyName);
             }
-        }
-
-
-        public string Error
-        {
-            get { return null; }
         }
 
         #endregion

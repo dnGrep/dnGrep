@@ -14,7 +14,7 @@ namespace dnGREP.WPF
             if (targetType != typeof(GridLength))
                 throw new InvalidOperationException("The target must be a GridLength");
 
-            string text = value as string;
+            string? text = value as string;
             if (!string.IsNullOrWhiteSpace(text))
             {
                 if (text.Equals("Auto", StringComparison.OrdinalIgnoreCase))

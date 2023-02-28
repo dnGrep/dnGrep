@@ -20,12 +20,12 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class ReplaceWindow : ThemedWindow
     {
-        private ReplaceViewHighlighter highlighter;
-        private readonly ReplaceViewLineNumberMargin lineNumberMargin;
+        private ReplaceViewHighlighter? highlighter;
+        private readonly ReplaceViewLineNumberMargin? lineNumberMargin;
         private bool isInitializing;
         private bool isInPropertyChanged;
         private bool isInCaretMoved;
-        private readonly SearchPanel searchPanel;
+        private readonly SearchPanel? searchPanel;
 
         public ReplaceWindow()
         {
@@ -121,13 +121,16 @@ namespace dnGREP.WPF
 
         public ReplaceViewModel ViewModel { get; } = new ReplaceViewModel();
 
-        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SelectedGrepMatch")
             {
                 isInPropertyChanged = true;
 
-                highlighter.SelectedGrepMatch = ViewModel.SelectedGrepMatch;
+                if (highlighter != null)
+                {
+                    highlighter.SelectedGrepMatch = ViewModel.SelectedGrepMatch;
+                }
 
                 if (ViewModel.SelectedGrepMatch != null && !isInCaretMoved)
                 {
@@ -151,7 +154,7 @@ namespace dnGREP.WPF
         {
             isInitializing = true;
 
-            lineNumberMargin.LineNumbers.Clear();
+            lineNumberMargin?.LineNumbers.Clear();
             textEditor.Clear();
             for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
             {
@@ -159,7 +162,7 @@ namespace dnGREP.WPF
                     textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
             }
 
-            if (ViewModel.IndividualReplaceEnabled)
+            if (ViewModel.IndividualReplaceEnabled && ViewModel.SelectedSearchResult != null)
             {
                 highlighter = new ReplaceViewHighlighter(ViewModel.SelectedSearchResult);
                 highlighter.LineNumbers.AddRange(ViewModel.LineNumbers);
@@ -169,7 +172,7 @@ namespace dnGREP.WPF
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
             }
 
-            lineNumberMargin.LineNumbers.AddRange(ViewModel.LineNumbers);
+            lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);
 
             try
             {
@@ -194,12 +197,12 @@ namespace dnGREP.WPF
             }
 
             // recalculate the width of the line number margin
-            lineNumberMargin.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            lineNumberMargin?.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
             isInitializing = false;
         }
 
-        private void Caret_PositionChanged(object sender, EventArgs e)
+        private void Caret_PositionChanged(object? sender, EventArgs e)
         {
             if (isInitializing || isInPropertyChanged)
                 return;
@@ -237,7 +240,7 @@ namespace dnGREP.WPF
 
             if (focusDirection != FocusNavigationDirection.First)
             {
-                TraversalRequest request = new TraversalRequest(focusDirection);
+                TraversalRequest request = new(focusDirection);
 
                 // Gets the element with keyboard focus.
                 if (Keyboard.FocusedElement is UIElement elementWithFocus)
@@ -254,19 +257,19 @@ namespace dnGREP.WPF
             syntaxContextMenu.IsOpen = true;
         }
 
-        private void ViewModel_CloseTrue(object sender, EventArgs e)
+        private void ViewModel_CloseTrue(object? sender, EventArgs e)
         {
             DialogResult = true;
             Close();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object? sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();
         }
 
-        private void OKButton_Click(object sender, RoutedEventArgs e)
+        private void OKButton_Click(object? sender, RoutedEventArgs e)
         {
             DialogResult = true;
             Close();

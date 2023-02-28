@@ -16,8 +16,7 @@ namespace dnGREP.WPF
         {
             if (e.Text == "0")
             {
-                var tb = e.Source as TextBox;
-                if (tb != null && string.IsNullOrEmpty(tb.Text))
+                if (e.Source is TextBox tb && string.IsNullOrEmpty(tb.Text))
                 {
                     // disallow a depth of zero
                     e.Handled = true;
@@ -31,8 +30,8 @@ namespace dnGREP.WPF
         {
             if (e.DataObject.GetDataPresent(typeof(string)))
             {
-                string text = e.DataObject.GetData(typeof(string)) as string;
-                if (int.TryParse(text, out int result) && result == 0)
+                string? text = e.DataObject.GetData(typeof(string)) as string;
+                if (!string.IsNullOrEmpty(text) && int.TryParse(text, out int result) && result == 0)
                 {
                     e.CancelCommand();
                 }

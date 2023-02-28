@@ -19,9 +19,9 @@ namespace dnGREP.WPF
     /// </summary>
     public class ReplaceViewModel : CultureAwareViewModel
     {
-        public event EventHandler LoadFile;
-        public event EventHandler ReplaceMatch;
-        public event EventHandler CloseTrue;
+        public event EventHandler? LoadFile;
+        public event EventHandler? ReplaceMatch;
+        public event EventHandler? CloseTrue;
 
         private int fileIndex = -1;
         private int matchIndex = -1;
@@ -106,7 +106,7 @@ namespace dnGREP.WPF
             {
                 string matchStr = string.Empty;
                 string lineStr = string.Empty;
-                int matchCount = item.Matches == null ? 0 : item.Matches.Count;
+                int matchCount = item.Matches.Count;
                 if (matchCount > 0)
                 {
                     var lineCount = item.Matches.Where(r => r.LineNumber > 0)
@@ -139,7 +139,7 @@ namespace dnGREP.WPF
             {
                 string matchStr = string.Empty;
                 string replaceStr = string.Empty;
-                int matchCount = item.Matches == null ? 0 : item.Matches.Count;
+                int matchCount = item.Matches.Count;
                 int replaceCount = 0;
                 if (matchCount > 0)
                 {
@@ -222,8 +222,8 @@ namespace dnGREP.WPF
             }
         }
 
-        private List<GrepSearchResult> _searchResults = null;
-        public List<GrepSearchResult> SearchResults
+        private List<GrepSearchResult>? _searchResults = null;
+        public List<GrepSearchResult>? SearchResults
         {
             get { return _searchResults; }
             set
@@ -234,15 +234,15 @@ namespace dnGREP.WPF
                 _searchResults = value;
 
                 FileNumber = 0;
-                FileCount = _searchResults.Count;
+                FileCount = _searchResults?.Count ?? 0;
                 fileIndex = -1;
 
                 base.OnPropertyChanged(nameof(SearchResults));
             }
         }
 
-        private GrepSearchResult _selectedSearchResult = null;
-        public GrepSearchResult SelectedSearchResult
+        private GrepSearchResult? _selectedSearchResult = null;
+        public GrepSearchResult? SelectedSearchResult
         {
             get { return _selectedSearchResult; }
             set
@@ -255,7 +255,7 @@ namespace dnGREP.WPF
 
                 IndividualReplaceEnabled = false;
 
-                if (IsFullDialog)
+                if (IsFullDialog && _selectedSearchResult != null)
                 {
                     CurrentSyntax = Resources.Replace_SyntaxNone; // by default, turn off syntax highlighting (easier to see the match highlights)
                     Encoding = _selectedSearchResult.Encoding;
@@ -264,7 +264,7 @@ namespace dnGREP.WPF
                     FilePath = string.Empty;
                     IndividualReplaceEnabled = true;
 
-                    FileInfo fileInfo = new FileInfo(_selectedSearchResult.FileNameReal);
+                    FileInfo fileInfo = new(_selectedSearchResult.FileNameReal);
                     if (Utils.IsBinary(_selectedSearchResult.FileNameReal))
                     {
                         FileText = Resources.Replace_ErrorThisIsABinaryFile;
@@ -283,7 +283,7 @@ namespace dnGREP.WPF
                             // Use the already parsed matches and context lines only
                             // and map the original line numbers to clipped file
 
-                            StringBuilder sb = new StringBuilder();
+                            StringBuilder sb = new();
                             int tempLineNum = 1;
                             foreach (var line in _selectedSearchResult.SearchResults)
                             {
@@ -325,16 +325,16 @@ namespace dnGREP.WPF
 
         public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new ObservableCollection<MenuItemViewModel>();
 
-        public Encoding Encoding { get; private set; }
+        public Encoding? Encoding { get; private set; }
 
         public IList<int> LineNumbers { get; } = new List<int>();
 
-        public string FilePath { get; private set; }
+        public string FilePath { get; private set; } = string.Empty;
 
-        public string FileText { get; private set; }
+        public string FileText { get; private set; } = string.Empty;
 
-        private GrepMatch _selectedGrepMatch = null;
-        public GrepMatch SelectedGrepMatch
+        private GrepMatch? _selectedGrepMatch = null;
+        public GrepMatch? SelectedGrepMatch
         {
             get { return _selectedGrepMatch; }
             set
@@ -344,7 +344,7 @@ namespace dnGREP.WPF
 
                 _selectedGrepMatch = value;
 
-                if (_selectedGrepMatch != null)
+                if (_selectedGrepMatch != null && _selectedSearchResult != null)
                 {
                     var lineMatch = _selectedSearchResult.SearchResults
                         .FirstOrDefault(sr => sr.Matches.Any(m => m.FileMatchId == _selectedGrepMatch.FileMatchId));
@@ -380,7 +380,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private Size dialogSize = new Size(980, 800);
+        private Size dialogSize = new(980, 800);
         public Size DialogSize
         {
             get { return dialogSize; }
@@ -422,7 +422,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string fileStatus;
+        private string fileStatus = string.Empty;
         public string FileStatus
         {
             get { return fileStatus; }
@@ -436,7 +436,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string fileReplaceStatus;
+        private string fileReplaceStatus = string.Empty;
         public string FileReplaceStatus
         {
             get { return fileReplaceStatus; }
@@ -480,7 +480,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string currentSyntax;
+        private string currentSyntax = string.Empty;
         public string CurrentSyntax
         {
             get { return currentSyntax; }
@@ -554,9 +554,10 @@ namespace dnGREP.WPF
             }
         }
 
-        public IHighlightingDefinition HighlightingDefinition => ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
+        public IHighlightingDefinition? HighlightingDefinition => 
+            ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -584,7 +585,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string resultsFontFamily;
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
         public string ResultsFontFamily
         {
             get { return resultsFontFamily; }

@@ -26,15 +26,11 @@ namespace dnGREP.WPF
             typeof(InlineTextBlock),
                 new UIPropertyMetadata((PropertyChangedCallback)((sender, args) =>
                 {
-                    InlineTextBlock textBlock = sender as InlineTextBlock;
-
-                    if (textBlock != null)
+                    if (sender is InlineTextBlock textBlock)
                     {
                         textBlock.Inlines.Clear();
 
-                        InlineCollection inlines = args.NewValue as InlineCollection;
-
-                        if (inlines != null)
+                        if (args.NewValue is InlineCollection inlines)
                             textBlock.Inlines.AddRange(inlines.ToList());
                     }
                 })));
@@ -42,7 +38,7 @@ namespace dnGREP.WPF
 
     public class RichTextBlock : System.Windows.Controls.TextBlock
     {
-        public static DependencyProperty InlineProperty;
+        private static readonly DependencyProperty InlineProperty;
 
         static RichTextBlock()
         {
@@ -60,10 +56,10 @@ namespace dnGREP.WPF
 
         public static void OnInlineChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue == e.OldValue) return;
-            RichTextBlock r = sender as RichTextBlock;
-            List<Inline> i = e.NewValue as List<Inline>;
-            if (r == null || i == null) return;
+            if (e.NewValue == e.OldValue) 
+                return;
+            if (sender is not RichTextBlock r || e.NewValue is not List<Inline> i) 
+                return;
 
             r.Inlines.Clear();
             foreach (Inline inline in i)

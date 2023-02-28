@@ -59,7 +59,7 @@ namespace dnGREP.WPF
             };
         }
 
-        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewModel.HighlightsOn))
             {
@@ -69,7 +69,8 @@ namespace dnGREP.WPF
                         textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
                 }
 
-                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
+                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf &&
+                    ViewModel.GrepResult != null)
                 {
                     textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
                 }
@@ -90,7 +91,7 @@ namespace dnGREP.WPF
 
         public PreviewViewModel ViewModel { get; private set; } = new PreviewViewModel();
 
-        void ViewModel_ShowPreview(object sender, EventArgs e)
+        void ViewModel_ShowPreview(object? sender, EventArgs e)
         {
             bool reopenSearchPanel = false;
             if (!searchPanel.IsClosed)
@@ -112,7 +113,8 @@ namespace dnGREP.WPF
                     textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
             }
 
-            if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
+            if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf &&
+                ViewModel.GrepResult != null)
             {
                 textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
             }
@@ -140,9 +142,8 @@ namespace dnGREP.WPF
                                 InitializePageNumbers();
 
                                 string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
-                                Regex regex = new Regex("\f");
                                 textEditor.BeginChange();
-                                foreach (Match match in regex.Matches(textEditor.Text))
+                                foreach (Match match in FormFeedRegex().Matches(textEditor.Text).Cast<Match>())
                                 {
                                     textEditor.Document.Replace(match.Index, match.Length, ZWSP);
                                 }
@@ -182,40 +183,37 @@ namespace dnGREP.WPF
 
         private void InitializePageNumbers()
         {
-            using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using StreamReader reader = new(stream);
+            int lineNumber = 0;
+            int pageNumber = 1;
+            lineNumberMargin.LineToPageMap.Add(1, 1);
+            while (!reader.EndOfStream)
             {
-                using (StreamReader reader = new StreamReader(stream))
+                lineNumber++;
+                string? line = reader.ReadLine();
+                if (!string.IsNullOrEmpty(line) && line.Contains('\f') && 
+                    !(reader.EndOfStream && line.Equals("\f")))
                 {
-                    int lineNumber = 0;
-                    int pageNumber = 1;
-                    lineNumberMargin.LineToPageMap.Add(1, 1);
-                    while (!reader.EndOfStream)
+                    pageNumber += line.Count(c => c.Equals('\f'));
+                    if (lineNumberMargin.LineToPageMap.ContainsKey(lineNumber))
                     {
-                        lineNumber++;
-                        string line = reader.ReadLine();
-                        if (line.Contains('\f') && !(reader.EndOfStream && line.Equals("\f")))
-                        {
-                            pageNumber += line.Count(c => c.Equals('\f'));
-                            if (lineNumberMargin.LineToPageMap.ContainsKey(lineNumber))
-                            {
-                                lineNumberMargin.LineToPageMap[lineNumber] = pageNumber;
-                            }
-                            else
-                            {
-                                lineNumberMargin.LineToPageMap.Add(lineNumber, pageNumber);
-                            }
-                        }
+                        lineNumberMargin.LineToPageMap[lineNumber] = pageNumber;
+                    }
+                    else
+                    {
+                        lineNumberMargin.LineToPageMap.Add(lineNumber, pageNumber);
                     }
                 }
             }
         }
 
-        private void SearchPanel_SearchResultsChanged(object sender, EventArgs e)
+        private void SearchPanel_SearchResultsChanged(object? sender, EventArgs e)
         {
             UpdatePositionMarkers();
         }
 
-        private void TextView_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void TextView_SizeChanged(object? sender, SizeChangedEventArgs e)
         {
             if (e.HeightChanged)
             {
@@ -223,7 +221,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ZoomSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void ZoomSlider_ValueChanged(object? sender, RoutedPropertyChangedEventArgs<double> e)
         {
             UpdatePositionMarkers();
         }
@@ -317,5 +315,8 @@ namespace dnGREP.WPF
             syntaxContextMenu.PlacementTarget = (UIElement)sender;
             syntaxContextMenu.IsOpen = true;
         }
+
+        [GeneratedRegex("\f")]
+        private static partial Regex FormFeedRegex();
     }
 }

@@ -27,9 +27,9 @@ namespace dnGREP.WPF
         private static T GetValue<T>(string value)
         {
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
-            if (converter != null)
+            if (converter != null && converter.ConvertFrom(value) is T typeValue)
             {
-                return (T)converter.ConvertFrom(value);
+                return typeValue;
             }
 
             throw new Exception($"Could not convert string {value} to type " + typeof(T));

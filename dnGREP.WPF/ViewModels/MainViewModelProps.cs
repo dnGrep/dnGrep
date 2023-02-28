@@ -5,7 +5,7 @@ namespace dnGREP.WPF
 {
     public partial class MainViewModel
     {
-        private void OnMainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnMainViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -30,42 +30,42 @@ namespace dnGREP.WPF
 
         private void UpdatePersonalization()
         {
-            BookmarksVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.BookmarksVisible) : true;
-            TestExpressionVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.TestExpressionVisible) : true;
-            ReplaceVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.ReplaceVisible) : true;
-            SortVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SortVisible) : true;
-            MoreVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.MoreVisible) : true;
+            BookmarksVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.BookmarksVisible);
+            TestExpressionVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.TestExpressionVisible);
+            ReplaceVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.ReplaceVisible);
+            SortVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SortVisible);
+            MoreVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.MoreVisible);
 
-            SearchInArchivesVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchInArchivesVisible) : true;
-            SizeFilterVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SizeFilterVisible) : true;
-            SubfoldersFilterVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SubfoldersFilterVisible) : true;
-            HiddenFilterVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.HiddenFilterVisible) : true;
-            BinaryFilterVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.BinaryFilterVisible) : true;
-            SymbolicLinkFilterVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SymbolicLinkFilterVisible) : true;
-            DateFilterVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.DateFilterVisible) : true;
+            SearchInArchivesVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchInArchivesVisible);
+            SizeFilterVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SizeFilterVisible);
+            SubfoldersFilterVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SubfoldersFilterVisible);
+            HiddenFilterVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.HiddenFilterVisible);
+            BinaryFilterVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.BinaryFilterVisible);
+            SymbolicLinkFilterVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SymbolicLinkFilterVisible);
+            DateFilterVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.DateFilterVisible);
 
-            SearchParallelVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchParallelVisible) : true;
-            UseGitIgnoreVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.UseGitIgnoreVisible) : true;
-            SkipCloudStorageVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SkipCloudStorageVisible) : true;
-            EncodingVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.EncodingVisible) : true;
+            SearchParallelVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchParallelVisible);
+            UseGitIgnoreVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.UseGitIgnoreVisible);
+            SkipCloudStorageVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SkipCloudStorageVisible);
+            EncodingVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.EncodingVisible);
 
-            SearchTypeRegexVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeRegexVisible) : true;
-            SearchTypeXPathVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeXPathVisible) : true;
-            SearchTypeTextVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeTextVisible) : true;
-            SearchTypePhoneticVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypePhoneticVisible) : true;
-            SearchTypeByteVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeByteVisible) : true;
+            SearchTypeRegexVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeRegexVisible);
+            SearchTypeXPathVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeXPathVisible);
+            SearchTypeTextVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeTextVisible);
+            SearchTypePhoneticVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypePhoneticVisible);
+            SearchTypeByteVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeByteVisible);
 
-            BooleanOperatorsVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.BooleanOperatorsVisible) : true;
-            CaptureGroupSearchVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.CaptureGroupSearchVisible) : true;
-            SearchInResultsVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchInResultsVisible) : true;
-            PreviewFileVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewFileVisible) : true;
-            StopAfterFirstMatchVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.StopAfterFirstMatchVisible) : true;
+            BooleanOperatorsVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.BooleanOperatorsVisible);
+            CaptureGroupSearchVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.CaptureGroupSearchVisible);
+            SearchInResultsVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchInResultsVisible);
+            PreviewFileVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewFileVisible);
+            StopAfterFirstMatchVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.StopAfterFirstMatchVisible);
 
-            HighlightMatchesVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatchesVisible) : true;
-            HighlightGroupsVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightGroupsVisible) : true;
-            ShowContextLinesVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowContextLinesVisible) : true;
-            ZoomResultsTreeVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.ZoomResultsTreeVisible) : true;
-            WrapTextResultsTreeVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextResultsTreeVisible) : true;
+            HighlightMatchesVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatchesVisible);
+            HighlightGroupsVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightGroupsVisible);
+            ShowContextLinesVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowContextLinesVisible);
+            ZoomResultsTreeVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.ZoomResultsTreeVisible);
+            WrapTextResultsTreeVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextResultsTreeVisible);
         }
 
 

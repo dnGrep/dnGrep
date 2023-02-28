@@ -29,7 +29,7 @@ namespace dnGREP.WPF.UserControls
             PreviewMouseLeftButtonUp += OnTreeViewItemPreviewMouseUp;
         }
 
-        private static TreeViewItem _selectTreeViewItemOnMouseUp;
+        private static TreeViewItem? _selectTreeViewItemOnMouseUp;
 
         public static readonly DependencyProperty IsItemSelectedProperty =
             DependencyProperty.RegisterAttached("IsItemSelected",
@@ -83,17 +83,17 @@ namespace dnGREP.WPF.UserControls
                 typeof(TreeViewItem), typeof(MultiSelectTreeView));
 
 
-        private static TreeViewItem GetStartItem(TreeView element)
+        private static TreeViewItem? GetStartItem(TreeView element)
         {
-            return (TreeViewItem)element.GetValue(StartItemProperty);
+            return (TreeViewItem?)element.GetValue(StartItemProperty);
         }
 
-        private static void SetStartItem(TreeView element, TreeViewItem value)
+        private static void SetStartItem(TreeView element, TreeViewItem? value)
         {
             element.SetValue(StartItemProperty, value);
         }
 
-        public TreeViewItem StartTreeViewItem => GetStartItem(this);
+        public TreeViewItem? StartTreeViewItem => GetStartItem(this);
 
         public void ClearStartTreeViewItem()
         {
@@ -105,18 +105,23 @@ namespace dnGREP.WPF.UserControls
         private static void OnTreeViewItemGotFocus(object sender, RoutedEventArgs e)
         {
             _selectTreeViewItemOnMouseUp = null;
-
             if (e.OriginalSource is TreeView) return;
             if (Mouse.RightButton == MouseButtonState.Pressed) return;
 
-            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-            if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
+            if (sender is MultiSelectTreeView treeView)
             {
-                _selectTreeViewItemOnMouseUp = treeViewItem;
-                return;
-            }
+                var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+                if (treeViewItem != null)
+                {
+                    if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
+                    {
+                        _selectTreeViewItemOnMouseUp = treeViewItem;
+                        return;
+                    }
 
-            SelectItems(treeViewItem, sender as MultiSelectTreeView);
+                    SelectItems(treeViewItem, treeView);
+                }
+            }
         }
 
         private static void SelectItems(TreeViewItem treeViewItem, MultiSelectTreeView treeView)
@@ -181,7 +186,7 @@ namespace dnGREP.WPF.UserControls
 
         private static void OnTreeViewItemPreviewMouseDown(object sender, MouseEventArgs e)
         {
-            var treeView = FindTreeView(e.OriginalSource as DependencyObject) as MultiSelectTreeView;
+            var treeView = FindTreeView(e.OriginalSource as DependencyObject);
             var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
             var scrollViewer = FindScrollViewer(e.OriginalSource as DependencyObject);
 
@@ -211,15 +216,18 @@ namespace dnGREP.WPF.UserControls
 
         private static void OnTreeViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
-
-            if (treeViewItem == _selectTreeViewItemOnMouseUp)
+            if (sender is MultiSelectTreeView treeView)
             {
-                SelectItems(treeViewItem, sender as MultiSelectTreeView);
+                var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+
+                if (treeViewItem != null && treeViewItem == _selectTreeViewItemOnMouseUp)
+                {
+                    SelectItems(treeViewItem, treeView);
+                }
             }
         }
 
-        private static TreeViewItem FindTreeViewItem(DependencyObject dependencyObject)
+        private static TreeViewItem? FindTreeViewItem(DependencyObject? dependencyObject)
         {
             if (!(dependencyObject is Visual || dependencyObject is Visual3D))
                 return null;
@@ -232,7 +240,7 @@ namespace dnGREP.WPF.UserControls
             return FindTreeViewItem(VisualTreeHelper.GetParent(dependencyObject));
         }
 
-        private static ScrollViewer FindScrollViewer(DependencyObject dependencyObject)
+        private static ScrollViewer? FindScrollViewer(DependencyObject? dependencyObject)
         {
             if (!(dependencyObject is Visual || dependencyObject is Visual3D))
                 return null;
@@ -279,7 +287,7 @@ namespace dnGREP.WPF.UserControls
         }
 
 
-        private static MultiSelectTreeView FindTreeView(DependencyObject dependencyObject)
+        private static MultiSelectTreeView? FindTreeView(DependencyObject? dependencyObject)
         {
             if (!(dependencyObject is Visual || dependencyObject is Visual3D))
                 return null;
@@ -310,9 +318,10 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+#pragma warning disable IDE0075
         private static void SelectMultipleItemsContinuously(MultiSelectTreeView treeView, TreeViewItem treeViewItem, bool shiftControl = false)
         {
-            TreeViewItem startItem = GetStartItem(treeView);
+            TreeViewItem? startItem = GetStartItem(treeView);
             if (startItem != null)
             {
                 if (startItem == treeViewItem)
@@ -354,6 +363,7 @@ namespace dnGREP.WPF.UserControls
                 }
             }
         }
+#pragma warning restore IDE0075
 
         private static void GetAllItems(TreeView treeView, ICollection<ITreeItem> allItems)
         {
@@ -376,14 +386,14 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
         {
             // Search the VisualTree for specified type
             while (current != null)
             {
-                if (current is T)
+                if (current is T item)
                 {
-                    return (T)current;
+                    return item;
                 }
                 current = VisualTreeHelper.GetParent(current);
             }

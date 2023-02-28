@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace dnGREP.WPF
 {
@@ -19,7 +18,7 @@ namespace dnGREP.WPF
             DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
         }
-         
+
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
@@ -37,7 +36,7 @@ namespace dnGREP.WPF
                 e.CancelCommand();
         }
 
-        private bool IsTextAllowed(string text)
+        private static bool IsTextAllowed(string text)
         {
             if (!string.IsNullOrEmpty(text))
             {

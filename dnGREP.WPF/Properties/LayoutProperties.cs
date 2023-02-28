@@ -25,7 +25,7 @@ namespace dnGREP.WPF.Properties
         private static Rect? previewBounds;
         private static WindowState? previewWindowState;
         private static bool? previewDocked;
-        private static string previewDockSide;
+        private static string? previewDockSide;
         private static double? previewDockedWidth;
         private static double? previewDockedHeight;
         private static bool? previewHidden;
@@ -195,7 +195,7 @@ namespace dnGREP.WPF.Properties
                 {
                     if (GrepSettings.Instance.IsSet(GrepSettings.Key.PreviewDockSide))
                     {
-                        previewDockSide = GrepSettings.Instance.Get<string>(GrepSettings.Key.PreviewDockSide);
+                        previewDockSide = GrepSettings.Instance.Get<string>(GrepSettings.Key.PreviewDockSide) ?? "Right";
                     }
                     else
                     {

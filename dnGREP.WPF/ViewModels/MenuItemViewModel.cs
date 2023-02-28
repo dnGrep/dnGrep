@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
 
@@ -6,15 +7,15 @@ namespace dnGREP.WPF
 {
     public class MenuItemViewModel : CultureAwareViewModel
     {
-        public MenuItemViewModel(string header, RelayCommand relayCommand)
+        public MenuItemViewModel(string? header, RelayCommand? relayCommand)
         {
-            if (string.IsNullOrEmpty(header) && relayCommand == null)
+            if (relayCommand == null)
             {
                 IsSeparator = true;
             }
             else
             {
-                Header = header;
+                Header = header ?? string.Empty;
                 command = relayCommand;
             }
 
@@ -111,13 +112,13 @@ namespace dnGREP.WPF
             }
         }
 
-        private RelayCommand command;
-        public ICommand Command
+        private readonly RelayCommand? command;
+        public ICommand? Command
         {
             get { return command; }
         }
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }

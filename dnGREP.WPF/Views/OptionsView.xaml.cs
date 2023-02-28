@@ -33,7 +33,7 @@ namespace dnGREP.WPF
                 e.CancelCommand();
         }
 
-        private bool IsTextAllowed(string text)
+        private static bool IsTextAllowed(string text)
         {
             if (!string.IsNullOrEmpty(text))
             {

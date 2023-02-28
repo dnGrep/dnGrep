@@ -1593,9 +1593,9 @@ namespace dnGREP.Common
             return false;
         }
 
-        public static bool HasReadOnlyAttributeSet(GrepSearchResult result)
+        public static bool HasReadOnlyAttributeSet(GrepSearchResult? result)
         {
-            if (File.Exists(result.FileNameReal))
+            if (result != null && File.Exists(result.FileNameReal))
             {
                 return File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly);
             }

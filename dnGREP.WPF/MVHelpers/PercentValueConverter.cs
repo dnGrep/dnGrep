@@ -8,10 +8,10 @@ namespace dnGREP.WPF
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is double && parameter is string input &&
+            if (value is double num && parameter is string input &&
                 double.TryParse(input, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out double percent))
             {
-                return percent * (double)value;
+                return percent * num;
             }
             return value;
         }

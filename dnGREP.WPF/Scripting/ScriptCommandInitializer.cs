@@ -11,9 +11,6 @@ namespace dnGREP.WPF
         internal static void LoadScriptCommands(ref List<ScriptCommandDefinition> scriptCommands,
             ref List<ScriptingCompletionData> commandCompletionData)
         {
-            scriptCommands = new List<ScriptCommandDefinition>();
-            commandCompletionData = new List<ScriptingCompletionData>();
-
             int cmdPriority = 100;
             int targPriority = 100;
 

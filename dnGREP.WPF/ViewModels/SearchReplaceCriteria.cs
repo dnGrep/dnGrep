@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using dnGREP.Common;
 
 namespace dnGREP.WPF
@@ -32,6 +33,8 @@ namespace dnGREP.WPF
             TypeOfSearch = vm.TypeOfSearch;
             SearchFor = vm.SearchFor;
             ReplaceWith = vm.ReplaceWith;
+            SearchInFiles = Enumerable.Empty<string>();
+            ReplaceFiles = Enumerable.Empty<ReplaceDef>();
         }
 
         public void AddSearchFiles(IEnumerable<string> files)

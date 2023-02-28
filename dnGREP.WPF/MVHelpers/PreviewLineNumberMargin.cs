@@ -40,8 +40,8 @@ namespace dnGREP.WPF
                 double pixelsPerDip = VisualTreeHelper.GetDpi(this).PixelsPerDip;
                 int digits = (int)Math.Floor(Math.Log10(LineToPageMap.Values.Max()) + 1);
 
-                FormattedText text = new FormattedText(
-                    new string('9', digits), CultureInfo.CurrentCulture, TextView.FlowDirection,
+                FormattedText text = new(
+                    new('9', digits), CultureInfo.CurrentCulture, TextView.FlowDirection,
                     typeface, emSize, Brushes.Black, null,
                     TextOptions.GetTextFormattingMode(this), pixelsPerDip);
                 return new Size(text.Width, 0);
@@ -67,10 +67,10 @@ namespace dnGREP.WPF
                     {
                         int lineNumber = line.FirstDocumentLine.LineNumber;
 
-                        if (LineToPageMap.ContainsKey(lineNumber))
+                        if (LineToPageMap.TryGetValue(lineNumber, out int value))
                         {
-                            FormattedText text = new FormattedText(
-                                            LineToPageMap[lineNumber].ToString(),
+                            FormattedText text = new(
+                                            value.ToString(),
                                             CultureInfo.CurrentCulture,
                                             FlowDirection.LeftToRight,
                                             typeface,

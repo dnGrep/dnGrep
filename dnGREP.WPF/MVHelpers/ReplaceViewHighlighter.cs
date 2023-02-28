@@ -25,17 +25,17 @@ namespace dnGREP.WPF
             outlinePen.Freeze();
         }
 
-        public GrepMatch SelectedGrepMatch { get; set; }
+        public GrepMatch? SelectedGrepMatch { get; set; }
 
         /// <summary>
         /// The ordered list of line numbers from the original source file
         /// </summary>
         public List<int> LineNumbers { get; } = new List<int>();
 
-        private readonly Brush skipBackground = Application.Current.Resources["Match.Skip.Background"] as Brush;
-        private readonly Brush replBackground = Application.Current.Resources["Match.Replace.Background"] as Brush;
-        private readonly Brush penBrush = Application.Current.Resources["Match.Skip.Foreground"] as Brush;
-        private readonly Pen outlinePen;
+        private readonly Brush? skipBackground = Application.Current.Resources["Match.Skip.Background"] as Brush;
+        private readonly Brush? replBackground = Application.Current.Resources["Match.Replace.Background"] as Brush;
+        private readonly Brush? penBrush = Application.Current.Resources["Match.Skip.Foreground"] as Brush;
+        private readonly Pen? outlinePen;
 
         /// <summary>Gets the layer on which this background renderer should draw.</summary>
         public KnownLayer Layer => KnownLayer.Selection; // draw behind selection
@@ -98,12 +98,12 @@ namespace dnGREP.WPF
                 {
                     // get the global file match corresponding to this line match
                     // only the file match has a valid ReplaceMatch flag
-                    GrepMatch fileMatch = grepSearchResult.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
-                    bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch.FileMatchId);
+                    GrepMatch? fileMatch = grepSearchResult.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
+                    bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch?.FileMatchId);
 
-                    Brush markerBrush = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
+                    Brush? markerBrush = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
                     double markerCornerRadius = 2;
-                    Pen markerPen = isSelected ? outlinePen : null;
+                    Pen? markerPen = isSelected ? outlinePen : null;
                     double markerPenThickness = markerPen != null ? markerPen.Thickness : 0;
 
                     int startOffset = grepMatch.StartLocation;

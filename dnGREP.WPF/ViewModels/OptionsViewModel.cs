@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -116,10 +117,7 @@ namespace dnGREP.WPF
         private const string ArchiveNameKey = "Archive";
         private const string Enabledkey = "Enabled";
         private const string PreviewTextKey = "PreviewText";
-        private GrepSettings Settings
-        {
-            get { return GrepSettings.Instance; }
-        }
+        private static GrepSettings Settings => GrepSettings.Instance;
         #endregion
 
         #region Properties
@@ -186,12 +184,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool IsChanged(IList<PluginOptions> plugins)
+        private static bool IsChanged(IList<PluginOptions> plugins)
         {
             return plugins.Any(p => p.IsChanged);
         }
 
-        private bool IsChanged(IList<VisibilityOption> visibilityOptions)
+        private static bool IsChanged(IList<VisibilityOption> visibilityOptions)
         {
             return visibilityOptions.Any(p => p.IsChanged);
         }
@@ -213,8 +211,8 @@ namespace dnGREP.WPF
             }
         }
 
-        private string windowsIntegrationTooltip;
-        public string WindowsIntegrationTooltip
+        private string? windowsIntegrationTooltip;
+        public string? WindowsIntegrationTooltip
         {
             get { return windowsIntegrationTooltip; }
             set
@@ -227,8 +225,8 @@ namespace dnGREP.WPF
             }
         }
 
-        private string panelTooltip;
-        public string PanelTooltip
+        private string? panelTooltip;
+        public string? PanelTooltip
         {
             get { return panelTooltip; }
             set
@@ -349,10 +347,10 @@ namespace dnGREP.WPF
             }
         }
 
-        public ObservableCollection<string> ThemeNames { get; } = new ObservableCollection<string>();
+        public ObservableCollection<string> ThemeNames { get; } = new();
 
-        private string currentCulture;
-        public string CurrentCulture
+        private string? currentCulture;
+        public string? CurrentCulture
         {
             get { return currentCulture; }
             set
@@ -362,15 +360,18 @@ namespace dnGREP.WPF
 
                 currentCulture = value;
                 OnPropertyChanged(nameof(CurrentCulture));
-                TranslationSource.Instance.SetCulture(value);
+                if (value != null)
+                {
+                    TranslationSource.Instance.SetCulture(value);
+                }
             }
         }
 
         public KeyValuePair<string, string>[] CultureNames { get; }
 
-        public KeyValuePair<string, ConfigurationTemplate>[] CustomEditorTemplates { get; }
+        public KeyValuePair<string, ConfigurationTemplate?>[] CustomEditorTemplates { get; }
 
-        private void ApplyCustomEditorTemplate(ConfigurationTemplate template)
+        private void ApplyCustomEditorTemplate(ConfigurationTemplate? template)
         {
             if (template != null)
             {
@@ -390,9 +391,9 @@ namespace dnGREP.WPF
             }
         }
 
-        private ConfigurationTemplate customEditorTemplate = null;
+        private ConfigurationTemplate? customEditorTemplate = null;
 
-        public ConfigurationTemplate CustomEditorTemplate
+        public ConfigurationTemplate? CustomEditorTemplate
         {
             get { return customEditorTemplate; }
             set
@@ -407,7 +408,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string customEditorPath;
+        private string customEditorPath = string.Empty;
         public string CustomEditorPath
         {
             get { return customEditorPath; }
@@ -421,7 +422,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string customEditorArgs;
+        private string customEditorArgs = string.Empty;
         public string CustomEditorArgs
         {
             get { return customEditorArgs; }
@@ -435,7 +436,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string customEditorHelp;
+        private string customEditorHelp = string.Empty;
         public string CustomEditorHelp
         {
             get { return customEditorHelp; }
@@ -449,9 +450,9 @@ namespace dnGREP.WPF
             }
         }
 
-        public KeyValuePair<string, ConfigurationTemplate>[] CompareApplicationTemplates { get; }
+        public KeyValuePair<string, ConfigurationTemplate?>[] CompareApplicationTemplates { get; }
 
-        private void ApplyCompareApplicationTemplate(ConfigurationTemplate template)
+        private void ApplyCompareApplicationTemplate(ConfigurationTemplate? template)
         {
             if (template != null)
             {
@@ -471,9 +472,9 @@ namespace dnGREP.WPF
             }
         }
 
-        private ConfigurationTemplate compareApplicationTemplate = null;
+        private ConfigurationTemplate? compareApplicationTemplate = null;
 
-        public ConfigurationTemplate CompareApplicationTemplate
+        public ConfigurationTemplate? CompareApplicationTemplate
         {
             get { return compareApplicationTemplate; }
             set
@@ -487,7 +488,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string compareApplicationPath;
+        private string compareApplicationPath = string.Empty;
         public string CompareApplicationPath
         {
             get { return compareApplicationPath; }
@@ -501,7 +502,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string compareApplicationArgs;
+        private string compareApplicationArgs = string.Empty;
         public string CompareApplicationArgs
         {
             get { return compareApplicationArgs; }
@@ -946,7 +947,7 @@ namespace dnGREP.WPF
 
         public ObservableCollection<PluginOptions> Plugins { get; } = new ObservableCollection<PluginOptions>();
 
-        public IList<FontInfo> FontFamilies
+        public static IList<FontInfo> FontFamilies
         {
             get { return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source)).ToList(); }
         }
@@ -976,7 +977,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily;
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -990,7 +991,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string editApplicationFontFamily;
+        private string editApplicationFontFamily = SystemFonts.MessageFontFamily.Source;
         public string EditApplicationFontFamily
         {
             get { return editApplicationFontFamily; }
@@ -1088,7 +1089,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string resultsFontFamily;
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
         public string ResultsFontFamily
         {
             get { return resultsFontFamily; }
@@ -1102,7 +1103,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string editResultsFontFamily;
+        private string editResultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
         public string EditResultsFontFamily
         {
             get { return editResultsFontFamily; }
@@ -1147,6 +1148,7 @@ namespace dnGREP.WPF
         #endregion
 
         #region Commands
+#pragma warning disable CA1822
 
         /// <summary>
         /// Returns a command that saves the form
@@ -1191,6 +1193,7 @@ namespace dnGREP.WPF
 
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
+#pragma warning restore CA1822
         #endregion
 
         #region Public Methods
@@ -1245,7 +1248,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public void ClearSearches()
+        private static void ClearSearches()
         {
             Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, new List<string>());
             Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, new List<string>());
@@ -1254,6 +1257,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.FastSearchBookmarks, new List<string>());
         }
 
+        [MemberNotNull(nameof(archiveOptions))]
         private void LoadSettings()
         {
             CheckIfAdmin();
@@ -1328,7 +1332,7 @@ namespace dnGREP.WPF
                 string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey,
                     ArchiveDirectory.DefaultExtensions));
 
-                ArchiveOptions = new PluginOptions(ArchiveNameKey, true, false,
+                archiveOptions = new PluginOptions(ArchiveNameKey, true, false,
                     extensionList, string.Join(", ", ArchiveDirectory.DefaultExtensions));
             }
 
@@ -1519,42 +1523,44 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    if (location == "here")
+                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location;
+                    if (assemblyPath != null)
                     {
-                        string regPath = $@"SOFTWARE\Classes\Directory\Background\shell\{SHELL_KEY_NAME}";
-
-                        // add context menu to the registry
-                        using (RegistryKey key = Registry.LocalMachine.CreateSubKey(regPath))
+                        if (location == "here")
                         {
-                            key.SetValue(null, SHELL_MENU_TEXT);
-                            key.SetValue("Icon", Assembly.GetAssembly(typeof(OptionsView)).Location);
+                            string regPath = $@"SOFTWARE\Classes\Directory\Background\shell\{SHELL_KEY_NAME}";
+
+                            // add context menu to the registry
+                            using (RegistryKey key = Registry.LocalMachine.CreateSubKey(regPath))
+                            {
+                                key.SetValue(null, SHELL_MENU_TEXT);
+                                key.SetValue("Icon", assemblyPath);
+                            }
+
+                            // add command that is invoked to the registry
+                            string menuCommand = string.Format("\"{0}\" \"%V\"", assemblyPath);
+                            using (RegistryKey key = Registry.LocalMachine.CreateSubKey($@"{regPath}\command"))
+                            {
+                                key.SetValue(null, menuCommand);
+                            }
                         }
-
-                        // add command that is invoked to the registry
-                        string menuCommand = string.Format("\"{0}\" \"%V\"",
-                                               Assembly.GetAssembly(typeof(OptionsView)).Location);
-                        using (RegistryKey key = Registry.LocalMachine.CreateSubKey($@"{regPath}\command"))
+                        else
                         {
-                            key.SetValue(null, menuCommand);
-                        }
-                    }
-                    else
-                    {
-                        string regPath = $@"{location}\shell\{SHELL_KEY_NAME}";
+                            string regPath = $@"{location}\shell\{SHELL_KEY_NAME}";
 
-                        // add context menu to the registry
-                        using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(regPath))
-                        {
-                            key.SetValue(null, SHELL_MENU_TEXT);
-                            key.SetValue("Icon", Assembly.GetAssembly(typeof(OptionsView)).Location);
-                        }
+                            // add context menu to the registry
+                            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(regPath))
+                            {
+                                key.SetValue(null, SHELL_MENU_TEXT);
+                                key.SetValue("Icon", assemblyPath);
+                            }
 
-                        // add command that is invoked to the registry
-                        string menuCommand = string.Format("\"{0}\" \"%1\"",
-                                               Assembly.GetAssembly(typeof(OptionsView)).Location);
-                        using (RegistryKey key = Registry.ClassesRoot.CreateSubKey($@"{regPath}\command"))
-                        {
-                            key.SetValue(null, menuCommand);
+                            // add command that is invoked to the registry
+                            string menuCommand = string.Format("\"{0}\" \"%1\"", assemblyPath);
+                            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey($@"{regPath}\command"))
+                            {
+                                key.SetValue(null, menuCommand);
+                            }
                         }
                     }
                 }
@@ -1616,15 +1622,13 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool IsStartupRegistered()
+        private static bool IsStartupRegistered()
         {
             string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
             try
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regPath))
-                {
-                    return key.GetValue(SHELL_KEY_NAME) != null;
-                }
+                using RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath);
+                return key?.GetValue(SHELL_KEY_NAME) != null;
             }
             catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
             {
@@ -1632,7 +1636,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void StartupRegister()
+        private static void StartupRegister()
         {
             if (!IsStartupRegistered())
             {
@@ -1640,9 +1644,11 @@ namespace dnGREP.WPF
                 {
                     string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regPath, true))
+                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location;
+                    if (assemblyPath != null)
                     {
-                        key.SetValue(SHELL_KEY_NAME, string.Format("\"{0}\" /warmUp", Assembly.GetAssembly(typeof(OptionsView)).Location), RegistryValueKind.ExpandString);
+                        using RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath, true);
+                        key?.SetValue(SHELL_KEY_NAME, string.Format("\"{0}\" /warmUp", assemblyPath), RegistryValueKind.ExpandString);
                     }
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
@@ -1663,7 +1669,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void StartupUnregister()
+        private static void StartupUnregister()
         {
             if (IsStartupRegistered())
             {
@@ -1671,10 +1677,8 @@ namespace dnGREP.WPF
                 {
                     string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regPath, true))
-                    {
-                        key.DeleteValue(SHELL_KEY_NAME);
-                    }
+                    using RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath, true);
+                    key?.DeleteValue(SHELL_KEY_NAME);
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
@@ -1698,12 +1702,10 @@ namespace dnGREP.WPF
         {
             try
             {
-                using (WindowsIdentity wi = WindowsIdentity.GetCurrent())
-                {
-                    WindowsPrincipal wp = new WindowsPrincipal(wi);
+                using WindowsIdentity wi = WindowsIdentity.GetCurrent();
+                WindowsPrincipal wp = new(wi);
 
-                    IsAdministrator = wp.IsInRole(WindowsBuiltInRole.Administrator);
-                }
+                IsAdministrator = wp.IsInRole(WindowsBuiltInRole.Administrator);
             }
             catch
             {
@@ -1730,7 +1732,7 @@ namespace dnGREP.WPF
             previewTextEnabled != origPreviewTextEnabled ||
             mappedExtensions != origMappedExtensions;
 
-        private string name;
+        private string name = string.Empty;
         public string Name
         {
             get { return name; }
@@ -1868,7 +1870,7 @@ namespace dnGREP.WPF
 
         private static bool GetIsMonospaced(string familyName)
         {
-            Typeface typeface = new Typeface(new FontFamily(familyName), SystemFonts.MessageFontStyle,
+            Typeface typeface = new(new FontFamily(familyName), SystemFonts.MessageFontStyle,
                 SystemFonts.MessageFontWeight, FontStretches.Normal);
 
             var narrowChar = new FormattedText("i", TranslationSource.Instance.CurrentCulture,
