@@ -36,7 +36,7 @@ namespace dnGREP.Common
             return $"{FileOrFolderPath} - {TypeOfFileSearch}";
         }
 
-        private string? baseFolder;
+        private string baseFolder = string.Empty;
         /// <summary>
         /// Gets the base folder of one or many files or folders. 
         /// If the FileOrFolderPath contains multiple paths, it returns the first one.
@@ -57,7 +57,7 @@ namespace dnGREP.Common
                         baseFolder = UiUtils.GetBaseFolder(FileOrFolderPath);
                     }
                 }
-                return baseFolder ?? string.Empty;
+                return baseFolder;
             }
         }
 

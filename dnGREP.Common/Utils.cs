@@ -45,7 +45,7 @@ namespace dnGREP.Common
         /// <param name="destinationDirectory"></param>
         /// <param name="includePattern">Regex pattern that matches file or folder to be included. If null or empty, the parameter is ignored</param>
         /// <param name="excludePattern">Regex pattern that matches file or folder to be included. If null or empty, the parameter is ignored</param>
-        public static void CopyFiles(string sourceDirectory, string destinationDirectory, string includePattern, string excludePattern)
+        public static void CopyFiles(string sourceDirectory, string destinationDirectory, string? includePattern, string? excludePattern)
         {
             if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
@@ -217,7 +217,7 @@ namespace dnGREP.Common
         /// <param name="source"></param>
         /// <param name="destinationDirectory"></param>
         /// <returns></returns>
-        public static bool CanCopyFiles(List<GrepSearchResult> source, string destinationDirectory)
+        public static bool CanCopyFiles(List<GrepSearchResult>? source, string? destinationDirectory)
         {
             if (destinationDirectory == null || source == null || source.Count == 0)
                 return false;
@@ -961,11 +961,6 @@ namespace dnGREP.Common
             return searchString + function;
         }
 
-        //public static string Quote(string text)
-        //{
-        //    return "\"" + text + "\"";
-        //}
-
         /// <summary>
         /// Evaluates if a file should be included in the search results
         /// </summary>
@@ -1208,35 +1203,6 @@ namespace dnGREP.Common
             }
             sb.Append('$');
             return sb.ToString().ToLowerInvariant();
-        }
-
-        /// <summary>
-        /// Parses text into int
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
-        /// <returns>Attempts to parse string. Otherwise returns int.MinValue</returns>
-        public static int ParseInt(string value)
-        {
-            return ParseInt(value, int.MinValue);
-        }
-
-        /// <summary>
-        /// Parses text into int
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
-        /// <param name="defaultValue">Default value if fails to parse.</param>
-        /// <returns>Attempts to parse string. Otherwise returns defaultValue</returns>
-        public static int ParseInt(string value, int defaultValue)
-        {
-            if (value != null && value.Length != 0)
-            {
-                value = value.Trim();
-                if (int.TryParse(value, out int output))
-                {
-                    return output;
-                }
-            }
-            return defaultValue;
         }
 
         /// <summary>
@@ -1554,7 +1520,7 @@ namespace dnGREP.Common
         /// </summary>
         /// <param name="results"></param>
         /// <returns></returns>
-        public static List<string> GetReadOnlyFiles(List<GrepSearchResult> results)
+        public static List<string> GetReadOnlyFiles(List<GrepSearchResult>? results)
         {
             List<string> files = new();
             if (results == null || results.Count == 0)
@@ -1601,18 +1567,6 @@ namespace dnGREP.Common
             }
 
             return false;
-        }
-
-        public static string[] GetLines(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return Array.Empty<string>();
-            }
-            else
-            {
-                return text.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
-            }
         }
 
         public static string GetEOL(string path, Encoding encoding)
@@ -2048,52 +2002,6 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Converts result lines into blocks of text
-        /// </summary>
-        /// <param name="result"></param>
-        /// <param name="linesBefore"></param>
-        /// <param name="linesAfter"></param>
-        /// <returns></returns>
-        public static IEnumerable<NumberedString> GetSnippets(GrepSearchResult result, int linesBefore, int linesAfter)
-        {
-            if (result.Matches.Count > 0)
-            {
-                int lastLine = 0;
-                int firstLine = 0;
-                StringBuilder snippetText = new();
-                var lines = result.GetLinesWithContext(linesBefore, linesAfter);
-                foreach (var line in lines)
-                {
-                    // First line of a block
-                    if (firstLine == 0)
-                    {
-                        firstLine = line.LineNumber;
-                        lastLine = line.LineNumber - 1;
-                    }
-                    // Sequence
-                    if (line.LineNumber == lastLine + 1)
-                    {
-                        snippetText.AppendLine(line.LineText);
-                    }
-                    else
-                    {
-                        yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), FirstLineNumber = firstLine, LineCount = lines.Count };
-                        lastLine = 0;
-                        firstLine = 0;
-                        snippetText.Clear();
-                    }
-                    lastLine = line.LineNumber;
-                }
-                if (snippetText.Length > 0)
-                    yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), FirstLineNumber = firstLine, LineCount = lines.Count };
-            }
-            else
-            {
-                yield return new NumberedString() { LineCount = 0, FirstLineNumber = 0, Text = "" };
-            }
-        }
-
-        /// <summary>
         /// Replaces unix-style linebreaks with \r\n
         /// </summary>
         /// <param name="text"></param>
@@ -2106,87 +2014,6 @@ namespace dnGREP.Common
             textTemp = UnixEolRegex2().Replace(textTemp, "$1\r\n");
             textTemp = UnixEolRegex3().Replace(textTemp, "\r\n");
             return textTemp;
-        }
-
-        /// <summary>
-        /// Sorts and removes dupes
-        /// </summary>
-        /// <param name="results"></param>
-        public static void CleanResults(ref List<GrepLine> results)
-        {
-            if (results == null || results.Count == 0)
-                return;
-
-            results.Sort();
-            for (int i = results.Count - 1; i >= 0; i--)
-            {
-                for (int j = 0; j < results.Count; j++)
-                {
-                    if (i < results.Count &&
-                        results[i].LineNumber == results[j].LineNumber && i != j)
-                    {
-                        if (results[i].IsContext)
-                            results.RemoveAt(i);
-                        else if (results[i].IsContext == results[j].IsContext && results[i].IsContext == false && results[i].LineNumber != -1)
-                        {
-                            results[j].Matches.AddRange(results[i].Matches);
-                            results.RemoveAt(i);
-                        }
-                    }
-                }
-            }
-
-            for (int j = 0; j < results.Count; j++)
-            {
-                results[j].Matches.Sort();
-            }
-        }
-
-        /// <summary>
-        /// Merges sorted context lines into sorted result lines
-        /// </summary>
-        /// <param name="results"></param>
-        public static void MergeResults(ref List<GrepLine> results, List<GrepLine> contextLines)
-        {
-            if (contextLines == null || contextLines.Count == 0)
-                return;
-
-            if (results == null || results.Count == 0)
-            {
-                results = new List<GrepLine>();
-                foreach (var line in contextLines)
-                    results.Add(line);
-                return;
-            }
-
-            // Current list location
-            int rIndex = 0;
-            int cIndex = 0;
-
-            while (rIndex < results.Count && cIndex < contextLines.Count)
-            {
-                if (contextLines[cIndex].LineNumber < results[rIndex].LineNumber)
-                {
-                    results.Insert(rIndex, contextLines[cIndex]);
-                    cIndex++;
-                    rIndex++;
-                }
-                else if (results[rIndex].LineNumber < contextLines[cIndex].LineNumber)
-                {
-                    rIndex++;
-                }
-                else if (results[rIndex].LineNumber == contextLines[cIndex].LineNumber)
-                {
-                    rIndex++;
-                    cIndex++;
-                }
-            }
-
-            while (cIndex < contextLines.Count)
-            {
-                results.Add(contextLines[cIndex]);
-                cIndex++;
-            }
         }
 
         /// <summary>
@@ -2393,14 +2220,7 @@ namespace dnGREP.Common
         }
     }
 
-    public class NumberedString
-    {
-        public int FirstLineNumber;
-        public int LineCount;
-        public string Text = string.Empty;
-    }
-
-    public static class TextReaderEx
+    public static class StringExtentions
     {
         public static string TrimEndOfLine(this string text)
         {

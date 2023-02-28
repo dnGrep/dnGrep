@@ -14,7 +14,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Media3D;
 using System.Windows.Threading;
 using dnGREP.Common;
 using dnGREP.Common.UI;
@@ -253,7 +252,7 @@ namespace dnGREP.WPF
 
         #region Properties
 
-        public Window ParentWindow { get; set; } = Application.Current.MainWindow;
+        public Window? ParentWindow { get; set; }
 
         public PreviewViewModel PreviewModel { get; internal set; } = new(); // the default will get replaced with the real view model
 
@@ -2193,9 +2192,12 @@ namespace dnGREP.WPF
             SaveSettings();
             OptionsView optionsForm = new()
             {
-                Owner = ParentWindow,
                 DataContext = new OptionsViewModel()
             };
+            if (ParentWindow != null)
+            {
+                optionsForm.Owner = ParentWindow;
+            }
             try
             {
                 optionsForm.ShowDialog();
@@ -2588,7 +2590,7 @@ namespace dnGREP.WPF
                     try
                     {
                         var fileList = SearchResults.GetList();
-                        string? destinationFolder = UiUtils.GetBaseFolder(selectedPath);
+                        string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 
@@ -2687,7 +2689,7 @@ namespace dnGREP.WPF
                     try
                     {
                         var fileList = SearchResults.GetList();
-                        string? destinationFolder = UiUtils.GetBaseFolder(selectedPath);
+                        string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 

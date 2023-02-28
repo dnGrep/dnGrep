@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -23,9 +21,11 @@ namespace dnGREP.Common
     {
         public static class Key
         {
+            [DefaultValue("")]
             public const string SearchFolder = "SearchFolder";
             [DefaultValue("")]
             public const string SearchFor = "SearchFor";
+            [DefaultValue("")]
             public const string ReplaceWith = "ReplaceWith";
             [DefaultValue(true)]
             public const string IncludeHidden = "IncludeHidden";
@@ -45,6 +45,7 @@ namespace dnGREP.Common
             public const string CodePage = "CodePage";
             [DefaultValue("*.*")]
             public const string FilePattern = "FilePattern";
+            [DefaultValue("")]
             public const string FilePatternIgnore = "FilePatternIgnore";
             [DefaultValue(true)]
             public const string UseGitignore = "UseGitignore";
@@ -149,10 +150,12 @@ namespace dnGREP.Common
             public const string HighlightCaptureGroups = "HighlightCaptureGroups";
             [DefaultValue(true)]
             public const string UseDefaultFont = "UseDefaultFont";
+            [DefaultValue("")]
             public const string ApplicationFontFamily = "ApplicationFontFamily";
             public const string MainFormFontSize = "MainFormFontSize";
             public const string ReplaceFormFontSize = "ReplaceFormFontSize";
             public const string DialogFontSize = "DialogFontSize";
+            [DefaultValue("")]
             public const string ResultsFontFamily = "ResultsFontFamily";
             public const string ResultsFontSize = "ResultsFontSize";
             [DefaultValue("-layout -enc UTF-8 -bom")]
@@ -858,6 +861,10 @@ namespace dnGREP.Common
             if (default(T) is T defValue)
             {
                 return defValue;
+            }
+            else if (typeof(T) == typeof(List<string>))
+            {
+                return (T)Convert.ChangeType(new List<string>(), typeof(List<string>));
             }
             else
             {

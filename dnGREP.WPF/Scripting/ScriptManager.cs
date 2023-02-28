@@ -217,8 +217,13 @@ namespace dnGREP.WPF
             return errors;
         }
 
-        public Tuple<int, ScriptValidationError>? Validate(ScriptStatement statement)
+        public Tuple<int, ScriptValidationError>? Validate(ScriptStatement? statement)
         {
+            if (statement == null)
+            {
+                return new(0, ScriptValidationError.NullStatement);
+            }
+
             ScriptValidationError error = ScriptValidationError.None;
             var commandDef = ScriptCommands.FirstOrDefault(c => c.Command == statement.Command);
 
@@ -248,7 +253,7 @@ namespace dnGREP.WPF
                         }
                         else
                         {
-                            if (statement.Value == null)
+                            if (string.IsNullOrEmpty(statement.Value))
                             {
                                 if (!targetDef.AllowNullValue)
                                 {
@@ -401,15 +406,16 @@ namespace dnGREP.WPF
     public enum ScriptValidationError
     {
         None = 0,
-        InvalidCommand = 1,
-        RequiredTargetValueMissing = 2,
-        InvalidTargetName = 4,
-        UnneededValueFound = 8,
-        RequiredStringValueMissing = 16,
-        RequiredBooleanValueMissing = 32,
-        CannotConvertValueFromString = 64,
-        NullValueNotAllowed = 128,
-        ConvertValueFromStringFailed = 256,
-        IncludeScriptKeyNotFound = 512,
+        NullStatement = 1,
+        InvalidCommand = 2,
+        RequiredTargetValueMissing = 4,
+        InvalidTargetName = 8,
+        UnneededValueFound = 16,
+        RequiredStringValueMissing = 32,
+        RequiredBooleanValueMissing = 64,
+        CannotConvertValueFromString = 128,
+        NullValueNotAllowed = 256,
+        ConvertValueFromStringFailed = 512,
+        IncludeScriptKeyNotFound = 1024,
     }
 }

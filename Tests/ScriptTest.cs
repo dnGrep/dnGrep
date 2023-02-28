@@ -133,7 +133,7 @@ namespace Tests
         [InlineData("exit")]
         public void TestValidateValidCommand(string line)
         {
-            ScriptStatement statement = ScriptManager.ParseLine(line, 1);
+            ScriptStatement? statement = ScriptManager.ParseLine(line, 1);
             var error = ScriptManager.Instance.Validate(statement);
             Assert.Null(error);
         }
@@ -156,7 +156,7 @@ namespace Tests
         [InlineData("run Notepad.exe c:\\test\\script.gsc", ScriptValidationError.InvalidTargetName)]
         public void TestValidateInvalidCommand(string line, ScriptValidationError expected)
         {
-            ScriptStatement statement = ScriptManager.ParseLine(line, 1);
+            ScriptStatement? statement = ScriptManager.ParseLine(line, 1);
             var error = ScriptManager.Instance.Validate(statement);
             Assert.NotNull(error);
             Assert.Equal(expected, error.Item2);
@@ -165,9 +165,9 @@ namespace Tests
         [Theory]
         [InlineData("bookmark use test bookmark", "test bookmark")]
         [InlineData("set folder c:\\test\\directory", "c:\\test\\directory")]
-        [InlineData("set searchfor", null)]
-        [InlineData("set searchfor ", null)]
-        [InlineData("set searchfor  ", null)]
+        [InlineData("set searchfor", "")]
+        [InlineData("set searchfor ", "")]
+        [InlineData("set searchfor  ", "")]
         [InlineData("set searchfor \"\"", "")]
         [InlineData("set searchfor \" \"", " ")]
         [InlineData("set searchfor brown bear", "brown bear")]
@@ -179,7 +179,8 @@ namespace Tests
         [InlineData(@"set searchfor <((\"".+?\"")|('.+?'))> AND <test>", @"<((\"".+?\"")|('.+?'))> AND <test>")]
         public void TestStringValues(string line, string expected)
         {
-            ScriptStatement statement = ScriptManager.ParseLine(line, 1);
+            ScriptStatement? statement = ScriptManager.ParseLine(line, 1);
+            Assert.NotNull(statement);
             Assert.Equal(expected, statement.Value);
         }
     }

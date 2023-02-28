@@ -91,7 +91,7 @@ namespace dnGREP.Common
         /// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
         /// <param name="searchRegex">Regex pattern</param>
         /// <returns>List of results. If nothing is found returns empty list</returns>
-        public List<GrepSearchResult> Search(IEnumerable<string> files, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage)
+        public List<GrepSearchResult> Search(IEnumerable<string>? files, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage)
         {
             searchResults.Clear();
 

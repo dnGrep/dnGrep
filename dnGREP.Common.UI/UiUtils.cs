@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -156,8 +155,8 @@ namespace dnGREP.Common.UI
         /// If multiple files are passed in, takes the first one.
         /// </summary>
         /// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
-        /// <returns>Base folder path or null if none exists</returns>
-        public static string? GetBaseFolder(string path)
+        /// <returns>Base folder path or empty string if none exists</returns>
+        public static string GetBaseFolder(string path)
         {
             try
             {
@@ -175,18 +174,18 @@ namespace dnGREP.Common.UI
                     }
 
                     if (paths[0].Trim() != "" && File.Exists(paths[0]))
-                        return Path.GetDirectoryName(paths[0]);
+                        return Path.GetDirectoryName(paths[0]) ?? string.Empty;
                     else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
                         return paths[0];
                     else
-                        return null;
+                        return string.Empty;
                 }
             }
             catch
             {
-                return null;
+                return string.Empty;
             }
-            return null;
+            return string.Empty;
         }
 
         /// <summary>
@@ -248,7 +247,7 @@ namespace dnGREP.Common.UI
         /// </summary>
         /// <param name="path">Path to split</param>
         /// <returns>Array of strings. If path is null, returns null. If path is empty, returns empty array.</returns>
-        public static string[] SplitPath(string path, bool preserveWildcards)
+        public static string[] SplitPath(string? path, bool preserveWildcards)
         {
             if (string.IsNullOrWhiteSpace(path))
                 return Array.Empty<string>();
