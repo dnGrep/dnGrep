@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
@@ -21,8 +22,14 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class OptionsViewModel : CultureAwareViewModel
+    public partial class OptionsViewModel : CultureAwareViewModel
     {
+        public enum PanelSelection { MainPanel = 0, OptionsExpander }
+
+        public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
+
+        public enum DeleteFilesDestination { Recycle, Permanent }
+
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly string ellipsis = char.ConvertFromUtf32(0x2026);
 
@@ -194,263 +201,20 @@ namespace dnGREP.WPF
             return visibilityOptions.Any(p => p.IsChanged);
         }
 
-        public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = new ObservableCollection<VisibilityOption>();
-
-
-        private bool enableWindowsIntegration;
-        public bool EnableWindowsIntegration
-        {
-            get { return enableWindowsIntegration; }
-            set
-            {
-                if (value == enableWindowsIntegration)
-                    return;
-
-                enableWindowsIntegration = value;
-                base.OnPropertyChanged(nameof(EnableWindowsIntegration));
-            }
-        }
-
-        private string? windowsIntegrationTooltip;
-        public string? WindowsIntegrationTooltip
-        {
-            get { return windowsIntegrationTooltip; }
-            set
-            {
-                if (value == windowsIntegrationTooltip)
-                    return;
-
-                windowsIntegrationTooltip = value;
-                base.OnPropertyChanged(nameof(WindowsIntegrationTooltip));
-            }
-        }
-
-        private string? panelTooltip;
-        public string? PanelTooltip
-        {
-            get { return panelTooltip; }
-            set
-            {
-                if (value == panelTooltip)
-                    return;
-
-                panelTooltip = value;
-                base.OnPropertyChanged(nameof(PanelTooltip));
-            }
-        }
-
-        private bool isAdministrator;
-        public bool IsAdministrator
-        {
-            get { return isAdministrator; }
-            set
-            {
-                if (value == isAdministrator)
-                    return;
-
-                isAdministrator = value;
-                base.OnPropertyChanged(nameof(IsAdministrator));
-            }
-        }
-
-        private bool enableCheckForUpdates;
-        public bool EnableCheckForUpdates
-        {
-            get { return enableCheckForUpdates; }
-            set
-            {
-                if (value == enableCheckForUpdates)
-                    return;
-
-                enableCheckForUpdates = value;
-                base.OnPropertyChanged(nameof(EnableCheckForUpdates));
-
-                if (!enableCheckForUpdates)
-                    EnableRunAtStartup = false;
-            }
-        }
-
-        private int checkForUpdatesInterval;
-        public int CheckForUpdatesInterval
-        {
-            get { return checkForUpdatesInterval; }
-            set
-            {
-                if (value == checkForUpdatesInterval)
-                    return;
-
-                checkForUpdatesInterval = value;
-                base.OnPropertyChanged(nameof(CheckForUpdatesInterval));
-            }
-        }
-
-        private bool enableRunAtStartup;
-        public bool EnableRunAtStartup
-        {
-            get { return enableRunAtStartup; }
-            set
-            {
-                if (value == enableRunAtStartup)
-                    return;
-
-                enableRunAtStartup = value;
-                base.OnPropertyChanged(nameof(EnableRunAtStartup));
-            }
-        }
-
-        private bool followWindowsTheme = true;
-        public bool FollowWindowsTheme
-        {
-            get { return followWindowsTheme; }
-            set
-            {
-                if (followWindowsTheme == value)
-                    return;
-
-                followWindowsTheme = value;
-                OnPropertyChanged(nameof(FollowWindowsTheme));
-
-                AppTheme.Instance.FollowWindowsThemeChanged(followWindowsTheme, CurrentTheme);
-
-                CurrentTheme = AppTheme.Instance.CurrentThemeName;
-            }
-        }
-
-
-        private bool hasWindowsThemes = true;
-        public bool HasWindowsThemes
-        {
-            get { return hasWindowsThemes; }
-            set
-            {
-                if (hasWindowsThemes == value)
-                    return;
-
-                hasWindowsThemes = value;
-                OnPropertyChanged(nameof(HasWindowsThemes));
-            }
-        }
-
-        private string currentTheme = "Light";
-        public string CurrentTheme
-        {
-            get { return currentTheme; }
-            set
-            {
-                if (currentTheme == value)
-                    return;
-
-                currentTheme = value;
-                OnPropertyChanged(nameof(CurrentTheme));
-
-                AppTheme.Instance.CurrentThemeName = currentTheme;
-            }
-        }
-
-        public ObservableCollection<string> ThemeNames { get; } = new();
-
-        private string? currentCulture;
-        public string? CurrentCulture
-        {
-            get { return currentCulture; }
-            set
-            {
-                if (currentCulture == value)
-                    return;
-
-                currentCulture = value;
-                OnPropertyChanged(nameof(CurrentCulture));
-                if (value != null)
-                {
-                    TranslationSource.Instance.SetCulture(value);
-                }
-            }
-        }
-
         public KeyValuePair<string, string>[] CultureNames { get; }
+
+        public KeyValuePair<string, ConfigurationTemplate?>[] CompareApplicationTemplates { get; }
 
         public KeyValuePair<string, ConfigurationTemplate?>[] CustomEditorTemplates { get; }
 
-        private void ApplyCustomEditorTemplate(ConfigurationTemplate? template)
+        public List<int> HexLengthOptions { get; }
+
+        public ObservableCollection<PluginOptions> Plugins { get; } = new();
+
+        public static IList<FontInfo> FontFamilies
         {
-            if (template != null)
-            {
-                CustomEditorPath = ellipsis + template.ExeFileName;
-                CustomEditorArgs = template.Arguments;
-
-                Dispatcher.CurrentDispatcher.InvokeAsync(() =>
-                {
-                    UIServices.SetBusyState();
-                    string fullPath = ConfigurationTemplate.FindExePath(template);
-                    if (!string.IsNullOrEmpty(fullPath))
-                    {
-                        CustomEditorPath = fullPath;
-                        CustomEditorArgs = template.Arguments;
-                    }
-                }, DispatcherPriority.ApplicationIdle);
-            }
+            get { return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source)).ToList(); }
         }
-
-        private ConfigurationTemplate? customEditorTemplate = null;
-
-        public ConfigurationTemplate? CustomEditorTemplate
-        {
-            get { return customEditorTemplate; }
-            set
-            {
-                if (value == customEditorTemplate)
-                    return;
-
-                customEditorTemplate = value;
-                ApplyCustomEditorTemplate(customEditorTemplate);
-
-                base.OnPropertyChanged(nameof(CustomEditorTemplate));
-            }
-        }
-
-        private string customEditorPath = string.Empty;
-        public string CustomEditorPath
-        {
-            get { return customEditorPath; }
-            set
-            {
-                if (value == customEditorPath)
-                    return;
-
-                customEditorPath = value;
-                base.OnPropertyChanged(nameof(CustomEditorPath));
-            }
-        }
-
-        private string customEditorArgs = string.Empty;
-        public string CustomEditorArgs
-        {
-            get { return customEditorArgs; }
-            set
-            {
-                if (value == customEditorArgs)
-                    return;
-
-                customEditorArgs = value;
-                base.OnPropertyChanged(nameof(CustomEditorArgs));
-            }
-        }
-
-        private string customEditorHelp = string.Empty;
-        public string CustomEditorHelp
-        {
-            get { return customEditorHelp; }
-            set
-            {
-                if (value == customEditorHelp)
-                    return;
-
-                customEditorHelp = value;
-                base.OnPropertyChanged(nameof(CustomEditorHelp));
-            }
-        }
-
-        public KeyValuePair<string, ConfigurationTemplate?>[] CompareApplicationTemplates { get; }
 
         private void ApplyCompareApplicationTemplate(ConfigurationTemplate? template)
         {
@@ -472,278 +236,161 @@ namespace dnGREP.WPF
             }
         }
 
-        private ConfigurationTemplate? compareApplicationTemplate = null;
-
-        public ConfigurationTemplate? CompareApplicationTemplate
+        private void ApplyCustomEditorTemplate(ConfigurationTemplate? template)
         {
-            get { return compareApplicationTemplate; }
-            set
+            if (template != null)
             {
-                if (value == compareApplicationTemplate)
-                    return;
+                CustomEditorPath = ellipsis + template.ExeFileName;
+                CustomEditorArgs = template.Arguments;
 
-                compareApplicationTemplate = value;
-                ApplyCompareApplicationTemplate(compareApplicationTemplate);
-                base.OnPropertyChanged(nameof(CompareApplicationTemplate));
-            }
-        }
-
-        private string compareApplicationPath = string.Empty;
-        public string CompareApplicationPath
-        {
-            get { return compareApplicationPath; }
-            set
-            {
-                if (value == compareApplicationPath)
-                    return;
-
-                compareApplicationPath = value;
-                base.OnPropertyChanged(nameof(CompareApplicationPath));
-            }
-        }
-
-        private string compareApplicationArgs = string.Empty;
-        public string CompareApplicationArgs
-        {
-            get { return compareApplicationArgs; }
-            set
-            {
-                if (value == compareApplicationArgs)
-                    return;
-
-                compareApplicationArgs = value;
-                base.OnPropertyChanged(nameof(CompareApplicationArgs));
-            }
-        }
-
-        private bool showFilePathInResults;
-        public bool ShowFilePathInResults
-        {
-            get { return showFilePathInResults; }
-            set
-            {
-                if (value == showFilePathInResults)
-                    return;
-
-                showFilePathInResults = value;
-                base.OnPropertyChanged(nameof(ShowFilePathInResults));
-            }
-        }
-
-        private bool showLinesInContext;
-        public bool ShowLinesInContext
-        {
-            get { return showLinesInContext; }
-            set
-            {
-                if (value == showLinesInContext)
-                    return;
-
-                showLinesInContext = value;
-                base.OnPropertyChanged(nameof(ShowLinesInContext));
-            }
-        }
-
-        private int contextLinesBefore;
-        public int ContextLinesBefore
-        {
-            get { return contextLinesBefore; }
-            set
-            {
-                if (value == contextLinesBefore)
-                    return;
-
-                contextLinesBefore = value;
-                base.OnPropertyChanged(nameof(ContextLinesBefore));
-            }
-        }
-
-        private int contextLinesAfter;
-        public int ContextLinesAfter
-        {
-            get { return contextLinesAfter; }
-            set
-            {
-                if (value == contextLinesAfter)
-                    return;
-
-                contextLinesAfter = value;
-                base.OnPropertyChanged(nameof(ContextLinesAfter));
-            }
-        }
-
-        private bool allowSearchWithEmptyPattern;
-        public bool AllowSearchWithEmptyPattern
-        {
-            get { return allowSearchWithEmptyPattern; }
-            set
-            {
-                if (value == allowSearchWithEmptyPattern)
-                    return;
-
-                allowSearchWithEmptyPattern = value;
-                base.OnPropertyChanged(nameof(AllowSearchWithEmptyPattern));
-            }
-        }
-
-        private bool detectEncodingForFileNamePattern;
-        public bool DetectEncodingForFileNamePattern
-        {
-            get { return detectEncodingForFileNamePattern; }
-            set
-            {
-                if (value == detectEncodingForFileNamePattern)
-                    return;
-
-                detectEncodingForFileNamePattern = value;
-                base.OnPropertyChanged(nameof(DetectEncodingForFileNamePattern));
-            }
-        }
-
-        private bool autoExpandSearchTree;
-        public bool AutoExpandSearchTree
-        {
-            get { return autoExpandSearchTree; }
-            set
-            {
-                if (value == autoExpandSearchTree)
-                    return;
-
-                autoExpandSearchTree = value;
-                base.OnPropertyChanged(nameof(AutoExpandSearchTree));
-            }
-        }
-
-        private bool showVerboseMatchCount;
-        public bool ShowVerboseMatchCount
-        {
-            get { return showVerboseMatchCount; }
-            set
-            {
-                if (value == showVerboseMatchCount)
-                    return;
-
-                showVerboseMatchCount = value;
-                base.OnPropertyChanged(nameof(ShowVerboseMatchCount));
-            }
-        }
-
-        private bool showFileInfoTooltips;
-        public bool ShowFileInfoTooltips
-        {
-            get { return showFileInfoTooltips; }
-            set
-            {
-                if (value == showFileInfoTooltips)
-                    return;
-
-                showFileInfoTooltips = value;
-                base.OnPropertyChanged(nameof(ShowFileInfoTooltips));
-            }
-        }
-
-        private double matchTimeout;
-        public double MatchTimeout
-        {
-            get { return matchTimeout; }
-            set
-            {
-                if (value == matchTimeout)
-                    return;
-
-                matchTimeout = value;
-                base.OnPropertyChanged(nameof(MatchTimeout));
-            }
-        }
-
-        private double matchThreshold;
-        public double MatchThreshold
-        {
-            get { return matchThreshold; }
-            set
-            {
-                if (value == matchThreshold)
-                    return;
-
-                matchThreshold = value;
-                base.OnPropertyChanged(nameof(MatchThreshold));
-            }
-        }
-
-        private int maxPathBookmarks;
-        public int MaxPathBookmarks
-        {
-            get { return maxPathBookmarks; }
-            set
-            {
-                if (value == maxPathBookmarks)
-                    return;
-
-                maxPathBookmarks = value;
-                base.OnPropertyChanged(nameof(MaxPathBookmarks));
-            }
-        }
-
-        private int maxSearchBookmarks;
-        public int MaxSearchBookmarks
-        {
-            get { return maxSearchBookmarks; }
-            set
-            {
-                if (value == maxSearchBookmarks)
-                    return;
-
-                maxSearchBookmarks = value;
-                base.OnPropertyChanged(nameof(MaxSearchBookmarks));
-            }
-        }
-
-        private int maxExtensionBookmarks;
-        public int MaxExtensionBookmarks
-        {
-            get { return maxExtensionBookmarks; }
-            set
-            {
-                if (value == maxExtensionBookmarks)
-                    return;
-
-                maxExtensionBookmarks = value;
-                base.OnPropertyChanged(nameof(MaxExtensionBookmarks));
-            }
-        }
-
-        public enum PanelSelection { MainPanel = 0, OptionsExpander }
-
-        private PanelSelection optionsLocation;
-        public PanelSelection OptionsLocation
-        {
-            get { return optionsLocation; }
-            set
-            {
-                if (value == optionsLocation)
-                    return;
-
-                optionsLocation = value;
-                base.OnPropertyChanged(nameof(OptionsLocation));
-            }
-        }
-
-        private bool maximizeResultsTreeOnSearch;
-        public bool MaximizeResultsTreeOnSearch
-        {
-            get { return maximizeResultsTreeOnSearch; }
-            set
-            {
-                if (maximizeResultsTreeOnSearch == value)
+                Dispatcher.CurrentDispatcher.InvokeAsync(() =>
                 {
-                    return;
-                }
-
-                maximizeResultsTreeOnSearch = value;
-                OnPropertyChanged(nameof(MaximizeResultsTreeOnSearch));
+                    UIServices.SetBusyState();
+                    string fullPath = ConfigurationTemplate.FindExePath(template);
+                    if (!string.IsNullOrEmpty(fullPath))
+                    {
+                        CustomEditorPath = fullPath;
+                        CustomEditorArgs = template.Arguments;
+                    }
+                }, DispatcherPriority.ApplicationIdle);
             }
         }
 
+        public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = new();
+
+        public ObservableCollection<string> ThemeNames { get; } = new();
+
+
+        [ObservableProperty]
+        private bool enableWindowsIntegration;
+
+        [ObservableProperty]
+        private string? windowsIntegrationTooltip;
+
+        [ObservableProperty]
+        private string? panelTooltip;
+
+        [ObservableProperty]
+        private bool isAdministrator;
+
+        [ObservableProperty]
+        private bool enableCheckForUpdates;
+        partial void OnEnableCheckForUpdatesChanged(bool value)
+        {
+            if (!value)
+                EnableRunAtStartup = false;
+        }
+
+        [ObservableProperty]
+        private int checkForUpdatesInterval;
+
+        [ObservableProperty]
+        private bool enableRunAtStartup;
+
+        [ObservableProperty]
+        private bool followWindowsTheme = true;
+        partial void OnFollowWindowsThemeChanged(bool value)
+        {
+            AppTheme.Instance.FollowWindowsThemeChanged(value, CurrentTheme);
+            CurrentTheme = AppTheme.Instance.CurrentThemeName;
+        }
+
+        [ObservableProperty]
+        private bool hasWindowsThemes = true;
+
+        [ObservableProperty]
+        private string currentTheme = "Light";
+        partial void OnCurrentThemeChanged(string value)
+        {
+            AppTheme.Instance.CurrentThemeName = value;
+        }
+
+        [ObservableProperty]
+        private string? currentCulture;
+        partial void OnCurrentCultureChanged(string? value)
+        {
+            if (value != null)
+            {
+                TranslationSource.Instance.SetCulture(value);
+            }
+        }
+
+        [ObservableProperty]
+        private ConfigurationTemplate? customEditorTemplate = null;
+        partial void OnCustomEditorTemplateChanged(ConfigurationTemplate? value)
+        {
+            ApplyCustomEditorTemplate(value);
+        }
+
+        [ObservableProperty]
+        private string customEditorPath = string.Empty;
+
+        [ObservableProperty]
+        private string customEditorArgs = string.Empty;
+
+        [ObservableProperty]
+        private string customEditorHelp = string.Empty;
+
+        [ObservableProperty]
+        private ConfigurationTemplate? compareApplicationTemplate = null;
+        partial void OnCompareApplicationTemplateChanged(ConfigurationTemplate? value)
+        {
+            ApplyCompareApplicationTemplate(value);
+        }
+
+        [ObservableProperty]
+        private string compareApplicationPath = string.Empty;
+
+        [ObservableProperty]
+        private string compareApplicationArgs = string.Empty;
+
+        [ObservableProperty]
+        private bool showFilePathInResults;
+
+        [ObservableProperty]
+        private bool showLinesInContext;
+
+        [ObservableProperty]
+        private int contextLinesBefore;
+
+        [ObservableProperty]
+        private int contextLinesAfter;
+
+        [ObservableProperty]
+        private bool allowSearchWithEmptyPattern;
+
+        [ObservableProperty]
+        private bool detectEncodingForFileNamePattern;
+
+        [ObservableProperty]
+        private bool autoExpandSearchTree;
+
+        [ObservableProperty]
+        private bool showVerboseMatchCount;
+
+        [ObservableProperty]
+        private bool showFileInfoTooltips;
+
+        [ObservableProperty]
+        private double matchTimeout;
+
+        [ObservableProperty]
+        private double matchThreshold;
+
+        [ObservableProperty]
+        private int maxPathBookmarks;
+
+        [ObservableProperty]
+        private int maxSearchBookmarks;
+
+        [ObservableProperty]
+        private int maxExtensionBookmarks;
+
+        [ObservableProperty]
+        private PanelSelection optionsLocation;
+
+        [ObservableProperty]
+        private bool maximizeResultsTreeOnSearch;
 
         public int MaxDegreeOfParallelism
         {
@@ -766,384 +413,89 @@ namespace dnGREP.WPF
             }
         }
 
+        [ObservableProperty]
         private int taskLimit = 1;
-        public int TaskLimit
-        {
-            get { return taskLimit; }
-            set
-            {
-                if (taskLimit == value)
-                {
-                    return;
-                }
 
-                taskLimit = value;
-                OnPropertyChanged(nameof(TaskLimit));
-            }
-        }
-
+        [ObservableProperty]
         private int parallelismCount = 1;
-        public int ParallelismCount
-        {
-            get { return parallelismCount; }
-            set
-            {
-                if (parallelismCount == value)
-                {
-                    return;
-                }
 
-                parallelismCount = value;
-                OnPropertyChanged(nameof(ParallelismCount));
-            }
-        }
-
-
+        [ObservableProperty]
         private bool parallelismUnlimited = true;
-        public bool ParallelismUnlimited
-        {
-            get { return parallelismUnlimited; }
-            set
-            {
-                if (parallelismUnlimited == value)
-                {
-                    return;
-                }
 
-                parallelismUnlimited = value;
-                OnPropertyChanged(nameof(ParallelismUnlimited));
-            }
-        }
-
-
-        public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
-
+        [ObservableProperty]
         private ReplaceDialogConfiguration replaceDialogLayout;
-        public ReplaceDialogConfiguration ReplaceDialogLayout
-        {
-            get { return replaceDialogLayout; }
-            set
-            {
-                if (replaceDialogLayout == value)
-                    return;
 
-                replaceDialogLayout = value;
-                OnPropertyChanged(nameof(ReplaceDialogLayout));
-            }
-        }
-
-        public enum DeleteFilesDestination { Recycle, Permanent }
-
-
+        [ObservableProperty]
         private DeleteFilesDestination deleteOption = DeleteFilesDestination.Recycle;
-        public DeleteFilesDestination DeleteOption
-        {
-            get { return deleteOption; }
-            set
-            {
-                if (deleteOption == value)
-                {
-                    return;
-                }
 
-                deleteOption = value;
-                OnPropertyChanged(nameof(DeleteOption));
-            }
-        }
-
-
+        [ObservableProperty]
         private OverwriteFile copyOverwriteFileOption = OverwriteFile.Prompt;
-        public OverwriteFile CopyOverwriteFileOption
-        {
-            get { return copyOverwriteFileOption; }
-            set
-            {
-                if (copyOverwriteFileOption == value)
-                {
-                    return;
-                }
 
-                copyOverwriteFileOption = value;
-                OnPropertyChanged(nameof(CopyOverwriteFileOption));
-            }
-        }
-
-
+        [ObservableProperty]
         private OverwriteFile moveOverwriteFileOption = OverwriteFile.Prompt;
-        public OverwriteFile MoveOverwriteFileOption
-        {
-            get { return moveOverwriteFileOption; }
-            set
-            {
-                if (moveOverwriteFileOption == value)
-                {
-                    return;
-                }
 
-                moveOverwriteFileOption = value;
-                OnPropertyChanged(nameof(MoveOverwriteFileOption));
-            }
-        }
-
-        public List<int> HexLengthOptions { get; }
-
+        [ObservableProperty]
         private int hexResultByteLength = 16;
-        public int HexResultByteLength
-        {
-            get { return hexResultByteLength; }
-            set
-            {
-                if (hexResultByteLength == value)
-                    return;
 
-                hexResultByteLength = value;
-                OnPropertyChanged(nameof(HexResultByteLength));
-            }
-        }
-
+        [ObservableProperty]
         private string pdfToTextOptions = string.Empty;
-        public string PdfToTextOptions
-        {
-            get { return pdfToTextOptions; }
-            set
-            {
-                if (pdfToTextOptions == value)
-                    return;
 
-                pdfToTextOptions = value;
-                OnPropertyChanged(nameof(PdfToTextOptions));
-            }
-        }
-
+        [ObservableProperty]
         private PdfNumberType pdfNumberStyle = PdfNumberType.PageNumber;
-        public PdfNumberType PdfNumberStyle
-        {
-            get { return pdfNumberStyle; }
-            set
-            {
-                if (pdfNumberStyle == value)
-                {
-                    return;
-                }
 
-                pdfNumberStyle = value;
-                OnPropertyChanged(nameof(PdfNumberStyle));
-            }
-        }
-
+        [ObservableProperty]
         private PluginOptions archiveOptions;
-        public PluginOptions ArchiveOptions
-        {
-            get { return archiveOptions; }
-            set
-            {
-                if (archiveOptions == value)
-                    return;
 
-                archiveOptions = value;
-                base.OnPropertyChanged(nameof(ArchiveOptions));
-            }
-        }
-
-        public ObservableCollection<PluginOptions> Plugins { get; } = new ObservableCollection<PluginOptions>();
-
-        public static IList<FontInfo> FontFamilies
-        {
-            get { return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source)).ToList(); }
-        }
-
+        [ObservableProperty]
         private bool useDefaultFont = true;
-        public bool UseDefaultFont
+        partial void OnUseDefaultFontChanged(bool value)
         {
-            get { return useDefaultFont; }
-            set
+            if (value)
             {
-                if (useDefaultFont == value)
-                    return;
-
-                useDefaultFont = value;
-
-                if (useDefaultFont)
-                {
-                    EditApplicationFontFamily = SystemFonts.MessageFontFamily.Source;
-                    EditMainFormFontSize = SystemFonts.MessageFontSize;
-                    EditReplaceFormFontSize = SystemFonts.MessageFontSize;
-                    EditDialogFontSize = SystemFonts.MessageFontSize;
-                    EditResultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
-                    EditResultsFontSize = SystemFonts.MessageFontSize;
-                }
-
-                base.OnPropertyChanged(nameof(UseDefaultFont));
+                EditApplicationFontFamily = SystemFonts.MessageFontFamily.Source;
+                EditMainFormFontSize = SystemFonts.MessageFontSize;
+                EditReplaceFormFontSize = SystemFonts.MessageFontSize;
+                EditDialogFontSize = SystemFonts.MessageFontSize;
+                EditResultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
+                EditResultsFontSize = SystemFonts.MessageFontSize;
             }
         }
 
+        [ObservableProperty]
         private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
 
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
-
+        [ObservableProperty]
         private string editApplicationFontFamily = SystemFonts.MessageFontFamily.Source;
-        public string EditApplicationFontFamily
-        {
-            get { return editApplicationFontFamily; }
-            set
-            {
-                if (editApplicationFontFamily == value)
-                    return;
 
-                editApplicationFontFamily = value;
-                base.OnPropertyChanged(nameof(EditApplicationFontFamily));
-            }
-        }
-
+        [ObservableProperty]
         private double mainFormFontSize;
-        public double MainFormFontSize
-        {
-            get { return mainFormFontSize; }
-            set
-            {
-                if (mainFormFontSize == value)
-                    return;
 
-                mainFormFontSize = value;
-                base.OnPropertyChanged(nameof(MainFormFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private double editMainFormFontSize;
-        public double EditMainFormFontSize
-        {
-            get { return editMainFormFontSize; }
-            set
-            {
-                if (editMainFormFontSize == value)
-                    return;
 
-                editMainFormFontSize = value;
-                base.OnPropertyChanged(nameof(EditMainFormFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private double replaceFormFontSize;
-        public double ReplaceFormFontSize
-        {
-            get { return replaceFormFontSize; }
-            set
-            {
-                if (replaceFormFontSize == value)
-                    return;
 
-                replaceFormFontSize = value;
-                base.OnPropertyChanged(nameof(ReplaceFormFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private double editReplaceFormFontSize;
-        public double EditReplaceFormFontSize
-        {
-            get { return editReplaceFormFontSize; }
-            set
-            {
-                if (editReplaceFormFontSize == value)
-                    return;
 
-                editReplaceFormFontSize = value;
-                base.OnPropertyChanged(nameof(EditReplaceFormFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private double dialogFontSize;
-        public double DialogFontSize
-        {
-            get { return dialogFontSize; }
-            set
-            {
-                if (dialogFontSize == value)
-                    return;
 
-                dialogFontSize = value;
-                base.OnPropertyChanged(nameof(DialogFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private double editDialogFontSize;
-        public double EditDialogFontSize
-        {
-            get { return editDialogFontSize; }
-            set
-            {
-                if (editDialogFontSize == value)
-                    return;
 
-                editDialogFontSize = value;
-                base.OnPropertyChanged(nameof(EditDialogFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
-        public string ResultsFontFamily
-        {
-            get { return resultsFontFamily; }
-            set
-            {
-                if (resultsFontFamily == value)
-                    return;
 
-                resultsFontFamily = value;
-                base.OnPropertyChanged(nameof(ResultsFontFamily));
-            }
-        }
-
+        [ObservableProperty]
         private string editResultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
-        public string EditResultsFontFamily
-        {
-            get { return editResultsFontFamily; }
-            set
-            {
-                if (editResultsFontFamily == value)
-                    return;
 
-                editResultsFontFamily = value;
-                base.OnPropertyChanged(nameof(EditResultsFontFamily));
-            }
-        }
-
+        [ObservableProperty]
         private double resultsFontSize;
-        public double ResultsFontSize
-        {
-            get { return resultsFontSize; }
-            set
-            {
-                if (resultsFontSize == value)
-                    return;
 
-                resultsFontSize = value;
-                base.OnPropertyChanged(nameof(ResultsFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private double editResultsFontSize;
-        public double EditResultsFontSize
-        {
-            get { return editResultsFontSize; }
-            set
-            {
-                if (editResultsFontSize == value)
-                    return;
-
-                editResultsFontSize = value;
-                base.OnPropertyChanged(nameof(EditResultsFontSize));
-            }
-        }
 
         #endregion
 
@@ -1257,6 +609,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.FastSearchBookmarks, new List<string>());
         }
 
+#pragma warning disable MVVMTK0034
         [MemberNotNull(nameof(archiveOptions))]
         private void LoadSettings()
         {
@@ -1360,6 +713,7 @@ namespace dnGREP.WPF
                 Plugins.Add(pluginOptions);
             }
         }
+#pragma warning restore MVVMTK0034
 
         private string ValueOrDefault(string settingsKey, string defaultValue)
         {
@@ -1716,7 +1070,7 @@ namespace dnGREP.WPF
         #endregion
     }
 
-    public class PluginOptions : CultureAwareViewModel
+    public partial class PluginOptions : CultureAwareViewModel
     {
         public PluginOptions(string name, bool enabled, bool previewTextEnabled,
             string extensions, string defaultExtensions)
@@ -1728,71 +1082,25 @@ namespace dnGREP.WPF
             DefaultExtensions = defaultExtensions ?? string.Empty;
         }
 
-        public bool IsChanged => isEnabled != origIsEnabled ||
-            previewTextEnabled != origPreviewTextEnabled ||
-            mappedExtensions != origMappedExtensions;
+        public bool IsChanged => IsEnabled != origIsEnabled ||
+            PreviewTextEnabled != origPreviewTextEnabled ||
+            MappedExtensions != origMappedExtensions;
 
+        [ObservableProperty]
         private string name = string.Empty;
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                if (value == name)
-                    return;
 
-                name = value;
-                base.OnPropertyChanged(nameof(Name));
-            }
-        }
-
-        private bool origIsEnabled;
+        [ObservableProperty]
         private bool isEnabled;
-        public bool IsEnabled
-        {
-            get { return isEnabled; }
-            set
-            {
-                if (value == isEnabled)
-                    return;
-
-                isEnabled = value;
-                base.OnPropertyChanged(nameof(IsEnabled));
-            }
-        }
+        private bool origIsEnabled;
 
 
-        private bool origPreviewTextEnabled;
+        [ObservableProperty]
         private bool previewTextEnabled;
-        public bool PreviewTextEnabled
-        {
-            get { return previewTextEnabled; }
-            set
-            {
-                if (previewTextEnabled == value)
-                {
-                    return;
-                }
+        private bool origPreviewTextEnabled;
 
-                previewTextEnabled = value;
-                OnPropertyChanged(nameof(PreviewTextEnabled));
-            }
-        }
-
-        private string origMappedExtensions = string.Empty;
+        [ObservableProperty]
         private string mappedExtensions = string.Empty;
-        public string MappedExtensions
-        {
-            get { return mappedExtensions; }
-            set
-            {
-                if (value == mappedExtensions)
-                    return;
-
-                mappedExtensions = value;
-                base.OnPropertyChanged(nameof(MappedExtensions));
-            }
-        }
+        private string origMappedExtensions = string.Empty;
 
         public string DefaultExtensions { get; private set; }
 
@@ -1803,13 +1111,13 @@ namespace dnGREP.WPF
 
         internal void SetUnchanged()
         {
-            origIsEnabled = isEnabled;
-            origPreviewTextEnabled = previewTextEnabled;
-            origMappedExtensions = mappedExtensions;
+            origIsEnabled = IsEnabled;
+            origPreviewTextEnabled = PreviewTextEnabled;
+            origMappedExtensions = MappedExtensions;
         }
     }
 
-    public class VisibilityOption : CultureAwareViewModel
+    public partial class VisibilityOption : CultureAwareViewModel
     {
         public VisibilityOption(string group, string labelKey, string optionKey)
         {
@@ -1826,12 +1134,12 @@ namespace dnGREP.WPF
 
         public string Label => TranslationSource.Instance[LabelKey].TrimEnd(':', '…');
 
-        public bool IsChanged => isVisible != origIsVisible;
+        public bool IsChanged => IsVisible != origIsVisible;
 
         public void UpdateOption()
         {
-            GrepSettings.Instance.Set(OptionKey, isVisible);
-            origIsVisible = isVisible;
+            GrepSettings.Instance.Set(OptionKey, IsVisible);
+            origIsVisible = IsVisible;
         }
 
         internal void UpdateLabel()
@@ -1839,22 +1147,9 @@ namespace dnGREP.WPF
             OnPropertyChanged(nameof(Label));
         }
 
-        private bool origIsVisible;
+        [ObservableProperty]
         private bool isVisible;
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set
-            {
-                if (isVisible == value)
-                {
-                    return;
-                }
-
-                isVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
-            }
-        }
+        private bool origIsVisible;
     }
 
 

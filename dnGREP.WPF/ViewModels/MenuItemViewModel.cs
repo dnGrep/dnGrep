@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
-    public class MenuItemViewModel : CultureAwareViewModel
+    public partial class MenuItemViewModel : CultureAwareViewModel
     {
         public MenuItemViewModel(string? header, RelayCommand? relayCommand)
         {
@@ -16,7 +17,7 @@ namespace dnGREP.WPF
             else
             {
                 Header = header ?? string.Empty;
-                command = relayCommand;
+                Command = relayCommand;
             }
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
@@ -29,122 +30,29 @@ namespace dnGREP.WPF
             IsCheckable = isCheckable;
         }
 
-        public ObservableCollection<MenuItemViewModel> Children { get; } = new ObservableCollection<MenuItemViewModel>();
+        public ObservableCollection<MenuItemViewModel> Children { get; } = new();
 
-
+        [ObservableProperty]
         private bool isSeparator = false;
-        public bool IsSeparator
-        {
-            get { return isSeparator; }
-            set
-            {
-                if (isSeparator == value)
-                {
-                    return;
-                }
 
-                isSeparator = value;
-                OnPropertyChanged(nameof(IsSeparator));
-            }
-        }
-
+        [ObservableProperty]
         private string header = string.Empty;
-        public string Header
-        {
-            get { return header; }
-            set
-            {
-                if (header == value)
-                {
-                    return;
-                }
 
-                header = value;
-                OnPropertyChanged(nameof(Header));
-            }
-        }
-
+        [ObservableProperty]
         private bool isChecked = false;
-        public bool IsChecked
-        {
-            get { return isChecked; }
-            set
-            {
-                if (isChecked == value)
-                {
-                    return;
-                }
 
-                isChecked = value;
-                OnPropertyChanged(nameof(IsChecked));
-            }
-        }
-
+        [ObservableProperty]
         private bool isCheckable = false;
-        public bool IsCheckable
-        {
-            get { return isCheckable; }
-            set
-            {
-                if (isCheckable == value)
-                {
-                    return;
-                }
 
-                isCheckable = value;
-                OnPropertyChanged(nameof(IsCheckable));
-            }
-        }
-
+        [ObservableProperty]
         private bool isEnabled = true;
-        public bool IsEnabled
-        {
-            get { return isEnabled; }
-            set
-            {
-                if (isEnabled == value)
-                {
-                    return;
-                }
 
-                isEnabled = value;
-                OnPropertyChanged(nameof(IsEnabled));
-            }
-        }
-
-        private readonly RelayCommand? command;
-        public ICommand? Command
-        {
-            get { return command; }
-        }
-
+        [ObservableProperty]
         private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
 
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
+        [ObservableProperty]
+        private double mainFormFontSize;
 
-        private double mainFormfontSize;
-        public double MainFormFontSize
-        {
-            get { return mainFormfontSize; }
-            set
-            {
-                if (mainFormfontSize == value)
-                    return;
-
-                mainFormfontSize = value;
-                base.OnPropertyChanged(nameof(MainFormFontSize));
-            }
-        }
-
+        public ICommand? Command { get; }
     }
 }

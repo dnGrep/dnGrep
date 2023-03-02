@@ -5,13 +5,13 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Localization;
@@ -22,7 +22,7 @@ using Windows.Win32;
 
 namespace dnGREP.WPF
 {
-    public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>, INotifyPropertyChanged
+    public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>
     {
         public static readonly Messenger SearchResultsMessenger = new();
 
@@ -153,7 +153,7 @@ namespace dnGREP.WPF
                         extension = ".na";
                     if (!icons.ContainsKey(extension))
                     {
-                        var bitmapIcon = IconHandler.IconFromExtensionShell(extension, IconSize.Small) ?? 
+                        var bitmapIcon = IconHandler.IconFromExtensionShell(extension, IconSize.Small) ??
                             Common.Properties.Resources.na_icon;
                         icons[extension] = GetBitmapSource(bitmapIcon);
                     }
@@ -301,7 +301,7 @@ namespace dnGREP.WPF
 
         public bool HasReadOnlySelection
         {
-            get 
+            get
             {
                 return SelectedNodes.Where(n => n is FormattedGrepResult)
                     .Select(n => n as FormattedGrepResult)
@@ -437,33 +437,23 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepResult : CultureAwareViewModel, ITreeItem
+    public partial class FormattedGrepResult : CultureAwareViewModel, ITreeItem
     {
-        public GrepSearchResult GrepResult { get; private set; } = new GrepSearchResult();
+        public GrepSearchResult GrepResult { get; private set; } = new();
 
         public int Matches
         {
             get { return GrepResult.Matches.Count; }
         }
 
-        public string Style { get; private set; } = "";
+        public string Style { get; private set; } = string.Empty;
 
+        [ObservableProperty]
         private string label = string.Empty;
-        public string Label
-        {
-            get { return label; }
-            set
-            {
-                if (label == value)
-                    return;
-
-                label = value;
-                OnPropertyChanged(nameof(Label));
-            }
-        }
 
         internal int MatchIdx { get; set; }
-        internal Dictionary<string, string> GroupColors { get; } = new Dictionary<string, string>();
+
+        internal Dictionary<string, string> GroupColors { get; } = new();
 
         public static bool ShowFileInfoTooltips
         {
@@ -473,7 +463,7 @@ namespace dnGREP.WPF
         // some settings have changed, raise property changed events to update the UI
         public void RaiseSettingsPropertiesChanged()
         {
-            base.OnPropertyChanged(nameof (ShowFileInfoTooltips));
+            OnPropertyChanged(nameof(ShowFileInfoTooltips));
         }
 
         public async Task ExpandTreeNode()
@@ -492,57 +482,29 @@ namespace dnGREP.WPF
             IsExpanded = false;
         }
 
+        [ObservableProperty]
         private bool isExpanded = false;
-        public bool IsExpanded
+        partial void OnIsExpandedChanged(bool value)
         {
-            get { return isExpanded; }
-            set
+            if (value == true && !FormattedLines.IsLoaded && !FormattedLines.IsLoading)
             {
-                if (isExpanded == value)
-                    return;
-
-                isExpanded = value;
-                if (value == true && !FormattedLines.IsLoaded && !FormattedLines.IsLoading)
-                {
-                    IsLoading = true;
-                    Task.Run(() => FormattedLines.LoadAsync());
-                }
-                OnPropertyChanged(nameof(IsExpanded));
+                IsLoading = true;
+                Task.Run(() => FormattedLines.LoadAsync());
             }
         }
 
+        [ObservableProperty]
         private bool isLoading;
-        public bool IsLoading
-        {
-            get { return isLoading; }
-            set
-            {
-                isLoading = value;
-                OnPropertyChanged(nameof(IsLoading));
-            }
-        }
 
+        [ObservableProperty]
         private bool isSelected;
-        public bool IsSelected
+        partial void OnIsSelectedChanged(bool value)
         {
-            get { return isSelected; }
-            set
-            {
-                if (value == isSelected)
-                    return;
-
-                isSelected = value;
-                ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
-                OnPropertyChanged(nameof(IsSelected));
-            }
+            ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
         }
 
+        [ObservableProperty]
         private int lineNumberColumnWidth = 30;
-        public int LineNumberColumnWidth
-        {
-            get { return lineNumberColumnWidth; }
-            set { lineNumberColumnWidth = value; OnPropertyChanged(nameof(LineNumberColumnWidth)); }
-        }
 
         public BitmapSource? Icon { get; set; }
 
@@ -631,7 +593,7 @@ namespace dnGREP.WPF
                 LineNumberColumnWidth = FormattedLines.LineNumberColumnWidth;
         }
 
-        public ObservableCollection<FormattedGrepMatch> FormattedMatches { get; } = new ObservableCollection<FormattedGrepMatch>();
+        public ObservableCollection<FormattedGrepMatch> FormattedMatches { get; } = new();
 
         private bool wrapText;
         public bool WrapText
@@ -658,7 +620,7 @@ namespace dnGREP.WPF
         public IEnumerable<ITreeItem> Children => FormattedLines;
     }
 
-    public class FormattedGrepLine : CultureAwareViewModel, ITreeItem
+    public partial class FormattedGrepLine : CultureAwareViewModel, ITreeItem
     {
         private readonly string enQuad = char.ConvertFromUtf32(0x2000);
 
@@ -736,75 +698,20 @@ namespace dnGREP.WPF
             }
         }
 
+        [ObservableProperty]
         private string? formattedHexValues;
-        public string? FormattedHexValues
-        {
-            get { return formattedHexValues; }
-            set
-            {
-                if (formattedHexValues == value)
-                    return;
 
-                formattedHexValues = value;
-                OnPropertyChanged(nameof(FormattedHexValues));
-            }
-        }
-
+        [ObservableProperty]
         private bool isHexData;
-        public bool IsHexData
-        {
-            get { return isHexData; }
-            set
-            {
-                if (isHexData == value)
-                    return;
 
-                isHexData = value;
-                OnPropertyChanged(nameof(IsHexData));
-            }
-        }
+        [ObservableProperty]
+        private string resultColumn1SharedSizeGroupName = string.Empty;
 
-        private string resultColumn1SharedSizeGroupName = "";
-        public string ResultColumn1SharedSizeGroupName
-        {
-            get { return resultColumn1SharedSizeGroupName; }
-            set
-            {
-                if (resultColumn1SharedSizeGroupName == value)
-                    return;
-
-                resultColumn1SharedSizeGroupName = value;
-                OnPropertyChanged(nameof(ResultColumn1SharedSizeGroupName));
-            }
-        }
-
+        [ObservableProperty]
         private string resultColumn1Width = "*";
-        public string ResultColumn1Width
-        {
-            get { return resultColumn1Width; }
-            set
-            {
-                if (resultColumn1Width == value)
-                    return;
 
-                resultColumn1Width = value;
-                OnPropertyChanged(nameof(ResultColumn1Width));
-            }
-        }
-
+        [ObservableProperty]
         private string resultColumn2Width = "0";
-        public string ResultColumn2Width
-        {
-            get { return resultColumn2Width; }
-            set
-            {
-                if (resultColumn2Width == value)
-                    return;
-
-                resultColumn2Width = value;
-                OnPropertyChanged(nameof(ResultColumn2Width));
-            }
-        }
 
         // FormattedGrepLines don't expand, but the XAML code expects this property on TreeViewItems
         public bool IsExpanded { get; set; }
@@ -824,30 +731,13 @@ namespace dnGREP.WPF
             }
         }
 
+        [ObservableProperty]
         private bool isSectionBreak = false;
-        public bool IsSectionBreak
-        {
-            get { return isSectionBreak; }
-            set
-            {
-                if (isSectionBreak == value)
-                {
-                    return;
-                }
-
-                isSectionBreak = value;
-                OnPropertyChanged(nameof(IsSectionBreak));
-            }
-        }
 
         public string Style { get; private set; } = "";
 
+        [ObservableProperty]
         private int lineNumberColumnWidth = 30;
-        public int LineNumberColumnWidth
-        {
-            get { return lineNumberColumnWidth; }
-            set { lineNumberColumnWidth = value; OnPropertyChanged(nameof(LineNumberColumnWidth)); }
-        }
 
         void Parent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -1251,7 +1141,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepMatch : CultureAwareViewModel
+    public partial class FormattedGrepMatch : CultureAwareViewModel
     {
         public FormattedGrepMatch(GrepMatch match)
         {
@@ -1265,68 +1155,25 @@ namespace dnGREP.WPF
 
         public override string ToString()
         {
-            return Match.ToString() + $" replace={replaceMatch}";
+            return Match.ToString() + $" replace={ReplaceMatch}";
         }
 
-
+        [ObservableProperty]
         private bool replaceMatch = false;
-        public bool ReplaceMatch
+
+        partial void OnReplaceMatchChanging(bool value)
         {
-            get { return replaceMatch; }
-            set
-            {
-                if (replaceMatch == value)
-                    return;
-
-                replaceMatch = value;
-                OnPropertyChanged(nameof(ReplaceMatch));
-
-                Match.ReplaceMatch = value;
-
-                Background = Match.ReplaceMatch ? Brushes.PaleGreen : Brushes.Bisque;
-            }
+            Match.ReplaceMatch = value;
+            Background = Match.ReplaceMatch ? Brushes.PaleGreen : Brushes.Bisque;
         }
 
+        [ObservableProperty]
         private Brush background = Brushes.Bisque;
-        public Brush Background
-        {
-            get { return background; }
-            set
-            {
-                if (background == value)
-                    return;
 
-                background = value;
-                OnPropertyChanged(nameof(Background));
-            }
-        }
-
+        [ObservableProperty]
         private double fontSize = 12;
-        public double FontSize
-        {
-            get { return fontSize; }
-            set
-            {
-                if (fontSize == value)
-                    return;
 
-                fontSize = value;
-                OnPropertyChanged(nameof(FontSize));
-            }
-        }
-
+        [ObservableProperty]
         private FontWeight fontWeight = FontWeights.Normal;
-        public FontWeight FontWeight
-        {
-            get { return fontWeight; }
-            set
-            {
-                if (fontWeight == value)
-                    return;
-
-                fontWeight = value;
-                OnPropertyChanged(nameof(FontWeight));
-            }
-        }
     }
 }

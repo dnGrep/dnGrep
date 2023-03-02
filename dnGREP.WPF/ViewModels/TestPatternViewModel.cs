@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Xml;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
@@ -14,7 +15,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class TestPatternViewModel : BaseMainViewModel
+    public partial class TestPatternViewModel : BaseMainViewModel
     {
         private bool hasMatches;
         private int searchHash;
@@ -30,6 +31,24 @@ namespace dnGREP.WPF
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
             ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
         }
+
+        [ObservableProperty]
+        private static string sampleText = string.Empty;
+
+        [ObservableProperty]
+        private bool isReplaceReadOnly;
+
+        [ObservableProperty]
+        private InlineCollection? searchOutput;
+
+        [ObservableProperty]
+        private InlineCollection? replaceOutput;
+
+        [ObservableProperty]
+        private string replaceOutputText = string.Empty;
+
+        [ObservableProperty]
+        private string replaceErrorText = string.Empty;
 
         private int GetSearchHash()
         {
@@ -108,90 +127,6 @@ namespace dnGREP.WPF
                         replaceHash = rHash;
                     }
                     break;
-            }
-        }
-
-        private static string sampleText = string.Empty;
-        public string SampleText
-        {
-            get { return sampleText; }
-            set
-            {
-                if (value == sampleText)
-                    return;
-
-                sampleText = value;
-                base.OnPropertyChanged(nameof(SampleText));
-            }
-        }
-
-        private bool isReplaceReadOnly;
-        public bool IsReplaceReadOnly
-        {
-            get { return isReplaceReadOnly; }
-            set
-            {
-                if (value == isReplaceReadOnly)
-                    return;
-
-                isReplaceReadOnly = value;
-                base.OnPropertyChanged(nameof(IsReplaceReadOnly));
-            }
-        }
-
-        private InlineCollection? searchOutput;
-        public InlineCollection? SearchOutput
-        {
-            get { return searchOutput; }
-            set
-            {
-                if (value == searchOutput)
-                    return;
-
-                searchOutput = value;
-                base.OnPropertyChanged(nameof(SearchOutput));
-            }
-        }
-
-        private InlineCollection? replaceOutput;
-        public InlineCollection? ReplaceOutput
-        {
-            get { return replaceOutput; }
-            set
-            {
-                if (value == replaceOutput)
-                    return;
-
-                replaceOutput = value;
-                base.OnPropertyChanged(nameof(ReplaceOutput));
-            }
-        }
-
-        private string replaceOutputText = string.Empty;
-        public string ReplaceOutputText
-        {
-            get { return replaceOutputText; }
-            set
-            {
-                if (value == replaceOutputText)
-                    return;
-
-                replaceOutputText = value;
-                base.OnPropertyChanged(nameof(ReplaceOutputText));
-            }
-        }
-
-        private string replaceErrorText = string.Empty;
-        public string ReplaceErrorText
-        {
-            get { return replaceErrorText; }
-            set
-            {
-                if (value == replaceErrorText)
-                    return;
-
-                replaceErrorText = value;
-                base.OnPropertyChanged(nameof(ReplaceErrorText));
             }
         }
 

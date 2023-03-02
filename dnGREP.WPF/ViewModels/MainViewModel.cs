@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.DockFloat;
@@ -46,17 +47,19 @@ namespace dnGREP.WPF
                 double maxPreviewWidth = Application.Current.MainWindow.Width - DockPanelSplitter.Panel1MinSize;
                 double maxPreviewHeight = Application.Current.MainWindow.Height - DockPanelSplitter.Panel1MinSize;
 
-                _previewWindowBounds = LayoutProperties.PreviewBounds;
-                _previewWindowState = LayoutProperties.PreviewWindowState;
-                _isPreviewDocked = LayoutProperties.PreviewDocked;
-                _previewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
+                PreviewWindowBounds = LayoutProperties.PreviewBounds;
+                PreviewWindowState = LayoutProperties.PreviewWindowState;
+                IsPreviewDocked = LayoutProperties.PreviewDocked;
+                PreviewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
                 if (Enum.TryParse(LayoutProperties.PreviewDockSide, out Dock side))
                 {
-                    _previewDockSide = side;
+                    PreviewDockSide = side;
                 }
-                _previewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
-                _isPreviewHidden = LayoutProperties.PreviewHidden;
-                _previewAutoPosition = Settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
+                PreviewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
+                IsPreviewHidden = LayoutProperties.PreviewHidden;
+                PreviewAutoPosition = Settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
+
+                CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
 
                 SearchResults.GrepLineSelected += SearchResults_GrepLineSelected;
                 SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
@@ -117,9 +120,9 @@ namespace dnGREP.WPF
             // this call will update the window title
             UpdateState(nameof(FileOrFolderPath));
 
-            base.OnPropertyChanged(nameof(IsBookmarkedTooltip));
-            base.OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
-            base.OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
+            OnPropertyChanged(nameof(IsBookmarkedTooltip));
+            OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
+            OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
 
             StatusMessage = string.Empty;
             ClearMatchCountStatus();
@@ -260,37 +263,20 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        private double mainFormfontSize;
-        public double MainFormFontSize
-        {
-            get { return mainFormfontSize; }
-            set
-            {
-                if (mainFormfontSize == value)
-                    return;
-
-                mainFormfontSize = value;
-                base.OnPropertyChanged(nameof(MainFormFontSize));
-            }
-        }
+        [ObservableProperty]
+        private double mainFormFontSize;
 
         public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = new();
 
+        public static bool IsGitInstalled => Utils.IsGitInstalled;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(CompositeSearchInArchivesVisible))]
+        private bool canSearchArchives = false;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsBookmarkedTooltip))]
         private bool isBookmarked;
-        public bool IsBookmarked
-        {
-            get { return isBookmarked; }
-            set
-            {
-                if (value == isBookmarked)
-                    return;
-
-                isBookmarked = value;
-
-                base.OnPropertyChanged(nameof(IsBookmarked));
-                base.OnPropertyChanged(nameof(IsBookmarkedTooltip));
-            }
-        }
 
         public string IsBookmarkedTooltip
         {
@@ -303,21 +289,9 @@ namespace dnGREP.WPF
             }
         }
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsFolderBookmarkedTooltip))]
         private bool isFolderBookmarked;
-        public bool IsFolderBookmarked
-        {
-            get { return isFolderBookmarked; }
-            set
-            {
-                if (value == isFolderBookmarked)
-                    return;
-
-                isFolderBookmarked = value;
-
-                base.OnPropertyChanged(nameof(IsFolderBookmarked));
-                base.OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
-            }
-        }
 
         public string IsFolderBookmarkedTooltip
         {
@@ -330,244 +304,69 @@ namespace dnGREP.WPF
             }
         }
 
+        [ObservableProperty]
         private string _previewTitle = " ";
-        public string PreviewTitle
-        {
-            get { return _previewTitle; }
-            set
-            {
-                if (_previewTitle == value)
-                    return;
 
-                _previewTitle = value;
-                base.OnPropertyChanged(nameof(PreviewTitle));
+        [ObservableProperty]
+        private Rect previewWindowBounds = Rect.Empty;
+
+        [ObservableProperty]
+        private WindowState previewWindowState = WindowState.Normal;
+
+        [ObservableProperty]
+        private bool isPreviewDocked = false;
+
+        [ObservableProperty]
+        private bool previewAutoPosition = true;
+
+        [ObservableProperty]
+        private Dock previewDockSide = Dock.Right;
+
+        [ObservableProperty]
+        private bool isPreviewHidden = false;
+        partial void OnIsPreviewHiddenChanged(bool value)
+        {
+            if (value)
+            {
+                PreviewFileContent = false;
             }
         }
 
-        private Rect _previewWindowBounds = Rect.Empty;
-        public Rect PreviewWindowBounds
-        {
-            get { return _previewWindowBounds; }
-            set
-            {
-                if (_previewWindowBounds == value)
-                    return;
+        [ObservableProperty]
+        private double previewDockedWidth = 200;
 
-                _previewWindowBounds = value;
-                base.OnPropertyChanged(nameof(PreviewWindowBounds));
-            }
-        }
+        [ObservableProperty]
+        private double previewDockedHeight = 200;
 
-        private WindowState _previewWindowState = WindowState.Normal;
-        public WindowState PreviewWindowState
-        {
-            get { return _previewWindowState; }
-            set
-            {
-                if (_previewWindowState == value)
-                    return;
-
-                _previewWindowState = value;
-                base.OnPropertyChanged(nameof(PreviewWindowState));
-            }
-        }
-
-        private bool _isPreviewDocked = false;
-        public bool IsPreviewDocked
-        {
-            get { return _isPreviewDocked; }
-            set
-            {
-                if (_isPreviewDocked == value)
-                    return;
-
-                _isPreviewDocked = value;
-                base.OnPropertyChanged(nameof(IsPreviewDocked));
-            }
-        }
-
-        private bool _previewAutoPosition = true;
-        public bool PreviewAutoPosition
-        {
-            get { return _previewAutoPosition; }
-            set
-            {
-                if (_previewAutoPosition == value)
-                    return;
-
-                _previewAutoPosition = value;
-                base.OnPropertyChanged(nameof(PreviewAutoPosition));
-            }
-        }
-
-        private Dock _previewDockSide = Dock.Right;
-        public Dock PreviewDockSide
-        {
-            get { return _previewDockSide; }
-            set
-            {
-                if (_previewDockSide == value)
-                    return;
-
-                _previewDockSide = value;
-                base.OnPropertyChanged(nameof(PreviewDockSide));
-            }
-        }
-
-        private bool _isPreviewHidden = false;
-        public bool IsPreviewHidden
-        {
-            get { return _isPreviewHidden; }
-            set
-            {
-                if (_isPreviewHidden == value)
-                    return;
-
-                _isPreviewHidden = value;
-                base.OnPropertyChanged(nameof(IsPreviewHidden));
-
-                if (IsPreviewHidden)
-                {
-                    PreviewFileContent = false;
-                }
-            }
-        }
-
-        private double _previewDockedWidth = 200;
-        public double PreviewDockedWidth
-        {
-            get { return _previewDockedWidth; }
-            set
-            {
-                if (_previewDockedWidth == value)
-                    return;
-
-                _previewDockedWidth = Math.Max(value, 25);
-                base.OnPropertyChanged(nameof(PreviewDockedWidth));
-            }
-        }
-
-        private double _previewDockedHeight = 200;
-        public double PreviewDockedHeight
-        {
-            get { return _previewDockedHeight; }
-            set
-            {
-                if (_previewDockedHeight == value)
-                    return;
-
-                _previewDockedHeight = Math.Max(value, 25);
-                base.OnPropertyChanged(nameof(PreviewDockedHeight));
-            }
-        }
-
+        [ObservableProperty]
         private SortType sortType;
-        public SortType SortType
+        partial void OnSortTypeChanged(SortType value)
         {
-            get { return sortType; }
-            set
-            {
-                if (sortType != value)
-                {
-                    sortType = value;
-                    base.OnPropertyChanged(nameof(SortType));
-                }
-                SortResults();
-            }
+            SortResults();
         }
 
+        [ObservableProperty]
         private ListSortDirection sortDirection;
-        public ListSortDirection SortDirection
+        partial void OnSortDirectionChanged(ListSortDirection value)
         {
-            get { return sortDirection; }
-            set
-            {
-                if (sortDirection != value)
-                {
-                    sortDirection = value;
-                    base.OnPropertyChanged(nameof(SortDirection));
-                }
-                SortResults();
-            }
+            SortResults();
         }
 
+        [ObservableProperty]
         private bool highlightsOn;
-        public bool HighlightsOn
-        {
-            get { return highlightsOn; }
-            set
-            {
-                if (value == highlightsOn)
-                    return;
 
-                highlightsOn = value;
-                base.OnPropertyChanged(nameof(HighlightsOn));
-            }
-        }
-
+        [ObservableProperty]
         private bool showLinesInContext;
-        public bool ShowLinesInContext
-        {
-            get { return showLinesInContext; }
-            set
-            {
-                if (value == showLinesInContext)
-                    return;
 
-                showLinesInContext = value;
-
-                base.OnPropertyChanged(nameof(ShowLinesInContext));
-            }
-        }
-
+        [ObservableProperty]
         private int contextLinesBefore;
-        public int ContextLinesBefore
-        {
-            get { return contextLinesBefore; }
-            set
-            {
-                if (value == contextLinesBefore)
-                    return;
 
-                contextLinesBefore = value;
-
-                base.OnPropertyChanged(nameof(ContextLinesBefore));
-            }
-        }
-
+        [ObservableProperty]
         private int contextLinesAfter;
-        public int ContextLinesAfter
-        {
-            get { return contextLinesAfter; }
-            set
-            {
-                if (value == contextLinesAfter)
-                    return;
 
-                contextLinesAfter = value;
-
-                base.OnPropertyChanged(nameof(ContextLinesAfter));
-            }
-        }
-
-
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(MaximizeResultsTreeButtonTooltip))]
         private bool isResultTreeMaximized = false;
-        public bool IsResultTreeMaximized
-        {
-            get { return isResultTreeMaximized; }
-            set
-            {
-                if (isResultTreeMaximized == value)
-                {
-                    return;
-                }
-
-                isResultTreeMaximized = value;
-                OnPropertyChanged(nameof(IsResultTreeMaximized));
-                OnPropertyChanged(nameof(MaximizeResultsTreeButtonTooltip));
-            }
-        }
-
 
         public string MaximizeResultsTreeButtonTooltip
         {
@@ -584,21 +383,9 @@ namespace dnGREP.WPF
             }
         }
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ResultOptionsButtonTooltip))]
         private bool isResultOptionsExpanded;
-        public bool IsResultOptionsExpanded
-        {
-            get { return isResultOptionsExpanded; }
-            set
-            {
-                if (value == isResultOptionsExpanded)
-                    return;
-
-                isResultOptionsExpanded = value;
-
-                base.OnPropertyChanged(nameof(IsResultOptionsExpanded));
-                base.OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
-            }
-        }
 
         public string ResultOptionsButtonTooltip
         {
@@ -611,136 +398,32 @@ namespace dnGREP.WPF
             }
         }
 
+        [ObservableProperty]
         private string replaceButtonToolTip = string.Empty;
-        public string ReplaceButtonToolTip
-        {
-            get { return replaceButtonToolTip; }
-            set
-            {
-                if (replaceButtonToolTip == value)
-                {
-                    return;
-                }
 
-                replaceButtonToolTip = value;
-                OnPropertyChanged(nameof(ReplaceButtonToolTip));
-            }
-        }
-
-
+        [ObservableProperty]
         private bool replaceButtonToolTipVisible = false;
-        public bool ReplaceButtonToolTipVisible
-        {
-            get { return replaceButtonToolTipVisible; }
-            set
-            {
-                if (replaceButtonToolTipVisible == value)
-                {
-                    return;
-                }
 
-                replaceButtonToolTipVisible = value;
-                OnPropertyChanged(nameof(ReplaceButtonToolTipVisible));
-            }
-        }
-
+        [ObservableProperty]
         private string statusMessage = string.Empty;
-        public string StatusMessage
-        {
-            get { return statusMessage; }
-            set
-            {
-                if (value == statusMessage)
-                    return;
 
-                statusMessage = value;
-                base.OnPropertyChanged(nameof(StatusMessage));
-            }
-        }
-
+        [ObservableProperty]
         private string statusMessage2 = string.Empty;
-        public string StatusMessage2
-        {
-            get { return statusMessage2; }
-            set
-            {
-                if (value == statusMessage2)
-                    return;
 
-                statusMessage2 = value;
-                base.OnPropertyChanged(nameof(StatusMessage2));
-            }
-        }
+        [ObservableProperty]
+        private string? statusMessage2Tooltip;
 
-        private string? statusMessage2tooltip;
-        public string? StatusMessage2Tooltip
-        {
-            get { return statusMessage2tooltip; }
-            set
-            {
-                if (value == statusMessage2tooltip)
-                    return;
-
-                statusMessage2tooltip = value;
-                base.OnPropertyChanged(nameof(StatusMessage2Tooltip));
-            }
-        }
-
+        [ObservableProperty]
         private string statusMessage3 = string.Empty;
-        public string StatusMessage3
-        {
-            get { return statusMessage3; }
-            set
-            {
-                if (value == statusMessage3)
-                    return;
 
-                statusMessage3 = value;
-                base.OnPropertyChanged(nameof(StatusMessage3));
-            }
-        }
+        [ObservableProperty]
+        private string? statusMessage3Tooltip;
 
-        private string? statusMessage3tooltip;
-        public string? StatusMessage3Tooltip
-        {
-            get { return statusMessage3tooltip; }
-            set
-            {
-                if (value == statusMessage3tooltip)
-                    return;
-
-                statusMessage3tooltip = value;
-                base.OnPropertyChanged(nameof(StatusMessage3Tooltip));
-            }
-        }
-
+        [ObservableProperty]
         private string statusMessage4 = string.Empty;
-        public string StatusMessage4
-        {
-            get { return statusMessage4; }
-            set
-            {
-                if (value == statusMessage4)
-                    return;
 
-                statusMessage4 = value;
-                base.OnPropertyChanged(nameof(StatusMessage4));
-            }
-        }
-
-        private string? statusMessage4tooltip;
-        public string? StatusMessage4Tooltip
-        {
-            get { return statusMessage4tooltip; }
-            set
-            {
-                if (value == statusMessage4tooltip)
-                    return;
-
-                statusMessage4tooltip = value;
-                base.OnPropertyChanged(nameof(StatusMessage4Tooltip));
-            }
-        }
+        [ObservableProperty]
+        private string? statusMessage4Tooltip;
 
         private void ClearMatchCountStatus()
         {
@@ -1012,8 +695,8 @@ namespace dnGREP.WPF
 
             // changing the private field so as to not trigger sorting the results when
             // the Options dialog is closed
-            sortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
-            sortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+            SortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
+            SortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
             SearchResults.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
             SearchResults.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
             IsResultOptionsExpanded = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowResultOptions);
@@ -1602,7 +1285,7 @@ namespace dnGREP.WPF
 
                     FilesFound = SearchResults.Count > 0;
                     CurrentGrepOperation = GrepOperation.None;
-                    base.OnPropertyChanged(nameof(CurrentGrepOperation));
+                    OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     UpdateReplaceButtonTooltip(false);
 
@@ -1648,7 +1331,7 @@ namespace dnGREP.WPF
                         StatusMessage = Resources.Main_Status_ReplaceCanceled;
                     }
                     CurrentGrepOperation = GrepOperation.None;
-                    base.OnPropertyChanged(nameof(CurrentGrepOperation));
+                    OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     ClearMatchCountStatus();
                     SearchResults.Clear();
@@ -3019,29 +2702,29 @@ namespace dnGREP.WPF
                 ClearMatchCountStatus();
                 SearchResults.Clear();
 
-                switch (sortType)
+                switch (SortType)
                 {
                     case SortType.FileNameOnly:
-                        list.Sort(new FileNameOnlyComparer(sortDirection));
+                        list.Sort(new FileNameOnlyComparer(SortDirection));
                         break;
                     case SortType.FileTypeAndName:
-                        list.Sort(new FileTypeAndNameComparer(sortDirection));
+                        list.Sort(new FileTypeAndNameComparer(SortDirection));
                         break;
                     case SortType.FileNameDepthFirst:
                     default:
-                        list.Sort(new FileNameDepthFirstComparer(sortDirection));
+                        list.Sort(new FileNameDepthFirstComparer(SortDirection));
                         break;
                     case SortType.FileNameBreadthFirst:
-                        list.Sort(new FileNameBreadthFirstComparer(sortDirection));
+                        list.Sort(new FileNameBreadthFirstComparer(SortDirection));
                         break;
                     case SortType.Size:
-                        list.Sort(new FileSizeComparer(sortDirection));
+                        list.Sort(new FileSizeComparer(SortDirection));
                         break;
                     case SortType.Date:
-                        list.Sort(new FileDateComparer(sortDirection));
+                        list.Sort(new FileDateComparer(SortDirection));
                         break;
                     case SortType.MatchCount:
-                        list.Sort(new MatchCountComparer(sortDirection));
+                        list.Sort(new MatchCountComparer(SortDirection));
                         break;
                 }
 

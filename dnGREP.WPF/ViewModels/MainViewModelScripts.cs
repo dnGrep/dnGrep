@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Localization.Properties;
@@ -39,7 +40,11 @@ namespace dnGREP.WPF
             }
             ScriptMessages.Add(message);
         }
-        public ObservableCollection<string> ScriptMessages { get; } = new ObservableCollection<string>();
+
+        public ObservableCollection<string> ScriptMessages { get; } = new();
+
+        [ObservableProperty]
+        private bool isScriptRunning = false;
 
         public void InitializeScriptTargets()
         {
@@ -208,22 +213,6 @@ namespace dnGREP.WPF
             foreach (MenuItemViewModel item in coll)
             {
                 SortMenuRecursive(item.Children, 0);
-            }
-        }
-
-        private bool isScriptRunning = false;
-        public bool IsScriptRunning
-        {
-            get { return isScriptRunning; }
-            set
-            {
-                if (isScriptRunning == value)
-                {
-                    return;
-                }
-
-                isScriptRunning = value;
-                OnPropertyChanged(nameof(IsScriptRunning));
             }
         }
 

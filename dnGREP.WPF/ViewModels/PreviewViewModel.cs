@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;
@@ -14,7 +15,7 @@ using NLog;
 
 namespace dnGREP.WPF
 {
-    public class PreviewViewModel : CultureAwareViewModel
+    public partial class PreviewViewModel : CultureAwareViewModel
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -86,188 +87,65 @@ namespace dnGREP.WPF
 
         public event EventHandler? ShowPreview;
 
-        private bool isLargeOrBinary;
-        public bool IsLargeOrBinary
-        {
-            get { return isLargeOrBinary; }
-            set
-            {
-                if (value == isLargeOrBinary)
-                    return;
-
-                isLargeOrBinary = value;
-                base.OnPropertyChanged(nameof(IsLargeOrBinary));
-            }
-        }
-
-        private bool isPdf;
-        public bool IsPdf
-        {
-            get { return isPdf; }
-            set
-            {
-                if (value == isPdf)
-                    return;
-
-                isPdf = value;
-                base.OnPropertyChanged(nameof(IsPdf));
-            }
-        }
-
-        private string currentSyntax = string.Empty;
-        public string CurrentSyntax
-        {
-            get { return currentSyntax; }
-            set
-            {
-                if (value == currentSyntax || value == null)
-                    return;
-
-                currentSyntax = value;
-                SelectCurrentSyntax(currentSyntax);
-                base.OnPropertyChanged(nameof(CurrentSyntax));
-            }
-        }
-
         public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();
 
         public ObservableCollection<Marker> Markers { get; } = new();
 
+        public List<int> MarkerLineNumbers = new();
+
         public Encoding Encoding { get; set; } = Encoding.UTF8;
 
-        private string filePath = string.Empty;
-        public string FilePath
-        {
-            get { return filePath; }
-            set
-            {
-                if (value == filePath)
-                    return;
-
-                filePath = value;
-                base.OnPropertyChanged(nameof(FilePath));
-            }
-        }
-
-        private GrepSearchResult? grepResult;
-        public GrepSearchResult? GrepResult
-        {
-            get { return grepResult; }
-            set
-            {
-                if (value == grepResult)
-                    return;
-
-                grepResult = value;
-                base.OnPropertyChanged(nameof(GrepResult));
-            }
-        }
-
-        private int lineNumber;
-        public int LineNumber
-        {
-            get { return lineNumber; }
-            set
-            {
-                if (value == lineNumber)
-                    return;
-
-                lineNumber = value;
-                base.OnPropertyChanged(nameof(LineNumber));
-            }
-        }
-
-        private bool highlightsOn = true;
-        public bool HighlightsOn
-        {
-            get { return highlightsOn; }
-            set
-            {
-                if (value == highlightsOn)
-                    return;
-
-                highlightsOn = value;
-                base.OnPropertyChanged(nameof(HighlightsOn));
-            }
-        }
-
-        private bool highlightDisabled;
-        public bool HighlightDisabled
-        {
-            get { return highlightDisabled; }
-            set
-            {
-                if (value == highlightDisabled)
-                    return;
-
-                highlightDisabled = value;
-                base.OnPropertyChanged(nameof(HighlightDisabled));
-            }
-        }
-
-        public IHighlightingDefinition? HighlightingDefinition => 
+        public IHighlightingDefinition? HighlightingDefinition =>
             ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
 
+        [ObservableProperty]
+        private bool isLargeOrBinary;
 
+        [ObservableProperty]
+        private bool isPdf;
+
+        [ObservableProperty]
+        private string currentSyntax = string.Empty;
+        partial void OnCurrentSyntaxChanged(string value)
+        {
+            SelectCurrentSyntax(value);
+        }
+
+        [ObservableProperty]
+        private string filePath = string.Empty;
+
+        [ObservableProperty]
+        private GrepSearchResult? grepResult;
+
+        [ObservableProperty]
+        private int lineNumber;
+
+        [ObservableProperty]
+        private bool highlightsOn = true;
+
+        [ObservableProperty]
+        private bool highlightDisabled;
+
+        [ObservableProperty]
         private bool hasPageNumbers = false;
-        public bool HasPageNumbers
-        {
-            get { return hasPageNumbers; }
-            set
-            {
-                if (hasPageNumbers == value)
-                {
-                    return;
-                }
 
-                hasPageNumbers = value;
-                OnPropertyChanged(nameof(HasPageNumbers));
-            }
-        }
-
+        [ObservableProperty]
         private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
 
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
+        [ObservableProperty]
+        private double mainFormFontSize;
 
-        private double mainFormfontSize;
-        public double MainFormFontSize
-        {
-            get { return mainFormfontSize; }
-            set
-            {
-                if (mainFormfontSize == value)
-                    return;
-
-                mainFormfontSize = value;
-                base.OnPropertyChanged(nameof(MainFormFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
-        public string ResultsFontFamily
-        {
-            get { return resultsFontFamily; }
-            set
-            {
-                if (resultsFontFamily == value)
-                    return;
 
-                resultsFontFamily = value;
-                base.OnPropertyChanged(nameof(ResultsFontFamily));
-            }
-        }
+        [ObservableProperty]
+        private bool previewZoomWndVisible = true;
 
-        public List<int> MarkerLineNumbers = new();
+        [ObservableProperty]
+        private bool wrapTextPreviewWndVisible = true;
+
+        [ObservableProperty]
+        private bool syntaxPreviewWndVisible = true;
 
         void PreviewViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -289,7 +167,7 @@ namespace dnGREP.WPF
             if (name == nameof(FilePath))
             {
                 ClearPositionMarkers();
-                if (!string.IsNullOrEmpty(filePath) &&
+                if (!string.IsNullOrEmpty(FilePath) &&
                     File.Exists(FilePath))
                 {
                     // Set current definition
@@ -354,57 +232,6 @@ namespace dnGREP.WPF
             PreviewZoomWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewZoomWndVisible);
             WrapTextPreviewWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextPreviewWndVisible);
             SyntaxPreviewWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SyntaxPreviewWndVisible);
-        }
-
-
-        private bool zoomPreviewWndVisible = true;
-        public bool PreviewZoomWndVisible
-        {
-            get { return zoomPreviewWndVisible; }
-            set
-            {
-                if (zoomPreviewWndVisible == value)
-                {
-                    return;
-                }
-
-                zoomPreviewWndVisible = value;
-                OnPropertyChanged(nameof(PreviewZoomWndVisible));
-            }
-        }
-
-
-        private bool wrapTextPreviewWndVisible = true;
-        public bool WrapTextPreviewWndVisible
-        {
-            get { return wrapTextPreviewWndVisible; }
-            set
-            {
-                if (wrapTextPreviewWndVisible == value)
-                {
-                    return;
-                }
-
-                wrapTextPreviewWndVisible = value;
-                OnPropertyChanged(nameof(WrapTextPreviewWndVisible));
-            }
-        }
-
-
-        private bool syntaxPreviewWndVisible = true;
-        public bool SyntaxPreviewWndVisible
-        {
-            get { return syntaxPreviewWndVisible; }
-            set
-            {
-                if (syntaxPreviewWndVisible == value)
-                {
-                    return;
-                }
-
-                syntaxPreviewWndVisible = value;
-                OnPropertyChanged(nameof(SyntaxPreviewWndVisible));
-            }
         }
     }
 

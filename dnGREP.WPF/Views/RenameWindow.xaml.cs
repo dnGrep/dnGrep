@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
 namespace dnGREP.WPF
@@ -68,7 +69,7 @@ namespace dnGREP.WPF
             DialogResult = false;
         }
 
-        public class RenameViewModel : CultureAwareViewModel
+        public partial class RenameViewModel : CultureAwareViewModel
         {
             public RenameViewModel()
             {
@@ -77,47 +78,14 @@ namespace dnGREP.WPF
                 DialogWidth = DialogFontSize * 30.0;
             }
 
+            [ObservableProperty]
             private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
-            public string ApplicationFontFamily
-            {
-                get { return applicationFontFamily; }
-                set
-                {
-                    if (applicationFontFamily == value)
-                        return;
 
-                    applicationFontFamily = value;
-                    base.OnPropertyChanged(nameof(ApplicationFontFamily));
-                }
-            }
+            [ObservableProperty]
+            private double dialogFontSize;
 
-            private double dialogfontSize;
-            public double DialogFontSize
-            {
-                get { return dialogfontSize; }
-                set
-                {
-                    if (dialogfontSize == value)
-                        return;
-
-                    dialogfontSize = value;
-                    base.OnPropertyChanged(nameof(DialogFontSize));
-                }
-            }
-
+            [ObservableProperty]
             private double dialogWidth;
-            public double DialogWidth
-            {
-                get { return dialogWidth; }
-                set
-                {
-                    if (dialogWidth == value)
-                        return;
-
-                    dialogWidth = value;
-                    base.OnPropertyChanged(nameof(DialogWidth));
-                }
-            }
         }
 
     }

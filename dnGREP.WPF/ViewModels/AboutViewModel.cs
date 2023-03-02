@@ -3,13 +3,14 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.WPF.Properties;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class AboutViewModel : CultureAwareViewModel
+    public partial class AboutViewModel : CultureAwareViewModel
     {
         public AboutViewModel()
         {
@@ -25,90 +26,23 @@ namespace dnGREP.WPF
             p => NativeMethods.SetClipboardText(Version));
 
 
+        [ObservableProperty]
         private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
 
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
+        [ObservableProperty]
+        private double dialogFontSize;
 
-        private double dialogfontSize;
-        public double DialogFontSize
-        {
-            get { return dialogfontSize; }
-            set
-            {
-                if (dialogfontSize == value)
-                    return;
-
-                dialogfontSize = value;
-                base.OnPropertyChanged(nameof(DialogFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private string _version = string.Empty;
-        public string Version
-        {
-            get { return _version; }
 
-            set
-            {
-                if (_version == value)
-                    return;
-
-                _version = value;
-                OnPropertyChanged(nameof(Version));
-            }
-        }
-
+        [ObservableProperty]
         private string _buildDate = string.Empty;
-        public string BuildDate
-        {
-            get { return _buildDate; }
-            set
-            {
-                if (_buildDate == value)
-                    return;
 
-                _buildDate = value;
-                OnPropertyChanged(nameof(BuildDate));
-            }
-        }
-
+        [ObservableProperty]
         private string _copyright = string.Empty;
-        public string Copyright
-        {
-            get { return _copyright; }
-            set
-            {
-                if (_copyright == value)
-                    return;
 
-                _copyright = value;
-                OnPropertyChanged(nameof(Copyright));
-            }
-        }
-
+        [ObservableProperty]
         private string _description = string.Empty;
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                if (_description == value)
-                    return;
-
-                _description = value;
-                OnPropertyChanged(nameof(Description));
-            }
-        }
 
 
         public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? string.Empty;

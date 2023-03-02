@@ -751,6 +751,30 @@ namespace dnGREP.Common
                     }
                 }
 
+                if (typeof(T) == typeof(int))
+                {
+                    if (int.TryParse(value, CultureInfo.InvariantCulture, out int result))
+                    {
+                        return (T)Convert.ChangeType(result, typeof(T));
+                    }
+                    else
+                    {
+                        return (T)Convert.ChangeType(0, typeof(T));
+                    }
+                }
+
+                if (typeof(T) == typeof(double))
+                {
+                    if (double.TryParse(value, CultureInfo.InvariantCulture, out double result))
+                    {
+                        return (T)Convert.ChangeType(result, typeof(T));
+                    }
+                    else
+                    {
+                        return (T)Convert.ChangeType(0, typeof(T));
+                    }
+                }
+
                 return (T)Convert.ChangeType(value, typeof(T));
             }
 
