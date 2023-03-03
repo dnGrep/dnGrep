@@ -23,7 +23,7 @@ namespace dnGREP.WPF.UserControls
     public partial class ResultsTree : UserControl
     {
         private enum SearchDirection { Down = 0, Up };
-        private ObservableGrepSearchResults inputData = new();
+        private GrepSearchResultsViewModel viewModel = new();
 
         public ResultsTree()
         {
@@ -38,13 +38,13 @@ namespace dnGREP.WPF.UserControls
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (inputData != null && inputData.SelectedNodes != null)
+            if (viewModel != null && viewModel.SelectedNodes != null)
             {
-                inputData.SelectedNodes.CollectionChanged -= SelectedNodes_CollectionChanged;
+                viewModel.SelectedNodes.CollectionChanged -= SelectedNodes_CollectionChanged;
             }
 
-            inputData = (ObservableGrepSearchResults)DataContext;
-            inputData.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
+            viewModel = (GrepSearchResultsViewModel)DataContext;
+            viewModel.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
         }
 
         private void SelectedNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -104,12 +104,12 @@ namespace dnGREP.WPF.UserControls
         {
             if (e.Key == Key.C && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                if (inputData.HasGrepLineSelection)
+                if (viewModel.HasGrepLineSelection)
                 {
                     CopyGrepLines();
                     e.Handled = true;
                 }
-                else if (inputData.HasGrepResultSelection)
+                else if (viewModel.HasGrepResultSelection)
                 {
                     CopyFileNames(true);
                     e.Handled = true;
@@ -169,7 +169,7 @@ namespace dnGREP.WPF.UserControls
         {
             treeView.DeselectAllChildItems();
 
-            foreach (var item in inputData)
+            foreach (var item in viewModel.SearchResults)
             {
                 item.IsSelected = true;
 
@@ -198,7 +198,7 @@ namespace dnGREP.WPF.UserControls
                 }
 
                 bool isSelecting = false;
-                foreach (var item in inputData.Reverse())
+                foreach (var item in viewModel.SearchResults.Reverse())
                 {
                     if (item == startItem)
                     {
@@ -235,7 +235,7 @@ namespace dnGREP.WPF.UserControls
                 }
 
                 bool isSelecting = false;
-                foreach (var item in inputData)
+                foreach (var item in viewModel.SearchResults)
                 {
                     if (item == startItem)
                     {
@@ -319,17 +319,17 @@ namespace dnGREP.WPF.UserControls
 
         private async Task NextLineMatch()
         {
-            FormattedGrepResult? selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
+            FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .LastOrDefault();
-            FormattedGrepLine? selectedLine = inputData.SelectedNodes.OfType<FormattedGrepLine>()
+            FormattedGrepLine? selectedLine = viewModel.SelectedNodes.OfType<FormattedGrepLine>()
                 .Where(n => n != null)
                 .OrderBy(n => n.GrepLine.LineNumber)
                 .LastOrDefault();
 
             if (selectedResult == null && selectedLine == null)
             {
-                var firstResult = inputData.FirstOrDefault();
+                var firstResult = viewModel.SearchResults.FirstOrDefault();
                 if (firstResult != null)
                 {
                     await SelectFirstChild(firstResult);
@@ -351,17 +351,17 @@ namespace dnGREP.WPF.UserControls
 
         private async Task NextFileMatch()
         {
-            FormattedGrepResult? selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
+            FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .LastOrDefault();
-            FormattedGrepLine? selectedLine = inputData.SelectedNodes.OfType<FormattedGrepLine>()
+            FormattedGrepLine? selectedLine = viewModel.SelectedNodes.OfType<FormattedGrepLine>()
                 .Where(n => n != null)
                 .OrderBy(n => n.GrepLine.LineNumber)
                 .LastOrDefault();
 
             if (selectedResult == null && selectedLine == null)
             {
-                var firstResult = inputData.FirstOrDefault();
+                var firstResult = viewModel.SearchResults.FirstOrDefault();
                 if (firstResult != null)
                 {
                     await SelectFirstChild(firstResult);
@@ -379,17 +379,17 @@ namespace dnGREP.WPF.UserControls
 
         private async Task PreviousLineMatch()
         {
-            FormattedGrepResult? selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
+            FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .FirstOrDefault();
-            FormattedGrepLine? selectedLine = inputData.SelectedNodes.OfType<FormattedGrepLine>()
+            FormattedGrepLine? selectedLine = viewModel.SelectedNodes.OfType<FormattedGrepLine>()
                 .Where(n => n != null)
                 .OrderBy(n => n.GrepLine.LineNumber)
                 .FirstOrDefault();
 
             if (selectedResult == null && selectedLine == null)
             {
-                var lastResult = inputData.LastOrDefault();
+                var lastResult = viewModel.SearchResults.LastOrDefault();
                 if (lastResult != null)
                 {
                     await SelectLastChild(lastResult);
@@ -411,17 +411,17 @@ namespace dnGREP.WPF.UserControls
 
         private async Task PreviousFileMatch()
         {
-            FormattedGrepResult? selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
+            FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .FirstOrDefault();
-            FormattedGrepLine? selectedLine = inputData.SelectedNodes.OfType<FormattedGrepLine>()
+            FormattedGrepLine? selectedLine = viewModel.SelectedNodes.OfType<FormattedGrepLine>()
                 .Where(n => n != null)
                 .OrderBy(n => n.GrepLine.LineNumber)
                 .FirstOrDefault();
 
             if (selectedResult == null && selectedLine == null)
             {
-                var lastResult = inputData.LastOrDefault();
+                var lastResult = viewModel.SearchResults.LastOrDefault();
                 if (lastResult != null)
                 {
                     await SelectLastChild(lastResult);
@@ -440,7 +440,7 @@ namespace dnGREP.WPF.UserControls
         private void BtnRenameFile_Click(object sender, RoutedEventArgs e)
         {
             FormattedGrepResult? searchResult = null;
-            var node = inputData.SelectedNodes.FirstOrDefault();
+            var node = viewModel.SelectedNodes.FirstOrDefault();
 
             if (node is FormattedGrepLine lineNode)
             {
@@ -504,7 +504,7 @@ namespace dnGREP.WPF.UserControls
             // get the unique set of files from the selections
             List<FormattedGrepResult> files = new();
             int indexOfFirst = -1;
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepResult fileNode)
                 {
@@ -525,11 +525,11 @@ namespace dnGREP.WPF.UserControls
 
                 if (files.Count == 1)
                 {
-                    indexOfFirst = inputData.IndexOf(files.First());
+                    indexOfFirst = viewModel.SearchResults.IndexOf(files.First());
                 }
             }
 
-            inputData.DeselectAllItems();
+            viewModel.DeselectAllItems();
             foreach (var gr in files)
             {
                 FileSystem.DeleteFile(gr.GrepResult.FileNameReal,
@@ -537,16 +537,16 @@ namespace dnGREP.WPF.UserControls
                     RecycleOption.SendToRecycleBin);
 
 
-                inputData.Remove(gr);
+                viewModel.SearchResults.Remove(gr);
             }
 
-            if (indexOfFirst > -1 && inputData.Count > 0)
+            if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
             {
                 // the first item was removed, select the new item in that position
                 int idx = indexOfFirst;
-                if (idx >= inputData.Count) idx = inputData.Count - 1;
+                if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
 
-                var nextResult = inputData[idx];
+                var nextResult = viewModel.SearchResults[idx];
                 var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
                 if (tvi != null)
                 {
@@ -631,7 +631,7 @@ namespace dnGREP.WPF.UserControls
             List<string> fileNames = new();
             List<FormattedGrepLine> lines = new();
             List<FormattedGrepResult> files = new();
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepLine lineNode)
                 {
@@ -644,7 +644,7 @@ namespace dnGREP.WPF.UserControls
                 }
             }
 
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepResult fileNode)
                 {
@@ -658,10 +658,10 @@ namespace dnGREP.WPF.UserControls
             }
 
             foreach (var item in lines)
-                inputData.OpenFile(item, useCustomEditor);
+                viewModel.OpenFile(item, useCustomEditor);
 
             foreach (var item in files)
-                inputData.OpenFile(item, useCustomEditor);
+                viewModel.OpenFile(item, useCustomEditor);
         }
 
         private void OpenFolders()
@@ -671,7 +671,7 @@ namespace dnGREP.WPF.UserControls
 
             List<string> folders = new();
             List<string> files = new();
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepResult fileNode)
                 {
@@ -703,7 +703,7 @@ namespace dnGREP.WPF.UserControls
         {
             // get the unique set of files from the selections
             List<string> files = new();
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepResult fileNode)
                 {
@@ -735,7 +735,7 @@ namespace dnGREP.WPF.UserControls
         {
             // get the unique set of files from the selections
             List<string> files = new();
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepResult fileNode)
                 {
@@ -762,7 +762,7 @@ namespace dnGREP.WPF.UserControls
         private IList<string> GetSelectedFileNames(bool showFullName)
         {
             List<string> list = new();
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepResult fileNode)
                 {
@@ -795,10 +795,10 @@ namespace dnGREP.WPF.UserControls
 
         private string GetSelectedGrepLineText()
         {
-            if (inputData.HasGrepLineSelection)
+            if (viewModel.HasGrepLineSelection)
             {
                 StringBuilder sb = new();
-                foreach (var item in inputData.SelectedItems)
+                foreach (var item in viewModel.SelectedItems)
                 {
                     if (item is FormattedGrepLine node)
                     {
@@ -821,7 +821,7 @@ namespace dnGREP.WPF.UserControls
         private void MakeFilesWritable()
         {
             List<FormattedGrepResult> files = new();
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepLine lineNode)
                 {
@@ -858,7 +858,7 @@ namespace dnGREP.WPF.UserControls
         {
             List<FormattedGrepResult> files = new();
             int indexOfFirst = -1;
-            foreach (var item in inputData.SelectedItems)
+            foreach (var item in viewModel.SelectedItems)
             {
                 if (item is FormattedGrepLine lineNode)
                 {
@@ -878,24 +878,24 @@ namespace dnGREP.WPF.UserControls
 
                 if (files.Count == 1)
                 {
-                    indexOfFirst = inputData.IndexOf(files.First());
+                    indexOfFirst = viewModel.SearchResults.IndexOf(files.First());
                 }
             }
 
-            inputData.DeselectAllItems();
+            viewModel.DeselectAllItems();
 
             foreach (var item in files)
             {
-                inputData.Remove(item);
+                viewModel.SearchResults.Remove(item);
             }
 
-            if (indexOfFirst > -1 && inputData.Count > 0)
+            if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
             {
                 // the first item was removed, select the new item in that position
                 int idx = indexOfFirst;
-                if (idx >= inputData.Count) idx = inputData.Count - 1;
+                if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
 
-                var nextResult = inputData[idx];
+                var nextResult = viewModel.SearchResults[idx];
                 var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
                 if (tvi != null)
                 {
@@ -918,7 +918,7 @@ namespace dnGREP.WPF.UserControls
         {
             if (treeView.SelectedItem is FormattedGrepLine line && (e.OriginalSource is TextBlock || e.OriginalSource is Run))
             {
-                inputData.OpenFile(line, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
+                viewModel.OpenFile(line, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
             }
         }
 
@@ -929,7 +929,7 @@ namespace dnGREP.WPF.UserControls
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
 
             bool lineSelectionRaised = false;
-            if (inputData.SelectedNodes is IList items && items.Count > 0)
+            if (viewModel.SelectedNodes is IList items && items.Count > 0)
             {
                 if (items[0] is FormattedGrepLine formattedGrepLine)
                 {
@@ -942,22 +942,22 @@ namespace dnGREP.WPF.UserControls
                         {
                             var id = lineMatches[0].FileMatchId;
                             var matchOrdinal = 1 + fileMatches.IndexOf(m => m.FileMatchId == id);
-                            inputData.OnGrepLineSelectionChanged(formattedGrepLine, lineMatches.Count, matchOrdinal, fileMatches.Count);
+                            viewModel.OnGrepLineSelectionChanged(formattedGrepLine, lineMatches.Count, matchOrdinal, fileMatches.Count);
                             lineSelectionRaised = true;
                         }
                     }
 
-                    inputData.PreviewFile(formattedGrepLine, rect);
+                    viewModel.PreviewFile(formattedGrepLine, rect);
                 }
                 else if (items[0] is FormattedGrepResult formattedGrepResult)
                 {
-                    inputData.PreviewFile(formattedGrepResult, rect);
+                    viewModel.PreviewFile(formattedGrepResult, rect);
                 }
             }
 
             if (!lineSelectionRaised)
             {
-                inputData.OnGrepLineSelectionChanged(null, 0, -1, 0);
+                viewModel.OnGrepLineSelectionChanged(null, 0, -1, 0);
             }
         }
 
@@ -1004,7 +1004,7 @@ namespace dnGREP.WPF.UserControls
                     }
                 }
 
-                if (inputData != null && inputData.Count > 0 &&
+                if (viewModel != null && viewModel.SearchResults.Count > 0 &&
                     touchIds.ContainsKey(e.TouchDevice.Id) && touchIds.Count == 2)
                 {
                     var pNew = e.GetTouchPoint(ctrl).Position;
@@ -1023,14 +1023,14 @@ namespace dnGREP.WPF.UserControls
 
                     if (Math.Abs(dist2 - dist1) > 200)
                     {
-                        if (dist1 < dist2 && inputData.ResultsScale < 2.0)
+                        if (dist1 < dist2 && viewModel.ResultsScale < 2.0)
                         {
-                            inputData.ResultsScale *= 1.005;
+                            viewModel.ResultsScale *= 1.005;
                         }
 
-                        if (dist1 > dist2 && inputData.ResultsScale > 0.8)
+                        if (dist1 > dist2 && viewModel.ResultsScale > 0.8)
                         {
-                            inputData.ResultsScale /= 1.005;
+                            viewModel.ResultsScale /= 1.005;
                         }
 
                         e.Handled = true;
@@ -1044,18 +1044,18 @@ namespace dnGREP.WPF.UserControls
 
         private void TreeView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0 && inputData.Count > 0;
+            bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0 && viewModel.SearchResults.Count > 0;
             if (!handle)
                 return;
 
-            if (e.Delta > 0 && inputData.ResultsScale < 2.0)
+            if (e.Delta > 0 && viewModel.ResultsScale < 2.0)
             {
-                inputData.ResultsScale *= 1.05;
+                viewModel.ResultsScale *= 1.05;
             }
 
-            if (e.Delta < 0 && inputData.ResultsScale > 0.8)
+            if (e.Delta < 0 && viewModel.ResultsScale > 0.8)
             {
-                inputData.ResultsScale /= 1.05;
+                viewModel.ResultsScale /= 1.05;
             }
 
             e.Handled = true;
@@ -1063,9 +1063,9 @@ namespace dnGREP.WPF.UserControls
 
         private void BtnResetZoom_Click(object sender, RoutedEventArgs e)
         {
-            if (inputData != null)
+            if (viewModel != null)
             {
-                inputData.ResultsScale = 1.0;
+                viewModel.ResultsScale = 1.0;
             }
         }
 
@@ -1107,7 +1107,7 @@ namespace dnGREP.WPF.UserControls
             {
                 data.SetData(DataFormats.Text, lines);
             }
-            else if (inputData.HasGrepResultSelection)
+            else if (viewModel.HasGrepResultSelection)
             {
                 var list = GetSelectedFileNames(true);
                 StringCollection files = new();
@@ -1163,10 +1163,10 @@ namespace dnGREP.WPF.UserControls
         private async Task SelectNextResult(FormattedGrepLine currentLine)
         {
             var grepResult = currentLine.Parent;
-            int idx = inputData.IndexOf(grepResult) + 1;
-            if (idx >= inputData.Count) idx = 0;
+            int idx = viewModel.SearchResults.IndexOf(grepResult) + 1;
+            if (idx >= viewModel.SearchResults.Count) idx = 0;
 
-            var nextResult = inputData[idx];
+            var nextResult = viewModel.SearchResults[idx];
             await SelectFirstChild(nextResult);
         }
 
@@ -1214,20 +1214,20 @@ namespace dnGREP.WPF.UserControls
 
         private async Task SelectPreviousResult(FormattedGrepResult result)
         {
-            int idx = inputData.IndexOf(result) - 1;
-            if (idx < 0) idx = inputData.Count - 1;
+            int idx = viewModel.SearchResults.IndexOf(result) - 1;
+            if (idx < 0) idx = viewModel.SearchResults.Count - 1;
 
-            var previousResult = inputData[idx];
+            var previousResult = viewModel.SearchResults[idx];
             await SelectLastChild(previousResult);
         }
 
         private async Task SelectPreviousResult(FormattedGrepLine currentLine)
         {
             var grepResult = currentLine.Parent;
-            int idx = inputData.IndexOf(grepResult) - 1;
-            if (idx < 0) idx = inputData.Count - 1;
+            int idx = viewModel.SearchResults.IndexOf(grepResult) - 1;
+            if (idx < 0) idx = viewModel.SearchResults.Count - 1;
 
-            var previousResult = inputData[idx];
+            var previousResult = viewModel.SearchResults[idx];
             await SelectLastChild(previousResult);
         }
 

@@ -98,8 +98,8 @@ namespace dnGREP.WPF
                 SetCommandMap.Add("contextlinesbefore", new ScriptCommand<int>(p => ContextLinesBefore = p));
                 SetCommandMap.Add("contextlinesafter", new ScriptCommand<int>(p => ContextLinesAfter = p));
 
-                SetCommandMap.Add("wraptext", new ScriptCommand<bool>(p => SearchResults.WrapText = p));
-                SetCommandMap.Add("resultszoom", new ScriptCommand<double>(p => SearchResults.ResultsScale = p));
+                SetCommandMap.Add("wraptext", new ScriptCommand<bool>(p => ResultsViewModel.WrapText = p));
+                SetCommandMap.Add("resultszoom", new ScriptCommand<double>(p => ResultsViewModel.ResultsScale = p));
                 SetCommandMap.Add("sorttype", new ScriptCommand<SortType>(p => SortType = p));
                 SetCommandMap.Add("sortdirection", new ScriptCommand<ListSortDirection>(p => SortDirection = p));
 
@@ -118,11 +118,11 @@ namespace dnGREP.WPF
                 BookmarkCommandMap.Add("removefolder", new ScriptCommand<string>(p => RemoveBookmark(p, true)));
 
                 ReportCommandMap.Add("full", new ScriptCommand<string>(p =>
-                    ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), p)));
+                    ReportWriter.SaveResultsReport(ResultsViewModel.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), p)));
                 ReportCommandMap.Add("text", new ScriptCommand<string>(p =>
-                    ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, p)));
+                    ReportWriter.SaveResultsAsText(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, p)));
                 ReportCommandMap.Add("csv", new ScriptCommand<string>(p =>
-                    ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, p)));
+                    ReportWriter.SaveResultsAsCSV(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, p)));
             }
         }
 

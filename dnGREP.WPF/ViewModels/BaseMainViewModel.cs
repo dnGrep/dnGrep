@@ -90,7 +90,7 @@ namespace dnGREP.WPF
 
         #region Properties
 
-        public ObservableGrepSearchResults SearchResults { get; } = new();
+        public GrepSearchResultsViewModel ResultsViewModel { get; } = new();
 
         public ObservableCollection<string> FastSearchBookmarks { get; } = new();
 
@@ -650,7 +650,7 @@ namespace dnGREP.WPF
 
             if (name == nameof(CurrentGrepOperation) || name == nameof(IsSaveInProgress))
             {
-                if (SearchResults.Count > 0 && !IsSaveInProgress)
+                if (ResultsViewModel.SearchResults.Count > 0 && !IsSaveInProgress)
                 {
                     CanSearchInResults = true;
                 }

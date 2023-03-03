@@ -22,15 +22,15 @@ using Windows.Win32;
 
 namespace dnGREP.WPF
 {
-    public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>
+    public partial class GrepSearchResultsViewModel : CultureAwareViewModel
     {
         public static readonly Messenger SearchResultsMessenger = new();
 
-        public ObservableGrepSearchResults()
+        public GrepSearchResultsViewModel()
         {
             SelectedNodes = new ObservableCollection<ITreeItem>();
             SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
-            CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
+            SearchResults.CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
 
             SearchResultsMessenger.Register<ITreeItem>("IsSelectedChanged", OnSelectionChanged);
         }
@@ -52,6 +52,8 @@ namespace dnGREP.WPF
 
         private readonly Dictionary<string, BitmapSource> icons = new();
 
+        public ObservableCollection<FormattedGrepResult> SearchResults { get; set; } = new();
+
         /// <summary>
         /// Gets the collection of Selected tree nodes, in the order they were selected
         /// </summary>
@@ -67,7 +69,7 @@ namespace dnGREP.WPF
                 var list = SelectedNodes.Where(i => i != null).ToList();
                 // sort the selected items in the order of the items appear in the tree!!!
                 if (list.Count > 1)
-                    list.Sort(new SelectionComparer(this));
+                    list.Sort(new SelectionComparer(SearchResults));
                 return list.AsReadOnly();
             }
         }
@@ -82,7 +84,7 @@ namespace dnGREP.WPF
 
         public void SelectItems(ICollection<ITreeItem> selections)
         {
-            foreach (var item in this)
+            foreach (var item in SearchResults)
             {
                 if (selections.Contains(item))
                 {
@@ -93,10 +95,10 @@ namespace dnGREP.WPF
 
         private class SelectionComparer : IComparer<ITreeItem>
         {
-            private readonly ObservableGrepSearchResults orderBy;
-            public SelectionComparer(ObservableGrepSearchResults orderBy)
+            private readonly ObservableCollection<FormattedGrepResult> collection;
+            public SelectionComparer(ObservableCollection<FormattedGrepResult> collection)
             {
-                this.orderBy = orderBy;
+                this.collection = collection;
             }
 
             public int Compare(ITreeItem? x, ITreeItem? y)
@@ -122,8 +124,8 @@ namespace dnGREP.WPF
                         return posX.CompareTo(posY);
                     }
 
-                    posX = orderBy.IndexOf(fileX);
-                    posY = orderBy.IndexOf(fileY);
+                    posX = collection.IndexOf(fileX);
+                    posY = collection.IndexOf(fileY);
                     return posX.CompareTo(posY);
                 }
                 return 0;
@@ -135,10 +137,10 @@ namespace dnGREP.WPF
             List<ITreeItem> toRemove = new();
             foreach (var node in SelectedNodes)
             {
-                if (node is FormattedGrepResult item && !this.Contains(item))
+                if (node is FormattedGrepResult item && !SearchResults.Contains(item))
                     toRemove.Add(item);
 
-                if (node is FormattedGrepLine line && !this.Contains(line.Parent))
+                if (node is FormattedGrepLine line && !SearchResults.Contains(line.Parent))
                     toRemove.Add(line);
             }
             foreach (var item in toRemove)
@@ -162,7 +164,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public ObservableGrepSearchResults(List<GrepSearchResult> list)
+        public GrepSearchResultsViewModel(List<GrepSearchResult> list)
             : this()
         {
             AddRange(list);
@@ -171,7 +173,7 @@ namespace dnGREP.WPF
         public List<GrepSearchResult> GetList()
         {
             List<GrepSearchResult> tempList = new();
-            foreach (var l in this) tempList.Add(l.GrepResult);
+            foreach (var l in SearchResults) tempList.Add(l.GrepResult);
             return tempList;
         }
 
@@ -182,7 +184,7 @@ namespace dnGREP.WPF
         public List<GrepSearchResult> GetWritableList()
         {
             List<GrepSearchResult> writableFiles = new();
-            foreach (var item in this)
+            foreach (var item in SearchResults)
             {
                 if (!Utils.IsReadOnly(item.GrepResult))
                 {
@@ -200,7 +202,7 @@ namespace dnGREP.WPF
                 {
                     WrapText = WrapText
                 };
-                Add(fmtResult);
+                SearchResults.Add(fmtResult);
 
                 // moved this check out of FormattedGrepResult constructor:
                 // does not work correctly in TestPatternView, which does not lazy load
@@ -215,14 +217,14 @@ namespace dnGREP.WPF
         {
             foreach (var l in list)
             {
-                Add(new FormattedGrepResult(l, FolderPath));
+                SearchResults.Add(new FormattedGrepResult(l, FolderPath));
             }
         }
 
         public void AddRange(IEnumerable<FormattedGrepResult> items)
         {
             foreach (var item in items)
-                Add(item);
+                SearchResults.Add(item);
         }
 
         public string FolderPath { get; set; } = string.Empty;
@@ -239,7 +241,7 @@ namespace dnGREP.WPF
             {
                 BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(ip,
                    IntPtr.Zero, Int32Rect.Empty,
-                   System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+                   BitmapSizeOptions.FromEmptyOptions());
                 return bs;
             }
             finally
@@ -251,10 +253,10 @@ namespace dnGREP.WPF
         // some settings have changed, raise property changed events to update the UI
         public void RaiseSettingsPropertiesChanged()
         {
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomEditorConfigured)));
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(CompareApplicationConfigured)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomEditorConfigured)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(CompareApplicationConfigured)));
 
-            foreach (var item in this)
+            foreach (var item in SearchResults)
             {
                 item.RaiseSettingsPropertiesChanged();
             }
@@ -269,20 +271,8 @@ namespace dnGREP.WPF
             get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CompareApplication); }
         }
 
+        [ObservableProperty]
         private double resultsScale = 1.0;
-        public double ResultsScale
-        {
-            get { return resultsScale; }
-            set
-            {
-                if (value == resultsScale)
-                    return;
-
-                resultsScale = value;
-
-                base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(ResultsScale)));
-            }
-        }
 
         public bool HasSelection
         {
@@ -321,12 +311,12 @@ namespace dnGREP.WPF
 
         void SelectedNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasSelection)));
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasSingleSelection)));
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasMultipleSelection)));
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasReadOnlySelection)));
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasGrepResultSelection)));
-            base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasGrepLineSelection)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasSelection)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasSingleSelection)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasMultipleSelection)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasReadOnlySelection)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasGrepResultSelection)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasGrepLineSelection)));
         }
 
         public ICommand CompareFilesCommand => new RelayCommand(
@@ -369,41 +359,18 @@ namespace dnGREP.WPF
                 Utils.CompareFiles(files);
         }
 
+        [ObservableProperty]
         private bool wrapText;
-        public bool WrapText
+        partial void OnWrapTextChanged(bool value)
         {
-            get { return wrapText; }
-            set
+            foreach (var item in SearchResults)
             {
-                if (value == wrapText)
-                    return;
-
-                wrapText = value;
-
-                foreach (var item in this)
-                {
-                    item.WrapText = value;
-                }
-
-
-                base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(WrapText)));
+                item.WrapText = value;
             }
         }
 
+        [ObservableProperty]
         private bool isResultsTreeFocused;
-        public bool IsResultsTreeFocused
-        {
-            get { return isResultsTreeFocused; }
-            set
-            {
-                if (value == isResultsTreeFocused)
-                    return;
-
-                isResultsTreeFocused = value;
-
-                base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsResultsTreeFocused)));
-            }
-        }
 
         public event EventHandler<GrepLineEventArgs>? OpenFileLineRequest;
         public event EventHandler<GrepResultEventArgs>? OpenFileRequest;
@@ -500,7 +467,7 @@ namespace dnGREP.WPF
         private bool isSelected;
         partial void OnIsSelectedChanged(bool value)
         {
-            ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
+            GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
         }
 
         [ObservableProperty]
@@ -595,23 +562,13 @@ namespace dnGREP.WPF
 
         public ObservableCollection<FormattedGrepMatch> FormattedMatches { get; } = new();
 
+        [ObservableProperty]
         private bool wrapText;
-        public bool WrapText
+        partial void OnWrapTextChanged(bool value)
         {
-            get { return wrapText; }
-            set
+            foreach (var item in FormattedLines)
             {
-                if (value == wrapText)
-                    return;
-
-                wrapText = value;
-
-                foreach (var item in FormattedLines)
-                {
-                    item.WrapText = value;
-                }
-
-                base.OnPropertyChanged(nameof(WrapText));
+                item.WrapText = value;
             }
         }
 
@@ -693,7 +650,7 @@ namespace dnGREP.WPF
                     IsHexData = false;
                     ResultColumn1Width = "*";
                     ResultColumn2Width = "0";
-                    ResultColumn1SharedSizeGroupName = string.Empty;
+                    ResultColumn1SharedSizeGroupName = null;
                 }
             }
         }
@@ -705,7 +662,7 @@ namespace dnGREP.WPF
         private bool isHexData;
 
         [ObservableProperty]
-        private string resultColumn1SharedSizeGroupName = string.Empty;
+        private string? resultColumn1SharedSizeGroupName = null; // cannot be empty string, but looks like null works
 
         [ObservableProperty]
         private string resultColumn1Width = "*";
@@ -716,19 +673,11 @@ namespace dnGREP.WPF
         // FormattedGrepLines don't expand, but the XAML code expects this property on TreeViewItems
         public bool IsExpanded { get; set; }
 
+        [ObservableProperty]
         private bool isSelected;
-        public bool IsSelected
+        partial void OnIsSelectedChanged(bool value)
         {
-            get { return isSelected; }
-            set
-            {
-                if (value == isSelected)
-                    return;
-
-                isSelected = value;
-                ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
-                OnPropertyChanged(nameof(IsSelected));
-            }
+            GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
         }
 
         [ObservableProperty]
@@ -752,21 +701,11 @@ namespace dnGREP.WPF
 
         public FormattedGrepResult Parent { get; private set; }
 
+        [ObservableProperty]
         private bool wrapText;
-        public bool WrapText
+        partial void OnWrapTextChanged(bool value)
         {
-            get { return wrapText; }
-            set
-            {
-                if (value == wrapText)
-                    return;
-
-                wrapText = value;
-
-                MaxLineLength = wrapText ? 10000 : 500;
-
-                base.OnPropertyChanged(nameof(WrapText));
-            }
+            MaxLineLength = value ? 10000 : 500;
         }
 
         public int MaxLineLength { get; private set; } = 500;

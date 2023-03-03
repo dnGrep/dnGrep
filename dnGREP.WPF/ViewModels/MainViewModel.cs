@@ -61,12 +61,12 @@ namespace dnGREP.WPF
 
                 CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
 
-                SearchResults.GrepLineSelected += SearchResults_GrepLineSelected;
-                SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
-                SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
-                SearchResults.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
-                SearchResults.OpenFileRequest += SearchResults_OpenFileRequest;
-                SearchResults.CollectionChanged += SearchResults_CollectionChanged;
+                ResultsViewModel.GrepLineSelected += SearchResults_GrepLineSelected;
+                ResultsViewModel.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
+                ResultsViewModel.PreviewFileRequest += SearchResults_PreviewFileRequest;
+                ResultsViewModel.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
+                ResultsViewModel.OpenFileRequest += SearchResults_OpenFileRequest;
+                ResultsViewModel.SearchResults.CollectionChanged += SearchResults_CollectionChanged;
 
                 CheckVersion();
                 ControlsInit();
@@ -126,7 +126,7 @@ namespace dnGREP.WPF
 
             StatusMessage = string.Empty;
             ClearMatchCountStatus();
-            SearchResults.Clear();
+            ResultsViewModel.SearchResults.Clear();
             UpdateReplaceButtonTooltip(true);
         }
 
@@ -214,7 +214,7 @@ namespace dnGREP.WPF
             if (!preceedingMatches.TryGetValue(formattedGrepResult.GrepResult.Id, out int count))
             {
                 count = 0;
-                foreach (var item in SearchResults)
+                foreach (var item in ResultsViewModel.SearchResults)
                 {
                     if (item == formattedGrepResult)
                     {
@@ -229,7 +229,7 @@ namespace dnGREP.WPF
 
         private void SearchResults_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            if (SearchResults.Count == 0 && PreviewFileContent)
+            if (ResultsViewModel.SearchResults.Count == 0 && PreviewFileContent)
             {
                 // clear the preview
                 PreviewModel.FilePath = string.Empty;
@@ -664,9 +664,9 @@ namespace dnGREP.WPF
             {
                 if (PreviewFileContent)
                 {
-                    if (SearchResults.SelectedNodes.Count > 0)
+                    if (ResultsViewModel.SelectedNodes.Count > 0)
                     {
-                        var item = SearchResults.SelectedNodes[0];
+                        var item = ResultsViewModel.SelectedNodes[0];
 
                         if (item is FormattedGrepLine grepLine)
                         {
@@ -697,8 +697,8 @@ namespace dnGREP.WPF
             // the Options dialog is closed
             SortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
             SortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
-            SearchResults.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
-            SearchResults.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
+            ResultsViewModel.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
+            ResultsViewModel.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
             IsResultOptionsExpanded = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowResultOptions);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -730,8 +730,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.SortDirection, SortDirection);
             Settings.Set(GrepSettings.Key.TypeOfSort, SortType);
             Settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
-            Settings.Set(GrepSettings.Key.ResultsTreeScale, SearchResults.ResultsScale);
-            Settings.Set(GrepSettings.Key.ResultsTreeWrap, SearchResults.WrapText);
+            Settings.Set(GrepSettings.Key.ResultsTreeScale, ResultsViewModel.ResultsScale);
+            Settings.Set(GrepSettings.Key.ResultsTreeWrap, ResultsViewModel.WrapText);
             Settings.Set(GrepSettings.Key.HighlightMatches, HighlightsOn);
             Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
@@ -1165,7 +1165,7 @@ namespace dnGREP.WPF
                         {
                             lock (lockObjOne)
                             {
-                                SearchResults.AddRange(progress.SearchResults);
+                                ResultsViewModel.AddRange(progress.SearchResults);
                             }
                         }
 
@@ -1233,7 +1233,7 @@ namespace dnGREP.WPF
                         progress.ProcessedFiles, progress.SuccessfulFiles);
                 }
 
-                if (SearchResults.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch))
+                if (ResultsViewModel.SearchResults.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch))
                 {
                     IsResultTreeMaximized = true;
                 }
@@ -1283,7 +1283,7 @@ namespace dnGREP.WPF
                         StatusMessage = Resources.Main_Status_SearchCanceled;
                     }
 
-                    FilesFound = SearchResults.Count > 0;
+                    FilesFound = ResultsViewModel.SearchResults.Count > 0;
                     CurrentGrepOperation = GrepOperation.None;
                     OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
@@ -1334,7 +1334,7 @@ namespace dnGREP.WPF
                     OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     ClearMatchCountStatus();
-                    SearchResults.Clear();
+                    ResultsViewModel.SearchResults.Clear();
                     UpdateReplaceButtonTooltip(false);
                 }
 
@@ -1491,8 +1491,8 @@ namespace dnGREP.WPF
                 }
 
                 // set base folder for results display
-                SearchResults.FolderPath = PathSearchText.BaseFolder;
-                SearchResults.TypeOfSearch = TypeOfSearch;
+                ResultsViewModel.FolderPath = PathSearchText.BaseFolder;
+                ResultsViewModel.TypeOfSearch = TypeOfSearch;
 
                 if (SearchInResultsContent && CanSearchInResults)
                     CurrentGrepOperation = GrepOperation.SearchInResults;
@@ -1510,7 +1510,7 @@ namespace dnGREP.WPF
                 if (SearchInResultsContent && CanSearchInResults)
                 {
                     List<string> foundFiles = new();
-                    foreach (FormattedGrepResult n in SearchResults)
+                    foreach (FormattedGrepResult n in ResultsViewModel.SearchResults)
                         foundFiles.Add(n.GrepResult.FileNameReal);
                     workerParams.AddSearchFiles(foundFiles);
                 }
@@ -1519,14 +1519,14 @@ namespace dnGREP.WPF
                 SearchParametersChanged = false;
 
                 ClearMatchCountStatus();
-                SearchResults.Clear();
+                ResultsViewModel.SearchResults.Clear();
                 UpdateReplaceButtonTooltip(true);
                 processedFiles = 0;
                 idleTimer.Start();
                 workerSearchReplace.RunWorkerAsync(workerParams);
                 // toggle value to move focus to the results tree, and enable keyboard actions on the tree
-                SearchResults.IsResultsTreeFocused = false;
-                SearchResults.IsResultsTreeFocused = true;
+                ResultsViewModel.IsResultsTreeFocused = false;
+                ResultsViewModel.IsResultsTreeFocused = true;
             }
             else if (IsScriptRunning)
             {
@@ -1620,7 +1620,7 @@ namespace dnGREP.WPF
                     }
                 }
 
-                List<string> roFiles = Utils.GetReadOnlyFiles(SearchResults.GetList());
+                List<string> roFiles = Utils.GetReadOnlyFiles(ResultsViewModel.GetList());
                 if (!IsScriptRunning && roFiles.Count > 0)
                 {
                     StringBuilder sb = new(Resources.MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped);
@@ -1639,7 +1639,7 @@ namespace dnGREP.WPF
                     }
                 }
 
-                List<GrepSearchResult> replaceList = SearchResults.GetWritableList()
+                List<GrepSearchResult> replaceList = ResultsViewModel.GetWritableList()
                     .Where(sr => sr.Matches.Any()).ToList(); // filter out files with errors shown in results tree
                 foreach (var file in roFiles)
                 {
@@ -1702,7 +1702,7 @@ namespace dnGREP.WPF
                         workerParams.AddReplaceFiles(undoList);
 
                         ClearMatchCountStatus();
-                        SearchResults.Clear();
+                        ResultsViewModel.SearchResults.Clear();
                         idleTimer.Start();
                         workerSearchReplace.RunWorkerAsync(workerParams);
                         UpdateBookmarks();
@@ -1894,7 +1894,7 @@ namespace dnGREP.WPF
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
             LoadSettings();
-            SearchResults.RaiseSettingsPropertiesChanged();
+            ResultsViewModel.RaiseSettingsPropertiesChanged();
         }
 
         private static void ShowHelp()
@@ -2272,7 +2272,7 @@ namespace dnGREP.WPF
                 {
                     try
                     {
-                        var fileList = SearchResults.GetList();
+                        var fileList = ResultsViewModel.GetList();
                         string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
@@ -2371,7 +2371,7 @@ namespace dnGREP.WPF
                 {
                     try
                     {
-                        var fileList = SearchResults.GetList();
+                        var fileList = ResultsViewModel.GetList();
                         string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
@@ -2448,7 +2448,7 @@ namespace dnGREP.WPF
                     }
                     CanUndo = false;
                     ClearMatchCountStatus();
-                    SearchResults.Clear();
+                    ResultsViewModel.SearchResults.Clear();
                     FilesFound = false;
                 }
             }
@@ -2475,11 +2475,11 @@ namespace dnGREP.WPF
                     int count;
                     if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DeleteToRecycleBin))
                     {
-                        count = Utils.SendToRecycleBin(SearchResults.GetList());
+                        count = Utils.SendToRecycleBin(ResultsViewModel.GetList());
                     }
                     else
                     {
-                        count = Utils.DeleteFiles(SearchResults.GetList());
+                        count = Utils.DeleteFiles(ResultsViewModel.GetList());
                     }
 
                     if (IsScriptRunning)
@@ -2513,7 +2513,7 @@ namespace dnGREP.WPF
                 }
                 CanUndo = false;
                 ClearMatchCountStatus();
-                SearchResults.Clear();
+                ResultsViewModel.SearchResults.Clear();
                 FilesFound = false;
             }
         }
@@ -2521,7 +2521,7 @@ namespace dnGREP.WPF
         private void CopyToClipboard()
         {
             StringBuilder sb = new();
-            foreach (GrepSearchResult result in SearchResults.GetList())
+            foreach (GrepSearchResult result in ResultsViewModel.GetList())
             {
                 sb.AppendLine(result.FileNameReal);
             }
@@ -2532,12 +2532,12 @@ namespace dnGREP.WPF
         {
             // can be a long process if the results are not yet cached
             UIServices.SetBusyState();
-            NativeMethods.SetClipboardText(ReportWriter.GetResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch));
+            NativeMethods.SetClipboardText(ReportWriter.GetResultsAsText(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch));
         }
 
         private void ShowReportOptions()
         {
-            ReportOptionsViewModel vm = new(SearchResults);
+            ReportOptionsViewModel vm = new(ResultsViewModel);
             ReportOptionsWindow dlg = new(vm)
             {
                 Owner = Application.Current.MainWindow
@@ -2582,13 +2582,13 @@ namespace dnGREP.WPF
                             {
                                 default:
                                 case "Report":
-                                    ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), dlg.FileName);
+                                    ReportWriter.SaveResultsReport(ResultsViewModel.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), dlg.FileName);
                                     break;
                                 case "Text":
-                                    ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, dlg.FileName);
+                                    ReportWriter.SaveResultsAsText(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, dlg.FileName);
                                     break;
                                 case "CSV":
-                                    ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, dlg.FileName);
+                                    ReportWriter.SaveResultsAsCSV(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, dlg.FileName);
                                     break;
                             }
                         });
@@ -2614,15 +2614,15 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrWhiteSpace(args.ReportPath))
             {
-                ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), args.ReportPath);
+                ReportWriter.SaveResultsReport(ResultsViewModel.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), args.ReportPath);
             }
             if (!string.IsNullOrWhiteSpace(args.TextPath))
             {
-                ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, args.TextPath);
+                ReportWriter.SaveResultsAsText(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, args.TextPath);
             }
             if (!string.IsNullOrWhiteSpace(args.CsvPath))
             {
-                ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, args.CsvPath);
+                ReportWriter.SaveResultsAsCSV(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, args.CsvPath);
             }
             if (args.Exit)
             {
@@ -2635,7 +2635,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                var writableFiles = SearchResults.GetWritableList();
+                var writableFiles = ResultsViewModel.GetWritableList();
                 var hasWritableFiles = writableFiles.Any() &&
                     writableFiles.SelectMany(m => m.Matches).Any();
 
@@ -2657,7 +2657,7 @@ namespace dnGREP.WPF
             ReplaceButtonToolTip = string.Empty;
             if (!clear && !CanReplace && FilesFound)
             {
-                var writableFiles = SearchResults.GetWritableList();
+                var writableFiles = ResultsViewModel.GetWritableList();
                 var hasWritableFiles = writableFiles.Any();
                 var hasMatches = writableFiles.SelectMany(m => m.Matches).Any();
 
@@ -2685,7 +2685,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                return SearchResults.Count > 0 &&
+                return ResultsViewModel.SearchResults.Count > 0 &&
                     CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy;
             }
         }
@@ -2694,13 +2694,13 @@ namespace dnGREP.WPF
         {
             if (!CanSortResults) return;
 
-            var selections = SearchResults.SelectedItems;
+            var selections = ResultsViewModel.SelectedItems;
             using (var d = Dispatcher.CurrentDispatcher.DisableProcessing())
             {
-                SearchResults.DeselectAllItems();
-                var list = SearchResults.ToList();
+                ResultsViewModel.DeselectAllItems();
+                var list = ResultsViewModel.SearchResults.ToList();
                 ClearMatchCountStatus();
-                SearchResults.Clear();
+                ResultsViewModel.SearchResults.Clear();
 
                 switch (SortType)
                 {
@@ -2728,9 +2728,9 @@ namespace dnGREP.WPF
                         break;
                 }
 
-                SearchResults.AddRange(list);
+                ResultsViewModel.AddRange(list);
             }
-            SearchResults.SelectItems(selections);
+            ResultsViewModel.SelectItems(selections);
         }
 
         private string GetSearchOptions()

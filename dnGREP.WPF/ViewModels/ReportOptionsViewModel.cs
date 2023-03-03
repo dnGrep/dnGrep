@@ -17,7 +17,7 @@ namespace dnGREP.WPF
         private readonly List<GrepSearchResult> searchResults;
         private readonly SearchType typeOfSearch;
 
-        public ReportOptionsViewModel(ObservableGrepSearchResults searchResults)
+        public ReportOptionsViewModel(GrepSearchResultsViewModel searchResults)
         {
             this.searchResults = searchResults.GetList();
             typeOfSearch = searchResults.TypeOfSearch;

@@ -26,7 +26,7 @@
                                   Foreground="{DynamicResource TreeView.Foreground}"
                                   Background="{DynamicResource TreeView.Background}"
                                   BorderBrush="{DynamicResource TreeView.Border}"
-                                  ItemsSource="{Binding}"
+                                  ItemsSource="{Binding SearchResults}"
                                   SelectedItems="{Binding SelectedNodes}"
                                   MultiSelectRootLevelOnly="False" 
                                   VirtualizingStackPanel.IsVirtualizing="True"

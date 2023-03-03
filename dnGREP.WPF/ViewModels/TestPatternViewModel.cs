@@ -229,13 +229,13 @@ namespace dnGREP.WPF
                 }
             }
 
-            SearchResults.Clear();
-            SearchResults.AddRangeForTestView(grepResults);
+            ResultsViewModel.SearchResults.Clear();
+            ResultsViewModel.AddRangeForTestView(grepResults);
             Paragraph paragraph = new();
-            if (SearchResults.Count == 1)
+            if (ResultsViewModel.SearchResults.Count == 1)
             {
-                SearchResults[0].FormattedLines.Load();
-                foreach (FormattedGrepLine line in SearchResults[0].FormattedLines)
+                ResultsViewModel.SearchResults[0].FormattedLines.Load();
+                foreach (FormattedGrepLine line in ResultsViewModel.SearchResults[0].FormattedLines)
                 {
                     if (line.IsSectionBreak)
                     {
