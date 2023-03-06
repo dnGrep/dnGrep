@@ -49,11 +49,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Update="word-readme">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="NLog">
       <Version>5.1.1</Version>
@@ -67,7 +62,4 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="REM Debug setup&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.MsWord.plugin&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Word.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\MsWordSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Word.pdb&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\MsWordSearch\&quot;&#xD;&#xA;" />
-  </Target>
 </Project>

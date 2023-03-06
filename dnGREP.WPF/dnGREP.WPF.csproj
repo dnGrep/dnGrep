@@ -20,7 +20,6 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>dnGREP.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup />
   <ItemGroup>
     <None Remove="nlog.config" />
   </ItemGroup>
@@ -200,6 +199,35 @@
       <_Parameter1>$([System.DateTime]::UtcNow.ToString("s"))</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+  <ItemGroup>
+    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.plugin"/>
+    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.dll"/>
+    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.pdb"/>
+    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\DocumentFormat.OpenXml.dll"/>
+    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\ExcelDataReader.dll"/>
+    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\ExcelNumberFormat.dll"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.plugin"/>
+    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.dll"/>
+    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.pdb"/>
+    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\pdftotext.exe"/>
+  </ItemGroup>
+  <ItemGroup>
+    <WordEnginFiles Include="..\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.MsWord.plugin"/>
+    <WordEnginFiles Include="..\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Word.dll"/>
+    <WordEnginFiles Include="..\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Word.pdb"/>
+  </ItemGroup>
+  <Target Name="CopyExtraFiles" AfterTargets="AfterBuild">
+    <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\OpenXmlSearch" />
+    <Copy SourceFiles="@(PDFEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch" />
+    <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\MsWordSearch" />
+  </Target>
+  <Target Name="PublishExtraFiles" AfterTargets="Publish">
+    <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\Plugins\OpenXmlSearch" />
+    <Copy SourceFiles="@(PDFEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\Plugins\PdfSearch" />
+    <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\Plugins\MsWordSearch" />
+  </Target>
   <PropertyGroup>
     <Authors>dnGrep Community Contributors</Authors>
     <Description>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</Description>

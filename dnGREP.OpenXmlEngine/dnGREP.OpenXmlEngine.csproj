@@ -38,11 +38,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Update="open-xml-readme">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml">
       <Version>2.19.0</Version>
     </PackageReference>
@@ -65,7 +60,4 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="REM Debug setup&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.OpenXml.plugin&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.OpenXml.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\OpenXmlSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.OpenXml.pdb&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\OpenXmlSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)DocumentFormat.OpenXml.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\OpenXmlSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)ExcelDataReader.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\OpenXmlSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)ExcelNumberFormat.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\OpenXmlSearch\&quot;&#xD;&#xA;" />
-  </Target>
 </Project>

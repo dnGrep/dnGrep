@@ -40,11 +40,6 @@
     <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="pdf-readme">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="NLog">
       <Version>5.1.1</Version>
@@ -58,7 +53,4 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="REM Debug setup&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.plugin&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)dnGREP.Engines.Pdf.pdb&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;xcopy /Y /R &quot;$(TargetDir)pdftotext.exe&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\net7.0-windows\Plugins\PdfSearch\&quot;&#xD;&#xA;" />
-  </Target>
 </Project>
