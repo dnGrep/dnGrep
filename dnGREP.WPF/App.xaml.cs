@@ -35,7 +35,7 @@ namespace dnGREP.WPF
                     if (Environment.Is64BitProcess)
                         SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z64.dll"));
                     else
-                        SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z.dll"));
+                        SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z32.dll"));
                 }
 
                 ResourceManagerEx.Initialize();

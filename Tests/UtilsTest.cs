@@ -25,7 +25,7 @@ namespace Tests
             if (Environment.Is64BitProcess)
                 SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7z64.dll"));
             else
-                SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7z.dll"));
+                SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7z32.dll"));
         }
 
         public string GetLongPathDestination(string leafFolder)

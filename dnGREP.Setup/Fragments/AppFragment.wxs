@@ -43,11 +43,8 @@
         </File>
       </Component>
       
-      <Component Id="cmp076536C5D88900C40C1A61CB5902CCD6" Guid="{84D03197-FCD9-4697-B32E-A0999989253C}">
-        <File Id="filB6B9C08742F4F91E23D2367C46744F87" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)7z.dll" />
-      </Component>
       <Component Id="cmp909D945AD96C4A2D9629E377F1177403" Guid="{D1E35664-FAEC-4697-98B7-F88CF24135C1}">
-        <File Id="fil688631BFB7D14C60BFFD9D9699E7BDAC" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)7z64.dll" />
+        <File Id="fil688631BFB7D14C60BFFD9D9699E7BDAC" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)7z$(var.App.PlatformShort).dll" />
       </Component>
       <Component Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" Guid="{C38580EA-5F65-40E7-9E9E-D603EBCD5CC3}">
         <File Id="filA791E86462E84AC92A00C1CB329B54F4" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)SevenZipSharp.dll">
@@ -181,7 +178,6 @@
       <ComponentRef Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" />
       <ComponentRef Id="cmpE75E380769873171E1689F576B0BBBD1" />
       <ComponentRef Id="cmpB7F588B270AD4EFBBB04FF288C419407" />
-      <ComponentRef Id="cmp076536C5D88900C40C1A61CB5902CCD6" />
       <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
       <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
       <ComponentRef Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" />

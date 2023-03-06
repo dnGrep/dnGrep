@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <PlatformTarget>x64</PlatformTarget>
     <Platforms>x86;x64</Platforms>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -10,6 +9,12 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -42,7 +47,4 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="mkdir &quot;$(SolutionDir)dnGREP.WPF\bin\x64\$(ConfigurationName)&quot;\&#xD;&#xA;xcopy /Y /R &quot;$(ProjectDir)x64\Everything64.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\x64\$(ConfigurationName)\net7.0-windows\&quot;&#xD;&#xA;mkdir &quot;$(SolutionDir)dnGREP.WPF\bin\x86\$(ConfigurationName)&quot;\&#xD;&#xA;xcopy /Y /R &quot;$(ProjectDir)x86\Everything32.dll&quot; &quot;$(SolutionDir)dnGREP.WPF\bin\x86\$(ConfigurationName)\net7.0-windows\&quot;" />
-  </Target>
 </Project>
