@@ -231,7 +231,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Gets the length of the segment.
 		/// </summary>
-		/// <remarks>For line segments (IDocumentLine), the length does not include the line delimeter.</remarks>
+		/// <remarks>For line segments (IDocumentLine), the length does not include the line delimiter.</remarks>
 		int Length { get; }
 
 		/// <summary>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net7.0-windows;net462</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <DefineConstants>TRACE</DefineConstants>
@@ -9,18 +9,51 @@
     <AssemblyOriginatorKeyFile>ICSharpCode.AvalonEdit.snk</AssemblyOriginatorKeyFile>
     <Company>ic#code</Company>
     <Copyright>2000-2022 AlphaSierraPapa for the SharpDevelop Team</Copyright>
-    <Description>AvalonEdit is the WPF-based text editor used in SharpDevelop. There are five builds of AvalonEdit included in this package: .NET Framework 4.5 and 4.0, .NET Core 3.1, .NET 5.0 for Windows, .NET 6.0 for Windows.</Description>
-    <Version>6.1</Version>
-    <AssemblyVersion>6.1.0.0</AssemblyVersion>
-    <FileVersion>6.1.0.0</FileVersion>
+    <Description>AvalonEdit is the WPF-based text editor used in SharpDevelop.</Description>
+    <Version>6.2</Version>
+    <AssemblyVersion>6.2.0.0</AssemblyVersion>
+    <FileVersion>6.2.0.0</FileVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <AnalysisLevel>none</AnalysisLevel>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>AvalonEdit</PackageId>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/icsharpcode/AvalonEdit.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>AvalonEdit Contributors</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>http://www.avalonedit.net</PackageProjectUrl>
+    <PackageIcon>images\AvalonEditNuGetPackageIcon.png</PackageIcon>
+    <PackageTags>WPF Text Editor SharpDevelop AvalonEdit</PackageTags>
+    <PackageReleaseNotes>Changes are detailed at https://github.com/icsharpcode/AvalonEdit/blob/master/ChangeLog.md</PackageReleaseNotes>
+    <PackageReadmeFile>PackageReadme.md</PackageReadmeFile>
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
+    <AnalysisLevel>none</AnalysisLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="docs\PackageReadme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net7.0-windows' ">
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
@@ -44,9 +77,6 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
-      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 </Project>

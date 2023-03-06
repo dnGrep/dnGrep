@@ -227,7 +227,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 					// using that encoding.
 					if (IsUnicode(defaultEncoding)) {
 						// the file is not Unicode, so don't read it using Unicode even if the
-						// user has choosen Unicode as the default encoding.
+						// user has chosen Unicode as the default encoding.
 
 						defaultEncoding = Encoding.Default; // use system encoding instead
 					}

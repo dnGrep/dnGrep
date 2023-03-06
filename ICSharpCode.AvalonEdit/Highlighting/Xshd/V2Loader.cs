@@ -238,7 +238,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 		{
 			string ruleSet = reader.GetAttribute("ruleSet");
 			if (ruleSet != null) {
-				// '/' is valid in highlighting definition names, so we need the last occurence
+				// '/' is valid in highlighting definition names, so we need the last occurrence
 				int pos = ruleSet.LastIndexOf('/');
 				if (pos >= 0) {
 					return new XshdReference<XshdRuleSet>(ruleSet.Substring(0, pos), ruleSet.Substring(pos + 1));

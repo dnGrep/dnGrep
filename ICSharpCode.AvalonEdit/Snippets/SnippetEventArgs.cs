@@ -21,7 +21,7 @@ using System;
 namespace ICSharpCode.AvalonEdit.Snippets
 {
 	/// <summary>
-	/// Provides information about the event that occured during use of snippets.
+	/// Provides information about the event that occurred during use of snippets.
 	/// </summary>
 	public class SnippetEventArgs : EventArgs
 	{

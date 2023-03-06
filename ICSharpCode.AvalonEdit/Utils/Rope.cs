@@ -30,7 +30,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 	/// Also has cheap Clone() and SubRope() implementations.
 	/// </summary>
 	/// <remarks>
-	/// This class is not thread-safe: multiple concurrent write operations or writes concurrent to reads have undefined behaviour.
+	/// This class is not thread-safe: multiple concurrent write operations or writes concurrent to reads have undefined behavior.
 	/// Concurrent reads, however, are safe.
 	/// However, clones of a rope are safe to use on other threads even though they share data with the original rope.
 	/// </remarks>
@@ -208,7 +208,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Inserts new elemetns into this rope.
+		/// Inserts new elements into this rope.
 		/// Runs in O(lg N + M), where N is the length of this rope and M is the number of new elements.
 		/// </summary>
 		/// <exception cref="ArgumentNullException">newElements is null.</exception>
@@ -627,10 +627,10 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Finds the first occurance of item.
+		/// Finds the first occurrence of item.
 		/// Runs in O(N).
 		/// </summary>
-		/// <returns>The index of the first occurance of item, or -1 if it cannot be found.</returns>
+		/// <returns>The index of the first occurrence of item, or -1 if it cannot be found.</returns>
 		/// <remarks>
 		/// This method counts as a read access and may be called concurrently to other read accesses.
 		/// </remarks>
@@ -762,7 +762,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Removes the first occurance of an item from the rope.
+		/// Removes the first occurrence of an item from the rope.
 		/// Runs in O(N).
 		/// </summary>
 		public bool Remove(T item)
