@@ -209,6 +209,9 @@
     <EverythingFiles Include="..\dnGREP.Everything\x86\Everything32.dll" />
   </ItemGroup>
   <ItemGroup>
+    <RuntimeFiles Include="bin\$(Platform)\$(Configuration)\net7.0-windows\runtimes\win\lib\net7.0\System.Management.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.plugin" />
     <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.dll" />
     <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.pdb" />
@@ -235,11 +238,12 @@
     <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\MsWordSearch" />
   </Target>
   <Target Name="PublishExtraFiles" AfterTargets="Publish">
-    <Copy SourceFiles="@(SevenZipFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\$(RuntimeIdentifier)" />
-    <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\$(RuntimeIdentifier)" />
-    <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\$(RuntimeIdentifier)\Plugins\OpenXmlSearch" />
-    <Copy SourceFiles="@(PDFEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\$(RuntimeIdentifier)\Plugins\PdfSearch" />
-    <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\publish\$(RuntimeIdentifier)\Plugins\MsWordSearch" />
+    <Copy SourceFiles="@(SevenZipFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)" />
+    <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)" />
+    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\runtimes\win\lib\net7.0\" />
+    <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\Plugins\OpenXmlSearch" />
+    <Copy SourceFiles="@(PDFEnginFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\Plugins\PdfSearch" />
+    <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\Plugins\MsWordSearch" />
   </Target>
   <PropertyGroup>
     <Authors>dnGrep Community Contributors</Authors>
