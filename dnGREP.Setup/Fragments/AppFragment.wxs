@@ -5,167 +5,171 @@
   <?include ..\Variables.wxi ?>
 
   <?if $(var.Platform) = x64 ?>
-    <?define App.PlatformShort="64" ?>
+  <?define App.PlatformShort="64" ?>
   <?else?>
-    <?define App.PlatformShort="32" ?>
+  <?define App.PlatformShort="32" ?>
   <?endif ?>
-  
+
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
       <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{293480D3-64A1-4D5D-A953-4C3F6694BC52}">
-        <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="$(var.dnGREP.Common.TargetDir)\dnGREP.Common.dll" >
-          <netfx:NativeImage Id="ngen_dnGREP.Common.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.dll" />
       </Component>
       <Component Id="cmpD9FA0B07237DE16A4585D46BED20E933" Guid="{F9C505AB-495B-44F9-A774-5F5946B9E8C9}">
-        <File Id="filED998F02E8D47F0905A9464D56B0F77D" KeyPath="yes" Source="$(var.dnGREP.Common.UI.TargetDir)\dnGREP.Common.UI.dll" >
-          <netfx:NativeImage Id="ngen_dnGREP.Common.UI.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="filED998F02E8D47F0905A9464D56B0F77D" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.UI.dll" />
       </Component>
-        <Component Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" Guid="{A2875238-4A08-48F9-8FF1-31BA88D48C80}">
-            <File Id="filA804AD15B1CD497CB618C6EBDD22719D" KeyPath="yes" Source="$(var.dnGREP.DockFloat.TargetDir)\dnGREP.DockFloat.dll" >
-                <netfx:NativeImage Id="ngen_dnGREP.DockFloat.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-            </File>
-        </Component>
-        <Component Id="cmp5D64364BE848D8D880558DFAFA0DE81C" Guid="{A053CA7D-4AA0-4D90-AB08-2ACF54D0A9EC}">
-        <File Id="fil0A2118AB81362AE13EE6DDBA78E994BC" KeyPath="yes" Source="$(var.dnGREP.Engines.TargetDir)\dnGREP.Engines.dll" >
-          <netfx:NativeImage Id="ngen_dnGREP.Engines.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+      <Component Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" Guid="{A2875238-4A08-48F9-8FF1-31BA88D48C80}">
+        <File Id="filA804AD15B1CD497CB618C6EBDD22719D" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.DockFloat.dll" />
+      </Component>
+      <Component Id="cmp5D64364BE848D8D880558DFAFA0DE81C" Guid="{A053CA7D-4AA0-4D90-AB08-2ACF54D0A9EC}">
+        <File Id="fil0A2118AB81362AE13EE6DDBA78E994BC" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Engines.dll" />
       </Component>
       <Component Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" Guid="{ED505551-933C-4B9D-8ECF-3293BE9BA5AA}">
-        <File Id="filDB00706A949D4EEA8239FE1F18F446A7" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.Localization.dll" >
-          <netfx:NativeImage Id="ngen_dnGREP.Localization.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="filDB00706A949D4EEA8239FE1F18F446A7" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Localization.dll" />
+      </Component>
+      <Component Id="cmpB1990F210FDF4F16B74690BF159B71BE" Guid="{418EA6A4-2705-46CB-AB27-B760659F34D4}">
+        <File Id="fil3F683F9BBF9A462C9BEF3F6FFDB8FBFC" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.dll" />
       </Component>
       <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{B7C5DBF9-8740-4677-8D55-E9C01BF58028}">
-        <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.exe" >
-          <netfx:NativeImage Id="ngen_dnGREP.exe" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.exe" />
       </Component>
-      
-      <Component Id="cmp909D945AD96C4A2D9629E377F1177403" Guid="{D1E35664-FAEC-4697-98B7-F88CF24135C1}">
-        <File Id="fil688631BFB7D14C60BFFD9D9699E7BDAC" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)7z$(var.App.PlatformShort).dll" />
+      <Component Id="cmp586BF859F92C4CBEBD45E855E0CE3B1E" Guid="{1BD4E0F2-041D-416B-AF79-2C253436C2E0}">
+        <File Id="fil8BF221154EB54195851C395AAF3198C5" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.deps.json" />
       </Component>
-      <Component Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" Guid="{C38580EA-5F65-40E7-9E9E-D603EBCD5CC3}">
-        <File Id="filA791E86462E84AC92A00C1CB329B54F4" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)SevenZipSharp.dll">
-          <netfx:NativeImage Id="ngen_SevenZipSharp.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+      <Component Id="cmp7FB095CD79B0456CBE2B08103FC384F3" Guid="{26AADCD2-37DF-41C1-8EED-ED7D375781C8}">
+        <File Id="fil5903B951748F47648D6C78498970D642" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.runtimeconfig.json" />
       </Component>
 
+      <Component Id="cmp909D945AD96C4A2D9629E377F1177403" Guid="{D1E35664-FAEC-4697-98B7-F88CF24135C1}">
+        <File Id="fil688631BFB7D14C60BFFD9D9699E7BDAC" KeyPath="yes" Source="$(var.PublishDir)\7z$(var.App.PlatformShort).dll" />
+      </Component>
+      <Component Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" Guid="{C38580EA-5F65-40E7-9E9E-D603EBCD5CC3}">
+        <File Id="filA791E86462E84AC92A00C1CB329B54F4" KeyPath="yes" Source="$(var.PublishDir)\SevenZipSharp.dll" />
+      </Component>
+
+      <Component Id="cmp7A55F9CF84A64DF4968DC208CA225AC8" Guid="{179542A1-0BAC-4E53-995C-43920DF0C5D6}">
+        <File Id="fil4918FA3FBA634BEC9F49877949B0F22A" KeyPath="yes" Source="$(var.PublishDir)\CommunityToolkit.Mvvm.dll" />
+      </Component>
       <Component Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" Guid="{499E357F-9822-4945-A800-82BF6979E072}">
-        <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ICSharpCode.AvalonEdit.dll" >
-          <netfx:NativeImage Id="ngen_ICSharpCode.AvalonEdit.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source="$(var.PublishDir)\ICSharpCode.AvalonEdit.dll" />
       </Component>
       <Component Id="cmp0459596434A34BA899AD1B009417DEEB" Guid="{6F88374E-BF90-4B91-8F7C-97B5D72E108F}">
-        <File Id="fil32F44C517B3F47268E1399A302DA7F90" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Newtonsoft.Json.dll" >
-          <netfx:NativeImage Id="ngen_Newtonsoft.Json.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="fil32F44C517B3F47268E1399A302DA7F90" KeyPath="yes" Source="$(var.PublishDir)\Newtonsoft.Json.dll" />
       </Component>
       <Component Id="cmp770B497917674F316826C902746C0409" Guid="{C4E32F77-F28D-468F-8F04-A0F508915218}">
-        <File Id="filB9D0C89E2BE03F54B6210850B37C7B82" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\NLog.dll" >
-          <netfx:NativeImage Id="ngen_NLog.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="filB9D0C89E2BE03F54B6210850B37C7B82" KeyPath="yes" Source="$(var.PublishDir)\NLog.dll" />
       </Component>
       <Component Id="cmpB7F588B270AD4EFBBB04FF288C419407" Guid="{BA3A44E7-B855-4E0A-93F8-B03ED4483DF5}">
-        <File Id="fil55023CD4F0864DEBB35EEC9FD4EFDAAB" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\nlog.config" />
+        <File Id="fil55023CD4F0864DEBB35EEC9FD4EFDAAB" KeyPath="yes" Source="$(var.PublishDir)\nlog.config" />
+      </Component>
+      <Component Id="cmp5DE0DDB4E0924D539CA4EDDF7126B197" Guid="{6809ED72-A4BC-42F4-BDB7-2D3567AD91CD}">
+        <File Id="filC574AA0B08634C7FBE8E81F8CA830B18" KeyPath="yes" Source="$(var.PublishDir)\System.Management.dll" />
       </Component>
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
-        <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\UtfUnknown.dll" >
-          <netfx:NativeImage Id="ngen_UtfUnknown.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.PublishDir)\UtfUnknown.dll" />
       </Component>
       <Component Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" Guid="{0384FEB4-AF1A-414A-BAA6-4A5CB2BBF9C7}">
-        <File Id="fil6325F98DBB79430AB5675F6F8473FECC" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.Everything.dll" >
-          <netfx:NativeImage Id="ngen_dnGREP.Everything.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="fil6325F98DBB79430AB5675F6F8473FECC" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Everything.dll" />
       </Component>
       <Component Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" Guid="{392076A3-06CF-4212-941B-DD82FB72075D}">
-        <File Id="filA5A20558D688414DA4A216589F40877A" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Everything$(var.App.PlatformShort).dll" />
+        <File Id="filA5A20558D688414DA4A216589F40877A" KeyPath="yes" Source="$(var.PublishDir)\Everything$(var.App.PlatformShort).dll" />
       </Component>
+      
+      <Directory Id="dir8131FEF6EC6C44AF925EDC8B3C110227" Name="runtimes">
+        <Directory Id="dir884F78F1F1E848B6BCD8B91886E4795D" Name="win">
+          <Directory Id="dirDE5B27A25A2E4C758AC0F9E977DBD818" Name="lib">
+            <Directory Id="dirA440349DEDC54040A7606EB4D4368851" Name="net7.0">
+              <Component Id="cmp03DC1007C5B54C628CA3B3E1053B7A70" Guid="{94000AEF-EA2E-4B1B-8516-00A1A1BD9A8D}">
+                <File Id="fil029864FFF5044EB2843D8AA8BB5BD1AB" KeyPath="yes" Source="$(var.PublishDir)\runtimes\win\lib\net7.0\System.Management.dll" />
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+      
       <Directory Id="dir528DD5B50872449DA6A3648CB53FDE3D" Name="bg">
         <Component Id="cmp8AF052AF90A94A149802DFD1021B8D87" Guid="{88B0763B-FB63-4CFF-B66A-AEEE32E3B65E}">
-          <File Id="fil71BB7E77AF4B43D987CEA8E0CEC1E595" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\bg\dnGREP.Localization.resources.dll" />
+          <File Id="fil71BB7E77AF4B43D987CEA8E0CEC1E595" KeyPath="yes" Source="$(var.PublishDir)\bg\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir0A93866056C6439A9EB985DA75A1F720" Name="ca">
         <Component Id="cmp155BCEB308F549C586212E8A93923933" Guid="{47DC7307-9AD7-4A7D-9465-F6E4084B8504}">
-          <File Id="fil7C054418F70543799A44694FD77B7DA9" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ca\dnGREP.Localization.resources.dll" />
+          <File Id="fil7C054418F70543799A44694FD77B7DA9" KeyPath="yes" Source="$(var.PublishDir)\ca\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dirFEDF38D3805A4CD3B0EDB1085F8C162C" Name="de">
         <Component Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" Guid="{A0CE09E4-4B7E-406F-942A-C02C672C8B9F}">
-          <File Id="fil9AFBB24F44D84772869B72F56738B572" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\de\dnGREP.Localization.resources.dll" />
+          <File Id="fil9AFBB24F44D84772869B72F56738B572" KeyPath="yes" Source="$(var.PublishDir)\de\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <!--<Directory Id="dir79AC8D54042448679F587647B620C045" Name="en">
         <Component Id="cmp8765E4C9E5AE45DDAAB4EA4CC093FD56" Guid="{F9CF1C3C-12E7-406C-A0C9-E7E3FA4811D0}">
-          <File Id="fil55D7697C4684436C86BB290DA58B2114" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\en\dnGREP.Localization.resources.dll" />
+          <File Id="fil55D7697C4684436C86BB290DA58B2114" KeyPath="yes" Source="$(var.PublishDir)\en\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>-->
       <Directory Id="dir7671653C5C9D478F9935E69613AF190D" Name="es">
         <Component Id="cmp48F018EF814747AA81FDB804DEBA6026" Guid="{65CBC2BA-3267-485D-8354-09F3091BC7D8}">
-          <File Id="fil97C098545B9C4080AFAE8BABC80031D6" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\es\dnGREP.Localization.resources.dll" />
+          <File Id="fil97C098545B9C4080AFAE8BABC80031D6" KeyPath="yes" Source="$(var.PublishDir)\es\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir111C9980DDC444CBA9072C7749AD3327" Name="et">
         <Component Id="cmpB67B9A0C0E674C2198464730DFA07683" Guid="{2173DFD0-CB16-432C-BAD8-F5106585F4CB}">
-          <File Id="fil15A202D07E1845058279663334728AC9" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\et\dnGREP.Localization.resources.dll" />
+          <File Id="fil15A202D07E1845058279663334728AC9" KeyPath="yes" Source="$(var.PublishDir)\et\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dirD085B6FB13C24CEBB2EBBBD005C26946" Name="fr">
         <Component Id="cmp07E78D4355184BD597B4E22D98A656C7" Guid="{01F7E5B2-E370-4DE3-B3EF-1AB2F7FA09DF}">
-          <File Id="fil3DB65B3EE0B34702B43AAECF429B9E9B" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\fr\dnGREP.Localization.resources.dll" />
+          <File Id="fil3DB65B3EE0B34702B43AAECF429B9E9B" KeyPath="yes" Source="$(var.PublishDir)\fr\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dirAEEF453D55A8468BA4FA3E1AD977AE28" Name="he">
         <Component Id="cmp6E066DAA55234C4DB9125224795D9984" Guid="{6E066DAA-5523-4C4D-B912-5224795D9984}">
-          <File Id="fil7E6AA28F928A422D9C52A627B4EF71CE" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\he\dnGREP.Localization.resources.dll" />
+          <File Id="fil7E6AA28F928A422D9C52A627B4EF71CE" KeyPath="yes" Source="$(var.PublishDir)\he\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir50D62A31FE294A859940CD8A0AC1CC85" Name="it">
         <Component Id="cmp5FA1DA548251420EB4A61036F1783260" Guid="{0D1BF577-0806-4268-AA39-75D538F33CDA}">
-          <File Id="filB4C7A5A6EE9348258AA427A5C478A4E5" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\it\dnGREP.Localization.resources.dll" />
+          <File Id="filB4C7A5A6EE9348258AA427A5C478A4E5" KeyPath="yes" Source="$(var.PublishDir)\it\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir81107CFE26CB427B97564A01AB5F3C04" Name="ko">
         <Component Id="cmp815A7822FDA7432DBDA15118BD15B268" Guid="{0407BAD4-273A-4D34-84BF-4B4D912A7174}">
-          <File Id="fil65E20FCCC3234B6AB9DC98621F391C9D" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ko\dnGREP.Localization.resources.dll" />
+          <File Id="fil65E20FCCC3234B6AB9DC98621F391C9D" KeyPath="yes" Source="$(var.PublishDir)\ko\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir29A125086A5142CD82967C90D4B30F84" Name="nb-NO">
         <Component Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" Guid="{CDCE4971-655F-42EB-938D-8752607B9651}">
-          <File Id="filD67EB47A35A94821A13404D45FD785DF" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\nb-NO\dnGREP.Localization.resources.dll" />
+          <File Id="filD67EB47A35A94821A13404D45FD785DF" KeyPath="yes" Source="$(var.PublishDir)\nb-NO\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir09F725F0F1D74CBB9AAA12FA92F93BF6" Name="pt">
         <Component Id="cmpC6739B2DA71444638D0B8EC7C82FBED7" Guid="{FB564555-58DD-41C1-84CD-B70C5E8F578C}">
-          <File Id="filBB35C373A3DD433CBBD2A85025D33214" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\pt\dnGREP.Localization.resources.dll" />
+          <File Id="filBB35C373A3DD433CBBD2A85025D33214" KeyPath="yes" Source="$(var.PublishDir)\pt\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir5BBA0090F3134A669D79AF8493E1ED07" Name="ru">
         <Component Id="cmp2B23830370BC47F1B72CDB2222A8F99C" Guid="{5AAAC353-B2EF-4BEF-8428-B223A91B090A}">
-          <File Id="fil1517188218DF424C9025E074D9897EA1" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ru\dnGREP.Localization.resources.dll" />
+          <File Id="fil1517188218DF424C9025E074D9897EA1" KeyPath="yes" Source="$(var.PublishDir)\ru\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir7C6E45B1E4684255BFCD427B3065445B" Name="sr">
         <Component Id="cmpB2EB07F7E92E4BD4938C28491950F8E9" Guid="{5BD1E3D5-ABB0-4880-9FB5-06149E9DC64D}">
-          <File Id="filA896E151FDC9464C85B043B3AAD3A443" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\sr\dnGREP.Localization.resources.dll" />
+          <File Id="filA896E151FDC9464C85B043B3AAD3A443" KeyPath="yes" Source="$(var.PublishDir)\sr\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir0504FAEF173645618FE93CEF2595F0E7" Name="zh-CN">
         <Component Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" Guid="{343F46B0-10E1-4EBF-A079-64AB1A433833}">
-          <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-CN\dnGREP.Localization.resources.dll" />
+          <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.PublishDir)\zh-CN\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir682790AA5ECC4AF1B7EF8FDB268EE8F1" Name="zh-Hant">
         <Component Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" Guid="{12AD663A-BE3C-475C-8344-51E7FC2FA65F}">
-          <File Id="filC43A3ED192864BC5AF4112F21427A756" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-Hant\dnGREP.Localization.resources.dll" />
+          <File Id="filC43A3ED192864BC5AF4112F21427A756" KeyPath="yes" Source="$(var.PublishDir)\zh-Hant\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dirA21EF341F58C4CD8A3652F9814E52748" Name="Themes">
         <Component Id="cmp9870824B781A4C4094CD594CACFBDE9E" Guid="{1E306AFA-D718-4B0A-93E8-B6242A094BF9}">
-          <File Id="fil2766C07E80EC4076B2B54F770E60FF44" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Themes\Sunset.xaml" />
+          <File Id="fil2766C07E80EC4076B2B54F770E60FF44" KeyPath="yes" Source="$(var.PublishDir)\Themes\Sunset.xaml" />
         </Component>
       </Directory>
     </DirectoryRef>
@@ -176,14 +180,20 @@
       <ComponentRef Id="cmpD9FA0B07237DE16A4585D46BED20E933" />
       <ComponentRef Id="cmp5D64364BE848D8D880558DFAFA0DE81C" />
       <ComponentRef Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" />
+      <ComponentRef Id="cmpB1990F210FDF4F16B74690BF159B71BE" />
       <ComponentRef Id="cmpE75E380769873171E1689F576B0BBBD1" />
+      <ComponentRef Id="cmp586BF859F92C4CBEBD45E855E0CE3B1E" />
+      <ComponentRef Id="cmp7FB095CD79B0456CBE2B08103FC384F3" />
       <ComponentRef Id="cmpB7F588B270AD4EFBBB04FF288C419407" />
       <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
       <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
       <ComponentRef Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" />
+      <ComponentRef Id="cmp7A55F9CF84A64DF4968DC208CA225AC8" />
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />
       <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
+      <ComponentRef Id="cmp5DE0DDB4E0924D539CA4EDDF7126B197" />
+      <ComponentRef Id="cmp03DC1007C5B54C628CA3B3E1053B7A70" />
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
       <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />

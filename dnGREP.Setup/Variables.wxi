@@ -6,11 +6,11 @@
   <?if $(var.Platform) = x64 ?>
   <?define Win64 = "yes" ?>
   <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
-  <?define NGenPlatform = "64bit" ?>
+  <?define PublishDir = "$(var.SolutionDir)\publish\win-x64\" ?>
   <?else ?>
   <?define Win64 = "no" ?>
   <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
-  <?define NGenPlatform = "32bit" ?>
+  <?define PublishDir = "$(var.SolutionDir)\publish\win-x86\" ?>
   <?endif ?>
   <!-- Version number. Should be overwritten during build. Revision is NOT used by Windows Installer during upgrade procedure. -->
   <?define MajorVersion="4" ?>

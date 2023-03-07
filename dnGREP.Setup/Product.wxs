@@ -149,14 +149,8 @@
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERFOUND</Custom>
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>
       <RemoveExistingProducts After="InstallInitialize"/>
-      <Custom Action="NetFxExecuteNativeImageCommitInstall" After="NetFxExecuteNativeImageUninstall">0</Custom>
-      <Custom Action="NetFxExecuteNativeImageInstall" After="NetFxExecuteNativeImageCommitInstall" />
     </InstallExecuteSequence>
 
-    <UI>
-      <ProgressText Action="NetFxExecuteNativeImageInstall">Running ngen to optimize the application</ProgressText>
-    </UI>
-    
     <InstallUISequence>
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERFOUND</Custom>
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>
