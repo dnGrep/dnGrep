@@ -1,0 +1,4 @@
+Publish commands, run from the dnGREP.WPF directory
+
+dotnet publish -p:PublishProfile=win-x64FolderProfile /p:Platform=x64
+dotnet publish -p:PublishProfile=win-x86FolderProfile /p:Platform=x86
