@@ -3027,4 +3027,91 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Настройки на търсене</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Съобщение</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Отметка</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>Име на отметката или празно</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    Изпълнява скрипта със зададения идентификатор.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Добавяне на отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Ред</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Проверка</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Преместване на файлове</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Без повторно задаване на въпроса</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Не</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Не, за _всички</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Да</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Да, _за всички</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Запитване</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Не</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>При копиране на файл, когато целевият файл съществува, да бъде ли презаписан?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>При преместване на файл, когато целевият файл съществува, да бъде ли презаписан?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Да</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>Командата не е валидна</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Копиране на файлове</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>Без определено ограничение</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
 </root>
