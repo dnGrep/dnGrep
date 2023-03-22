@@ -3114,4 +3114,64 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Без определено ограничение</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>скриптът е прекъснат</value>
+    <comment>Script message for script canceled</comment>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>Файловото разширение {0} трябва да е {1}</value>
+    <comment>Script message for invalid file extension{0} is the target name and {1} is the file extension</comment>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>Комантата за изпълняване завърши с грешка: </value>
+    <comment>Script message for run command error</comment>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>Грешка при преместване на файлове: </value>
+    <comment>Script message for move error</comment>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Грешка при копиране на файлове: </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Отменя последното действие по заместване</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>На ред</value>
+    <comment>Script message statement prefix</comment>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Нов скрипт</value>
+    <comment>Scripts: name for unnamed script file</comment>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>Грешка при премахване на файлове: </value>
+    <comment>Script message for delete error</comment>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Сортиране на резултати</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>Съобщения от скрипта</value>
+    <comment>Script Messages dialog title</comment>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>Файлове със скриптове</value>
+    <comment>Scripts: Open and Save file dialog label for script files</comment>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>скриптът е завършил</value>
+    <comment>Script message for script completed</comment>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>Командата за изпълняване е недействителна</value>
+    <comment>Script message for invalid run command</comment>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>Максимален брой успоредни търсения</value>
+    <comment>Options dialog, parallel options label</comment>
+  </data>
 </root>
