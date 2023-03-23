@@ -421,7 +421,7 @@ namespace SevenZip
         {
             lock (_syncRoot)
             {
-                if (_inArchives[user][format] == null)
+                if (!_inArchives.ContainsKey(user) || _inArchives[user][format] == null)
                 {
 #if NET45 || NETSTANDARD2_0
                     var sp = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
