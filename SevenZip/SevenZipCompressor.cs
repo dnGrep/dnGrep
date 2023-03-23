@@ -1203,6 +1203,8 @@ namespace SevenZip
                 }
             }
 
+            UpdateCompressorPassword(password);
+
             if (_volumeSize == 0 || !_compressingFilesOnDisk)
             {
                 ValidateStream(archiveStream);
@@ -1500,6 +1502,8 @@ namespace SevenZip
                 ValidateStream(archiveStream);
             }
 
+            UpdateCompressorPassword(password);
+            
             if (streamDictionary.Where(
                 pair => pair.Value != null && (!pair.Value.CanSeek || !pair.Value.CanRead)).Any(
                 pair => !ThrowException(null,
@@ -1664,11 +1668,7 @@ namespace SevenZip
                 }
             }
 
-            if (!string.IsNullOrEmpty(password) && string.IsNullOrEmpty(Password))
-            {
-                // When modifying an encrypted archive, Password is not set in the SevenZipCompressor.
-                Password = password;
-            }
+            UpdateCompressorPassword(password);
 
             try
             {
@@ -1861,6 +1861,19 @@ namespace SevenZip
         private static string[] GetFullFilePaths(IEnumerable<string> fileFullNames)
         {
             return fileFullNames.Select(Path.GetFullPath).ToArray();
+        }
+        
+        /// <summary>
+        /// Check and update password in SevenZipCompressor
+        /// </summary>
+        /// <param name="password">The password to use.</param>
+        private void UpdateCompressorPassword(string password)
+        {
+            if (!string.IsNullOrEmpty(password) && string.IsNullOrEmpty(Password))
+            {
+                // When modifying an encrypted archive, Password is not set in the SevenZipCompressor.
+                Password = password;
+            }
         }
     }
 }
