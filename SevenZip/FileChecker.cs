@@ -137,9 +137,9 @@
                 return InArchiveFormat.Iso;
             }
 
-            if (SpecialDetect(stream, 0x9001, InArchiveFormat.Iso))
+            if (SpecialDetect(stream, 0x200, InArchiveFormat.Gpt))
             {
-                return InArchiveFormat.Iso;
+                return InArchiveFormat.Gpt;
             }
 
             if (SpecialDetect(stream, 0x400, InArchiveFormat.Hfs))
