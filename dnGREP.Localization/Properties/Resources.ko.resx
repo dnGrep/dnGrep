@@ -263,7 +263,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>에서</value>
+    <value>to</value>
     <comment>Main window, filter files by date, past time label</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
@@ -343,7 +343,7 @@
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>에서</value>
+    <value>to</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
