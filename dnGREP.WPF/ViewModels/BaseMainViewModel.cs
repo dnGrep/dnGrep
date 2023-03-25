@@ -102,7 +102,7 @@ namespace dnGREP.WPF
 
         public ObservableCollection<string> FastFileNotMatchBookmarks { get; } = new ObservableCollection<string>();
 
-        public ObservableCollection<string> FastPathBookmarks { get; } = new ObservableCollection<string>();
+        public ObservableCollection<PathBookmark> FastPathBookmarks { get; } = new ObservableCollection<PathBookmark>();
 
         public ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
 
@@ -1821,7 +1821,8 @@ namespace dnGREP.WPF
             }
             Settings.Set(GrepSettings.Key.FilePatternIgnore, _filePatternIgnore);
 
-            List<string> pb = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
+            var pb = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks)
+                .Select(p => new PathBookmark(p)).ToList();
             if (pb != null)
             {
                 var toRemove = FastPathBookmarks.Except(pb).ToList();
@@ -1830,7 +1831,19 @@ namespace dnGREP.WPF
                     FastPathBookmarks.Remove(item);
                 }
 
-                foreach (string bookmark in pb)
+                var pins = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarkPins);
+                if (pins != null)
+                {
+                    foreach (var bookmark in pb)
+                    {
+                        if (pins.Contains(bookmark.SearchPath))
+                        {
+                            bookmark.IsPinned = true;
+                        }
+                    }
+                }
+
+                foreach (var bookmark in pb)
                 {
                     if (!FastPathBookmarks.Contains(bookmark))
                         FastPathBookmarks.Add(bookmark);

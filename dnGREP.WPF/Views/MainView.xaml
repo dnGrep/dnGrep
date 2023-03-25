@@ -54,6 +54,27 @@
         <HierarchicalDataTemplate DataType="{x:Type my:MenuItemViewModel}" 
                                   ItemsSource="{Binding Path=Children, UpdateSourceTrigger=PropertyChanged}"/>
 
+        <DataTemplate x:Key="cbSearchPathTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" SharedSizeGroup="A"/>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="B"/>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="C"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="0"
+                           Text="{Binding SearchPath}"/>
+                <ToggleButton Grid.Column="1" Margin="12,0,3,0"
+                              Style="{StaticResource ComboBoxPinButton}"
+                              IsChecked="{Binding IsPinned, Mode=TwoWay}"/>
+                <Button Grid.Column="2" Margin="3,0"
+                        Style="{StaticResource ComboBoxDeleteButton}"
+                        Command="{Binding DataContext.DeletePathBookmarkCommand,
+                            RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                        CommandParameter="{Binding}"/>
+
+            </Grid>
+        </DataTemplate>
+
     </my:ThemedWindow.Resources>
 
     <my:ThemedWindow.InputBindings>
@@ -318,12 +339,16 @@
                         <Label Grid.Row="0" Grid.Column="0" Margin="3,8"
                                Content="{Binding SearchTextBoxLabel, FallbackValue='Folder:'}"
                                Style="{StaticResource ThemedLabel}" 
-                               Target="{Binding ElementName=SearchText}"/>
-                        <ComboBox x:Name="SearchText" Grid.Row="0" Grid.Column="1"
+                               Target="{Binding ElementName=searchPath}"/>
+                        <ComboBox x:Name="searchPath" Grid.Row="0" Grid.Column="1"
                                   Margin="3,4" Padding="3" TabIndex="10"
                                   Text="{Binding FileOrFolderPath}"
+                                  TextSearch.TextPath="SearchPath"
                                   ItemsSource="{Binding FastPathBookmarks}"
-                                  IsEditable="True" />
+                                  IsEditable="True"
+                                  Grid.IsSharedSizeScope="True"
+                                  ItemTemplate="{StaticResource cbSearchPathTemplate}">
+                        </ComboBox>
                         <Button Grid.Row="0" Grid.Column="2"
                                 Margin="3,4"
                                 Command="{Binding BrowseCommand}"

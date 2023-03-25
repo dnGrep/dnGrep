@@ -122,6 +122,7 @@
     <Compile Include="ViewModels\CultureAwareViewModel.cs" />
     <Compile Include="ViewModels\MainViewModelScripts.cs" />
     <Compile Include="ViewModels\MenuItemViewModel.cs" />
+    <Compile Include="ViewModels\PathBookmark.cs" />
     <Compile Include="ViewModels\ReportOptionsViewModel.cs" />
     <Compile Include="ViewModels\ScriptViewModel.cs" />
     <Compile Include="Views\MessagesWindow.xaml.cs">

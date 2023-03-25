@@ -100,6 +100,7 @@ namespace dnGREP.Common
             public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
             public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
             public const string FastPathBookmarks = "FastPathBookmarks";
+            public const string FastPathBookmarkPins = "FastPathBookmarkPins";
             [DefaultValue(12)]
             public const string PreviewWindowFont = "PreviewWindowFont";
             [DefaultValue(false)]

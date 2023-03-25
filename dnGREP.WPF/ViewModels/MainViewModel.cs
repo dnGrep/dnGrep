@@ -912,6 +912,15 @@ namespace dnGREP.WPF
             p => OpenAppDataFolder(),
             q => true);
 
+        public ICommand DeletePathBookmarkCommand => new RelayCommand(
+            p => DeletePathBookmark(p),
+            q => true);
+
+        private void DeletePathBookmark(object p)
+        {
+        }
+
+
         #endregion
 
         #region Public Methods
@@ -2148,16 +2157,16 @@ namespace dnGREP.WPF
             while (FastFileNotMatchBookmarks.Count > maxExtCount)
                 FastFileNotMatchBookmarks.RemoveAt(FastFileNotMatchBookmarks.Count - 1);
 
-            string searchPath = FileOrFolderPath;
-            if (FastPathBookmarks.IndexOf(searchPath) != 0)
+            PathBookmark searchPathBookmark = new PathBookmark(FileOrFolderPath);
+            if (FastPathBookmarks.IndexOf(searchPathBookmark) != 0)
             {
-                FastPathBookmarks.Insert(0, searchPath);
-                int idx = FastPathBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == searchPath).Select(xn => xn.n).Skip(1).FirstOrDefault();
+                FastPathBookmarks.Insert(0, searchPathBookmark);
+                int idx = FastPathBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x.SearchPath == searchPathBookmark.SearchPath).Select(xn => xn.n).Skip(1).FirstOrDefault();
                 if (idx > 0)
                 {
-                    string s = searchPath;
+                    var s = searchPathBookmark;
                     FastPathBookmarks.RemoveAt(idx);
-                    FileOrFolderPath = s;
+                    FileOrFolderPath = s.SearchPath;
                 }
             }
             while (FastPathBookmarks.Count > maxPathCount)
@@ -3327,11 +3336,17 @@ namespace dnGREP.WPF
             }
             Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
             List<string> fpb = new List<string>();
+            List<string> pins = new List<string>();
             for (int i = 0; i < FastPathBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
             {
-                fpb.Add(FastPathBookmarks[i]);
+                fpb.Add(FastPathBookmarks[i].SearchPath);
+                if (FastPathBookmarks[i].IsPinned)
+                {
+                    pins.Add(FastPathBookmarks[i].SearchPath);
+                }
             }
             Settings.Set(GrepSettings.Key.FastPathBookmarks, fpb);
+            Settings.Set(GrepSettings.Key.FastPathBookmarkPins, pins);
         }
 
         private void OpenAppDataFolder()
