@@ -3036,7 +3036,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
-    <value>Име на отметката или празно</value>
+    <value>Име на отметка или празно</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="Help_CmdLineScript" xml:space="preserve">
@@ -3047,7 +3047,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="ScriptHint_bookmark_add" xml:space="preserve">
-    <value>Добавяне на отметка</value>
+    <value>Добавя отметка</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="Script_Validation_Header_Line" xml:space="preserve">
@@ -3173,5 +3173,85 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
     <value>Максимален брой успоредни търсения</value>
     <comment>Options dialog, parallel options label</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>Стойността не може да бъде преобразувана от низа</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Командата не приема стойност като параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Командата изисква булева стойност като параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Копира на друго място файловете, идващи като резултат</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Целева папка</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Добавя отметка към папката, в която се извършва търсене</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Премахва отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Премахва отметка към папка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Прилага настройки от отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>Стойността не може да бъде превърната в правилния тип</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>Командата изисква целеви параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Копира в междинната памет имената на файловете, идващи като резултат</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>Идентификатор/име на файл на скрипт</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Целевото име е недействително</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Командата не приема null като стойност</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>Наименование на отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Копира в междинната памет текста, идващ като резултат</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>Скрипт със зададения идентификатор не е намерен</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Командата изисква низ като параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>Наименование на отметката, която да бъде премахната или празно за текущата отметка</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
 </root>
