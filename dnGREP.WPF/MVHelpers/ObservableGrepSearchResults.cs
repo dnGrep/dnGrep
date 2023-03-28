@@ -152,9 +152,7 @@ namespace dnGREP.WPF
                         extension = ".na";
                     if (!icons.ContainsKey(extension))
                     {
-                        System.Drawing.Bitmap bitmapIcon = IconHandler.IconFromExtensionShell(extension, IconSize.Small);
-                        if (bitmapIcon == null)
-                            bitmapIcon = dnGREP.Common.Properties.Resources.na_icon;
+                        System.Drawing.Bitmap bitmapIcon = IconHandler.IconFromExtensionShell(extension, IconSize.Small) ?? Common.Properties.Resources.na_icon;
                         icons[extension] = GetBitmapSource(bitmapIcon);
                     }
                     newEntry.Icon = icons[extension];

@@ -61,8 +61,7 @@ namespace dnGREP.WPF.MVHelpers
         [Conditional("DEBUG")]
         void VerifyParameterType(string message, Type parameterType)
         {
-            Type previouslyRegisteredParameterType = null;
-            if (_messageToActionsMap.TryGetParameterType(message, out previouslyRegisteredParameterType))
+            if (_messageToActionsMap.TryGetParameterType(message, out Type previouslyRegisteredParameterType))
             {
                 if (previouslyRegisteredParameterType != null && parameterType != null)
                 {
@@ -102,16 +101,14 @@ namespace dnGREP.WPF.MVHelpers
             if (string.IsNullOrEmpty(message))
                 throw new ArgumentException("'message' cannot be null or empty.");
 
-            Type registeredParameterType;
-            if (_messageToActionsMap.TryGetParameterType(message, out registeredParameterType))
+            if (_messageToActionsMap.TryGetParameterType(message, out Type registeredParameterType))
             {
                 if (registeredParameterType == null)
                     throw new TargetParameterCountException(string.Format("Cannot pass a parameter with message '{0}'. Registered action(s) expect no parameter.", message));
             }
 
             var actions = _messageToActionsMap.GetActions(message);
-            if (actions != null)
-                actions.ForEach(action => action.DynamicInvoke(parameter));
+            actions?.ForEach(action => action.DynamicInvoke(parameter));
         }
 
         /// <summary>
@@ -123,16 +120,14 @@ namespace dnGREP.WPF.MVHelpers
             if (string.IsNullOrEmpty(message))
                 throw new ArgumentException("'message' cannot be null or empty.");
 
-            Type registeredParameterType;
-            if (_messageToActionsMap.TryGetParameterType(message, out registeredParameterType))
+            if (_messageToActionsMap.TryGetParameterType(message, out Type registeredParameterType))
             {
                 if (registeredParameterType != null)
                     throw new TargetParameterCountException(string.Format("Must pass a parameter of type {0} with this message. Registered action(s) expect it.", registeredParameterType.FullName));
             }
 
             var actions = _messageToActionsMap.GetActions(message);
-            if (actions != null)
-                actions.ForEach(action => action.DynamicInvoke());
+            actions?.ForEach(action => action.DynamicInvoke());
         }
 
         #endregion // NotifyColleauges
