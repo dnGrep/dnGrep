@@ -33,6 +33,8 @@ namespace dnGREP.WPF
         public event EventHandler PreviewHide;
         public event EventHandler PreviewShow;
 
+        public static readonly Messenger MainViewMessenger = new Messenger();
+
         private Brush highlightForeground;
         private Brush highlightBackground;
 
@@ -93,6 +95,8 @@ namespace dnGREP.WPF
 
                 idleTimer.Interval = TimeSpan.FromMilliseconds(250);
                 idleTimer.Tick += IdleTimer_Tick;
+
+                MainViewMessenger.Register<PathBookmark>("IsPinnedChanged", OnPathBookmarkPinChanged);
             }
         }
 
@@ -913,12 +917,8 @@ namespace dnGREP.WPF
             q => true);
 
         public ICommand DeletePathBookmarkCommand => new RelayCommand(
-            p => DeletePathBookmark(p),
+            p => DeletePathBookmark(p as PathBookmark),
             q => true);
-
-        private void DeletePathBookmark(object p)
-        {
-        }
 
 
         #endregion
@@ -1733,7 +1733,7 @@ namespace dnGREP.WPF
             }
             if (fileFolderDialog.ShowDialog() == true)
             {
-                string newPath = string.Empty;
+                string newPath;
                 if (fileFolderDialog.HasMultiSelectedFiles)
                 {
                     newPath = fileFolderDialog.GetSelectedPaths(
@@ -1791,6 +1791,7 @@ namespace dnGREP.WPF
                     return;
                 }
 
+                UpdateBookmarks();
                 SaveSettings();
 
                 if (TypeOfFileSearch == FileSearchType.Regex)
@@ -1829,7 +1830,6 @@ namespace dnGREP.WPF
                     workerParams.AddSearchFiles(foundFiles);
                 }
 
-                UpdateBookmarks();
                 SearchParametersChanged = false;
 
                 ClearMatchCountStatus();
@@ -2096,9 +2096,9 @@ namespace dnGREP.WPF
         {
             inUpdateBookmarks = true;
 
-            int maxSearchReplaceCount = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
-            int maxPathCount = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
-            int maxExtCount = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+            int maxSearchBookmarks = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            int maxPathBookmarks = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            int maxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
 
             // Update bookmarks, moving current to the top of the list
             if (FastSearchBookmarks.IndexOf(SearchFor) != 0)
@@ -2112,7 +2112,7 @@ namespace dnGREP.WPF
                     SearchFor = s;
                 }
             }
-            while (FastSearchBookmarks.Count > maxSearchReplaceCount)
+            while (FastSearchBookmarks.Count > maxSearchBookmarks)
                 FastSearchBookmarks.RemoveAt(FastSearchBookmarks.Count - 1);
 
             if (FastReplaceBookmarks.IndexOf(ReplaceWith) != 0)
@@ -2126,7 +2126,7 @@ namespace dnGREP.WPF
                     ReplaceWith = s;
                 }
             }
-            while (FastReplaceBookmarks.Count > maxSearchReplaceCount)
+            while (FastReplaceBookmarks.Count > maxSearchBookmarks)
                 FastReplaceBookmarks.RemoveAt(FastReplaceBookmarks.Count - 1);
 
             if (FastFileMatchBookmarks.IndexOf(FilePattern) != 0)
@@ -2140,7 +2140,7 @@ namespace dnGREP.WPF
                     FilePattern = s;
                 }
             }
-            while (FastFileMatchBookmarks.Count > maxExtCount)
+            while (FastFileMatchBookmarks.Count > maxExtensionBookmarks)
                 FastFileMatchBookmarks.RemoveAt(FastFileMatchBookmarks.Count - 1);
 
             if (FastFileNotMatchBookmarks.IndexOf(FilePatternIgnore) != 0)
@@ -2154,25 +2154,56 @@ namespace dnGREP.WPF
                     FilePatternIgnore = s;
                 }
             }
-            while (FastFileNotMatchBookmarks.Count > maxExtCount)
+            while (FastFileNotMatchBookmarks.Count > maxExtensionBookmarks)
                 FastFileNotMatchBookmarks.RemoveAt(FastFileNotMatchBookmarks.Count - 1);
 
-            PathBookmark searchPathBookmark = new PathBookmark(FileOrFolderPath);
-            if (FastPathBookmarks.IndexOf(searchPathBookmark) != 0)
+            // keep pinned items in order at the top of the list
+            var item = FastPathBookmarks.FirstOrDefault(b => b.SearchPath.Equals(FileOrFolderPath, StringComparison.CurrentCultureIgnoreCase));
+            int newIndex = IndexOfFirstUnpinned(FastPathBookmarks);
+            if (item != null)
             {
-                FastPathBookmarks.Insert(0, searchPathBookmark);
-                int idx = FastPathBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x.SearchPath == searchPathBookmark.SearchPath).Select(xn => xn.n).Skip(1).FirstOrDefault();
-                if (idx > 0)
+                if (!item.IsPinned)
                 {
-                    var s = searchPathBookmark;
-                    FastPathBookmarks.RemoveAt(idx);
-                    FileOrFolderPath = s.SearchPath;
+                    int currentIndex = FastPathBookmarks.IndexOf(item);
+                    if (FastPathBookmarks.IndexOf(item) != newIndex)
+                    {
+                        FastPathBookmarks.RemoveAt(currentIndex);
+                        FastPathBookmarks.Insert(newIndex, item);
+                        FileOrFolderPath = item.SearchPath;
+                    }
                 }
             }
-            while (FastPathBookmarks.Count > maxPathCount)
+            else
+            {
+                FastPathBookmarks.Insert(newIndex, new PathBookmark(FileOrFolderPath));
+            }
+
+            while (FastPathBookmarks.Count > maxPathBookmarks)
                 FastPathBookmarks.RemoveAt(FastPathBookmarks.Count - 1);
 
             inUpdateBookmarks = false;
+        }
+
+        private void OnPathBookmarkPinChanged(PathBookmark item)
+        {
+            if (item != null)
+            {
+                int currentIndex = FastPathBookmarks.IndexOf(item);
+                FastPathBookmarks.RemoveAt(currentIndex);
+
+                int newIndex = IndexOfFirstUnpinned(FastPathBookmarks);
+                FastPathBookmarks.Insert(newIndex, item);
+            }
+        }
+
+        private int IndexOfFirstUnpinned(IList<PathBookmark> list)
+        {
+            for (int idx = 0; idx < list.Count; idx++)
+            {
+                if (!list[idx].IsPinned)
+                    return idx;
+            }
+            return 0;
         }
 
         private void Cancel()
@@ -2188,8 +2219,10 @@ namespace dnGREP.WPF
         private void ShowOptions()
         {
             SaveSettings();
-            var optionsForm = new OptionsView();
-            optionsForm.Owner = ParentWindow;
+            var optionsForm = new OptionsView
+            {
+                Owner = ParentWindow
+            };
             var optionsViewModel = new OptionsViewModel();
             optionsForm.DataContext = optionsViewModel;
             try
@@ -2215,8 +2248,10 @@ namespace dnGREP.WPF
 
         private void ShowAbout()
         {
-            AboutWindow aboutForm = new AboutWindow();
-            aboutForm.Owner = Application.Current.MainWindow;
+            AboutWindow aboutForm = new AboutWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
             aboutForm.ShowDialog();
         }
 
@@ -2378,11 +2413,7 @@ namespace dnGREP.WPF
                 }
             }
             BookmarkLibrary.Save();
-
-            if (bookmarkWindow != null)
-            {
-                bookmarkWindow.ViewModel.SynchToLibrary();
-            }
+            bookmarkWindow?.ViewModel.SynchToLibrary();
         }
 
         private void AddBookmark(string bookmarkName, bool assocateWithFolder)
@@ -2423,11 +2454,7 @@ namespace dnGREP.WPF
             if (modified)
             {
                 BookmarkLibrary.Save();
-
-                if (bookmarkWindow != null)
-                {
-                    bookmarkWindow.ViewModel.SynchToLibrary();
-                }
+                bookmarkWindow?.ViewModel.SynchToLibrary();
             }
         }
 
@@ -2483,11 +2510,7 @@ namespace dnGREP.WPF
                 UpdateState(nameof(SearchFor)); // to update the bookmark indicator check boxes
 
                 BookmarkLibrary.Save();
-
-                if (bookmarkWindow != null)
-                {
-                    bookmarkWindow.ViewModel.SynchToLibrary();
-                }
+                bookmarkWindow?.ViewModel.SynchToLibrary();
             }
         }
 
@@ -2852,8 +2875,10 @@ namespace dnGREP.WPF
         private void ShowReportOptions()
         {
             ReportOptionsViewModel vm = new ReportOptionsViewModel(SearchResults);
-            ReportOptionsWindow dlg = new ReportOptionsWindow(vm);
-            dlg.Owner = Application.Current.MainWindow;
+            ReportOptionsWindow dlg = new ReportOptionsWindow(vm)
+            {
+                Owner = Application.Current.MainWindow
+            };
             dlg.ShowDialog();
         }
 
@@ -3310,34 +3335,41 @@ namespace dnGREP.WPF
 
         private void CopyBookmarksToSettings()
         {
+            int maxSearchBookmarks = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            int maxPathBookmarks = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            int maxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+
             //Saving bookmarks
             List<string> fsb = new List<string>();
-            for (int i = 0; i < FastSearchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
+            for (int i = 0; i < FastSearchBookmarks.Count && i < maxSearchBookmarks; i++)
             {
                 fsb.Add(FastSearchBookmarks[i]);
             }
             Settings.Set(GrepSettings.Key.FastSearchBookmarks, fsb);
+
             List<string> frb = new List<string>();
-            for (int i = 0; i < FastReplaceBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
+            for (int i = 0; i < FastReplaceBookmarks.Count && i < maxSearchBookmarks; i++)
             {
                 frb.Add(FastReplaceBookmarks[i]);
             }
             Settings.Set(GrepSettings.Key.FastReplaceBookmarks, frb);
+
             List<string> ffmb = new List<string>();
-            for (int i = 0; i < FastFileMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
+            for (int i = 0; i < FastFileMatchBookmarks.Count && i < maxExtensionBookmarks; i++)
             {
                 ffmb.Add(FastFileMatchBookmarks[i]);
             }
             Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, ffmb);
             List<string> ffnmb = new List<string>();
-            for (int i = 0; i < FastFileNotMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
+            for (int i = 0; i < FastFileNotMatchBookmarks.Count && i < maxExtensionBookmarks; i++)
             {
                 ffnmb.Add(FastFileNotMatchBookmarks[i]);
             }
             Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
+
             List<string> fpb = new List<string>();
             List<string> pins = new List<string>();
-            for (int i = 0; i < FastPathBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
+            for (int i = 0; i < FastPathBookmarks.Count && i < maxPathBookmarks; i++)
             {
                 fpb.Add(FastPathBookmarks[i].SearchPath);
                 if (FastPathBookmarks[i].IsPinned)
@@ -3422,6 +3454,27 @@ namespace dnGREP.WPF
 
                 if (!IsPreviewDocked)
                     PreviewShow?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private void DeletePathBookmark(PathBookmark pathBookmark)
+        {
+            if (pathBookmark != null)
+            {
+                FastPathBookmarks.Remove(pathBookmark);
+
+                List<string> fpb = new List<string>();
+                List<string> pins = new List<string>();
+                foreach (var path in FastPathBookmarks)
+                {
+                    fpb.Add(path.SearchPath);
+                    if (path.IsPinned)
+                    {
+                        pins.Add(path.SearchPath);
+                    }
+                }
+                Settings.Set(GrepSettings.Key.FastPathBookmarks, fpb);
+                Settings.Set(GrepSettings.Key.FastPathBookmarkPins, pins);
             }
         }
         #endregion

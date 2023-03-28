@@ -22,7 +22,6 @@ namespace dnGREP.WPF
 {
     public class BaseMainViewModel : CultureAwareViewModel, IDataErrorInfo
     {
-        public static readonly int FastBookmarkCapacity = 20;
         public static readonly string STAR = "*";
         public static readonly string AUTO = "Auto";
 

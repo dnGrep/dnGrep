@@ -1249,9 +1249,11 @@ namespace dnGREP.WPF
         {
             Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, new List<string>());
             Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, new List<string>());
-            Settings.Set(GrepSettings.Key.FastPathBookmarks, new List<string>());
             Settings.Set(GrepSettings.Key.FastReplaceBookmarks, new List<string>());
             Settings.Set(GrepSettings.Key.FastSearchBookmarks, new List<string>());
+            // keep the pinned bookmarks
+            var pins = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarkPins);
+            Settings.Set(GrepSettings.Key.FastPathBookmarks, pins);
         }
 
         private void LoadSettings()
