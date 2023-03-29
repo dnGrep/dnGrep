@@ -30,7 +30,9 @@
                             <Rectangle Grid.Column="1" Width="1" Margin="0,4,0,4"
                                     Fill="{TemplateBinding Foreground}" Opacity="0.4" />
                             <Grid x:Name="SplitElement" Grid.Column="2" Background="Transparent">
-                                <TextBlock x:Name="arrow" Text="⏷" FontFamily="Segoe UI Symbol" 
+                                <TextBlock x:Name="arrow" 
+                                           Text="{Binding DropDownArrowCharacter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type my:SplitButton}}}" 
+                                           FontFamily="{Binding DropDownFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type my:SplitButton}}}" 
                                            VerticalAlignment="Center" Margin="3"
                                            Foreground="{TemplateBinding Foreground}"/>
                             </Grid>

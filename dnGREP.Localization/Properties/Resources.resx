@@ -1044,8 +1044,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_More ⏷</value>
-    <comment>Main window, More button label with down arrow (accel)</comment>
+    <value>_More</value>
+    <comment>Main window, More button label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Copy file names</value>

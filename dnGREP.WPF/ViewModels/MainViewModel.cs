@@ -759,6 +759,9 @@ namespace dnGREP.WPF
             preceedingMatches.Clear();
         }
 
+        public string DropDownFontFamily { get; set; } = SystemSymbols.DropDownFontFamily;
+        public string DropDownArrowCharacter { get; set; } = SystemSymbols.DropDownArrowCharacter;
+
         #endregion
 
         #region Commands

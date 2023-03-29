@@ -117,6 +117,7 @@
     <Compile Include="Scripting\ScriptStatement.cs" />
     <Compile Include="Scripting\ScriptTargetDefinition.cs" />
     <Compile Include="Scripting\ScriptValueDefinition.cs" />
+    <Compile Include="SystemSymbols.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
     <Compile Include="ViewModels\MainViewModelProps.cs" />
     <Compile Include="ViewModels\CultureAwareViewModel.cs" />

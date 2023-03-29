@@ -44,6 +44,15 @@ namespace dnGREP.WPF
             }
         }
 
+
+        public string FontFamily { get; set; } = SystemSymbols.FontFamily;
+
+        public string DeleteCharacter { get; set; } = SystemSymbols.DeleteCharacter;
+
+        public string PinCharacter { get; set; } = SystemSymbols.PinCharacter;
+
+        public string UnpinCharacter { get; set; } = SystemSymbols.UnpinCharacter;
+
         public override int GetHashCode()
         {
             return SearchPath.GetHashCode();

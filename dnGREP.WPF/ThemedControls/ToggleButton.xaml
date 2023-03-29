@@ -111,7 +111,7 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ButtonFocusVisual}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
-        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+        <Setter Property="FontFamily" Value="{Binding FontFamily}"/>
         <Setter Property="Visibility" Value="Hidden"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -142,7 +142,7 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Visibility" Value="Visible" />
-                            <Setter Property="Content" Value="&#xE718;"/>
+                            <Setter Property="Content" Value="{Binding PinCharacter}"/>
                         </Trigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -150,7 +150,7 @@
                                 <Condition Binding="{Binding Path=IsChecked, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible" />
-                            <Setter Property="Content" Value="&#xE196;"/>
+                            <Setter Property="Content" Value="{Binding UnpinCharacter}"/>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -158,7 +158,7 @@
                                 <Condition Binding="{Binding Path=IsChecked, RelativeSource={RelativeSource Mode=Self}}" Value="False"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible" />
-                            <Setter Property="Content" Value="&#xE718;"/>
+                            <Setter Property="Content" Value="{Binding PinCharacter}"/>
                         </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

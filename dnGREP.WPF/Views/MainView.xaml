@@ -976,12 +976,21 @@
                             </my:SplitButton.ContextMenu>
                         </my:SplitButton>
                         <Button Margin="3" Padding="8,3"
-                                Content="{l:Loc Key='Main_MoreArrowButton'}"
                                 Click="ButtonOtherActions_Click"
                                 ContextMenuService.Placement="Bottom"
                                 IsEnabled="{Binding CanSearchInResults}"
                                 TabIndex="86"
                                 Visibility="{Binding MoreVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Button.ContentTemplate >
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <AccessText Text="{l:Loc Key='Main_MoreArrowButton'}"/>
+                                        <TextBlock Margin="3,0,0,0"
+                                                   Text="{Binding Path=DataContext.DropDownArrowCharacter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, FallbackValue='⏷'}"
+                                                   FontFamily="{Binding Path=DataContext.DropDownFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="advanceContextMenu">
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFiles'}" Command="{Binding CopyFilesCommand}" />
