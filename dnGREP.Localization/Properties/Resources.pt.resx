@@ -1666,7 +1666,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>Ma_is ⏷</value>
+    <value>Ma_is</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
