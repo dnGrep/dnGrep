@@ -15,8 +15,7 @@ namespace SevenZip
     {
         private readonly bool _reportErrors;
         private readonly int _uniqueID;
-        private static readonly object _uniqueIdLock = new object();
-        private static uint _lastUniqueId = 0;
+        private static int _incrementingUniqueId = int.MinValue;
 
         /// <summary>
         /// True if the instance of the class needs to be recreated in new thread context; otherwise, false.
@@ -104,13 +103,8 @@ namespace SevenZip
 
         private static int GetUniqueID()
         {
-            lock (_uniqueIdLock)
-            {
-                unchecked
-                {
-                    return (int)_lastUniqueId++;
-                }
-            }
+            var newUniqueId = Interlocked.Increment(ref _incrementingUniqueId);
+            return newUniqueId;
         }
 
         /// <summary>
