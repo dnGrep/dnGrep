@@ -602,11 +602,21 @@ namespace dnGREP.WPF
 
         private static void ClearSearches()
         {
-            Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, new List<string>());
-            Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, new List<string>());
-            Settings.Set(GrepSettings.Key.FastPathBookmarks, new List<string>());
-            Settings.Set(GrepSettings.Key.FastReplaceBookmarks, new List<string>());
-            Settings.Set(GrepSettings.Key.FastSearchBookmarks, new List<string>());
+            // keep the pinned bookmarks
+            Settings.Set(GrepSettings.Key.FastPathBookmarks,
+                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastPathBookmarks).Where(r => r.IsPinned));
+
+            Settings.Set(GrepSettings.Key.FastFileMatchBookmarks,
+                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileMatchBookmarks).Where(r => r.IsPinned));
+
+            Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks,
+                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileNotMatchBookmarks).Where(r => r.IsPinned));
+
+            Settings.Set(GrepSettings.Key.FastSearchBookmarks,
+                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastSearchBookmarks).Where(r => r.IsPinned));
+
+            Settings.Set(GrepSettings.Key.FastReplaceBookmarks,
+                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastReplaceBookmarks).Where(r => r.IsPinned));
         }
 
 #pragma warning disable MVVMTK0034

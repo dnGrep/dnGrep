@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>حول dnGrep</value>
+    <comment>About dialog window title</comment>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>شكر وتقدير</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>بنيت على</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>مكون محرر نصوص .NET WPF</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>الإصدار</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>يحول ملفات PDF إلى نص عادي</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep على github</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>فهرسة نظام الملفات ، وتحديد موقع الملفات على الفور</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>إطار عمل JSON لـ .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>مكتبة لقراءة الملفات المضغوطة</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>إطار عمل السجل لـ .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>مكتبة .NET لـ 7-Zip</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>مكتبة .NET لاكتشاف مجموعة الأحرف</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>مكتبة .NET للمسارات الطويلة</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>مكتبة .NET لقراءة ملفات Microsoft Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>مكتبة .NET لتحليل أرقام ECMA-376</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>مكتبة .NET للعمل مع مستندات Word و Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>المجلدات المرتبطة:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>اسم الإشارة المرجعية:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>العوامل المنطقية</value>
+    <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>المحتوى</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>تضمين خصائص بحث المحتوى في الإشارة المرجعية</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>الوصف</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>الترميز</value>
+    <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>خدمة فهرسة كل شيء</value>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>نوع نمط الملف</value>
+    <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>مصدر الملف</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>تضمين خصائص مصدر الملف في الإشارة المرجعية</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>مرشحات الملفات</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>تضمين خصائص مرشح الملف في الإشارة المرجعية</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>اتبع الروابط الرمزية</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+</root>

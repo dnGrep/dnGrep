@@ -724,7 +724,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>M_ehr…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Mehr ⏷</value>
+    <value>_Mehr</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Dateinname kopieren</value>
@@ -2348,5 +2348,376 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
   <data name="Options_SearchOptions" xml:space="preserve">
     <value>Suchoptionen</value>
     <comment>Options dialog, search options group header label</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Dateien löschen</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Dauerhaft löschen</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>In den Papierkorb senden</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>Beim Löschen von Dateien</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Vorschlagen</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Skript-Editor</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Zeile</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Werkzeuge</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Nachricht</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>Der Befehl ist ungültig</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Dieser Befehl benötigt keinen Werteparameter</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Ein Lesezeichen entfernen</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Hinzufügen eines neuen Lesezeichens, das mit dem aktuellen Suchordner verknüpft ist</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Lesezeichen-Einstellungen anwenden</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Dateinamen in den Ergebnissen in die Zwischenablage kopieren</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>Löschen Sie die Ergebnisdateien dauerhaft</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Erweitern oder Ausblenden des Abschnitts "Dateifilter"</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>Die Befehle eines anderen Skripts in das aktuelle Skript einfügen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>Maximieren oder Wiederherstellen des Suchergebnisbaums</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>Verschieben von Ergebnisdateien an einen neuen Ort</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Einen Bericht schreiben</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Der Pfad und der Dateiname für den Bericht</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>Der Ergebnisbericht als csv-Datei</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_Datei</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_Neu…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Speichern _als…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Lesezeichen</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_Skript ausführen</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>Va_lidieren</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [SkriptSchlüssel]
+    Führt das durch den Skriptschlüssel identifizierte Skript aus.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Neues Skript…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Skripte</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Dateien in Papierkorb verschieben</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} weist Validierungsfehler auf. Trotzdem speichern?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>PDF-Nummernstil:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>Dateiname existiert bereits in diesem Verzeichnis</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>_Kopieren</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Ausschneiden</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>_Zeile löschen</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Ausgewählte Zeilen nach unten verschieben</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Ausgewählte Zeilen nach oben verschieben</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>_Einfügen</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>Der Skriptschlüssel wurde nicht gefunden</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Der Zielname ist ungültig</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>Der Wert kann nicht aus dem String konvertiert werden</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Dieser Befehl erlaubt keinen Nullwert</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>Der Wert konnte nicht in den richtigen Typ konvertiert werden</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>Der Name eines Lesezeichens</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>Alle Fenster schließen und dnGrep beenden</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>Der Schlüssel/Dateiname des Skripts</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Der Pfad des Zielordners</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Ersetzen von Übereinstimmungen in Dateien</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Seitenzahlen</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Explorer-Menü anzeigen</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Fragen</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Nicht mehr fragen</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Nein</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Nein zu A_llem</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} hat ungespeicherte Änderungen. Jetzt speichern?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Ja</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Ja zu _Alle</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>Wird beim Verschieben einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Dateien verschieben</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Nein</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Ja</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>_Wiederholen</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Speichern</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_Skripting-Befehle</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Validierung</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Für diesen Befehl ist ein boolescher Wert erforderlich</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Dieser Befehl erfordert einen String-Wert</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>Für diesen Befehl ist ein Zielparameter erforderlich</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Ein neues Lesezeichen hinzufügen</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>Der Name für das neue Lesezeichen, oder leer</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>Der Name des Lesezeichens, das entfernt werden soll, oder leer für das aktuelle Lesezeichen</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Entfernen eines Ordner-Lesezeichens</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Erweitern oder verbergen Sie die Ergebnisse Optionen Abschnitt</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Importieren von Daten</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>Das Skript-Meldungsfenster immer anzeigen, wenn das Skript beendet ist</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Dateiname enthält ungültige Zeichen</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Skript bearbeiten…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Skript abbrechen</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Anwendungsdaten und _Logs</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Anzahl der Übereinstimmungen/Zahl der Übereinstimmungen in der Datei</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Anzahl der Treffer in Zeile</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Zeilennummern</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Anzahl der Treffer/Anzahl der Treffer insgesamt</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Wird beim Kopieren einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Kopieren von Ergebnisdateien an einen neuen Speicherort</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Der Zielordnerpfad</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Ergebnistext in die Zwischenablage kopieren</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Dateien kopieren</value>
+    <comment>Options dialog, move files group header label</comment>
   </data>
 </root>

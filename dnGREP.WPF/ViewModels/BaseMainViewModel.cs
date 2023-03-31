@@ -20,7 +20,6 @@ namespace dnGREP.WPF
 {
     public partial class BaseMainViewModel : CultureAwareViewModel
     {
-        public static readonly int FastBookmarkCapacity = 20;
         public static readonly string STAR = "*";
         public static readonly string AUTO = "Auto";
         public readonly static DateTime minDate = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
@@ -92,15 +91,15 @@ namespace dnGREP.WPF
 
         public GrepSearchResultsViewModel ResultsViewModel { get; } = new();
 
-        public ObservableCollection<string> FastSearchBookmarks { get; } = new();
+        public ObservableCollection<MRUViewModel> FastSearchBookmarks { get; } = new ObservableCollection<MRUViewModel>();
 
-        public ObservableCollection<string> FastReplaceBookmarks { get; } = new();
+        public ObservableCollection<MRUViewModel> FastReplaceBookmarks { get; } = new ObservableCollection<MRUViewModel>();
 
-        public ObservableCollection<string> FastFileMatchBookmarks { get; } = new();
+        public ObservableCollection<MRUViewModel> FastFileMatchBookmarks { get; } = new ObservableCollection<MRUViewModel>();
 
-        public ObservableCollection<string> FastFileNotMatchBookmarks { get; } = new();
+        public ObservableCollection<MRUViewModel> FastFileNotMatchBookmarks { get; } = new ObservableCollection<MRUViewModel>();
 
-        public ObservableCollection<string> FastPathBookmarks { get; } = new();
+        public ObservableCollection<MRUViewModel> FastPathBookmarks { get; } = new ObservableCollection<MRUViewModel>();
 
         public ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new();
 
@@ -352,7 +351,7 @@ namespace dnGREP.WPF
         private double maxFileFiltersSummaryWidth;
 
         [ObservableProperty]
-        private bool isValidPattern;
+        private bool isValidPattern = true;
 
         [ObservableProperty]
         private string validationMessage = string.Empty;
@@ -828,91 +827,7 @@ namespace dnGREP.WPF
 
         virtual public void LoadSettings()
         {
-            List<string> fsb = Settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
-            string searchFor = Settings.Get<string>(GrepSettings.Key.SearchFor);
-            if (fsb != null)
-            {
-                var toRemove = FastSearchBookmarks.Except(fsb).ToList();
-                foreach (var item in toRemove)
-                {
-                    FastSearchBookmarks.Remove(item);
-                }
-
-                foreach (string bookmark in fsb)
-                {
-                    if (!FastSearchBookmarks.Contains(bookmark))
-                        FastSearchBookmarks.Add(bookmark);
-                }
-            }
-            Settings.Set(GrepSettings.Key.SearchFor, searchFor);
-
-            string replaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
-            List<string> frb = Settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
-            if (frb != null)
-            {
-                var toRemove = FastReplaceBookmarks.Except(frb).ToList();
-                foreach (var item in toRemove)
-                {
-                    FastReplaceBookmarks.Remove(item);
-                }
-
-                foreach (string bookmark in frb)
-                {
-                    if (!FastReplaceBookmarks.Contains(bookmark))
-                        FastReplaceBookmarks.Add(bookmark);
-                }
-            }
-            Settings.Set(GrepSettings.Key.ReplaceWith, replaceWith);
-
-            string filePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
-            List<string> ffmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
-            {
-                var toRemove = FastFileMatchBookmarks.Except(ffmb).ToList();
-                foreach (var item in toRemove)
-                {
-                    FastFileMatchBookmarks.Remove(item);
-                }
-
-                foreach (string bookmark in ffmb)
-                {
-                    if (!FastFileMatchBookmarks.Contains(bookmark))
-                        FastFileMatchBookmarks.Add(bookmark);
-                }
-            }
-            Settings.Set(GrepSettings.Key.FilePattern, filePattern);
-
-            string filePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
-            List<string> ffnmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
-            {
-                var toRemove = FastFileNotMatchBookmarks.Except(ffmb).ToList();
-                foreach (var item in toRemove)
-                {
-                    FastFileNotMatchBookmarks.Remove(item);
-                }
-
-                foreach (string bookmark in ffnmb)
-                {
-                    if (!FastFileNotMatchBookmarks.Contains(bookmark))
-                        FastFileNotMatchBookmarks.Add(bookmark);
-                }
-            }
-            Settings.Set(GrepSettings.Key.FilePatternIgnore, filePatternIgnore);
-
-            List<string> pb = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
-            if (pb != null)
-            {
-                var toRemove = FastPathBookmarks.Except(pb).ToList();
-                foreach (var item in toRemove)
-                {
-                    FastPathBookmarks.Remove(item);
-                }
-
-                foreach (string bookmark in pb)
-                {
-                    if (!FastPathBookmarks.Contains(bookmark))
-                        FastPathBookmarks.Add(bookmark);
-                }
-            }
+            LoadMRULists();
 
             SearchFor = Settings.Get<string>(GrepSettings.Key.SearchFor);
             ReplaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
@@ -952,6 +867,52 @@ namespace dnGREP.WPF
             EndDate = Settings.GetNullable<DateTime?>(GrepSettings.Key.EndDate);
             HoursFrom = Settings.Get<int>(GrepSettings.Key.HoursFrom);
             HoursTo = Settings.Get<int>(GrepSettings.Key.HoursTo);
+        }
+
+        protected void LoadMRULists()
+        {
+            string saveSearchFor = Settings.Get<string>(GrepSettings.Key.SearchFor);
+            LoadMRUList(MRUType.SearchFor, FastSearchBookmarks, GrepSettings.Key.FastSearchBookmarks);
+            Settings.Set(GrepSettings.Key.SearchFor, saveSearchFor);
+
+            string saveReplaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
+            LoadMRUList(MRUType.ReplaceWith, FastReplaceBookmarks, GrepSettings.Key.FastReplaceBookmarks);
+            Settings.Set(GrepSettings.Key.ReplaceWith, saveReplaceWith);
+
+            string saveFilePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
+            LoadMRUList(MRUType.IncludePattern, FastFileMatchBookmarks, GrepSettings.Key.FastFileMatchBookmarks);
+            Settings.Set(GrepSettings.Key.FilePattern, saveFilePattern);
+
+            string saveFilePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
+            LoadMRUList(MRUType.ExcludePattern, FastFileNotMatchBookmarks, GrepSettings.Key.FastFileNotMatchBookmarks);
+            Settings.Set(GrepSettings.Key.FilePatternIgnore, saveFilePatternIgnore);
+
+            string saveSearchFolder = Settings.Get<string>(GrepSettings.Key.SearchFolder);
+            LoadMRUList(MRUType.SearchPath, FastPathBookmarks, GrepSettings.Key.FastPathBookmarks);
+            Settings.Set(GrepSettings.Key.SearchFolder, saveSearchFolder);
+        }
+
+        private static void LoadMRUList(MRUType valueType, IList<MRUViewModel> list, string itemKey)
+        {
+            var mruItems = Settings.Get<List<MostRecentlyUsed>>(itemKey);
+            if (mruItems != null)
+            {
+                var vmList = mruItems.Select(p => new MRUViewModel(valueType, p.StringValue, p.IsPinned)).ToList();
+                if (vmList != null && vmList.Count > 0)
+                {
+                    var toRemove = list.Except(vmList).ToList();
+                    foreach (var item in toRemove)
+                    {
+                        list.Remove(item);
+                    }
+
+                    foreach (var mru in vmList)
+                    {
+                        if (!list.Contains(mru))
+                            list.Add(mru);
+                    }
+                }
+            }
         }
 
         public virtual void SaveSettings()

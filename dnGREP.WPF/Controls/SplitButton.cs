@@ -236,5 +236,9 @@ namespace dnGREP.WPF
                 }
             }
         }
+
+        public string DropDownFontFamily { get; set; } = SystemSymbols.DropDownFontFamily;
+
+        public string DropDownArrowCharacter { get; set; } = SystemSymbols.DropDownArrowCharacter;
     }
 }

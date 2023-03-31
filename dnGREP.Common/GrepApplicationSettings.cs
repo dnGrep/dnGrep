@@ -646,6 +646,58 @@ namespace dnGREP.Common
             return list;
         }
 
+        private static string SerializeMRU(List<MostRecentlyUsed> list)
+        {
+            if (list.Count > 0)
+            {
+                XNamespace xml = "http://www.w3.org/XML/1998/namespace";
+
+                XElement root = new("stringArray");
+                foreach (var item in list)
+                {
+                    XElement elem = new("string");
+                    elem.SetAttributeValue("isPinned", item.IsPinned);
+                    if (!string.IsNullOrEmpty(item.StringValue) && string.IsNullOrWhiteSpace(item.StringValue))
+                    {
+                        elem.SetAttributeValue(xml + "space", "preserve");
+                    }
+                    elem.Value = item.StringValue;
+                    root.Add(elem);
+                }
+
+                return root.ToString();
+            }
+            return string.Empty;
+        }
+
+        private static List<MostRecentlyUsed> DeserializeMRU(string xmlContent)
+        {
+            List<MostRecentlyUsed> list = new();
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                XElement root = XElement.Parse(xmlContent, LoadOptions.PreserveWhitespace);
+                if (root != null)
+                {
+                    foreach (var elem in root.Descendants("string"))
+                    {
+                        MostRecentlyUsed item = new();
+                        if (elem.Attribute("isPinned") is XAttribute attr && !string.IsNullOrEmpty(attr.Value) &&
+                            bool.TryParse(attr.Value, out bool isPinned))
+                        {
+                            item.IsPinned = isPinned;
+                        }
+
+                        item.StringValue = elem.Value;
+
+                        list.Add(item);
+                    }
+                }
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// Gets value of a nullable object in dictionary and deserializes it to specified type
         /// </summary>
@@ -721,6 +773,20 @@ namespace dnGREP.Common
                         list = new();
                     }
                     return (T)Convert.ChangeType(list, typeof(List<string>));
+                }
+
+                if (typeof(T) == typeof(List<MostRecentlyUsed>))
+                {
+                    List<MostRecentlyUsed> list;
+                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray"))
+                    {
+                        list = DeserializeMRU(value);
+                    }
+                    else
+                    {
+                        list = new List<MostRecentlyUsed>();
+                    }
+                    return (T)Convert.ChangeType(list, typeof(List<MostRecentlyUsed>));
                 }
 
                 if (typeof(T) == typeof(DateTime) || typeof(T) == typeof(DateTime?))
@@ -836,6 +902,10 @@ namespace dnGREP.Common
             else if (value is List<string> list)
             {
                 settings[key] = Serialize(list);
+            }
+            else if (value is List<MostRecentlyUsed> items)
+            {
+                settings[key] = SerializeMRU(items);
             }
             else
             {

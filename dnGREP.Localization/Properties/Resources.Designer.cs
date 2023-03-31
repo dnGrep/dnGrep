@@ -2052,7 +2052,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _More ⏷.
+        ///   Looks up a localized string similar to _More.
         /// </summary>
         public static string Main_MoreArrowButton {
             get {
