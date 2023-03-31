@@ -2241,7 +2241,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Más ⏷</value>
+    <value>_Más</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
