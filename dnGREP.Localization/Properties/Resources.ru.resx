@@ -880,7 +880,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Еще (операции) ⏷</value>
+    <value>_Еще (операции)</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
