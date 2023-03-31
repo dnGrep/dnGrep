@@ -76,6 +76,11 @@
         /// <remarks><a href="http://en.wikipedia.org/wiki/NSIS">Wikipedia information</a></remarks>
         Nsis,
         /// <summary>
+        /// GUID Partition Table.
+        /// </summary>
+        /// <remarks><a href="https://en.wikipedia.org/wiki/GUID_Partition_Table">Wikipedia information</a></remarks>
+        Gpt,
+        /// <summary>
         /// RarLab Rar archive format, version 5.
         /// </summary>
         /// <remarks><a href="http://en.wikipedia.org/wiki/Rar">Wikipedia information</a></remarks>
@@ -387,6 +392,7 @@
                 {InArchiveFormat.Lzh,       new Guid("23170f69-40c1-278a-1000-000110060000")},
                 {InArchiveFormat.Lzma,      new Guid("23170f69-40c1-278a-1000-0001100a0000")},
                 {InArchiveFormat.Nsis,      new Guid("23170f69-40c1-278a-1000-000110090000")},
+                {InArchiveFormat.Gpt,       new Guid("23170f69-40c1-278a-1000-000110cb0000")},
                 {InArchiveFormat.Rar,       new Guid("23170f69-40c1-278a-1000-000110CC0000")},
                 {InArchiveFormat.Rar4,      new Guid("23170f69-40c1-278a-1000-000110030000")},
                 {InArchiveFormat.Rpm,       new Guid("23170f69-40c1-278a-1000-000110eb0000")},
@@ -506,7 +512,9 @@
              {"swf",    InArchiveFormat.Swf},
              {"exe",    InArchiveFormat.PE},
              {"dll",    InArchiveFormat.PE},
-             {"vhd",    InArchiveFormat.Vhd}
+             {"vhd",    InArchiveFormat.Vhd},
+             {"gpt",    InArchiveFormat.Gpt },
+             {"ntfs",   InArchiveFormat.Ntfs }
         };
 
         #endregion
@@ -551,7 +559,8 @@
             {"4D-5A",							                                InArchiveFormat.PE},
             {"7F-45-4C-46",							                            InArchiveFormat.Elf},
             {"78",                                                              InArchiveFormat.Dmg},
-            {"63-6F-6E-65-63-74-69-78",                                         InArchiveFormat.Vhd}};
+            {"63-6F-6E-65-63-74-69-78",                                         InArchiveFormat.Vhd},
+            {"45-46-49-20-50-41-52-54-00-00-01-00",                             InArchiveFormat.Gpt}};
             #endregion
 
         internal static Dictionary<InArchiveFormat, string> InSignatureFormatsReversed;
@@ -584,8 +593,6 @@
             if (!InExtensionFormats.ContainsKey(extension) && reportErrors)
             {
                 throw new ArgumentException("Extension \"" + extension + "\" is not a supported archive file name extension.");
-
-
             }
 
             return InExtensionFormats[extension];
