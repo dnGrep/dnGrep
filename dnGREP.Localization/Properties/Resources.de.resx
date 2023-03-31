@@ -724,7 +724,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>M_ehr…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Mehr ⏷</value>
+    <value>_Mehr</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Dateinname kopieren</value>
