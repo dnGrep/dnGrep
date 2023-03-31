@@ -3294,4 +3294,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Вид шаблон за търсене</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Целева папка</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
 </root>
