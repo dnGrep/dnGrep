@@ -54,24 +54,25 @@
         <HierarchicalDataTemplate DataType="{x:Type my:MenuItemViewModel}" 
                                   ItemsSource="{Binding Path=Children, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <DataTemplate x:Key="cbSearchPathTemplate">
+        <DataTemplate x:Key="comboBoxPinDelTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" SharedSizeGroup="A"/>
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="B"/>
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="C"/>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="TEXT"/>
+                    <ColumnDefinition Width="*" /> <!-- shim -->
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="PIN"/>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="DEL"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Margin="0"
-                           Text="{Binding SearchPath}"/>
-                <ToggleButton Grid.Column="1" Margin="12,0,3,0"
+                <TextBlock Grid.Column="0" Margin="0,0,6,0"
+                           Text="{Binding StringValue}"/>
+                <Border Grid.Column="1" HorizontalAlignment="Stretch"/>
+                <ToggleButton Grid.Column="2" Margin="3,0"
                               Style="{StaticResource ComboBoxPinButton}"
                               IsChecked="{Binding IsPinned, Mode=TwoWay}"/>
-                <Button Grid.Column="2" Margin="3,0"
+                <Button Grid.Column="3" Margin="3,0"
                         Style="{StaticResource ComboBoxDeleteButton}"
-                        Command="{Binding DataContext.DeletePathBookmarkCommand,
+                        Command="{Binding DataContext.DeleteMRUItemCommand,
                             RelativeSource={RelativeSource AncestorType=ComboBox}}"
                         CommandParameter="{Binding}"/>
-
             </Grid>
         </DataTemplate>
 
@@ -343,11 +344,16 @@
                         <ComboBox x:Name="searchPath" Grid.Row="0" Grid.Column="1"
                                   Margin="3,4" Padding="3" TabIndex="10"
                                   Text="{Binding FileOrFolderPath}"
-                                  TextSearch.TextPath="SearchPath"
-                                  ItemsSource="{Binding FastPathBookmarks}"
-                                  IsEditable="True"
                                   Grid.IsSharedSizeScope="True"
-                                  ItemTemplate="{StaticResource cbSearchPathTemplate}">
+                                  ItemsSource="{Binding FastPathBookmarks}"
+                                  TextSearch.TextPath="StringValue"
+                                  ItemTemplate="{StaticResource comboBoxPinDelTemplate}"
+                                  IsEditable="True">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
                         </ComboBox>
                         <Button Grid.Row="0" Grid.Column="2"
                                 Margin="3,4"
@@ -719,8 +725,17 @@
                                   my:DiginesisHelpProvider.ShowHelp="True" TabIndex="12"
                                   Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"
                                   ItemsSource="{Binding Path=FastFileMatchBookmarks}"
-                                  GotFocus="TextBoxFocus" IsEditable="True"
-                                  Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                                  TextSearch.TextPath="StringValue"
+                                  ItemTemplate="{StaticResource comboBoxPinDelTemplate}"
+                                  GotFocus="TextBoxFocus" IsEditable="True" 
+                                  Grid.IsSharedSizeScope="True"
+                                  Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
                         <CheckBox Name="cbIncludeArchives" Grid.Row="1" Grid.Column="1"
                                   Grid.ColumnSpan="2" Margin="3,10,8,3" HorizontalAlignment="Right"
                                   VerticalAlignment="Top"
@@ -742,8 +757,17 @@
                                   my:DiginesisHelpProvider.ShowHelp="True" TabIndex="14"
                                   Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}"
                                   ItemsSource="{Binding Path=FastFileNotMatchBookmarks}"
+                                  TextSearch.TextPath="StringValue"
+                                  ItemTemplate="{StaticResource comboBoxPinDelTemplate}"
                                   GotFocus="TextBoxFocus" IsEditable="True"
-                                  Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                                  Grid.IsSharedSizeScope="True"
+                                  Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="{l:Loc Key='Main_SearchGroup'}" DockPanel.Dock="Top"
@@ -862,12 +886,20 @@
                                       my:DiginesisHelpProvider.HelpNavigator="Topic"
                                       my:DiginesisHelpProvider.ShowHelp="True"
                                       Text="{Binding SearchFor}"
-                                      IsEditable="True"
                                       ItemsSource="{Binding FastSearchBookmarks}"
+                                      TextSearch.TextPath="StringValue"
+                                      ItemTemplate="{StaticResource comboBoxPinDelTemplate}"
                                       Style="{DynamicResource MultilineComboBoxStyle}"
+                                      IsEditable="True"
+                                      Grid.IsSharedSizeScope="True"
                                       IsTextSearchCaseSensitive="True" 
                                       FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="60">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
                                 <ComboBox.ToolTip>
                                     <ToolTip Visibility="{Binding SearchToolTipVisible, Converter={StaticResource BoolToHiddenVisibilityConverter}}">
                                         <TextBlock Text="{Binding SearchToolTip}"/>
@@ -884,11 +916,19 @@
                                       Text="{Binding ReplaceWith}"
                                       IsEditable="True"
                                       ItemsSource="{Binding FastReplaceBookmarks}"
+                                      TextSearch.TextPath="StringValue"
+                                      ItemTemplate="{StaticResource comboBoxPinDelTemplate}"
                                       Style="{DynamicResource MultilineComboBoxStyle}"
+                                      Grid.IsSharedSizeScope="True"
                                       IsTextSearchCaseSensitive="True" 
                                       FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="61"
                                       Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
                                 <ComboBox.ToolTip>
                                     <ToolTip Visibility="{Binding ReplaceToolTipVisible, Converter={StaticResource BoolToHiddenVisibilityConverter}}">
                                         <TextBlock Text="{Binding ReplaceToolTip}"/> 

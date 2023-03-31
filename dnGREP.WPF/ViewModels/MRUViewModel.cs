@@ -1,28 +1,44 @@
 ﻿using System;
+using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
-    public class PathBookmark : CultureAwareViewModel, IEquatable<PathBookmark>
+    public class MRUViewModel : CultureAwareViewModel, IEquatable<MRUViewModel>
     {
-        public PathBookmark(string path)
+        public MRUViewModel(MRUType valueType, string value)
         {
-            SearchPath = path;
+            ValueType = valueType;
+            StringValue = value;
         }
 
-
-        private string searchPath = string.Empty;
-        public string SearchPath
+        public MRUViewModel(MRUType valueType, string value, bool isPinned)
         {
-            get { return searchPath; }
+            ValueType = valueType;
+            StringValue = value;
+            IsPinned = isPinned;
+        }
+
+        public MostRecentlyUsed AsMostRecentlyUsed()
+        {
+            return new MostRecentlyUsed(StringValue, IsPinned);
+        }
+
+        public MRUType ValueType { get; private set; }
+
+
+        private string stringValue = string.Empty;
+        public string StringValue
+        {
+            get { return stringValue; }
             set
             {
-                if (searchPath == value)
+                if (stringValue == value)
                 {
                     return;
                 }
 
-                searchPath = value;
-                OnPropertyChanged(nameof(SearchPath));
+                stringValue = value;
+                OnPropertyChanged(nameof(StringValue));
             }
         }
 
@@ -44,7 +60,6 @@ namespace dnGREP.WPF
             }
         }
 
-
         public string FontFamily { get; set; } = SystemSymbols.FontFamily;
 
         public string DeleteCharacter { get; set; } = SystemSymbols.DeleteCharacter;
@@ -55,21 +70,22 @@ namespace dnGREP.WPF
 
         public override int GetHashCode()
         {
-            return SearchPath.GetHashCode();
+            return StringValue.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as PathBookmark);
+            return Equals(obj as MRUViewModel);
         }
 
-        public bool Equals(PathBookmark other)
+        public bool Equals(MRUViewModel other)
         {
             if (other == null)
             {
                 return false;
             }
-            return SearchPath.Equals(other.SearchPath);
+            return StringValue.Equals(other.StringValue);
         }
     }
+
 }

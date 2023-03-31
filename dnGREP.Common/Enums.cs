@@ -98,4 +98,13 @@ namespace dnGREP.Common
         PageNumber
     }
 
+    public enum MRUType
+    { 
+        SearchPath,
+        IncludePattern,
+        ExcludePattern,
+        SearchFor,
+        ReplaceWith,
+    }
+
 }

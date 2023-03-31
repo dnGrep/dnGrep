@@ -100,7 +100,6 @@ namespace dnGREP.Common
             public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
             public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
             public const string FastPathBookmarks = "FastPathBookmarks";
-            public const string FastPathBookmarkPins = "FastPathBookmarkPins";
             [DefaultValue(12)]
             public const string PreviewWindowFont = "PreviewWindowFont";
             [DefaultValue(false)]
@@ -667,6 +666,75 @@ namespace dnGREP.Common
             return list;
         }
 
+        private string SerializeMRU(List<MostRecentlyUsed> list)
+        {
+            if (list.Count > 0)
+            {
+                XNamespace xml = "http://www.w3.org/XML/1998/namespace";
+                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+
+                XElement root = new XElement("stringArray");
+                foreach (var item in list)
+                {
+                    var elem = new XElement("string");
+                    elem.SetAttributeValue("isPinned", item.IsPinned);
+                    if (item.StringValue == null)
+                    {
+                        elem.SetAttributeValue(xsi + "nil", "true");
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(item.StringValue) && string.IsNullOrWhiteSpace(item.StringValue))
+                        {
+                            elem.SetAttributeValue(xml + "space", "preserve");
+                        }
+                        elem.Value = item.StringValue;
+                    }
+                    root.Add(elem);
+                }
+
+                return root.ToString();
+            }
+            return string.Empty;
+        }
+
+        private List<MostRecentlyUsed> DeserializeMRU(string xmlContent)
+        {
+            List<MostRecentlyUsed> list = new List<MostRecentlyUsed>();
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+                XElement root = XElement.Parse(xmlContent, LoadOptions.PreserveWhitespace);
+                if (root != null)
+                {
+                    foreach (var elem in root.Descendants("string"))
+                    {
+                        MostRecentlyUsed item = new MostRecentlyUsed();
+                        if (elem.Attribute("isPinned") is XAttribute attr && !string.IsNullOrEmpty(attr.Value) &&
+                            bool.TryParse(attr.Value, out bool isPinned))
+                        {
+                            item.IsPinned = isPinned;
+                        }
+
+                        if (elem.Attribute(xsi + "nil") is XAttribute nil && !string.IsNullOrEmpty(nil.Value) &&
+                            bool.TryParse(nil.Value, out bool isNil) && isNil)
+                        {
+                            item.StringValue = null;
+                        }
+                        else
+                        {
+                            item.StringValue = elem.Value;
+                        }
+
+                        list.Add(item);
+                    }
+                }
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// Gets value of object in dictionary and deserializes it to specified type
         /// </summary>
@@ -714,6 +782,20 @@ namespace dnGREP.Common
                         list = new List<string>();
                     }
                     return (T)Convert.ChangeType(list, typeof(List<string>));
+                }
+
+                if (typeof(T) == typeof(List<MostRecentlyUsed>))
+                {
+                    List<MostRecentlyUsed> list;
+                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray"))
+                    {
+                        list = DeserializeMRU(value);
+                    }
+                    else
+                    {
+                        list = new List<MostRecentlyUsed>();
+                    }
+                    return (T)Convert.ChangeType(list, typeof(List<MostRecentlyUsed>));
                 }
 
                 if (typeof(T) == typeof(DateTime) || typeof(T) == typeof(DateTime?))
@@ -807,6 +889,10 @@ namespace dnGREP.Common
             else if (value is List<string> list)
             {
                 settings[key] = Serialize(list);
+            }
+            else if (value is List<MostRecentlyUsed> items)
+            {
+                settings[key] = SerializeMRU(items);
             }
             else
             {

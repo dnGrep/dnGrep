@@ -83,6 +83,7 @@
     <Compile Include="GrepMatch.cs" />
     <Compile Include="Boolean\BooleanExpression.cs" />
     <Compile Include="Boolean\BooleanToken.cs" />
+    <Compile Include="MostRecentlyUsed.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
     <Compile Include="ReportOptions.cs" />
