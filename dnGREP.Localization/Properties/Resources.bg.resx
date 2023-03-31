@@ -3027,4 +3027,231 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Настройки на търсене</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Съобщение</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Отметка</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>Име на отметка или празно</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    Изпълнява скрипта със зададения идентификатор.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Добавя отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Ред</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Проверка</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Преместване на файлове</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Без повторно задаване на въпроса</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Не</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Не, за _всички</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Да</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Да, _за всички</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Запитване</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Не</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>При копиране на файл, когато целевият файл съществува, да бъде ли презаписан?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>При преместване на файл, когато целевият файл съществува, да бъде ли презаписан?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Да</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>Командата не е валидна</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Копиране на файлове</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>Без определено ограничение</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>скриптът е прекъснат</value>
+    <comment>Script message for script canceled</comment>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>Файловото разширение {0} трябва да е {1}</value>
+    <comment>Script message for invalid file extension{0} is the target name and {1} is the file extension</comment>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>Комантата за изпълняване завърши с грешка: </value>
+    <comment>Script message for run command error</comment>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>Грешка при преместване на файлове: </value>
+    <comment>Script message for move error</comment>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Грешка при копиране на файлове: </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Отменя последното действие по заместване</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>На ред</value>
+    <comment>Script message statement prefix</comment>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Нов скрипт</value>
+    <comment>Scripts: name for unnamed script file</comment>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>Грешка при премахване на файлове: </value>
+    <comment>Script message for delete error</comment>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Сортиране на резултати</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>Съобщения от скрипта</value>
+    <comment>Script Messages dialog title</comment>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>Файлове със скриптове</value>
+    <comment>Scripts: Open and Save file dialog label for script files</comment>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>скриптът е завършил</value>
+    <comment>Script message for script completed</comment>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>Командата за изпълняване е недействителна</value>
+    <comment>Script message for invalid run command</comment>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>Максимален брой успоредни търсения</value>
+    <comment>Options dialog, parallel options label</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>Стойността не може да бъде преобразувана от низа</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Командата не приема стойност като параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Командата изисква булева стойност като параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Копира на друго място файловете, идващи като резултат</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Целева папка</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Добавя отметка към папката, в която се извършва търсене</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Премахва отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Премахва отметка към папка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Прилага настройки от отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>Стойността не може да бъде превърната в правилния тип</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>Командата изисква целеви параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Копира в междинната памет имената на файловете, идващи като резултат</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>Идентификатор/име на файл на скрипт</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Целевото име е недействително</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Командата не приема null като стойност</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>Наименование на отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Копира в междинната памет текста, идващ като резултат</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>Скрипт със зададения идентификатор не е намерен</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Командата изисква низ като параметър</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>Наименование на отметката, която да бъде премахната или празно за текущата отметка</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
 </root>

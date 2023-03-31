@@ -2777,4 +2777,76 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Options de recherche</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Nombre de correspondances sur la ligne</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>données et logs de l'application</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Annuler le script</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Scripts</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Déplacer fichier à la corbeille</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>montrer l'explorateur</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>déplacer en haut</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>descendre</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>déplacer en bas</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Monter</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Nom</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>ALT+Flèche bas</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>nom de l'onglet:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>ALT+Flèche haut</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Flèche du haut</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Flèche du bas</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Editer le script…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Nouveau Script…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
 </root>
