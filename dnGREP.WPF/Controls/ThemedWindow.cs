@@ -100,5 +100,12 @@ namespace dnGREP.WPF
             if (GetTemplateChild("PART_MinimizeButton") is Button minimizeButton)
                 minimizeButton.Click += (s, e) => WindowState = WindowState.Minimized;
         }
+
+        public string WindowChromeFontFamily { get; set; } = SystemSymbols.WindowChromeFontFamily;
+        public float WindowChromeFontSize { get; set; } = SystemSymbols.WindowChromeFontSize;
+        public string MinimizeCharacter { get; set; } = SystemSymbols.MinimizeCharacter;
+        public string MaximizeCharacter { get; set; } = SystemSymbols.MaximizeCharacter;
+        public string RestoreCharacter { get; set; } = SystemSymbols.RestoreCharacter;
+        public string CloseCharacter { get; set; } = SystemSymbols.CloseCharacter;
     }
 }

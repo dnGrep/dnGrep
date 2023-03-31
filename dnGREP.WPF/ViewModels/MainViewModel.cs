@@ -33,6 +33,8 @@ namespace dnGREP.WPF
         public event EventHandler PreviewHide;
         public event EventHandler PreviewShow;
 
+        public static readonly Messenger MainViewMessenger = new Messenger();
+
         private Brush highlightForeground;
         private Brush highlightBackground;
 
@@ -93,6 +95,8 @@ namespace dnGREP.WPF
 
                 idleTimer.Interval = TimeSpan.FromMilliseconds(250);
                 idleTimer.Tick += IdleTimer_Tick;
+
+                MainViewMessenger.Register<MRUViewModel>("IsPinnedChanged", OnMRUPinChanged);
             }
         }
 
@@ -755,6 +759,9 @@ namespace dnGREP.WPF
             preceedingMatches.Clear();
         }
 
+        public string DropDownFontFamily { get; set; } = SystemSymbols.DropDownFontFamily;
+        public string DropDownArrowCharacter { get; set; } = SystemSymbols.DropDownArrowCharacter;
+
         #endregion
 
         #region Commands
@@ -911,6 +918,11 @@ namespace dnGREP.WPF
         public ICommand OpenAppDataCommand => new RelayCommand(
             p => OpenAppDataFolder(),
             q => true);
+
+        public ICommand DeleteMRUItemCommand => new RelayCommand(
+            p => DeleteMRUItem(p as MRUViewModel),
+            q => true);
+
 
         #endregion
 
@@ -1724,7 +1736,7 @@ namespace dnGREP.WPF
             }
             if (fileFolderDialog.ShowDialog() == true)
             {
-                string newPath = string.Empty;
+                string newPath;
                 if (fileFolderDialog.HasMultiSelectedFiles)
                 {
                     newPath = fileFolderDialog.GetSelectedPaths(
@@ -1782,6 +1794,7 @@ namespace dnGREP.WPF
                     return;
                 }
 
+                UpdateBookmarks();
                 SaveSettings();
 
                 if (TypeOfFileSearch == FileSearchType.Regex)
@@ -1820,7 +1833,6 @@ namespace dnGREP.WPF
                     workerParams.AddSearchFiles(foundFiles);
                 }
 
-                UpdateBookmarks();
                 SearchParametersChanged = false;
 
                 ClearMatchCountStatus();
@@ -2087,83 +2099,96 @@ namespace dnGREP.WPF
         {
             inUpdateBookmarks = true;
 
-            int maxSearchReplaceCount = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
-            int maxPathCount = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
-            int maxExtCount = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+            int maxSearchBookmarks = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            int maxPathBookmarks = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            int maxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
 
             // Update bookmarks, moving current to the top of the list
-            if (FastSearchBookmarks.IndexOf(SearchFor) != 0)
-            {
-                FastSearchBookmarks.Insert(0, SearchFor);
-                int idx = FastSearchBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == SearchFor).Select(xn => xn.n).Skip(1).FirstOrDefault();
-                if (idx > 0)
-                {
-                    string s = SearchFor;
-                    FastSearchBookmarks.RemoveAt(idx);
-                    SearchFor = s;
-                }
-            }
-            while (FastSearchBookmarks.Count > maxSearchReplaceCount)
-                FastSearchBookmarks.RemoveAt(FastSearchBookmarks.Count - 1);
-
-            if (FastReplaceBookmarks.IndexOf(ReplaceWith) != 0)
-            {
-                FastReplaceBookmarks.Insert(0, ReplaceWith);
-                int idx = FastReplaceBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == ReplaceWith).Select(xn => xn.n).Skip(1).FirstOrDefault();
-                if (idx > 0)
-                {
-                    string s = ReplaceWith;
-                    FastReplaceBookmarks.RemoveAt(idx);
-                    ReplaceWith = s;
-                }
-            }
-            while (FastReplaceBookmarks.Count > maxSearchReplaceCount)
-                FastReplaceBookmarks.RemoveAt(FastReplaceBookmarks.Count - 1);
-
-            if (FastFileMatchBookmarks.IndexOf(FilePattern) != 0)
-            {
-                FastFileMatchBookmarks.Insert(0, FilePattern);
-                int idx = FastFileMatchBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == FilePattern).Select(xn => xn.n).Skip(1).FirstOrDefault();
-                if (idx > 0)
-                {
-                    string s = FilePattern;
-                    FastFileMatchBookmarks.RemoveAt(idx);
-                    FilePattern = s;
-                }
-            }
-            while (FastFileMatchBookmarks.Count > maxExtCount)
-                FastFileMatchBookmarks.RemoveAt(FastFileMatchBookmarks.Count - 1);
-
-            if (FastFileNotMatchBookmarks.IndexOf(FilePatternIgnore) != 0)
-            {
-                FastFileNotMatchBookmarks.Insert(0, FilePatternIgnore);
-                int idx = FastFileNotMatchBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == FilePatternIgnore).Select(xn => xn.n).Skip(1).FirstOrDefault();
-                if (idx > 0)
-                {
-                    string s = FilePatternIgnore;
-                    FastFileNotMatchBookmarks.RemoveAt(idx);
-                    FilePatternIgnore = s;
-                }
-            }
-            while (FastFileNotMatchBookmarks.Count > maxExtCount)
-                FastFileNotMatchBookmarks.RemoveAt(FastFileNotMatchBookmarks.Count - 1);
-
-            string searchPath = FileOrFolderPath;
-            if (FastPathBookmarks.IndexOf(searchPath) != 0)
-            {
-                FastPathBookmarks.Insert(0, searchPath);
-                int idx = FastPathBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == searchPath).Select(xn => xn.n).Skip(1).FirstOrDefault();
-                if (idx > 0)
-                {
-                    string s = searchPath;
-                    FastPathBookmarks.RemoveAt(idx);
-                    FileOrFolderPath = s;
-                }
-            }
-            while (FastPathBookmarks.Count > maxPathCount)
-                FastPathBookmarks.RemoveAt(FastPathBookmarks.Count - 1);
+            SearchFor = UpdateMRUList(MRUType.SearchFor, FastSearchBookmarks, SearchFor, maxSearchBookmarks);
+            ReplaceWith = UpdateMRUList(MRUType.ReplaceWith, FastReplaceBookmarks, ReplaceWith, maxSearchBookmarks);
+            FilePattern = UpdateMRUList(MRUType.IncludePattern, FastFileMatchBookmarks, FilePattern, maxExtensionBookmarks);
+            FilePatternIgnore = UpdateMRUList(MRUType.ExcludePattern, FastFileNotMatchBookmarks, FilePatternIgnore, maxExtensionBookmarks);
+            FileOrFolderPath = UpdateMRUList(MRUType.SearchPath, FastPathBookmarks, FileOrFolderPath, maxPathBookmarks);
 
             inUpdateBookmarks = false;
+        }
+
+        private string UpdateMRUList(MRUType valueType, IList<MRUViewModel> list, string value, int maxCount)
+        {
+            string returnValue = value;
+            // keep pinned items in order at the top of the list
+            var item = list.FirstOrDefault(b => b.StringValue.Equals(value, StringComparison.CurrentCultureIgnoreCase));
+            int newIndex = IndexOfFirstUnpinned(list);
+            if (item != null)
+            {
+                if (!item.IsPinned)
+                {
+                    int currentIndex = list.IndexOf(item);
+                    if (list.IndexOf(item) != newIndex)
+                    {
+                        list.RemoveAt(currentIndex);
+                        list.Insert(newIndex, item);
+                        returnValue = item.StringValue;
+                    }
+                }
+            }
+            else
+            {
+                list.Insert(newIndex, new MRUViewModel(valueType, value));
+            }
+
+            while (list.Count > maxCount)
+                list.RemoveAt(list.Count - 1);
+
+            return returnValue;
+        }
+
+        private void OnMRUPinChanged(MRUViewModel item)
+        {
+            if (item != null)
+            {
+                IList<MRUViewModel> list = null;
+                switch (item.ValueType)
+                {
+                    case MRUType.SearchPath:
+                        list = FastPathBookmarks;
+                        break;
+                    case MRUType.IncludePattern:
+                        list = FastFileMatchBookmarks;
+                        break;
+                    case MRUType.ExcludePattern:
+                        list = FastFileNotMatchBookmarks; 
+                        break;
+                    case MRUType.SearchFor:
+                        list = FastSearchBookmarks; 
+                        break;
+                    case MRUType.ReplaceWith:
+                        list = FastReplaceBookmarks; 
+                        break;
+                }
+
+                if (list != null)
+                {
+                    int currentIndex = list.IndexOf(item);
+                    if (currentIndex != -1)
+                    {
+                        list.RemoveAt(currentIndex);
+
+                        int newIndex = IndexOfFirstUnpinned(list);
+                        list.Insert(newIndex, item);
+                    }
+                }
+            }
+        }
+
+        private int IndexOfFirstUnpinned(IList<MRUViewModel> list)
+        {
+            for (int idx = 0; idx < list.Count; idx++)
+            {
+                if (!list[idx].IsPinned)
+                    return idx;
+            }
+            return 0;
         }
 
         private void Cancel()
@@ -2179,8 +2204,10 @@ namespace dnGREP.WPF
         private void ShowOptions()
         {
             SaveSettings();
-            var optionsForm = new OptionsView();
-            optionsForm.Owner = ParentWindow;
+            var optionsForm = new OptionsView
+            {
+                Owner = ParentWindow
+            };
             var optionsViewModel = new OptionsViewModel();
             optionsForm.DataContext = optionsViewModel;
             try
@@ -2206,8 +2233,10 @@ namespace dnGREP.WPF
 
         private void ShowAbout()
         {
-            AboutWindow aboutForm = new AboutWindow();
-            aboutForm.Owner = Application.Current.MainWindow;
+            AboutWindow aboutForm = new AboutWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
             aboutForm.ShowDialog();
         }
 
@@ -2369,11 +2398,7 @@ namespace dnGREP.WPF
                 }
             }
             BookmarkLibrary.Save();
-
-            if (bookmarkWindow != null)
-            {
-                bookmarkWindow.ViewModel.SynchToLibrary();
-            }
+            bookmarkWindow?.ViewModel.SynchToLibrary();
         }
 
         private void AddBookmark(string bookmarkName, bool assocateWithFolder)
@@ -2414,11 +2439,7 @@ namespace dnGREP.WPF
             if (modified)
             {
                 BookmarkLibrary.Save();
-
-                if (bookmarkWindow != null)
-                {
-                    bookmarkWindow.ViewModel.SynchToLibrary();
-                }
+                bookmarkWindow?.ViewModel.SynchToLibrary();
             }
         }
 
@@ -2474,11 +2495,7 @@ namespace dnGREP.WPF
                 UpdateState(nameof(SearchFor)); // to update the bookmark indicator check boxes
 
                 BookmarkLibrary.Save();
-
-                if (bookmarkWindow != null)
-                {
-                    bookmarkWindow.ViewModel.SynchToLibrary();
-                }
+                bookmarkWindow?.ViewModel.SynchToLibrary();
             }
         }
 
@@ -2843,8 +2860,10 @@ namespace dnGREP.WPF
         private void ShowReportOptions()
         {
             ReportOptionsViewModel vm = new ReportOptionsViewModel(SearchResults);
-            ReportOptionsWindow dlg = new ReportOptionsWindow(vm);
-            dlg.Owner = Application.Current.MainWindow;
+            ReportOptionsWindow dlg = new ReportOptionsWindow(vm)
+            {
+                Owner = Application.Current.MainWindow
+            };
             dlg.ShowDialog();
         }
 
@@ -3301,37 +3320,26 @@ namespace dnGREP.WPF
 
         private void CopyBookmarksToSettings()
         {
+            int maxSearchBookmarks = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            int maxPathBookmarks = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            int maxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+
             //Saving bookmarks
-            List<string> fsb = new List<string>();
-            for (int i = 0; i < FastSearchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
+            CopyMRUListToSettings(FastSearchBookmarks, maxSearchBookmarks, GrepSettings.Key.FastSearchBookmarks);
+            CopyMRUListToSettings(FastReplaceBookmarks, maxSearchBookmarks, GrepSettings.Key.FastReplaceBookmarks);
+            CopyMRUListToSettings(FastFileMatchBookmarks, maxExtensionBookmarks, GrepSettings.Key.FastFileMatchBookmarks);
+            CopyMRUListToSettings(FastFileNotMatchBookmarks, maxExtensionBookmarks, GrepSettings.Key.FastFileNotMatchBookmarks);
+            CopyMRUListToSettings(FastPathBookmarks, maxPathBookmarks, GrepSettings.Key.FastPathBookmarks);
+        }
+
+        private void CopyMRUListToSettings(IList<MRUViewModel> list, int maxCount, string itemKey)
+        {
+            List<MostRecentlyUsed> items = new List<MostRecentlyUsed>();
+            for (int i = 0; i < list.Count && i < maxCount; i++)
             {
-                fsb.Add(FastSearchBookmarks[i]);
+                items.Add(list[i].AsMostRecentlyUsed());
             }
-            Settings.Set(GrepSettings.Key.FastSearchBookmarks, fsb);
-            List<string> frb = new List<string>();
-            for (int i = 0; i < FastReplaceBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
-            {
-                frb.Add(FastReplaceBookmarks[i]);
-            }
-            Settings.Set(GrepSettings.Key.FastReplaceBookmarks, frb);
-            List<string> ffmb = new List<string>();
-            for (int i = 0; i < FastFileMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
-            {
-                ffmb.Add(FastFileMatchBookmarks[i]);
-            }
-            Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, ffmb);
-            List<string> ffnmb = new List<string>();
-            for (int i = 0; i < FastFileNotMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
-            {
-                ffnmb.Add(FastFileNotMatchBookmarks[i]);
-            }
-            Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
-            List<string> fpb = new List<string>();
-            for (int i = 0; i < FastPathBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
-            {
-                fpb.Add(FastPathBookmarks[i]);
-            }
-            Settings.Set(GrepSettings.Key.FastPathBookmarks, fpb);
+            Settings.Set(itemKey, items);
         }
 
         private void OpenAppDataFolder()
@@ -3407,6 +3415,47 @@ namespace dnGREP.WPF
 
                 if (!IsPreviewDocked)
                     PreviewShow?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private void DeleteMRUItem(MRUViewModel item)
+        {
+            if (item != null)
+            {
+                IList<MRUViewModel> list = null;
+                string itemKey = null;
+                switch (item.ValueType)
+                {
+                    case MRUType.SearchPath:
+                        list = FastPathBookmarks;
+                        itemKey = GrepSettings.Key.FastPathBookmarks;
+                        break;
+                    case MRUType.IncludePattern:
+                        list = FastFileMatchBookmarks;
+                        itemKey = GrepSettings.Key.FastFileMatchBookmarks;
+                        break;
+                    case MRUType.ExcludePattern:
+                        list = FastFileNotMatchBookmarks;
+                        itemKey = GrepSettings.Key.FastFileNotMatchBookmarks;
+                        break;
+                    case MRUType.SearchFor:
+                        list = FastSearchBookmarks;
+                        itemKey = GrepSettings.Key.FastSearchBookmarks;
+                        break;
+                    case MRUType.ReplaceWith:
+                        list = FastReplaceBookmarks;
+                        itemKey = GrepSettings.Key.FastReplaceBookmarks;
+                        break;
+                }
+
+                list?.Remove(item);
+
+                List<MostRecentlyUsed> items = new List<MostRecentlyUsed>();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    items.Add(list[i].AsMostRecentlyUsed());
+                }
+                Settings.Set(itemKey, items);
             }
         }
         #endregion

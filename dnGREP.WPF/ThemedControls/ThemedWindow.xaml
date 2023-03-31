@@ -19,14 +19,11 @@
                           Background="{DynamicResource Caption.Button.Background}">
                         <TextBlock x:Name="txt" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Text="{TemplateBinding Content}"
-                                   FontFamily="Marlett" FontSize="14"
+                                   FontFamily="{Binding WindowChromeFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" 
+                                   FontSize="{Binding WindowChromeFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" 
                                    Foreground="{DynamicResource Caption.Button.Foreground}"
                                    RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"
                                    TextOptions.TextFormattingMode="Display" />
-                        <!-- Windows 10 only! <TextBlock x:Name="txt" Text="{TemplateBinding Content}" FontFamily="Segoe MDL2 Assets" FontSize="10"
-                                   Foreground="{DynamicResource Caption.Button.Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"
-                                   TextOptions.TextFormattingMode="Display"/>-->
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -49,14 +46,12 @@
                     <Grid x:Name="LayoutRoot" Width="44" Height="30"
                           Background="{DynamicResource Caption.Button.Background}">
                         <TextBlock x:Name="txt" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Text="&#x2573;" FontFamily="Segoe UI Symbol" FontSize="12"
+                                   Text="{Binding CloseCharacter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" 
+                                   FontFamily="{Binding WindowChromeFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" 
+                                   FontSize="{Binding WindowChromeFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" 
                                    Foreground="{DynamicResource Caption.Button.Foreground}"
                                    RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"
                                    TextOptions.TextFormattingMode="Display" />
-                        <!-- Windows 10 only! <TextBlock x:Name="txt" Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10"
-                                   Foreground="{DynamicResource Caption.Button.Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"
-                                   TextOptions.TextFormattingMode="Display"/>-->
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -75,22 +70,19 @@
 
     <Style x:Key="MinimizeButtonStyle" TargetType="Button"
            BasedOn="{StaticResource CaptionButtonStyle}">
-        <Setter Property="Content" Value="&#x30;" />
-        <!--<Setter Property="Content" Value="&#xE949;"/> win10 -->
+        <Setter Property="Content" Value="{Binding MinimizeCharacter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" />
         <Setter Property="ToolTip" Value="{l:Loc Key='Window_Minimize'}" />
     </Style>
 
     <Style x:Key="MaximizeButtonStyle" TargetType="Button"
            BasedOn="{StaticResource CaptionButtonStyle}">
-        <Setter Property="Content" Value="&#x31;" />
-        <!--<Setter Property="Content" Value="&#xE739;"/> win10 -->
+        <Setter Property="Content" Value="{Binding MaximizeCharacter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" />
         <Setter Property="ToolTip" Value="{l:Loc Key='Window_Maximize'}" />
     </Style>
 
     <Style x:Key="RestoreButtonStyle" TargetType="Button"
            BasedOn="{StaticResource CaptionButtonStyle}">
-        <Setter Property="Content" Value="&#x32;" />
-        <!--<Setter Property="Content" Value="&#xE923;"/> win10 -->
+        <Setter Property="Content" Value="{Binding RestoreCharacter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" />
         <Setter Property="ToolTip" Value="{l:Loc Key='Window_RestoreDown'}" />
     </Style>
 

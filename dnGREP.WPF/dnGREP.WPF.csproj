@@ -117,11 +117,13 @@
     <Compile Include="Scripting\ScriptStatement.cs" />
     <Compile Include="Scripting\ScriptTargetDefinition.cs" />
     <Compile Include="Scripting\ScriptValueDefinition.cs" />
+    <Compile Include="SystemSymbols.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
     <Compile Include="ViewModels\MainViewModelProps.cs" />
     <Compile Include="ViewModels\CultureAwareViewModel.cs" />
     <Compile Include="ViewModels\MainViewModelScripts.cs" />
     <Compile Include="ViewModels\MenuItemViewModel.cs" />
+    <Compile Include="ViewModels\MRUViewModel.cs" />
     <Compile Include="ViewModels\ReportOptionsViewModel.cs" />
     <Compile Include="ViewModels\ScriptViewModel.cs" />
     <Compile Include="Views\MessagesWindow.xaml.cs">
