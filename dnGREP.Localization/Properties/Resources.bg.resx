@@ -2808,15 +2808,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
-    <value>Точка за _нов ред</value>
+    <value>Точка за нов ред</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
-    <value>Следване на символни връзки</value>
+    <value>Следва символни връзки</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>Открояване на групите</value>
+    <value>Откроява групите</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
@@ -2836,7 +2836,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
-    <value>Заменяне</value>
+    <value>Заменяне с</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
@@ -3091,11 +3091,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
-    <value>При копиране на файл, когато целевият файл съществува, да бъде ли презаписан?</value>
+    <value>При копиране на файл ако целевият файл съществува, да бъде ли презаписан?</value>
     <comment>Options dialog, overwrite on copy options label</comment>
   </data>
   <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
-    <value>При преместване на файл, когато целевият файл съществува, да бъде ли презаписан?</value>
+    <value>При преместване на файл ако целевият файл съществува, да бъде ли презаписан?</value>
     <comment>Options dialog, overwrite on move options label</comment>
   </data>
   <data name="Options_Yes" xml:space="preserve">
@@ -3135,7 +3135,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script message for copy error</comment>
   </data>
   <data name="ScriptHint_undo" xml:space="preserve">
-    <value>Отменя последното действие по заместване</value>
+    <value>Отменя последното действие на заместване</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Scripts_AtLine" xml:space="preserve">
@@ -3253,5 +3253,45 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
     <value>Наименование на отметката, която да бъде премахната или празно за текущата отметка</value>
     <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>Редове за контекст след (брой)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>Редове за контекст преди (брой)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Откроява съвпаденията</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>Знак или знаци, напр. запетая или запетая и интервал</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>Паралелно търсене</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>Връща доклад с уникалните стойности</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>Безвъзвратно премахва файловете от резултата</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>Ограничение на вложени папки (брой)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>Файлът „{1}“ не е намерен при изпълнение на командата {0}</value>
+    <comment>Script message for file not found: {0} is the target name and {1} is the file name</comment>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>Вид шаблон за търсене</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
 </root>
