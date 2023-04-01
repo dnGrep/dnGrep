@@ -2904,7 +2904,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_MoveDown" xml:space="preserve">
-    <value>Преместване на избраните редове надолу</value>
+    <value>Преместване на редовете надолу</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_New" xml:space="preserve">
@@ -2940,7 +2940,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Script_Editor_MoveUp" xml:space="preserve">
-    <value>Преместване на избраните редове нагоре</value>
+    <value>Преместване на редовете нагоре</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_RunScript" xml:space="preserve">
@@ -2956,7 +2956,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
-    <value>_Команди за скриптове</value>
+    <value>_Команди в скриптовете</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
@@ -3000,7 +3000,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, delete files group header label</comment>
   </data>
   <data name="Script_Editor_Validate" xml:space="preserve">
-    <value>Про_веряване</value>
+    <value>Про_верка за грешки</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
@@ -3028,7 +3028,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
   <data name="Script_Validation_Header_Message" xml:space="preserve">
-    <value>Съобщение</value>
+    <value>Текст</value>
     <comment>Script validation list header</comment>
   </data>
   <data name="ScriptHint_bookmark" xml:space="preserve">
@@ -3103,7 +3103,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
-    <value>Командата не е валидна</value>
+    <value>Командата не е правилна</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Options_CopyFiles" xml:space="preserve">
@@ -3175,11 +3175,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, parallel options label</comment>
   </data>
   <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
-    <value>Стойността не може да бъде преобразувана от низа</value>
+    <value>Стойността не може да бъде преобразувана от зададения низ</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
-    <value>Командата не приема стойност като параметър</value>
+    <value>Командата не приема параметър</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
@@ -3215,7 +3215,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
-    <value>Командата изисква целеви параметър</value>
+    <value>Командата изисква цел като параметър</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="ScriptHint_copyfilenames" xml:space="preserve">
@@ -3227,7 +3227,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
-    <value>Целевото име е недействително</value>
+    <value>Името на целта е недействително</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
@@ -3297,5 +3297,173 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_movefiles_value" xml:space="preserve">
     <value>Целева папка</value>
     <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>Подробна справка</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Изпълнява външен скрипт</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>Добавя информация за файловете към справката</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>Разделител между елементите на един ред в справката</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>Дълбочина на подпапките</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>Премахва висящите интервали от справката</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>Затваря прозорците на dnGrep и излиза от приложението</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Отваря или затваря панела с филтри за файлове</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>Задава стойност на целевия параметър</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>Внася командите от друг скрипт в текущия</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>Разтваря или свива дървото с резултати от търсенето</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>Показва прозореца за съобщения при завършване на скрипт</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Подготвя справка</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Път и файл за справката</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>Нулира филтрите за файлове до подразбираните стойности</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Изпълнява външна команда</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Започва търсене</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Изпълнява скрипт на PowerShell</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>Пълен път и име на файл с разширение ps1</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>Задава кодова страница или -1 за автоматичен избор</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>Кодиране на знаците като кодова страница</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>Настройва вида на справката</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>Начин на сортиране</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>Използва ISO 8601 или местен формат на датата и часа</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>Справка във вид на CSV</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Заменя съвпаденията във файлове</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Филтър по размер, долна граница (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>Размер от</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>В справката всеки резултат е на нов ред</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Филтър по размер, горна граница (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Размер до</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Отваря или затваря панела с настройки на резултатите</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Внася данни</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>Премества на друго място файловете, идващи като резултат</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value></value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>Справка във вид на текст</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Път и файл за справката</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>Филтър по модели на изключване</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>Филтър по модели на съвпадение</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>Настройва вида на сотриране</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>Пълен път и име на файл с разширение cmd или bat</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>Обхват на уникалност на справката: по файл или от всички файлове</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
 </root>
