@@ -3434,10 +3434,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Премества на друго място файловете, идващи като резултат</value>
     <comment>Script editor command tooltip</comment>
   </data>
-  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
-    <value></value>
-    <comment>Script editor command/target tooltip</comment>
-  </data>
   <data name="ScriptHint_report_text" xml:space="preserve">
     <value>Справка във вид на текст</value>
     <comment>Script editor command/target tooltip</comment>
