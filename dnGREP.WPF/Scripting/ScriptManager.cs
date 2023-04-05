@@ -163,7 +163,15 @@ namespace dnGREP.WPF
                             int pos = line.IndexOf(target);
                             if (pos > -1 && pos + target.Length + 1 < line.Length)
                             {
-                                value = Trim(line.Substring(pos + target.Length + 1));
+                                if (target.Equals("folder", StringComparison.Ordinal))
+                                {
+                                    // keep quotes
+                                    value = line.Substring(pos + target.Length + 1).Trim();
+                                }
+                                else
+                                {
+                                    value = Trim(line.Substring(pos + target.Length + 1));
+                                }
                             }
                         }
                     }

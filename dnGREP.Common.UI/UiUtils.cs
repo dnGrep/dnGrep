@@ -35,6 +35,11 @@ namespace dnGREP.Common.UI
             if (string.IsNullOrWhiteSpace(path))
                 return string.Empty;
 
+            if (path.StartsWith("\"", StringComparison.Ordinal) && path.EndsWith("\"", StringComparison.Ordinal))
+            {
+                return path;
+            }
+
             var parts = SplitPath(path, true);
             if (parts.Length > 1 || parts[0] != path)
                 return "\"" + path + "\"";
