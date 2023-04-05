@@ -369,7 +369,7 @@ namespace dnGREP.WPF
         private string textBoxStyle = string.Empty;
 
         [ObservableProperty]
-        private int codePage;
+        private int codePage = -1;
 
         [ObservableProperty]
         private bool canUndo;
