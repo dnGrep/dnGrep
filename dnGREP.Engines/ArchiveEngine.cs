@@ -77,7 +77,10 @@ namespace dnGREP.Engines
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 
+            if (file.Length > 260 && !file.StartsWith(PathEx.LongPathPrefix, StringComparison.InvariantCulture))
+            {
             file = PathEx.GetLongPath(file);
+            }
 
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
             foreach (var item in Search(fileStream, file, searchPattern, searchType, searchOptions, encoding))
