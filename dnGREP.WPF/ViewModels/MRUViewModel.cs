@@ -37,7 +37,7 @@ namespace dnGREP.WPF
                     return;
                 }
 
-                stringValue = value;
+                stringValue = value ?? string.Empty;
                 OnPropertyChanged(nameof(StringValue));
             }
         }

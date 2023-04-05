@@ -1816,7 +1816,7 @@ namespace dnGREP.WPF
         private void LoadMRUList(MRUType valueType, IList<MRUViewModel> list, string itemKey)
         {
             var mruItems = Settings.Get<List<MostRecentlyUsed>>(itemKey);
-            if (mruItems != null)
+            if (mruItems != null && mruItems.Count > 0)
             {
                 var vmList = mruItems.Select(p => new MRUViewModel(valueType, p.StringValue, p.IsPinned)).ToList();
                 if (vmList != null && vmList.Count > 0)
