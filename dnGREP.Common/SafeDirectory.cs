@@ -163,7 +163,7 @@ namespace dnGREP.Common
                 {
                     foreach (string pattern in patterns)
                     {
-                        if (pattern.Contains('*') || pattern.Contains('?'))
+                        if (pattern.Contains('*', StringComparison.Ordinal) || pattern.Contains('?', StringComparison.Ordinal))
                         {
                             if (WildcardMatch(fsei.FileName, pattern, true))
                                 return true;
@@ -414,7 +414,7 @@ namespace dnGREP.Common
             if (pattern == ".*")
                 return fileName.StartsWith(dot, StringComparison.OrdinalIgnoreCase);
 
-            if (pattern.StartsWith(star, StringComparison.OrdinalIgnoreCase) && pattern.IndexOf('*', 1) == -1 && !pattern.Contains('?'))
+            if (pattern.StartsWith(star, StringComparison.OrdinalIgnoreCase) && pattern.IndexOf('*', 1) == -1 && !pattern.Contains('?', StringComparison.Ordinal))
                 return fileName.EndsWith(pattern[1..], StringComparison.CurrentCulture);
 
             int fileNameIndex = 0;

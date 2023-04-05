@@ -99,7 +99,7 @@ namespace dnGREP.WPF
                     // get the global file match corresponding to this line match
                     // only the file match has a valid ReplaceMatch flag
                     GrepMatch? fileMatch = grepSearchResult.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
-                    bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch?.FileMatchId);
+                    bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch?.FileMatchId, StringComparison.Ordinal);
 
                     Brush? markerBrush = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
                     double markerCornerRadius = 2;

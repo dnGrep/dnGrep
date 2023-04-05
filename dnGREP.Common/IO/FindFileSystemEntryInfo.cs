@@ -51,7 +51,7 @@ namespace dnGREP.Common.IO
 
             IsRelativePath = !Path.IsPathRooted(OriginalInputPath);
 
-            RelativeAbsolutePrefix = IsRelativePath ? InputPath.Replace(OriginalInputPath, string.Empty) : string.Empty;
+            RelativeAbsolutePrefix = IsRelativePath ? InputPath.Replace(OriginalInputPath, string.Empty, StringComparison.Ordinal) : string.Empty;
 
             FileSystemObjectType = null;
 
@@ -253,7 +253,7 @@ namespace dnGREP.Common.IO
 
         private FileSystemEntryInfo NewFilesystemEntry(string pathLp, string fileName, WIN32_FIND_DATAW win32FindData)
         {
-            var fullPath = (IsRelativePath ? pathLp.Replace(RelativeAbsolutePrefix, string.Empty) : pathLp) + fileName;
+            var fullPath = (IsRelativePath ? pathLp.Replace(RelativeAbsolutePrefix, string.Empty, StringComparison.Ordinal) : pathLp) + fileName;
 
             return new FileSystemEntryInfo(win32FindData) { FullPath = fullPath };
         }

@@ -79,7 +79,7 @@ namespace dnGREP.Engines
 
             if (file.Length > 260 && !file.StartsWith(PathEx.LongPathPrefix, StringComparison.InvariantCulture))
             {
-            file = PathEx.GetLongPath(file);
+                file = PathEx.GetLongPath(file);
             }
 
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
@@ -164,7 +164,7 @@ namespace dnGREP.Engines
                     bool excludeFile = false;
                     foreach (string dir in hiddenDirectories)
                     {
-                        if (innerFileName.StartsWith(dir))
+                        if (innerFileName.StartsWith(dir, StringComparison.Ordinal))
                         {
                             excludeFile = true;
                             break;

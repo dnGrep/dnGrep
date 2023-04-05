@@ -80,14 +80,14 @@ namespace dnGREP.Engines
 
         private string DoPatternReplacement(string searchPattern, string replaceText)
         {
-            if (replaceText.Contains(KEYWORD_GUID_LOWER))
-                return replaceText.Replace(KEYWORD_GUID_LOWER, Guid.NewGuid().ToString());
-            if (replaceText.Contains(KEYWORD_GUID_UPPER))
-                return replaceText.Replace(KEYWORD_GUID_UPPER, Guid.NewGuid().ToString().ToUpper());
-            if (replaceText.Contains(KEYWORD_GUIDX))
+            if (replaceText.Contains(KEYWORD_GUID_LOWER, StringComparison.Ordinal))
+                return replaceText.Replace(KEYWORD_GUID_LOWER, Guid.NewGuid().ToString(), StringComparison.Ordinal);
+            if (replaceText.Contains(KEYWORD_GUID_UPPER, StringComparison.Ordinal))
+                return replaceText.Replace(KEYWORD_GUID_UPPER, Guid.NewGuid().ToString().ToUpper(), StringComparison.Ordinal);
+            if (replaceText.Contains(KEYWORD_GUIDX, StringComparison.Ordinal))
             {
                 string guidx = guidxMatches.GetOrAdd(searchPattern, (key) => Guid.NewGuid().ToString());
-                return replaceText.Replace(KEYWORD_GUIDX, guidx);
+                return replaceText.Replace(KEYWORD_GUIDX, guidx, StringComparison.Ordinal);
             }
             else
                 return replaceText;
@@ -138,10 +138,10 @@ namespace dnGREP.Engines
             // Note: in Singleline mode, need to capture the new line chars
 
             bool searchPatternEndsWithDot =
-                (searchPattern.EndsWith(".") && !searchPattern.EndsWith(@"\.")) ||
-                (searchPattern.EndsWith(".*") && !searchPattern.EndsWith(@"\.*")) ||
-                (searchPattern.EndsWith(".?") && !searchPattern.EndsWith(@"\.?")) ||
-                (searchPattern.EndsWith(".+") && !searchPattern.EndsWith(@"\.+"));
+                (searchPattern.EndsWith(".", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.", StringComparison.Ordinal)) ||
+                (searchPattern.EndsWith(".*", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.*", StringComparison.Ordinal)) ||
+                (searchPattern.EndsWith(".?", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.?", StringComparison.Ordinal)) ||
+                (searchPattern.EndsWith(".+", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.+", StringComparison.Ordinal));
 
             string textToSearch = text;
             bool convertedFromWindowsNewline = false;
@@ -149,17 +149,17 @@ namespace dnGREP.Engines
 
             if (searchPattern.ConstainsNotEscaped("$") || searchPatternEndsWithDot)
             {
-                if (text.Contains("\r\n"))
+                if (text.Contains("\r\n", StringComparison.Ordinal))
                 {
                     // the match index will be off by one for each line where the \r was dropped
-                    searchPattern = searchPattern.Replace("\r\n", "\n").Replace('\r', '\n');
+                    searchPattern = searchPattern.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
                     textToSearch = ConvertNewLines(text, out newlineIndexes);
                     convertedFromWindowsNewline = true;
                 }
-                else if (text.Contains('\r'))
+                else if (text.Contains('\r', StringComparison.Ordinal))
                 {
                     // this will be the same length, just change the newline char while searching
-                    searchPattern = searchPattern.Replace("\r\n", "\n").Replace('\r', '\n');
+                    searchPattern = searchPattern.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
                     textToSearch = text.Replace('\r', '\n');
                 }
             }
@@ -201,7 +201,7 @@ namespace dnGREP.Engines
                         if (group.Success)
                         {
                             length = group.Length;
-                            if (!regexOptions.HasFlag(RegexOptions.Singleline) && group.Value.EndsWith("\r"))
+                            if (!regexOptions.HasFlag(RegexOptions.Singleline) && group.Value.EndsWith("\r", StringComparison.Ordinal))
                                 length -= 1;
 
                             grepMatch.Groups.Add(
@@ -248,7 +248,7 @@ namespace dnGREP.Engines
                 if (Utils.CancelSearch)
                     break;
 
-                pos = text.IndexOf("\r\n", start);
+                pos = text.IndexOf("\r\n", start, StringComparison.Ordinal);
                 if (pos > -1)
                 {
                     output += string.Concat(text.AsSpan(start, pos - start), "\n");
@@ -342,9 +342,9 @@ namespace dnGREP.Engines
 
             if (isWholeWord)
             {
-                if (!searchPattern.Trim().StartsWith("\\b"))
+                if (!searchPattern.Trim().StartsWith("\\b", StringComparison.Ordinal))
                     searchPattern = "\\b" + searchPattern.Trim();
-                if (!searchPattern.Trim().EndsWith("\\b"))
+                if (!searchPattern.Trim().EndsWith("\\b", StringComparison.Ordinal))
                     searchPattern = searchPattern.Trim() + "\\b";
             }
 
@@ -357,12 +357,12 @@ namespace dnGREP.Engines
                 // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
                 bool convertToWindowsNewline = false;
                 string searchPatternForReplace = searchPattern;
-                if (searchPattern.ConstainsNotEscaped("$") && text.Contains("\r\n"))
+                if (searchPattern.ConstainsNotEscaped("$") && text.Contains("\r\n", StringComparison.Ordinal))
                 {
                     convertToWindowsNewline = true;
-                    searchPatternForReplace = searchPattern.Replace("\r\n", "\n");
-                    replacePattern = replacePattern.Replace("\r\n", "\n");
-                    text = text.Replace("\r\n", "\n");
+                    searchPatternForReplace = searchPattern.Replace("\r\n", "\n", StringComparison.Ordinal);
+                    replacePattern = replacePattern.Replace("\r\n", "\n", StringComparison.Ordinal);
+                    text = text.Replace("\r\n", "\n", StringComparison.Ordinal);
                 }
 
                 // because we're possibly altering the new line chars, the match.Index in Regex.Replace
@@ -386,7 +386,7 @@ namespace dnGREP.Engines
                     regexOptions, MatchTimeout);
 
                 if (convertToWindowsNewline)
-                    replaceText = replaceText.Replace("\n", "\r\n");
+                    replaceText = replaceText.Replace("\n", "\r\n", StringComparison.Ordinal);
 
                 result = replaceText;
             }
@@ -545,7 +545,7 @@ namespace dnGREP.Engines
             List<GrepMatch> results = new();
 
             // skip files that are obviously not xml files, but report errors on badly formed xml
-            int firstElemIdx = text.IndexOf('<');
+            int firstElemIdx = text.IndexOf('<', StringComparison.Ordinal);
             int firstCharIdx = text.TakeWhile(char.IsWhiteSpace).Count();
             if (firstElemIdx > -1 && firstElemIdx <= firstCharIdx)
             {
@@ -595,7 +595,7 @@ namespace dnGREP.Engines
             IEnumerable<GrepMatch> replaceItems)
         {
             // shouldn't get here, but skip non-xml files:
-            if (text.StartsWith("<"))
+            if (text.StartsWith("<", StringComparison.Ordinal))
             {
                 XmlDocument xmlDoc = new();
                 xmlDoc.LoadXml(text);

@@ -147,7 +147,7 @@ namespace dnGREP.Common
                     bool excludeFile = false;
                     foreach (string dir in hiddenDirectories)
                     {
-                        if (innerFileName.StartsWith(dir))
+                        if (innerFileName.StartsWith(dir, StringComparison.Ordinal))
                         {
                             excludeFile = true;
                             break;
@@ -432,7 +432,7 @@ namespace dnGREP.Common
         public static List<GrepLine> GetLinesWithContext(GrepSearchResult searchResult, int linesBefore, int linesAfter)
         {
             string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator) || parts.Length < 2)
+            if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator, StringComparison.Ordinal) || parts.Length < 2)
             {
                 return new List<GrepLine>();
             }
@@ -466,7 +466,7 @@ namespace dnGREP.Common
                     else
                     {
                         string name = intermediateFiles.First();
-                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name, StringComparison.Ordinal));
                         if (fd != default)
                         {
                             index = fd.Index;
@@ -491,7 +491,7 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, innerFileName));
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, innerFileName, StringComparison.Ordinal));
                         if (fd != default)
                         {
                             index = fd.Index;
@@ -523,7 +523,7 @@ namespace dnGREP.Common
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-Archive", Utils.GetHash(searchResult.FileNameReal));
 
             string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator) || parts.Length < 2)
+            if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator, StringComparison.Ordinal) || parts.Length < 2)
             {
                 return string.Empty;
             }
@@ -564,7 +564,7 @@ namespace dnGREP.Common
                 else
                 {
                     string name = intermediateFiles.First();
-                    var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
+                    var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name, StringComparison.Ordinal));
                     if (fd != default)
                     {
                         index = fd.Index;
@@ -589,7 +589,7 @@ namespace dnGREP.Common
                 }
                 else
                 {
-                    var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, innerFileName));
+                    var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, innerFileName, StringComparison.Ordinal));
                     if (fd != default)
                     {
                         index = fd.Index;

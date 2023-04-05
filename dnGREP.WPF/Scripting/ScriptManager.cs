@@ -141,7 +141,7 @@ namespace dnGREP.WPF
 
         public static ScriptStatement? ParseLine(string line, int lineNum)
         {
-            if (string.IsNullOrWhiteSpace(line) || line.TrimStart().StartsWith("//"))
+            if (string.IsNullOrWhiteSpace(line) || line.TrimStart().StartsWith("//", StringComparison.Ordinal))
             {
                 return null;
             }
@@ -163,7 +163,7 @@ namespace dnGREP.WPF
 
                         if (parts.Length > 2)
                         {
-                            int pos = line.IndexOf(target);
+                            int pos = line.IndexOf(target, StringComparison.Ordinal);
                             if (pos > -1 && pos + target.Length + 1 < line.Length)
                             {
                                 value = Trim(line[(pos + target.Length + 1)..]);
@@ -189,7 +189,7 @@ namespace dnGREP.WPF
         {
             string result = value.TrimStart();
 
-            if (result.StartsWith("\"") && result.TrimEnd().EndsWith("\""))
+            if (result.StartsWith("\"", StringComparison.Ordinal) && result.TrimEnd().EndsWith("\"", StringComparison.Ordinal))
             {
                 result = result.TrimEnd();
                 result = result[1..^1];

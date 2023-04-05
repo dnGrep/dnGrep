@@ -52,12 +52,12 @@ namespace dnGREP.Common.UI
             }
 
             // check if it is already quoted
-            if (path.StartsWith("\"") || path.EndsWith("\""))
+            if (path.StartsWith("\"", StringComparison.Ordinal) || path.EndsWith("\"", StringComparison.Ordinal))
             {
                 return path;
             }
 
-            if (path.Contains(' '))
+            if (path.Contains(' ', StringComparison.Ordinal))
             {
                 return Quote(path);
             }
@@ -96,8 +96,8 @@ namespace dnGREP.Common.UI
                     {
                         cleaned = EverythingSearch.RemovePrefixes(cleaned);
 
-                        if (cleaned.StartsWith("\"") || cleaned.EndsWith("\"") ||
-                            cleaned.StartsWith("(") || cleaned.EndsWith(")"))
+                        if (cleaned.StartsWith("\"", StringComparison.Ordinal) || cleaned.EndsWith("\"", StringComparison.Ordinal) ||
+                            cleaned.StartsWith("(", StringComparison.Ordinal) || cleaned.EndsWith(")", StringComparison.Ordinal))
                         {
                             cleaned = cleaned.Trim('\"', '(', ')', ' ').Trim();
                         }
@@ -234,7 +234,7 @@ namespace dnGREP.Common.UI
                 return Array.Empty<string>();
 
             // remove quotes
-            pattern = pattern.Replace("\"", string.Empty);
+            pattern = pattern.Replace("\"", string.Empty, StringComparison.Ordinal);
 
             string[] parts = pattern.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -257,18 +257,18 @@ namespace dnGREP.Common.UI
             string[]? paths = new string[] { path };
 
             // if path contains separators, parse it
-            if (path.Contains(';') || path.Contains(',') || path.Contains('|') || path.Contains('\\'))
+            if (path.Contains(';', StringComparison.Ordinal) || path.Contains(',', StringComparison.Ordinal) || path.Contains('|', StringComparison.Ordinal) || path.Contains('\\', StringComparison.Ordinal))
             {
                 using TextReader reader = new StringReader(path);
                 // using TextFieldParser take quoted strings as-is
                 using TextFieldParser parser = new(reader);
-                parser.HasFieldsEnclosedInQuotes = path.Contains('"');
+                parser.HasFieldsEnclosedInQuotes = path.Contains('"', StringComparison.Ordinal);
                 parser.TrimWhiteSpace = false;
                 parser.SetDelimiters(",", ";", "|");
                 paths = parser.ReadFields();
             }
 
-            path = path.Replace("\"", string.Empty);
+            path = path.Replace("\"", string.Empty, StringComparison.Ordinal);
 
             int splitterIndex = -1;
             for (int i = 0; i < paths?.Length; i++)
@@ -356,7 +356,7 @@ namespace dnGREP.Common.UI
                 if (!string.IsNullOrWhiteSpace(parent) && Directory.Exists(parent))
                 {
                     string pattern = Path.GetFileName(path);
-                    if (pattern.Contains('?') || pattern.Contains('*'))
+                    if (pattern.Contains('?', StringComparison.Ordinal) || pattern.Contains('*', StringComparison.Ordinal))
                     {
                         string[] subDirs = Directory.GetDirectories(parent, pattern, SearchOption.TopDirectoryOnly);
                         output.AddRange(subDirs);

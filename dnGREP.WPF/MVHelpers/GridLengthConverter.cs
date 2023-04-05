@@ -20,10 +20,10 @@ namespace dnGREP.WPF
                 if (text.Equals("Auto", StringComparison.OrdinalIgnoreCase))
                     return GridLength.Auto;
 
-                if (text.Equals("*"))
+                if (text.Equals("*", StringComparison.Ordinal))
                     return new GridLength(1, GridUnitType.Star);
 
-                if (text.EndsWith("*"))
+                if (text.EndsWith("*", StringComparison.Ordinal))
                 {
                     text = text.TrimEnd('*');
 

@@ -55,8 +55,8 @@ namespace dnGREP.WPF
             unchecked
             {
                 int hashCode = 13;
-                hashCode = (hashCode * 397) ^ SampleText?.GetHashCode() ?? 5;
-                hashCode = (hashCode * 397) ^ SearchFor?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 397) ^ SampleText?.GetHashCode(StringComparison.Ordinal) ?? 5;
+                hashCode = (hashCode * 397) ^ SearchFor?.GetHashCode(StringComparison.Ordinal) ?? 5;
                 hashCode = (hashCode * 397) ^ TypeOfSearch.GetHashCode();
                 hashCode = (hashCode * 397) ^ CaseSensitive.GetHashCode();
                 hashCode = (hashCode * 397) ^ WholeWord.GetHashCode();
@@ -73,7 +73,7 @@ namespace dnGREP.WPF
             unchecked
             {
                 int hashCode = GetSearchHash();
-                hashCode = (hashCode * 397) ^ ReplaceWith?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 397) ^ ReplaceWith?.GetHashCode(StringComparison.Ordinal) ?? 5;
                 return hashCode;
             }
         }

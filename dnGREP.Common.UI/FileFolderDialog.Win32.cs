@@ -63,7 +63,7 @@ namespace dnGREP.Common.UI
                 try
                 {
                     if (dialog.FileName != null &&
-                        (dialog.FileName.EndsWith("Folder Selection.") || !File.Exists(dialog.FileName)) &&
+                        (dialog.FileName.EndsWith("Folder Selection.", StringComparison.Ordinal) || !File.Exists(dialog.FileName)) &&
                         !Directory.Exists(dialog.FileName))
                     {
                         return UiUtils.QuoteIfNeeded(Path.GetDirectoryName(dialog.FileName) ?? string.Empty);

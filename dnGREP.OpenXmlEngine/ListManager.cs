@@ -112,11 +112,11 @@ namespace dnGREP.Engines.OpenXml
 
                 //short circuit bullet
                 string numFmt = GetNumFormat(level, isLegal, overrideLevelTuples);
-                if ("Bullet".Equals(numFmt))
+                if ("Bullet".Equals(numFmt, StringComparison.Ordinal))
                 {
                     string bullet = lvlText;
                     foreach (var kv in BulletSubstitutions)
-                        bullet = bullet.Replace(kv.Key, kv.Value);
+                        bullet = bullet.Replace(kv.Key, kv.Value, StringComparison.Ordinal);
                     return indent + bullet + " ";
                 }
 
@@ -159,35 +159,35 @@ namespace dnGREP.Engines.OpenXml
                 {
                     count = 1;
                 }
-                if ("LowerLetter".Equals(numFmt))
+                if ("LowerLetter".Equals(numFmt, StringComparison.Ordinal))
                 {
                     numFmtStyle = NumberFmtStyle.LowerLetter;
                 }
-                else if ("LowerRoman".Equals(numFmt))
+                else if ("LowerRoman".Equals(numFmt, StringComparison.Ordinal))
                 {
                     numFmtStyle = NumberFmtStyle.LowerRoman;
                 }
-                else if ("Decimal".Equals(numFmt))
+                else if ("Decimal".Equals(numFmt, StringComparison.Ordinal))
                 {
                     numFmtStyle = NumberFmtStyle.Arabic;
                 }
-                else if ("UpperLetter".Equals(numFmt))
+                else if ("UpperLetter".Equals(numFmt, StringComparison.Ordinal))
                 {
                     numFmtStyle = NumberFmtStyle.UpperLetter;
                 }
-                else if ("UpperRoman".Equals(numFmt))
+                else if ("UpperRoman".Equals(numFmt, StringComparison.Ordinal))
                 {
                     numFmtStyle = NumberFmtStyle.UpperRoman;
                 }
-                else if ("Ordinal".Equals(numFmt))
+                else if ("Ordinal".Equals(numFmt, StringComparison.Ordinal))
                 {
                     return Ordinalize(count);
                 }
-                else if ("DecimalZero".Equals(numFmt))
+                else if ("DecimalZero".Equals(numFmt, StringComparison.Ordinal))
                 {
                     return "0" + NumberFormatter.GetNumber(count, NumberFmtStyle.Arabic);
                 }
-                else if ("None".Equals(numFmt))
+                else if ("None".Equals(numFmt, StringComparison.Ordinal))
                 {
                     return string.Empty;
                 }
@@ -206,15 +206,15 @@ namespace dnGREP.Engines.OpenXml
             {
                 //this is only good for locale == English
                 string countString = count.ToString();
-                if (countString.EndsWith("1"))
+                if (countString.EndsWith("1", StringComparison.Ordinal))
                 {
                     return countString + "st";
                 }
-                else if (countString.EndsWith("2"))
+                else if (countString.EndsWith("2", StringComparison.Ordinal))
                 {
                     return countString + "nd";
                 }
-                else if (countString.EndsWith("3"))
+                else if (countString.EndsWith("3", StringComparison.Ordinal))
                 {
                     return countString + "rd";
                 }
@@ -496,7 +496,7 @@ namespace dnGREP.Engines.OpenXml
                 //start for a given numFmt.  We should probably try to grab the
                 //restartNumberingAfterBreak value in
                 //e.g. <w:abstractNum w:abstractNumId="12" w15:restartNumberingAfterBreak="0">???
-                if ("decimal".Equals(numFmt) || "ordinal".Equals(numFmt) || "decimalZero".Equals(numFmt))
+                if ("decimal".Equals(numFmt, StringComparison.Ordinal) || "ordinal".Equals(numFmt, StringComparison.Ordinal) || "decimalZero".Equals(numFmt, StringComparison.Ordinal))
                 {
                     start = 0;
                 }

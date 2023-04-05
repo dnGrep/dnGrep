@@ -78,7 +78,7 @@ namespace dnGREP.WPF
                     string dataFolder = Utils.GetDataFolderPath();
                     string fileName = CurrentThemeName + ".xaml";
                     string? path = Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories)
-                        .Where(p => Path.GetFileName(p).Equals(fileName))
+                        .Where(p => Path.GetFileName(p).Equals(fileName, StringComparison.Ordinal))
                         .FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
                     {
@@ -190,7 +190,7 @@ namespace dnGREP.WPF
         {
             using var stream = File.OpenRead(filename);
             using var sha = SHA256.Create();
-            return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
+            return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "", StringComparison.Ordinal).ToLowerInvariant();
         }
 
         public void WatchTheme()
@@ -205,7 +205,7 @@ namespace dnGREP.WPF
                     CultureInfo.InvariantCulture,
                     @"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{0}\\{1}' AND ValueName = '{2}'",
                     currentUser.User.Value,
-                    RegistryKeyPath.Replace(@"\", @"\\"),
+                    RegistryKeyPath.Replace(@"\", @"\\", StringComparison.Ordinal),
                     RegistryValueName);
 
                 try

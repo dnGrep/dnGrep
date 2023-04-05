@@ -423,19 +423,19 @@ namespace dnGREP.Common
                 }
                 else if (TokenType.Operator.HasFlag(token.TokenType))
                 {
-                    if (token.Value.StartsWith(")"))
+                    if (token.Value.StartsWith(")", StringComparison.Ordinal))
                     {
                         sb.Append(" ) ");
                     }
                     sb.Append($" {token.TokenType} ");
-                    if (token.Value.EndsWith("("))
+                    if (token.Value.EndsWith("(", StringComparison.Ordinal))
                     {
                         sb.Append(" ( ");
                     }
                 }
             }
 
-            Expression = sb.ToString().Replace("  ", " ").Trim();
+            Expression = sb.ToString().Replace("  ", " ", StringComparison.Ordinal).Trim();
 
             return true;
         }

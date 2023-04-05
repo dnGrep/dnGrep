@@ -42,7 +42,7 @@ namespace dnGREP.Common
             int startIndex = 0;
             while (startIndex < input.Length)
             {
-                int pos = input.IndexOf(toCheck, startIndex);
+                int pos = input.IndexOf(toCheck, startIndex, StringComparison.Ordinal);
                 if (pos > -1)
                 {
                     if (pos > 0 && input[pos - 1] == '\\')
@@ -74,7 +74,7 @@ namespace dnGREP.Common
             int startIndex = 0;
             while (startIndex < input.Length)
             {
-                int pos = input.IndexOf(oldValue, startIndex);
+                int pos = input.IndexOf(oldValue, startIndex, StringComparison.Ordinal);
                 if (pos > -1)
                 {
                     sb.Append(input[startIndex..pos]);
@@ -136,7 +136,7 @@ namespace dnGREP.Common
         {
             if (DateTime.TryParseExact(input, "yyyy-MM-ddTHH:mm:ss.fffzzz", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime dt))
             {
-                if (input.EndsWith("00:00") || input.EndsWith("Z"))
+                if (input.EndsWith("00:00", StringComparison.Ordinal) || input.EndsWith("Z", StringComparison.Ordinal))
                 {
                     if (dt.Kind == DateTimeKind.Local)
                     {
@@ -170,7 +170,7 @@ namespace dnGREP.Common
                     result = Resources.Main_SearchType_Phonetic;
                     break;
             }
-            return result.Replace("_", string.Empty);
+            return result.Replace("_", string.Empty, StringComparison.Ordinal);
         }
 
         public static string ToLocalizedString(this FileSearchType fileSearchType)
@@ -188,7 +188,7 @@ namespace dnGREP.Common
                     result = Resources.Main_PatternType_Everything;
                     break;
             }
-            return result.Replace("_", string.Empty);
+            return result.Replace("_", string.Empty, StringComparison.Ordinal);
         }
 
         public static string ToLocalizedString(this FileDateFilter fileDateFilter)
@@ -206,7 +206,7 @@ namespace dnGREP.Common
                     result = Resources.Main_Modified;
                     break;
             }
-            return result.Replace("_", string.Empty);
+            return result.Replace("_", string.Empty, StringComparison.Ordinal);
         }
     }
 }

@@ -13,11 +13,11 @@ namespace dnGREP.Common
 
         private static string Quote(string text)
         {
-            if (text.Contains(','))
+            if (text.Contains(',', StringComparison.Ordinal))
             {
-                if (text.Contains('"'))
+                if (text.Contains('"', StringComparison.Ordinal))
                 {
-                    text = text.Replace("\"", "\"\"");
+                    text = text.Replace("\"", "\"\"", StringComparison.Ordinal);
                 }
                 return "\"" + text + "\"";
             }

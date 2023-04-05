@@ -192,8 +192,8 @@ namespace dnGREP.WPF
             {
                 lineNumber++;
                 string? line = reader.ReadLine();
-                if (!string.IsNullOrEmpty(line) && line.Contains('\f') && 
-                    !(reader.EndOfStream && line.Equals("\f")))
+                if (!string.IsNullOrEmpty(line) && line.Contains('\f', StringComparison.Ordinal) && 
+                    !(reader.EndOfStream && line.Equals("\f", StringComparison.Ordinal)))
                 {
                     pageNumber += line.Count(c => c.Equals('\f'));
                     if (lineNumberMargin.LineToPageMap.ContainsKey(lineNumber))

@@ -116,7 +116,7 @@ namespace dnGREP.WPF
             {
                 string lineText = GetLineText(caret);
 
-                if (lineText.StartsWith("//"))
+                if (lineText.StartsWith("//", StringComparison.Ordinal))
                 {
                     return;
                 }

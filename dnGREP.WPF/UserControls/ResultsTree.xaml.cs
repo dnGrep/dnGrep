@@ -509,7 +509,7 @@ namespace dnGREP.WPF.UserControls
                 if (item is FormattedGrepResult fileNode)
                 {
                     string name = fileNode.GrepResult.FileNameReal;
-                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name)) && File.Exists(name))
+                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name, StringComparison.Ordinal)) && File.Exists(name))
                     {
                         files.Add(fileNode);
                     }
@@ -517,7 +517,7 @@ namespace dnGREP.WPF.UserControls
                 if (item is FormattedGrepLine lineNode)
                 {
                     string name = lineNode.Parent.GrepResult.FileNameReal;
-                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name)) && File.Exists(name))
+                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name, StringComparison.Ordinal)) && File.Exists(name))
                     {
                         files.Add(lineNode.Parent);
                     }

@@ -1288,7 +1288,7 @@ namespace dnGREP.WPF
                         {
                             StatusMessage += enQuad + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
                         }
-                        logger.Info($"{StatusMessage} {Resources.Main_SearchFor.Replace("_", "")} {SearchFor}\t{duration.GetPrettyString()}\t{totalMatchCount}\t{successFileCount}\t{processedFiles}");
+                        logger.Info($"{StatusMessage} {Resources.Main_SearchFor.Replace("_", "", StringComparison.Ordinal)} {SearchFor}\t{duration.GetPrettyString()}\t{totalMatchCount}\t{successFileCount}\t{processedFiles}");
                     }
                     else
                     {
@@ -1811,7 +1811,7 @@ namespace dnGREP.WPF
         {
             string returnValue = value;
             // keep pinned items in order at the top of the list
-            var item = list.FirstOrDefault(b => string.Equals(b.StringValue, value, StringComparison.CurrentCultureIgnoreCase));
+            var item = list.FirstOrDefault(b => string.Equals(b.StringValue, value, StringComparison.OrdinalIgnoreCase));
             int newIndex = IndexOfFirstUnpinned(list);
             if (item != null)
             {

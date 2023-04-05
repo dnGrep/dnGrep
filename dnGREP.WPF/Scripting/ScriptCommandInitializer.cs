@@ -703,7 +703,7 @@ namespace dnGREP.WPF
                 Description = Resources.ScriptHint_exit,
             });
 
-            scriptCommands.Sort((x, y) => x.Command.CompareTo(y.Command));
+            scriptCommands.Sort((x, y) => string.Compare(x.Command, y.Command, StringComparison.Ordinal));
 
             foreach (var item in scriptCommands)
             {

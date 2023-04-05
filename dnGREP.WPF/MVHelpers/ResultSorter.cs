@@ -5,6 +5,7 @@ using System.IO;
 
 namespace dnGREP.WPF.MVHelpers
 {
+#pragma warning disable CA1309
     public class FileNameOnlyComparer : IComparer<FormattedGrepResult>
     {
         private readonly ListSortDirection direction;
@@ -189,4 +190,5 @@ namespace dnGREP.WPF.MVHelpers
             return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
         }
     }
+#pragma warning restore CA1309
 }

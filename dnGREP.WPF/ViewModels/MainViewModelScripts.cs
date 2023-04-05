@@ -202,7 +202,7 @@ namespace dnGREP.WPF
                     if ((coll[i].Command == null && coll[j].Command == null) ||
                         (coll[i].Command != null && coll[j].Command != null))
                     {
-                        if (string.Compare(coll[i].Header, coll[j].Header) > 0)
+                        if (string.Compare(coll[i].Header, coll[j].Header, StringComparison.Ordinal) > 0)
                         {
                             (coll[i], coll[j]) = (coll[j], coll[i]);
                         }

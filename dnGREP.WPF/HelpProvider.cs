@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -125,7 +126,7 @@ namespace dnGREP.WPF
                 {
                     if (!string.IsNullOrEmpty(parameter))
                     {
-                        if (HelpNamespace.StartsWith("http"))
+                        if (HelpNamespace.StartsWith("http", StringComparison.Ordinal))
                             Help.ShowHelp(null, HelpNamespace + parameter, command);
                         else
                             Help.ShowHelp(null, HelpNamespace, command, parameter);

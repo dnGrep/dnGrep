@@ -57,7 +57,7 @@ namespace dnGREP.WPF
             if (offsetStart > -1)
             {
                 string existing = lineText[offsetStart..caret.VisualColumn];
-                if (completionSegment.Length == 0 && !string.IsNullOrEmpty(existing) && Text.StartsWith(existing))
+                if (completionSegment.Length == 0 && !string.IsNullOrEmpty(existing) && Text.StartsWith(existing, StringComparison.Ordinal))
                 {
                     completionText = Text.Remove(0, existing.Length);
                 }

@@ -106,7 +106,7 @@ namespace dnGREP.WPF
         {
             var type = typeof(ThemedHighlightingManager);
             foreach (string name in type.Assembly.GetManifestResourceNames()
-                .Where(n => n.EndsWith(".xshd")))
+                .Where(n => n.EndsWith(".xshd", StringComparison.Ordinal)))
             {
                 using var stream = type.Assembly.GetManifestResourceStream(name);
                 if (stream != null)

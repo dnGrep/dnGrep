@@ -70,7 +70,7 @@ namespace dnGREP.WPF
 
         public override int GetHashCode()
         {
-            return StringValue.GetHashCode();
+            return StringValue.GetHashCode(StringComparison.Ordinal);
         }
 
         public override bool Equals(object? obj)
@@ -84,7 +84,7 @@ namespace dnGREP.WPF
             {
                 return false;
             }
-            return string.Equals(StringValue, other.StringValue, StringComparison.CurrentCultureIgnoreCase);
+            return string.Equals(StringValue, other.StringValue, StringComparison.OrdinalIgnoreCase);
         }
     }
 

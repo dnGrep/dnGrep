@@ -412,7 +412,7 @@ namespace dnGREP.WPF
                     // so check that it isn't a valid directory or file first
                     string trimmedPath = path.Trim('\"', ' ');
                     if (!(Directory.Exists(trimmedPath) || File.Exists(trimmedPath)) &&
-                        (path.Contains(',') || path.Contains(';') || path.Contains('|')))
+                        (path.Contains(',', StringComparison.Ordinal) || path.Contains(';', StringComparison.Ordinal) || path.Contains('|', StringComparison.Ordinal)))
                     {
                         try
                         {

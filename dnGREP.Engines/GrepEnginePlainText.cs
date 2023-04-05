@@ -187,7 +187,7 @@ namespace dnGREP.Engines
                     }
 
                     if (lineNumber == 1 && hasUtf8bom)
-                        line = line.Replace("\ufeff", ""); // remove BOM
+                        line = line.Replace("\ufeff", "", StringComparison.Ordinal); // remove BOM
                     int lineLength = line.Length;
 
                     line = replaceMethod(lineNumber, filePosition, line, searchPattern, replacePattern, searchOptions, replaceItems);

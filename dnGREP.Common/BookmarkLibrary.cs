@@ -353,8 +353,8 @@ namespace dnGREP.Common
             {
                 int hashCode = 13;
                 hashCode = (hashCode * 17) ^ TypeOfFileSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ FileNames?.GetHashCode() ?? 5;
-                hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ FileNames?.GetHashCode(StringComparison.Ordinal) ?? 5;
+                hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode(StringComparison.Ordinal) ?? 5;
                 hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
                 hashCode = (hashCode * 17) ^ SkipRemoteCloudStorageFiles.GetHashCode();
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
@@ -367,8 +367,8 @@ namespace dnGREP.Common
                 hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
 
                 hashCode = (hashCode * 17) ^ TypeOfSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ SearchPattern?.GetHashCode() ?? 5;
-                hashCode = (hashCode * 17) ^ ReplacePattern?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ SearchPattern?.GetHashCode(StringComparison.Ordinal) ?? 5;
+                hashCode = (hashCode * 17) ^ ReplacePattern?.GetHashCode(StringComparison.Ordinal) ?? 5;
                 hashCode = (hashCode * 17) ^ CaseSensitive.GetHashCode();
                 hashCode = (hashCode * 17) ^ WholeWord.GetHashCode();
                 hashCode = (hashCode * 17) ^ Multiline.GetHashCode();

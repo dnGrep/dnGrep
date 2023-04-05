@@ -541,7 +541,7 @@ namespace dnGREP.WPF
 
         public ICommand ResetPdfToTextOptionCommand => new RelayCommand(
             p => PdfToTextOptions = defaultPdfToText,
-            q => !PdfToTextOptions.Equals(defaultPdfToText));
+            q => !PdfToTextOptions.Equals(defaultPdfToText, StringComparison.Ordinal));
 
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
@@ -1116,7 +1116,7 @@ namespace dnGREP.WPF
 
         public ICommand ResetExtensions => new RelayCommand(
             p => MappedExtensions = DefaultExtensions,
-            q => !MappedExtensions.Equals(DefaultExtensions));
+            q => !MappedExtensions.Equals(DefaultExtensions, StringComparison.Ordinal));
 
 
         internal void SetUnchanged()

@@ -123,7 +123,7 @@ namespace dnGREP.Engines.Pdf
 
             var results = Search(filePath, searchPattern, searchType, searchOptions, encoding);
 
-            bool isInArchive = fileName.Contains(ArchiveDirectory.ArchiveSeparator);
+            bool isInArchive = fileName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
             if (isInArchive && results.Count > 0)
             {
                 foreach (GrepSearchResult gsr in results)

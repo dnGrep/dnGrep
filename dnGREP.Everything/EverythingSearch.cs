@@ -128,7 +128,7 @@ namespace dnGREP.Everything
         {
             foreach (string prefix in EverythingKeywords.PathPrefixes)
             {
-                if (text.StartsWith(prefix))
+                if (text.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
                     text = text.Remove(0, prefix.Length);
             }
             return text.Trim();

@@ -33,7 +33,7 @@ namespace dnGREP.WPF
                 Values.Add(new ScriptValueDefinition { Priority = 0, Value = "True" });
             }
 
-            Targets.Sort((x, y) => x.Target.CompareTo(y.Target));
+            Targets.Sort((x, y) => string.Compare(x.Target, y.Target, StringComparison.Ordinal));
 
             foreach (var target in Targets)
             {

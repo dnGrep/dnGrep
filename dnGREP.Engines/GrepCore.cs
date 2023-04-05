@@ -55,7 +55,7 @@ namespace dnGREP.Common
                 {
                     if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
                     {
-                        if (codePage == -1 && !fileInfo.FullName.Contains(ArchiveDirectory.ArchiveSeparator) &&
+                        if (codePage == -1 && !fileInfo.FullName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal) &&
                             !Utils.IsArchive(fileInfo.FullName) && !Utils.IsBinary(fileInfo.FullName) &&
                             !Utils.IsPdfFile(fileInfo.FullName))
                         {

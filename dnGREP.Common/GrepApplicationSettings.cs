@@ -408,7 +408,7 @@ namespace dnGREP.Common
                     if (stream != null)
                     {
                         XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
-                        if (doc != null && doc.Root != null && doc.Root.Name.LocalName.Equals("dictionary"))
+                        if (doc != null && doc.Root != null && doc.Root.Name.LocalName.Equals("dictionary", StringComparison.Ordinal))
                         {
                             settings.Clear();
 
@@ -568,7 +568,7 @@ namespace dnGREP.Common
                         elem.SetAttributeValue("key", key);
                         elem.SetAttributeValue(xsi + "nil", "true");
                     }
-                    else if (value.StartsWith("<stringArray"))
+                    else if (value.StartsWith("<stringArray", StringComparison.Ordinal))
                     {
                         elem = new XElement("item", XElement.Parse(value));
                         elem.SetAttributeValue("key", key);
@@ -636,7 +636,7 @@ namespace dnGREP.Common
                     foreach (var elem in root.Descendants("string"))
                     {
                         var nil = elem.Attribute(xsi + "nil");
-                        if (nil != null && nil.Value.Equals("true"))
+                        if (nil != null && nil.Value.Equals("true", StringComparison.Ordinal))
                         {
                             list.Add(null);
                         }
@@ -751,7 +751,7 @@ namespace dnGREP.Common
 
                 if (typeof(T) == typeof(string))
                 {
-                    return (T)Convert.ChangeType(value.Replace("&#010;", "\n").Replace("&#013;", "\r"), typeof(string));
+                    return (T)Convert.ChangeType(value.Replace("&#010;", "\n", StringComparison.Ordinal).Replace("&#013;", "\r", StringComparison.Ordinal), typeof(string));
                 }
 
                 if (typeof(T).IsEnum)
@@ -767,7 +767,7 @@ namespace dnGREP.Common
                 if (typeof(T) == typeof(List<string>))
                 {
                     List<string?> list;
-                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray"))
+                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray", StringComparison.Ordinal))
                     {
                         list = Deserialize(value);
                     }
@@ -781,7 +781,7 @@ namespace dnGREP.Common
                 if (typeof(T) == typeof(List<MostRecentlyUsed>))
                 {
                     List<MostRecentlyUsed> list;
-                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray"))
+                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray", StringComparison.Ordinal))
                     {
                         list = DeserializeMRU(value);
                     }
@@ -874,7 +874,7 @@ namespace dnGREP.Common
             }
             else if (typeof(T) == typeof(string) && value is string str)
             {
-                settings[key] = str.Replace("\n", "&#010;").Replace("\r", "&#013;");
+                settings[key] = str.Replace("\n", "&#010;", StringComparison.Ordinal).Replace("\r", "&#013;", StringComparison.Ordinal);
             }
             else if (typeof(T).IsEnum && value is Enum en)
             {

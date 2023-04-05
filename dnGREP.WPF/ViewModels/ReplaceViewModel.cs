@@ -396,12 +396,12 @@ namespace dnGREP.WPF
             {
                 if (item.IsCheckable)
                 {
-                    item.IsChecked = item.Header.Equals(syntaxName);
+                    item.IsChecked = item.Header.Equals(syntaxName, StringComparison.Ordinal);
                 }
 
                 foreach (var child in item.Children)
                 {
-                    child.IsChecked = child.Header.Equals(syntaxName);
+                    child.IsChecked = child.Header.Equals(syntaxName, StringComparison.Ordinal);
                 }
             }
         }

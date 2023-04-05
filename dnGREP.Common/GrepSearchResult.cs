@@ -29,7 +29,7 @@ namespace dnGREP.Common
                 searchResults = new List<GrepLine> { new GrepLine(-1, fileInfo.ErrorMsg, false, null) };
             }
 
-            int pos = fileInfo.FullName.IndexOf(ArchiveDirectory.ArchiveSeparator);
+            int pos = fileInfo.FullName.IndexOf(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
             if (pos > -1)
             {
                 IsReadOnlyFileType = true;
@@ -54,7 +54,7 @@ namespace dnGREP.Common
             Encoding = encoding;
             IsSuccess = success;
 
-            int pos = file.IndexOf(ArchiveDirectory.ArchiveSeparator);
+            int pos = file.IndexOf(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
             if (pos > -1)
             {
                 IsReadOnlyFileType = true;
@@ -223,7 +223,7 @@ namespace dnGREP.Common
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return Id.GetHashCode(StringComparison.Ordinal);
         }
     }
 }

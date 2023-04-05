@@ -106,7 +106,7 @@ namespace dnGREP.Common
 
             foreach (GrepSearchResult result in source)
             {
-                if (!files.Contains(result.FileNameReal) && result.FileNameReal.Contains(sourceDirectory))
+                if (!files.Contains(result.FileNameReal) && result.FileNameReal.Contains(sourceDirectory, StringComparison.OrdinalIgnoreCase))
                 {
                     files.Add(result.FileNameReal);
                     FileInfo sourceFileInfo = new(result.FileNameReal);
@@ -529,7 +529,7 @@ namespace dnGREP.Common
         public static bool IsPdfFile(string srcFile)
         {
             string ext = Path.GetExtension(srcFile);
-            if (!string.IsNullOrWhiteSpace(ext) && ext.Equals(".PDF", StringComparison.CurrentCultureIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(ext) && ext.Equals(".PDF", StringComparison.OrdinalIgnoreCase))
                 return true;
             return false;
         }
@@ -543,9 +543,9 @@ namespace dnGREP.Common
         {
             string ext = Path.GetExtension(srcFile);
             if (!string.IsNullOrWhiteSpace(ext) &&
-                (ext.Equals(".DOC", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".DOCX", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".DOCM", StringComparison.CurrentCultureIgnoreCase)))
+                (ext.Equals(".DOC", StringComparison.OrdinalIgnoreCase) ||
+                 ext.Equals(".DOCX", StringComparison.OrdinalIgnoreCase) ||
+                 ext.Equals(".DOCM", StringComparison.OrdinalIgnoreCase)))
                 return true;
             return false;
         }
@@ -560,9 +560,9 @@ namespace dnGREP.Common
         {
             string ext = Path.GetExtension(srcFile);
             if (!string.IsNullOrWhiteSpace(ext) &&
-                (ext.Equals(".XLS", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".XLSX", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".XLSM", StringComparison.CurrentCultureIgnoreCase)))
+                (ext.Equals(".XLS", StringComparison.OrdinalIgnoreCase) ||
+                 ext.Equals(".XLSX", StringComparison.OrdinalIgnoreCase) ||
+                 ext.Equals(".XLSM", StringComparison.OrdinalIgnoreCase)))
                 return true;
             return false;
         }
@@ -576,8 +576,8 @@ namespace dnGREP.Common
         {
             string ext = Path.GetExtension(srcFile);
             if (!string.IsNullOrWhiteSpace(ext) &&
-                (ext.Equals(".PPTX", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".PPTM", StringComparison.CurrentCultureIgnoreCase)))
+                (ext.Equals(".PPTX", StringComparison.OrdinalIgnoreCase) ||
+                 ext.Equals(".PPTM", StringComparison.OrdinalIgnoreCase)))
                 return true;
             return false;
         }
@@ -598,7 +598,7 @@ namespace dnGREP.Common
 
         public static bool IsFileInArchive(string srcFile)
         {
-            return srcFile.Contains(ArchiveDirectory.ArchiveSeparator);
+            return srcFile.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
         }
 
         /// <summary>
@@ -670,7 +670,7 @@ namespace dnGREP.Common
         public static bool PrepareSearchPatterns(FileFilter filter, List<string> includeSearchPatterns)
         {
             bool handled = false;
-            if (!filter.IsRegex && !filter.NamePatternToInclude.Contains("#!"))
+            if (!filter.IsRegex && !filter.NamePatternToInclude.Contains("#!", StringComparison.Ordinal))
             {
                 var includePatterns = UiUtils.SplitPattern(filter.NamePatternToInclude);
                 foreach (var pattern in includePatterns)
@@ -901,7 +901,7 @@ namespace dnGREP.Common
 
         private static string AddEverythingSizeFilters(FileFilter filter, string searchString)
         {
-            if ((filter.SizeFrom > 0 || filter.SizeTo > 0) && !searchString.Contains("size:"))
+            if ((filter.SizeFrom > 0 || filter.SizeTo > 0) && !searchString.Contains("size:", StringComparison.Ordinal))
             {
                 if (filter.SizeFrom == 0)
                 {
@@ -929,14 +929,14 @@ namespace dnGREP.Common
             string function = string.Empty;
             if (filter.DateFilter == FileDateFilter.Modified)
             {
-                if (!searchString.Contains("datemodified:") && !searchString.Contains("dm:"))
+                if (!searchString.Contains("datemodified:", StringComparison.Ordinal) && !searchString.Contains("dm:", StringComparison.Ordinal))
                 {
                     function += " dm:";
                 }
             }
             else if (filter.DateFilter == FileDateFilter.Created)
             {
-                if (!searchString.Contains("datecreated:") && !searchString.Contains("dc:"))
+                if (!searchString.Contains("datecreated:", StringComparison.Ordinal) && !searchString.Contains("dc:", StringComparison.Ordinal))
                 {
                     function += " dc:";
                 }
@@ -1196,7 +1196,7 @@ namespace dnGREP.Common
                     sb.Append(".*");
                 else if (chars[i] == '?')
                     sb.Append('.');
-                else if ("+()^$.{}|\\".IndexOf(chars[i]) != -1)
+                else if ("+()^$.{}|\\".IndexOf(chars[i], StringComparison.Ordinal) != -1)
                     sb.Append('\\').Append(chars[i]); // prefix all metacharacters with backslash
                 else
                     sb.Append(chars[i]);
@@ -1250,11 +1250,11 @@ namespace dnGREP.Common
                     {
                         UseShellExecute = false,
                         CreateNoWindow = true,
-                        Arguments = args.CustomEditorArgs.Replace("%file", UiUtils.Quote(filePath))
-                            .Replace("%line", args.LineNumber.ToString())
-                            .Replace("%pattern", args.Pattern)
-                            .Replace("%match", args.FirstMatch)
-                            .Replace("%column", args.ColumnNumber.ToString()),
+                        Arguments = args.CustomEditorArgs.Replace("%file", UiUtils.Quote(filePath), StringComparison.Ordinal)
+                            .Replace("%line", args.LineNumber.ToString(), StringComparison.Ordinal)
+                            .Replace("%pattern", args.Pattern, StringComparison.Ordinal)
+                            .Replace("%match", args.FirstMatch, StringComparison.Ordinal)
+                            .Replace("%column", args.ColumnNumber.ToString(), StringComparison.Ordinal),
                     };
                     proc.Start();
                 }
@@ -1579,11 +1579,11 @@ namespace dnGREP.Common
                 string? line = eolReader.ReadLine();
                 if (!string.IsNullOrEmpty(line))
                 {
-                    if (line.EndsWith("\r\n"))
+                    if (line.EndsWith("\r\n", StringComparison.Ordinal))
                         return "\r\n";
-                    else if (line.EndsWith("\n"))
+                    else if (line.EndsWith("\n", StringComparison.Ordinal))
                         return "\n";
-                    else if (line.EndsWith("\r"))
+                    else if (line.EndsWith("\r", StringComparison.Ordinal))
                         return "\r";
                 }
             }
@@ -1641,14 +1641,14 @@ namespace dnGREP.Common
                     {
                         if (isPdfText)
                         {
-                            if (reader.EndOfStream && line.Equals("\f"))
+                            if (reader.EndOfStream && line.Equals("\f", StringComparison.Ordinal))
                             {
                                 break;
                             }
 
                             pageNumber += line.Count(c => c.Equals('\f'));
                             // replace the form feed character with a zero width space; keeps the same character count
-                            line = line.Replace("\f", ZWSP);
+                            line = line.Replace("\f", ZWSP, StringComparison.Ordinal);
                             lineToPageMap.Add(lineNumber, pageNumber);
                         }
 
@@ -2046,33 +2046,33 @@ namespace dnGREP.Common
             if (beginText == null)
                 return false;
 
-            if (beginText.Equals(string.Empty) ||
-               beginText.EndsWith(" ") ||
-               beginText.EndsWith("<") ||
-               beginText.EndsWith(">") ||
-               beginText.EndsWith("$") ||
-               beginText.EndsWith("+") ||
-               beginText.EndsWith("*") ||
-               beginText.EndsWith("[") ||
-               beginText.EndsWith("{") ||
-               beginText.EndsWith("(") ||
-               beginText.EndsWith(".") ||
-               beginText.EndsWith("?") ||
-               beginText.EndsWith("!") ||
-               beginText.EndsWith(",") ||
-               beginText.EndsWith(":") ||
-               beginText.EndsWith(";") ||
-               beginText.EndsWith("-") ||
-               beginText.EndsWith("=") ||
-               beginText.EndsWith("\\") ||
-               beginText.EndsWith("/") ||
-               beginText.EndsWith("'") ||
-               beginText.EndsWith("\"") ||
-               beginText.EndsWith(Environment.NewLine) ||
-               beginText.EndsWith("\r\n") ||
-               beginText.EndsWith("\r") ||
-               beginText.EndsWith("\n") ||
-               beginText.EndsWith("\t")
+            if (beginText.Equals(string.Empty, StringComparison.Ordinal) ||
+               beginText.EndsWith(" ", StringComparison.Ordinal) ||
+               beginText.EndsWith("<", StringComparison.Ordinal) ||
+               beginText.EndsWith(">", StringComparison.Ordinal) ||
+               beginText.EndsWith("$", StringComparison.Ordinal) ||
+               beginText.EndsWith("+", StringComparison.Ordinal) ||
+               beginText.EndsWith("*", StringComparison.Ordinal) ||
+               beginText.EndsWith("[", StringComparison.Ordinal) ||
+               beginText.EndsWith("{", StringComparison.Ordinal) ||
+               beginText.EndsWith("(", StringComparison.Ordinal) ||
+               beginText.EndsWith(".", StringComparison.Ordinal) ||
+               beginText.EndsWith("?", StringComparison.Ordinal) ||
+               beginText.EndsWith("!", StringComparison.Ordinal) ||
+               beginText.EndsWith(",", StringComparison.Ordinal) ||
+               beginText.EndsWith(":", StringComparison.Ordinal) ||
+               beginText.EndsWith(";", StringComparison.Ordinal) ||
+               beginText.EndsWith("-", StringComparison.Ordinal) ||
+               beginText.EndsWith("=", StringComparison.Ordinal) ||
+               beginText.EndsWith("\\", StringComparison.Ordinal) ||
+               beginText.EndsWith("/", StringComparison.Ordinal) ||
+               beginText.EndsWith("'", StringComparison.Ordinal) ||
+               beginText.EndsWith("\"", StringComparison.Ordinal) ||
+               beginText.EndsWith(Environment.NewLine, StringComparison.Ordinal) ||
+               beginText.EndsWith("\r\n", StringComparison.Ordinal) ||
+               beginText.EndsWith("\r", StringComparison.Ordinal) ||
+               beginText.EndsWith("\n", StringComparison.Ordinal) ||
+               beginText.EndsWith("\t", StringComparison.Ordinal)
                )
             {
                 return true;
@@ -2086,14 +2086,14 @@ namespace dnGREP.Common
             if (string.IsNullOrEmpty(input))
                 return string.Empty;
 
-            string result = input.Replace(@"\\a", "\a")
-                                 .Replace(@"\\b", "\b")
-                                 .Replace(@"\\f", "\f")
-                                 .Replace(@"\\n", "\n")
-                                 .Replace(@"\\r", "\r")
-                                 .Replace(@"\\t", "\t")
-                                 .Replace(@"\\v", "\v")
-                                 .Replace(@"\\0", "\0");
+            string result = input.Replace(@"\\a", "\a", StringComparison.Ordinal)
+                                 .Replace(@"\\b", "\b", StringComparison.Ordinal)
+                                 .Replace(@"\\f", "\f", StringComparison.Ordinal)
+                                 .Replace(@"\\n", "\n", StringComparison.Ordinal)
+                                 .Replace(@"\\r", "\r", StringComparison.Ordinal)
+                                 .Replace(@"\\t", "\t", StringComparison.Ordinal)
+                                 .Replace(@"\\v", "\v", StringComparison.Ordinal)
+                                 .Replace(@"\\0", "\0", StringComparison.Ordinal);
             return result;
         }
 
@@ -2107,36 +2107,36 @@ namespace dnGREP.Common
             if (endText == null)
                 return false;
 
-            if (endText.Equals(string.Empty) ||
-               endText.StartsWith(" ") ||
-               endText.StartsWith("<") ||
-               endText.StartsWith("$") ||
-               endText.StartsWith("+") ||
-               endText.StartsWith("*") ||
-               endText.StartsWith("[") ||
-               endText.StartsWith("{") ||
-               endText.StartsWith("(") ||
-               endText.StartsWith(".") ||
-               endText.StartsWith("?") ||
-               endText.StartsWith("!") ||
-               endText.StartsWith(",") ||
-               endText.StartsWith(":") ||
-               endText.StartsWith(";") ||
-               endText.StartsWith("-") ||
-               endText.StartsWith("=") ||
-               endText.StartsWith(">") ||
-               endText.StartsWith("]") ||
-               endText.StartsWith("}") ||
-               endText.StartsWith(")") ||
-               endText.StartsWith("\\") ||
-               endText.StartsWith("/") ||
-               endText.StartsWith("'") ||
-               endText.StartsWith("\"") ||
-               endText.StartsWith(Environment.NewLine) ||
-               endText.StartsWith("\r\n") ||
-               endText.StartsWith("\r") ||
-               endText.StartsWith("\n") ||
-               endText.StartsWith("\t")
+            if (endText.Equals(string.Empty, StringComparison.Ordinal) ||
+               endText.StartsWith(" ", StringComparison.Ordinal) ||
+               endText.StartsWith("<", StringComparison.Ordinal) ||
+               endText.StartsWith("$", StringComparison.Ordinal) ||
+               endText.StartsWith("+", StringComparison.Ordinal) ||
+               endText.StartsWith("*", StringComparison.Ordinal) ||
+               endText.StartsWith("[", StringComparison.Ordinal) ||
+               endText.StartsWith("{", StringComparison.Ordinal) ||
+               endText.StartsWith("(", StringComparison.Ordinal) ||
+               endText.StartsWith(".", StringComparison.Ordinal) ||
+               endText.StartsWith("?", StringComparison.Ordinal) ||
+               endText.StartsWith("!", StringComparison.Ordinal) ||
+               endText.StartsWith(",", StringComparison.Ordinal) ||
+               endText.StartsWith(":", StringComparison.Ordinal) ||
+               endText.StartsWith(";", StringComparison.Ordinal) ||
+               endText.StartsWith("-", StringComparison.Ordinal) ||
+               endText.StartsWith("=", StringComparison.Ordinal) ||
+               endText.StartsWith(">", StringComparison.Ordinal) ||
+               endText.StartsWith("]", StringComparison.Ordinal) ||
+               endText.StartsWith("}", StringComparison.Ordinal) ||
+               endText.StartsWith(")", StringComparison.Ordinal) ||
+               endText.StartsWith("\\", StringComparison.Ordinal) ||
+               endText.StartsWith("/", StringComparison.Ordinal) ||
+               endText.StartsWith("'", StringComparison.Ordinal) ||
+               endText.StartsWith("\"", StringComparison.Ordinal) ||
+               endText.StartsWith(Environment.NewLine, StringComparison.Ordinal) ||
+               endText.StartsWith("\r\n", StringComparison.Ordinal) ||
+               endText.StartsWith("\r", StringComparison.Ordinal) ||
+               endText.StartsWith("\n", StringComparison.Ordinal) ||
+               endText.StartsWith("\t", StringComparison.Ordinal)
                )
             {
                 return true;
@@ -2216,7 +2216,7 @@ namespace dnGREP.Common
     {
         public int Compare(KeyValuePair<string, int> x, KeyValuePair<string, int> y)
         {
-            return x.Key.CompareTo(y.Key);
+            return string.Compare(x.Key, y.Key, StringComparison.Ordinal);
         }
     }
 
@@ -2226,11 +2226,11 @@ namespace dnGREP.Common
         {
             if (string.IsNullOrEmpty(text))
                 return text;
-            if (text.EndsWith("\r\n"))
+            if (text.EndsWith("\r\n", StringComparison.Ordinal))
                 return text[..^2];
-            else if (text.EndsWith("\r"))
+            else if (text.EndsWith("\r", StringComparison.Ordinal))
                 return text[..^1];
-            else if (text.EndsWith("\n"))
+            else if (text.EndsWith("\n", StringComparison.Ordinal))
                 return text[..^1];
             else
                 return text;
