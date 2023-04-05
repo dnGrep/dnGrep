@@ -22,7 +22,7 @@ namespace dnGREP.Common.UI
 
         /// <summary>
         /// Assumes the path argument should be a valid path and adds leading/tailing quotes
-        /// if needed so SplitPath does split it incorrectly
+        /// if needed so SplitPath splits it correctly
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -30,6 +30,11 @@ namespace dnGREP.Common.UI
         {
             if (string.IsNullOrWhiteSpace(path))
                 return string.Empty;
+
+            if (path.StartsWith("\"", StringComparison.Ordinal) && path.EndsWith("\"", StringComparison.Ordinal))
+            {
+                return path;
+            }
 
             var parts = SplitPath(path, true);
             if (parts.Length > 1 || parts[0] != path)
