@@ -81,16 +81,19 @@ namespace dnGREP.Common
             public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
             [DefaultValue(true)]
             public const string DetectEncodingForFileNamePattern = "DetectEncodingForFileNamePattern";
+            [DefaultValue("")]
             public const string CustomEditor = "CustomEditor";
+            [DefaultValue("")]
             public const string CustomEditorArgs = "CustomEditorArgs";
+            [DefaultValue("")]
             public const string CompareApplication = "CompareApplication";
+            [DefaultValue("")]
             public const string CompareApplicationArgs = "CompareApplicationArgs";
             public const string ExpandResults = "ExpandResults";
             [DefaultValue(true)]
             public const string ShowVerboseMatchCount = "ShowVerboseMatchCount";
             [DefaultValue(false)]
             public const string IsFiltersExpanded = "IsFiltersExpanded";
-            public const string FileFilters = "FileFilters";
             public const string FastSearchBookmarks = "FastSearchBookmarks";
             public const string FastReplaceBookmarks = "FastReplaceBookmarks";
             public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
@@ -959,6 +962,10 @@ namespace dnGREP.Common
             else if (typeof(T) == typeof(List<string>))
             {
                 return (T)Convert.ChangeType(new List<string>(), typeof(List<string>));
+            }
+            else if (typeof(T) == typeof(List<MostRecentlyUsed>))
+            {
+                return (T)Convert.ChangeType(new List<MostRecentlyUsed>(), typeof(List<MostRecentlyUsed>));
             }
             else
             {
