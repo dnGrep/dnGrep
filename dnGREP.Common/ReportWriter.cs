@@ -134,10 +134,7 @@ namespace dnGREP.Common
             sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine().AppendLine();
-            if (orClauses != null)
-            {
-                sb.Append(GetResultLinesWithContext(source, orClauses));
-            }
+            sb.Append(GetResultLinesWithContext(source, orClauses ?? new()));
 
             File.WriteAllText(destinationPath, sb.ToString(), Encoding.UTF8);
         }
@@ -150,7 +147,7 @@ namespace dnGREP.Common
             foreach (var result in source)
             {
                 string orResults = string.Empty;
-                if (orClauses != null && orClauses.Any())
+                if (orClauses.Any())
                 {
                     var set = result.Matches.Select(m => m.SearchPattern);
                     var hits = orClauses.Intersect(set);
