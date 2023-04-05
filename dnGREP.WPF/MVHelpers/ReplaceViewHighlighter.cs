@@ -42,12 +42,7 @@ namespace dnGREP.WPF
 
         public void Draw(TextView textView, DrawingContext drawingContext)
         {
-            if (textView == null)
-                throw new ArgumentNullException("textView");
-            if (drawingContext == null)
-                throw new ArgumentNullException("drawingContext");
-
-            if (grepSearchResult == null || !textView.VisualLinesValid)
+            if (!textView.VisualLinesValid)
                 return;
 
             var visualLines = textView.VisualLines;
@@ -113,10 +108,12 @@ namespace dnGREP.WPF
                     var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
                     if (rects.Any())
                     {
-                        BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
-                        geoBuilder.AlignToWholePixels = true;
-                        geoBuilder.BorderThickness = markerPenThickness;
-                        geoBuilder.CornerRadius = markerCornerRadius;
+                        BackgroundGeometryBuilder geoBuilder = new()
+                        {
+                            AlignToWholePixels = true,
+                            BorderThickness = markerPenThickness,
+                            CornerRadius = markerCornerRadius
+                        };
                         foreach (var rect in rects)
                         {
                             rect.Inflate(0, -1);
