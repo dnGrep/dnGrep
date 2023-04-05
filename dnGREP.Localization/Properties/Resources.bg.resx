@@ -3462,4 +3462,60 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Обхват на уникалност на справката: по файл или от всички файлове</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>„До“ филтър за ден и час</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Бърз преглед на файл</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>Модел за търсене или празен низ</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>Избор на филтър за дати</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>Цел: папка или път до файл</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>Папка, път до файл или списък от папки и файлове, разделен със запетая</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>Вид на модела за име на файл</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Текст, с който да бъде заменено или празен низ</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>Модел за име на файл, напр. *.txt, или списък от филтри</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>Мащаб на дървото с резултати (число)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>Избор на филтър за часове</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>Включва или изключва филтър по размер</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>Модел за име на файл, напр. test\\*, или списък от филтри</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>„От“ филтър за ден и час</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
