@@ -194,4 +194,92 @@
     <value>اتبع الروابط الرمزية</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>الترميز</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>العوامل المنطقية</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>اتبع الروابط الرمزية</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>العوامل المنطقية</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>الترميز</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>العوامل المنطقية</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>الترميز</value>
+    <comment>Main window, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>خدمة فهرسة كل شيء</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>العوامل المنطقية</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>اتبع الروابط الرمزية</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
