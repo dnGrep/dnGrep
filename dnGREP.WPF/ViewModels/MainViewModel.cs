@@ -2903,6 +2903,7 @@ namespace dnGREP.WPF
 
         private void PopulateEncodings()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             KeyValuePair<string, int> defaultValue = new(Resources.Main_EncodingAutoDetection, -1);
 
             List<KeyValuePair<string, int>> tempUni = new();
