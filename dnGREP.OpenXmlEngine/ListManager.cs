@@ -26,7 +26,7 @@ namespace dnGREP.Engines.OpenXml
 
         protected partial class ParagraphLevelCounter
         {
-            [GeneratedRegex("%(\\d+)", RegexOptions.Compiled)]
+            [GeneratedRegex("%(\\d+)")]
             private static partial Regex LevelRegex();
 
             //counts can == 0 if the format is decimal, make sure

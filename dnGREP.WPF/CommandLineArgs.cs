@@ -29,7 +29,7 @@ namespace dnGREP.WPF
         public int Count { get; private set; }
 
 
-        [GeneratedRegex("(?:^| )(\"(?:[^\"])*\"|[^ ]*)", RegexOptions.Compiled)]
+        [GeneratedRegex("(?:^| )(\"(?:[^\"])*\"|[^ ]*)")]
         private static partial Regex CmdRegex();
 
         private static string[] SplitCommandLine(string line)
