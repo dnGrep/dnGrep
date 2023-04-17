@@ -2220,7 +2220,7 @@ namespace dnGREP.Common
         }
     }
 
-    public static class StringExtentions
+    public static class StringExtensions
     {
         public static string TrimEndOfLine(this string text)
         {
