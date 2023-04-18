@@ -493,9 +493,14 @@ namespace dnGREP.WPF
                 return;
             }
 
-            if (!File.Exists(value))
+            var filePath = value;
+            if (!File.Exists(filePath))
             {
-                ScriptMessages.Add(string.Format(Resources.Scripts_FileNotFound, target, value));
+                filePath = Path.Combine(ScriptManager.Instance.GetScriptPath(currentScriptFile), value);
+            }
+            if (!File.Exists(filePath))
+            {
+                ScriptMessages.Add(string.Format(Resources.Scripts_FileNotFound, target, filePath));
                 CancelScript();
                 return;
             }
@@ -503,14 +508,14 @@ namespace dnGREP.WPF
             if (target == "powershell")
             {
                 string ext = ".ps1";
-                if (Path.GetExtension(value).Equals(ext, StringComparison.OrdinalIgnoreCase))
+                if (Path.GetExtension(filePath).Equals(ext, StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {
                         var startInfo = new ProcessStartInfo()
                         {
                             FileName = "powershell.exe",
-                            Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{value}\"",
+                            Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{filePath}\"",
                             UseShellExecute = false,
                         };
                         var proc = Process.Start(startInfo);
@@ -532,14 +537,14 @@ namespace dnGREP.WPF
             {
                 string ext1 = ".cmd";
                 string ext2 = ".bat";
-                if (Path.GetExtension(value).Equals(ext1, StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(value).Equals(ext2, StringComparison.OrdinalIgnoreCase))
+                if (Path.GetExtension(filePath).Equals(ext1, StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(filePath).Equals(ext2, StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {
                         var startInfo = new ProcessStartInfo()
                         {
-                            FileName = $"\"{value}\"",
+                            FileName = $"\"{filePath}\"",
                             UseShellExecute = true,
                         };
                         var proc = Process.Start(startInfo);

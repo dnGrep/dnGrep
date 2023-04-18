@@ -59,6 +59,15 @@ namespace dnGREP.WPF
 
         public ICollection<string> ScriptKeys { get { return _scripts.Keys; } }
 
+        public string GetScriptPath(string scriptKey)
+        {
+            if (_scripts.TryGetValue(scriptKey, out var path))
+            {
+                return Path.GetDirectoryName(path) ?? string.Empty;
+            }
+            return string.Empty;
+        }
+
         internal void LoadScripts()
         {
             _scripts.Clear();
