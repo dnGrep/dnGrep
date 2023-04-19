@@ -1911,7 +1911,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>Мащаб:</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
@@ -2083,7 +2083,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>Мащаб:</value>
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
@@ -3012,7 +3012,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, delete option label</comment>
   </data>
   <data name="Options_SendToRecycleBin" xml:space="preserve">
-    <value>се изпращат в кошчето за отпадъци</value>
+    <value>се изпращат в кошчето</value>
     <comment>Options dialog, delete option label (accel)</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
