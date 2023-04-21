@@ -188,7 +188,7 @@ namespace Tests
         [InlineData("variableA=one;variableB=two", "%variableA% and %variableB%", "one and two")]
         [InlineData("variableA=dot;variableB=net", "%variableA%%variableB%", "dotnet")]
         [InlineData("variableA=one;variableB=two;variableA=", "%variableA% %variableB%", "%variableA% two")]
-        [InlineData("", "%ProgramFiles%", "C:\\Program Files")]
+        [InlineData("", "%SystemRoot%", "C:\\WINDOWS")]
         public void TestExpandEnvironment(string initialization, string text, string expected)
         {
             var parts = initialization.Split(';');
