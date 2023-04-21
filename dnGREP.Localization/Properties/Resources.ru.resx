@@ -3297,7 +3297,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_enddate" xml:space="preserve">
-    <value>Фильтр даты 'По'</value>
+    <value>Фильтр даты/времени 'По'</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
@@ -3349,7 +3349,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script message for script completed</comment>
   </data>
   <data name="ScriptHint_set_startdate" xml:space="preserve">
-    <value>Фильтр даты 'Начиная с'</value>
+    <value>Фильтр даты/времени 'Начиная с'</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_CopyFiles" xml:space="preserve">
@@ -3397,7 +3397,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
-    <value>Фильтр времени 'Последние от' часов</value>
+    <value>Фильтр времени 'до' часов</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_report_full" xml:space="preserve">
@@ -3524,11 +3524,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
-    <value>Нижний предел фильтра часов (число)</value>
+    <value>Нижний предел фильтра прошлых часов (число)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
-    <value>Верхний предел фильтра часов (число)</value>
+    <value>Верхний предел фильтра прошлых часов (число)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
