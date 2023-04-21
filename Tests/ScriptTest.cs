@@ -182,5 +182,27 @@ namespace Tests
             ScriptStatement statement = ScriptManager.Instance.ParseLine(line, 1);
             Assert.Equal(expected, statement.Value);
         }
+
+        [Theory]
+        [InlineData("variableA=one", "%variableA%", "one")]
+        [InlineData("variableA=one;variableB=two", "%variableA% and %variableB%", "one and two")]
+        [InlineData("variableA=dot;variableB=net", "%variableA%%variableB%", "dotnet")]
+        [InlineData("variableA=one;variableB=two;variableA=", "%variableA% %variableB%", "%variableA% two")]
+        [InlineData("", "%ProgramFiles%", "C:\\Program Files")]
+        public void TestExpandEnvironment(string initialization, string text, string expected)
+        {
+            var parts = initialization.Split(';');
+            foreach (var part in parts)
+            {
+                var pair = part.Split('=');
+                if (pair.Length == 2)
+                {
+                    ScriptManager.Instance.SetScriptEnvironmentVariable(pair[0], pair[1]);
+                }
+            }
+
+            string result = ScriptManager.Instance.ExpandEnvironmentVariables(text);
+            Assert.Equal(expected, result);
+        }
     }
 }

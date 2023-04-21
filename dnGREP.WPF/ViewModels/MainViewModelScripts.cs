@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
@@ -23,8 +24,9 @@ namespace dnGREP.WPF
         private readonly List<ScriptEditorWindow> scriptEditorWindows = new List<ScriptEditorWindow>();
         private bool cancelingScript = false;
         private bool showEmptyMessageWindow = false;
-        private string currentScriptFile;
-        private string currentScriptLine;
+        private string currentScriptFile = string.Empty;
+        private string currentScriptLine = string.Empty;
+        private DateTime scriptStartTime = DateTime.MinValue;
 
         private void AddScriptMessage(string message)
         {
@@ -333,6 +335,7 @@ namespace dnGREP.WPF
         {
             if (currentScript == null)
             {
+                ScriptManager.Instance.ResetVariables();
                 ScriptMessages.Clear();
                 currentScript = newScript;
                 currentScriptFile = name;
@@ -340,6 +343,7 @@ namespace dnGREP.WPF
                 showEmptyMessageWindow = false;
                 IsScriptRunning = true;
                 CommandManager.InvalidateRequerySuggested();
+                scriptStartTime = DateTime.Now;
                 ContinueScript();
             }
         }
@@ -365,6 +369,19 @@ namespace dnGREP.WPF
                         }
                         break;
 
+                    case "env":
+                        if (!string.IsNullOrEmpty(stmt.Value) && stmt.Value.Contains('='))
+                        {
+                            int pos = stmt.Value.IndexOf('=');
+                            if (pos > 1)
+                            {
+                                string variable = stmt.Value.Substring(0, pos);
+                                string value = stmt.Value.Substring(pos + 1);
+                                ScriptManager.Instance.SetScriptEnvironmentVariable(variable, value);
+                            }
+                        }
+                        break;
+
                     case "bookmark":
                         if (BookmarkCommandMap.TryGetValue(stmt.Target, out IScriptCommand use))
                         {
@@ -375,7 +392,7 @@ namespace dnGREP.WPF
                     case "report":
                         if (ReportCommandMap.TryGetValue(stmt.Target, out IScriptCommand rpt))
                         {
-                            rpt.Execute(stmt.Value);
+                            rpt.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         }
                         break;
 
@@ -392,11 +409,11 @@ namespace dnGREP.WPF
                         break;
 
                     case "copyfiles":
-                        CopyFilesCommand.Execute(stmt.Value);
+                        CopyFilesCommand.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
 
                     case "movefiles":
-                        MoveFilesCommand.Execute(stmt.Value);
+                        MoveFilesCommand.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
 
                     case "deletefiles":
@@ -449,8 +466,20 @@ namespace dnGREP.WPF
                         showEmptyMessageWindow = true;
                         break;
 
+                    case "log":
+                        if (string.Equals(stmt.Value, "time", StringComparison.OrdinalIgnoreCase))
+                        {
+                            TimeSpan elapsedTime = DateTime.Now - scriptStartTime;
+                            logger.Info($"Script [{currentScriptFile}] elapsed time: {elapsedTime.GetPrettyString()}");
+                        }
+                        else if (!string.IsNullOrWhiteSpace(stmt.Value))
+                        {
+                            logger.Info(stmt.Value);
+                        }
+                        break;
+
                     case "run":
-                        RunCommand(stmt.Target, stmt.Value);
+                        RunCommand(stmt.Target, ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
 
                     case "exit":
@@ -518,6 +547,10 @@ namespace dnGREP.WPF
                             Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{filePath}\"",
                             UseShellExecute = false,
                         };
+                        foreach (var item in ScriptManager.Instance.ScriptEnvironmentVariables)
+                        {
+                            startInfo.Environment[item.Key] = item.Value;
+                        }
                         var proc = Process.Start(startInfo);
                         proc.WaitForExit(60 * 1000);
                     }
@@ -544,9 +577,14 @@ namespace dnGREP.WPF
                     {
                         var startInfo = new ProcessStartInfo()
                         {
-                            FileName = $"\"{filePath}\"",
-                            UseShellExecute = true,
+                            FileName = "cmd.exe",
+                            Arguments = $"/C \"{filePath}\"",
+                            UseShellExecute = false,
                         };
+                        foreach (var item in ScriptManager.Instance.ScriptEnvironmentVariables)
+                        {
+                            startInfo.Environment[item.Key] = item.Value;
+                        }
                         var proc = Process.Start(startInfo);
                         proc.WaitForExit(60 * 1000);
                     }

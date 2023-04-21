@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -21,6 +22,8 @@ namespace dnGREP.WPF
         public static readonly string ScriptExt = ".gsc";
         private static List<ScriptCommandDefinition> scriptCommands;
         private static List<ScriptingCompletionData> commandCompletionData;
+        private static readonly Dictionary<string, string> environmentVariables =
+            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         public static List<ScriptCommandDefinition> ScriptCommands
         {
@@ -46,6 +49,53 @@ namespace dnGREP.WPF
             }
         }
 
+        public IDictionary<string, string> ScriptEnvironmentVariables => environmentVariables;
+
+        public void SetScriptEnvironmentVariable(string key, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                if (environmentVariables.ContainsKey(key))
+                {
+                    environmentVariables.Remove(key);
+                }
+            }
+            else
+            {
+                environmentVariables[key] = value;
+            }
+        }
+
+        public void ResetVariables()
+        {
+            ScriptEnvironmentVariables.Clear();
+            ScriptEnvironmentVariables.Add("dnGrep_logDir", App.LogDir);
+            ScriptEnvironmentVariables.Add("dnGrep_dataDir", Utils.GetDataFolderPath());
+            ScriptEnvironmentVariables.Add("dnGrep_scriptDir", Path.Combine(Utils.GetDataFolderPath(), ScriptFolder));
+        }
+
+        private static readonly Regex EnvVariableRegex = new Regex("%(\\w+?)%", RegexOptions.Compiled);
+
+        public string ExpandEnvironmentVariables(string text)
+        {
+            if (!string.IsNullOrEmpty(text) && text.Contains('%'))
+            {
+                string result = EnvVariableRegex.Replace(text, m =>
+                {
+                    if (ScriptEnvironmentVariables.TryGetValue(m.Groups[1].Value, out string value))
+                    {
+                        return value;
+                    }
+                    return m.Value;
+                });
+
+                result = Environment.ExpandEnvironmentVariables(result);
+
+                return result;
+            }
+            return text;
+        }
+
         public static IEnumerable<string> TargetCommandNames => ScriptCommands.Where(sc => sc.IsTargetCommand)
                         .Select(sc => sc.Command);
 
@@ -53,19 +103,20 @@ namespace dnGREP.WPF
 
         private ScriptManager()
         {
+            ResetVariables();
         }
 
         private readonly IDictionary<string, string> _scripts = new Dictionary<string, string>();
 
         public ICollection<string> ScriptKeys { get { return _scripts.Keys; } }
 
-        public string GetScriptPath(string scriptKey)
+        public string GetScriptPath(string script)
         {
-            if (_scripts.TryGetValue(scriptKey, out var path))
+            if (_scripts.TryGetValue(script, out var path))
             {
                 return Path.GetDirectoryName(path) ?? string.Empty;
             }
-            return string.Empty;
+            return Path.GetDirectoryName(script);
         }
 
         internal void LoadScripts()
