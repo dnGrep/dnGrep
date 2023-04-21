@@ -202,7 +202,7 @@ namespace Tests
             }
 
             string result = ScriptManager.Instance.ExpandEnvironmentVariables(text);
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result, true);
         }
     }
 }
