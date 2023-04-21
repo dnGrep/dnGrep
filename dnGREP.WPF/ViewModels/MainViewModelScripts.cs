@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
@@ -26,6 +27,7 @@ namespace dnGREP.WPF
         private bool showEmptyMessageWindow = false;
         private string currentScriptFile = string.Empty;
         private string currentScriptLine = string.Empty;
+        private DateTime scriptStartTime = DateTime.MinValue;
 
         private void AddScriptMessage(string message)
         {
@@ -318,6 +320,7 @@ namespace dnGREP.WPF
         {
             if (currentScript == null)
             {
+                ScriptManager.Instance.ResetVariables();
                 ScriptMessages.Clear();
                 currentScript = newScript;
                 currentScriptFile = name;
@@ -325,6 +328,7 @@ namespace dnGREP.WPF
                 showEmptyMessageWindow = false;
                 IsScriptRunning = true;
                 CommandManager.InvalidateRequerySuggested();
+                scriptStartTime = DateTime.Now;
                 ContinueScript();
             }
         }
@@ -350,6 +354,19 @@ namespace dnGREP.WPF
                         }
                         break;
 
+                    case "env":
+                        if (!string.IsNullOrEmpty(stmt.Value) && stmt.Value.Contains('=', StringComparison.Ordinal))
+                        {
+                            int pos = stmt.Value.IndexOf('=', StringComparison.Ordinal);
+                            if (pos > 1)
+                            {
+                                string variable = stmt.Value[..pos];
+                                string value = stmt.Value[(pos + 1)..];
+                                ScriptManager.Instance.SetScriptEnvironmentVariable(variable, value);
+                            }
+                        }
+                        break;
+
                     case "bookmark":
                         if (BookmarkCommandMap.TryGetValue(stmt.Target, out IScriptCommand? use) && !string.IsNullOrEmpty(stmt.Value))
                         {
@@ -360,7 +377,7 @@ namespace dnGREP.WPF
                     case "report":
                         if (ReportCommandMap.TryGetValue(stmt.Target, out IScriptCommand? rpt) && !string.IsNullOrEmpty(stmt.Value))
                         {
-                            rpt.Execute(stmt.Value);
+                            rpt.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         }
                         break;
 
@@ -377,11 +394,11 @@ namespace dnGREP.WPF
                         break;
 
                     case "copyfiles":
-                        CopyFilesCommand.Execute(stmt.Value);
+                        CopyFilesCommand.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
 
                     case "movefiles":
-                        MoveFilesCommand.Execute(stmt.Value);
+                        MoveFilesCommand.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
 
                     case "deletefiles":
@@ -437,9 +454,21 @@ namespace dnGREP.WPF
                         showEmptyMessageWindow = true;
                         break;
 
+                    case "log":
+                        if (string.Equals(stmt.Value, "time", StringComparison.OrdinalIgnoreCase))
+                        {
+                            TimeSpan elapsedTime = DateTime.Now - scriptStartTime;
+                            logger.Info($"Script [{currentScriptFile}] elapsed time: {elapsedTime.GetPrettyString()}");
+                        }
+                        else if (!string.IsNullOrWhiteSpace(stmt.Value))
+                        {
+                            logger.Info(stmt.Value);
+                        }
+                        break;
+
                     case "run":
                         if (!string.IsNullOrEmpty(stmt.Value))
-                            RunCommand(stmt.Target, stmt.Value);
+                            RunCommand(stmt.Target, ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
 
                     case "exit":
@@ -482,7 +511,12 @@ namespace dnGREP.WPF
                 return;
             }
 
-            if (!File.Exists(value))
+            var filePath = value;
+            if (!File.Exists(filePath))
+            {
+                filePath = Path.Combine(ScriptManager.Instance.GetScriptPath(currentScriptFile), value);
+            }
+            if (!File.Exists(filePath))
             {
                 ScriptMessages.Add(string.Format(Resources.Scripts_FileNotFound, target, value));
                 CancelScript();
@@ -492,16 +526,20 @@ namespace dnGREP.WPF
             if (target == "powershell")
             {
                 string ext = ".ps1";
-                if (Path.GetExtension(value).Equals(ext, StringComparison.OrdinalIgnoreCase))
+                if (Path.GetExtension(filePath).Equals(ext, StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {
                         var startInfo = new ProcessStartInfo()
                         {
                             FileName = "powershell.exe",
-                            Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{value}\"",
+                            Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{filePath}\"",
                             UseShellExecute = false,
                         };
+                        foreach (var item in ScriptManager.Instance.ScriptEnvironmentVariables)
+                        {
+                            startInfo.Environment[item.Key] = item.Value;
+                        }
                         if (Process.Start(startInfo) is Process proc)
                         {
                             proc.WaitForExit(60 * 1000);
@@ -523,16 +561,21 @@ namespace dnGREP.WPF
             {
                 string ext1 = ".cmd";
                 string ext2 = ".bat";
-                if (Path.GetExtension(value).Equals(ext1, StringComparison.OrdinalIgnoreCase) ||
-                    Path.GetExtension(value).Equals(ext2, StringComparison.OrdinalIgnoreCase))
+                if (Path.GetExtension(filePath).Equals(ext1, StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(filePath).Equals(ext2, StringComparison.OrdinalIgnoreCase))
                 {
                     try
                     {
                         var startInfo = new ProcessStartInfo()
                         {
-                            FileName = $"\"{value}\"",
-                            UseShellExecute = true,
+                            FileName = "cmd.exe",
+                            Arguments = $"/C \"{filePath}\"",
+                            UseShellExecute = false,
                         };
+                        foreach (var item in ScriptManager.Instance.ScriptEnvironmentVariables)
+                        {
+                            startInfo.Environment[item.Key] = item.Value;
+                        }
                         if (Process.Start(startInfo) is Process proc)
                         {
                             proc.WaitForExit(60 * 1000);

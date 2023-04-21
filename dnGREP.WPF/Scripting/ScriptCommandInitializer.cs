@@ -550,6 +550,28 @@ namespace dnGREP.WPF
             });
 
             
+            cmd = new ScriptCommandDefinition()
+            {
+                Command = "env",
+                Priority = cmdPriority--,
+                ValueType = typeof(string),
+                Description = "Set an environment variable",
+                ValueHint = "Variable=string (string may be empty to clear a variable)"
+            };
+            scriptCommands.Add(cmd);
+
+            
+            cmd = new ScriptCommandDefinition()
+            {
+                Command = "log",
+                Priority = cmdPriority--,
+                ValueType = typeof(string),
+                Description = "Write a string or elapsed time to the log file",
+                ValueHint = "A message string, or 'time' to log the elapsed time"
+            };
+            scriptCommands.Add(cmd);
+
+
             scriptCommands.Add(new ScriptCommandDefinition()
             {
                 Command = "copyfiles",
