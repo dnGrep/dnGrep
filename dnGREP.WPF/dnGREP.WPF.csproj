@@ -87,6 +87,7 @@
     <Compile Include="Controls\MultilineComboBox.cs" />
     <Compile Include="Controls\RadioMenuItem.cs" />
     <Compile Include="Controls\SplitButton.cs" />
+    <Compile Include="Controls\TextBoxCommands.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
     <Compile Include="MVHelpers\BoolToTextWrappingConverter.cs" />
     <Compile Include="MVHelpers\BoolToScrollbarVisibilityConverter.cs" />

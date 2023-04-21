@@ -14,6 +14,8 @@ namespace dnGREP.WPF
             InitializeComponent();
             DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
+
+            Loaded += (s, e) => { TextBoxCommands.BindCommandsToWindow(this); };
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

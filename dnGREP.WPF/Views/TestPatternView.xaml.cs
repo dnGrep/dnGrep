@@ -16,6 +16,8 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
             this.DataContext = inputData;
+
+            Loaded += (s, e) => { TextBoxCommands.BindCommandsToWindow(this); };
         }
 
         private void FormKeyDown(object sender, KeyEventArgs e)

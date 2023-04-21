@@ -19,13 +19,15 @@ namespace dnGREP.WPF
                 MinWidth = ActualWidth;
                 MinHeight = ActualHeight;
             };
+
+            Loaded += (s, e) => { TextBoxCommands.BindCommandsToWindow(this); };
         }
 
         private void TextBoxFocus(object sender, RoutedEventArgs e)
         {
-            if (e.Source is TextBox)
+            if (e.Source is TextBox box)
             {
-                ((TextBox)e.Source).SelectAll();
+                box.SelectAll();
             }
         }
 
