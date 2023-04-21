@@ -3535,4 +3535,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>No fixed limit</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Set an environment variable</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Variable=string (string may be empty to clear a variable)</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Write a string or elapsed time to the log file</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>A message string, or 'time' to log the elapsed time</value>
+  </data>
 </root>
