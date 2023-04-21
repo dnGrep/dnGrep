@@ -552,7 +552,29 @@ namespace dnGREP.WPF
                 ValueHint = Resources.ScriptHint_run_cmd_value
             });
 
-            
+
+            cmd = new ScriptCommandDefinition()
+            {
+                Command = "env",
+                Priority = cmdPriority--,
+                ValueType = typeof(string),
+                Description = Resources.ScriptHint_env_cmd,
+                ValueHint = Resources.ScriptHint_env_cmd_value
+            };
+            scriptCommands.Add(cmd);
+
+
+            cmd = new ScriptCommandDefinition()
+            {
+                Command = "log",
+                Priority = cmdPriority--,
+                ValueType = typeof(string),
+                Description = Resources.ScriptHint_log_cmd,
+                ValueHint = Resources.ScriptHint_log_cmd_value
+            };
+            scriptCommands.Add(cmd);
+
+
             scriptCommands.Add(new ScriptCommandDefinition()
             {
                 Command = "copyfiles",

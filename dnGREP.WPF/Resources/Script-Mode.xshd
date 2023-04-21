@@ -1,4 +1,4 @@
-﻿<SyntaxDefinition name="Script" extensions=".grs" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+﻿<SyntaxDefinition name="Script" extensions=".gsc" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment" foreground="#FF39A839" exampleText="// comment" />
   <Color name="String" foreground="#FF296FA9" />
   <RuleSet>
@@ -45,6 +45,8 @@
       <Word>messages</Word>
       <Word>run</Word>
       <Word>exit</Word>
+      <Word>env</Word>
+      <Word>log</Word>
     </Keywords>
     <Keywords foreground="#FFA83939">
       <Word>folder</Word>
@@ -109,6 +111,7 @@
       <Word>script</Word>
       <Word>powershell</Word>
       <Word>cmd</Word>
+      <Word>time</Word>
     </Keywords>
     <Keywords foreground="#FF016183">
       <Word>False</Word>
