@@ -558,8 +558,8 @@ namespace dnGREP.WPF
                 Command = "env",
                 Priority = cmdPriority--,
                 ValueType = typeof(string),
-                Description = "Set an environment variable",
-                ValueHint = "Variable=string (string may be empty to clear a variable)"
+                Description = Resources.ScriptHint_env_cmd,
+                ValueHint = Resources.ScriptHint_env_cmd_value
             };
             scriptCommands.Add(cmd);
 
@@ -569,8 +569,8 @@ namespace dnGREP.WPF
                 Command = "log",
                 Priority = cmdPriority--,
                 ValueType = typeof(string),
-                Description = "Write a string or elapsed time to the log file",
-                ValueHint = "A message string, or 'time' to log the elapsed time"
+                Description = Resources.ScriptHint_log_cmd,
+                ValueHint = Resources.ScriptHint_log_cmd_value
             };
             scriptCommands.Add(cmd);
 

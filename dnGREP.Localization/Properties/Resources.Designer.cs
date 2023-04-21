@@ -6363,6 +6363,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set an environment variable.
+        /// </summary>
+        public static string ScriptHint_env_cmd {
+            get {
+                return ResourceManager.GetString("ScriptHint_env_cmd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variable=string (string may be empty to clear a variable).
+        /// </summary>
+        public static string ScriptHint_env_cmd_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_env_cmd_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close all the windows and exit dnGrep.
         /// </summary>
         public static string ScriptHint_exit {
@@ -6413,6 +6431,24 @@ namespace dnGREP.Localization.Properties {
         public static string ScriptHint_include_script_value {
             get {
                 return ResourceManager.GetString("ScriptHint_include_script_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a string or elapsed time to the log file.
+        /// </summary>
+        public static string ScriptHint_log_cmd {
+            get {
+                return ResourceManager.GetString("ScriptHint_log_cmd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A message string, or &apos;time&apos; to log the elapsed time.
+        /// </summary>
+        public static string ScriptHint_log_cmd_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_log_cmd_value", resourceCulture);
             }
         }
         
