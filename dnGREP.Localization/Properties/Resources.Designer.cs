@@ -7542,6 +7542,51 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string TextBox_Command_Copy {
+            get {
+                return ResourceManager.GetString("TextBox_Command_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut.
+        /// </summary>
+        public static string TextBox_Command_Cut {
+            get {
+                return ResourceManager.GetString("TextBox_Command_Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make Lowercase.
+        /// </summary>
+        public static string TextBox_Command_MakeLowercase {
+            get {
+                return ResourceManager.GetString("TextBox_Command_MakeLowercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make Uppercase.
+        /// </summary>
+        public static string TextBox_Command_MakeUppercase {
+            get {
+                return ResourceManager.GetString("TextBox_Command_MakeUppercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        public static string TextBox_Command_Paste {
+            get {
+                return ResourceManager.GetString("TextBox_Command_Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to . matches all characters.
         /// </summary>
         public static string TTA1_MatchesAllCharacters {

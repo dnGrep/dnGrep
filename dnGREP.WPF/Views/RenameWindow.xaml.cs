@@ -24,6 +24,8 @@ namespace dnGREP.WPF
                 btnOK.IsEnabled = false;
                 txtName.Text = Path.GetFileName(SourcePath);
                 txtName.TextChanged += Name_TextChanged;
+
+                TextBoxCommands.BindCommandsToWindow(this);
             };
         }
 

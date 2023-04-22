@@ -66,6 +66,8 @@ namespace dnGREP.WPF
                             LayoutProperties.MainWindowBounds.Y);
                         WindowState = LayoutProperties.MainWindowState;
 
+                        TextBoxCommands.BindCommandsToWindow(this);
+
                         // after window is sized and positioned, asynchronously reset the preview
                         // splitter position (which got moved during the layout)
                         Dispatcher.BeginInvoke((Action)(() =>
