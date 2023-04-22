@@ -3534,4 +3534,31 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Часове за филтъра „В последните“, за полето „до“</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Извежда низ или изминало време в дневника</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Изрязване</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Копиране</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Поставяне</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>Към главни букви</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>Към малки букви</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Задава променлива на средата</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Променлива=низ (празен низ изчиства променливата)</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>Низ със съобщение или „time“ за извеждане на изминалото време</value>
+  </data>
 </root>
