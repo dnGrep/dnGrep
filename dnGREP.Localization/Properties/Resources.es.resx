@@ -2217,7 +2217,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>_Dot como newline</value>
+    <value>_Punto como nueva linea (\n)</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
@@ -2409,11 +2409,11 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
   <data name="Script_Editor_Close" xml:space="preserve">
-    <value>_Close</value>
+    <value>_Cerrar</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
-    <value>_Edit</value>
+    <value>_Editar</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
@@ -2425,7 +2425,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="Script_Editor_Delete" xml:space="preserve">
-    <value>_Delete</value>
+    <value>_Eliminar</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
@@ -2503,5 +2503,13 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
 -reportMode [modo]
     Establece el modo de salida de los informes de expresiones regulares - debe ser uno de los siguientes: "FullLine", "Matches", o "Groups".</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Omitir archivos en la nube</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Omitir archivos en la nube</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
 </root>

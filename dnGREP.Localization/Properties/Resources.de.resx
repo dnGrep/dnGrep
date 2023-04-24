@@ -2720,4 +2720,8 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Dateien kopieren</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Der Pfad und der Dateiname für den Bericht</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
 </root>

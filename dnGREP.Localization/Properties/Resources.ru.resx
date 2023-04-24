@@ -792,7 +792,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value>Путь:</value>
+    <value>П_уть:</value>
     <comment>Main window, folder input caption (accel)</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
@@ -2793,7 +2793,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
-    <value>_Отмена</value>
+    <value>_Отменить</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
@@ -2853,7 +2853,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
-    <value>Отображать контекстные строчки:</value>
+    <value>Отображать контекстные строчки</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
@@ -2899,5 +2899,640 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_SearchOptions" xml:space="preserve">
     <value>Опции поиска</value>
     <comment>Options dialog, search options group header label</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Число совпадений/количество совпадений в целом</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Копировать имена файлов из результатов в буфер обмена</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>Закрыть все окна и выйти из dnGrep</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>Тип шаблона файлового фильтра</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>Шаблоны для исключающего фильтра</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Отменить скрипт</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Редактировать скрипт…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>Удалить _строку</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Выреза_ть</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Переместить выбранные строки вниз</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_Новый…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>_Повторить</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>Пр_оверить</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>Контекстные строки после (число)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>Папка, путь к файлу, либо список папок или файлов, разделенных запятыми</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>Место поиска: папка или путь к файлу</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>Уровень масштабирования дерева результатов (число)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>Настройка вывода отчета</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>Вывод отчета на отдельные строки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>Ошибка удаления файлов: </value>
+    <comment>Script message for delete error</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Подсказка</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Редактор скриптов</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Инструменты</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Целевое имя недействительно</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>Переместить файлы результатов в новое расположение</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Путь к папке назначения</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Заменить совпадения в файлах</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Записать отчет</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Путь и имя файла для отчета</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>Сбросить файловые фильтры до значений по умолчанию</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Запустить внешнюю команду</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Запустить командный скрипт</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>Выбор фильтра диапазона времени</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>Размер от</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>скрипт отменен</value>
+    <comment>Script message for script canceled</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Скопировать файлы результатов в новое место</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Путь к папке назначения</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Развернуть или скрыть раздел параметров результатов</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>Имя новой закладки, или пустое</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Импорт данных</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Подсвечивать совпадения</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Предпросмотр файла</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>Фильтр шаблонов для соответствия</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Нижний предел фильтра размера (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>Область уникальных значений отчета: по файлу или по всем файлам</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Сортировать результаты</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Отменить последнюю операцию замены</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>Расширение файла {0} должно быть {1}</value>
+    <comment>Script message for invalid file extension{0} is the target name and {1} is the file extension</comment>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>Сообщения скрипта</value>
+    <comment>Script Messages dialog title</comment>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>{0} файл '{1}' не найден</value>
+    <comment>Script message for file not found: {0} is the target name and {1} is the file name</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Данные приложения и _логи</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Новый скрипт…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Скрипты</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} содержит несохраненные изменения. Сохранить?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Строка</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Сообщение</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Показать меню Проводника</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>При удалении файлов</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Нет</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>При копировании файла, когда целевой файл существует, перезаписать существующий файл?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>При перемещении файла, когда целевой файл существует, перезаписать существующий файл?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Отправить в Корзину</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Да</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Переместить выбранные строки вверх</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>_Вставить</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Эта команда не нуждается в параметре значения</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Для этой команды требуется булево значение</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Эта команда не допускает нулевое значение</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>Символ или символы, такие как запятая или запятая-пробел</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>Разделитель между элементами в одной строке (отчет)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>Вырезать пробелы в отчете</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Нет для В_сех</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Нет</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Не спрашивать снова</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} содержит ошибки проверки. Сохранить в любом случае?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Да для _Всех</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Да</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Спрашивать</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_Запустить скрипт</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Сохранить</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Сохранить _как…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>Команда недействительна</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>Для этой команды требуется целевой параметр</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Добавить новую закладку, связанную с текущей папкой поиска</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Удалить закладку</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Применить настройки закладки</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>Название закладки</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Развернуть или скрыть раздел файловых фильтров</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>Включить команды из другого скрипта в текущий скрипт</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Проверка</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>Имя ключа/файла скрипта</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>Развернуть или восстановить дерево результатов поиска</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>Отчет о результатах в виде файла csv</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>Полный путь и имя файла cmd или пакетного файла</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Запустить скрипт PowerShell</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>Контекстные строки перед (число)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>Выбор фильтра даты</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>Включить фильтрацию размера файла</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>Ограничение глубины папки (число)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>Фильтр даты 'По'</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>Шаблон фильтра файлов, например *.txt, или список фильтров</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Замещающий текст или пустая строка</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>Шаблон поиска или пустая строка</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>Искать параллельно (многопоточность)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>Тип шаблона поиска</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Размер до</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Верхний предел фильтра размера (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>Направление сортировки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>На строке</value>
+    <comment>Script message statement prefix</comment>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Ошибка копирования файлов: </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>Команда запуска завершилась с ошибкой: </value>
+    <comment>Script message for run command error</comment>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>скрипт завершен</value>
+    <comment>Script message for script completed</comment>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>Фильтр даты 'Начиная с'</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Копировать файлы</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Переместить файлы</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Удалить навсегда</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Удаление файлов</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>_Копировать</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_Файл</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Закладка</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Добавить новую закладку</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>Текстовый отчет о результатах</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>Полный путь и имя .ps1 файла скрипта</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Начать поиск</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>Фильтр времени 'Последние от' часов</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>Полный отчет</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>Без фиксированного лимита</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>Максимальное количество параллельных поисков (многопоточность)</value>
+    <comment>Options dialog, parallel options label</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_Скриптовые команды</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>Имя закладки, которую нужно удалить, или пустое значение для текущей закладки</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Удалить закладку папки</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>Ключ скрипта не найден</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>Не удалось преобразовать значение в правильный тип</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>Значение не может быть преобразовано из строки</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Эта команда требует строкового значения</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Скопировать текст из результатов в буфер обмена</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>Всегда показывать окно с сообщением после завершения скрипта</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Путь и имя файла для отчета</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>Удалить файлы результатов навсегда</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>Установить значение целевого свойства</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>Кодировка, как номер кодовой страницы</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>Укажите номер кодовой страницы или -1 для автоматического определения</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>Включить информацию о файле в отчет</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>Максимальная глубина подпапки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>Шаблон фильтра файлов, например test\\*, или список фильтров</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>Настройка типа сортировки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>Используйте ISO 8601 или локальный формат даты и времени</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>Фильтровать отчет по уникальным значениям</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>Команда запуска недействительна</value>
+    <comment>Script message for invalid run command</comment>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>Ошибка перемещения файлов: </value>
+    <comment>Script message for move error</comment>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Новый скрипт</value>
+    <comment>Scripts: name for unnamed script file</comment>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>Файлы скриптов</value>
+    <comment>Scripts: Open and Save file dialog label for script files</comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [ключ_скрипта]
+ -sc [ключ_скрипта]
+ -script [ключ_скрипта]
+     Запускает скрипт, указанный ключом скрипта.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Количество совпадений в строке</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Число совпадений/количество совпадений в файле</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Нижний предел фильтра часов (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Верхний предел фильтра часов (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>Фильтр времени 'до' часов</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
 </root>

@@ -3547,4 +3547,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_log_cmd_value" xml:space="preserve">
     <value>A message string, or 'time' to log the elapsed time</value>
   </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>Make Uppercase</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>Make Lowercase</value>
+  </data>
 </root>
