@@ -169,7 +169,7 @@ namespace dnGREP.Engines
                 outputEncoding = new UTF8Encoding(true);
             }
 
-            StreamWriter writeStream = new(outputStream, outputEncoding);
+            StreamWriter writeStream = new(outputStream, outputEncoding, -1, true);
 
             string? line = null;
             int lineNumber = 1;
