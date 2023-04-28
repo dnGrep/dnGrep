@@ -842,7 +842,7 @@ namespace dnGREP.WPF
             TypeOfSearch = Settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = Settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
             // FileOrFolderPath depends on TypeOfFileSearch, so must be after
-            FileOrFolderPath = Settings.Get<string>(GrepSettings.Key.SearchFolder);
+            SetFileOrFolderPath(Settings.Get<string>(GrepSettings.Key.SearchFolder));
             CodePage = Settings.Get<int>(GrepSettings.Key.CodePage);
             FilePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
             FilePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);

@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Localization;
@@ -28,21 +27,12 @@ namespace dnGREP.WPF
 
         public int Count { get; private set; }
 
-
-        [GeneratedRegex("(?:^| )(\"(?:[^\"])*\"|[^ ]*)")]
-        private static partial Regex CmdRegex();
-
         private static string[] SplitCommandLine(string line)
         {
             List<string> result = new();
-            MatchCollection matches = CmdRegex().Matches(line);
-            foreach (Match m in matches.Cast<Match>())
+            foreach (string arg in ParseLine(line))
             {
-                string s = m.Value.Trim();
-                if (s.Length > 2 && s.StartsWith("\"", StringComparison.InvariantCulture) && s.EndsWith("\"", StringComparison.InvariantCulture))
-                {
-                    s = s[1..^1];
-                }
+                string s = arg.Trim();
                 if (!string.IsNullOrEmpty(s))
                 {
                     result.Add(s);
@@ -50,6 +40,83 @@ namespace dnGREP.WPF
             }
             return result.Skip(1).ToArray(); // Drop the program path, and return array of all strings
         }
+
+        private static IEnumerable<string> ParseLine(string input)
+        {
+            int startPosition = 0;
+            bool isInQuotes = false;
+            for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
+            {
+                if (input[currentPosition] == '\"')
+                {
+                    isInQuotes = !isInQuotes;
+                }
+                else if (input[currentPosition] == ' ' && !isInQuotes)
+                {
+                    yield return input[startPosition..currentPosition];
+                    startPosition = currentPosition + 1;
+                }
+            }
+
+            string lastToken = input[startPosition..];
+            if (!string.IsNullOrWhiteSpace(lastToken))
+            {
+                yield return lastToken;
+            }
+            else
+            {
+                yield break;
+            }
+        }
+
+        private static readonly List<char> separators = new() { ',', ';' };
+
+        private static string FormatPathArgs(string input)
+        {
+            List<string> parts = new();
+            int startPosition = 0;
+            bool isInQuotes = false;
+            for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
+            {
+                if (input[currentPosition] == '\"')
+                {
+                    isInQuotes = !isInQuotes;
+                }
+                else if (separators.Contains(input[currentPosition]) && !isInQuotes)
+                {
+                    string token = input[startPosition..currentPosition];
+                    token = StripQuotes(token);
+                    token = UiUtils.QuoteIfNeeded(token);
+                    if (!string.IsNullOrWhiteSpace(token))
+                    {
+                        parts.Add(token);
+                    }
+
+                    startPosition = currentPosition + 1;
+                }
+            }
+
+            string lastToken = input[startPosition..];
+            lastToken = StripQuotes(lastToken);
+            lastToken = UiUtils.QuoteIfNeeded(lastToken);
+            if (!string.IsNullOrWhiteSpace(lastToken))
+            {
+                parts.Add(lastToken);
+            }
+
+            return string.Join(";", parts);
+        }
+
+        private static string StripQuotes(string input)
+        {
+            if (input.Length > 2 && input.StartsWith("\"", StringComparison.InvariantCulture) && input.EndsWith("\"", StringComparison.InvariantCulture))
+            {
+                input = input[1..^1];
+            }
+            return input;
+        }
+
+        private readonly List<string> pathFlags = new() { "/f", "-f", "-folder" };
 
         private void EvaluateArgs(string[] args)
         {
@@ -67,11 +134,11 @@ namespace dnGREP.WPF
                     {
                         if (idx == 0)
                         {
-                            SearchPath = arg;
+                            SearchPath = FormatPathArgs(arg);
                         }
                         else if (idx == 1)
                         {
-                            SearchFor = arg;
+                            SearchFor = StripQuotes(arg);
                             TypeOfSearch = SearchType.Regex;
                             ExecuteSearch = true;
                         }
@@ -82,6 +149,15 @@ namespace dnGREP.WPF
                         if (idx + 1 < args.Length && !string.IsNullOrEmpty(args[idx + 1]))
                         {
                             value = args[idx + 1];
+
+                            if (pathFlags.Contains(arg.ToLowerInvariant()))
+                            {
+                                value = FormatPathArgs(value);
+                            }
+                            else
+                            {
+                                value = StripQuotes(value);
+                            }
                         }
 
                         switch (arg.ToLowerInvariant())
@@ -111,7 +187,7 @@ namespace dnGREP.WPF
                             case "-folder":
                                 if (!string.IsNullOrWhiteSpace(value))
                                 {
-                                    SearchPath = UiUtils.QuoteIfNeeded(value);
+                                    SearchPath = value;
                                     idx++;
                                 }
                                 else
