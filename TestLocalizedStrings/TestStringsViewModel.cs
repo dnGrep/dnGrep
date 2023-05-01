@@ -20,6 +20,7 @@ namespace dnGREP.TestLocalizedStrings
         private Dictionary<string, string> AppCultures =>
             new Dictionary<string, string>
             {
+                { "ar", "العربية" },
                 { "bg", "Български" },
                 { "ca", "català" },
                 { "de", "Deutsch" },

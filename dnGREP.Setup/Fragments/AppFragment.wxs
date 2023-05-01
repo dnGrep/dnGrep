@@ -86,7 +86,12 @@
           </Directory>
         </Directory>
       </Directory>
-      
+
+      <Directory Id="dir57F39F5A14EB4F319994BBE7AE3AD5D1" Name="ar">
+        <Component Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" Guid="{C99A747D-B9BB-4C0B-A27A-BF289C329A34}">
+          <File Id="fil2082C100A2E5453B8604C907342B6BF5" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ar\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dir528DD5B50872449DA6A3648CB53FDE3D" Name="bg">
         <Component Id="cmp8AF052AF90A94A149802DFD1021B8D87" Guid="{88B0763B-FB63-4CFF-B66A-AEEE32E3B65E}">
           <File Id="fil71BB7E77AF4B43D987CEA8E0CEC1E595" KeyPath="yes" Source="$(var.PublishDir)\bg\dnGREP.Localization.resources.dll" />
@@ -157,6 +162,11 @@
           <File Id="filA896E151FDC9464C85B043B3AAD3A443" KeyPath="yes" Source="$(var.PublishDir)\sr\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
+      <Directory Id="dirA4EC8179E248460287F4AFABC0797241" Name="tr">
+        <Component Id="cmpB7DBE238D9FE4572892D097082097953" Guid="{41AB1980-84BA-45D9-8F7B-A1083EF74A85}">
+          <File Id="fil3DF28B29D4694656987D1C242C5A8195" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\tr\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dir0504FAEF173645618FE93CEF2595F0E7" Name="zh-CN">
         <Component Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" Guid="{343F46B0-10E1-4EBF-A079-64AB1A433833}">
           <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.PublishDir)\zh-CN\dnGREP.Localization.resources.dll" />
@@ -197,6 +207,7 @@
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
       <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
+      <ComponentRef Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" />
       <ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />
       <ComponentRef Id="cmp155BCEB308F549C586212E8A93923933" />
       <ComponentRef Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" />
@@ -211,6 +222,7 @@
       <ComponentRef Id="cmpC6739B2DA71444638D0B8EC7C82FBED7" />
       <ComponentRef Id="cmp2B23830370BC47F1B72CDB2222A8F99C" />
       <ComponentRef Id="cmpB2EB07F7E92E4BD4938C28491950F8E9" />
+      <ComponentRef Id="cmpB7DBE238D9FE4572892D097082097953" />
       <ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />
       <ComponentRef Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" />
       <ComponentRef Id="cmp9870824B781A4C4094CD594CACFBDE9E" />

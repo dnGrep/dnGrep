@@ -26,6 +26,7 @@ namespace dnGREP.Localization
 
         public static Dictionary<string, string> AppCultures => new()
             {
+                { "ar", "العربية" },
                 { "bg", "Български" },
                 { "ca", "català" },
                 { "de", "Deutsch" },
@@ -42,7 +43,7 @@ namespace dnGREP.Localization
                 { "ru", "pусский" },
                 { "sr", "српски" },
                 //{ "th", "ไทย" },
-                //{ "tr", "Türkçe" },
+                { "tr", "Türkçe" },
                 { "zh-CN", "简体中文" },
                 { "zh-Hant", "繁體中文" },
             };
