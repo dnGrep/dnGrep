@@ -3534,4 +3534,31 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>最大并行搜索数</value>
     <comment>Options dialog, parallel options label</comment>
   </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>设置环境变量</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>变量=字符串（字符串可以为空来清除变量）</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>将字符串或运行时间写入到日志文件</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>消息字符串，或记录运行时间的 'time’</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>变为大写</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>变为小写</value>
+  </data>
 </root>

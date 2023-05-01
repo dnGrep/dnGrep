@@ -700,7 +700,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>Между</value>
+    <value>В последните</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
@@ -1847,7 +1847,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, regex options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Цветова тема</value>
     <comment>Options dialog, theme group header label</comment>
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
@@ -1911,7 +1911,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>Мащаб:</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
@@ -2083,7 +2083,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>Мащаб:</value>
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
@@ -2455,7 +2455,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
-    <value>Булевият израз е наред</value>
+    <value>Булевият израз е правилен</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
@@ -2920,7 +2920,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Данни на &amp;приложението и дневник</value>
+    <value>Данни на _приложението и дневник</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
@@ -3012,7 +3012,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, delete option label</comment>
   </data>
   <data name="Options_SendToRecycleBin" xml:space="preserve">
-    <value>се изпращат в кошчето за отпадъци</value>
+    <value>се изпращат в кошчето</value>
     <comment>Options dialog, delete option label (accel)</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
@@ -3517,5 +3517,48 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_set_startdate" xml:space="preserve">
     <value>„От“ филтър за ден и час</value>
     <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Горна граница на часовете (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>Дата и час за филтъра „В последните“, за полето „от“</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Долна граница на часовете (число)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>Часове за филтъра „В последните“, за полето „до“</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Извежда низ или изминало време в дневника</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Изрязване</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Копиране</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Поставяне</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>Към главни букви</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>Към малки букви</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Задава променлива на средата</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Променлива=низ (празен низ изчиства променливата)</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>Низ със съобщение или „time“ за извеждане на изминалото време</value>
   </data>
 </root>
