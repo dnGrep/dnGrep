@@ -72,11 +72,22 @@ namespace ICSharpCode.AvalonEdit.Search
 		}
 	}
 
-	public class SearchResult : TextSegment, ISearchResult
+    /// <summary>
+    /// Represents a search result.
+    /// </summary>
+    public class SearchResult : TextSegment, ISearchResult
 	{
+		/// <summary>
+		/// The regular express Match from the search
+		/// </summary>
 		public Match Data { get; set; }
 
-		public string ReplaceWith(string replacement)
+        /// <summary>
+        /// Replaces parts of the replacement string with parts from the match. (e.g. $1)
+        /// </summary>
+        /// <param name="replacement"></param>
+        /// <returns></returns>
+        public string ReplaceWith(string replacement)
 		{
 			return Data.Result(replacement);
 		}
