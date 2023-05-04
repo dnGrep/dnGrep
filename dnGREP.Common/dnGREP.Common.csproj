@@ -145,10 +145,10 @@
       <Version>2.2.6</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>5.1.0</Version>
+      <Version>5.1.4</Version>
     </PackageReference>
     <PackageReference Include="UTF.Unknown">
       <Version>2.5.1</Version>
