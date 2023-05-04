@@ -326,7 +326,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 					//Debug.WriteLine("DoDragDrop with allowedEffects=" + allowedEffects);
 					resultEffect = DragDrop.DoDragDrop(textArea, dataObject, allowedEffects);
 					//Debug.WriteLine("DoDragDrop done, resultEffect=" + resultEffect);
-				} catch (COMException ex) {
+				} catch (COMException) {
 					// ignore COM errors - don't crash on badly implemented drop targets
 					//Debug.WriteLine("DoDragDrop failed: " + ex.ToString());
 					return;
