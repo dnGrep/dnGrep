@@ -12,7 +12,7 @@ This program will not transfer any information to other networked systems unless
 The program periodically checks for new versions at github.com, but does not transmit any user information. The version check may be disabled by the user in the dnGrep options.
 
 ### Code Signing Policy
-Free code signing provided by [SignPath.io](https://signpath.io/), certificate by [SignPath Foundation](https://signpath.org/).
+This program uses free code signing provided by [SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=dngrep), and a certificate by the [SignPath Foundation](https://signpath.org?utm_source=foundation&utm_medium=github&utm_campaign=dngrep).
 
 Starting with v3.0, the dnGrep MSI installers and binary files are signed. Code signing is applied only to dnGrep project code in the [dnGrep git repository](https://github.com/dnGrep/dnGrep) release branch and built on AppVeyor.  The dnGrep install kit contains third-party libraries used by dnGrep, which may or may not be signed.  
 
