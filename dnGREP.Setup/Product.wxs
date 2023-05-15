@@ -33,8 +33,12 @@
     <!-- ========================== UI =============================-->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <Property Id="INSTALL_MODE" Value="Custom" />
-    <UIRef Id="WixUI_Mondo" />
-    <UIRef Id="WixUI_ErrorProgressText" />
+    <Property Id="LAUNCHAPPONEXIT" Value="1" />
+    <UI>
+      <UIRef Id="MyWixUI_Mondo" />
+      <UIRef Id="WixUI_ErrorProgressText" />
+      <Publish Dialog="MyExitDialog" Control="Finish" Order="1" Event="DoAction" Value="LaunchApplication">LAUNCHAPPONEXIT</Publish>
+    </UI>
     <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="header.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="intro.bmp" />
@@ -44,6 +48,12 @@
     <!-- Call DCAS Installer -->
     <CustomAction Id="PreventDowngrading" Error="Newer version of dnGrep is already installed." />
     <CustomAction Id="PreventReInstalling" Error="dnGrep version $(var.ProductVersion) is already installed." />
+    <CustomAction Id="LaunchApplication" 
+                  Directory="INSTALLDIR" 
+                  Execute="immediate" 
+                  Impersonate="yes"
+                  Return="asyncNoWait"
+                  ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot;" />
     <!-- ===========================================================-->
 
     <Upgrade Id="4CF55558-B642-482E-9FBF-06EA5AEC8276">

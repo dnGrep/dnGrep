@@ -45,6 +45,8 @@
     <Compile Include="Fragments\PluginFragmentOpenXml.wxs" />
     <Compile Include="Fragments\PluginFragmentPdf.wxs" />
     <Compile Include="Fragments\PluginFragmentWord.wxs" />
+    <Compile Include="MyExitDialog.wxs" />
+    <Compile Include="MyWixUI_Mondo.wxs" />
     <Compile Include="Product.wxs" />
     <Content Include="Conditions.wxi" />
     <Content Include="Variables.wxi" />
@@ -53,6 +55,10 @@
     <Folder Include="Fragments\" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
