@@ -24,14 +24,7 @@ build:
   verbosity: normal
 after_build:
   - dotnet publish -p:PublishProfile=win-x64SelfContainedFolderProfile /p:Platform=x64
-  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\* -xr!*.pdb
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- dnGREP.Engines.MsWord.plugin
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- dnGREP.Engines.OpenXml.plugin
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- dnGREP.Engines.Pdf.plugin
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- pdftotext.exe
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- pdf-readme
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- word-readme
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- ICSharpCode.AvalonEdit.xml
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr!*.pdb
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI
