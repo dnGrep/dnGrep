@@ -200,38 +200,38 @@
     </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
-    <SevenZipFiles Include="..\Dependencies\7z64.dll" />
+    <SevenZipFiles Include="$(SolutionDir)\Dependencies\7z64.dll" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x86'">
-    <SevenZipFiles Include="..\Dependencies\7z32.dll" />
+    <SevenZipFiles Include="$(SolutionDir)\Dependencies\7z32.dll" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
-    <EverythingFiles Include="..\dnGREP.Everything\x64\Everything64.dll" />
+    <EverythingFiles Include="$(SolutionDir)\dnGREP.Everything\x64\Everything64.dll" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x86'">
-    <EverythingFiles Include="..\dnGREP.Everything\x86\Everything32.dll" />
+    <EverythingFiles Include="$(SolutionDir)\dnGREP.Everything\x86\Everything32.dll" />
   </ItemGroup>
   <ItemGroup>
-    <RuntimeFiles Include="bin\$(Platform)\$(Configuration)\net7.0-windows\runtimes\win\lib\net7.0\System.Management.dll" />
+    <RuntimeFiles Include="$(SolutionDir)\dnGREP.WPF\bin\$(Platform)\$(Configuration)\net7.0-windows\runtimes\win\lib\net7.0\System.Management.dll" />
   </ItemGroup>
   <ItemGroup>
-    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.plugin" />
-    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.dll" />
-    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.pdb" />
-    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\DocumentFormat.OpenXml.dll" />
-    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\ExcelDataReader.dll" />
-    <OpenXmlPluginFiles Include="..\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\ExcelNumberFormat.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.plugin" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.OpenXml.pdb" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\DocumentFormat.OpenXml.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\ExcelDataReader.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\ExcelNumberFormat.dll" />
   </ItemGroup>
   <ItemGroup>
-    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.plugin" />
-    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.dll" />
-    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.pdb" />
-    <PDFEnginFiles Include="..\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\pdftotext.exe" />
+    <PDFEnginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.plugin" />
+    <PDFEnginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.dll" />
+    <PDFEnginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.pdb" />
+    <PDFEnginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\pdftotext.exe" />
   </ItemGroup>
   <ItemGroup>
-    <WordEnginFiles Include="..\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.MsWord.plugin" />
-    <WordEnginFiles Include="..\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Word.dll" />
-    <WordEnginFiles Include="..\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Word.pdb" />
+    <WordEnginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.MsWord.plugin" />
+    <WordEnginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Word.dll" />
+    <WordEnginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Word.pdb" />
   </ItemGroup>
   <Target Name="CopyExtraFiles" AfterTargets="AfterBuild">
     <Copy SourceFiles="@(SevenZipFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows" />
@@ -240,13 +240,13 @@
     <Copy SourceFiles="@(PDFEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch" />
     <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\MsWordSearch" />
   </Target>
-  <Target Name="PublishExtraFiles" AfterTargets="Publish">
-    <Copy SourceFiles="@(SevenZipFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)" />
-    <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)" />
-    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\runtimes\win\lib\net7.0\" />
-    <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\Plugins\OpenXmlSearch" />
-    <Copy SourceFiles="@(PDFEnginFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\Plugins\PdfSearch" />
-    <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="..\publish\$(RuntimeIdentifier)\Plugins\MsWordSearch" />
+  <Target Name="PublishExtraFiles" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+    <Copy SourceFiles="@(SevenZipFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
+    <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
+    <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\OpenXmlSearch" />
+    <Copy SourceFiles="@(PDFEnginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch" />
+    <Copy SourceFiles="@(WordEnginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\MsWordSearch" />
+    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net7.0\" />
   </Target>
   <PropertyGroup>
     <Authors>dnGrep Community Contributors</Authors>
