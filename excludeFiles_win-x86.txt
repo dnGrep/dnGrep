@@ -1,13 +1,4 @@
-dnGREP.Common.pdb
-dnGREP.Common.UI.pdb
-dnGREP.DockFloat.pdb
-dnGREP.Engines.pdb
-dnGREP.Everything.pdb
-dnGREP.Localization.pdb
-dnGREP.pdb
-ICSharpCode.AvalonEdit.pdb
 ICSharpCode.AvalonEdit.xml
-SevenZipSharp.pdb
 cs\Microsoft.VisualBasic.Forms.resources.dll
 cs\PresentationCore.resources.dll
 cs\PresentationFramework.resources.dll
@@ -229,6 +220,3 @@ zh-Hant\UIAutomationProvider.resources.dll
 zh-Hant\UIAutomationTypes.resources.dll
 zh-Hant\WindowsBase.resources.dll
 zh-Hant\WindowsFormsIntegration.resources.dll
-Plugins\MsWordSearch\dnGREP.Engines.Word.pdb
-Plugins\OpenXmlSearch\dnGREP.Engines.OpenXml.pdb
-Plugins\PdfSearch\dnGREP.Engines.Pdf.pdb

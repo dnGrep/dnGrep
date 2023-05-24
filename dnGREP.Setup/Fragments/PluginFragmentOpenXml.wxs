@@ -11,6 +11,9 @@
         <Component Id="cmp9AE5CE4DD02847B5B250275883270610" Guid="{6574115C-F2CF-432E-8B05-F8787C6786BA}">
           <File Id="fil102263DE240F4C70B1F48CC136EB03B5" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\dnGREP.Engines.OpenXml.dll" />
         </Component>
+        <Component Id="cmpDF455B1E3377429FAE5377F40EF22D5A" Guid="{674B1DA0-49CB-4C7B-A497-7596D37A577A}">
+          <File Id="fil95BFB1828F784AAFB86986C57B14256F" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\dnGREP.Engines.OpenXml.pdb" />
+        </Component>
         <Component Id="cmp65CA3425451848238FB8FF1E6D13CDA9" Guid="{C5371275-C7D3-4DEF-AE79-8E4899E0F364}">
           <File Id="filCA288BE1E6F14D62A1934307C0323E65" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\DocumentFormat.OpenXml.dll" />
         </Component>
@@ -27,6 +30,7 @@
     <ComponentGroup Id="dnGREPPluginFilesOpenXml">
       <ComponentRef Id="cmp484660E77C144763BBC59A501213CB40" />
       <ComponentRef Id="cmp9AE5CE4DD02847B5B250275883270610" />
+      <ComponentRef Id="cmpDF455B1E3377429FAE5377F40EF22D5A" />
       <ComponentRef Id="cmp65CA3425451848238FB8FF1E6D13CDA9" />
       <ComponentRef Id="cmpCD493559D3B041348B088DB173CD2DCD" />
       <ComponentRef Id="cmpA45314E8043447409B314877181AFFC2" />

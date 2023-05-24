@@ -75,7 +75,7 @@ namespace dnGREP.Setup.FileCheck
             }
         }
 
-        private static readonly List<string> extensions = new() { ".exe", ".dll", ".json", ".config", ".plugin" };
+        private static readonly List<string> includeExtensions = new() { ".exe", ".dll", ".pdb", ".json", ".config", ".plugin" };
         private static readonly Dictionary<string, string> x86Map = new()
         {
             {"$(var.App.PlatformShort)",  "32" },
@@ -112,7 +112,7 @@ namespace dnGREP.Setup.FileCheck
             foreach (var file in root)
             {
                 var ext = Path.GetExtension(file);
-                if (extensions.Contains(ext))
+                if (includeExtensions.Contains(ext))
                 {
                     files.Add(file);
                 }
@@ -128,7 +128,7 @@ namespace dnGREP.Setup.FileCheck
             foreach (var file in plugins)
             {
                 var ext = Path.GetExtension(file);
-                if (extensions.Contains(ext))
+                if (includeExtensions.Contains(ext))
                 {
                     files.Add(file);
                 }
@@ -138,7 +138,7 @@ namespace dnGREP.Setup.FileCheck
             foreach (var file in runtimes)
             {
                 var ext = Path.GetExtension(file);
-                if (extensions.Contains(ext))
+                if (includeExtensions.Contains(ext))
                 {
                     files.Add(file);
                 }

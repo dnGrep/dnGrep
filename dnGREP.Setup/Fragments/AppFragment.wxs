@@ -20,9 +20,15 @@
       </Component>
       <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{293480D3-64A1-4D5D-A953-4C3F6694BC52}">
         <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.dll" />
+      </Component>     
+      <Component Id="cmp78E7869DE0E547A9BB91AAD5C21A80CF" Guid="{745E7676-66B5-424E-9CE5-B46371BAF593}">
+        <File Id="fil477E00E09208424D90EC0C5D4FA79B55" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.pdb" />
       </Component>
       <Component Id="cmpD9FA0B07237DE16A4585D46BED20E933" Guid="{F9C505AB-495B-44F9-A774-5F5946B9E8C9}">
         <File Id="filED998F02E8D47F0905A9464D56B0F77D" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.UI.dll" />
+      </Component>
+      <Component Id="cmp854337DF2F0E41ABB6E8A93C2D1F7A8F" Guid="{86426476-7700-47C7-8FBE-37CD1CA786DC}">
+        <File Id="fil19DF3C15CD6B4E769044C011734ECE52" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.UI.pdb" />
       </Component>
       <Component Id="cmp586BF859F92C4CBEBD45E855E0CE3B1E" Guid="{1BD4E0F2-041D-416B-AF79-2C253436C2E0}">
         <File Id="fil8BF221154EB54195851C395AAF3198C5" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.deps.json" />
@@ -30,20 +36,35 @@
       <Component Id="cmpB1990F210FDF4F16B74690BF159B71BE" Guid="{418EA6A4-2705-46CB-AB27-B760659F34D4}">
         <File Id="fil3F683F9BBF9A462C9BEF3F6FFDB8FBFC" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.dll" />
       </Component>
+      <Component Id="cmp33A1FA4A9A934371BDC16AAF9F53C8F8" Guid="{D42F8B48-C9F5-44FB-93BB-7436B64C7859}">
+        <File Id="fil66ACA95212C04AEA9333D3AFB759D1B8" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.pdb" />
+      </Component>
       <Component Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" Guid="{A2875238-4A08-48F9-8FF1-31BA88D48C80}">
         <File Id="filA804AD15B1CD497CB618C6EBDD22719D" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.DockFloat.dll" />
+      </Component>
+      <Component Id="cmp2F8B9182CE374C90BE8A494A559B8D8E" Guid="{2F115573-A66D-4EBE-A108-EC056F3B178A}">
+        <File Id="fil2F01E168B7DE4634AD35F61600A63348" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.DockFloat.pdb" />
       </Component>
       <Component Id="cmp5D64364BE848D8D880558DFAFA0DE81C" Guid="{A053CA7D-4AA0-4D90-AB08-2ACF54D0A9EC}">
         <File Id="fil0A2118AB81362AE13EE6DDBA78E994BC" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Engines.dll" />
       </Component>
+      <Component Id="cmp7D4659DC96B74A9EB054D36508CB0578" Guid="{A9765EB9-0578-4B8E-93AE-EF4CBD4258D1}">
+        <File Id="fil64D3F2F5FDA54DD584A462FB7E789B48" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Engines.pdb" />
+      </Component>
       <Component Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" Guid="{0384FEB4-AF1A-414A-BAA6-4A5CB2BBF9C7}">
         <File Id="fil6325F98DBB79430AB5675F6F8473FECC" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Everything.dll" />
+      </Component>
+      <Component Id="cmp2D32460505F046C6A24B8F46AF2F6FD0" Guid="{373CEBBF-8D67-4648-A4CF-65E1BAD7CC83}">
+        <File Id="fil2E6C049FE36844CFA597FA46C2B17344" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Everything.pdb" />
       </Component>
       <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{B7C5DBF9-8740-4677-8D55-E9C01BF58028}">
         <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.exe" />
       </Component>
       <Component Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" Guid="{ED505551-933C-4B9D-8ECF-3293BE9BA5AA}">
         <File Id="filDB00706A949D4EEA8239FE1F18F446A7" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Localization.dll" />
+      </Component>
+      <Component Id="cmp40521BA90501425EAE4F9E951AF1C60B" Guid="{A7277E90-0EB0-4BC1-9198-2C870E6C816B}">
+        <File Id="fil224F258B9ACA413299B5C62A38416E87" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Localization.pdb" />
       </Component>
       <Component Id="cmp7FB095CD79B0456CBE2B08103FC384F3" Guid="{26AADCD2-37DF-41C1-8EED-ED7D375781C8}">
         <File Id="fil5903B951748F47648D6C78498970D642" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.runtimeconfig.json" />
@@ -53,6 +74,9 @@
       </Component>
       <Component Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" Guid="{499E357F-9822-4945-A800-82BF6979E072}">
         <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source="$(var.PublishDir)\ICSharpCode.AvalonEdit.dll" />
+      </Component>
+      <Component Id="cmpC9374D90A25A4EE284CA32161DF04748" Guid="{06549E21-10AE-4E02-9888-AD759A49BDD5}">
+        <File Id="fil6DE7936B61104AAD94942241C9F11558" KeyPath="yes" Source="$(var.PublishDir)\ICSharpCode.AvalonEdit.pdb" />
       </Component>
       <Component Id="cmp0459596434A34BA899AD1B009417DEEB" Guid="{6F88374E-BF90-4B91-8F7C-97B5D72E108F}">
         <File Id="fil32F44C517B3F47268E1399A302DA7F90" KeyPath="yes" Source="$(var.PublishDir)\Newtonsoft.Json.dll" />
@@ -65,6 +89,9 @@
       </Component>
       <Component Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" Guid="{C38580EA-5F65-40E7-9E9E-D603EBCD5CC3}">
         <File Id="filA791E86462E84AC92A00C1CB329B54F4" KeyPath="yes" Source="$(var.PublishDir)\SevenZipSharp.dll" />
+      </Component>
+      <Component Id="cmpF80D34B512294E6DAAB9CE30E531C5D7" Guid="{B2470E9C-FFC4-4EA8-B9F4-196DB5FC2FB0}">
+        <File Id="fil4A341CF47501456094615919642614C9" KeyPath="yes" Source="$(var.PublishDir)\SevenZipSharp.pdb" />
       </Component>
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.PublishDir)\UtfUnknown.dll" />
@@ -167,21 +194,30 @@
       <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
       <ComponentRef Id="cmp7A55F9CF84A64DF4968DC208CA225AC8" />
       <ComponentRef Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" />
+      <ComponentRef Id="cmp78E7869DE0E547A9BB91AAD5C21A80CF" />
       <ComponentRef Id="cmpD9FA0B07237DE16A4585D46BED20E933" />
+      <ComponentRef Id="cmp854337DF2F0E41ABB6E8A93C2D1F7A8F" />
       <ComponentRef Id="cmp586BF859F92C4CBEBD45E855E0CE3B1E" />
       <ComponentRef Id="cmpB1990F210FDF4F16B74690BF159B71BE" />
+      <ComponentRef Id="cmp33A1FA4A9A934371BDC16AAF9F53C8F8" />
       <ComponentRef Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" />
+      <ComponentRef Id="cmp2F8B9182CE374C90BE8A494A559B8D8E" />
       <ComponentRef Id="cmp5D64364BE848D8D880558DFAFA0DE81C" />
+      <ComponentRef Id="cmp7D4659DC96B74A9EB054D36508CB0578" />
       <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />
+      <ComponentRef Id="cmp2D32460505F046C6A24B8F46AF2F6FD0" />
       <ComponentRef Id="cmpE75E380769873171E1689F576B0BBBD1" />
       <ComponentRef Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" />
+      <ComponentRef Id="cmp40521BA90501425EAE4F9E951AF1C60B" />
       <ComponentRef Id="cmp7FB095CD79B0456CBE2B08103FC384F3" />
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
+      <ComponentRef Id="cmpC9374D90A25A4EE284CA32161DF04748" />
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />
       <ComponentRef Id="cmpB7F588B270AD4EFBBB04FF288C419407" />
       <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
       <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
+      <ComponentRef Id="cmpF80D34B512294E6DAAB9CE30E531C5D7" />
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
       
       <ComponentRef Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" />
