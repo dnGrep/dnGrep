@@ -66,28 +66,13 @@
       <Component Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" Guid="{C38580EA-5F65-40E7-9E9E-D603EBCD5CC3}">
         <File Id="filA791E86462E84AC92A00C1CB329B54F4" KeyPath="yes" Source="$(var.PublishDir)\SevenZipSharp.dll" />
       </Component>
-      <Component Id="cmp5DE0DDB4E0924D539CA4EDDF7126B197" Guid="{6809ED72-A4BC-42F4-BDB7-2D3567AD91CD}">
-        <File Id="filC574AA0B08634C7FBE8E81F8CA830B18" KeyPath="yes" Source="$(var.PublishDir)\System.Management.dll" />
-      </Component>
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.PublishDir)\UtfUnknown.dll" />
       </Component>
       
-      <Directory Id="dir8131FEF6EC6C44AF925EDC8B3C110227" Name="runtimes">
-        <Directory Id="dir884F78F1F1E848B6BCD8B91886E4795D" Name="win">
-          <Directory Id="dirDE5B27A25A2E4C758AC0F9E977DBD818" Name="lib">
-            <Directory Id="dirA440349DEDC54040A7606EB4D4368851" Name="net7.0">
-              <Component Id="cmp03DC1007C5B54C628CA3B3E1053B7A70" Guid="{94000AEF-EA2E-4B1B-8516-00A1A1BD9A8D}">
-                <File Id="fil029864FFF5044EB2843D8AA8BB5BD1AB" KeyPath="yes" Source="$(var.PublishDir)\runtimes\win\lib\net7.0\System.Management.dll" />
-              </Component>
-            </Directory>
-          </Directory>
-        </Directory>
-      </Directory>
-
       <Directory Id="dir57F39F5A14EB4F319994BBE7AE3AD5D1" Name="ar">
         <Component Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" Guid="{C99A747D-B9BB-4C0B-A27A-BF289C329A34}">
-          <File Id="fil2082C100A2E5453B8604C907342B6BF5" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ar\dnGREP.Localization.resources.dll" />
+          <File Id="fil2082C100A2E5453B8604C907342B6BF5" KeyPath="yes" Source="$(var.PublishDir)\ar\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir528DD5B50872449DA6A3648CB53FDE3D" Name="bg">
@@ -157,7 +142,7 @@
       </Directory>
       <Directory Id="dirA4EC8179E248460287F4AFABC0797241" Name="tr">
         <Component Id="cmpB7DBE238D9FE4572892D097082097953" Guid="{41AB1980-84BA-45D9-8F7B-A1083EF74A85}">
-          <File Id="fil3DF28B29D4694656987D1C242C5A8195" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\tr\dnGREP.Localization.resources.dll" />
+          <File Id="fil3DF28B29D4694656987D1C242C5A8195" KeyPath="yes" Source="$(var.PublishDir)\tr\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dir0504FAEF173645618FE93CEF2595F0E7" Name="zh-CN">
@@ -197,10 +182,7 @@
       <ComponentRef Id="cmpB7F588B270AD4EFBBB04FF288C419407" />
       <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
       <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
-      <ComponentRef Id="cmp5DE0DDB4E0924D539CA4EDDF7126B197" />
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
-      
-      <ComponentRef Id="cmp03DC1007C5B54C628CA3B3E1053B7A70" />
       
       <ComponentRef Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" />
       <ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />

@@ -136,6 +136,7 @@
 
     <Feature Id="CoreFiles" Title="dnGrep" Display="expand" AllowAdvertise='no' Absent='disallow' Description="Core dnGrep application." Level="1" ConfigurableDirectory="INSTALLDIR">
       <ComponentGroupRef Id="dnGREPAppFiles"/>
+      <ComponentGroupRef Id="dotnet"/>
       <ComponentRef Id="ApplicationShortcut" />
       <Feature Id="ShellIntegration" Title="Windows Explorer menu" AllowAdvertise='no' Absent='allow' Description="Add dnGrep to Windows Explorer right-click menu." Level="2">
         <ComponentRef Id="ShellIntegration"/>
