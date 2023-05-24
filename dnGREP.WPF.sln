@@ -46,6 +46,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "dnGREP.Setup", "dnGREP.Setu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{496D84C8-4CB6-44C6-B9CF-0F65AC908DC9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnGREP.Setup.FileCheck", "dnGREP.Setup.FileCheck\dnGREP.Setup.FileCheck.csproj", "{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -172,6 +174,14 @@ Global
 		{496D84C8-4CB6-44C6-B9CF-0F65AC908DC9}.Release|x64.Build.0 = Release|x64
 		{496D84C8-4CB6-44C6-B9CF-0F65AC908DC9}.Release|x86.ActiveCfg = Release|x86
 		{496D84C8-4CB6-44C6-B9CF-0F65AC908DC9}.Release|x86.Build.0 = Release|x86
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Debug|x64.ActiveCfg = Debug|x64
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Debug|x64.Build.0 = Debug|x64
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Debug|x86.ActiveCfg = Debug|x86
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Debug|x86.Build.0 = Debug|x86
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Release|x64.ActiveCfg = Release|x64
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Release|x64.Build.0 = Release|x64
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Release|x86.ActiveCfg = Release|x86
+		{4F8AB378-E704-440B-A0C7-3B54D9E63BCA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,12 +192,12 @@ Global
 		{8312CAE2-B208-4186-B711-815593FEBB94} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ResXSortingComparison = InvariantCulture
-		RESX_MoveToResources = {"Items":[{"Extensions":".cs,.vb","Patterns":"$Namespace.$File.$Key|$File.$Key|StringResourceKey.$Key|$Namespace.StringResourceKey.$Key|nameof($File.$Key), ResourceType = typeof($File)|ErrorMessageResourceType = typeof($File), ErrorMessageResourceName = nameof($File.$Key)"},{"Extensions":".cshtml,.vbhtml","Patterns":"@$Namespace.$File.$Key|@$File.$Key|@StringResourceKey.$Key|@$Namespace.StringResourceKey.$Key"},{"Extensions":".cpp,.c,.hxx,.h","Patterns":"$File::$Key"},{"Extensions":".aspx,.ascx","Patterns":"<%$ Resources:$File,$Key %>|<%= $File.$Key %>|<%= $Namespace.$File.$Key %>"},{"Extensions":".xaml","Patterns":"\"{l:Loc Key='$Key'}\"|\"{x:Static properties:$File.$Key}\""},{"Extensions":".ts","Patterns":"resources.$Key"},{"Extensions":".html","Patterns":"{{ resources.$Key }}"}]}
-		SolutionGuid = {835B141D-24DE-4FDA-805E-B7871861B348}
-		RESX_SortFileContentOnSave = False
-		RESX_Rules = {"EnabledRules":["StringFormat","WhiteSpaceLead","WhiteSpaceTail","PunctuationLead","PunctuationTail"]}
 		RESX_ShowErrorsInErrorList = False
+		RESX_Rules = {"EnabledRules":["StringFormat","WhiteSpaceLead","WhiteSpaceTail","PunctuationLead","PunctuationTail"]}
+		RESX_SortFileContentOnSave = False
+		SolutionGuid = {835B141D-24DE-4FDA-805E-B7871861B348}
+		RESX_MoveToResources = {"Items":[{"Extensions":".cs,.vb","Patterns":"$Namespace.$File.$Key|$File.$Key|StringResourceKey.$Key|$Namespace.StringResourceKey.$Key|nameof($File.$Key), ResourceType = typeof($File)|ErrorMessageResourceType = typeof($File), ErrorMessageResourceName = nameof($File.$Key)"},{"Extensions":".cshtml,.vbhtml","Patterns":"@$Namespace.$File.$Key|@$File.$Key|@StringResourceKey.$Key|@$Namespace.StringResourceKey.$Key"},{"Extensions":".cpp,.c,.hxx,.h","Patterns":"$File::$Key"},{"Extensions":".aspx,.ascx","Patterns":"<%$ Resources:$File,$Key %>|<%= $File.$Key %>|<%= $Namespace.$File.$Key %>"},{"Extensions":".xaml","Patterns":"\"{l:Loc Key='$Key'}\"|\"{x:Static properties:$File.$Key}\""},{"Extensions":".ts","Patterns":"resources.$Key"},{"Extensions":".html","Patterns":"{{ resources.$Key }}"}]}
+		RESX_ResXSortingComparison = InvariantCulture
 	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2

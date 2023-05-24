@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileCheck": {
+      "commandName": "Project",
+      "commandLineArgs": "$(SolutionDir)"
+    }
+  }
+}
