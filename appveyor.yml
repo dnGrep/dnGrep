@@ -23,7 +23,7 @@ build:
   parallel: true
   verbosity: normal
 after_build:
-  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr!*.pdb
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@excludeFiles_%PlATFORM%.txt
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI

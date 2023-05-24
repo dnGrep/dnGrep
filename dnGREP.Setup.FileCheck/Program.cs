@@ -4,6 +4,13 @@ namespace dnGREP.Setup.FileCheck
 {
     internal class Program
     {
+        /// <summary>
+        /// This tool does two things:
+        /// 1) Compares the components in the *.wxs fragment files to the files in the publish directory,
+        ///    and lists the differences in the console window.
+        /// 2) Builds exclude file lists for the input to 7zip when creating the portable packages.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             if (args.Length > 0)
@@ -18,11 +25,12 @@ namespace dnGREP.Setup.FileCheck
                     string publishDir = Path.Combine(solutionDir, "publish", platform);
                     string fragmentsDir = Path.Combine(solutionDir, "dnGREP.Setup", "Fragments");
 
-                    List<string> files = CreateFileList(publishDir);
+                    List<string> allFiles = GetAllFiles(publishDir);
+                    List<string> includeFiles = GetIncludeFiles(publishDir);
                     List<string> components = ReadFragmentFiles(fragmentsDir, publishDir, is32bit);
 
-                    var list1 = components.Except(files).ToList();
-                    var list2 = files.Except(components).ToList();
+                    var list1 = components.Except(includeFiles).ToList();
+                    var list2 = includeFiles.Except(components).ToList();
 
                     if (list1.Count > 0)
                     {
@@ -51,6 +59,18 @@ namespace dnGREP.Setup.FileCheck
                         Console.WriteLine("{0}: Published files and components match exactly", platform);
                     }
                     Console.WriteLine();
+
+                    
+                    string outFile = Path.Combine(solutionDir, "excludeFiles_" + platform + ".txt");
+                    using FileStream stream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.None);
+                    using StreamWriter writer = new(stream);
+                    var list3 = allFiles.Except(includeFiles);
+                    foreach (var file in list3)
+                    {
+                        var fileName = file.Replace(publishDir, string.Empty).TrimStart('\\');
+
+                        writer.WriteLine(fileName);
+                    }
                 }
             }
         }
@@ -71,7 +91,20 @@ namespace dnGREP.Setup.FileCheck
         <File Id=""{2}"" KeyPath=""yes"" Source=""$(var.PublishDir)\{3}"" />
       </Component>";
 
-        private static List<string> CreateFileList(string publishDir)
+        private static List<string> GetAllFiles(string publishDir)
+        {
+            List<string> files = new();
+
+            var allFiles = Directory.GetFiles(publishDir, "*", SearchOption.AllDirectories);
+            foreach (var file in allFiles)
+            {
+                files.Add(file);
+            }
+
+            return files;
+        }
+
+        private static List<string> GetIncludeFiles(string publishDir)
         {
             List<string> files = new();
 
@@ -137,15 +170,15 @@ namespace dnGREP.Setup.FileCheck
                         XAttribute? source = fileElem.Attribute("Source");
                         if (source != null)
                         {
-                            var sourcefile = source.Value.Replace("$(var.PublishDir)", publishDir);
+                            var sourceFile = source.Value.Replace("$(var.PublishDir)", publishDir);
                             foreach (string key in map.Keys)
                             {
-                                if (sourcefile.Contains(key))
+                                if (sourceFile.Contains(key))
                                 {
-                                    sourcefile = sourcefile.Replace(key, map[key]);
+                                    sourceFile = sourceFile.Replace(key, map[key]);
                                 }
                             }
-                            components.Add(sourcefile);
+                            components.Add(sourceFile);
                         }
                     }
                 }
