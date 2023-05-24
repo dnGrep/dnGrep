@@ -22,11 +22,17 @@ build:
   project: dnGREP.WPF.sln
   parallel: true
   verbosity: normal
+after_build:
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr!*.pdb
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI
 - path: Release\x64\*.msi
   name: 64-bit MSI
+- path: Release\x86\*.zip
+  name: 32-bit Portable ZIP
+- path: Release\x64\*.zip
+  name: 64-bit Portable ZIP
 deploy:
 - provider: Webhook
   url: https://app.signpath.io/API/v1/736ab30b-dc3e-41ee-800d-c5674d702ed8/Integrations/AppVeyor?ProjectSlug=dnGrep&SigningPolicySlug=release-signing
