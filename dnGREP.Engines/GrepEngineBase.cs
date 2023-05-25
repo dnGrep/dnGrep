@@ -708,8 +708,12 @@ namespace dnGREP.Engines
             if (positions.Count == 0)
                 return results;
 
+            XmlReaderSettings settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Parse
+            };
             using (StringReader textReader = new(text))
-            using (XmlReader reader = XmlReader.Create(textReader))
+            using (XmlReader reader = XmlReader.Create(textReader, settings))
             {
                 List<int> currPos = new();
 
