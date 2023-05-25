@@ -757,15 +757,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>醒目標出群組</value>
+    <value>醒目標示群組</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>醒目標出符合項</value>
+    <value>醒目標示符合項</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>醒目標出正則運算式群組, 變更將於下次搜尋時生效.</value>
+    <value>醒目標示正則運算式群組, 變更將於下次搜尋時生效.</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
@@ -973,7 +973,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
-    <value>檔案比對</value>
+    <value>比對檔案</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFileNames" xml:space="preserve">
@@ -1653,15 +1653,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>個檔案過濾歷程</value>
+    <value>個檔案過濾歷史清單</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
-    <value>個路徑歷程</value>
+    <value>個路徑歷史清單</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value>個搜尋和取代歷程</value>
+    <value>個搜尋和取代歷史清單</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_Language" xml:space="preserve">
@@ -2201,7 +2201,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>醒目標出群組</value>
+    <value>醒目標示群組</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
@@ -2694,7 +2694,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>醒目標出群組</value>
+    <value>醒目標示群組</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
@@ -3118,7 +3118,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
-    <value>醒目標出符合項</value>
+    <value>醒目標示符合項</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_folder_value" xml:space="preserve">
@@ -3475,5 +3475,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_NoFixedLimit" xml:space="preserve">
     <value>由系統自行決定並行任務數量</value>
     <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>變為小寫</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>變為大寫</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>設定環境變數</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>變數=字串 (字串可能為空以清除變數)</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>將字串或耗費的時間寫入日誌檔案</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>訊息字串, 或記錄耗費時間的 'time’</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>剪下</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>貼上</value>
   </data>
 </root>
