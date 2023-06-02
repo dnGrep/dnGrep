@@ -5,21 +5,16 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines
 {
     public class GrepEngineHex : GrepEngineBase, IGrepEngine
     {
-        public IList<string> DefaultFileExtensions => new string[0];
+        public IList<string> DefaultFileExtensions => Array.Empty<string>();
 
         public bool IsSearchOnly => true;
 
-        public Version FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
+        public Version? FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine))?.GetName()?.Version;
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
@@ -29,15 +24,13 @@ namespace dnGREP.Engines
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            using (FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan))
-            {
-                return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding);
-            }
+            using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan);
+            return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding);
         }
 
         public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+            List<GrepSearchResult> searchResults = new();
 
             byte?[] searchArray = ToByteArray(searchPattern);
 
@@ -45,8 +38,8 @@ namespace dnGREP.Engines
             byte[] buffer1, buffer2;
 
             long length = input.Length;
-            List<GrepMatch> matches = new List<GrepMatch>();
-            using (BinaryReader readStream = new BinaryReader(input))
+            List<GrepMatch> matches = new();
+            using (BinaryReader readStream = new(input))
             {
                 int startIndex = 0;
                 buffer1 = readStream.ReadBytes(bufferSize);
@@ -72,10 +65,10 @@ namespace dnGREP.Engines
             return searchResults;
         }
 
-        private byte?[] ToByteArray(string searchPattern)
+        private static byte?[] ToByteArray(string searchPattern)
         {
             // the expected search pattern is a space separated list of byte values in hexadecimal: 20 68 74
-            List<byte?> list = new List<byte?>();
+            List<byte?> list = new();
             string[] parts = searchPattern.TrimEnd().Split(' ');
             foreach (string num in parts)
             {
@@ -91,9 +84,9 @@ namespace dnGREP.Engines
             return list.ToArray();
         }
 
-        private List<GrepMatch> DoByteArraySearch(byte[] buffer1, byte[] buffer2, byte?[] searchArray, int index, string searchPattern)
+        private static List<GrepMatch> DoByteArraySearch(byte[] buffer1, byte[]? buffer2, byte?[] searchArray, int index, string searchPattern)
         {
-            List<GrepMatch> globalMatches = new List<GrepMatch>();
+            List<GrepMatch> globalMatches = new();
             foreach (var match in ByteArraySearchIterator(buffer1, buffer2, searchArray, index, searchPattern))
             {
                 globalMatches.Add(match);
@@ -107,7 +100,7 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        private IEnumerable<GrepMatch> ByteArraySearchIterator(byte[] buffer1, byte[] buffer2, byte?[] searchArray, int startIndex, string searchPattern)
+        private static IEnumerable<GrepMatch> ByteArraySearchIterator(byte[] buffer1, byte[]? buffer2, byte?[] searchArray, int startIndex, string searchPattern)
         {
             int combinedLength = buffer1.Length + (buffer2 == null ? 0 : buffer2.Length);
 
@@ -138,13 +131,13 @@ namespace dnGREP.Engines
             }
         }
 
-        private byte GetByte(byte[] buffer1, byte[] buffer2, int index)
+        private static byte GetByte(byte[] buffer1, byte[]? buffer2, int index)
         {
             if (index < buffer1.Length)
                 return buffer1[index];
 
             index -= buffer1.Length;
-            if (index < buffer2.Length)
+            if (index < buffer2?.Length)
                 return buffer2[index];
 
             // error

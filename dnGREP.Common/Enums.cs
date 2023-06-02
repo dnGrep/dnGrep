@@ -45,6 +45,7 @@ namespace dnGREP.Common
         None
     }
 
+#pragma warning disable CA1069
     public enum FileDateFilter
     {
         None = 0,
@@ -52,7 +53,9 @@ namespace dnGREP.Common
         Modified,
         Created
     }
+#pragma warning restore CA1069
 
+#pragma warning disable CA1069
     public enum FileTimeRange
     {
         None = 0,
@@ -60,6 +63,7 @@ namespace dnGREP.Common
         Dates,
         Hours
     }
+#pragma warning restore CA1069
 
     public enum OverwriteFile
     {

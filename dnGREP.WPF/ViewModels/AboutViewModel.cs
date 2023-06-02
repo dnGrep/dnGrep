@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
-using Alphaleonis.Win32.Filesystem;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
+using dnGREP.WPF.Properties;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class AboutViewModel : CultureAwareViewModel
+    public partial class AboutViewModel : CultureAwareViewModel
     {
         public AboutViewModel()
         {
             Version = $"{Resources.About_Version} {AssemblyVersion}";
-            BuildDate = $"{Resources.About_BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentCulture)}";
+            BuildDate = $"{Resources.About_BuiltOn} {AssemblyBuildDate?.ToString(CultureInfo.CurrentCulture)}";
             Copyright = AssemblyCopyright;
             Description = AssemblyDescription;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
@@ -24,95 +26,28 @@ namespace dnGREP.WPF
             p => NativeMethods.SetClipboardText(Version));
 
 
-        private string applicationFontFamily;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
+        [ObservableProperty]
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
 
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
+        [ObservableProperty]
+        private double dialogFontSize;
 
-        private double dialogfontSize;
-        public double DialogFontSize
-        {
-            get { return dialogfontSize; }
-            set
-            {
-                if (dialogfontSize == value)
-                    return;
-
-                dialogfontSize = value;
-                base.OnPropertyChanged(nameof(DialogFontSize));
-            }
-        }
-
+        [ObservableProperty]
         private string _version = string.Empty;
-        public string Version
-        {
-            get { return _version; }
 
-            set
-            {
-                if (_version == value)
-                    return;
-
-                _version = value;
-                OnPropertyChanged(nameof(Version));
-            }
-        }
-
+        [ObservableProperty]
         private string _buildDate = string.Empty;
-        public string BuildDate
-        {
-            get { return _buildDate; }
-            set
-            {
-                if (_buildDate == value)
-                    return;
 
-                _buildDate = value;
-                OnPropertyChanged(nameof(BuildDate));
-            }
-        }
-
+        [ObservableProperty]
         private string _copyright = string.Empty;
-        public string Copyright
-        {
-            get { return _copyright; }
-            set
-            {
-                if (_copyright == value)
-                    return;
 
-                _copyright = value;
-                OnPropertyChanged(nameof(Copyright));
-            }
-        }
-
+        [ObservableProperty]
         private string _description = string.Empty;
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                if (_description == value)
-                    return;
-
-                _description = value;
-                OnPropertyChanged(nameof(Description));
-            }
-        }
 
 
-        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? string.Empty;
 
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -120,13 +55,13 @@ namespace dnGREP.WPF
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 // If there aren't any Description attributes, return an empty string
                 if (attributes.Length == 0)
-                    return "";
+                    return string.Empty;
                 // If there is a Description attribute, return its value
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
 
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -134,36 +69,22 @@ namespace dnGREP.WPF
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 // If there aren't any Copyright attributes, return an empty string
                 if (attributes.Length == 0)
-                    return "";
+                    return string.Empty;
                 // If there is a Copyright attribute, return its value
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
 
-        public DateTime AssemblyBuildDate => GetLinkerTime(Assembly.GetExecutingAssembly());
+        public static DateTime? AssemblyBuildDate => GetAssemblyBuildDateTime(Assembly.GetExecutingAssembly());
 
-        // http://stackoverflow.com/questions/1600962/displaying-the-build-date
-        public static DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)
+        // https://stackoverflow.com/questions/1600962/displaying-the-build-date
+        private static DateTime? GetAssemblyBuildDateTime(Assembly assembly)
         {
-            var filePath = assembly.Location;
-            const int c_PeHeaderOffset = 60;
-            const int c_LinkerTimestampOffset = 8;
-
-            var buffer = new byte[2048];
-
-            using (var stream = File.Open(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read))
-                stream.Read(buffer, 0, 2048);
-
-            var offset = BitConverter.ToInt32(buffer, c_PeHeaderOffset);
-            var secondsSince1970 = BitConverter.ToInt32(buffer, offset + c_LinkerTimestampOffset);
-            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-            var linkTimeUtc = epoch.AddSeconds(secondsSince1970);
-
-            var tz = target ?? TimeZoneInfo.Local;
-            var localTime = TimeZoneInfo.ConvertTimeFromUtc(linkTimeUtc, tz);
-
-            return localTime;
+            var attr = Attribute.GetCustomAttribute(assembly, typeof(BuildDateTimeAttribute)) as BuildDateTimeAttribute;
+            if (DateTime.TryParse(attr?.Date, out DateTime dt))
+                return dt.ToLocalTime();
+            else
+                return null;
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using System.Timers;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace dnGREP.WPF.UserControls
 {
@@ -9,9 +10,8 @@ namespace dnGREP.WPF.UserControls
     /// </summary>
     public partial class BusyIndicator : UserControl
     {
-        private const string PERCENTS_TEXT = "{0}%";
         private delegate void VoidDelegete();
-        private Timer timer;
+        private readonly DispatcherTimer timer = new();
 
         public BusyIndicator()
         {
@@ -21,14 +21,14 @@ namespace dnGREP.WPF.UserControls
 
         void OnLoaded(object sender, RoutedEventArgs e)
         {
-            timer = new Timer(100);
-            timer.Elapsed += OnTimerElapsed;
+            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
-            if (Visibility != System.Windows.Visibility.Visible)
+            if (Visibility != Visibility.Visible)
                 timer.Stop();
 
             rotationCanvas.Dispatcher.Invoke

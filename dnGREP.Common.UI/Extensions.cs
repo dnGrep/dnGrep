@@ -5,6 +5,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Windows.Win32;
+using Windows.Win32.Graphics.Gdi;
+using Windows.Win32.UI.HiDpi;
 
 namespace dnGREP.Common.UI
 {
@@ -12,7 +15,7 @@ namespace dnGREP.Common.UI
     {
         public static IEnumerable<T> FindLogicalChildren<T>(this DependencyObject parent) where T : DependencyObject
         {
-            if (parent == null) yield return null;
+            if (parent == null) yield break;
 
             var dependencyChildren = LogicalTreeHelper.GetChildren(parent).OfType<DependencyObject>();
             foreach (var child in dependencyChildren)
@@ -25,7 +28,7 @@ namespace dnGREP.Common.UI
             }
         }
 
-        public static T GetVisualChild<T>(this DependencyObject depObj) where T : Visual
+        public static T? GetVisualChild<T>(this DependencyObject depObj) where T : Visual
         {
             if (depObj != null)
             {
@@ -38,7 +41,7 @@ namespace dnGREP.Common.UI
                         return typedChild;
                     }
 
-                    T childOfChild = child.GetVisualChild<T>();
+                    T? childOfChild = child?.GetVisualChild<T>();
                     if (childOfChild != null)
                     {
                         return childOfChild;
@@ -48,7 +51,7 @@ namespace dnGREP.Common.UI
             return null;
         }
 
-        public static T GetChildOfType<T>(this DependencyObject depObj) where T : DependencyObject
+        public static T? GetChildOfType<T>(this DependencyObject depObj) where T : DependencyObject
         {
             if (depObj == null) return null;
 
@@ -82,8 +85,11 @@ namespace dnGREP.Common.UI
             if (Environment.OSVersion.Version.Major >= 10 ||
                 (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
             {
-                IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
-                NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
+                var pt = new System.Drawing.Point((int)(screen.Bounds.Left + screen.Bounds.Width / 2),
+                    (int)(screen.Bounds.Top + screen.Bounds.Height / 2));
+
+                var hMonitor = PInvoke.MonitorFromPoint(pt, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
+                _ = PInvoke.GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
                 scaleX = (double)dpiX / 96;
                 scaleY = (double)dpiY / 96;
             }
@@ -96,7 +102,7 @@ namespace dnGREP.Common.UI
                 scaleY = dpiScale.DpiScaleY;
             }
 
-            Rect result = new Rect(
+            Rect result = new(
                 rect.X * scaleX,
                 rect.Y * scaleY,
                 rect.Width * scaleX,
@@ -120,9 +126,7 @@ namespace dnGREP.Common.UI
 
         public static bool IsOnScreen(this Window window)
         {
-            Rect windowBounds = new Rect(
-                window.Left, window.Top, window.ActualWidth, window.ActualHeight);
-
+            Rect windowBounds = new(window.Left, window.Top, window.ActualWidth, window.ActualHeight);
             return windowBounds.IsOnScreen();
         }
 
@@ -131,7 +135,7 @@ namespace dnGREP.Common.UI
             // test to see if the center of the title bar is on a screen
             // this will allow the user to easily move the window if partially off screen
             // 44 is the width of a title bar button, 30 is the height
-            Rect bounds = new Rect(
+            Rect bounds = new(
                 windowBounds.Left + 5 + 44,
                 windowBounds.Top + 5,
                 Math.Max(windowBounds.Width - 3 * 44, 44),  // can't be negative!
@@ -148,9 +152,9 @@ namespace dnGREP.Common.UI
             return false;
         }
 
-        public static Screen ScreenFromWpfPoint(this Point pt)
+        public static Screen? ScreenFromWpfPoint(this Point pt)
         {
-            Rect bounds = new Rect(pt, new Size(2, 2));
+            Rect bounds = new(pt, new Size(2, 2));
             foreach (Screen screen in Screen.AllScreens)
             {
                 Rect deviceRect = screen.ToDevicePixels(bounds);
@@ -166,13 +170,13 @@ namespace dnGREP.Common.UI
         {
             double width = window.Width;
             double height = window.Height;
-            Point pt = new Point(x, y);
-            Screen screen = pt.ScreenFromWpfPoint();
+            Point pt = new(x, y);
+            Screen? screen = pt.ScreenFromWpfPoint();
             if (screen != null)
             {
-                Rect bounds = new Rect(x, y, window.ActualWidth, window.ActualHeight);
+                Rect bounds = new(x, y, window.ActualWidth, window.ActualHeight);
                 Rect r = screen.ToDevicePixels(bounds);
-                if (NativeMethods.MoveWindow(new WindowInteropHelper(window).Handle, (int)r.Left, (int)r.Top, (int)r.Width, (int)r.Height, true))
+                if (PInvoke.MoveWindow(new(new WindowInteropHelper(window).Handle), (int)r.Left, (int)r.Top, (int)r.Width, (int)r.Height, true))
                 {
                     window.Dispatcher.Invoke(() =>
                     {

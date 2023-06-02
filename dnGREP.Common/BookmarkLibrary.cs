@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using NLog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common
 {
@@ -16,7 +12,7 @@ namespace dnGREP.Common
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static BookmarkEntity bookmarks;
+        private static BookmarkEntity? bookmarks;
 
         public static readonly int LatestVersion = 5;
 
@@ -31,7 +27,7 @@ namespace dnGREP.Common
                 return bookmarks;
             }
         }
-
+            
         private BookmarkLibrary() { }
 
         private static string BookmarksFile
@@ -39,24 +35,30 @@ namespace dnGREP.Common
             get { return Path.Combine(Utils.GetDataFolderPath(), "bookmarks.xml"); }
         }
 
+        [MemberNotNull(nameof(bookmarks))]
         public static void Load()
         {
             try
             {
                 IsDeserializing = true;
-                BookmarkEntity bookmarkLib;
-                XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
+                BookmarkEntity? bookmarkLib;
                 if (!File.Exists(BookmarksFile))
                 {
                     bookmarks = new BookmarkEntity();
                 }
                 else
                 {
-                    using (TextReader reader = new StreamReader(BookmarksFile))
+                    using TextReader reader = new StreamReader(BookmarksFile);
+                    XmlSerializer serializer = new(typeof(BookmarkEntity));
+                    bookmarkLib = (BookmarkEntity?)serializer.Deserialize(reader);
+                    if (bookmarkLib != null)
                     {
-                        bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
                         bookmarkLib.Initialize();
                         bookmarks = bookmarkLib;
+                    }
+                    else
+                    {
+                        bookmarks = new BookmarkEntity();
                     }
                 }
             }
@@ -74,11 +76,9 @@ namespace dnGREP.Common
         {
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
-                using (TextWriter writer = new StreamWriter(BookmarksFile))
-                {
-                    serializer.Serialize(writer, bookmarks);
-                }
+                XmlSerializer serializer = new(typeof(BookmarkEntity));
+                using TextWriter writer = new StreamWriter(BookmarksFile);
+                serializer.Serialize(writer, bookmarks);
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace dnGREP.Common
     [Serializable]
     public class BookmarkEntity
     {
-        public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
+        public List<Bookmark> Bookmarks { get; private set; } = new();
 
         internal void Initialize()
         {
@@ -107,16 +107,16 @@ namespace dnGREP.Common
             }
         }
 
-        public Bookmark Get(string id)
+        public Bookmark? Get(string id)
         {
             return Bookmarks.FirstOrDefault(b => b.Id == id);
         }
 
-        public Bookmark Find(Bookmark bookmark)
+        public Bookmark? Find(Bookmark bookmark)
         {
             if (!Bookmarks.Any()) return null;
 
-            Bookmark item = null;
+            Bookmark? item = null;
 
             item = Bookmarks.FirstOrDefault(bk => bk.Equals(bookmark));
             if (item != null) return item;
@@ -240,7 +240,7 @@ namespace dnGREP.Common
         public bool IncludeArchive { get; set; }
         public bool FollowSymlinks { get; set; }
         public int CodePage { get; set; } = -1;
-        public List<string> FolderReferences { get; set; } = new List<string>();
+        public List<string> FolderReferences { get; set; } = new();
         public bool ApplyFileSourceFilters { get; set; } = true;
         public bool ApplyFilePropertyFilters { get; set; } = true;
         public bool ApplyContentSearchFilters { get; set; } = true;
@@ -270,11 +270,11 @@ namespace dnGREP.Common
         public bool ShouldSerializeApplySearchFilters() { return Version > 2; }
         public bool ShouldSerializeSkipRemoteCloudStorageFiles() { return Version > 3; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Bookmark otherBookmark)
             {
-                return this.Equals(otherBookmark);
+                return Equals(otherBookmark);
             }
             return false;
         }
@@ -311,7 +311,7 @@ namespace dnGREP.Common
                     BooleanOperators == otherBookmark.BooleanOperators;
         }
 
-        public bool Equals(Bookmark otherBookmark)
+        public bool Equals(Bookmark? otherBookmark)
         {
             if (otherBookmark is null)
                 return false;
@@ -353,8 +353,8 @@ namespace dnGREP.Common
             {
                 int hashCode = 13;
                 hashCode = (hashCode * 17) ^ TypeOfFileSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ FileNames?.GetHashCode() ?? 5;
-                hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ FileNames?.GetHashCode(StringComparison.Ordinal) ?? 5;
+                hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode(StringComparison.Ordinal) ?? 5;
                 hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
                 hashCode = (hashCode * 17) ^ SkipRemoteCloudStorageFiles.GetHashCode();
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
@@ -367,8 +367,8 @@ namespace dnGREP.Common
                 hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
 
                 hashCode = (hashCode * 17) ^ TypeOfSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ SearchPattern?.GetHashCode() ?? 5;
-                hashCode = (hashCode * 17) ^ ReplacePattern?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ SearchPattern?.GetHashCode(StringComparison.Ordinal) ?? 5;
+                hashCode = (hashCode * 17) ^ ReplacePattern?.GetHashCode(StringComparison.Ordinal) ?? 5;
                 hashCode = (hashCode * 17) ^ CaseSensitive.GetHashCode();
                 hashCode = (hashCode * 17) ^ WholeWord.GetHashCode();
                 hashCode = (hashCode * 17) ^ Multiline.GetHashCode();
@@ -383,10 +383,10 @@ namespace dnGREP.Common
             }
         }
 
-        public static bool Equals(Bookmark b1, Bookmark b2) => b1 is null ? b2 is null : b1.Equals(b2);
+        public static bool Equals(Bookmark? b1, Bookmark? b2) => b1 is null ? b2 is null : b1.Equals(b2);
 
-        public static bool operator ==(Bookmark b1, Bookmark b2) => Equals(b1, b2);
-        public static bool operator !=(Bookmark b1, Bookmark b2) => !Equals(b1, b2);
+        public static bool operator ==(Bookmark? b1, Bookmark? b2) => Equals(b1, b2);
+        public static bool operator !=(Bookmark? b1, Bookmark? b2) => !Equals(b1, b2);
 
         public override string ToString()
         {

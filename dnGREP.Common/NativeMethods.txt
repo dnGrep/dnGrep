@@ -1,0 +1,11 @@
+﻿CreateSymbolicLinkW
+GetOpenClipboardWindow
+GetShortPathName
+GetWindowThreadProcessId
+SHGetFileInfo
+StrFormatByteSize
+FindFirstFileExW
+FindNextFileW
+
+WIN32_ERROR
+WIN32_FILE_ATTRIBUTE_DATA

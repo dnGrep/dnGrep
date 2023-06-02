@@ -90,7 +90,7 @@ namespace dnGREP.DockFloat
             PreviewKeyDown += FloatWindow_PreviewKeyDown;
         }
 
-        private void FloatWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void FloatWindow_PreviewKeyDown(object? sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
                 Close();
@@ -103,7 +103,7 @@ namespace dnGREP.DockFloat
             Close();
         }
 
-        private void FloatWindow_Closing(object sender, CancelEventArgs e)
+        private void FloatWindow_Closing(object? sender, CancelEventArgs e)
         {
             if (!forceClose)
             {

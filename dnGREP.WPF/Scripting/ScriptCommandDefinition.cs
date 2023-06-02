@@ -5,15 +5,15 @@ namespace dnGREP.WPF
 {
     public class ScriptCommandDefinition
     {
-        public string Command { get; set; }
+        public string Command { get; set; } = string.Empty;
 
         public int Priority { get; set; } = int.MaxValue;
 
-        public string Description { get; set; } = null;
+        public string Description { get; set; } = string.Empty;
 
-        public string ValueHint { get; set; } = null;
+        public string ValueHint { get; set; } = string.Empty;
 
-        public Type ValueType { get; set; } = null;
+        public Type? ValueType { get; set; } = null;
 
         public bool AllowNullValue { get; set; } = false;
 
@@ -33,7 +33,7 @@ namespace dnGREP.WPF
                 Values.Add(new ScriptValueDefinition { Priority = 0, Value = "True" });
             }
 
-            Targets.Sort((x, y) => x.Target.CompareTo(y.Target));
+            Targets.Sort((x, y) => string.Compare(x.Target, y.Target, StringComparison.Ordinal));
 
             foreach (var target in Targets)
             {

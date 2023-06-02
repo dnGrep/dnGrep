@@ -33,7 +33,7 @@ namespace dnGREP.Common
 
         public bool? EvaluatedResult { get; set; }
 
-        public List<GrepMatch>  Matches { get; set; }
+        public List<GrepMatch>?  Matches { get; set; }
 
         public override string ToString()
         {

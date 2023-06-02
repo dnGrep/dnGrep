@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using File = Alphaleonis.Win32.Filesystem.File;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
@@ -13,11 +13,11 @@ namespace dnGREP.Common
 
         private static string Quote(string text)
         {
-            if (text.Contains(","))
+            if (text.Contains(',', StringComparison.Ordinal))
             {
-                if (text.Contains("\""))
+                if (text.Contains('"', StringComparison.Ordinal))
                 {
-                    text = text.Replace("\"", "\"\"");
+                    text = text.Replace("\"", "\"\"", StringComparison.Ordinal);
                 }
                 return "\"" + text + "\"";
             }
@@ -114,10 +114,10 @@ namespace dnGREP.Common
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
 
-            List<string> orClauses = null;
+            List<string>? orClauses = null;
             if (booleanOperators)
             {
-                BooleanExpression exp = new BooleanExpression();
+                BooleanExpression exp = new();
                 if (exp.TryParse(searchText) && exp.HasOrExpression)
                 {
                     orClauses = exp.Operands.Select(o => o.Value).ToList();
@@ -128,13 +128,13 @@ namespace dnGREP.Common
             int lineCount = source.Sum(s => s.Matches.Where(r => r.LineNumber > 0).Select(r => r.LineNumber).Distinct().Count());
             int matchCount = source.Sum(s => s.Matches == null ? 0 : s.Matches.Count);
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine(Resources.Report_DnGrepSearchResults).AppendLine();
             sb.Append(options).AppendLine();
             sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine().AppendLine();
-            sb.Append(GetResultLinesWithContext(source, orClauses));
+            sb.Append(GetResultLinesWithContext(source, orClauses ?? new()));
 
             File.WriteAllText(destinationPath, sb.ToString(), Encoding.UTF8);
         }
@@ -143,11 +143,11 @@ namespace dnGREP.Common
         {
             int hexLineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (var result in source)
             {
                 string orResults = string.Empty;
-                if (orClauses != null && orClauses.Any())
+                if (orClauses.Any())
                 {
                     var set = result.Matches.Select(m => m.SearchPattern);
                     var hits = orClauses.Intersect(set);
@@ -168,7 +168,7 @@ namespace dnGREP.Common
                 var searchResults = result.SearchResults;
                 if (searchResults != null)
                 {
-                    int matchCount = result.Matches == null ? 0 : result.Matches.Count;
+                    int matchCount = result.Matches.Count;
                     var lineCount = result.Matches.Where(r => r.LineNumber > 0)
                         .Select(r => r.LineNumber).Distinct().Count();
 
@@ -208,7 +208,7 @@ namespace dnGREP.Common
         private static string GetFullLinesAsText(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             int lineCount = 0;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             foreach (GrepSearchResult result in source)
             {
@@ -255,7 +255,7 @@ namespace dnGREP.Common
             int lineCount = 0;
             var separator = options.ListItemSeparator ?? string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             foreach (GrepSearchResult result in source)
             {
@@ -346,7 +346,7 @@ namespace dnGREP.Common
             int lineCount = 0;
             var separator = options.ListItemSeparator ?? string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             foreach (GrepSearchResult result in source)
             {
@@ -364,7 +364,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                if (result.SearchResults != null)
+                if (result.SearchResults.Any())
                 {
                     bool mergeLines = !options.IncludeFileInformation && !options.OutputOnSeparateLines;
 
@@ -456,7 +456,7 @@ namespace dnGREP.Common
 
             var separator = options.ListItemSeparator ?? string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (var file in values.Keys)
             {
                 bool firstOne = true;
@@ -493,7 +493,7 @@ namespace dnGREP.Common
             }
             if (limit > 0 && source.Count > 2)
             {
-                sb.Append("…");
+                sb.Append('…');
             }
             return sb.ToString();
         }
@@ -501,9 +501,9 @@ namespace dnGREP.Common
         private static Dictionary<string, List<string>> GetUniqueMatches(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             int fileCount = 0;
-            HashSet<string> unique = new HashSet<string>();
-            Dictionary<string, List<string>> resultSet = new Dictionary<string, List<string>>();
-            List<string> values = new List<string>();
+            HashSet<string> unique = new();
+            Dictionary<string, List<string>> resultSet = new();
+            List<string> values = new();
 
             if (options.UniqueScope == UniqueScope.Global)
             {
@@ -566,9 +566,9 @@ namespace dnGREP.Common
         private static Dictionary<string, List<string>> GetUniqueGroups(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             int fileCount = 0;
-            HashSet<string> unique = new HashSet<string>();
-            Dictionary<string, List<string>> resultSet = new Dictionary<string, List<string>>();
-            List<string> values = new List<string>();
+            HashSet<string> unique = new();
+            Dictionary<string, List<string>> resultSet = new();
+            List<string> values = new();
 
             if (options.UniqueScope == UniqueScope.Global)
             {
@@ -630,7 +630,7 @@ namespace dnGREP.Common
         private static string GetFullLinesAsCSV(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             int lineCount = 0;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             if (options.IncludeFileInformation)
             {
@@ -651,10 +651,10 @@ namespace dnGREP.Common
                         // column 1: file name
                         if (options.IncludeFileInformation)
                         {
-                            sb.Append(Quote(result.FileNameDisplayed)).Append(",");
+                            sb.Append(Quote(result.FileNameDisplayed)).Append(',');
 
                             // column 2: line number
-                            sb.Append(line.LineNumber).Append(",");
+                            sb.Append(line.LineNumber).Append(',');
                         }
 
                         sb.AppendLine(Quote(options.TrimWhitespace ? line.LineText.Trim() : line.LineText));
@@ -681,7 +681,7 @@ namespace dnGREP.Common
             var separator = options.ListItemSeparator ?? string.Empty;
 
             int lineCount = 0;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             if (options.IncludeFileInformation)
             {
@@ -691,7 +691,7 @@ namespace dnGREP.Common
 
             foreach (GrepSearchResult result in source)
             {
-                if (result.SearchResults == null && options.IncludeFileInformation)
+                if (!result.SearchResults.Any() && options.IncludeFileInformation)
                 {
                     sb.AppendLine(Quote(result.FileNameDisplayed));
                     lineCount++;
@@ -714,10 +714,10 @@ namespace dnGREP.Common
                                 // column 1: file name
                                 if (options.IncludeFileInformation)
                                 {
-                                    sb.Append(Quote(result.FileNameDisplayed)).Append(",");
+                                    sb.Append(Quote(result.FileNameDisplayed)).Append(',');
 
                                     // column 2: line number
-                                    sb.Append(line.LineNumber).Append(",");
+                                    sb.Append(line.LineNumber).Append(',');
                                 }
                             }
 
@@ -785,7 +785,7 @@ namespace dnGREP.Common
             var separator = options.ListItemSeparator ?? string.Empty;
 
             int lineCount = 0;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             if (options.IncludeFileInformation)
             {
@@ -795,7 +795,7 @@ namespace dnGREP.Common
 
             foreach (GrepSearchResult result in source)
             {
-                if (result.SearchResults == null && options.IncludeFileInformation)
+                if (!result.SearchResults.Any() && options.IncludeFileInformation)
                 {
                     sb.AppendLine(Quote(result.FileNameDisplayed));
                     lineCount++;
@@ -822,10 +822,10 @@ namespace dnGREP.Common
                                     // column 1: file name
                                     if (options.IncludeFileInformation)
                                     {
-                                        sb.Append(Quote(result.FileNameDisplayed)).Append(",");
+                                        sb.Append(Quote(result.FileNameDisplayed)).Append(',');
 
                                         // column 2: line number
-                                        sb.Append(line.LineNumber).Append(",");
+                                        sb.Append(line.LineNumber).Append(',');
                                     }
                                 }
 
@@ -897,7 +897,7 @@ namespace dnGREP.Common
 
             var separator = options.ListItemSeparator ?? string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine(Resources.Report_CSVRecordHeaderText);
 
             foreach (var file in values.Keys)
@@ -916,10 +916,10 @@ namespace dnGREP.Common
                         {
                             sb.Append(Quote(file));
                         }
-                        sb.Append(",");
+                        sb.Append(',');
 
                         // column 2: no line number
-                        sb.Append(",");
+                        sb.Append(',');
                     }
 
                     // column 3: data
@@ -946,7 +946,7 @@ namespace dnGREP.Common
 
                 if (limit > 0 && source.Count > 2)
                 {
-                    sb.Append("…");
+                    sb.Append('…');
                     break;
                 }
             }

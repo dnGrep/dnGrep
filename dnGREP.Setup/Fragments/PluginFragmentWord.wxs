@@ -1,22 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <?include ..\Variables.wxi ?>
   <Fragment>
-        <DirectoryRef Id="PluginsDir">
-            <Component Id="cmp1D2272A0E3127A92C4AAA52640F7182F" Guid="{F57148D2-B979-4E2A-81CD-8594AABC0260}">
-                <File Id="fil984E2E47F22CA8F9300129896E065319" KeyPath="yes" Source="$(var.dnGREP.WordEngine.TargetDir)dnGREP.Engines.MsWord.plugin" />
-            </Component>
-            <Directory Id="dir0DED0F8EF6A984DA4ADC58A4C00790CB" Name="MsWordSearch">
-                <Component Id="cmp25C874C4477EDD1EC4D7473B66EAF613" Guid="{64A1E7C9-4B5F-47F8-87F9-B4366D0D02E8}">
-                    <File Id="filAD1444D2B53F268F7F7FA38B4335E7AF" KeyPath="yes" Source="$(var.dnGREP.WordEngine.TargetDir)dnGREP.Engines.Word.dll" />
-                </Component>
-            </Directory>
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <ComponentGroup Id="dnGREPPluginFilesWord">
-            <ComponentRef Id="cmp1D2272A0E3127A92C4AAA52640F7182F" />
-            <ComponentRef Id="cmp25C874C4477EDD1EC4D7473B66EAF613" />
-        </ComponentGroup>
-    </Fragment>
+    <DirectoryRef Id="PluginsDir">
+      <Directory Id="dir0DED0F8EF6A984DA4ADC58A4C00790CB" Name="MsWordSearch">
+        <Component Id="cmp1D2272A0E3127A92C4AAA52640F7182F" Guid="{F57148D2-B979-4E2A-81CD-8594AABC0260}">
+          <File Id="fil984E2E47F22CA8F9300129896E065319" KeyPath="yes" Source="$(var.PublishDir)\Plugins\MsWordSearch\dnGREP.Engines.MsWord.plugin" />
+        </Component>
+        <Component Id="cmp25C874C4477EDD1EC4D7473B66EAF613" Guid="{64A1E7C9-4B5F-47F8-87F9-B4366D0D02E8}">
+          <File Id="filAD1444D2B53F268F7F7FA38B4335E7AF" KeyPath="yes" Source="$(var.PublishDir)\Plugins\MsWordSearch\dnGREP.Engines.Word.dll" />
+        </Component>
+        <Component Id="cmp7E6FB02AD0DD499EAB20F39B183AE85E" Guid="{5BF5A024-0F97-4BC1-A898-DE2D60510B72}">
+          <File Id="fil54EDC337B2B84FE0B6E9E5A9CC2A1100" KeyPath="yes" Source="$(var.PublishDir)\Plugins\MsWordSearch\dnGREP.Engines.Word.pdb" />
+        </Component>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="dnGREPPluginFilesWord">
+      <ComponentRef Id="cmp1D2272A0E3127A92C4AAA52640F7182F" />
+      <ComponentRef Id="cmp25C874C4477EDD1EC4D7473B66EAF613" />
+      <ComponentRef Id="cmp7E6FB02AD0DD499EAB20F39B183AE85E" />
+    </ComponentGroup>
+  </Fragment>
 </Wix>

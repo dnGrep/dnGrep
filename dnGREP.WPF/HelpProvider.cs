@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -32,9 +33,9 @@ namespace dnGREP.WPF
                 new CommandBinding(ApplicationCommands.Help, OnHelpExecuted, OnHelpCanExecute));
         }
 
-        public static string HelpNamespace { get; set; }
+        public static string? HelpNamespace { get; set; }
         public static bool ShowHelp { get; set; }
-        public static string NotFoundTopic { get; set; }
+        public static string? NotFoundTopic { get; set; }
 
         public static string GetHelpString(DependencyObject obj)
         {
@@ -93,7 +94,7 @@ namespace dnGREP.WPF
             return false;
         }
 
-        private static DependencyObject GetHelp(DependencyObject sender)
+        private static DependencyObject? GetHelp(DependencyObject? sender)
         {
             if (sender != null)
             {
@@ -107,7 +108,7 @@ namespace dnGREP.WPF
 
         private static void OnHelpExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            DependencyObject ctl = GetHelp(sender as DependencyObject);
+            DependencyObject? ctl = GetHelp(sender as DependencyObject);
 
             if (ctl != null && GetShowHelp(ctl))
             {
@@ -117,7 +118,6 @@ namespace dnGREP.WPF
 
                 if (Control.MouseButtons != MouseButtons.None && !string.IsNullOrEmpty(caption))
                 {
-                    Point point = Mouse.GetPosition(Mouse.DirectlyOver);
                     Help.ShowPopup(null, caption, Control.MousePosition);
                     e.Handled = true;
                 }
@@ -126,7 +126,7 @@ namespace dnGREP.WPF
                 {
                     if (!string.IsNullOrEmpty(parameter))
                     {
-                        if (HelpNamespace.StartsWith("http"))
+                        if (HelpNamespace.StartsWith("http", StringComparison.Ordinal))
                             Help.ShowHelp(null, HelpNamespace + parameter, command);
                         else
                             Help.ShowHelp(null, HelpNamespace, command, parameter);

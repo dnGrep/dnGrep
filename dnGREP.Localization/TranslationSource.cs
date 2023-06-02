@@ -10,7 +10,7 @@ using System.Windows.Markup;
 
 namespace dnGREP.Localization
 {
-    public class TranslationSource : INotifyPropertyChanged
+    public partial class TranslationSource : INotifyPropertyChanged
     {
         public static TranslationSource Instance { get; } = new TranslationSource();
 
@@ -20,12 +20,11 @@ namespace dnGREP.Localization
         }
 
         // WPF bindings register PropertyChanged event if the object supports it and update themselves when it is raised
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler CurrentCultureChanging;
-        public event EventHandler CurrentCultureChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler? CurrentCultureChanging;
+        public event EventHandler? CurrentCultureChanged;
 
-        public Dictionary<string, string> AppCultures =>
-            new Dictionary<string, string>
+        public static Dictionary<string, string> AppCultures => new()
             {
                 { "ar", "العربية" },
                 { "bg", "Български" },
@@ -87,7 +86,7 @@ namespace dnGREP.Localization
 
         public bool LoadResxFile(string filePath)
         {
-            ResxFile resxFile = new ResxFile();
+            ResxFile resxFile = new();
             resxFile.ReadFile(filePath);
             if (resxFile.IsValid)
             {
@@ -98,14 +97,15 @@ namespace dnGREP.Localization
             return false;
         }
 
-        private static readonly Regex placeholderRegex = new Regex(@"{\d+(:\w+)?}");
+        [GeneratedRegex("{\\d+(:\\w+)?}")]
+        private static partial Regex PlaceholderRegex();
 
         public static string Format(string format, params object[] args)
         {
             if (!string.IsNullOrWhiteSpace(format))
             {
 #if DEBUG
-                var matchCount = placeholderRegex.Matches(format).Count;
+                var matchCount = PlaceholderRegex().Matches(format).Count;
                 if (matchCount != args.Length)
                 {
                     return "Missing placeholder {?}: " + format;
@@ -126,15 +126,14 @@ namespace dnGREP.Localization
             }
         }
 
-        public MessageBoxOptions FlowDirection => CurrentCulture.TextInfo.IsRightToLeft ? 
+        public MessageBoxOptions FlowDirection => CurrentCulture.TextInfo.IsRightToLeft ?
             MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : MessageBoxOptions.None;
-
     }
 
     [MarkupExtensionReturnType(typeof(string))]
     public class LocExtension : MarkupExtension
     {
-        public string Key { get; set; }
+        public string Key { get; set; } = string.Empty;
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -144,12 +143,12 @@ namespace dnGREP.Localization
             }
 
             // targetObject is the control that is using the LocExtension
-            object targetObject = (serviceProvider as IProvideValueTarget)?.TargetObject;
+            object? targetObject = (serviceProvider as IProvideValueTarget)?.TargetObject;
 
             if (targetObject?.GetType().Name == "SharedDp") // is extension used in a control template?
                 return targetObject; // required for template re-binding
 
-            Binding binding = new Binding
+            Binding binding = new()
             {
                 Mode = BindingMode.OneWay,
                 Path = new PropertyPath($"[{Key}]"),

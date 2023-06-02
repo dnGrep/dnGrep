@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using dnGREP.Localization;
 using NLog;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.Storage.FileSystem;
+using Windows.Win32.UI.Shell;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
@@ -12,62 +15,48 @@ namespace dnGREP.Common
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        [DllImport("user32.dll")]
-        static extern IntPtr GetOpenClipboardWindow();
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
-
-        [DllImport("Shlwapi.dll", CharSet = CharSet.Auto)]
-        private static extern long StrFormatByteSize(long fileSize, [MarshalAs(UnmanagedType.LPTStr)] StringBuilder buffer, int bufferSize);
-
         /// <summary>
         /// Converts a numeric value into a string that represents the number expressed as a size value in bytes, kilobytes, megabytes, or gigabytes, depending on the size.
         /// </summary>
         /// <param name="filelength">The numeric value to be converted.</param>
         /// <returns>the converted string</returns>
-        public static string StrFormatByteSize(long filesize)
+        unsafe public static string StrFormatByteSize(long filesize)
         {
-            StringBuilder sb = new StringBuilder(11);
-            StrFormatByteSize(filesize, sb, sb.Capacity);
-            return sb.ToString();
-        }
-
-        public static string GetFileTypeDescription(string fileNameOrExtension)
-        {
-            SHFILEINFO shfi;
-            if (IntPtr.Zero != SHGetFileInfo(
-                                fileNameOrExtension,
-                                FILE_ATTRIBUTE_NORMAL,
-                                out shfi,
-                                (uint)Marshal.SizeOf(typeof(SHFILEINFO)),
-                                SHGFI_USEFILEATTRIBUTES | SHGFI_TYPENAME))
+            string text = new(' ', 11);
+            fixed (char* pstr = text)
             {
-                return shfi.szTypeName;
+                PInvoke.StrFormatByteSize(filesize, new PWSTR(pstr), 11);
             }
-            return null;
+            text = text.Replace('\0', ' ').TrimEnd();
+            return text;
         }
 
-        [DllImport("shell32")]
-        private static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, out SHFILEINFO psfi, uint cbFileInfo, uint flags);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct SHFILEINFO
+        unsafe public static string GetFileTypeDescription(string fileNameOrExtension)
         {
-            public IntPtr hIcon;
-            public int iIcon;
-            public uint dwAttributes;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            public string szDisplayName;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-            public string szTypeName;
+            var fileInfoSize = Marshal.SizeOf<SHFILEINFOW>();
+            var fileInfoPtr = Marshal.AllocHGlobal(fileInfoSize); // Allocate unmanaged memory
+            try
+            {
+                PInvoke.SHGetFileInfo(fileNameOrExtension, FILE_FLAGS_AND_ATTRIBUTES.FILE_ATTRIBUTE_NORMAL,
+                    (SHFILEINFOW*)fileInfoPtr,
+                    (uint)fileInfoSize,
+                    SHGFI_FLAGS.SHGFI_TYPENAME | SHGFI_FLAGS.SHGFI_USEFILEATTRIBUTES);
+
+                if (Marshal.PtrToStructure(fileInfoPtr, typeof(SHFILEINFOW)) is SHFILEINFOW fileInfo)
+                {
+                    return new(fileInfo.szTypeName.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"error while trying to get type name for {fileNameOrExtension}: {e.Message}");
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(fileInfoPtr);
+            }
+            return string.Empty;
         }
-
-        private const uint FILE_ATTRIBUTE_NORMAL = 0x00000080;
-
-        private const uint SHGFI_TYPENAME = 0x000000400;     // get type name
-        private const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;     // use passed dwFileAttribute
-
 
         /// <summary>
         /// Sets the clipboard text and suppresses the CLIPBRD_E_CANT_OPEN error
@@ -132,22 +121,23 @@ namespace dnGREP.Common
         }
         private static bool useClipboardSetDataObject;
 
-        private static Process ProcessHoldingClipboard()
+        unsafe private static Process? ProcessHoldingClipboard()
         {
-            Process process = null;
+            Process? process = null;
 
-            IntPtr hwnd = GetOpenClipboardWindow();
+            HWND hwnd = PInvoke.GetOpenClipboardWindow();
 
             if (hwnd != IntPtr.Zero)
             {
-                _ = GetWindowThreadProcessId(hwnd, out uint processId);
+                uint processId = 0;
+                _ = PInvoke.GetWindowThreadProcessId(hwnd, &processId);
 
                 Process[] procs = Process.GetProcesses();
                 foreach (Process proc in procs)
                 {
                     IntPtr handle = proc.MainWindowHandle;
 
-                    if (handle == hwnd)
+                    if (handle == hwnd.Value)
                     {
                         process = proc;
                         break;

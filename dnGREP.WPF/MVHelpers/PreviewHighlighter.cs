@@ -16,8 +16,8 @@ namespace dnGREP.WPF
             grepSearchResult = result;
         }
 
-        private readonly Brush markerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
-        private readonly Pen markerPen = null;
+        private readonly Brush? markerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+        private readonly Pen? markerPen = null;
         private readonly double markerCornerRadius = 3;
         private readonly double markerPenThickness = 0;
 
@@ -26,12 +26,7 @@ namespace dnGREP.WPF
 
         public void Draw(TextView textView, DrawingContext drawingContext)
         {
-            if (textView == null)
-                throw new ArgumentNullException("textView");
-            if (drawingContext == null)
-                throw new ArgumentNullException("drawingContext");
-
-            if (grepSearchResult == null || !textView.VisualLinesValid)
+            if (!textView.VisualLinesValid)
                 return;
 
             var visualLines = textView.VisualLines;
@@ -84,10 +79,12 @@ namespace dnGREP.WPF
                     var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
                     if (rects.Any())
                     {
-                        BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
-                        geoBuilder.AlignToWholePixels = true;
-                        geoBuilder.BorderThickness = markerPenThickness;
-                        geoBuilder.CornerRadius = markerCornerRadius;
+                        BackgroundGeometryBuilder geoBuilder = new()
+                        {
+                            AlignToWholePixels = true,
+                            BorderThickness = markerPenThickness,
+                            CornerRadius = markerCornerRadius
+                        };
                         foreach (var rect in rects)
                         {
                             geoBuilder.AddRectangle(textView, rect);

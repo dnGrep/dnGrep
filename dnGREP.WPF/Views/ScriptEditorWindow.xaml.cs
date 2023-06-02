@@ -15,8 +15,8 @@ namespace dnGREP.WPF
     public partial class ScriptEditorWindow : ThemedWindow
     {
         private readonly ScriptViewModel viewModel;
-        public event EventHandler NewScriptFileSaved;
-        public event EventHandler RequestRun;
+        public event EventHandler? NewScriptFileSaved;
+        public event EventHandler? RequestRun;
 
         public ScriptEditorWindow()
         {
@@ -58,7 +58,7 @@ namespace dnGREP.WPF
             return okClose;
         }
 
-        private void ScriptEditorWindow_Closing(object sender, CancelEventArgs e)
+        private void ScriptEditorWindow_Closing(object? sender, CancelEventArgs e)
         {
             if (!viewModel.ConfirmSave())
             {
@@ -89,7 +89,7 @@ namespace dnGREP.WPF
             viewModel.OpenScriptFile(filePath);
         }
 
-        CompletionWindow completionWindow;
+        private CompletionWindow? completionWindow;
         void TextArea_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Space && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
@@ -116,7 +116,7 @@ namespace dnGREP.WPF
             {
                 string lineText = GetLineText(caret);
 
-                if (lineText.StartsWith("//"))
+                if (lineText.StartsWith("//", StringComparison.Ordinal))
                 {
                     return;
                 }
@@ -135,15 +135,15 @@ namespace dnGREP.WPF
             var caret = textEditor.TextArea.Caret;
             string lineText = GetLineText(caret);
             int wordIndex = GetWordIndex(lineText, caret);
-            var stmt = ScriptManager.Instance.ParseLine(lineText, caret.Line);
+            var stmt = ScriptManager.ParseLine(lineText, caret.Line);
 
             if (stmt != null && wordIndex == 0)
             {
                 wordIndex++;
             }
 
-            List<ScriptingCompletionData> scriptingData = null;
-            string valueHint = null;
+            List<ScriptingCompletionData>? scriptingData = null;
+            string? valueHint = null;
 
             if (wordIndex == 0)
             {
@@ -186,7 +186,7 @@ namespace dnGREP.WPF
 
             if (scriptingData != null && scriptingData.Count > 0)
             {
-                completionWindow = new CompletionWindow(textEditor.TextArea)
+                completionWindow = new(textEditor.TextArea)
                 {
                     FontSize = viewModel.ResultsFontSize,
                     Width = double.NaN,
@@ -214,7 +214,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void AddRange(IList<ScriptingCompletionData> source, IList<ICompletionData> destination)
+        private static void AddRange(IList<ScriptingCompletionData> source, IList<ICompletionData> destination)
         {
             foreach (var item in source)
             {
@@ -228,9 +228,9 @@ namespace dnGREP.WPF
             return textEditor.Document.GetText(docLine.Offset, docLine.Length);
         }
 
-        private int GetWordIndex(string lineText, Caret caret)
+        private static int GetWordIndex(string lineText, Caret caret)
         {
-            return lineText.Substring(0, caret.VisualColumn).TrimStart().Count(c => c == ' ');
+            return lineText[..caret.VisualColumn].TrimStart().Count(c => c == ' ');
         }
 
         private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)

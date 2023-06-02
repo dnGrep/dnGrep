@@ -13,7 +13,7 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class BookmarksWindow : ThemedWindow
     {
-        public event EventHandler UseBookmark;
+        public event EventHandler? UseBookmark;
 
         public BookmarksWindow(Action<Bookmark> clearStar)
         {
@@ -27,7 +27,7 @@ namespace dnGREP.WPF
 
         public BookmarkListViewModel ViewModel { get; private set; }
 
-        private void UseButton_Click(object sender, RoutedEventArgs e)
+        private void UseButton_Click(object? sender, RoutedEventArgs e)
         {
             UseBookmark?.Invoke(this, EventArgs.Empty);
             if (!ViewModel.IsPinned)
@@ -74,7 +74,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ViewModel_SetFocus(object sender, DataEventArgs<int> e)
+        private void ViewModel_SetFocus(object? sender, DataEventArgs<int> e)
         {
             dataGrid.Focus();
             dataGrid.UpdateLayout();
@@ -83,7 +83,7 @@ namespace dnGREP.WPF
             if (row != null)
             {
                 row.Focus();
-                DataGridCellsPresenter presenter = row.GetVisualChild<DataGridCellsPresenter>();
+                DataGridCellsPresenter? presenter = row.GetVisualChild<DataGridCellsPresenter>();
                 if (presenter != null)
                 {
                     DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(1);

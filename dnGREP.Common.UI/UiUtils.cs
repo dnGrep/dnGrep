@@ -4,10 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using dnGREP.Everything;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 using TextFieldParser = Microsoft.VisualBasic.FileIO.TextFieldParser;
 
 namespace dnGREP.Common.UI
@@ -26,7 +22,7 @@ namespace dnGREP.Common.UI
 
         /// <summary>
         /// Assumes the path argument should be a valid path and adds leading/tailing quotes
-        /// if needed so SplitPath does split it incorrectly
+        /// if needed so SplitPath splits it correctly
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -61,12 +57,12 @@ namespace dnGREP.Common.UI
             }
 
             // check if it is already quoted
-            if (path.StartsWith("\"") || path.EndsWith("\""))
+            if (path.StartsWith("\"", StringComparison.Ordinal) || path.EndsWith("\"", StringComparison.Ordinal))
             {
                 return path;
             }
 
-            if (path.Contains(" "))
+            if (path.Contains(' ', StringComparison.Ordinal))
             {
                 return Quote(path);
             }
@@ -105,8 +101,8 @@ namespace dnGREP.Common.UI
                     {
                         cleaned = EverythingSearch.RemovePrefixes(cleaned);
 
-                        if (cleaned.StartsWith("\"") || cleaned.EndsWith("\"") ||
-                            cleaned.StartsWith("(") || cleaned.EndsWith(")"))
+                        if (cleaned.StartsWith("\"", StringComparison.Ordinal) || cleaned.EndsWith("\"", StringComparison.Ordinal) ||
+                            cleaned.StartsWith("(", StringComparison.Ordinal) || cleaned.EndsWith(")", StringComparison.Ordinal))
                         {
                             cleaned = cleaned.Trim('\"', '(', ')', ' ').Trim();
                         }
@@ -164,13 +160,13 @@ namespace dnGREP.Common.UI
         /// If multiple files are passed in, takes the first one.
         /// </summary>
         /// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
-        /// <returns>Base folder path or null if none exists</returns>
+        /// <returns>Base folder path or empty string if none exists</returns>
         public static string GetBaseFolder(string path)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(path))
-                    return null;
+                    return string.Empty;
 
                 string[] paths = SplitPath(path, false);
                 if (paths.Length > 0)
@@ -183,18 +179,18 @@ namespace dnGREP.Common.UI
                     }
 
                     if (paths[0].Trim() != "" && File.Exists(paths[0]))
-                        return Path.GetDirectoryName(paths[0]);
+                        return Path.GetDirectoryName(paths[0]) ?? string.Empty;
                     else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
                         return paths[0];
                     else
-                        return null;
+                        return string.Empty;
                 }
             }
             catch
             {
-                return null;
+                return string.Empty;
             }
-            return null;
+            return string.Empty;
         }
 
         /// <summary>
@@ -219,9 +215,9 @@ namespace dnGREP.Common.UI
                 {
                     commonPath = pathSegment;
                 }
-                else if (paths.All(str => str.StartsWith(commonPath + Path.DirectorySeparator + pathSegment, StringComparison.CurrentCultureIgnoreCase)))
+                else if (paths.All(str => str.StartsWith(commonPath + Path.DirectorySeparatorChar + pathSegment, StringComparison.CurrentCultureIgnoreCase)))
                 {
-                    commonPath += Path.DirectorySeparator + pathSegment;
+                    commonPath += Path.DirectorySeparatorChar + pathSegment;
                 }
                 else
                 {
@@ -243,7 +239,7 @@ namespace dnGREP.Common.UI
                 return Array.Empty<string>();
 
             // remove quotes
-            pattern = pattern.Replace("\"", string.Empty);
+            pattern = pattern.Replace("\"", string.Empty, StringComparison.Ordinal);
 
             string[] parts = pattern.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -256,35 +252,31 @@ namespace dnGREP.Common.UI
         /// </summary>
         /// <param name="path">Path to split</param>
         /// <returns>Array of strings. If path is null, returns null. If path is empty, returns empty array.</returns>
-        public static string[] SplitPath(string path, bool preserveWildcards)
+        public static string[] SplitPath(string? path, bool preserveWildcards)
         {
             if (string.IsNullOrWhiteSpace(path))
                 return Array.Empty<string>();
 
-            List<string> output = new List<string>();
+            List<string> output = new();
 
-            string[] paths = new string[] { path };
+            string[]? paths = new string[] { path };
 
             // if path contains separators, parse it
-            if (path.Contains(";") || path.Contains(",") || path.Contains("|") || path.Contains("\""))
+            if (path.Contains(';', StringComparison.Ordinal) || path.Contains(',', StringComparison.Ordinal) || path.Contains('|', StringComparison.Ordinal) || path.Contains('\\', StringComparison.Ordinal))
             {
-                using (TextReader reader = new StringReader(path))
-                {
-                    // using TextFieldParser take quoted strings as-is
-                    using (TextFieldParser parser = new TextFieldParser(reader))
-                    {
-                        parser.HasFieldsEnclosedInQuotes = path.Contains('"');
-                        parser.TrimWhiteSpace = false;
-                        parser.SetDelimiters(",", ";", "|");
-                        paths = parser.ReadFields();
-                    }
-                }
+                using TextReader reader = new StringReader(path);
+                // using TextFieldParser take quoted strings as-is
+                using TextFieldParser parser = new(reader);
+                parser.HasFieldsEnclosedInQuotes = path.Contains('"', StringComparison.Ordinal);
+                parser.TrimWhiteSpace = false;
+                parser.SetDelimiters(",", ";", "|");
+                paths = parser.ReadFields();
             }
 
-            path = path.Replace("\"", string.Empty);
+            path = path.Replace("\"", string.Empty, StringComparison.Ordinal);
 
             int splitterIndex = -1;
-            for (int i = 0; i < paths.Length; i++)
+            for (int i = 0; i < paths?.Length; i++)
             {
                 string testPath = paths[i];
                 splitterIndex += testPath.Length + 1;
@@ -310,7 +302,7 @@ namespace dnGREP.Common.UI
                     if (!found)
                     {
                         // this handles folder names containing a comma or semicolon
-                        StringBuilder sb = new StringBuilder();
+                        StringBuilder sb = new();
                         int subSplitterIndex = 0;
                         sb.Append(testPath + splitter);
                         for (int j = i + 1; j < paths.Length; j++)
@@ -354,6 +346,7 @@ namespace dnGREP.Common.UI
             return output.ToArray();
         }
 
+
         /// <summary>
         /// If the last path segment contains wild card chars, return the set of matching paths or files.
         /// </summary>
@@ -361,14 +354,14 @@ namespace dnGREP.Common.UI
         /// <returns></returns>
         private static IList<string> GetPathsByWildcard(string path)
         {
-            List<string> output = new List<string>();
+            List<string> output = new();
             if (!string.IsNullOrWhiteSpace(path))
             {
-                string parent = Path.GetDirectoryName(path);
+                string? parent = Path.GetDirectoryName(path);
                 if (!string.IsNullOrWhiteSpace(parent) && Directory.Exists(parent))
                 {
                     string pattern = Path.GetFileName(path);
-                    if (pattern.Contains(Path.WildcardQuestion) || pattern.Contains(Path.WildcardStarMatchAll))
+                    if (pattern.Contains('?', StringComparison.Ordinal) || pattern.Contains('*', StringComparison.Ordinal))
                     {
                         string[] subDirs = Directory.GetDirectories(parent, pattern, SearchOption.TopDirectoryOnly);
                         output.AddRange(subDirs);

@@ -31,7 +31,7 @@ namespace dnGREP.WPF
             Description = def.Description;
         }
 
-        public ImageSource Image => null;
+        public ImageSource? Image => null;
 
         public string Text { get; private set; } = string.Empty;
 
@@ -56,8 +56,8 @@ namespace dnGREP.WPF
             string completionText = Text;
             if (offsetStart > -1)
             {
-                string existing = lineText.Substring(offsetStart, caret.VisualColumn - offsetStart);
-                if (completionSegment.Length == 0 && !string.IsNullOrEmpty(existing) && Text.StartsWith(existing))
+                string existing = lineText[offsetStart..caret.VisualColumn];
+                if (completionSegment.Length == 0 && !string.IsNullOrEmpty(existing) && Text.StartsWith(existing, StringComparison.Ordinal))
                 {
                     completionText = Text.Remove(0, existing.Length);
                 }

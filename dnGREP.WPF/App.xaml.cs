@@ -1,7 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Windows;
-using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Localization;
 using NLog;
@@ -17,9 +17,9 @@ namespace dnGREP.WPF
 
         public static string InstanceId { get; } = Guid.NewGuid().ToString();
 
-        public static string LogDir { get; private set; }
+        public static string LogDir { get; private set; } = string.Empty;
 
-        public CommandLineArgs AppArgs { get; private set; }
+        public CommandLineArgs? AppArgs { get; private set; }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -28,12 +28,15 @@ namespace dnGREP.WPF
                 LogDir = Path.Combine(Utils.GetDataFolderPath(), "logs");
                 GlobalDiagnosticsContext.Set("logDir", LogDir);
 
-                Assembly thisAssembly = Assembly.GetAssembly(typeof(App));
-                var path = Path.GetDirectoryName(thisAssembly.Location);
-                if (Environment.Is64BitProcess)
-                    SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z64.dll"));
-                else
-                    SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z.dll"));
+                Assembly? thisAssembly = Assembly.GetAssembly(typeof(App));
+                if (thisAssembly != null)
+                {
+                    var path = Path.GetDirectoryName(thisAssembly.Location) ?? string.Empty;
+                    if (Environment.Is64BitProcess)
+                        SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z64.dll"));
+                    else
+                        SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z32.dll"));
+                }
 
                 ResourceManagerEx.Initialize();
                 TranslationSource.Instance.SetCulture(GrepSettings.Instance.Get<string>(GrepSettings.Key.CurrentCulture));
@@ -48,7 +51,7 @@ namespace dnGREP.WPF
                 }
                 else if (AppArgs.ShowHelp)
                 {
-                    MainWindow = new HelpWindow(AppArgs.GetHelpString(), AppArgs.InvalidArgument);
+                    MainWindow = new HelpWindow(CommandLineArgs.GetHelpString(), AppArgs.InvalidArgument);
                 }
                 else
                 {

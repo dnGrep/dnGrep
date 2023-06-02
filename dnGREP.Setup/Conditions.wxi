@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <!-- .NET 4.5 Version Check -->
-  <PropertyRef Id="WIX_IS_NETFRAMEWORK_462_OR_LATER_INSTALLED"/>
-  <Condition Message="Please ensure that .NET 4.6.2 or higher is installed before proceeding with installation.">Installed OR WIX_IS_NETFRAMEWORK_462_OR_LATER_INSTALLED</Condition>
   <!-- Old NSIS installation -->
   <Property Id="OLDINSTALLER">
     <RegistrySearch Id="OldInstaller"

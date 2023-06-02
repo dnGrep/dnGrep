@@ -9,34 +9,42 @@ namespace dnGREP.WPF
 {
     public class IntToImageValueConverter : IValueConverter
     {
-        private static readonly Dictionary<string, BitmapImage> lightImageCache = new Dictionary<string, BitmapImage>();
-        private static readonly Dictionary<string, BitmapImage> darkImageCache = new Dictionary<string, BitmapImage>();
+        private static readonly Dictionary<string, BitmapImage> lightImageCache = new();
+        private static readonly Dictionary<string, BitmapImage> darkImageCache = new();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is int intValue && 0 <= intValue && intValue <= 7)
+            if (value is not int)
             {
-                string key = $"checks{intValue}";
-                bool invertColors = (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
+                throw new ArgumentException("Value must be an int");
+            }
 
-                var cache = invertColors ? darkImageCache : lightImageCache;
+            int intValue = (int)value;
 
-                if (!cache.TryGetValue(key, out BitmapImage image))
+            if (intValue is < 0 or > 7)
+            {
+                throw new ArgumentException("Integer value must be 0..7 inclusive");
+            }
+
+            string key = $"checks{intValue}";
+            bool invertColors = (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
+
+            var cache = invertColors ? darkImageCache : lightImageCache;
+
+            if (!cache.TryGetValue(key, out BitmapImage? image))
+            {
+                var uriString = $@"pack://application:,,,/dnGREP;component/Images/checks{intValue}.png";
+                image = new BitmapImage(new Uri(uriString));
+
+                if (invertColors)
                 {
-                    var uriString = $@"pack://application:,,,/dnGREP;component/Images/checks{intValue}.png";
-                    image = new BitmapImage(new Uri(uriString));
-
-                    if (invertColors)
-                    {
-                        image = ColorInverter.Convert(ColorInverter.Invert(image));
-                    }
-
-                    cache.Add(key, image);
+                    image = ColorInverter.Convert(ColorInverter.Invert(image));
                 }
 
-                return image;
+                cache.Add(key, image);
             }
-            return null;
+
+            return image;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

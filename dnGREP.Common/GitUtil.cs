@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using Alphaleonis.Win32.Filesystem;
 
 namespace dnGREP.Common
 {
@@ -24,7 +24,7 @@ namespace dnGREP.Common
 
         private static bool CheckGitInstalled()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            ProcessStartInfo startInfo = new()
             {
                 FileName = "git",
                 Arguments = "--version",
@@ -34,31 +34,29 @@ namespace dnGREP.Common
                 CreateNoWindow = true
             };
 
-            using (Process proc = new Process())
+            using Process proc = new();
+            proc.StartInfo = startInfo;
+            try
             {
-                proc.StartInfo = startInfo;
-                try
+                proc.Start();
+                if (!proc.StandardOutput.EndOfStream)
                 {
-                    proc.Start();
-                    if (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        return !string.IsNullOrEmpty(line) && line.StartsWith("git ", StringComparison.CurrentCulture);
-                    }
+                    string? line = proc.StandardOutput.ReadLine();
+                    return !string.IsNullOrEmpty(line) && line.StartsWith("git ", StringComparison.CurrentCulture);
                 }
-                catch (InvalidOperationException) { }
-                catch (Win32Exception) { }
             }
+            catch (InvalidOperationException) { }
+            catch (Win32Exception) { }
             return false;
         }
 
         public static Gitignore GetGitignore(string path)
         {
-            List<string> list = new List<string>();
+            List<string> list = new();
 
             if (IsGitInstalled)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                ProcessStartInfo startInfo = new()
                 {
                     FileName = "git",
                     Arguments = "status --short --ignored",
@@ -69,22 +67,20 @@ namespace dnGREP.Common
                     CreateNoWindow = true
                 };
 
-                using (Process proc = new Process())
+                using Process proc = new();
+                proc.StartInfo = startInfo;
+                try
                 {
-                    proc.StartInfo = startInfo;
-                    try
+                    proc.Start();
+                    while (!proc.StandardOutput.EndOfStream)
                     {
-                        proc.Start();
-                        while (!proc.StandardOutput.EndOfStream)
-                        {
-                            string line = proc.StandardOutput.ReadLine();
-                            if (line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
-                                list.Add(line.Substring(3).Trim('"'));
-                        }
+                        string? line = proc.StandardOutput.ReadLine();
+                        if (!string.IsNullOrEmpty(line) && line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
+                            list.Add(line[3..].Trim('"'));
                     }
-                    catch (InvalidOperationException) { }
-                    catch (Win32Exception) { }
                 }
+                catch (InvalidOperationException) { }
+                catch (Win32Exception) { }
             }
 
             return new Gitignore(path, list);
@@ -92,10 +88,7 @@ namespace dnGREP.Common
 
         public static Gitignore GetGitignore(IList<string> paths)
         {
-            if (paths == null)
-                throw new ArgumentNullException(nameof(paths));
-
-            Gitignore results = new Gitignore();
+            Gitignore results = new();
 
             foreach (var path in paths)
             {
@@ -108,9 +101,10 @@ namespace dnGREP.Common
 
     public class Gitignore
     {
+        private const char gitSeparatorChar = '/';
         private const string gitSeparator = "/";
-        private HashSet<string> directories = new HashSet<string>();
-        private HashSet<string> files = new HashSet<string>();
+        private readonly HashSet<string> directories = new();
+        private readonly HashSet<string> files = new();
 
         public Gitignore()
         {
@@ -118,15 +112,9 @@ namespace dnGREP.Common
 
         public Gitignore(string path, IList<string> list)
         {
-            if (string.IsNullOrWhiteSpace(path))
-                throw new ArgumentNullException(nameof(path));
-
-            if (list == null)
-                throw new ArgumentNullException(nameof(list));
-
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
                     s.EndsWith(gitSeparator, StringComparison.CurrentCulture))
-                .Select(s => Path.Combine(path, s.Replace(gitSeparator, Path.DirectorySeparator)
+                .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
                     .TrimEnd(Path.DirectorySeparatorChar))))
             {
                 if (!directories.Contains(item))
@@ -135,7 +123,7 @@ namespace dnGREP.Common
 
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
                    !s.EndsWith(gitSeparator, StringComparison.CurrentCulture))
-                .Select(s => Path.Combine(path, s.Replace(gitSeparator, Path.DirectorySeparator)
+                .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
                     .TrimEnd(Path.DirectorySeparatorChar))))
             {
                 if (!files.Contains(item))
@@ -145,9 +133,6 @@ namespace dnGREP.Common
 
         public void Merge(Gitignore other)
         {
-            if (other == null)
-                throw new ArgumentNullException(nameof(other));
-
             foreach(var item in other.Directories)
             {
                 if (!directories.Contains(item))

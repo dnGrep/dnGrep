@@ -17,7 +17,7 @@ namespace Tests
         private static bool IsUserAdministrator()
         {
             bool isAdmin;
-            WindowsIdentity user = null;
+            WindowsIdentity? user = null;
             try
             {
                 //get the currently logged in user

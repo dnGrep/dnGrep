@@ -310,14 +310,14 @@
                            ToolTip="{l:Loc Key='Main_ChangesTheResultsTreeZoom'}"/>
                     <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
                             Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
-                            Value="{Binding SearchResults.ResultsScale}" TabIndex="97">
+                            Value="{Binding ResultsViewModel.ResultsScale}" TabIndex="97">
                         <Slider.ToolTip>
-                            <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
+                            <ToolTip Content="{Binding ResultsViewModel.ResultsScale}" ContentStringFormat="P1"/>
                         </Slider.ToolTip>
                     </Slider>
                 </StackPanel>
                 <CheckBox Content="{l:Loc Key='Main_WrapText'}" Margin="10,3,6,3"                                  
-                          IsChecked="{Binding SearchResults.WrapText}"
+                          IsChecked="{Binding ResultsViewModel.WrapText}"
                           TabIndex="98"
                           Visibility="{Binding WrapTextResultsTreeVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </WrapPanel>
@@ -1055,7 +1055,7 @@
                                 TabIndex="87" />
                     </WrapPanel>
                 </Grid>
-                <uc:ResultsTree x:Name="resultsTree" DataContext="{Binding SearchResults}" TabIndex="90" />
+                <uc:ResultsTree x:Name="resultsTree" DataContext="{Binding ResultsViewModel}" TabIndex="90" />
             </DockPanel>
         </DockPanel>
     </DockPanel>

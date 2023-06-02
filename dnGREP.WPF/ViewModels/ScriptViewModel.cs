@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using Alphaleonis.Win32.Filesystem;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit;
@@ -10,15 +11,15 @@ using Microsoft.Win32;
 
 namespace dnGREP.WPF
 {
-    public class ScriptViewModel : CultureAwareViewModel
+    public partial class ScriptViewModel : CultureAwareViewModel
     {
         private readonly TextEditor textEditor;
         private string originalScript = string.Empty;
 
-        public event EventHandler RequestRun;
-        public event EventHandler RequestClose;
-        public event EventHandler RequestSuggest;
-        public event EventHandler NewScriptFileSaved;
+        public event EventHandler? RequestRun;
+        public event EventHandler? RequestClose;
+        public event EventHandler? RequestSuggest;
+        public event EventHandler? NewScriptFileSaved;
 
         public ScriptViewModel(TextEditor textEditor)
         {
@@ -34,146 +35,36 @@ namespace dnGREP.WPF
         }
 
 
-        private string applicationFontFamily;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
+        [ObservableProperty]
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
 
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
+        [ObservableProperty]
+        private double mainFormFontSize;
 
-        private double mainFormfontSize;
-        public double MainFormFontSize
-        {
-            get { return mainFormfontSize; }
-            set
-            {
-                if (mainFormfontSize == value)
-                    return;
+        [ObservableProperty]
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
 
-                mainFormfontSize = value;
-                base.OnPropertyChanged(nameof(MainFormFontSize));
-            }
-        }
+        [ObservableProperty]
+        private double resultsFontSize;
 
-        private string resultsFontFamily;
-        public string ResultsFontFamily
-        {
-            get { return resultsFontFamily; }
-            set
-            {
-                if (resultsFontFamily == value)
-                    return;
+        [ObservableProperty]
+        private double dialogFontSize;
 
-                resultsFontFamily = value;
-                base.OnPropertyChanged(nameof(ResultsFontFamily));
-            }
-        }
-
-        private double resultsfontSize;
-        public double ResultsFontSize
-        {
-            get { return resultsfontSize; }
-            set
-            {
-                if (resultsfontSize == value)
-                    return;
-
-                resultsfontSize = value;
-                base.OnPropertyChanged(nameof(ResultsFontSize));
-            }
-        }
-
-        private double dialogfontSize;
-        public double DialogFontSize
-        {
-            get { return dialogfontSize; }
-            set
-            {
-                if (dialogfontSize == value)
-                    return;
-
-                dialogfontSize = value;
-                base.OnPropertyChanged(nameof(DialogFontSize));
-            }
-        }
-
-
+        [ObservableProperty]
         private string windowTitle = Resources.Script_Editor_Title;
-        public string WindowTitle
-        {
-            get { return windowTitle; }
-            set
-            {
-                if (windowTitle == value)
-                {
-                    return;
-                }
 
-                windowTitle = value;
-                OnPropertyChanged(nameof(WindowTitle));
-            }
-        }
-
-
+        [ObservableProperty]
         private string scriptFile = string.Empty;
-        public string ScriptFile
-        {
-            get { return scriptFile; }
-            set
-            {
-                if (scriptFile == value)
-                {
-                    return;
-                }
 
-                scriptFile = value;
-                OnPropertyChanged(nameof(ScriptFile));
-            }
-        }
-
-
+        [ObservableProperty]
         private bool isModified = false;
-        public bool IsModified
-        {
-            get { return isModified; }
-            set
-            {
-                if (isModified == value)
-                {
-                    return;
-                }
 
-                isModified = value;
-                OnPropertyChanged(nameof(IsModified));
-            }
-        }
-
-        public ObservableCollection<ValidationErrorViewModel> ValidationData { get; } = new ObservableCollection<ValidationErrorViewModel>();
-
-
+        [ObservableProperty]
         private bool hasValidationErrors = false;
-        public bool HasValidationErrors
-        {
-            get { return hasValidationErrors; }
-            set
-            {
-                if (hasValidationErrors == value)
-                {
-                    return;
-                }
 
-                hasValidationErrors = value;
-                OnPropertyChanged(nameof(HasValidationErrors));
-            }
-        }
+        public ObservableCollection<ValidationErrorViewModel> ValidationData { get; } = new();
 
+#pragma warning disable CA1822
         public ICommand NewCommand => new RelayCommand(
             p => NewScript(),
             q => true);
@@ -249,6 +140,7 @@ namespace dnGREP.WPF
         public ICommand RunCommand => new RelayCommand(
             p => RunScript(),
             q => true);
+#pragma warning restore CA1822
 
         private bool CanMoveLineUp
         {
@@ -310,7 +202,7 @@ namespace dnGREP.WPF
 
                 textEditor.Document.Remove(beginLine.Offset, length + finalLine.DelimiterLength);
                 textEditor.Document.Insert(prevLine.Offset, linesToMove);
-                
+
                 // move the caret to the same position in the moved line
                 textEditor.SelectionStart = newSelectionStart;
                 textEditor.SelectionLength = selectionLength;
@@ -377,7 +269,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void Document_TextChanged(object sender, EventArgs e)
+        private void Document_TextChanged(object? sender, EventArgs e)
         {
             IsModified = string.CompareOrdinal(originalScript, textEditor.Text) != 0;
             UpdateWindowTitle();
@@ -460,7 +352,7 @@ namespace dnGREP.WPF
                 return;
             }
 
-            SaveFileDialog dlg = new SaveFileDialog
+            SaveFileDialog dlg = new()
             {
                 Filter = Resources.Scripts_ScriptFiles + "|*" + ScriptManager.ScriptExt,
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
@@ -533,7 +425,7 @@ namespace dnGREP.WPF
             {
                 ValidationData.Add(new ValidationErrorViewModel(
                     error.Item1.ToString(),
-                    ScriptManager.Instance.ToErrorString(error.Item2)));
+                    ScriptManager.ToErrorString(error.Item2)));
             }
             HasValidationErrors = ValidationData.Count > 0;
 
@@ -555,7 +447,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class ValidationErrorViewModel : CultureAwareViewModel
+    public partial class ValidationErrorViewModel : CultureAwareViewModel
     {
         public ValidationErrorViewModel(string line, string message)
         {
@@ -563,37 +455,10 @@ namespace dnGREP.WPF
             Message = message;
         }
 
+        [ObservableProperty]
         private string line = string.Empty;
-        public string Line
-        {
-            get { return line; }
-            set
-            {
-                if (line == value)
-                {
-                    return;
-                }
 
-                line = value;
-                OnPropertyChanged(nameof(Line));
-            }
-        }
-
-
+        [ObservableProperty]
         private string message = string.Empty;
-        public string Message
-        {
-            get { return message; }
-            set
-            {
-                if (message == value)
-                {
-                    return;
-                }
-
-                message = value;
-                OnPropertyChanged(nameof(Message));
-            }
-        }
     }
 }

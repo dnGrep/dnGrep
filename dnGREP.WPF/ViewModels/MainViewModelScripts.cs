@@ -4,10 +4,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using Alphaleonis.Win32.Filesystem;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Localization.Properties;
@@ -21,7 +22,7 @@ namespace dnGREP.WPF
         private static readonly IDictionary<string, IScriptCommand> BookmarkCommandMap = new Dictionary<string, IScriptCommand>();
         private static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
 
-        private readonly List<ScriptEditorWindow> scriptEditorWindows = new List<ScriptEditorWindow>();
+        private readonly List<ScriptEditorWindow> scriptEditorWindows = new();
         private bool cancelingScript = false;
         private bool showEmptyMessageWindow = false;
         private string currentScriptFile = string.Empty;
@@ -41,7 +42,11 @@ namespace dnGREP.WPF
             }
             ScriptMessages.Add(message);
         }
-        public ObservableCollection<string> ScriptMessages { get; } = new ObservableCollection<string>();
+
+        public ObservableCollection<string> ScriptMessages { get; } = new();
+
+        [ObservableProperty]
+        private bool isScriptRunning = false;
 
         public void InitializeScriptTargets()
         {
@@ -95,8 +100,8 @@ namespace dnGREP.WPF
                 SetCommandMap.Add("contextlinesbefore", new ScriptCommand<int>(p => ContextLinesBefore = p));
                 SetCommandMap.Add("contextlinesafter", new ScriptCommand<int>(p => ContextLinesAfter = p));
 
-                SetCommandMap.Add("wraptext", new ScriptCommand<bool>(p => SearchResults.WrapText = p));
-                SetCommandMap.Add("resultszoom", new ScriptCommand<double>(p => SearchResults.ResultsScale = p));
+                SetCommandMap.Add("wraptext", new ScriptCommand<bool>(p => ResultsViewModel.WrapText = p));
+                SetCommandMap.Add("resultszoom", new ScriptCommand<double>(p => ResultsViewModel.ResultsScale = p));
                 SetCommandMap.Add("sorttype", new ScriptCommand<SortType>(p => SortType = p));
                 SetCommandMap.Add("sortdirection", new ScriptCommand<ListSortDirection>(p => SortDirection = p));
 
@@ -115,11 +120,11 @@ namespace dnGREP.WPF
                 BookmarkCommandMap.Add("removefolder", new ScriptCommand<string>(p => RemoveBookmark(p, true)));
 
                 ReportCommandMap.Add("full", new ScriptCommand<string>(p =>
-                    ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), p)));
+                    ReportWriter.SaveResultsReport(ResultsViewModel.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), p)));
                 ReportCommandMap.Add("text", new ScriptCommand<string>(p =>
-                    ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, p)));
+                    ReportWriter.SaveResultsAsText(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, p)));
                 ReportCommandMap.Add("csv", new ScriptCommand<string>(p =>
-                    ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, p)));
+                    ReportWriter.SaveResultsAsCSV(ResultsViewModel.GetList(), ResultsViewModel.TypeOfSearch, p)));
             }
         }
 
@@ -159,7 +164,7 @@ namespace dnGREP.WPF
                 string[] parts = key.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length > 0)
                 {
-                    string header = parts[parts.Length - 1];
+                    string header = parts[^1];
 
                     ObservableCollection<MenuItemViewModel> menuItems = ScriptMenuItems;
 
@@ -193,19 +198,15 @@ namespace dnGREP.WPF
                 {
                     if (coll[i].Command != null && coll[j].Command == null)
                     {
-                        var temp = coll[j];
-                        coll[j] = coll[i];
-                        coll[i] = temp;
+                        (coll[i], coll[j]) = (coll[j], coll[i]);
                     }
 
                     if ((coll[i].Command == null && coll[j].Command == null) ||
                         (coll[i].Command != null && coll[j].Command != null))
                     {
-                        if (string.Compare(coll[i].Header, coll[j].Header) > 0)
+                        if (string.Compare(coll[i].Header, coll[j].Header, StringComparison.Ordinal) > 0)
                         {
-                            var temp = coll[j];
-                            coll[j] = coll[i];
-                            coll[i] = temp;
+                            (coll[i], coll[j]) = (coll[j], coll[i]);
                         }
                     }
                 }
@@ -217,25 +218,9 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool isScriptRunning = false;
-        public bool IsScriptRunning
-        {
-            get { return isScriptRunning; }
-            set
-            {
-                if (isScriptRunning == value)
-                {
-                    return;
-                }
-
-                isScriptRunning = value;
-                OnPropertyChanged(nameof(IsScriptRunning));
-            }
-        }
-
         private void NewScript()
         {
-            ScriptEditorWindow wnd = new ScriptEditorWindow();
+            ScriptEditorWindow wnd = new();
             wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
             wnd.RequestRun += ScriptEditor_RequestRun;
             scriptEditorWindows.Add(wnd);
@@ -247,7 +232,7 @@ namespace dnGREP.WPF
 
         private void EditScript()
         {
-            OpenFileDialog dlg = new OpenFileDialog
+            OpenFileDialog dlg = new()
             {
                 Filter = Resources.Scripts_ScriptFiles + "|*" + ScriptManager.ScriptExt,
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
@@ -268,7 +253,7 @@ namespace dnGREP.WPF
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)
             {
-                ScriptEditorWindow wnd = new ScriptEditorWindow();
+                ScriptEditorWindow wnd = new();
                 wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
                 wnd.RequestRun += ScriptEditor_RequestRun;
                 scriptEditorWindows.Add(wnd);
@@ -278,7 +263,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ScriptEditor_NewScriptFileSaved(object sender, EventArgs e)
+        private void ScriptEditor_NewScriptFileSaved(object? sender, EventArgs e)
         {
             ScriptManager.Instance.LoadScripts();
             AddScriptFilesToMenu();
@@ -295,9 +280,9 @@ namespace dnGREP.WPF
             }
         }
 
-        private Queue<ScriptStatement> currentScript = null;
+        private Queue<ScriptStatement>? currentScript = null;
 
-        private void ScriptEditor_RequestRun(object sender, EventArgs e)
+        private void ScriptEditor_RequestRun(object? sender, EventArgs e)
         {
             if (sender is ScriptEditorWindow wnd && currentScript == null)
             {
@@ -363,34 +348,34 @@ namespace dnGREP.WPF
                 switch (stmt.Command)
                 {
                     case "set":
-                        if (SetCommandMap.TryGetValue(stmt.Target, out IScriptCommand set))
+                        if (SetCommandMap.TryGetValue(stmt.Target, out IScriptCommand? set) && !string.IsNullOrEmpty(stmt.Value))
                         {
                             set.Execute(stmt.Value);
                         }
                         break;
 
                     case "env":
-                        if (!string.IsNullOrEmpty(stmt.Value) && stmt.Value.Contains('='))
+                        if (!string.IsNullOrEmpty(stmt.Value) && stmt.Value.Contains('=', StringComparison.Ordinal))
                         {
-                            int pos = stmt.Value.IndexOf('=');
+                            int pos = stmt.Value.IndexOf('=', StringComparison.Ordinal);
                             if (pos > 1)
                             {
-                                string variable = stmt.Value.Substring(0, pos);
-                                string value = stmt.Value.Substring(pos + 1);
+                                string variable = stmt.Value[..pos];
+                                string value = stmt.Value[(pos + 1)..];
                                 ScriptManager.Instance.SetScriptEnvironmentVariable(variable, value);
                             }
                         }
                         break;
 
                     case "bookmark":
-                        if (BookmarkCommandMap.TryGetValue(stmt.Target, out IScriptCommand use))
+                        if (BookmarkCommandMap.TryGetValue(stmt.Target, out IScriptCommand? use) && !string.IsNullOrEmpty(stmt.Value))
                         {
                             use.Execute(stmt.Value);
                         }
                         break;
 
                     case "report":
-                        if (ReportCommandMap.TryGetValue(stmt.Target, out IScriptCommand rpt))
+                        if (ReportCommandMap.TryGetValue(stmt.Target, out IScriptCommand? rpt) && !string.IsNullOrEmpty(stmt.Value))
                         {
                             rpt.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         }
@@ -429,15 +414,18 @@ namespace dnGREP.WPF
                         break;
 
                     case "expandfilefilters":
-                        ExpandFileFiltersCommand.Execute(stmt.Value);
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            ExpandFileFiltersCommand.Execute(stmt.Value);
                         break;
 
                     case "maximizeresults":
-                        MaximizeResultsCommand.Execute(stmt.Value);
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            MaximizeResultsCommand.Execute(stmt.Value);
                         break;
 
                     case "expandresultoptions":
-                        ExpandResultOptionsCommand.Execute(stmt.Value);
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            ExpandResultOptionsCommand.Execute(stmt.Value);
                         break;
 
                     case "search":
@@ -479,7 +467,8 @@ namespace dnGREP.WPF
                         break;
 
                     case "run":
-                        RunCommand(stmt.Target, ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
+                        if (!string.IsNullOrEmpty(stmt.Value))
+                            RunCommand(stmt.Target, ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
 
                     case "exit":
@@ -505,7 +494,7 @@ namespace dnGREP.WPF
                         ScriptMessages.Add(Resources.Scripts_ScriptComplete);
                     }
 
-                    MessagesWindow dlg = new MessagesWindow(this);
+                    MessagesWindow dlg = new(this);
                     dlg.ShowDialog();
                 }
             }
@@ -529,7 +518,7 @@ namespace dnGREP.WPF
             }
             if (!File.Exists(filePath))
             {
-                ScriptMessages.Add(string.Format(Resources.Scripts_FileNotFound, target, filePath));
+                ScriptMessages.Add(string.Format(Resources.Scripts_FileNotFound, target, value));
                 CancelScript();
                 return;
             }
@@ -551,8 +540,10 @@ namespace dnGREP.WPF
                         {
                             startInfo.Environment[item.Key] = item.Value;
                         }
-                        var proc = Process.Start(startInfo);
-                        proc.WaitForExit(60 * 1000);
+                        if (Process.Start(startInfo) is Process proc)
+                        {
+                            proc.WaitForExit(60 * 1000);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -585,8 +576,10 @@ namespace dnGREP.WPF
                         {
                             startInfo.Environment[item.Key] = item.Value;
                         }
-                        var proc = Process.Start(startInfo);
-                        proc.WaitForExit(60 * 1000);
+                        if (Process.Start(startInfo) is Process proc)
+                        {
+                            proc.WaitForExit(60 * 1000);
+                        }
                     }
                     catch (Exception ex)
                     {

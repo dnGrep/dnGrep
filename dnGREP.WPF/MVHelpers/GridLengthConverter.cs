@@ -14,16 +14,16 @@ namespace dnGREP.WPF
             if (targetType != typeof(GridLength))
                 throw new InvalidOperationException("The target must be a GridLength");
 
-            string text = value as string;
+            string? text = value as string;
             if (!string.IsNullOrWhiteSpace(text))
             {
                 if (text.Equals("Auto", StringComparison.OrdinalIgnoreCase))
                     return GridLength.Auto;
 
-                if (text.Equals("*"))
+                if (text.Equals("*", StringComparison.Ordinal))
                     return new GridLength(1, GridUnitType.Star);
 
-                if (text.EndsWith("*"))
+                if (text.EndsWith("*", StringComparison.Ordinal))
                 {
                     text = text.TrimEnd('*');
 

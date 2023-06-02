@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Alphaleonis.Win32.Filesystem;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
 namespace dnGREP.WPF
@@ -29,9 +30,9 @@ namespace dnGREP.WPF
             };
         }
 
-        public string DestinationPath { get; private set; }
+        public string DestinationPath { get; private set; } = string.Empty;
 
-        public string SourcePath { get; set; }
+        public string SourcePath { get; set; } = string.Empty;
 
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -47,7 +48,7 @@ namespace dnGREP.WPF
                     return;
                 }
 
-                string destPath = Path.Combine(Path.GetDirectoryName(SourcePath), txtName.Text);
+                string destPath = Path.Combine(Path.GetDirectoryName(SourcePath) ?? string.Empty, txtName.Text);
                 if (File.Exists(destPath))
                 {
                     txtError.Text = dnGREP.Localization.Properties.Resources.Rename_FileNameAlreadyExistsInThisDirectory;
@@ -70,7 +71,7 @@ namespace dnGREP.WPF
             DialogResult = false;
         }
 
-        public class RenameViewModel : CultureAwareViewModel
+        public partial class RenameViewModel : CultureAwareViewModel
         {
             public RenameViewModel()
             {
@@ -79,47 +80,14 @@ namespace dnGREP.WPF
                 DialogWidth = DialogFontSize * 30.0;
             }
 
-            private string applicationFontFamily;
-            public string ApplicationFontFamily
-            {
-                get { return applicationFontFamily; }
-                set
-                {
-                    if (applicationFontFamily == value)
-                        return;
+            [ObservableProperty]
+            private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
 
-                    applicationFontFamily = value;
-                    base.OnPropertyChanged(nameof(ApplicationFontFamily));
-                }
-            }
+            [ObservableProperty]
+            private double dialogFontSize;
 
-            private double dialogfontSize;
-            public double DialogFontSize
-            {
-                get { return dialogfontSize; }
-                set
-                {
-                    if (dialogfontSize == value)
-                        return;
-
-                    dialogfontSize = value;
-                    base.OnPropertyChanged(nameof(DialogFontSize));
-                }
-            }
-
+            [ObservableProperty]
             private double dialogWidth;
-            public double DialogWidth
-            {
-                get { return dialogWidth; }
-                set
-                {
-                    if (dialogWidth == value)
-                        return;
-
-                    dialogWidth = value;
-                    base.OnPropertyChanged(nameof(DialogWidth));
-                }
-            }
         }
 
     }

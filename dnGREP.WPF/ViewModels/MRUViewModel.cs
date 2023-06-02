@@ -37,7 +37,7 @@ namespace dnGREP.WPF
                     return;
                 }
 
-                stringValue = value ?? string.Empty;
+                stringValue = value;
                 OnPropertyChanged(nameof(StringValue));
             }
         }
@@ -70,21 +70,21 @@ namespace dnGREP.WPF
 
         public override int GetHashCode()
         {
-            return StringValue.GetHashCode();
+            return StringValue.GetHashCode(StringComparison.Ordinal);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Equals(obj as MRUViewModel);
         }
 
-        public bool Equals(MRUViewModel other)
+        public bool Equals(MRUViewModel? other)
         {
             if (other == null)
             {
                 return false;
             }
-            return StringValue.Equals(other.StringValue);
+            return string.Equals(StringValue, other.StringValue, StringComparison.OrdinalIgnoreCase);
         }
     }
 

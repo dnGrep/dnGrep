@@ -21,7 +21,7 @@ namespace ICSharpCode.AvalonEdit.Document
 	using LineNode = DocumentLine;
 
 	// A tree node in the document line tree.
-	// For the purpose of the invariants, "children", "descendents", "siblings" etc. include the DocumentLine object,
+	// For the purpose of the invariants, "children", "descendants", "siblings" etc. include the DocumentLine object,
 	// it is treated as a third child node between left and right.
 
 	// Originally, this was a separate class, with a reference to the documentLine. The documentLine had a reference

@@ -10,7 +10,7 @@
             IsPinned = isPinned;
         }
 
-        public string StringValue { get; set; }
+        public string StringValue { get; set; } = string.Empty;
         public bool IsPinned { get; set; }
     }
 }

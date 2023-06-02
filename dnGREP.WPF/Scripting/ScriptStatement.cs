@@ -13,7 +13,7 @@ namespace dnGREP.WPF
 
             LineNumber = line;
             Command = command.ToLowerInvariant();
-            Target = target?.ToLowerInvariant();
+            Target = target.ToLowerInvariant();
             Value = value;
         }
 

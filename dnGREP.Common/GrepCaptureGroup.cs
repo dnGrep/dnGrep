@@ -25,23 +25,17 @@ namespace dnGREP.Common
             return $"Group '{Name}' {StartLocation} +{Length} : {Value}";
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Equals(obj as GrepCaptureGroup);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = 13;
-                hashCode = (hashCode * 397) ^ StartLocation;
-                hashCode = (hashCode * 397) ^ Length;
-                return hashCode;
-            }
+            return HashCode.Combine(StartLocation, Length);
         }
 
-        public bool Equals(GrepCaptureGroup other)
+        public bool Equals(GrepCaptureGroup? other)
         {
             if (other == null) return false;
 
@@ -49,7 +43,7 @@ namespace dnGREP.Common
                 Length == other.Length;
         }
 
-        public int CompareTo(GrepCaptureGroup other)
+        public int CompareTo(GrepCaptureGroup? other)
         {
             if (other == null)
                 return 1;
@@ -57,12 +51,12 @@ namespace dnGREP.Common
                 return StartLocation.CompareTo(other.StartLocation);
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
             if (obj == null)
                 return 1;
-            if (obj is GrepMatch)
-                return StartLocation.CompareTo(((GrepMatch)obj).StartLocation);
+            if (obj is GrepMatch match)
+                return StartLocation.CompareTo(match.StartLocation);
             else
                 return 1;
         }

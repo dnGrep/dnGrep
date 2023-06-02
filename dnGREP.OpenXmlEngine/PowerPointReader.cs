@@ -20,37 +20,28 @@ namespace dnGREP.Engines.OpenXml
         public static IEnumerable<Tuple<int, string>> ExtractPowerPointText(Stream stream)
         {
             // Open a given PointPoint document as readonly
-            using (PresentationDocument ppt = PresentationDocument.Open(stream, false))
+            using PresentationDocument ppt = PresentationDocument.Open(stream, false);
+            int numberOfSlides = CountSlides(ppt);
+
+            for (int idx = 0; idx < numberOfSlides; idx++)
             {
-                int numberOfSlides = CountSlides(ppt);
-
-
-                for (int idx = 0; idx < numberOfSlides; idx++)
+                if (Utils.CancelSearch)
                 {
-                    if (Utils.CancelSearch)
-                    {
-                        break;
-                    }
-
-                    string text = GetSlideText(ppt, idx);
-
-                    yield return new Tuple<int, string>(idx + 1, text);
+                    break;
                 }
+
+                string text = GetSlideText(ppt, idx);
+
+                yield return new Tuple<int, string>(idx + 1, text);
             }
         }
 
         private static int CountSlides(PresentationDocument presentationDocument)
         {
-            // Check for a null document object.
-            if (presentationDocument == null)
-            {
-                throw new ArgumentNullException("presentationDocument");
-            }
-
             int slidesCount = 0;
 
             // Get the presentation part of document.
-            PresentationPart presentationPart = presentationDocument.PresentationPart;
+            PresentationPart? presentationPart = presentationDocument.PresentationPart;
 
             // Get the slide count from the SlideParts.
             if (presentationPart != null)
@@ -63,15 +54,19 @@ namespace dnGREP.Engines.OpenXml
         internal static string GetSlideText(PresentationDocument ppt, int idx)
         {
             // Get the relationship ID of the first slide.
-            PresentationPart part = ppt.PresentationPart;
-            OpenXmlElementList slideIds = part.Presentation.SlideIdList.ChildElements;
+            PresentationPart? part = ppt.PresentationPart;
+            if (part == null) return string.Empty;
 
-            string relId = (slideIds[idx] as SlideId).RelationshipId;
+            OpenXmlElementList? slideIds = part.Presentation.SlideIdList?.ChildElements;
+            if (slideIds == null) return string.Empty;
+
+            string? relId = (slideIds[idx] as SlideId)?.RelationshipId;
+            if (relId == null) return string.Empty;
 
             // Get the slide part from the relationship ID.
             SlidePart slidePart = (SlidePart)part.GetPartById(relId);
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             var paragraphs = slidePart.Slide.Descendants<Paragraph>();
             foreach (Paragraph paragraph in paragraphs)
@@ -108,7 +103,7 @@ namespace dnGREP.Engines.OpenXml
                         break;
                     }
 
-                    if (text.Parent is Field field && field.Type.HasValue && field.Type.Value == "slidenum")
+                    if (text.Parent is Field field && (field.Type?.HasValue is true) && field.Type.Value == "slidenum")
                     {
                         continue;
                     }

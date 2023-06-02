@@ -31,8 +31,7 @@ namespace dnGREP.WPF
 
         protected override void OnClick()
         {
-            var panel = VisualParent as Panel;
-            if (null != panel)
+            if (VisualParent is Panel panel)
             {
                 var rmi = panel.Children.OfType<RadioMenuItem>().FirstOrDefault(i =>
                     i.GroupName == GroupName && i.IsChecked);

@@ -8,9 +8,9 @@ namespace dnGREP.WPF.Properties
     /// Changing the application to store the window layout properties in the GrepSettings
     /// class and file instead of user.config so all settings can be stored in the
     /// application directory, if it is run from a writable directory (not installed).
-    /// This class is used to move values from Properties.Settings.Default to GrepSettings.
-    /// Note this will also get the default layout properties from Properties.Settings
-    /// for new installs.
+    /// This class was used to move values from Properties.Settings.Default to GrepSettings,
+    /// but Properties.Settings has now been removed. Note this will also set the default layout 
+    /// properties for new installs.
     /// </summary>
     internal static class LayoutProperties
     {
@@ -25,7 +25,7 @@ namespace dnGREP.WPF.Properties
         private static Rect? previewBounds;
         private static WindowState? previewWindowState;
         private static bool? previewDocked;
-        private static string previewDockSide;
+        private static string? previewDockSide;
         private static double? previewDockedWidth;
         private static double? previewDockedHeight;
         private static bool? previewHidden;
@@ -52,7 +52,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        mainWindowBounds = Properties.Settings.Default.MainFormExBounds;
+                        mainWindowBounds = new(20, 20, 1200, 800);
                     }
                     mainWindowBounds = Validate(mainWindowBounds.Value);
                 }
@@ -77,7 +77,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        mainWindowState = Properties.Settings.Default.MainWindowState;
+                        mainWindowState = WindowState.Normal;
                     }
                 }
                 return mainWindowState.Value;
@@ -101,7 +101,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        replaceBounds = Properties.Settings.Default.ReplaceBounds;
+                        replaceBounds = new(0, 0, 0, 0);
                     }
                     replaceBounds = Validate(replaceBounds.Value);
                 }
@@ -126,7 +126,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        previewBounds = Properties.Settings.Default.PreviewBounds;
+                        previewBounds = new(0, 0, 0, 0);
                     }
                     previewBounds = Validate(previewBounds.Value);
                 }
@@ -151,7 +151,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        previewWindowState = Properties.Settings.Default.PreviewWindowState;
+                        previewWindowState = WindowState.Normal;
                     }
                 }
                 return previewWindowState.Value;
@@ -175,7 +175,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        previewDocked = Properties.Settings.Default.PreviewDocked;
+                        previewDocked = true;
                     }
                 }
                 return previewDocked.Value;
@@ -195,11 +195,11 @@ namespace dnGREP.WPF.Properties
                 {
                     if (GrepSettings.Instance.IsSet(GrepSettings.Key.PreviewDockSide))
                     {
-                        previewDockSide = GrepSettings.Instance.Get<string>(GrepSettings.Key.PreviewDockSide);
+                        previewDockSide = GrepSettings.Instance.Get<string>(GrepSettings.Key.PreviewDockSide) ?? "Right";
                     }
                     else
                     {
-                        previewDockSide = Properties.Settings.Default.PreviewDockSide;
+                        previewDockSide = "Right";
                     }
                 }
                 return previewDockSide;
@@ -227,7 +227,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        previewDockedWidth = Properties.Settings.Default.PreviewDockedWidth;
+                        previewDockedWidth = 360;
                     }
                     previewDockedWidth = Math.Max(previewDockedWidth.Value, 25);
                 }
@@ -252,7 +252,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        previewDockedHeight = Properties.Settings.Default.PreviewDockedHeight;
+                        previewDockedHeight = 200;
                     }
                     previewDockedHeight = Math.Max(previewDockedHeight.Value, 25);
                 }
@@ -277,7 +277,7 @@ namespace dnGREP.WPF.Properties
                     }
                     else
                     {
-                        previewHidden = Properties.Settings.Default.PreviewHidden;
+                        previewHidden = false;
                     }
                 }
                 return previewHidden.Value;

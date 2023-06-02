@@ -11,9 +11,6 @@ namespace dnGREP.WPF
         internal static void LoadScriptCommands(ref List<ScriptCommandDefinition> scriptCommands,
             ref List<ScriptingCompletionData> commandCompletionData)
         {
-            scriptCommands = new List<ScriptCommandDefinition>();
-            commandCompletionData = new List<ScriptingCompletionData>();
-
             int cmdPriority = 100;
             int targPriority = 100;
 
@@ -552,7 +549,7 @@ namespace dnGREP.WPF
                 ValueHint = Resources.ScriptHint_run_cmd_value
             });
 
-
+            
             cmd = new ScriptCommandDefinition()
             {
                 Command = "env",
@@ -563,7 +560,7 @@ namespace dnGREP.WPF
             };
             scriptCommands.Add(cmd);
 
-
+            
             cmd = new ScriptCommandDefinition()
             {
                 Command = "log",
@@ -728,7 +725,7 @@ namespace dnGREP.WPF
                 Description = Resources.ScriptHint_exit,
             });
 
-            scriptCommands.Sort((x, y) => x.Command.CompareTo(y.Command));
+            scriptCommands.Sort((x, y) => string.Compare(x.Command, y.Command, StringComparison.Ordinal));
 
             foreach (var item in scriptCommands)
             {

@@ -1,24 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NLog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Everything
 {
-    public sealed class EverythingSearch
+    public static class EverythingSearch
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
-        private EverythingSearch()
-        {
-            // cannot construct...
-        }
-
         private const int maxPath = 32768;
 
         private static bool? isAvailable;
@@ -64,13 +51,7 @@ namespace dnGREP.Everything
             NativeMethods.Everything_RebuildDB();
         }
 
-        public static bool IsDbLoaded
-        {
-            get
-            {
-                return IsAvailable ? NativeMethods.Everything_IsDBLoaded() : false;
-            }
-        }
+        public static bool IsDbLoaded => IsAvailable && NativeMethods.Everything_IsDBLoaded();
 
         public static int CountMissingFiles { get; private set; }
 
@@ -79,7 +60,7 @@ namespace dnGREP.Everything
             if (!IsDbLoaded)
                 yield break;
 
-            List<string> invalidDrives = new List<string>();
+            List<string> invalidDrives = new();
             CountMissingFiles = 0;
 
             NativeMethods.Everything_SetSort((uint)SortType.NameAscending);
@@ -110,7 +91,7 @@ namespace dnGREP.Everything
 
                     DateTime lastWriteTime = NativeMethods.Everything_GetResultDateModified(idx);
 
-                    EverythingFileInfo fileInfo = new EverythingFileInfo(fullName, attr, length, createdTime, lastWriteTime);
+                    EverythingFileInfo fileInfo = new(fullName, attr, length, createdTime, lastWriteTime);
 
                     if (!includeHidden && fileInfo.Attributes.HasFlag(FileAttributes.Hidden))
                     {
@@ -124,7 +105,7 @@ namespace dnGREP.Everything
                         continue;
                     }
 
-                    if (!Directory.ExistsDrive(root))
+                    if (string.IsNullOrEmpty(Path.GetPathRoot(root)))
                     {
                         CountMissingFiles++;
                         invalidDrives.Add(root);
@@ -147,7 +128,7 @@ namespace dnGREP.Everything
         {
             foreach (string prefix in EverythingKeywords.PathPrefixes)
             {
-                if (text.StartsWith(prefix))
+                if (text.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
                     text = text.Remove(0, prefix.Length);
             }
             return text.Trim();

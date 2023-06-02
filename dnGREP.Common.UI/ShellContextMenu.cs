@@ -123,19 +123,21 @@ namespace dnGREP.Common.UI
         #endregion
 
         #region InvokeCommand
-        private void InvokeCommand(IContextMenu oContextMenu, uint nCmd, string strFolder, Point pointInvoke)
+        private static void InvokeCommand(IContextMenu oContextMenu, uint nCmd, string strFolder, Point pointInvoke)
         {
-            CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
-            invoke.cbSize = cbInvokeCommand;
-            invoke.lpVerb = (IntPtr)(nCmd - CMD_FIRST);
-            invoke.lpDirectory = strFolder;
-            invoke.lpVerbW = (IntPtr)(nCmd - CMD_FIRST);
-            invoke.lpDirectoryW = strFolder;
-            invoke.fMask = CMIC.UNICODE | CMIC.PTINVOKE |
+            CMINVOKECOMMANDINFOEX invoke = new()
+            {
+                cbSize = cbInvokeCommand,
+                lpVerb = (IntPtr)(nCmd - CMD_FIRST),
+                lpDirectory = strFolder,
+                lpVerbW = (IntPtr)(nCmd - CMD_FIRST),
+                lpDirectoryW = strFolder,
+                fMask = CMIC.UNICODE | CMIC.PTINVOKE |
                 (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) ? CMIC.CONTROL_DOWN : 0) |
-                (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) ? CMIC.SHIFT_DOWN : 0);
-            invoke.ptInvoke = new POINT((int)pointInvoke.X, (int)pointInvoke.Y);
-            invoke.nShow = SW.SHOWNORMAL;
+                (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) ? CMIC.SHIFT_DOWN : 0),
+                ptInvoke = new POINT((int)pointInvoke.X, (int)pointInvoke.Y),
+                nShow = SW.SHOWNORMAL
+            };
 
             oContextMenu.InvokeCommand(ref invoke);
         }
@@ -208,7 +210,7 @@ namespace dnGREP.Common.UI
         /// </summary>
         /// <param name="folderName">Folder path</param>
         /// <returns>IShellFolder for the folder (relative from the desktop)</returns>
-        private IShellFolder GetParentFolder(string folderName)
+        private IShellFolder? GetParentFolder(string folderName)
         {
             if (null == _oParentFolder)
             {
@@ -229,11 +231,14 @@ namespace dnGREP.Common.UI
 
                 IntPtr pStrRet = Marshal.AllocCoTaskMem(MAX_PATH * 2 + 4);
                 Marshal.WriteInt32(pStrRet, 0, 0);
-                _ = _oDesktopFolder.GetDisplayNameOf(pPIDL, SHGNO.FORPARSING, pStrRet);
-                StringBuilder strFolder = new StringBuilder(MAX_PATH);
-                StrRetToBuf(pStrRet, pPIDL, strFolder, MAX_PATH);
+                _ = _oDesktopFolder?.GetDisplayNameOf(pPIDL, SHGNO.FORPARSING, pStrRet);
+                StringBuilder strFolder = new(MAX_PATH);
+                nResult = StrRetToBuf(pStrRet, pPIDL, strFolder, MAX_PATH);
                 Marshal.FreeCoTaskMem(pStrRet);
-                pStrRet = IntPtr.Zero;
+                if (S_OK != nResult)
+                {
+                    return null;
+                }
                 _strParentFolder = strFolder.ToString();
 
                 // Get the IShellFolder for folder
@@ -257,14 +262,14 @@ namespace dnGREP.Common.UI
         /// </summary>
         /// <param name="arrFI">Array of FileInfo</param>
         /// <returns>Array of PIDLs</returns>
-        protected IntPtr[] GetPIDLs(FileInfo[] arrFI)
+        protected IntPtr[]? GetPIDLs(FileInfo[] arrFI)
         {
             if (null == arrFI || 0 == arrFI.Length)
             {
                 return null;
             }
 
-            IShellFolder oParentFolder = GetParentFolder(arrFI[0].DirectoryName);
+            IShellFolder? oParentFolder = GetParentFolder(arrFI[0].DirectoryName ?? string.Empty);
             if (null == oParentFolder)
             {
                 return null;
@@ -296,14 +301,14 @@ namespace dnGREP.Common.UI
         /// </summary>
         /// <param name="arrFI">Array of DirectoryInfo</param>
         /// <returns>Array of PIDLs</returns>
-        protected IntPtr[] GetPIDLs(DirectoryInfo[] arrFI)
+        protected IntPtr[]? GetPIDLs(DirectoryInfo[] arrFI)
         {
             if (null == arrFI || 0 == arrFI.Length)
             {
                 return null;
             }
 
-            IShellFolder oParentFolder = GetParentFolder(arrFI[0].Parent.FullName);
+            IShellFolder? oParentFolder = GetParentFolder(arrFI[0].Parent?.FullName ?? string.Empty);
             if (null == oParentFolder)
             {
                 return null;
@@ -336,7 +341,7 @@ namespace dnGREP.Common.UI
         /// Free the PIDLs
         /// </summary>
         /// <param name="arrPIDLs">Array of PIDLs (IntPtr)</param>
-        protected void FreePIDLs(IntPtr[] arrPIDLs)
+        protected static void FreePIDLs(IntPtr[] arrPIDLs)
         {
             if (null != arrPIDLs)
             {
@@ -394,13 +399,19 @@ namespace dnGREP.Common.UI
 
             try
             {
-                if (null == _arrPIDLs)
+                if (null == _arrPIDLs || null == _oParentFolder)
                 {
                     ReleaseAll();
                     return;
                 }
 
                 if (false == GetContextMenuInterfaces(_oParentFolder, _arrPIDLs, out iContextMenuPtr))
+                {
+                    ReleaseAll();
+                    return;
+                }
+
+                if (null == _oContextMenu)
                 {
                     ReleaseAll();
                     return;
@@ -465,13 +476,13 @@ namespace dnGREP.Common.UI
         #endregion
 
         #region Local variables
-        private IContextMenu _oContextMenu;
-        private IContextMenu2 _oContextMenu2;
-        private IContextMenu3 _oContextMenu3;
-        private IShellFolder _oDesktopFolder;
-        private IShellFolder _oParentFolder;
-        private IntPtr[] _arrPIDLs;
-        private string _strParentFolder;
+        private IContextMenu? _oContextMenu;
+        private IContextMenu2? _oContextMenu2;
+        private IContextMenu3? _oContextMenu3;
+        private IShellFolder? _oDesktopFolder;
+        private IShellFolder? _oParentFolder;
+        private IntPtr[]? _arrPIDLs;
+        private string _strParentFolder = string.Empty;
         #endregion
 
         #region Variables and Constants
@@ -481,7 +492,6 @@ namespace dnGREP.Common.UI
         private const uint CMD_LAST = 30000;
 
         private const int S_OK = 0;
-        private const int S_FALSE = 1;
 
         private static readonly int cbMenuItemInfo = Marshal.SizeOf(typeof(MENUITEMINFO));
         private static readonly int cbInvokeCommand = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
@@ -489,14 +499,15 @@ namespace dnGREP.Common.UI
         #endregion
 
         #region DLL Import
+#pragma warning disable SYSLIB1054
 
         // Retrieves the IShellFolder interface for the desktop folder, which is the root of the Shell's namespace.
         [DllImport("shell32.dll")]
-        private static extern Int32 SHGetDesktopFolder(out IntPtr ppshf);
+        private static extern int SHGetDesktopFolder(out IntPtr ppshf);
 
         // Takes a STRRET structure returned by IShellFolder::GetDisplayNameOf, converts it to a string, and places the result in a buffer. 
-        [DllImport("shlwapi.dll", EntryPoint = "StrRetToBuf", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern Int32 StrRetToBuf(IntPtr pstr, IntPtr pidl, StringBuilder pszBuf, int cchBuf);
+        [DllImport("shlwapi.dll", EntryPoint = "StrRetToBuf", ExactSpelling = false, CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern int StrRetToBuf(IntPtr pstr, IntPtr pidl, StringBuilder pszBuf, int cchBuf);
 
         // The TrackPopupMenuEx function displays a shortcut menu at the specified location and tracks the selection of items on the shortcut menu. The shortcut menu can appear anywhere on the screen.
         [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
@@ -514,14 +525,15 @@ namespace dnGREP.Common.UI
         [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern int GetMenuDefaultItem(IntPtr hMenu, bool fByPos, uint gmdiFlags);
 
+#pragma warning restore SYSLIB1054
         #endregion
 
         #region Shell GUIDs
 
-        private static Guid IID_IShellFolder = new Guid("{000214E6-0000-0000-C000-000000000046}");
-        private static Guid IID_IContextMenu = new Guid("{000214e4-0000-0000-c000-000000000046}");
-        private static Guid IID_IContextMenu2 = new Guid("{000214f4-0000-0000-c000-000000000046}");
-        private static Guid IID_IContextMenu3 = new Guid("{bcfce0a0-ec17-11d0-8d10-00a0c90f2719}");
+        private static Guid IID_IShellFolder = new("{000214E6-0000-0000-C000-000000000046}");
+        private static Guid IID_IContextMenu = new("{000214e4-0000-0000-c000-000000000046}");
+        private static Guid IID_IContextMenu2 = new("{000214f4-0000-0000-c000-000000000046}");
+        private static Guid IID_IContextMenu3 = new("{bcfce0a0-ec17-11d0-8d10-00a0c90f2719}");
 
         #endregion
 
@@ -631,6 +643,7 @@ namespace dnGREP.Common.UI
         #endregion
 
         #region Enums
+#pragma warning disable CA1069
 
         // Defines the values used with the IShellFolder::GetDisplayNameOf and IShellFolder::SetNameOf 
         // methods to specify the type of file or folder names used by those methods
@@ -1062,7 +1075,7 @@ namespace dnGREP.Common.UI
             MFPICT = 0x20,
             NULL = 0
         }
-
+#pragma warning restore CA1069
         #endregion
 
         #region IShellFolder
@@ -1074,7 +1087,7 @@ namespace dnGREP.Common.UI
             // Translates a file object's or folder's display name into an item identifier list.
             // Return value: error code, if any
             [PreserveSig]
-            Int32 ParseDisplayName(
+            int ParseDisplayName(
                 IntPtr hwnd,
                 IntPtr pbc,
                 [MarshalAs(UnmanagedType.LPWStr)]
@@ -1087,7 +1100,7 @@ namespace dnGREP.Common.UI
             // identifier enumeration object and returning its IEnumIDList interface.
             // Return value: error code, if any
             [PreserveSig]
-            Int32 EnumObjects(
+            int EnumObjects(
                 IntPtr hwnd,
                 SHCONTF grfFlags,
                 out IntPtr enumIDList);
@@ -1095,7 +1108,7 @@ namespace dnGREP.Common.UI
             // Retrieves an IShellFolder object for a subfolder.
             // Return value: error code, if any
             [PreserveSig]
-            Int32 BindToObject(
+            int BindToObject(
                 IntPtr pidl,
                 IntPtr pbc,
                 ref Guid riid,
@@ -1104,7 +1117,7 @@ namespace dnGREP.Common.UI
             // Requests a pointer to an object's storage interface. 
             // Return value: error code, if any
             [PreserveSig]
-            Int32 BindToStorage(
+            int BindToStorage(
                 IntPtr pidl,
                 IntPtr pbc,
                 ref Guid riid,
@@ -1121,7 +1134,7 @@ namespace dnGREP.Common.UI
             // follow the second (pidl1 > pidl2).  Zero A return value of zero
             // indicates that the two items are the same (pidl1 = pidl2). 
             [PreserveSig]
-            Int32 CompareIDs(
+            int CompareIDs(
                 IntPtr lParam,
                 IntPtr pidl1,
                 IntPtr pidl2);
@@ -1130,7 +1143,7 @@ namespace dnGREP.Common.UI
             // with a folder object.
             // Return value: error code, if any
             [PreserveSig]
-            Int32 CreateViewObject(
+            int CreateViewObject(
                 IntPtr hwndOwner,
                 Guid riid,
                 out IntPtr ppv);
@@ -1138,7 +1151,7 @@ namespace dnGREP.Common.UI
             // Retrieves the attributes of one or more file objects or subfolders. 
             // Return value: error code, if any
             [PreserveSig]
-            Int32 GetAttributesOf(
+            int GetAttributesOf(
                 uint cidl,
                 [MarshalAs(UnmanagedType.LPArray)]
             IntPtr[] apidl,
@@ -1148,7 +1161,7 @@ namespace dnGREP.Common.UI
             // specified file objects or folders.
             // Return value: error code, if any
             [PreserveSig]
-            Int32 GetUIObjectOf(
+            int GetUIObjectOf(
                 IntPtr hwndOwner,
                 uint cidl,
                 [MarshalAs(UnmanagedType.LPArray)]
@@ -1160,7 +1173,7 @@ namespace dnGREP.Common.UI
             // Retrieves the display name for the specified file object or subfolder. 
             // Return value: error code, if any
             [PreserveSig()]
-            Int32 GetDisplayNameOf(
+            int GetDisplayNameOf(
                 IntPtr pidl,
                 SHGNO uFlags,
                 IntPtr lpName);
@@ -1169,7 +1182,7 @@ namespace dnGREP.Common.UI
             // identifier in the process.
             // Return value: error code, if any
             [PreserveSig]
-            Int32 SetNameOf(
+            int SetNameOf(
                 IntPtr hwnd,
                 IntPtr pidl,
                 [MarshalAs(UnmanagedType.LPWStr)]
@@ -1187,7 +1200,7 @@ namespace dnGREP.Common.UI
         {
             // Adds commands to a shortcut menu
             [PreserveSig()]
-            Int32 QueryContextMenu(
+            int QueryContextMenu(
                 IntPtr hmenu,
                 uint iMenu,
                 uint idCmdFirst,
@@ -1196,14 +1209,14 @@ namespace dnGREP.Common.UI
 
             // Carries out the command associated with a shortcut menu item
             [PreserveSig()]
-            Int32 InvokeCommand(
+            int InvokeCommand(
                 ref CMINVOKECOMMANDINFOEX info);
 
             // Retrieves information about a shortcut menu command, 
             // including the help string and the language-independent, 
             // or canonical, name for the command
             [PreserveSig()]
-            Int32 GetCommandString(
+            int GetCommandString(
                 uint idcmd,
                 GCS uflags,
                 uint reserved,
@@ -1218,7 +1231,7 @@ namespace dnGREP.Common.UI
         {
             // Adds commands to a shortcut menu
             [PreserveSig()]
-            Int32 QueryContextMenu(
+            int QueryContextMenu(
                 IntPtr hmenu,
                 uint iMenu,
                 uint idCmdFirst,
@@ -1227,14 +1240,14 @@ namespace dnGREP.Common.UI
 
             // Carries out the command associated with a shortcut menu item
             [PreserveSig()]
-            Int32 InvokeCommand(
+            int InvokeCommand(
                 ref CMINVOKECOMMANDINFOEX info);
 
             // Retrieves information about a shortcut menu command, 
             // including the help string and the language-independent, 
             // or canonical, name for the command
             [PreserveSig()]
-            Int32 GetCommandString(
+            int GetCommandString(
                 uint idcmd,
                 GCS uflags,
                 uint reserved,
@@ -1245,7 +1258,7 @@ namespace dnGREP.Common.UI
             // Allows client objects of the IContextMenu interface to 
             // handle messages associated with owner-drawn menu items
             [PreserveSig]
-            Int32 HandleMenuMsg(
+            int HandleMenuMsg(
                 uint uMsg,
                 IntPtr wParam,
                 IntPtr lParam);
@@ -1257,7 +1270,7 @@ namespace dnGREP.Common.UI
         {
             // Adds commands to a shortcut menu
             [PreserveSig()]
-            Int32 QueryContextMenu(
+            int QueryContextMenu(
                 IntPtr hmenu,
                 uint iMenu,
                 uint idCmdFirst,
@@ -1266,14 +1279,14 @@ namespace dnGREP.Common.UI
 
             // Carries out the command associated with a shortcut menu item
             [PreserveSig()]
-            Int32 InvokeCommand(
+            int InvokeCommand(
                 ref CMINVOKECOMMANDINFOEX info);
 
             // Retrieves information about a shortcut menu command, 
             // including the help string and the language-independent, 
             // or canonical, name for the command
             [PreserveSig()]
-            Int32 GetCommandString(
+            int GetCommandString(
                 uint idcmd,
                 GCS uflags,
                 uint reserved,
@@ -1284,7 +1297,7 @@ namespace dnGREP.Common.UI
             // Allows client objects of the IContextMenu interface to 
             // handle messages associated with owner-drawn menu items
             [PreserveSig]
-            Int32 HandleMenuMsg(
+            int HandleMenuMsg(
                 uint uMsg,
                 IntPtr wParam,
                 IntPtr lParam);
@@ -1292,7 +1305,7 @@ namespace dnGREP.Common.UI
             // Allows client objects of the IContextMenu3 interface to 
             // handle messages associated with owner-drawn menu items
             [PreserveSig]
-            Int32 HandleMenuMsg2(
+            int HandleMenuMsg2(
                 uint uMsg,
                 IntPtr wParam,
                 IntPtr lParam,

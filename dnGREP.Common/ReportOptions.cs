@@ -14,7 +14,7 @@
                 FilterUniqueValues = GrepSettings.Instance.Get<bool>(GrepSettings.Key.FilterUniqueValues);
                 UniqueScope = GrepSettings.Instance.Get<UniqueScope>(GrepSettings.Key.UniqueScope);
                 OutputOnSeparateLines = GrepSettings.Instance.Get<bool>(GrepSettings.Key.OutputOnSeparateLines);
-                ListItemSeparator = GrepSettings.Instance.Get<string>(GrepSettings.Key.ListItemSeparator);
+                ListItemSeparator = GrepSettings.Instance.Get<string>(GrepSettings.Key.ListItemSeparator) ?? string.Empty;
             }
             else
             {

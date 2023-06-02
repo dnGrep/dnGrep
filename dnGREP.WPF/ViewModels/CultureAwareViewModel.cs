@@ -1,9 +1,10 @@
 ﻿using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Localization;
 
 namespace dnGREP.WPF
 {
-    public class CultureAwareViewModel : ViewModelBase
+    public partial class CultureAwareViewModel : ObservableObject
     {
         public CultureAwareViewModel()
         {
@@ -17,20 +18,8 @@ namespace dnGREP.WPF
                     FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
-        private FlowDirection flowDirection = FlowDirection.LeftToRight;
-
-        public FlowDirection CultureFlowDirection
-        {
-            get { return flowDirection; }
-            set
-            {
-                if (flowDirection == value)
-                    return;
-
-                flowDirection = value;
-                OnPropertyChanged(nameof(CultureFlowDirection));
-            }
-        }
+        [ObservableProperty]
+        private FlowDirection cultureFlowDirection = FlowDirection.LeftToRight;
 
     }
 }

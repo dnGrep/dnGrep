@@ -12,6 +12,8 @@ using dnGREP.Common.UI;
 using dnGREP.DockFloat;
 using dnGREP.Localization;
 using dnGREP.WPF.Properties;
+using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace dnGREP.WPF
 {
@@ -46,7 +48,7 @@ namespace dnGREP.WPF
             Height = LayoutProperties.MainWindowBounds.Height;
             WindowState = WindowState.Normal;
 
-            Rect windowBounds = new Rect(
+            Rect windowBounds = new(
                 LayoutProperties.MainWindowBounds.X,
                 LayoutProperties.MainWindowBounds.Y,
                 LayoutProperties.MainWindowBounds.Width,
@@ -70,11 +72,14 @@ namespace dnGREP.WPF
 
                         // after window is sized and positioned, asynchronously reset the preview
                         // splitter position (which got moved during the layout)
-                        Dispatcher.BeginInvoke((Action)(() =>
+                        Dispatcher.BeginInvoke(() =>
                         {
-                            viewModel.PreviewDockedWidth = LayoutProperties.PreviewDockedWidth;
-                            viewModel.PreviewDockedHeight = LayoutProperties.PreviewDockedHeight;
-                        }), null);
+                            if (viewModel != null)
+                            {
+                                viewModel.PreviewDockedWidth = LayoutProperties.PreviewDockedWidth;
+                                viewModel.PreviewDockedHeight = LayoutProperties.PreviewDockedHeight;
+                            }
+                        }, null);
                     }
                     else
                     {
@@ -105,7 +110,7 @@ namespace dnGREP.WPF
 
         public MainViewModel ViewModel => viewModel;
 
-        private void OnCurrentCultureChanged(object s, EventArgs e)
+        private void OnCurrentCultureChanged(object? s, EventArgs e)
         {
             dpFrom.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
             dpTo.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
@@ -113,11 +118,6 @@ namespace dnGREP.WPF
             SetWatermark(dpFrom);
             SetWatermark(dpTo);
         }
-
-        [DllImport("user32.dll")]
-        static extern IntPtr SetParent(IntPtr hwnd, IntPtr hwndNewParent);
-
-        private const int HWND_MESSAGE = -3;
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -131,7 +131,7 @@ namespace dnGREP.WPF
                 if (PresentationSource.FromVisual(this) is HwndSource hwndSource)
                 {
                     // make this a message-only window
-                    SetParent(hwndSource.Handle, (IntPtr)HWND_MESSAGE);
+                    PInvoke.SetParent(new(hwndSource.Handle), HWND.HWND_MESSAGE);
                     Visibility = Visibility.Hidden;
                 }
             }
@@ -168,7 +168,7 @@ namespace dnGREP.WPF
             };
         }
 
-        private void SetWatermark(DatePicker dp)
+        private static void SetWatermark(DatePicker dp)
         {
             if (dp == null) return;
 
@@ -243,7 +243,7 @@ namespace dnGREP.WPF
             }), null);
         }
 
-        private void MainForm_Closing(object sender, CancelEventArgs e)
+        private void MainForm_Closing(object? sender, CancelEventArgs e)
         {
             viewModel.CancelSearch();
 
@@ -271,7 +271,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ViewModel_PreviewShow(object sender, EventArgs e)
+        private void ViewModel_PreviewShow(object? sender, EventArgs e)
         {
             foreach (Window wnd in DockSite.GetAllFloatWindows(this))
             {
@@ -283,7 +283,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ViewModel_PreviewHide(object sender, EventArgs e)
+        private void ViewModel_PreviewHide(object? sender, EventArgs e)
         {
             foreach (Window wind in DockSite.GetAllFloatWindows(this))
             {
@@ -291,7 +291,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsPreviewDocked")
             {
@@ -334,8 +334,8 @@ namespace dnGREP.WPF
 
         private static bool IsTextAllowed(string text)
         {
-            Regex regex = new Regex("\\d+"); //regex that matches allowed text
-            return regex.IsMatch(text);
+            //regex that matches allowed text
+            return AllowedTextRegex().IsMatch(text);
         }
 
         // Use the DataObject.Pasting Handler 
@@ -428,5 +428,8 @@ namespace dnGREP.WPF
                 e.Handled = true;
             }
         }
+
+        [GeneratedRegex("\\d+")]
+        private static partial Regex AllowedTextRegex();
     }
 }

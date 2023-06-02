@@ -34,7 +34,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		/// We can use up quite a few digits in front of the decimal point (due to visual positions being relative to document origin),
 		/// and there's no need to be too accurate (we're dealing with pixels here),
 		/// so we will use the value 0.01.
-		/// Previosly we used 1e-8 but that was causing issues:
+		/// Previously we used 1e-8 but that was causing issues:
 		/// http://community.sharpdevelop.net/forums/t/16048.aspx
 		/// </summary>
 		public const double Epsilon = 0.01;
@@ -66,7 +66,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Forces the value to stay between mininum and maximum.
+		/// Forces the value to stay between minimum and maximum.
 		/// </summary>
 		/// <returns>minimum, if value is less than minimum.
 		/// Maximum, if value is greater than maximum.
@@ -77,7 +77,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Forces the value to stay between mininum and maximum.
+		/// Forces the value to stay between minimum and maximum.
 		/// </summary>
 		/// <returns>minimum, if value is less than minimum.
 		/// Maximum, if value is greater than maximum.

@@ -1,0 +1,17 @@
+﻿DeleteObject
+DestroyIcon
+EnumDisplayMonitors
+GetDpiForMonitor
+GetWindowLong
+MonitorFromPoint
+MoveWindow
+MonitorFromWindow
+SendMessage
+SetWindowLong
+SHGetStockIconInfo
+SHGetFileInfo
+
+ICON_BIG
+ICON_SMALL
+WM_SETICON
+WINDOW_EX_STYLE

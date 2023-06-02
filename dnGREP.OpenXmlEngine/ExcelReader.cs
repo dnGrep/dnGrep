@@ -13,7 +13,7 @@ namespace dnGREP.Engines.OpenXml
     {
         public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream)
         {
-            List<KeyValuePair<string, string>> results = new List<KeyValuePair<string, string>>();
+            List<KeyValuePair<string, string>> results = new();
 
             // Auto-detect format, supports:
             //  - Binary Excel files (2.0-2003 format; *.xls)
@@ -22,7 +22,7 @@ namespace dnGREP.Engines.OpenXml
             {
                 do
                 {
-                    StringBuilder sb = new StringBuilder();
+                    StringBuilder sb = new();
                     while (reader.Read())
                     {
                         if (Utils.CancelSearch)
@@ -69,7 +69,7 @@ namespace dnGREP.Engines.OpenXml
             }
             else
             {
-                result = Convert.ToString(value, culture);
+                result = Convert.ToString(value, culture) ?? string.Empty;
             }
             return result.Replace('\r', ' ').Replace('\n', ' ');
         }

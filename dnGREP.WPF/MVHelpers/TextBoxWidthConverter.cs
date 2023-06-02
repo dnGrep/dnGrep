@@ -13,12 +13,11 @@ namespace dnGREP.WPF
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values.Length == 3 && values[0] is Control ctl &&
-                values[1] is string fontFamily && values[2] is double &&
+                values[1] is string fontFamily && values[2] is double fontSize &&
                 parameter is string width && double.TryParse(width, out double stdWidth))
             {
                 const string candiate = "Abcd 1234";
 
-                double fontSize = (double)values[2];
                 // when initializing, the size may be 0 (which throws an exception)
                 if (fontSize < 8) fontSize = 12;
 

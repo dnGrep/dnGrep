@@ -14,15 +14,15 @@ namespace dnGREP.WPF
     public class RelayCommand : ICommand
     {
         private readonly Action<object> execute;
-        private readonly Predicate<object> canExecute;
+        private readonly Predicate<object>? canExecute;
 
         /// <summary>
         /// Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         public RelayCommand(Action<object> execute)
-            : this(execute, null)
         {
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
         }
 
         /// <summary>
@@ -32,28 +32,25 @@ namespace dnGREP.WPF
         /// <param name="canExecute">The execution status logic.</param>
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            this.execute = execute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.canExecute = canExecute;
         }
 
         [DebuggerStepThrough]
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
-            return canExecute == null ? true : canExecute(parameter);
+            return canExecute == null || canExecute(parameter ?? new());
         }
 
-        public event EventHandler CanExecuteChanged
+        public event EventHandler? CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
-            execute(parameter);
+            execute(parameter ?? new());
         }
     }
 }

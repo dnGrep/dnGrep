@@ -1,18 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common
 {
     public class EolReader : IDisposable
     {
-        private TextReader baseReader;
-        private char[] charBuffer;
+        private readonly TextReader baseReader;
+        private readonly char[] charBuffer;
         private int charPos;
         private int charLen;
 
@@ -25,6 +20,7 @@ namespace dnGREP.Common
 
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
         }
 
         private int ReadBuffer()
@@ -52,7 +48,7 @@ namespace dnGREP.Common
             }
         }
 
-        public string ReadLine()
+        public string? ReadLine()
         {
             if (baseReader == null)
                 return null;
@@ -62,7 +58,7 @@ namespace dnGREP.Common
                 if (ReadBuffer() == 0) return null;
             }
 
-            StringBuilder sb = null;
+            StringBuilder? sb = null;
             do
             {
                 int i = charPos;
@@ -75,7 +71,7 @@ namespace dnGREP.Common
 
                     if (ch == '\r' || ch == '\n')
                     {
-                        String s;
+                        string s;
                         if (sb != null)
                         {
                             sb.Append(charBuffer, charPos, i - charPos);
@@ -83,7 +79,7 @@ namespace dnGREP.Common
                         }
                         else
                         {
-                            s = new String(charBuffer, charPos, i - charPos);
+                            s = new string(charBuffer, charPos, i - charPos);
                         }
 
                         charPos = i;
@@ -102,7 +98,7 @@ namespace dnGREP.Common
 
                 i = charLen - charPos;
 
-                if (sb == null) sb = new StringBuilder(i + 80);
+                sb ??= new StringBuilder(i + 80);
                 sb.Append(charBuffer, charPos, i);
 
             } while (ReadBuffer() > 0);

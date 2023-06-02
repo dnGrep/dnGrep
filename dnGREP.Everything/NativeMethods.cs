@@ -4,13 +4,9 @@ using System.Text;
 
 namespace dnGREP.Everything
 {
-    [ComVisible(false)]
-    internal sealed class NativeMethods
+    internal static class NativeMethods
     {
-        private NativeMethods()
-        {
-            // cannot construct...
-        }
+#pragma warning disable SYSLIB1054
 
 #if x86
         private const string EverythingDLL = "Everything32.dll";
@@ -41,20 +37,20 @@ namespace dnGREP.Everything
         {
             uint code = Everything_GetLastError();
 
-            switch (code)
+            return code switch
             {
-                case EVERYTHING_OK: return "The operation completed successfully.";
-                case EVERYTHING_ERROR_MEMORY: return "Failed to allocate memory for the search query.";
-                case EVERYTHING_ERROR_IPC: return "Everything search client is not available.";
-                case EVERYTHING_ERROR_REGISTERCLASSEX: return "Failed to register the search query window class.";
-                case EVERYTHING_ERROR_CREATEWINDOW: return "Failed to create the search query window.";
-                case EVERYTHING_ERROR_CREATETHREAD: return "Failed to create the search query thread.";
-                case EVERYTHING_ERROR_INVALIDINDEX: return "Invalid index. The index must be greater or equal to 0 and less than the number of visible results.";
-                case EVERYTHING_ERROR_INVALIDCALL: return "Invalid call.";
-                case EVERYTHING_ERROR_INVALIDREQUEST: return "Invalid request data, request data first.";
-                case EVERYTHING_ERROR_INVALIDPARAMETER: return "Bad parameter.";
-            }
-            return "Unknown error code.";
+                EVERYTHING_OK => "The operation completed successfully.",
+                EVERYTHING_ERROR_MEMORY => "Failed to allocate memory for the search query.",
+                EVERYTHING_ERROR_IPC => "Everything search client is not available.",
+                EVERYTHING_ERROR_REGISTERCLASSEX => "Failed to register the search query window class.",
+                EVERYTHING_ERROR_CREATEWINDOW => "Failed to create the search query window.",
+                EVERYTHING_ERROR_CREATETHREAD => "Failed to create the search query thread.",
+                EVERYTHING_ERROR_INVALIDINDEX => "Invalid index. The index must be greater or equal to 0 and less than the number of visible results.",
+                EVERYTHING_ERROR_INVALIDCALL => "Invalid call.",
+                EVERYTHING_ERROR_INVALIDREQUEST => "Invalid request data, request data first.",
+                EVERYTHING_ERROR_INVALIDPARAMETER => "Bad parameter.",
+                _ => "Unknown error code.",
+            };
         }
 
         /// <summary>
@@ -161,7 +157,7 @@ namespace dnGREP.Everything
         /// <returns>The full path</returns>
         internal static string Everything_GetResultFullPathName(uint index, int maxCount)
         {
-            StringBuilder sb = new StringBuilder(maxCount);
+            StringBuilder sb = new(maxCount);
             Everything_GetResultFullPathNameW(index, sb, (uint)maxCount);
             return sb.ToString();
         }
@@ -420,5 +416,7 @@ namespace dnGREP.Everything
         private static extern bool Everything_DeleteRunHistory();
         [DllImport(EverythingDLL)]
         private static extern uint Everything_GetTargetMachine();
+
+#pragma warning restore SYSLIB1054
     }
 }

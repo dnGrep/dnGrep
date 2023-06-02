@@ -5,12 +5,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.Common.IO;
 using NLog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Word
 {
@@ -19,12 +15,11 @@ namespace dnGREP.Engines.Word
     /// </summary>
     public class GrepEngineWord : GrepEngineBase, IGrepPluginEngine, IDisposable
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-        private bool isAvailable = false;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private bool isLoaded = false;
-        private Type wordType;
-        private object wordApplication;
-        private object wordDocuments;
+        private Type? wordType;
+        private object? wordApplication;
+        private object? wordDocuments;
 
         private readonly object MISSING_VALUE = Missing.Value;
         private const int msoAutomationSecurityForceDisable = 3;
@@ -36,13 +31,10 @@ namespace dnGREP.Engines.Word
             try
             {
                 wordType = Type.GetTypeFromProgID("Word.Application");
-
-                if (wordType != null)
-                    isAvailable = true;
             }
             catch (Exception ex)
             {
-                isAvailable = false;
+                wordType = null;
                 logger.Error(ex, "Failed to initialize Word.");
             }
         }
@@ -54,12 +46,13 @@ namespace dnGREP.Engines.Word
         /// </history>
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
             Unload();
             if (wordType != null && wordApplication != null)
             {
                 // Close the application.
                 wordApplication.GetType().InvokeMember("Quit", BindingFlags.InvokeMethod, null,
-                    wordApplication, new object[] { });
+                    wordApplication, Array.Empty<object>());
             }
 
             if (wordApplication != null)
@@ -67,8 +60,6 @@ namespace dnGREP.Engines.Word
 
             wordApplication = null;
             wordType = null;
-
-            isAvailable = false;
         }
 
         /// <summary>
@@ -76,7 +67,7 @@ namespace dnGREP.Engines.Word
         /// </summary>
         ~GrepEngineWord()
         {
-            this.Dispose();
+            Dispose();
         }
 
         #endregion
@@ -119,8 +110,8 @@ namespace dnGREP.Engines.Word
             string filePath = Path.Combine(tempFolder, fileName);
 
             // use the directory name to also include folders within the archive
-            string directory = Path.GetDirectoryName(filePath);
-            if (!Directory.Exists(directory))
+            string? directory = Path.GetDirectoryName(filePath);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 
             using (var fileStream = File.Create(filePath))
@@ -134,35 +125,39 @@ namespace dnGREP.Engines.Word
 
         private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
         {
-            List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+            List<GrepSearchResult> searchResults = new();
 
             try
             {
                 // Open a given Word document as readonly
-                object wordDocument = OpenDocument(file, true);
+                object? wordDocument = OpenDocument(file, true);
                 if (wordDocument != null)
                 {
                     // create range and find objects
-                    object range = GetProperty(wordDocument, "Content");
-
-                    // create text
-                    object text = GetProperty(range, "Text");
-
-                    string docText = Utils.CleanLineBreaks(text.ToString());
-                    var lines = searchMethod(-1, 0, docText, searchPattern, searchOptions, true);
-                    if (lines.Count > 0)
+                    object? range = GetProperty(wordDocument, "Content");
+                    if (range != null)
                     {
-                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
-                        using (StringReader reader = new StringReader(docText))
+                        // create text
+                        object? text = GetProperty(range, "Text");
+                        if (text != null)
                         {
-                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
+                            string docText = Utils.CleanLineBreaks(text.ToString() ?? string.Empty);
+                            var lines = searchMethod(-1, 0, docText, searchPattern, searchOptions, true);
+                            if (lines.Count > 0)
+                            {
+                                GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
+                                using (StringReader reader = new(docText))
+                                {
+                                    result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
+                                }
+                                result.IsReadOnlyFileType = true;
+                                if (PreviewPlainText)
+                                {
+                                    result.FileInfo.TempFile = WriteTempFile(docText, file);
+                                }
+                                searchResults.Add(result);
+                            }
                         }
-                        result.IsReadOnlyFileType = true;
-                        if (PreviewPlainText)
-                        {
-                            result.FileInfo.TempFile = WriteTempFile(docText, file);
-                        }
-                        searchResults.Add(result);
                     }
                     CloseDocument(wordDocument);
                 }
@@ -174,7 +169,7 @@ namespace dnGREP.Engines.Word
             return searchResults;
         }
 
-        private string WriteTempFile(string text, string filePath)
+        private static string WriteTempFile(string text, string filePath)
         {
             string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-WORD");
             if (!Directory.Exists(tempFolder))
@@ -194,10 +189,7 @@ namespace dnGREP.Engines.Word
             throw new Exception("The method or operation is not implemented.");
         }
 
-        public Version FrameworkVersion
-        {
-            get { return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version; }
-        }
+        public Version? FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine))?.GetName()?.Version;
 
         public override void OpenFile(OpenFileArgs args)
         {
@@ -211,30 +203,32 @@ namespace dnGREP.Engines.Word
         /// </summary>
         private void Load()
         {
-            bool visible = false;
             try
             {
-                if (isAvailable && !isLoaded)
+                if (wordType != null && !isLoaded)
                 {
                     // load word
                     wordApplication = Activator.CreateInstance(wordType);
-
-                    // set visible state
-                    wordApplication.GetType().InvokeMember("Visible", BindingFlags.SetProperty, null,
-                        wordApplication, new object[1] { visible });
-
-                    // set automation security
-                    wordApplication.GetType().InvokeMember("AutomationSecurity", BindingFlags.SetProperty, null,
-                        wordApplication, new object[1] { msoAutomationSecurityForceDisable });
-
-                    // get Documents Property
-                    wordDocuments = wordApplication.GetType().InvokeMember("Documents", BindingFlags.GetProperty,
-                        null, wordApplication, null);
-
-                    // if all is good, then say we are usable
-                    if (wordDocuments != null)
+                    if (wordApplication != null)
                     {
-                        isLoaded = true;
+                        bool visible = false;
+                        // set visible state
+                        wordApplication.GetType().InvokeMember("Visible", BindingFlags.SetProperty, null,
+                            wordApplication, new object[1] { visible });
+
+                        // set automation security
+                        wordApplication.GetType().InvokeMember("AutomationSecurity", BindingFlags.SetProperty, null,
+                            wordApplication, new object[1] { msoAutomationSecurityForceDisable });
+
+                        // get Documents Property
+                        wordDocuments = wordApplication.GetType().InvokeMember("Documents", BindingFlags.GetProperty,
+                            null, wordApplication, null);
+
+                        // if all is good, then say we are usable
+                        if (wordDocuments != null)
+                        {
+                            isLoaded = true;
+                        }
                     }
                 }
             }
@@ -287,12 +281,12 @@ namespace dnGREP.Engines.Word
         /// <param name="path">Full path to file.</param>
         /// <param name="readOnly">True for readonly, False for full access.</param>
         /// <returns>Word's Document object if success, null otherwise</returns>
-        private object OpenDocument(string path, bool readOnly)
+        private object? OpenDocument(string path, bool readOnly)
         {
-            if (isAvailable && wordDocuments != null && wordDocuments != null)
+            if (wordType != null && wordDocuments != null && wordDocuments != null)
             {
                 if (path.Length > 255)  // 255 for Word!
-                    path = Path.GetShort83Path(path);
+                    path = PathEx.GetShort83Path(path);
 
                 bool addToRecentFiles = false;
                 return wordDocuments.GetType().InvokeMember("Open", BindingFlags.InvokeMethod,
@@ -306,10 +300,9 @@ namespace dnGREP.Engines.Word
         /// Closes the given Word Document object.
         /// </summary>
         /// <param name="doc">Word Document object</param>
-        private void CloseDocument(object doc)
+        private static void CloseDocument(object doc)
         {
-            if (isAvailable && doc != null)
-                doc.GetType().InvokeMember("Close", BindingFlags.InvokeMethod, null, doc, 
+            doc?.GetType().InvokeMember("Close", BindingFlags.InvokeMethod, null, doc,
                     new object[] { wdDoNotSaveChanges });
 
         }
@@ -320,12 +313,10 @@ namespace dnGREP.Engines.Word
         /// <param name="obj">Object to get property from</param>
         /// <param name="prop">name of property to retrieve</param>
         /// <returns>Property object</returns>
-        private object GetProperty(object obj, string prop)
+        private static object? GetProperty(object obj, string prop)
         {
-            if (isAvailable && obj != null)
-                return obj.GetType().InvokeMember(prop, BindingFlags.GetProperty, null, obj, new object[] { });
-
-            return null;
+            return obj?.GetType().InvokeMember(prop,
+                BindingFlags.GetProperty, null, obj, Array.Empty<object>());
         }
 
         #endregion

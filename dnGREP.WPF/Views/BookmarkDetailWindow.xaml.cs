@@ -25,9 +25,9 @@ namespace dnGREP.WPF
 
         private void TextBoxFocus(object sender, RoutedEventArgs e)
         {
-            if (e.Source is TextBox box)
+            if (e.Source is TextBox tb)
             {
-                box.SelectAll();
+                tb.SelectAll();
             }
         }
 
@@ -38,8 +38,8 @@ namespace dnGREP.WPF
 
         private static bool IsTextAllowed(string text)
         {
-            Regex regex = new Regex("\\d+"); //regex that matches allowed text
-            return regex.IsMatch(text);
+            //regex that matches allowed text
+            return AllowedTextRegex().IsMatch(text);
         }
 
         private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
@@ -63,5 +63,8 @@ namespace dnGREP.WPF
             DialogResult = true;
             Close();
         }
+
+        [GeneratedRegex("\\d+")]
+        private static partial Regex AllowedTextRegex();
     }
 }

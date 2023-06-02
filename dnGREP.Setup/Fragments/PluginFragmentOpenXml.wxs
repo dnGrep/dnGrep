@@ -1,23 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <?include ..\Variables.wxi ?>
   <Fragment>
     <DirectoryRef Id="PluginsDir">
-      <Component Id="cmp484660E77C144763BBC59A501213CB40" Guid="{45AC7481-7EE9-4D57-A295-7E4AC51A56ED}">
-        <File Id="fil6B69DE9D847F42BA85733DF9CF03E4AF" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)dnGREP.Engines.OpenXml.plugin" />
-      </Component>
       <Directory Id="dir7ED8208E863C490EB9EA7F3426B59717" Name="OpenXmlSearch">
+        <Component Id="cmp484660E77C144763BBC59A501213CB40" Guid="{45AC7481-7EE9-4D57-A295-7E4AC51A56ED}">
+          <File Id="fil6B69DE9D847F42BA85733DF9CF03E4AF" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\dnGREP.Engines.OpenXml.plugin" />
+        </Component>
         <Component Id="cmp9AE5CE4DD02847B5B250275883270610" Guid="{6574115C-F2CF-432E-8B05-F8787C6786BA}">
-          <File Id="fil102263DE240F4C70B1F48CC136EB03B5" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)dnGREP.Engines.OpenXml.dll" />
+          <File Id="fil102263DE240F4C70B1F48CC136EB03B5" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\dnGREP.Engines.OpenXml.dll" />
+        </Component>
+        <Component Id="cmpDF455B1E3377429FAE5377F40EF22D5A" Guid="{674B1DA0-49CB-4C7B-A497-7596D37A577A}">
+          <File Id="fil95BFB1828F784AAFB86986C57B14256F" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\dnGREP.Engines.OpenXml.pdb" />
         </Component>
         <Component Id="cmp65CA3425451848238FB8FF1E6D13CDA9" Guid="{C5371275-C7D3-4DEF-AE79-8E4899E0F364}">
-          <File Id="filCA288BE1E6F14D62A1934307C0323E65" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)DocumentFormat.OpenXml.dll" />
+          <File Id="filCA288BE1E6F14D62A1934307C0323E65" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\DocumentFormat.OpenXml.dll" />
         </Component>
         <Component Id="cmpCD493559D3B041348B088DB173CD2DCD" Guid="{F9CA3DA1-F7B3-49F6-AB10-B4C918AFDCC5}">
-          <File Id="fil7F1A083B4FD94BD28C3D9A221A252C9A" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)ExcelDataReader.dll" />
+          <File Id="fil7F1A083B4FD94BD28C3D9A221A252C9A" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\ExcelDataReader.dll" />
         </Component>
         <Component Id="cmpA45314E8043447409B314877181AFFC2" Guid="{B0AE5F70-C2D7-4AE9-A818-F4FCF2976893}">
-          <File Id="filFAEC854B95AE471588ACDB42F946AEA8" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)ExcelNumberFormat.dll" />
+          <File Id="filFAEC854B95AE471588ACDB42F946AEA8" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\ExcelNumberFormat.dll" />
         </Component>
       </Directory>
     </DirectoryRef>
@@ -26,6 +30,7 @@
     <ComponentGroup Id="dnGREPPluginFilesOpenXml">
       <ComponentRef Id="cmp484660E77C144763BBC59A501213CB40" />
       <ComponentRef Id="cmp9AE5CE4DD02847B5B250275883270610" />
+      <ComponentRef Id="cmpDF455B1E3377429FAE5377F40EF22D5A" />
       <ComponentRef Id="cmp65CA3425451848238FB8FF1E6D13CDA9" />
       <ComponentRef Id="cmpCD493559D3B041348B088DB173CD2DCD" />
       <ComponentRef Id="cmpA45314E8043447409B314877181AFFC2" />

@@ -9,8 +9,7 @@ namespace dnGREP.WPF
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var ParameterString = parameter as string;
-            if (ParameterString == null)
+            if (parameter is not string ParameterString)
                 return DependencyProperty.UnsetValue;
 
             if (Enum.IsDefined(value.GetType(), value) == false)
@@ -25,8 +24,7 @@ namespace dnGREP.WPF
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var ParameterString = parameter as string;
-            if (ParameterString == null || value.Equals(false))
+            if (parameter is not string ParameterString || value.Equals(false))
                 return DependencyProperty.UnsetValue;
 
             return Enum.Parse(targetType, ParameterString);

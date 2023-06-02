@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
     public enum ReportOutputType { Text, CSV }
 
-    public class ReportOptionsViewModel : CultureAwareViewModel
+    public partial class ReportOptionsViewModel : CultureAwareViewModel
     {
-        public event EventHandler RequestClose;
+        public event EventHandler? RequestClose;
 
         private readonly List<GrepSearchResult> searchResults;
         private readonly SearchType typeOfSearch;
 
-        public ReportOptionsViewModel(ObservableGrepSearchResults searchResults)
+        public ReportOptionsViewModel(GrepSearchResultsViewModel searchResults)
         {
             this.searchResults = searchResults.GetList();
             typeOfSearch = searchResults.TypeOfSearch;
@@ -39,8 +41,8 @@ namespace dnGREP.WPF
                 ReportModeEditable = true;
             }
 
-            FilterUniqueValuesEditable = reportMode != ReportMode.FullLine;
-            OutputOnSeparateLinesEditable = reportMode != ReportMode.FullLine;
+            FilterUniqueValuesEditable = ReportMode != ReportMode.FullLine;
+            OutputOnSeparateLinesEditable = ReportMode != ReportMode.FullLine;
             UniqueScopeEditable = FilterUniqueValues;
         }
 
@@ -70,7 +72,7 @@ namespace dnGREP.WPF
             GrepSettings.Instance.Set(GrepSettings.Key.OutputOnSeparateLines, OutputOnSeparateLines);
             GrepSettings.Instance.Set(GrepSettings.Key.ListItemSeparator, ListItemSeparator);
 
-            RequestClose(this, EventArgs.Empty);
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -95,308 +97,78 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ReportOptionsViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ReportOptionsViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
-            {
-                case nameof(ReportMode):
-
-                    if (ReportMode == ReportMode.FullLine)
-                    {
-                        FilterUniqueValues = false;
-                        OutputOnSeparateLines = false;
-                    }
-                    FilterUniqueValuesEditable = reportMode != ReportMode.FullLine;
-                    OutputOnSeparateLinesEditable = reportMode != ReportMode.FullLine;
-
-                    break;
-
-                case nameof(FilterUniqueValues):
-
-                    UniqueScopeEditable = FilterUniqueValues;
-                    break;
-            }
-
             if (e.PropertyName != nameof(SampleText))
             {
                 FormatSampleText();
             }
         }
 
-        private string applicationFontFamily;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
+        [ObservableProperty]
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
 
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
-
+        [ObservableProperty]
         private double dialogFontSize;
-        public double DialogFontSize
-        {
-            get { return dialogFontSize; }
-            set
-            {
-                if (dialogFontSize == value)
-                    return;
 
-                dialogFontSize = value;
-                base.OnPropertyChanged(nameof(DialogFontSize));
-            }
-        }
+        [ObservableProperty]
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
 
-        private string resultsFontFamily;
-        public string ResultsFontFamily
-        {
-            get { return resultsFontFamily; }
-            set
-            {
-                if (resultsFontFamily == value)
-                    return;
+        [ObservableProperty]
+        private double resultsFontSize;
 
-                resultsFontFamily = value;
-                base.OnPropertyChanged(nameof(ResultsFontFamily));
-            }
-        }
-
-        private double resultsfontSize;
-        public double ResultsFontSize
-        {
-            get { return resultsfontSize; }
-            set
-            {
-                if (resultsfontSize == value)
-                    return;
-
-                resultsfontSize = value;
-                base.OnPropertyChanged(nameof(ResultsFontSize));
-            }
-        }
-
-
+        [ObservableProperty]
         private ReportMode reportMode = ReportMode.FullLine;
-        public ReportMode ReportMode
+        partial void OnReportModeChanged(ReportMode value)
         {
-            get { return reportMode; }
-            set
+            if (value == ReportMode.FullLine)
             {
-                if (reportMode == value)
-                {
-                    return;
-                }
-
-                reportMode = value;
-                OnPropertyChanged(nameof(ReportMode));
+                FilterUniqueValues = false;
+                OutputOnSeparateLines = false;
             }
+            FilterUniqueValuesEditable = value != ReportMode.FullLine;
+            OutputOnSeparateLinesEditable = value != ReportMode.FullLine;
         }
 
-
+        [ObservableProperty]
         private bool reportModeEditable;
-        public bool ReportModeEditable
-        {
-            get { return reportModeEditable; }
-            set
-            {
-                if (reportModeEditable == value)
-                {
-                    return;
-                }
 
-                reportModeEditable = value;
-                OnPropertyChanged(nameof(ReportModeEditable));
-            }
-        }
-
-
+        [ObservableProperty]
         private bool includeFileInformation = true;
-        public bool IncludeFileInformation
-        {
-            get { return includeFileInformation; }
-            set
-            {
-                if (includeFileInformation == value)
-                {
-                    return;
-                }
 
-                includeFileInformation = value;
-                OnPropertyChanged(nameof(IncludeFileInformation));
-            }
-        }
-
-
+        [ObservableProperty]
         private bool trimWhitespace = false;
-        public bool TrimWhitespace
-        {
-            get { return trimWhitespace; }
-            set
-            {
-                if (trimWhitespace == value)
-                {
-                    return;
-                }
 
-                trimWhitespace = value;
-                OnPropertyChanged(nameof(TrimWhitespace));
-            }
-        }
-
-
+        [ObservableProperty]
         private bool filterUniqueValues = false;
-        public bool FilterUniqueValues
+        partial void OnFilterUniqueValuesChanged(bool value)
         {
-            get { return filterUniqueValues; }
-            set
-            {
-                if (filterUniqueValues == value)
-                {
-                    return;
-                }
-
-                filterUniqueValues = value;
-                OnPropertyChanged(nameof(FilterUniqueValues));
-            }
+            UniqueScopeEditable = value;
         }
 
-
+        [ObservableProperty]
         private bool filterUniqueValuesEditable = false;
-        public bool FilterUniqueValuesEditable
-        {
-            get { return filterUniqueValuesEditable; }
-            set
-            {
-                if (filterUniqueValuesEditable == value)
-                {
-                    return;
-                }
 
-                filterUniqueValuesEditable = value;
-                OnPropertyChanged(nameof(FilterUniqueValuesEditable));
-            }
-        }
-
-
+        [ObservableProperty]
         private UniqueScope uniqueScope;
-        public UniqueScope UniqueScope
-        {
-            get { return uniqueScope; }
-            set
-            {
-                if (uniqueScope == value)
-                {
-                    return;
-                }
 
-                uniqueScope = value;
-                OnPropertyChanged(nameof(UniqueScope));
-            }
-        }
-
-
+        [ObservableProperty]
         private bool uniqueScopeEditable;
-        public bool UniqueScopeEditable
-        {
-            get { return uniqueScopeEditable; }
-            set
-            {
-                if (uniqueScopeEditable == value)
-                {
-                    return;
-                }
 
-                uniqueScopeEditable = value;
-                OnPropertyChanged(nameof(UniqueScopeEditable));
-            }
-        }
-
+        [ObservableProperty]
         private bool outputOnSeparateLines = false;
-        public bool OutputOnSeparateLines
-        {
-            get { return outputOnSeparateLines; }
-            set
-            {
-                if (outputOnSeparateLines == value)
-                {
-                    return;
-                }
 
-                outputOnSeparateLines = value;
-                OnPropertyChanged(nameof(OutputOnSeparateLines));
-            }
-        }
-
+        [ObservableProperty]
         private bool outputOnSeparateLinesEditable = false;
-        public bool OutputOnSeparateLinesEditable
-        {
-            get { return outputOnSeparateLinesEditable; }
-            set
-            {
-                if (outputOnSeparateLinesEditable == value)
-                {
-                    return;
-                }
 
-                outputOnSeparateLinesEditable = value;
-                OnPropertyChanged(nameof(OutputOnSeparateLinesEditable));
-            }
-        }
-
-
+        [ObservableProperty]
         private string listItemSeparator = string.Empty;
-        public string ListItemSeparator
-        {
-            get { return listItemSeparator; }
-            set
-            {
-                if (listItemSeparator == value)
-                {
-                    return;
-                }
 
-                listItemSeparator = value;
-                OnPropertyChanged(nameof(ListItemSeparator));
-            }
-        }
-
-
+        [ObservableProperty]
         private ReportOutputType reportType = ReportOutputType.Text;
-        public ReportOutputType ReportType
-        {
-            get { return reportType; }
-            set
-            {
-                if (reportType == value)
-                {
-                    return;
-                }
 
-                reportType = value;
-                OnPropertyChanged(nameof(ReportType));
-            }
-        }
-
-
+        [ObservableProperty]
         private string sampleText = string.Empty;
-        public string SampleText
-        {
-            get { return sampleText; }
-            set
-            {
-                if (sampleText == value)
-                {
-                    return;
-                }
-
-                sampleText = value;
-                OnPropertyChanged(nameof(SampleText));
-            }
-        }
 
         private void FormatSampleText()
         {

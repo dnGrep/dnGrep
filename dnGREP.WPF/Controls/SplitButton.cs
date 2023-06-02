@@ -24,17 +24,17 @@ namespace dnGREP.WPF
         /// <summary>
         /// Stores a reference to the split element.
         /// </summary>
-        private UIElement _splitElement;
+        private UIElement? _splitElement;
 
         /// <summary>
         /// Stores a reference to the ContextMenu.
         /// </summary>
-        private ContextMenu _contextMenu;
+        private ContextMenu? _contextMenu;
 
         /// <summary>
         /// Stores a reference to the ancestor of the ContextMenu added as a logical child.
         /// </summary>
-        private DependencyObject _logicalChild;
+        private DependencyObject? _logicalChild;
 
         /// <summary>
         /// Stores the initial location of the ContextMenu.
@@ -118,15 +118,10 @@ namespace dnGREP.WPF
         /// </summary>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (null == e)
-            {
-                throw new ArgumentNullException("e");
-            }
-
             if ((Key.Down == e.Key) || (Key.Up == e.Key))
             {
                 // WPF requires this to happen via BeginInvoke
-                Dispatcher.BeginInvoke((Action)(() => OpenButtonMenu()));
+                Dispatcher.BeginInvoke(() => OpenButtonMenu());
             }
             else
             {
@@ -215,7 +210,7 @@ namespace dnGREP.WPF
         /// </summary>
         /// <param name="sender">Event source.</param>
         /// <param name="e">Event arguments.</param>
-        private void SplitButton_LayoutUpdated(object sender, EventArgs e)
+        private void SplitButton_LayoutUpdated(object? sender, EventArgs e)
         {
             UpdateContextMenuOffsets();
         }
@@ -225,16 +220,20 @@ namespace dnGREP.WPF
         /// </summary>
         private void UpdateContextMenuOffsets()
         {
-            // Calculate desired offset to put the ContextMenu below and left-aligned to the Button
-            Point currentOffset = new Point();
-            Point desiredOffset = _contextMenuInitialOffset;
-
-            _contextMenu.HorizontalOffset = desiredOffset.X - currentOffset.X;
-            _contextMenu.VerticalOffset = desiredOffset.Y - currentOffset.Y;
-            // Adjust for RTL
-            if (FlowDirection.RightToLeft == FlowDirection)
+            if (_contextMenu != null)
             {
-                _contextMenu.HorizontalOffset *= -1;
+
+                // Calculate desired offset to put the ContextMenu below and left-aligned to the Button
+                Point currentOffset = new();
+                Point desiredOffset = _contextMenuInitialOffset;
+
+                _contextMenu.HorizontalOffset = desiredOffset.X - currentOffset.X;
+                _contextMenu.VerticalOffset = desiredOffset.Y - currentOffset.Y;
+                // Adjust for RTL
+                if (FlowDirection.RightToLeft == FlowDirection)
+                {
+                    _contextMenu.HorizontalOffset *= -1;
+                }
             }
         }
 

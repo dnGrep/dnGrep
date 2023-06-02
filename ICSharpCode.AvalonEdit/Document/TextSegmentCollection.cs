@@ -151,7 +151,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		void UpdateOffsetsInternal(OffsetChangeMapEntry change)
 		{
 			// Special case pure insertions, because they don't always cause a text segment to increase in size when the replaced region
-			// is inside a segment (when offset is at start or end of a text semgent).
+			// is inside a segment (when offset is at start or end of a text segment).
 			if (change.RemovalLength == 0) {
 				InsertText(change.Offset, change.InsertionLength);
 			} else {

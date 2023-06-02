@@ -128,7 +128,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		ImmutableStack<HighlightingSpan> initialSpanStack = SpanStack.Empty;
 
 		/// <summary>
-		/// Gets/sets the the initial span stack of the document. Default value is <see cref="SpanStack.Empty" />.
+		/// Gets/sets the initial span stack of the document. Default value is <see cref="SpanStack.Empty" />.
 		/// </summary>
 		public ImmutableStack<HighlightingSpan> InitialSpanStack {
 			get { return initialSpanStack; }

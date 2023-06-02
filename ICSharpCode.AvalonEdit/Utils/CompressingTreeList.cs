@@ -128,7 +128,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		/// <summary>
 		/// Creates a new CompressingTreeList instance.
 		/// </summary>
-		/// <param name="equalityComparer">The equality comparer used for comparing consequtive values.
+		/// <param name="equalityComparer">The equality comparer used for comparing consecutive values.
 		/// A single node may be used to store the multiple values that are considered equal.</param>
 		public CompressingTreeList(IEqualityComparer<T> equalityComparer)
 		{
@@ -371,7 +371,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		}
 
 		/// <summary>
-		/// Gets the the first index so that all values from the result index to <paramref name="index"/>
+		/// Gets the first index so that all values from the result index to <paramref name="index"/>
 		/// are equal.
 		/// </summary>
 		public int GetStartOfRun(int index)

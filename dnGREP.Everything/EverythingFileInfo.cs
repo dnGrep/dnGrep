@@ -1,10 +1,5 @@
 ﻿using System;
 using System.IO;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Everything
 {
@@ -24,7 +19,7 @@ namespace dnGREP.Everything
 
         public string Name { get { return Path.GetFileName(FullName); } }
 
-        public string DirectoryName { get { return Path.GetDirectoryName(FullName); } }
+        public string? DirectoryName { get { return Path.GetDirectoryName(FullName); } }
 
         public string Extension { get { return Path.GetExtension(FullName); } }
 

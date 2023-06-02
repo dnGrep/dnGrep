@@ -15,8 +15,6 @@ using dnGREP.Common;
 using dnGREP.Localization;
 using Microsoft.Win32;
 using NLog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
@@ -28,15 +26,15 @@ namespace dnGREP.WPF
 
     public class AppTheme
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private const string RegistryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         private const string RegistryValueName = "AppsUseLightTheme";
 
-        public static AppTheme Instance { get; } = new AppTheme();
+        public static AppTheme Instance { get; } = new();
 
-        public event EventHandler CurrentThemeChanging;
-        public event EventHandler CurrentThemeChanged;
+        public event EventHandler? CurrentThemeChanging;
+        public event EventHandler? CurrentThemeChanged;
 
         private AppTheme() { }
 
@@ -47,7 +45,7 @@ namespace dnGREP.WPF
         // current value may not equal the saved settings value
         public bool FollowWindowsTheme { get; private set; }
 
-        private readonly List<string> themeNames = new List<string> { "Light", "Dark" };
+        private readonly List<string> themeNames = new() { "Light", "Dark" };
         public IEnumerable<string> ThemeNames { get => themeNames; }
 
         internal void ReloadCurrentTheme()
@@ -79,8 +77,8 @@ namespace dnGREP.WPF
                 {
                     string dataFolder = Utils.GetDataFolderPath();
                     string fileName = CurrentThemeName + ".xaml";
-                    string path = Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories)
-                        .Where(p => Path.GetFileName(p).Equals(fileName))
+                    string? path = Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories)
+                        .Where(p => Path.GetFileName(p).Equals(fileName, StringComparison.Ordinal))
                         .FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
                     {
@@ -111,7 +109,8 @@ namespace dnGREP.WPF
             {
                 // Copy Sunset.xaml from Program Files\Themes to AppData\dnGrep
                 // If the file exists and is different, back up the old file first, then copy
-                string src = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Themes", "Sunset.xaml");
+                string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ".";
+                string src = Path.Combine(dir, "Themes", "Sunset.xaml");
                 string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", "Sunset.xaml");
                 if (File.Exists(dest) && FileChanged(src, dest))
                 {
@@ -151,8 +150,8 @@ namespace dnGREP.WPF
             HasWindowsThemes = false;
             if (Environment.OSVersion.Version.Major >= 10)
             {
-                string releaseId = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ReleaseId", "").ToString();
-                if (int.TryParse(releaseId, out int id) && id >= 1803)
+                string? releaseId = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ReleaseId", "")?.ToString();
+                if (!string.IsNullOrEmpty(releaseId) && int.TryParse(releaseId, out int id) && id >= 1803)
                 {
                     HasWindowsThemes = true;
                 }
@@ -166,14 +165,15 @@ namespace dnGREP.WPF
 
             FollowWindowsTheme = HasWindowsThemes && GrepSettings.Instance.Get<bool>(GrepSettings.Key.FollowWindowsTheme);
 
-            string appTheme = "Light";
+            string appTheme;
             if (HasWindowsThemes && FollowWindowsTheme)
             {
                 appTheme = WindowsTheme == WindowsTheme.Dark ? "Dark" : "Light";
             }
             else
             {
-                appTheme = GrepSettings.Instance.Get<string>(GrepSettings.Key.CurrentTheme);
+                var setting = GrepSettings.Instance.Get<string>(GrepSettings.Key.CurrentTheme);
+                appTheme = setting ?? "Light";
             }
 
             CurrentThemeName = appTheme;
@@ -181,20 +181,16 @@ namespace dnGREP.WPF
             ThemedHighlightingManager.Instance.Initialize();
         }
 
-        private bool FileChanged(string filePath1, string filePath2)
+        private static bool FileChanged(string filePath1, string filePath2)
         {
             return GetSHA(filePath1) != GetSHA(filePath2);
         }
 
-        private string GetSHA(string filename)
+        private static string GetSHA(string filename)
         {
-            using (var stream = File.OpenRead(filename))
-            {
-                using (var sha = SHA256.Create())
-                {
-                    return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
-                }
-            }
+            using var stream = File.OpenRead(filename);
+            using var sha = SHA256.Create();
+            return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "", StringComparison.Ordinal).ToLowerInvariant();
         }
 
         public void WatchTheme()
@@ -203,27 +199,30 @@ namespace dnGREP.WPF
                 return;
 
             var currentUser = WindowsIdentity.GetCurrent();
-            string query = string.Format(
-                CultureInfo.InvariantCulture,
-                @"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{0}\\{1}' AND ValueName = '{2}'",
-                currentUser.User.Value,
-                RegistryKeyPath.Replace(@"\", @"\\"),
-                RegistryValueName);
-
-            try
+            if (currentUser != null && currentUser.User != null)
             {
-                var watcher = new ManagementEventWatcher(query);
-                watcher.EventArrived += (sender, args) =>
+                string query = string.Format(
+                    CultureInfo.InvariantCulture,
+                    @"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{0}\\{1}' AND ValueName = '{2}'",
+                    currentUser.User.Value,
+                    RegistryKeyPath.Replace(@"\", @"\\", StringComparison.Ordinal),
+                    RegistryValueName);
+
+                try
                 {
-                    AppThemeChanged();
-                };
+                    var watcher = new ManagementEventWatcher(query);
+                    watcher.EventArrived += (sender, args) =>
+                    {
+                        AppThemeChanged();
+                    };
 
-                // Start listening for events
-                watcher.Start();
-            }
-            catch (Exception)
-            {
-                // This can fail on Windows 7
+                    // Start listening for events
+                    watcher.Start();
+                }
+                catch (Exception)
+                {
+                    // This can fail on Windows 7
+                }
             }
         }
 
@@ -232,18 +231,16 @@ namespace dnGREP.WPF
             if (!HasWindowsThemes)
                 return WindowsTheme.Light;
 
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath))
+            using RegistryKey? key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath);
+            object? registryValueObject = key?.GetValue(RegistryValueName);
+            if (registryValueObject == null)
             {
-                object registryValueObject = key?.GetValue(RegistryValueName);
-                if (registryValueObject == null)
-                {
-                    return WindowsTheme.Light;
-                }
-
-                int registryValue = (int)registryValueObject;
-
-                return registryValue > 0 ? WindowsTheme.Light : WindowsTheme.Dark;
+                return WindowsTheme.Light;
             }
+
+            int registryValue = (int)registryValueObject;
+
+            return registryValue > 0 ? WindowsTheme.Light : WindowsTheme.Dark;
         }
 
         private void AppThemeChanged()
@@ -263,14 +260,12 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    using (FileStream s = new FileStream(fileName, FileMode.Open))
+                    using FileStream s = new(fileName, FileMode.Open);
+                    string name = Path.GetFileNameWithoutExtension(fileName);
+                    object obj = XamlReader.Load(s);
+                    if (obj is ResourceDictionary dict && IsValid(dict, name) && !themeNames.Contains(name))
                     {
-                        string name = Path.GetFileNameWithoutExtension(fileName);
-                        object obj = XamlReader.Load(s);
-                        if (obj is ResourceDictionary dict && IsValid(dict, name) && !themeNames.Contains(name))
-                        {
-                            themeNames.Add(name);
-                        }
+                        themeNames.Add(name);
                     }
                 }
                 catch (Exception ex)
@@ -280,7 +275,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool IsValid(ResourceDictionary dict2, string name)
+        private static bool IsValid(ResourceDictionary dict2, string name)
         {
             bool valid = true;
             var dict1 = Application.Current.Resources.MergedDictionaries[0];
@@ -304,7 +299,7 @@ namespace dnGREP.WPF
 
                 if (value1 is Brush)
                 {
-                    if (!(value2 is Brush))
+                    if (value2 is not Brush)
                     {
                         valid = false;
                         logger.Error($"Theme '{name}', key '{key}' should be a Brush");
@@ -312,7 +307,7 @@ namespace dnGREP.WPF
                 }
                 else if (value1 is DropShadowEffect)
                 {
-                    if (!(value2 is DropShadowEffect))
+                    if (value2 is not DropShadowEffect)
                     {
                         valid = false;
                         logger.Error($"Theme '{name}', key '{key}' should be a DropShadowEffect");
@@ -320,7 +315,7 @@ namespace dnGREP.WPF
                 }
                 else if (value1 is bool)
                 {
-                    if (!(value2 is bool))
+                    if (value2 is not bool)
                     {
                         valid = false;
                         logger.Error($"Theme '{name}', key '{key}' should be a Boolean");
@@ -331,7 +326,7 @@ namespace dnGREP.WPF
             if (!valid)
             {
                 MessageBox.Show(TranslationSource.Format(Localization.Properties.Resources.MessageBox_CouldNotLoadTheme, name) + App.LogDir,
-                    Localization.Properties.Resources.MessageBox_DnGrep, 
+                    Localization.Properties.Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }

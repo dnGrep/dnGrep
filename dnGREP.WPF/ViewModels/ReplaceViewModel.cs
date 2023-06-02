@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;
@@ -17,11 +18,11 @@ namespace dnGREP.WPF
     /// <summary>
     /// View model for the replace dialog
     /// </summary>
-    public class ReplaceViewModel : CultureAwareViewModel
+    public partial class ReplaceViewModel : CultureAwareViewModel
     {
-        public event EventHandler LoadFile;
-        public event EventHandler ReplaceMatch;
-        public event EventHandler CloseTrue;
+        public event EventHandler? LoadFile;
+        public event EventHandler? ReplaceMatch;
+        public event EventHandler? CloseTrue;
 
         private int fileIndex = -1;
         private int matchIndex = -1;
@@ -106,7 +107,7 @@ namespace dnGREP.WPF
             {
                 string matchStr = string.Empty;
                 string lineStr = string.Empty;
-                int matchCount = item.Matches == null ? 0 : item.Matches.Count;
+                int matchCount = item.Matches.Count;
                 if (matchCount > 0)
                 {
                     var lineCount = item.Matches.Where(r => r.LineNumber > 0)
@@ -139,7 +140,7 @@ namespace dnGREP.WPF
             {
                 string matchStr = string.Empty;
                 string replaceStr = string.Empty;
-                int matchCount = item.Matches == null ? 0 : item.Matches.Count;
+                int matchCount = item.Matches.Count;
                 int replaceCount = 0;
                 if (matchCount > 0)
                 {
@@ -222,89 +223,171 @@ namespace dnGREP.WPF
             }
         }
 
-        private List<GrepSearchResult> _searchResults = null;
-        public List<GrepSearchResult> SearchResults
+        public IHighlightingDefinition? HighlightingDefinition =>
+            ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
+
+        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();
+
+        public Encoding? Encoding { get; private set; }
+
+        public IList<int> LineNumbers { get; } = new List<int>();
+
+        public string FilePath { get; private set; } = string.Empty;
+
+        public string FileText { get; private set; } = string.Empty;
+
+        [ObservableProperty]
+        private List<GrepSearchResult>? searchResults = null;
+        partial void OnSearchResultsChanged(List<GrepSearchResult>? value)
         {
-            get { return _searchResults; }
-            set
-            {
-                if (_searchResults == value)
-                    return;
-
-                _searchResults = value;
-
-                FileNumber = 0;
-                FileCount = _searchResults.Count;
-                fileIndex = -1;
-
-                base.OnPropertyChanged(nameof(SearchResults));
-            }
+            FileNumber = 0;
+            FileCount = SearchResults?.Count ?? 0;
+            fileIndex = -1;
         }
 
-        private GrepSearchResult _selectedSearchResult = null;
-        public GrepSearchResult SelectedSearchResult
+        [ObservableProperty]
+        private GrepSearchResult? selectedSearchResult = null;
+        partial void OnSelectedSearchResultChanged(GrepSearchResult? value)
         {
-            get { return _selectedSearchResult; }
-            set
+            IndividualReplaceEnabled = false;
+
+            if (IsFullDialog && SelectedSearchResult != null)
             {
-                if (_selectedSearchResult == value)
-                    return;
+                CurrentSyntax = Resources.Replace_SyntaxNone; // by default, turn off syntax highlighting (easier to see the match highlights)
+                Encoding = SelectedSearchResult.Encoding;
+                LineNumbers.Clear();
+                FileText = string.Empty;
+                FilePath = string.Empty;
+                IndividualReplaceEnabled = true;
 
-                _selectedSearchResult = value;
-                base.OnPropertyChanged(nameof(SelectedSearchResult));
-
-                IndividualReplaceEnabled = false;
-
-                if (IsFullDialog)
+                FileInfo fileInfo = new(SelectedSearchResult.FileNameReal);
+                if (Utils.IsBinary(SelectedSearchResult.FileNameReal))
                 {
-                    CurrentSyntax = Resources.Replace_SyntaxNone; // by default, turn off syntax highlighting (easier to see the match highlights)
-                    Encoding = _selectedSearchResult.Encoding;
-                    LineNumbers.Clear();
-                    FileText = string.Empty;
-                    FilePath = string.Empty;
-                    IndividualReplaceEnabled = true;
+                    FileText = Resources.Replace_ErrorThisIsABinaryFile;
+                    IndividualReplaceEnabled = false;
+                }
+                else if (SelectedSearchResult.Matches.Count > 5000)
+                {
+                    FileText = Resources.Replace_ThisFileContainsTooManyMatchesForIndividualReplace;
+                    IndividualReplaceEnabled = false;
+                }
+                else
+                {
+                    if (fileInfo.Length > 50000)
+                    {
+                        // Large files:  
+                        // Use the already parsed matches and context lines only
+                        // and map the original line numbers to clipped file
 
-                    FileInfo fileInfo = new FileInfo(_selectedSearchResult.FileNameReal);
-                    if (Utils.IsBinary(_selectedSearchResult.FileNameReal))
-                    {
-                        FileText = Resources.Replace_ErrorThisIsABinaryFile;
-                        IndividualReplaceEnabled = false;
-                    }
-                    else if (_selectedSearchResult.Matches.Count > 5000)
-                    {
-                        FileText = Resources.Replace_ThisFileContainsTooManyMatchesForIndividualReplace;
-                        IndividualReplaceEnabled = false;
+                        StringBuilder sb = new();
+                        int tempLineNum = 1;
+                        foreach (var line in SelectedSearchResult.SearchResults)
+                        {
+                            line.ClippedFileLineNumber = tempLineNum;
+                            sb.Append(line.LineText).Append(SelectedSearchResult.EOL);
+                            LineNumbers.Add(line.LineNumber);
+
+                            tempLineNum++;
+                        }
+                        FileText = sb.ToString();
                     }
                     else
                     {
-                        if (fileInfo.Length > 50000)
-                        {
-                            // Large files:  
-                            // Use the already parsed matches and context lines only
-                            // and map the original line numbers to clipped file
-
-                            StringBuilder sb = new StringBuilder();
-                            int tempLineNum = 1;
-                            foreach (var line in _selectedSearchResult.SearchResults)
-                            {
-                                line.ClippedFileLineNumber = tempLineNum;
-                                sb.Append(line.LineText).Append(_selectedSearchResult.EOL);
-                                LineNumbers.Add(line.LineNumber);
-
-                                tempLineNum++;
-                            }
-                            FileText = sb.ToString();
-                        }
-                        else
-                        {
-                            FilePath = _selectedSearchResult.FileNameReal;
-                        }
+                        FilePath = SelectedSearchResult.FileNameReal;
                     }
+                }
 
-                    LoadFile?.Invoke(this, EventArgs.Empty);
+                LoadFile?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        [ObservableProperty]
+        private GrepMatch? selectedGrepMatch = null;
+        partial void OnSelectedGrepMatchChanged(GrepMatch? value)
+        {
+            if (SelectedGrepMatch != null && SelectedSearchResult != null)
+            {
+                var lineMatch = SelectedSearchResult.SearchResults
+                    .FirstOrDefault(sr => sr.Matches.Any(m => m.FileMatchId == SelectedGrepMatch.FileMatchId));
+
+                if (lineMatch != null)
+                {
+                    LineNumber = lineMatch.ClippedFileLineNumber;
+
+                    ColNumber = lineMatch.Matches
+                        .Where(m => m.FileMatchId == SelectedGrepMatch.FileMatchId)
+                        .Select(m => m.StartLocation).FirstOrDefault();
                 }
             }
         }
+
+        [ObservableProperty]
+        private bool isFullDialog = true;
+        partial void OnIsFullDialogChanged(bool value)
+        {
+            DialogSize = IsFullDialog ? new Size(980, 800) : new Size(680, 340);
+        }
+
+        [ObservableProperty]
+        private Size dialogSize = new(980, 800);
+
+        [ObservableProperty]
+        private string searchFor = string.Empty;
+
+        [ObservableProperty]
+        private string replaceWith = string.Empty;
+
+        [ObservableProperty]
+        private string fileStatus = string.Empty;
+
+        [ObservableProperty]
+        private string fileReplaceStatus = string.Empty;
+
+        [ObservableProperty]
+        private int fileCount = 0;
+        partial void OnFileCountChanged(int value)
+        {
+            FormatFileStatus();
+        }
+
+        [ObservableProperty]
+        private int fileNumber = 0;
+        partial void OnFileNumberChanged(int value)
+        {
+            FormatFileStatus();
+        }
+
+        [ObservableProperty]
+        private string currentSyntax = string.Empty;
+        partial void OnCurrentSyntaxChanged(string value)
+        {
+            SelectCurrentSyntax(value);
+        }
+
+        [ObservableProperty]
+        private int lineNumber;
+
+        [ObservableProperty]
+        private int colNumber;
+
+        [ObservableProperty]
+        private bool individualReplaceEnabled;
+
+        [ObservableProperty]
+        private bool restoreLastModifiedDate = false;
+        partial void OnRestoreLastModifiedDateChanged(bool value)
+        {
+            GrepSettings.Instance.Set(GrepSettings.Key.RestoreLastModifiedDate, RestoreLastModifiedDate);
+        }
+
+        [ObservableProperty]
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+
+        [ObservableProperty]
+        private double replaceFormFontSize;
+
+        [ObservableProperty]
+        private string resultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
 
         private void SelectCurrentSyntax(string syntaxName)
         {
@@ -313,288 +396,13 @@ namespace dnGREP.WPF
             {
                 if (item.IsCheckable)
                 {
-                    item.IsChecked = item.Header.Equals(syntaxName);
+                    item.IsChecked = item.Header.Equals(syntaxName, StringComparison.Ordinal);
                 }
 
                 foreach (var child in item.Children)
                 {
-                    child.IsChecked = child.Header.Equals(syntaxName);
+                    child.IsChecked = child.Header.Equals(syntaxName, StringComparison.Ordinal);
                 }
-            }
-        }
-
-        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new ObservableCollection<MenuItemViewModel>();
-
-        public Encoding Encoding { get; private set; }
-
-        public IList<int> LineNumbers { get; } = new List<int>();
-
-        public string FilePath { get; private set; }
-
-        public string FileText { get; private set; }
-
-        private GrepMatch _selectedGrepMatch = null;
-        public GrepMatch SelectedGrepMatch
-        {
-            get { return _selectedGrepMatch; }
-            set
-            {
-                if (_selectedGrepMatch == value)
-                    return;
-
-                _selectedGrepMatch = value;
-
-                if (_selectedGrepMatch != null)
-                {
-                    var lineMatch = _selectedSearchResult.SearchResults
-                        .FirstOrDefault(sr => sr.Matches.Any(m => m.FileMatchId == _selectedGrepMatch.FileMatchId));
-
-                    if (lineMatch != null)
-                    {
-                        LineNumber = lineMatch.ClippedFileLineNumber;
-
-                        ColNumber = lineMatch.Matches
-                            .Where(m => m.FileMatchId == _selectedGrepMatch.FileMatchId)
-                            .Select(m => m.StartLocation).FirstOrDefault();
-                    }
-                }
-
-                base.OnPropertyChanged(nameof(SelectedGrepMatch));
-            }
-        }
-
-        private bool isFullDialog = true;
-        public bool IsFullDialog
-        {
-            get { return isFullDialog; }
-            set
-            {
-                if (isFullDialog == value)
-                    return;
-
-                isFullDialog = value;
-
-                base.OnPropertyChanged(nameof(IsFullDialog));
-
-                DialogSize = isFullDialog ? new Size(980, 800) : new Size(680, 340);
-            }
-        }
-
-        private Size dialogSize = new Size(980, 800);
-        public Size DialogSize
-        {
-            get { return dialogSize; }
-            set
-            {
-                if (dialogSize == value)
-                    return;
-
-                dialogSize = value;
-                base.OnPropertyChanged(nameof(DialogSize));
-            }
-        }
-
-        private string searchFor = string.Empty;
-        public string SearchFor
-        {
-            get { return searchFor; }
-            set
-            {
-                if (value == searchFor)
-                    return;
-
-                searchFor = value;
-                base.OnPropertyChanged(nameof(SearchFor));
-            }
-        }
-
-        private string replaceWith = string.Empty;
-        public string ReplaceWith
-        {
-            get { return replaceWith; }
-            set
-            {
-                if (value == replaceWith)
-                    return;
-
-                replaceWith = value;
-                base.OnPropertyChanged(nameof(ReplaceWith));
-            }
-        }
-
-        private string fileStatus;
-        public string FileStatus
-        {
-            get { return fileStatus; }
-            set
-            {
-                if (value == fileStatus)
-                    return;
-
-                fileStatus = value;
-                base.OnPropertyChanged(nameof(FileStatus));
-            }
-        }
-
-        private string fileReplaceStatus;
-        public string FileReplaceStatus
-        {
-            get { return fileReplaceStatus; }
-            set
-            {
-                if (value == fileReplaceStatus)
-                    return;
-
-                fileReplaceStatus = value;
-                base.OnPropertyChanged(nameof(FileReplaceStatus));
-            }
-        }
-
-        private int fileCount = 0;
-        public int FileCount
-        {
-            get { return fileCount; }
-            set
-            {
-                if (fileCount == value)
-                    return;
-
-                fileCount = value;
-                base.OnPropertyChanged(nameof(FileCount));
-                FormatFileStatus();
-            }
-        }
-
-        private int fileNumber = 0;
-        public int FileNumber
-        {
-            get { return fileNumber; }
-            set
-            {
-                if (fileNumber == value)
-                    return;
-
-                fileNumber = value;
-                base.OnPropertyChanged(nameof(FileNumber));
-                FormatFileStatus();
-            }
-        }
-
-        private string currentSyntax;
-        public string CurrentSyntax
-        {
-            get { return currentSyntax; }
-            set
-            {
-                if (value == currentSyntax)
-                    return;
-
-                currentSyntax = value;
-                SelectCurrentSyntax(currentSyntax);
-                base.OnPropertyChanged(nameof(CurrentSyntax));
-            }
-        }
-
-        private int lineNumber;
-        public int LineNumber
-        {
-            get { return lineNumber; }
-            set
-            {
-                if (value == lineNumber)
-                    return;
-
-                lineNumber = value;
-                base.OnPropertyChanged(nameof(LineNumber));
-            }
-        }
-
-        private int colNumber;
-        public int ColNumber
-        {
-            get { return colNumber; }
-            set
-            {
-                if (value == colNumber)
-                    return;
-
-                colNumber = value;
-                base.OnPropertyChanged(nameof(ColNumber));
-            }
-        }
-
-        private bool individualReplaceEnabled;
-        public bool IndividualReplaceEnabled
-        {
-            get { return individualReplaceEnabled; }
-            set
-            {
-                if (value == individualReplaceEnabled)
-                    return;
-
-                individualReplaceEnabled = value;
-                base.OnPropertyChanged(nameof(IndividualReplaceEnabled));
-            }
-        }
-
-        private bool restoreLastModifiedDate = false;
-        public bool RestoreLastModifiedDate
-        {
-            get { return restoreLastModifiedDate; }
-            set
-            {
-                if (restoreLastModifiedDate == value)
-                {
-                    return;
-                }
-
-                restoreLastModifiedDate = value;
-                GrepSettings.Instance.Set(GrepSettings.Key.RestoreLastModifiedDate, restoreLastModifiedDate);
-                OnPropertyChanged(nameof(RestoreLastModifiedDate));
-            }
-        }
-
-        public IHighlightingDefinition HighlightingDefinition => ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
-
-        private string applicationFontFamily;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
-
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
-
-        private double replaceFormfontSize;
-        public double ReplaceFormFontSize
-        {
-            get { return replaceFormfontSize; }
-            set
-            {
-                if (replaceFormfontSize == value)
-                    return;
-
-                replaceFormfontSize = value;
-                base.OnPropertyChanged(nameof(ReplaceFormFontSize));
-            }
-        }
-
-        private string resultsFontFamily;
-        public string ResultsFontFamily
-        {
-            get { return resultsFontFamily; }
-            set
-            {
-                if (resultsFontFamily == value)
-                    return;
-
-                resultsFontFamily = value;
-                base.OnPropertyChanged(nameof(ResultsFontFamily));
             }
         }
 

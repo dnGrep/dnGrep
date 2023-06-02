@@ -116,7 +116,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 
 				var threadMgr = ImeNativeWrapper.GetTextFrameworkThreadManager();
 				if (threadMgr != null) {
-					// Even though the docu says passing null is invalid, this seems to help
+					// Even though the docs says passing null is invalid, this seems to help
 					// activating the IME on the default input context that is shared with WPF
 					threadMgr.SetFocus(IntPtr.Zero);
 				}

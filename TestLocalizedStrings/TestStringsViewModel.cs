@@ -9,7 +9,7 @@ namespace dnGREP.TestLocalizedStrings
 {
     public class TestStringsViewModel : CultureAwareViewModel
     {
-        private readonly ObservableCollection<ResourceString> list = new ObservableCollection<ResourceString>();
+        private readonly ObservableCollection<ResourceString> list = new();
 
         private const string sFile = "%file";
         private const string Line = "%line";
@@ -17,8 +17,7 @@ namespace dnGREP.TestLocalizedStrings
         private const string Match = "%match";
         private const string Column = "%column";
 
-        private Dictionary<string, string> AppCultures =>
-            new Dictionary<string, string>
+        private static Dictionary<string, string> AppCultures => new()
             {
                 { "ar", "العربية" },
                 { "bg", "Български" },

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -8,6 +7,11 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.Graphics.Gdi;
+using Windows.Win32.UI.Shell;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace dnGREP.Common.UI
 {
@@ -174,7 +178,7 @@ namespace dnGREP.Common.UI
         {
             if (!string.IsNullOrEmpty(customs.OnceCheckboxText))
             {
-                onceCheckbox.Content = customs.OnceCheckboxText;
+                onceCheckbox.Content = customs. OnceCheckboxText;
             }
             if (!string.IsNullOrEmpty(customs.OKButtonText))
             {
@@ -247,7 +251,7 @@ namespace dnGREP.Common.UI
         {
             return Show(null, messageBoxText, caption, button, icon, defaultResult, MessageBoxOptions.None);
         }
-        public static CustomMessageBoxResult Show(Window owner, string messageBoxText, string caption,
+        public static CustomMessageBoxResult Show(Window? owner, string messageBoxText, string caption,
             MessageBoxButtonEx button, MessageBoxImage icon, MessageBoxResultEx defaultResult)
         {
             return Show(owner, messageBoxText, caption, button, icon, defaultResult, MessageBoxOptions.None);
@@ -260,7 +264,7 @@ namespace dnGREP.Common.UI
             return Show(null, messageBoxText, caption, button, icon, defaultResult, options);
         }
 
-        public static CustomMessageBoxResult Show(Window owner, string messageBoxText, string caption,
+        public static CustomMessageBoxResult Show(Window? owner, string messageBoxText, string caption,
             MessageBoxButtonEx button, MessageBoxImage icon, MessageBoxResultEx defaultResult,
             MessageBoxOptions options)
         {
@@ -274,7 +278,7 @@ namespace dnGREP.Common.UI
             return Show(null, messageBoxText, caption, button, icon, defaultResult, customs, options);
         }
 
-        public static CustomMessageBoxResult Show(Window owner, string messageBoxText, string caption,
+        public static CustomMessageBoxResult Show(Window? owner, string messageBoxText, string caption,
             MessageBoxButtonEx button, MessageBoxImage icon, MessageBoxResultEx defaultResult,
             MessageBoxCustoms customs, MessageBoxOptions options)
         {
@@ -344,43 +348,37 @@ namespace dnGREP.Common.UI
         {
             public static ImageSource GetIcon(MessageBoxImage image)
             {
-                SHSTOCKICONINFO sii = new SHSTOCKICONINFO
+                SHSTOCKICONINFO sii = new()
                 {
                     cbSize = (uint)Marshal.SizeOf(typeof(SHSTOCKICONINFO))
                 };
 
-                Marshal.ThrowExceptionForHR(SHGetStockIconInfo(ToSHSTOCKICONID(image),
-                        SHGSI.SHGSI_ICON,
+                Marshal.ThrowExceptionForHR(PInvoke.SHGetStockIconInfo(ToSHSTOCKICONID(image),
+                        SHGSI_FLAGS.SHGSI_ICON,
                         ref sii));
 
-                using (Icon icon = System.Drawing.Icon.FromHandle(sii.hIcon))
-                {
-                    return ToImageSource(icon);
-                }
+                using Icon icon = System.Drawing.Icon.FromHandle(sii.hIcon);
+
+                return ToImageSource(icon);
             }
 
             private static SHSTOCKICONID ToSHSTOCKICONID(MessageBoxImage image)
             {
-                switch (image)
+                return image switch
                 {
-                    default:
-                    case MessageBoxImage.Information:
-                        return SHSTOCKICONID.SIID_INFO;
-                    case MessageBoxImage.Error:
-                        return SHSTOCKICONID.SIID_ERROR;
-                    case MessageBoxImage.Warning:
-                        return SHSTOCKICONID.SIID_WARNING;
-                    case MessageBoxImage.Question:
-                        return SHSTOCKICONID.SIID_HELP;
-                }
+                    MessageBoxImage.Error => SHSTOCKICONID.SIID_ERROR,
+                    MessageBoxImage.Warning => SHSTOCKICONID.SIID_WARNING,
+                    MessageBoxImage.Question => SHSTOCKICONID.SIID_HELP,
+                    _ => SHSTOCKICONID.SIID_INFO,
+                };
             }
 
             private static ImageSource ToImageSource(Icon icon)
             {
-                IntPtr hBitmap = IntPtr.Zero;
+                HGDIOBJ hBitmap = new(IntPtr.Zero);
                 try
                 {
-                    hBitmap = icon.ToBitmap().GetHbitmap();
+                    hBitmap = new(icon.ToBitmap().GetHbitmap());
 
                     ImageSource wpfBitmap = Imaging.CreateBitmapSourceFromHBitmap(
                         hBitmap,
@@ -392,77 +390,24 @@ namespace dnGREP.Common.UI
                 }
                 finally
                 {
-                    if (hBitmap != IntPtr.Zero && !DeleteObject(hBitmap))
+                    if (hBitmap != IntPtr.Zero)
                     {
-                        throw new Win32Exception();
+                        PInvoke.DeleteObject(hBitmap);
                     }
                 }
             }
 
             public static void RemoveIcon(Window window)
             {
-                IntPtr hwnd = new WindowInteropHelper(window).Handle;
+                var hwnd = new HWND(new WindowInteropHelper(window).Handle);
 
                 // Change the extended window style to not show a window icon
-                int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-                SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_DLGMODALFRAME);
+                var extendedStyle = PInvoke.GetWindowLong(hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
+                _ = PInvoke.SetWindowLong(hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, extendedStyle | (int)WINDOW_EX_STYLE.WS_EX_DLGMODALFRAME);
 
-                SendMessage(hwnd, WM_SETICON, ICON_BIG, IntPtr.Zero);
-                SendMessage(hwnd, WM_SETICON, ICON_SMALL, IntPtr.Zero);
+                PInvoke.SendMessage(hwnd, PInvoke.WM_SETICON, PInvoke.ICON_BIG, IntPtr.Zero);
+                PInvoke.SendMessage(hwnd, PInvoke.WM_SETICON, PInvoke.ICON_SMALL, IntPtr.Zero);
             }
-
-            private const int GWL_EXSTYLE = -20;
-            private const int WS_EX_DLGMODALFRAME = 0x0001;
-            private const int WM_SETICON = 0x0080;
-            private const int ICON_BIG = 0x0;
-            private const int ICON_SMALL = 0x1;
-
-            private enum SHSTOCKICONID : uint
-            {
-                SIID_HELP = 23,
-                SIID_WARNING = 78,
-                SIID_INFO = 79,
-                SIID_ERROR = 80,
-            }
-
-            [Flags]
-            private enum SHGSI : uint
-            {
-                SHGSI_ICONLOCATION = 0,
-                SHGSI_ICON = 0x000000100,
-                SHGSI_SYSICONINDEX = 0x000004000,
-                SHGSI_LINKOVERLAY = 0x000008000,
-                SHGSI_SELECTED = 0x000010000,
-                SHGSI_LARGEICON = 0x000000000,
-                SHGSI_SMALLICON = 0x000000001,
-                SHGSI_SHELLICONSIZE = 0x000000004
-            }
-
-            [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-            private struct SHSTOCKICONINFO
-            {
-                public uint cbSize;
-                public IntPtr hIcon;
-                public int iSysIconIndex;
-                public int iIcon;
-                [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260/*MAX_PATH*/)]
-                public string szPath;
-            }
-
-            [DllImport("Shell32.dll", SetLastError = false)]
-            private static extern int SHGetStockIconInfo(SHSTOCKICONID siid, SHGSI uFlags, ref SHSTOCKICONINFO psii);
-
-            [DllImport("gdi32.dll", SetLastError = true)]
-            private static extern bool DeleteObject(IntPtr hObject);
-
-            [DllImport("user32.dll")]
-            private static extern int GetWindowLong(IntPtr hwnd, int index);
-
-            [DllImport("user32.dll")]
-            private static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
-
-            [DllImport("user32.dll")]
-            private static extern IntPtr SendMessage(IntPtr hwnd, uint msg, int wParam, IntPtr lParam);
         }
         #endregion
     }
@@ -516,8 +461,8 @@ namespace dnGREP.Common.UI
 
     public class MessageBoxCustoms
     {
-        public static MessageBoxCustoms None = new MessageBoxCustoms();
-        public static MessageBoxCustoms Once = new MessageBoxCustoms { ShowOnceCheckbox = true };
+        public static readonly MessageBoxCustoms None = new();
+        public static readonly MessageBoxCustoms Once = new() { ShowOnceCheckbox = true };
 
         /// <summary>
         /// Gets or sets a custom icon for the message box (see class for example)
@@ -529,15 +474,15 @@ namespace dnGREP.Common.UI
         /// bitmapImage.EndInit();
         /// var customs = new MessageBoxCustoms() { Icon = bitmapImage };
         /// </example>
-        public ImageSource Icon { get; set; }
+        public ImageSource? Icon { get; set; }
         public bool ShowOnceCheckbox { get; set; }
-        public string OnceCheckboxText { get; set; }
-        public string OKButtonText { get; set; }
-        public string CancelButtonText { get; set; }
-        public string NoButtonText { get; set; }
-        public string YesButtonText { get; set; }
-        public string NoToAllButtonText { get; set; }
-        public string YesToAllButtonText { get; set; }
+        public string OnceCheckboxText { get; set; } = string.Empty;
+        public string OKButtonText { get; set; } = string.Empty;
+        public string CancelButtonText { get; set; } = string.Empty;
+        public string NoButtonText { get; set; } = string.Empty;
+        public string YesButtonText { get; set; } = string.Empty;
+        public string NoToAllButtonText { get; set; } = string.Empty;
+        public string YesToAllButtonText { get; set; } = string.Empty;
     }
 
 

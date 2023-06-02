@@ -10,9 +10,9 @@ using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace dnGREP.Engines.OpenXml
 {
-    public class ListManager
+    public partial class ListManager
     {
-        protected static List<KeyValuePair<string, string>> bulletSubstitutions = new List<KeyValuePair<string, string>>
+        protected static List<KeyValuePair<string, string>> BulletSubstitutions { get; } = new List<KeyValuePair<string, string>>
         {
             new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf0b7), char.ConvertFromUtf32(0x2022)),
             new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf0a7), char.ConvertFromUtf32(0x221a)),
@@ -21,18 +21,20 @@ namespace dnGREP.Engines.OpenXml
             new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf0d8), char.ConvertFromUtf32(0x25ba)),
         };
 
-        protected Dictionary<int, ParagraphLevelCounter> listLevelMap = new Dictionary<int, ParagraphLevelCounter>();
-        protected Dictionary<int, LevelTuple[]> overrideTupleMap = new Dictionary<int, LevelTuple[]>();
+        protected Dictionary<int, ParagraphLevelCounter> listLevelMap = new();
+        protected Dictionary<int, LevelTuple[]> overrideTupleMap = new();
 
-        protected class ParagraphLevelCounter
+        protected partial class ParagraphLevelCounter
         {
+            [GeneratedRegex("%(\\d+)")]
+            private static partial Regex LevelRegex();
+
             //counts can == 0 if the format is decimal, make sure
             //that flag values are < 0
             private readonly int NOT_SEEN_YET = -1;
             private readonly int FIRST_SKIPPED = -2;
             private readonly LevelTuple[] levelTuples;
-            private readonly Regex LEVEL_INTERPOLATOR = new Regex(@"%(\d+)", RegexOptions.Compiled);
-            private readonly List<int> counts = new List<int>();
+            private readonly List<int> counts = new();
             private int lastLevel = -1;
 
             public ParagraphLevelCounter(LevelTuple[] levelTuples)
@@ -101,31 +103,31 @@ namespace dnGREP.Engines.OpenXml
                 {
                     return string.Empty;
                 }
-                bool isLegal = (overrideLevelTuples != null) ? overrideLevelTuples[level].IsLegal : levelTuples[level].IsLegal;
+                bool isLegal = overrideLevelTuples.Length > 0 ? overrideLevelTuples[level].IsLegal : levelTuples[level].IsLegal;
 
-                string lvlText = (overrideLevelTuples == null || overrideLevelTuples[level].LevelText == null) ?
+                string lvlText = overrideLevelTuples.Length > 0 || overrideLevelTuples[level].LevelText == null ?
                         levelTuples[level].LevelText : overrideLevelTuples[level].LevelText;
 
-                string indent = overrideLevelTuples == null ? levelTuples[level].Indent : overrideLevelTuples[level].Indent;
+                string indent = overrideLevelTuples.Length > 0 ? levelTuples[level].Indent : overrideLevelTuples[level].Indent;
 
                 //short circuit bullet
                 string numFmt = GetNumFormat(level, isLegal, overrideLevelTuples);
-                if ("Bullet".Equals(numFmt))
+                if ("Bullet".Equals(numFmt, StringComparison.Ordinal))
                 {
                     string bullet = lvlText;
-                    foreach (var kv in bulletSubstitutions)
-                        bullet = bullet.Replace(kv.Key, kv.Value);
+                    foreach (var kv in BulletSubstitutions)
+                        bullet = bullet.Replace(kv.Key, kv.Value, StringComparison.Ordinal);
                     return indent + bullet + " ";
                 }
 
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new();
 
-                Match m = LEVEL_INTERPOLATOR.Match(lvlText);
+                Match m = LevelRegex().Match(lvlText);
                 int last = 0;
                 if (m.Success && m.Groups.Count > 1)
                 {
                     var grp = m.Groups[1];
-                    sb.Append(lvlText.Substring(0, m.Index));
+                    sb.Append(lvlText.AsSpan(0, m.Index));
                     string lvlString = grp.Value;
                     int lvlNum = -1;
                     if (int.TryParse(lvlString, out int num))
@@ -137,11 +139,11 @@ namespace dnGREP.Engines.OpenXml
                     sb.Append(numString);
                     last = m.Index + m.Length;
                 }
-                sb.Append(lvlText.Substring(last));
+                sb.Append(lvlText.AsSpan(last));
                 if (sb.Length > 0)
                 {
                     sb.Insert(0, indent);
-                    sb.Append(" ");
+                    sb.Append(' ');
                 }
                 return sb.ToString();
             }
@@ -149,7 +151,7 @@ namespace dnGREP.Engines.OpenXml
             //actual level number; can return empty string if number formatter fails
             private string FormatNum(int lvlNum, bool isLegal, LevelTuple[] overrideLevelTuples)
             {
-                int numFmtStyle = 0;
+                NumberFmtStyle numFmtStyle = NumberFmtStyle.Arabic;
                 string numFmt = GetNumFormat(lvlNum, isLegal, overrideLevelTuples);
 
                 int count = GetCount(lvlNum);
@@ -157,35 +159,35 @@ namespace dnGREP.Engines.OpenXml
                 {
                     count = 1;
                 }
-                if ("LowerLetter".Equals(numFmt))
+                if ("LowerLetter".Equals(numFmt, StringComparison.Ordinal))
                 {
-                    numFmtStyle = 4;
+                    numFmtStyle = NumberFmtStyle.LowerLetter;
                 }
-                else if ("LowerRoman".Equals(numFmt))
+                else if ("LowerRoman".Equals(numFmt, StringComparison.Ordinal))
                 {
-                    numFmtStyle = 2;
+                    numFmtStyle = NumberFmtStyle.LowerRoman;
                 }
-                else if ("Decimal".Equals(numFmt))
+                else if ("Decimal".Equals(numFmt, StringComparison.Ordinal))
                 {
-                    numFmtStyle = 0;
+                    numFmtStyle = NumberFmtStyle.Arabic;
                 }
-                else if ("UpperLetter".Equals(numFmt))
+                else if ("UpperLetter".Equals(numFmt, StringComparison.Ordinal))
                 {
-                    numFmtStyle = 3;
+                    numFmtStyle = NumberFmtStyle.UpperLetter;
                 }
-                else if ("UpperRoman".Equals(numFmt))
+                else if ("UpperRoman".Equals(numFmt, StringComparison.Ordinal))
                 {
-                    numFmtStyle = 1;
+                    numFmtStyle = NumberFmtStyle.UpperRoman;
                 }
-                else if ("Ordinal".Equals(numFmt))
+                else if ("Ordinal".Equals(numFmt, StringComparison.Ordinal))
                 {
                     return Ordinalize(count);
                 }
-                else if ("DecimalZero".Equals(numFmt))
+                else if ("DecimalZero".Equals(numFmt, StringComparison.Ordinal))
                 {
-                    return "0" + NumberFormatter.GetNumber(count, 0);
+                    return "0" + NumberFormatter.GetNumber(count, NumberFmtStyle.Arabic);
                 }
-                else if ("None".Equals(numFmt))
+                else if ("None".Equals(numFmt, StringComparison.Ordinal))
                 {
                     return string.Empty;
                 }
@@ -200,19 +202,19 @@ namespace dnGREP.Engines.OpenXml
                 }
             }
 
-            private string Ordinalize(int count)
+            private static string Ordinalize(int count)
             {
                 //this is only good for locale == English
                 string countString = count.ToString();
-                if (countString.EndsWith("1"))
+                if (countString.EndsWith("1", StringComparison.Ordinal))
                 {
                     return countString + "st";
                 }
-                else if (countString.EndsWith("2"))
+                else if (countString.EndsWith("2", StringComparison.Ordinal))
                 {
                     return countString + "nd";
                 }
-                else if (countString.EndsWith("3"))
+                else if (countString.EndsWith("3", StringComparison.Ordinal))
                 {
                     return countString + "rd";
                 }
@@ -230,7 +232,7 @@ namespace dnGREP.Engines.OpenXml
                     //return decimal no matter the level if isLegal is true
                     return "Decimal";
                 }
-                return (overrideLevelTuples == null || overrideLevelTuples[lvlNum].NumFmt == null) ?
+                return overrideLevelTuples.Length > 0 || overrideLevelTuples[lvlNum].NumFmt == null ?
                         levelTuples[lvlNum].NumFmt : overrideLevelTuples[lvlNum].NumFmt;
             }
 
@@ -259,7 +261,7 @@ namespace dnGREP.Engines.OpenXml
                     else if (levelTuples.Length > levelNumber)
                     {
                         //never reset if restarts == 0
-                        int restart = (overrideLevelTuples == null || overrideLevelTuples[levelNumber].Restart < 0) ?
+                        int restart = overrideLevelTuples.Length > 0 || overrideLevelTuples[levelNumber].Restart < 0 ?
                                 levelTuples[levelNumber].Restart : overrideLevelTuples[levelNumber].Restart;
                         if (restart == 0)
                         {
@@ -290,7 +292,7 @@ namespace dnGREP.Engines.OpenXml
                 }
                 else
                 {
-                    return (overrideLevelTuples == null || overrideLevelTuples[levelNumber].Start < 0) ?
+                    return overrideLevelTuples.Length > 0 || overrideLevelTuples[levelNumber].Start < 0 ?
                             levelTuples[levelNumber].Start : overrideLevelTuples[levelNumber].Start;
                 }
             }
@@ -329,9 +331,9 @@ namespace dnGREP.Engines.OpenXml
 
     public class WordListManager : ListManager
     {
-        private Numbering numbering;
+        private readonly Numbering numbering;
 
-        public static WordListManager Empty = new WordListManager(null);
+        public static WordListManager Empty { get; } = new(new());
 
         public WordListManager(Numbering numbering)
         {
@@ -340,15 +342,15 @@ namespace dnGREP.Engines.OpenXml
 
         public string GetFormattedNumber(Paragraph paragraph)
         {
-            if (paragraph == null || paragraph.ParagraphProperties == null || paragraph.ParagraphProperties.NumberingProperties == null)
+            if (paragraph.ParagraphProperties?.NumberingProperties == null)
                 return string.Empty;
 
             int numId = -1;
-            if (paragraph.ParagraphProperties.NumberingProperties.NumberingId.Val.HasValue)
+            if (paragraph.ParagraphProperties?.NumberingProperties.NumberingId?.Val?.HasValue is true)
                 numId = paragraph.ParagraphProperties.NumberingProperties.NumberingId.Val.Value;
 
             int levelRef = -1;
-            if (paragraph.ParagraphProperties.NumberingProperties.NumberingLevelReference.Val.HasValue)
+            if (paragraph.ParagraphProperties?.NumberingProperties.NumberingLevelReference?.Val?.HasValue is true)
                 levelRef = paragraph.ParagraphProperties.NumberingProperties.NumberingLevelReference.Val.Value;
 
             return GetFormattedNumber(numId, levelRef);
@@ -362,9 +364,9 @@ namespace dnGREP.Engines.OpenXml
             }
 
             var instances = numbering.Where(r => r is NumberingInstance).Select(r => r as NumberingInstance).ToList();
-            var instance = instances.Where(r => r.NumberID.HasValue && r.NumberID.Value == numId).FirstOrDefault();
+            var instance = instances.Where(r => r?.NumberID?.HasValue is true && r.NumberID.Value == numId).FirstOrDefault();
 
-            if (instance == null)
+            if (instance == null || instance.AbstractNumId?.Val?.Value == null)
             {
                 return string.Empty;
             }
@@ -372,23 +374,20 @@ namespace dnGREP.Engines.OpenXml
             int currAbNumId = instance.AbstractNumId.Val.Value;
 
             var abstractNums = numbering.Where(r => r is AbstractNum).Select(r => r as AbstractNum);
-            var abNum = abstractNums.Where(r => r.AbstractNumberId.HasValue && r.AbstractNumberId.Value == instance.AbstractNumId.Val.Value)
+            var abNum = abstractNums.Where(r => r?.AbstractNumberId?.HasValue is true && r.AbstractNumberId.Value == instance.AbstractNumId.Val.Value)
                 .Select(r => r).FirstOrDefault();
-
-            ParagraphLevelCounter lc;
-            listLevelMap.TryGetValue(currAbNumId, out lc);
-
-            LevelTuple[] overrideTuples;
-            overrideTupleMap.TryGetValue(numId, out overrideTuples);
-
-            if (lc == null)
+            if (abNum == null)
             {
-                lc = LoadLevelTuples(abNum);
+                return string.Empty;
             }
 
-            if (overrideTuples == null)
+            if (!listLevelMap.TryGetValue(currAbNumId, out ParagraphLevelCounter? lc))
             {
-                overrideTuples = LoadOverrideTuples(abNum, lc.LevelCount);
+                lc ??= LoadLevelTuples(abNum);
+            }
+            if (!overrideTupleMap.TryGetValue(numId, out LevelTuple[]? overrideTuples))
+            {
+                overrideTuples ??= LoadOverrideTuples(abNum, lc.LevelCount);
             }
 
             string formattedString = lc.IncrementLevel(iLvl, overrideTuples);
@@ -399,13 +398,13 @@ namespace dnGREP.Engines.OpenXml
             return formattedString;
         }
 
-        private LevelTuple[] LoadOverrideTuples(AbstractNum abNum, int length)
+        private static LevelTuple[] LoadOverrideTuples(AbstractNum abNum, int length)
         {
             var levels = abNum.ChildElements.Where(c => c is Level).Select(c => c as Level).ToArray();
 
             if (levels.Length == 0)
             {
-                return null;
+                return Array.Empty<LevelTuple>();
             }
 
             LevelTuple[] levelTuples = new LevelTuple[length];
@@ -418,9 +417,10 @@ namespace dnGREP.Engines.OpenXml
                 }
                 else
                 {
-                    if (levels[i] != null)
+                    Level? level = levels[i];
+                    if (level != null)
                     {
-                        tuple = BuildTuple(i, levels[i]);
+                        tuple = BuildTuple(i, level);
                     }
                     else
                     {
@@ -432,7 +432,7 @@ namespace dnGREP.Engines.OpenXml
             return levelTuples;
         }
 
-        private ParagraphLevelCounter LoadLevelTuples(AbstractNum abNum)
+        private static ParagraphLevelCounter LoadLevelTuples(AbstractNum abNum)
         {
             //Unfortunately, we need to go this far into the underlying structure
             //to get the abstract num information for the edge case where
@@ -443,32 +443,36 @@ namespace dnGREP.Engines.OpenXml
             LevelTuple[] levels = new LevelTuple[lvlArray.Length];
             for (int i = 0; i < levels.Length; i++)
             {
-                levels[i] = BuildTuple(i, lvlArray[i]);
+                Level? level = lvlArray[i];
+                if (level != null)
+                {
+                    levels[i] = BuildTuple(i, level);
+                }
             }
             return new ParagraphLevelCounter(levels);
         }
 
-        private LevelTuple BuildTuple(int index, Level level)
+        private static LevelTuple BuildTuple(int index, Level level)
         {
             bool isLegal = false;
-            int start = 1;
+            int start;
             int restart = -1;
             string lvlText = "%" + index + ".";
             string numFmt = "decimal";
             string indent = string.Empty;
 
 
-            if (level != null && level.IsLegalNumberingStyle != null && level.IsLegalNumberingStyle.Val.HasValue && level.IsLegalNumberingStyle.Val.Value)
+            if (level.IsLegalNumberingStyle?.Val?.HasValue is true && level.IsLegalNumberingStyle.Val.Value)
             {
                 isLegal = true;
             }
 
-            if (level != null && level.NumberingFormat != null && level.NumberingFormat.Val.HasValue)
+            if (level.NumberingFormat?.Val?.HasValue is true)
             {
                 numFmt = level.NumberingFormat.Val.Value.ToString();
             }
 
-            if (level != null && level.LevelRestart != null && level.LevelRestart.Val.HasValue)
+            if (level.LevelRestart?.Val?.HasValue is true)
             {
                 restart = level.LevelRestart.Val.Value;
             }
@@ -476,13 +480,13 @@ namespace dnGREP.Engines.OpenXml
             if (level.PreviousParagraphProperties != null && level.PreviousParagraphProperties.Indentation != null)
             {
                 var indentation = level.PreviousParagraphProperties.Indentation;
-                if (indentation.Left.HasValue)
+                if (indentation.Left?.HasValue is true)
                     indent = TwipsToSpaces(indentation.Left.Value);
-                else if (indentation.Start.HasValue)
+                else if (indentation.Start?.HasValue is true)
                     indent = TwipsToSpaces(indentation.Start.Value);
             }
 
-            if (level != null && level.StartNumberingValue != null && level.StartNumberingValue.Val.HasValue)
+            if (level.StartNumberingValue?.Val?.HasValue is true)
             {
                 start = level.StartNumberingValue.Val.Value;
             }
@@ -492,7 +496,7 @@ namespace dnGREP.Engines.OpenXml
                 //start for a given numFmt.  We should probably try to grab the
                 //restartNumberingAfterBreak value in
                 //e.g. <w:abstractNum w:abstractNumId="12" w15:restartNumberingAfterBreak="0">???
-                if ("decimal".Equals(numFmt) || "ordinal".Equals(numFmt) || "decimalZero".Equals(numFmt))
+                if ("decimal".Equals(numFmt, StringComparison.Ordinal) || "ordinal".Equals(numFmt, StringComparison.Ordinal) || "decimalZero".Equals(numFmt, StringComparison.Ordinal))
                 {
                     start = 0;
                 }
@@ -501,14 +505,14 @@ namespace dnGREP.Engines.OpenXml
                     start = 1;
                 }
             }
-            if (level != null && level.LevelText != null && level.LevelText.Val.HasValue)
+            if (level.LevelText?.Val?.HasValue is true)
             {
-                lvlText = level.LevelText.Val.Value;
+                lvlText = level.LevelText.Val.Value ?? string.Empty;
             }
             return new LevelTuple(start, restart, lvlText, numFmt, isLegal, indent);
         }
 
-        internal static string TwipsToSpaces(string value)
+        internal static string TwipsToSpaces(string? value)
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
@@ -525,7 +529,17 @@ namespace dnGREP.Engines.OpenXml
         }
     }
 
-    public sealed class NumberFormatter
+    public enum NumberFmtStyle
+    {
+        Arabic = 0,
+        UpperRoman,
+        LowerRoman,
+        UpperLetter,
+        LowerLetter,
+        Ordinal,
+    }
+
+    public static class NumberFormatter
     {
         private static readonly string[] ROMAN_LETTERS = { "m", "cm", "d", "cd", "c",
             "xc", "l", "xl", "x", "ix", "v", "iv", "i" };
@@ -533,30 +547,16 @@ namespace dnGREP.Engines.OpenXml
         private static readonly int[] ROMAN_VALUES = { 1000, 900, 500, 400, 100, 90,
             50, 40, 10, 9, 5, 4, 1 };
 
-        private const int T_ARABIC = 0;
-        private const int T_LOWER_LETTER = 4;
-        private const int T_LOWER_ROMAN = 2;
-        private const int T_ORDINAL = 5;
-        private const int T_UPPER_LETTER = 3;
-        private const int T_UPPER_ROMAN = 1;
-
-        public static string GetNumber(int num, int style)
+        public static string GetNumber(int num, NumberFmtStyle style)
         {
-            switch (style)
+            return style switch
             {
-                case T_UPPER_ROMAN:
-                    return ToRoman(num).ToUpper(CultureInfo.CurrentCulture);
-                case T_LOWER_ROMAN:
-                    return ToRoman(num);
-                case T_UPPER_LETTER:
-                    return ToLetters(num).ToUpper(CultureInfo.CurrentCulture);
-                case T_LOWER_LETTER:
-                    return ToLetters(num);
-                case T_ARABIC:
-                case T_ORDINAL:
-                default:
-                    return num.ToString(CultureInfo.CurrentCulture);
-            }
+                NumberFmtStyle.UpperRoman => ToRoman(num).ToUpper(CultureInfo.CurrentCulture),
+                NumberFmtStyle.LowerRoman => ToRoman(num),
+                NumberFmtStyle.UpperLetter => ToLetters(num).ToUpper(CultureInfo.CurrentCulture),
+                NumberFmtStyle.LowerLetter => ToLetters(num),
+                _ => num.ToString(CultureInfo.CurrentCulture),
+            };
         }
 
         private static string ToLetters(int number)
@@ -586,7 +586,7 @@ namespace dnGREP.Engines.OpenXml
             if (number <= 0)
                 throw new ArgumentException("Unsupported number: " + number);
 
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new();
 
             for (int i = 0; i < ROMAN_LETTERS.Length; i++)
             {

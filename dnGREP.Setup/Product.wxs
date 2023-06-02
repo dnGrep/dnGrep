@@ -33,8 +33,12 @@
     <!-- ========================== UI =============================-->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <Property Id="INSTALL_MODE" Value="Custom" />
-    <UIRef Id="WixUI_Mondo" />
-    <UIRef Id="WixUI_ErrorProgressText" />
+    <Property Id="LAUNCHAPPONEXIT" Value="1" />
+    <UI>
+      <UIRef Id="MyWixUI_Mondo" />
+      <UIRef Id="WixUI_ErrorProgressText" />
+      <Publish Dialog="MyExitDialog" Control="Finish" Order="1" Event="DoAction" Value="LaunchApplication">LAUNCHAPPONEXIT</Publish>
+    </UI>
     <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="header.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="intro.bmp" />
@@ -44,6 +48,12 @@
     <!-- Call DCAS Installer -->
     <CustomAction Id="PreventDowngrading" Error="Newer version of dnGrep is already installed." />
     <CustomAction Id="PreventReInstalling" Error="dnGrep version $(var.ProductVersion) is already installed." />
+    <CustomAction Id="LaunchApplication" 
+                  Directory="INSTALLDIR" 
+                  Execute="immediate" 
+                  Impersonate="yes"
+                  Return="asyncNoWait"
+                  ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot;" />
     <!-- ===========================================================-->
 
     <Upgrade Id="4CF55558-B642-482E-9FBF-06EA5AEC8276">
@@ -126,6 +136,7 @@
 
     <Feature Id="CoreFiles" Title="dnGrep" Display="expand" AllowAdvertise='no' Absent='disallow' Description="Core dnGrep application." Level="1" ConfigurableDirectory="INSTALLDIR">
       <ComponentGroupRef Id="dnGREPAppFiles"/>
+      <ComponentGroupRef Id="dotnet"/>
       <ComponentRef Id="ApplicationShortcut" />
       <Feature Id="ShellIntegration" Title="Windows Explorer menu" AllowAdvertise='no' Absent='allow' Description="Add dnGrep to Windows Explorer right-click menu." Level="2">
         <ComponentRef Id="ShellIntegration"/>
@@ -149,14 +160,8 @@
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERFOUND</Custom>
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>
       <RemoveExistingProducts After="InstallInitialize"/>
-      <Custom Action="NetFxExecuteNativeImageCommitInstall" After="NetFxExecuteNativeImageUninstall">0</Custom>
-      <Custom Action="NetFxExecuteNativeImageInstall" After="NetFxExecuteNativeImageCommitInstall" />
     </InstallExecuteSequence>
 
-    <UI>
-      <ProgressText Action="NetFxExecuteNativeImageInstall">Running ngen to optimize the application</ProgressText>
-    </UI>
-    
     <InstallUISequence>
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERFOUND</Custom>
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>

@@ -1,17 +1,13 @@
 using System;
+using System.IO;
 using System.Text;
 using Microsoft.Win32;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common.UI
 {
     public class FileFolderDialogWin32 : CommonDialog
     {
-        private OpenFileDialog dialog = new OpenFileDialog();
+        private OpenFileDialog dialog = new();
 
         public OpenFileDialog Dialog
         {
@@ -21,10 +17,10 @@ namespace dnGREP.Common.UI
 
         public override bool? ShowDialog()
         {
-            return this.ShowDialog(null);
+            return ShowDialog(null);
         }
 
-        public new bool? ShowDialog(System.Windows.Window owner)
+        public new bool? ShowDialog(System.Windows.Window? owner)
         {
             // Set validate names to false otherwise windows will not let you select "Folder Selection."
             dialog.ValidateNames = false;
@@ -67,14 +63,14 @@ namespace dnGREP.Common.UI
                 try
                 {
                     if (dialog.FileName != null &&
-                        (dialog.FileName.EndsWith("Folder Selection.") || !File.Exists(dialog.FileName)) &&
+                        (dialog.FileName.EndsWith("Folder Selection.", StringComparison.Ordinal) || !File.Exists(dialog.FileName)) &&
                         !Directory.Exists(dialog.FileName))
                     {
-                        return UiUtils.QuoteIfNeeded(Path.GetDirectoryName(dialog.FileName));
+                        return UiUtils.QuoteIfNeeded(Path.GetDirectoryName(dialog.FileName) ?? string.Empty);
                     }
                     else
                     {
-                        return UiUtils.QuoteIfNeeded(dialog.FileName);
+                        return UiUtils.QuoteIfNeeded(dialog.FileName ?? string.Empty);
                     }
                 }
                 catch
@@ -100,11 +96,11 @@ namespace dnGREP.Common.UI
         /// When multiple files are selected returns them as separated string with the specified separator
         /// </summary>
         /// <param name="separator"></param>
-        public string GetSelectedPaths(string separator)
+        public string? GetSelectedPaths(string separator)
         {
             if (dialog.FileNames != null && dialog.FileNames.Length > 1)
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new();
                 foreach (string fileName in dialog.FileNames)
                 {
                     try

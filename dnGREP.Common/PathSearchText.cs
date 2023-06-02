@@ -8,7 +8,7 @@ namespace dnGREP.Common
     /// </summary>
     public class PathSearchText
     {
-        private string fileOrFolderPath;
+        private string fileOrFolderPath = string.Empty;
         /// <summary>
         /// Gets or sets the raw text entered in the Folder text box
         /// </summary>
@@ -20,7 +20,7 @@ namespace dnGREP.Common
                 if (value == fileOrFolderPath)
                     return;
 
-                baseFolder = null;
+                baseFolder = string.Empty;
                 isValidPath = null;
                 fileOrFolderPath = value;
             }
@@ -36,7 +36,7 @@ namespace dnGREP.Common
             return $"{FileOrFolderPath} - {TypeOfFileSearch}";
         }
 
-        private string baseFolder;
+        private string baseFolder = string.Empty;
         /// <summary>
         /// Gets the base folder of one or many files or folders. 
         /// If the FileOrFolderPath contains multiple paths, it returns the first one.

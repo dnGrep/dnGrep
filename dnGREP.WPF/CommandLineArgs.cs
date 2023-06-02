@@ -11,7 +11,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class CommandLineArgs
+    public partial class CommandLineArgs
     {
         public CommandLineArgs(string commandLine)
         {
@@ -29,7 +29,7 @@ namespace dnGREP.WPF
 
         private static string[] SplitCommandLine(string line)
         {
-            List<string> result = new List<string>();
+            List<string> result = new();
             foreach (string arg in ParseLine(line))
             {
                 string s = arg.Trim();
@@ -53,12 +53,12 @@ namespace dnGREP.WPF
                 }
                 else if (input[currentPosition] == ' ' && !isInQuotes)
                 {
-                    yield return input.Substring(startPosition, currentPosition - startPosition);
+                    yield return input[startPosition..currentPosition];
                     startPosition = currentPosition + 1;
                 }
             }
 
-            string lastToken = input.Substring(startPosition);
+            string lastToken = input[startPosition..];
             if (!string.IsNullOrWhiteSpace(lastToken))
             {
                 yield return lastToken;
@@ -69,11 +69,11 @@ namespace dnGREP.WPF
             }
         }
 
-        private static readonly List<char> separators = new List<char> { ',', ';' };
+        private static readonly List<char> separators = new() { ',', ';' };
 
         private static string FormatPathArgs(string input)
         {
-            List<string> parts = new List<string>();
+            List<string> parts = new();
             int startPosition = 0;
             bool isInQuotes = false;
             for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
@@ -84,7 +84,7 @@ namespace dnGREP.WPF
                 }
                 else if (separators.Contains(input[currentPosition]) && !isInQuotes)
                 {
-                    string token = input.Substring(startPosition, currentPosition - startPosition);
+                    string token = input[startPosition..currentPosition];
                     token = StripQuotes(token);
                     token = UiUtils.QuoteIfNeeded(token);
                     if (!string.IsNullOrWhiteSpace(token))
@@ -96,7 +96,7 @@ namespace dnGREP.WPF
                 }
             }
 
-            string lastToken = input.Substring(startPosition);
+            string lastToken = input[startPosition..];
             lastToken = StripQuotes(lastToken);
             lastToken = UiUtils.QuoteIfNeeded(lastToken);
             if (!string.IsNullOrWhiteSpace(lastToken))
@@ -111,12 +111,12 @@ namespace dnGREP.WPF
         {
             if (input.Length > 2 && input.StartsWith("\"", StringComparison.InvariantCulture) && input.EndsWith("\"", StringComparison.InvariantCulture))
             {
-                input = input.Substring(1, input.Length - 2);
+                input = input[1..^1];
             }
             return input;
         }
 
-        private readonly List<string> pathFlags = new List<string>() { "/f", "-f", "-folder" };
+        private readonly List<string> pathFlags = new() { "/f", "-f", "-folder" };
 
         private void EvaluateArgs(string[] args)
         {
@@ -533,11 +533,11 @@ namespace dnGREP.WPF
         public bool InvalidArgument { get; private set; }
         public bool WarmUp { get; private set; }
         public bool ShowHelp { get; private set; }
-        public string SearchFor { get; private set; }
-        public string SearchPath { get; private set; }
+        public string? SearchFor { get; private set; }
+        public string? SearchPath { get; private set; }
         public SearchType? TypeOfSearch { get; private set; }
-        public string NamePatternToInclude { get; private set; }
-        public string NamePatternToExclude { get; private set; }
+        public string? NamePatternToInclude { get; private set; }
+        public string? NamePatternToExclude { get; private set; }
         public FileSearchType? TypeOfFileSearch { get; private set; }
         public bool? CaseSensitive { get; private set; }
         public bool? WholeWord { get; private set; }
@@ -545,17 +545,17 @@ namespace dnGREP.WPF
         public bool? DotAsNewline { get; private set; }
         public bool? BooleanOperators { get; private set; }
         public bool ExecuteSearch { get; private set; }
-        public string Script { get; private set; }
-        public string ReportPath { get; private set; }
-        public string TextPath { get; private set; }
-        public string CsvPath { get; private set; }
+        public string? Script { get; private set; }
+        public string? ReportPath { get; private set; }
+        public string? TextPath { get; private set; }
+        public string? CsvPath { get; private set; }
         public ReportMode? ReportMode { get; private set; }
         public bool? IncludeFileInformation { get; private set; }
         public bool? TrimWhitespace { get; private set; }
         public bool? FilterUniqueValues { get; private set; }
         public UniqueScope? UniqueScope { get; private set; }
         public bool? OutputOnSeparateLines { get; private set; }
-        public string ListItemSeparator { get; private set; }
+        public string? ListItemSeparator { get; private set; }
 
         public bool Exit { get; private set; }
 
@@ -563,57 +563,57 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrWhiteSpace(SearchPath))
             {
-                GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, SearchPath);
+                GrepSettings.Instance.Set(GrepSettings.Key.SearchFolder, SearchPath);
             }
 
             if (!string.IsNullOrWhiteSpace(SearchFor))
             {
-                GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFor, SearchFor);
+                GrepSettings.Instance.Set(GrepSettings.Key.SearchFor, SearchFor);
             }
 
             if (!string.IsNullOrWhiteSpace(NamePatternToInclude))
             {
-                GrepSettings.Instance.Set<string>(GrepSettings.Key.FilePattern, NamePatternToInclude);
+                GrepSettings.Instance.Set(GrepSettings.Key.FilePattern, NamePatternToInclude);
             }
 
             if (!string.IsNullOrWhiteSpace(NamePatternToExclude))
             {
-                GrepSettings.Instance.Set<string>(GrepSettings.Key.FilePatternIgnore, NamePatternToExclude);
+                GrepSettings.Instance.Set(GrepSettings.Key.FilePatternIgnore, NamePatternToExclude);
             }
 
             if (TypeOfSearch.HasValue)
             {
-                GrepSettings.Instance.Set<SearchType>(GrepSettings.Key.TypeOfSearch, TypeOfSearch.Value);
+                GrepSettings.Instance.Set(GrepSettings.Key.TypeOfSearch, TypeOfSearch.Value);
             }
 
             if (TypeOfFileSearch.HasValue)
             {
-                GrepSettings.Instance.Set<FileSearchType>(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch.Value);
+                GrepSettings.Instance.Set(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch.Value);
             }
 
             if (CaseSensitive.HasValue)
             {
-                GrepSettings.Instance.Set<bool>(GrepSettings.Key.CaseSensitive, CaseSensitive.Value);
+                GrepSettings.Instance.Set(GrepSettings.Key.CaseSensitive, CaseSensitive.Value);
             }
 
             if (WholeWord.HasValue)
             {
-                GrepSettings.Instance.Set<bool>(GrepSettings.Key.WholeWord, WholeWord.Value);
+                GrepSettings.Instance.Set(GrepSettings.Key.WholeWord, WholeWord.Value);
             }
 
             if (Multiline.HasValue)
             {
-                GrepSettings.Instance.Set<bool>(GrepSettings.Key.Multiline, Multiline.Value);
+                GrepSettings.Instance.Set(GrepSettings.Key.Multiline, Multiline.Value);
             }
 
             if (DotAsNewline.HasValue)
             {
-                GrepSettings.Instance.Set<bool>(GrepSettings.Key.Singleline, DotAsNewline.Value);
+                GrepSettings.Instance.Set(GrepSettings.Key.Singleline, DotAsNewline.Value);
             }
 
             if (BooleanOperators.HasValue)
             {
-                GrepSettings.Instance.Set<bool>(GrepSettings.Key.BooleanOperators, BooleanOperators.Value);
+                GrepSettings.Instance.Set(GrepSettings.Key.BooleanOperators, BooleanOperators.Value);
             }
 
             if (ReportMode.HasValue)
@@ -652,12 +652,12 @@ namespace dnGREP.WPF
             }
         }
 
-        public string GetHelpString()
+        public static string GetHelpString()
         {
-            string assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string buildDate = AboutViewModel.GetLinkerTime(Assembly.GetExecutingAssembly()).ToString(CultureInfo.CurrentCulture);
+            string assemblyVersion = Assembly.GetExecutingAssembly()?.GetName()?.Version?.ToString() ?? string.Empty;
+            string buildDate = AboutViewModel.AssemblyBuildDate?.ToString(CultureInfo.CurrentCulture) ?? string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.AppendLine(Resources.Help_CmdLineHeader).AppendLine();
             sb.AppendLine(TranslationSource.Format(Resources.Help_CmdLineVersion, assemblyVersion, buildDate)).AppendLine();

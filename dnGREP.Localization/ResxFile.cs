@@ -12,7 +12,7 @@ namespace dnGREP.Localization
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private readonly Dictionary<string, string> resources = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> resources = new();
 
         public void ReadFile(string filePath)
         {
@@ -50,26 +50,28 @@ namespace dnGREP.Localization
                         }
                         if (pos > -1)
                         {
-                            var tag = fileName.Substring(pos + 1).Replace('_', '-');
-                            if (!string.IsNullOrEmpty(tag) && tag.Contains("("))
+                            var tag = fileName[(pos + 1)..].Replace('_', '-');
+                            if (!string.IsNullOrEmpty(tag) && tag.Contains('('))
                             {
                                 // remove file numbers: 'he (1)'
                                 pos = tag.IndexOf("(");
                                 if (pos > -1)
                                 {
-                                    tag = tag.Substring(0, pos).Trim();
+                                    tag = tag[..pos].Trim();
                                 }
                             }
                             if (!string.IsNullOrEmpty(tag))
                             {
                                 IetfLanguageTag = tag;
 
-                                using (ResXResourceReader rsxr = new ResXResourceReader(filePath))
+                                using ResXResourceReader rsxr = new(filePath);
+                                foreach (DictionaryEntry d in rsxr)
                                 {
-                                    // Iterate through the resources and display the contents to the console.
-                                    foreach (DictionaryEntry d in rsxr)
+                                    var key = d.Key.ToString();
+                                    var value = d.Value?.ToString();
+                                    if (key != null && value != null)
                                     {
-                                        resources.Add(d.Key.ToString(), d.Value.ToString());
+                                        resources.Add(key, value);
                                     }
                                 }
                             }
@@ -79,16 +81,16 @@ namespace dnGREP.Localization
                 else
                 {
                     MessageBox.Show(TranslationSource.Format(Properties.Resources.MessageBox_ResourcesFile0IsNotAResxFile, filePath),
-                        Properties.Resources.MessageBox_DnGrep + " " + Properties.Resources.MessageBox_LoadResources, 
-                        MessageBoxButton.OK, MessageBoxImage.Error, 
+                        Properties.Resources.MessageBox_DnGrep + " " + Properties.Resources.MessageBox_LoadResources,
+                        MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex, $"Failed to load resources file '{filePath}'");
                 MessageBox.Show(TranslationSource.Format(Properties.Resources.MessageBox_CouldNotLoadResourcesFile0, filePath) + ex.Message,
-                    Properties.Resources.MessageBox_DnGrep + " " + Properties.Resources.MessageBox_LoadResources, 
+                    Properties.Resources.MessageBox_DnGrep + " " + Properties.Resources.MessageBox_LoadResources,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
