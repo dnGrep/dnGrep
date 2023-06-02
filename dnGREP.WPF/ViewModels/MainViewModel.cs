@@ -139,7 +139,7 @@ namespace dnGREP.WPF
             if (bookmarkWindow != null)
             {
                 bookmarkWindow.UseBookmark -= BookmarkForm_UseBookmark;
-                bookmarkWindow.Close();
+                bookmarkWindow.ApplicationExit();
             }
 
             while (scriptEditorWindows.Count > 0)
