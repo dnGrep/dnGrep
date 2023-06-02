@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -21,8 +22,22 @@ namespace dnGREP.WPF
 
             ViewModel = new BookmarkListViewModel(this, clearStar);
             DataContext = ViewModel;
-            Closing += ViewModel.BookmarksWindow_Closing;
+            Closing += BookmarksWindow_Closing;
             ViewModel.SetFocus += ViewModel_SetFocus;
+        }
+
+        internal void ApplicationExit()
+        {
+            ViewModel.BookmarksWindow_Hiding();
+            Closing -= BookmarksWindow_Closing;
+            Close();
+        }
+
+        private void BookmarksWindow_Closing(object? sender, CancelEventArgs e)
+        {
+            ViewModel.BookmarksWindow_Hiding();
+            Hide();
+            e.Cancel = true;
         }
 
         public BookmarkListViewModel ViewModel { get; private set; }
@@ -32,6 +47,7 @@ namespace dnGREP.WPF
             UseBookmark?.Invoke(this, EventArgs.Empty);
             if (!ViewModel.IsPinned)
             {
+                ViewModel.BookmarksWindow_Hiding();
                 Hide();
             }
             else
@@ -49,6 +65,7 @@ namespace dnGREP.WPF
             UseBookmark?.Invoke(this, EventArgs.Empty);
             if (!ViewModel.IsPinned)
             {
+                ViewModel.BookmarksWindow_Hiding();
                 Hide();
             }
             else
@@ -63,6 +80,7 @@ namespace dnGREP.WPF
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.BookmarksWindow_Hiding();
             Hide();
         }
 
@@ -70,6 +88,7 @@ namespace dnGREP.WPF
         {
             if (e.Key == Key.Escape)
             {
+                ViewModel.BookmarksWindow_Hiding();
                 Hide();
             }
         }

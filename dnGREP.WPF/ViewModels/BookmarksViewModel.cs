@@ -53,7 +53,7 @@ namespace dnGREP.WPF
             _bookmarks.Sort((x, y) => x.Ordinal.CompareTo(y.Ordinal));
         }
 
-        internal void BookmarksWindow_Closing(object? sender, CancelEventArgs e)
+        internal void BookmarksWindow_Hiding()
         {
             GrepSettings.Instance.Set(GrepSettings.Key.PinBookmarkWindow, IsPinned);
 
