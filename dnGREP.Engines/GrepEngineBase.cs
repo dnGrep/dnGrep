@@ -445,7 +445,7 @@ namespace dnGREP.Engines
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : string.Empty);
 
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
-            StringComparison comparisonType = searchOptions.HasFlag(GrepSearchOption.CaseSensitive) ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
+            StringComparison comparisonType = searchOptions.HasFlag(GrepSearchOption.CaseSensitive) ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
             if (searchOptions.HasFlag(GrepSearchOption.BooleanOperators))
             {
