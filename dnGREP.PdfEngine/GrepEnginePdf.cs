@@ -25,7 +25,7 @@ namespace dnGREP.Engines.Pdf
             try
             {
                 // Make sure pdftotext.exe exists
-                pathToPdfToText = Utils.GetCurrentPath(typeof(GrepEnginePdf)) + "\\pdftotext.exe";
+                pathToPdfToText = Path.Combine(Utils.GetCurrentPath(typeof(GrepEnginePdf)), "xpdf", "pdftotext.exe");
                 if (File.Exists(pathToPdfToText))
                     return true;
                 else
@@ -144,14 +144,14 @@ namespace dnGREP.Engines.Pdf
             string tempFileName = Path.Combine(tempFolder, fileName);
 
             pdfFilePath = PathEx.GetLongPath(pdfFilePath);
-            string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions) ?? "-layout -enc UTF-8 -bom";
+            string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions) ?? "-layout -enc UTF-8 -bom -cfg xpdfrc";
 
             using Process process = new();
             // use command prompt
             process.StartInfo.FileName = pathToPdfToText;
             process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, pdfFilePath, tempFileName);
             process.StartInfo.UseShellExecute = false;
-            process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
+            process.StartInfo.WorkingDirectory = Path.Combine(Utils.GetCurrentPath(typeof(GrepEnginePdf)), "xpdf");
             process.StartInfo.CreateNoWindow = true;
             // start cmd prompt, execute command
             process.Start();
