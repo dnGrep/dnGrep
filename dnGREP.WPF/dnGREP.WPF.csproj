@@ -240,7 +240,7 @@
     <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\OpenXmlSearch" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(PDFPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch\xpdf\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch\xpdf\%(XPDFFiles.RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(WordPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\MsWordSearch" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="PublishExtraFiles" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
@@ -248,7 +248,7 @@
     <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
     <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\OpenXmlSearch" />
     <Copy SourceFiles="@(PDFPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch" />
-    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf\%(RecursiveDir)" />
+    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf\%(XPDFFiles.RecursiveDir)" />
     <Copy SourceFiles="@(WordPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\MsWordSearch" />
     <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net7.0\" />
   </Target>
