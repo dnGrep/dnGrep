@@ -448,7 +448,6 @@ namespace dnGREP.WPF
         #endregion
 
         #region Commands
-#pragma warning disable CA1822
 
         /// <summary>
         /// Returns an undo command
@@ -607,8 +606,6 @@ namespace dnGREP.WPF
             p => DeleteMRUItem(p as MRUViewModel),
             q => true);
 
-
-#pragma warning restore CA1822
         #endregion
 
         #region Public Methods

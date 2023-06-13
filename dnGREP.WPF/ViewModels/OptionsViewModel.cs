@@ -500,7 +500,6 @@ namespace dnGREP.WPF
         #endregion
 
         #region Commands
-#pragma warning disable CA1822
 
         /// <summary>
         /// Returns a command that saves the form
@@ -545,7 +544,6 @@ namespace dnGREP.WPF
 
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
-#pragma warning restore CA1822
         #endregion
 
         #region Public Methods

@@ -708,7 +708,7 @@ namespace dnGREP.Engines
             if (positions.Count == 0)
                 return results;
 
-            XmlReaderSettings settings = new XmlReaderSettings
+            XmlReaderSettings settings = new()
             {
                 DtdProcessing = DtdProcessing.Parse
             };
