@@ -228,7 +228,17 @@
     <PDFPluginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.Pdf.pdb" />
   </ItemGroup>
   <ItemGroup>
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\**\*.*" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\ANNOUNCE" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\CHANGES" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\COPYING" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\COPYING3" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\INSTALL" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\pdftotext.exe" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\README" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\doc\pdftotext.txt" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\doc\sample-xpdfrc" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\doc\sample-xpdfrc-chinese-simplified" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\xpdf\doc\xpdfrc.txt" />
   </ItemGroup>
   <ItemGroup>
     <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net7.0-windows\dnGREP.Engines.MsWord.plugin" />
@@ -240,7 +250,8 @@
     <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\OpenXmlSearch" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(PDFPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch\xpdf\%(XPDFFiles.RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch\xpdf" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(XPDFDocFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\PdfSearch\xpdf\doc" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(WordPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\net7.0-windows\Plugins\MsWordSearch" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="PublishExtraFiles" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
@@ -248,7 +259,8 @@
     <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
     <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\OpenXmlSearch" />
     <Copy SourceFiles="@(PDFPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch" />
-    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf\%(XPDFFiles.RecursiveDir)" />
+    <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf" />
+    <Copy SourceFiles="@(XPDFDocFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf\doc" />
     <Copy SourceFiles="@(WordPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\MsWordSearch" />
     <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net7.0\" />
   </Target>
