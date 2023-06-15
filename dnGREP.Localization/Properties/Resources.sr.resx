@@ -99,7 +99,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>.NET библиотека за рашчлањивање ECMA-376 бројеве</value>
+    <value>.NET библиотека за ишчитавање ECMA-376 бројева</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value>.NET компонент за WPF текст едитор</value>
+    <value>.NET компонента за WPF текст едитор</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
@@ -123,15 +123,15 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value>Булови оператори</value>
+    <value>Логички оператори</value>
     <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
-    <value>Поништити</value>
+    <value>Поништи</value>
     <comment>Bookmark details dialog, cancel button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value>Осетљиво на слова</value>
+    <value>Осетљиво на величину слова</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Content_Group" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
-    <value>Тип налажења</value>
+    <value>Тип шаблона фајла</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
@@ -171,19 +171,19 @@
     <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
-    <value>Укључити бинарне датотеке</value>
+    <value>Укључи бинарне датотеке</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
-    <value>Укључити сакривене фасцикле</value>
+    <value>Укључи сакривене фасцикле</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
-    <value>Укључити подфасцикле</value>
+    <value>Укључи подфасцикле</value>
     <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
-    <value>Макс дубина</value>
+    <value>Максимална дубина</value>
     <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
@@ -199,7 +199,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET библиотека за продужене дужине путање</value>
+    <value>.NET библиотека за дугачке путање фајлова</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
@@ -207,11 +207,11 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
-    <value>Пратити симболичне везе</value>
+    <value>Пратити симболичке везе</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
-    <value>Извор датотеке</value>
+    <value>Извор датотека</value>
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>Укључити својства филтера датотека у обележивач</value>
+    <value>Укључи својства филтера датотека у обележивач</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
@@ -283,11 +283,11 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Сервис индекса „Everything“-а</value>
+    <value>„Everything“ сервис за индексирање</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value>Шаблон за искључавање:</value>
+    <value>Шаблон за игнорисање:</value>
     <comment>Bookmark details dialog, Patterns to exclude label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
@@ -299,7 +299,7 @@
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
-    <value>Промени са:</value>
+    <value>Замени са:</value>
     <comment>Bookmark details dialog, replace text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Bookmark details dialog, search pattern text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>Тражи у архиве</value>
+    <value>Тражи у архивама</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
@@ -355,11 +355,11 @@
     <comment>Bookmark details dialog, search type group header label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
-    <value>Употребити .gitignore</value>
+    <value>Узми у обзир .gitignore</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>Употребити .gitignore за филтрирање датотека</value>
+    <value>Узми у обзир .gitignore за филтрирање датотека</value>
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
@@ -387,7 +387,7 @@
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Edit" xml:space="preserve">
-    <value>Уреди</value>
+    <value>Измени</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
@@ -403,7 +403,7 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>Промени са</value>
+    <value>Замени са</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
@@ -415,11 +415,11 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
-    <value>Пази на слова</value>
+    <value>Пази на величину слова</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
-    <value>Макс дубина фасцикле: {0}</value>
+    <value>Максимална дубина фасцикле: {0}</value>
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
@@ -427,23 +427,23 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value>Без фасцикле</value>
+    <value>Без фасцикла</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>Без бинарно</value>
+    <value>Без бинарних</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>Без сакривено</value>
+    <value>Без сакривених</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>Без симболичних веза</value>
+    <value>Без симболичких веза</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>Тражи у архиве</value>
+    <value>Тражи у архивама</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
@@ -470,14 +470,14 @@
     <value>/bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Поставља ознаку за претрагу Булових оператора – Истинито или Лажно.</value>
+    Поставља ознаку за претрагу Булових оператора – Да или Не.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
     <value>/cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-    Поставља ознаку за претрагу која разликује велика и мала слова – Истинито or Лажно.</value>
+    Поставља ознаку за претрагу која разликује велика и мала слова – Да или Не</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineCSVReport" xml:space="preserve">
@@ -494,7 +494,7 @@
     <value>/dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    Поставља тачку као ознаку за претрагу новог реда – Истинито или Лажно.</value>
+    Поставља тачку као ознаку за претрагу новог реда – Да или Не</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample1" xml:space="preserve">
@@ -515,7 +515,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/x
 -x
 -exit
-    Затворити dnGrep након што се операције командне линије заврше.</value>
+    Затвори dnGrep након што се операције командне линије заврше.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFolder" xml:space="preserve">
@@ -533,7 +533,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    Поставља ознаку вишелинијске претраге – Истинито или Лажно.</value>
+    Поставља ознаку вишелинијске претраге – Да или Не</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
@@ -1061,7 +1061,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>Претрага регуларног израза</value>
+    <value>Претрага регуларним изразом</value>
     <comment>Bookmark details dialog, search type regular expression tooltip</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
@@ -1069,11 +1069,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Бајт претрага: читај датотеку као бинарну и тражи за бајтове као хегзадецималне цифре: 68 65 78 20</value>
+    <value>Бајт претрага: читај датотеку као бинарну и тражи бајтове као хексадецималне цифре: 68 65 78 20</value>
     <comment>Bookmark details dialog, Byte search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>Прескочити удаљене датотеке из облака</value>
+    <value>Занемари удаљене датотеке из облака</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
@@ -2441,10 +2441,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="Help_CmdLineFileInformation" xml:space="preserve">
-    <value>/fi [Тачно/Нетачно]
--fi [Тачно/Нетачно]
--fileInformation [Тачно/Нетачно]
-    Поставља заставицу за укључивање информације и линији о датотеци у излаз извештаја – Тачно или Нетачно.</value>
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Поставља заставицу за укључивање информације и линији о датотеци у излаз извештаја – Да или Не</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
@@ -2658,11 +2658,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Bookmarks_MoveToBottom" xml:space="preserve">
-    <value>Премести као последње</value>
+    <value>Премести на крај</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
-    <value>Премести као прво</value>
+    <value>Премести на врх</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Bookmarks_MoveUp" xml:space="preserve">
@@ -2674,7 +2674,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
-    <value>Име букмарка:</value>
+    <value>Име обележивача:</value>
     <comment>Bookmark name label</comment>
   </data>
   <data name="Bookmarks_NameHeader" xml:space="preserve">
@@ -2718,7 +2718,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, regular expression options help text</comment>
   </data>
   <data name="Script_Editor_Close" xml:space="preserve">
-    <value>Затворити</value>
+    <value>Затвори</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Delete" xml:space="preserve">
@@ -2726,7 +2726,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
-    <value>Уреди</value>
+    <value>Измени</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
@@ -2734,11 +2734,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
-    <value>Опозвати</value>
+    <value>Опозови</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
-    <value>Булови оператори</value>
+    <value>Логички оператори</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
@@ -2746,7 +2746,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
-    <value>Осетљиво на слова</value>
+    <value>Осетљиво на величину слова</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
@@ -2758,19 +2758,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>Истакнути групе</value>
+    <value>Истакни групе</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
-    <value>Убацити бинарне датотеке</value>
+    <value>Укључи бинарне датотеке</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
-    <value>Убацити сакривене фасцикле</value>
+    <value>Укључи сакривене фасцикле</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
-    <value>Убацити подфасцикле</value>
+    <value>Укључи подфасцикле</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_multiline" xml:space="preserve">
@@ -2822,15 +2822,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="Options_PluginReset" xml:space="preserve">
-    <value>Ресетовање</value>
+    <value>Ресетуј</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
-    <value>Ресетовање</value>
+    <value>Ресетуј</value>
     <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
   <data name="MessageBox_Cancel" xml:space="preserve">
-    <value>Поништити</value>
+    <value>Откажи</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
@@ -2840,5 +2840,468 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_SearchOptions" xml:space="preserve">
     <value>Опције претраге</value>
     <comment>Options dialog, search options group header label</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Скрипте</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Број налажења на линији</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} има грешке приликом валидације. Ипак сачувај ?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Помери одабрану линију горе</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Сними као…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>Име новог обележивача, или празно</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Команда не дозвољава празне вредности</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Путања дестинационе фасцикле</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>Вредност не може бити конвертована у исправни тип</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Ова команда захтева стринг вредност</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Додај нови обележивач повезан са текућом фасциклом за претрагу</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Обриши обележивач фасцикле</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Копирај имена датотека резултата на спремиште</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Прошири или сакриј секцију филера датотека</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Прошири или сакриј секцију опција резултата</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>Максимизирај или поврати дрво резултата претраге</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>Помери датотеке резултата на нову локацију</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Замени поготке у фајловима</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Напиши извештај</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>Пуна путања и име датотеке cmd или batch датотеке</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>Одабир датумског филтера</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>Укључи информације о датотеци у извештају</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Доња граница филтера протеклих сати (број)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>Ограничење дубине фасцикли (број)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>Шаблон датотека за игнорисање</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>Копирај</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Исеци</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>Обриши линију</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Помери одабрану линију доле</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>Нови…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Посаветуј</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Увези податке</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>Контекст линије након (број)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>Контекст линије пре (број)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>Извештајни сепаратор између података у истој линији</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>Максимална дубина под-фасцикли</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Обележивач</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Ова команда захтева логичку вредност</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Копирај текст резултата на спремиште</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>Резулат као текстулани извештај</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>Постави вредност на дестинационој особини</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>Врста шаблона датотеке</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Валидација</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>Ова команда  захтева дестинациони параметар</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Додај нови обележивач</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>Енкодирање, као број кодне стране</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>Постави број кодне стране или -1 за аутоматско откривање</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>Датумски 'До' филтер</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>Омогући филтрирање величине фајла</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>Локације претраге: фасцикла или путања датотеке</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>Фасцикла, путања датотеке или зарезом одвојена листа фасцикла или датотека</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    Покрени скрипт идентификован путем скрипт кључа</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Апликиативни подаци и извештаји</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Откажи скрипт</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Измени скрипт…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Нови скрипт…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} има несачуване промене. Сними сада?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>Фајл</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Прикажи Explorer мени</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Обриши фајлове</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Обриши трајно</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>Приликом брисања фајлова</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>Валидирај</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Поруке</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Пошаљи у канту</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Да</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>Налепи</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>Алати</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>Укључи команде из другог скрипта у текући скрипт</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Започни претрагу</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Копирај фајлове</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Не питај поново</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>Не</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Не за све</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>Да</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Да за све</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Питај</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Помери фајлове</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Не</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Приликом копирања фајла, ако дестинациони фајл постоји, препиши преко њега?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>Приликом померања фајла, ако дестинациони фајл постоји, препиши преко њега?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>Понови</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>Покрени скрипт</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>Сними</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Линија</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>Команда није валидна</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>Скрипт кључ није пронађен</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Име дестинације није валидно</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>Вредност не може бити конвертована у стринг</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Ова команда не захтева параметар</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Обриши обележивач</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>Име обележивача за брисање, или празно за текући обележивач</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Примени опције обележавања</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>Име обележивача</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Копирај датотеке резултата на нову локацију</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Путања дестинационе фасцикле</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>Обриши датотеке резултата трајно</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>Кључ/име датотеке скрипте</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>Увек прикажи прозор са скрипт поруком када се скрипт заврши</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Путања и име датотеке извештаја</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>Извештај резултата као CSV фајл</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>Пуни извештај</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Путања и име датотеке извештаја</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>Ресетуј филтере на подразумеване вредности</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Покрени командни скрипт</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Покрени PowerShell скрипт</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>Пуна путања или име датотеке .ps1 скрипт датотеке</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>Одабир временског распона</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Истакни поготке</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Горња граница филтера претходних сати (број)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>Карактер или карактери као што су зарез или зарез спејс</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>Скрипт команде</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Скрипт едитор</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>Затвори све прозоре и угаси dnGrep</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Покрени екстерну команду</value>
+    <comment>Script editor command tooltip</comment>
   </data>
 </root>
