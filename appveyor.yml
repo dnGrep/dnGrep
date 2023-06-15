@@ -16,14 +16,16 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+install: 
+  - ps: ./dotnet-install.ps1 -Channel 7.0
 before_build:
-- cmd: nuget restore
+  - cmd: nuget restore
 build:
   project: dnGREP.WPF.sln
   parallel: true
   verbosity: normal
 after_build:
-  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@%APPVEYOR_BUILD_FOLDER%\excludeFiles_win-%PlATFORM%.txt
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@%APPVEYOR_BUILD_FOLDER%\excludeFiles_win-%PlATFORM%.txt
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI

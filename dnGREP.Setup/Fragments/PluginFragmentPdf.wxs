@@ -14,9 +14,43 @@
         <Component Id="cmpD4971746D76D45F297CDBC3AA7AB1B16" Guid="{4F5C321E-E105-4503-AC2D-30B620F5DBC2}">
           <File Id="filD6666727ABA942E8996393D9215A05AA" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\dnGREP.Engines.Pdf.pdb" />
         </Component>
-        <Component Id="cmpE05358140C2247E23DD78CDE997F385A" Guid="{AED08456-AEA0-4C1C-AA6F-98A947D0E6F1}">
-          <File Id="fil807448C27E80D4FD0AA41A0D63C1C0B2" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\pdftotext.exe" />
-        </Component>
+        <Directory Id="dir352E9C10F1614F61B361A3139D52AD1A" Name="xpdf">
+          <Component Id="cmpE05358140C2247E23DD78CDE997F385A" Guid="{AED08456-AEA0-4C1C-AA6F-98A947D0E6F1}">
+            <File Id="fil807448C27E80D4FD0AA41A0D63C1C0B2" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\pdftotext.exe" />
+          </Component>
+          <Component Id="cmp0F5E246A141A49108216B729CEC3291B" Guid="{FB2EAB7B-6DD8-4C3E-8533-9018C42DBF82}">
+            <File Id="fil250AB59ED6FA42C39E613FC3573084E3" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\ANNOUNCE" />
+          </Component>
+          <Component Id="cmp8568C7C4640445239ACE3B363DBDB4A8" Guid="{FFDDE9BB-40C1-45E2-B0CC-4D013284699D}">
+            <File Id="filD06DC4F313254284A65D94329DA0CBA8" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\CHANGES" />
+          </Component>
+          <Component Id="cmpB156DEE436D444819A35C37F22AED8C8" Guid="{3E10DFC8-B428-451F-BE03-B52C46BFA634}">
+            <File Id="fil8D60CA7DF3544BB2B262FDA933E4757F" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\COPYING" />
+          </Component>
+          <Component Id="cmp301EDE4943BF4A209CB7C3BC71D462EA" Guid="{A9490500-817E-40E0-9789-642D3F045ECB}">
+            <File Id="fil47CB8C7158C14638B4D5F7860A2D9548" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\COPYING3" />
+          </Component>
+          <Component Id="cmp834B2EABF27C4F5593798C412CE1D0FF" Guid="{FEA4203A-71AC-4610-BD8D-30349B7DABC3}">
+            <File Id="filFF17ADDF84A44993B6A2AFF96CE36F9E" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\INSTALL" />
+          </Component>
+          <Component Id="cmp623DC84EAB5445D6A3D7EF0C3FF8DB3F" Guid="{A46A4B89-4BD4-4870-ADF9-2AAE0381B19A}">
+            <File Id="filFB9CE53C686E42EC9B77E4FB7DCF3707" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\README" />
+          </Component>
+          <Directory Id="dirF0C4F05247E24BF1B8A10F1E84837635" Name="doc">
+            <Component Id="cmp63847CD5C7A1476F9CA8F32165D61DCC" Guid="{9B10034D-FBB0-4526-85A2-0F891EF6E5D3}">
+              <File Id="filD95C555A06184750B16FD0FF44360753" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\doc\pdftotext.txt" />
+            </Component>
+            <Component Id="cmp22D7B925A7B641A59FA0CD7A4E235851" Guid="{F7430098-D9EC-4AC9-A649-6D8439999CD2}">
+              <File Id="fil25468152765E48B5B4B465A7B1E43F8F" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\doc\sample-xpdfrc" />
+            </Component>
+            <Component Id="cmpEFCCA67F79C54E958E6183924C27C53E" Guid="{2BA4B5FA-59A4-4B3E-A7C0-17568D172633}">
+              <File Id="fil764201EAFEE34DB684EC94E5160BB7A4" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\doc\sample-xpdfrc-chinese-simplified" />
+            </Component>
+            <Component Id="cmp1B9F6F2FDD3E43B18826B87BD0794F09" Guid="{1DC39C9E-9A4F-4969-9EDD-D90469596554}">
+              <File Id="filF97C3FA616044696880638E854722B22" KeyPath="yes" Source="$(var.PublishDir)\Plugins\PdfSearch\xpdf\doc\xpdfrc.txt" />
+            </Component>
+          </Directory>
+        </Directory>
       </Directory>
     </DirectoryRef>
   </Fragment>
@@ -26,6 +60,16 @@
       <ComponentRef Id="cmp54DC03A64A74833C6043B9D448415B5E" />
       <ComponentRef Id="cmpD4971746D76D45F297CDBC3AA7AB1B16" />
       <ComponentRef Id="cmpE05358140C2247E23DD78CDE997F385A" />
+      <ComponentRef Id="cmp0F5E246A141A49108216B729CEC3291B" />
+      <ComponentRef Id="cmp8568C7C4640445239ACE3B363DBDB4A8" />
+      <ComponentRef Id="cmpB156DEE436D444819A35C37F22AED8C8" />
+      <ComponentRef Id="cmp301EDE4943BF4A209CB7C3BC71D462EA" />
+      <ComponentRef Id="cmp834B2EABF27C4F5593798C412CE1D0FF" />
+      <ComponentRef Id="cmp623DC84EAB5445D6A3D7EF0C3FF8DB3F" />
+      <ComponentRef Id="cmp63847CD5C7A1476F9CA8F32165D61DCC" />
+      <ComponentRef Id="cmp22D7B925A7B641A59FA0CD7A4E235851" />
+      <ComponentRef Id="cmpEFCCA67F79C54E958E6183924C27C53E" />
+      <ComponentRef Id="cmp1B9F6F2FDD3E43B18826B87BD0794F09" />
     </ComponentGroup>
   </Fragment>
 </Wix>

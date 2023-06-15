@@ -109,7 +109,7 @@ namespace dnGREP.WPF
 
         private static string StripQuotes(string input)
         {
-            if (input.Length > 2 && input.StartsWith("\"", StringComparison.InvariantCulture) && input.EndsWith("\"", StringComparison.InvariantCulture))
+            if (input.Length > 2 && input.StartsWith("\"", StringComparison.Ordinal) && input.EndsWith("\"", StringComparison.Ordinal))
             {
                 input = input[1..^1];
             }
@@ -129,8 +129,8 @@ namespace dnGREP.WPF
                 if (!string.IsNullOrEmpty(arg))
                 {
                     // old style command line args
-                    if (idx < 2 && !(arg.StartsWith("/", StringComparison.InvariantCulture) ||
-                          arg.StartsWith("-", StringComparison.InvariantCulture)))
+                    if (idx < 2 && !(arg.StartsWith("/", StringComparison.Ordinal) ||
+                          arg.StartsWith("-", StringComparison.Ordinal)))
                     {
                         if (idx == 0)
                         {

@@ -33,13 +33,19 @@ namespace dnGREP.Common
         private static string ExtractVersion(JArray json)
         {
             if (json == null)
-                return "0.0.0.0";
+                return string.Empty;
 
             //"tag_name": "v2.9.24.0"
 
-            var latest = json.Children()["tag_name"]
-                .Select(r => r.Value<string>())
-                .FirstOrDefault();
+            string? latest = string.Empty;
+            try
+            {
+                latest = json.Children()
+                    .Where(r => !r?.Value<bool>("prerelease") ?? false)
+                    .Select(r => r?.Value<string>("tag_name"))
+                    .FirstOrDefault();
+            }
+            catch (Exception) { }
 
             if (!string.IsNullOrEmpty(latest))
                 latest = latest.TrimStart('v');

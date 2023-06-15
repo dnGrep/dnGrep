@@ -77,7 +77,7 @@ namespace dnGREP.Engines
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
 
-            if (file.Length > 260 && !file.StartsWith(PathEx.LongPathPrefix, StringComparison.InvariantCulture))
+            if (file.Length > 260 && !file.StartsWith(PathEx.LongPathPrefix, StringComparison.Ordinal))
             {
                 file = PathEx.GetLongPath(file);
             }

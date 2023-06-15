@@ -47,7 +47,7 @@ namespace dnGREP.Common
 
         public static IEnumerable<FileData> EnumerateFiles(string file, FileFilter filter)
         {
-            if (file.Length > 260 && !file.StartsWith(@"\\?\", StringComparison.InvariantCulture))
+            if (file.Length > 260 && !file.StartsWith(@"\\?\", StringComparison.Ordinal))
             {
                 file = @"\\?\" + file;
             }
@@ -441,7 +441,7 @@ namespace dnGREP.Common
             string[] intermediateFiles = parts.Skip(1).Take(parts.Length - 2).ToArray();
 
             string zipFile = searchResult.FileNameReal;
-            if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\", StringComparison.InvariantCulture))
+            if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\", StringComparison.Ordinal))
             {
                 zipFile = @"\\?\" + zipFile;
             }
@@ -539,7 +539,7 @@ namespace dnGREP.Common
                     Directory.CreateDirectory(directory);
 
                 string zipFile = searchResult.FileNameReal;
-                if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\", StringComparison.InvariantCulture))
+                if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\", StringComparison.Ordinal))
                 {
                     zipFile = @"\\?\" + zipFile;
                 }

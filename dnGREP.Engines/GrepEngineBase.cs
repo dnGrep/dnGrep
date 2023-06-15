@@ -445,7 +445,7 @@ namespace dnGREP.Engines
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : string.Empty);
 
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
-            StringComparison comparisonType = searchOptions.HasFlag(GrepSearchOption.CaseSensitive) ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
+            StringComparison comparisonType = searchOptions.HasFlag(GrepSearchOption.CaseSensitive) ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
             if (searchOptions.HasFlag(GrepSearchOption.BooleanOperators))
             {
@@ -708,7 +708,7 @@ namespace dnGREP.Engines
             if (positions.Count == 0)
                 return results;
 
-            XmlReaderSettings settings = new XmlReaderSettings
+            XmlReaderSettings settings = new()
             {
                 DtdProcessing = DtdProcessing.Parse
             };

@@ -705,7 +705,7 @@ namespace Tests
 
             core.Replace(files, SearchType.Regex, pattern, replace, GrepSearchOption.None, -1);
 
-            Assert.True(File.ReadAllText(testFile).Contains(expected, StringComparison.InvariantCulture));
+            Assert.True(File.ReadAllText(testFile).Contains(expected, StringComparison.Ordinal));
         }
 
         [Theory]
