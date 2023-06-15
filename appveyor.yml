@@ -16,8 +16,10 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+install: 
+  - cmd: winget install Microsoft.DotNet.SDK.7
 before_build:
-- cmd: nuget restore
+  - cmd: nuget restore
 build:
   project: dnGREP.WPF.sln
   parallel: true
