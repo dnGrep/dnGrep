@@ -231,7 +231,7 @@ namespace dnGREP.Common
         /// call NeedsIncludeFileStream and IncludeFileStream if file needs
         /// to be extracted and read to evaluate
         /// </summary>
-        public static bool IncludeFile(string fileName, string compositeFileName,
+        public static bool IncludeFile(string innerFileName, string compositeFileName,
             FileFilter filter, FileData fileData, IList<string> includeSearchPatterns,
             IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
@@ -240,12 +240,24 @@ namespace dnGREP.Common
                 if (includeSearchPatterns != null && includeSearchPatterns.Count > 0)
                 {
                     bool include = false;
+                    string fileName = Path.GetFileName(innerFileName); // strip inner directory names
                     foreach (string pattern in includeSearchPatterns)
                     {
-                        if (SafeDirectory.WildcardMatch(fileName, pattern, true))
+                        if (pattern.Contains('*', StringComparison.Ordinal) || pattern.Contains('?', StringComparison.Ordinal))
                         {
-                            include = true;
-                            break;
+                            if (SafeDirectory.WildcardMatch(fileName, pattern, true))
+                            {
+                                include = true;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (fileName.Equals(pattern, StringComparison.OrdinalIgnoreCase))
+                            {
+                                include = true;
+                                break;
+                            }
                         }
                     }
                     if (!include)
@@ -259,7 +271,7 @@ namespace dnGREP.Common
                     bool include = false;
                     foreach (var pattern in includeRegexPatterns)
                     {
-                        if (pattern.IsMatch(fileName))
+                        if (pattern.IsMatch(innerFileName))
                         {
                             include = true;
                             break;
@@ -275,7 +287,7 @@ namespace dnGREP.Common
                 // wildcard exclude files are converted to regex
                 foreach (var pattern in excludeRegexPatterns)
                 {
-                    if (pattern.IsMatch(fileName))
+                    if (pattern.IsMatch(innerFileName))
                     {
                         return false;
                     }
