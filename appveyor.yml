@@ -17,8 +17,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 install: 
-  - ps: (new-object net.webclient).DownloadFile('https://download.visualstudio.microsoft.com/download/pr/2ab1aa68-3e14-401a-b106-833d66fa992b/060457e640f4095acf4723c4593314b6/dotnet-sdk-7.0.304-win-x64.exe', 'dotnet-sdk-7.0.304-win-x64.exe')
-  - ps: msiexec /i dotnet-sdk-7.0.304-win-x64.exe /quiet /qn /norestart /log install.log PROPERTY1=value1 PROPERTY2=value2
+  - ps: dotnet-install.ps1 -Channel 7.0
 before_build:
   - cmd: nuget restore
 build:
