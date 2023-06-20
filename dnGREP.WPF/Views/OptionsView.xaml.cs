@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -46,7 +47,12 @@ namespace dnGREP.WPF
         }
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.Uri.ToString());
+            ProcessStartInfo startInfo = new()
+            {
+                FileName = e.Uri.ToString(),
+                UseShellExecute = true,
+            };
+            using var proc = Process.Start(startInfo);
         }
     }
 }

@@ -1217,26 +1217,29 @@ namespace dnGREP.Common
                 {
                     try
                     {
-                        using var proc = Process.Start(UiUtils.Quote(filePath));
+                        ProcessStartInfo startInfo = new()
+                        {
+                            FileName = UiUtils.Quote(filePath),
+                            UseShellExecute = true,
+                        };
+                        using var proc = Process.Start(startInfo);
                     }
                     catch
                     {
-                        using var proc = new Process();
-                        proc.StartInfo = new ProcessStartInfo("notepad.exe")
+                        ProcessStartInfo startInfo = new("notepad.exe")
                         {
                             UseShellExecute = false,
                             CreateNoWindow = true,
                             Arguments = filePath
                         };
-                        proc.Start();
+                        using var proc = Process.Start(startInfo);
                     }
                 }
                 else
                 {
                     args.CustomEditorArgs ??= string.Empty;
 
-                    using var proc = new Process();
-                    proc.StartInfo = new ProcessStartInfo(args.CustomEditor)
+                    ProcessStartInfo startInfo = new(args.CustomEditor)
                     {
                         UseShellExecute = false,
                         CreateNoWindow = true,
@@ -1246,7 +1249,7 @@ namespace dnGREP.Common
                             .Replace("%match", args.FirstMatch, StringComparison.Ordinal)
                             .Replace("%column", args.ColumnNumber.ToString(), StringComparison.Ordinal),
                     };
-                    proc.Start();
+                    using var proc = Process.Start(startInfo);
                 }
             }
         }
@@ -1337,9 +1340,8 @@ namespace dnGREP.Common
             if (fileName.Length > 260)
                 fileName = PathEx.GetShort83Path(fileName);
 
-            using (Process.Start("explorer.exe", "/select,\"" + fileName + "\""))
-            {
-            }
+            ProcessStartInfo startInfo = new("explorer.exe", "/select,\"" + fileName + "\"");
+            using var proc = Process.Start(startInfo);
         }
 
         public static void CompareFiles(IList<GrepSearchResult> files)
@@ -1367,14 +1369,13 @@ namespace dnGREP.Common
                 string appArgs = string.IsNullOrWhiteSpace(args) ? string.Empty : args + " ";
                 string fileArgs = string.Join(" ", paths.Select(p => UiUtils.Quote(p)));
 
-                using var proc = new Process();
-                proc.StartInfo = new ProcessStartInfo(application)
+                ProcessStartInfo startInfo = new(application)
                 {
                     UseShellExecute = false,
                     CreateNoWindow = true,
                     Arguments = appArgs + fileArgs
                 };
-                proc.Start();
+                using var proc = Process.Start(startInfo);
             }
         }
 
