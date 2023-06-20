@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using dnGREP.Common.IO;
 using NLog;
 
@@ -119,19 +120,20 @@ namespace dnGREP.Common
         }
 
         public static IEnumerable<string> EnumerateFiles(string path, IList<string> patterns,
-            Gitignore? gitignore, FileFilter filter)
+            IList<Regex>? excludePatterns, Gitignore? gitignore, FileFilter filter)
         {
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
                 return Enumerable.Empty<string>();
 
             bool simpleSearch = filter.IncludeHidden && filter.MaxSubfolderDepth == -1 &&
+                (excludePatterns == null || excludePatterns.Count == 0) &&
                 (gitignore == null || gitignore.IsEmpty) &&
                 string.IsNullOrWhiteSpace(filter.NamePatternToExclude);
 
             if (simpleSearch)
                 return EnumerateAllFiles(path, patterns, filter.IncludeArchive, filter.IncludeSubfolders, filter.FollowSymlinks);
             else
-                return EnumerateFilesWithFilters(path, patterns, gitignore, filter);
+                return EnumerateFilesWithFilters(path, patterns, excludePatterns, gitignore, filter);
         }
 
         private static IEnumerable<string> EnumerateAllFiles(string path, IList<string> patterns, bool includeArchive, bool recursive, bool followSymlinks)
@@ -192,7 +194,7 @@ namespace dnGREP.Common
         }
 
         private static IEnumerable<string> EnumerateFilesWithFilters(string path, IList<string> patterns,
-            Gitignore? gitignore, FileFilter filter)
+            IList<Regex>? excludePatterns, Gitignore? gitignore, FileFilter filter)
         {
             DirectoryInfo di = new(path);
             // the root of the drive has the hidden attribute set, so don't stop on this hidden directory
@@ -205,11 +207,11 @@ namespace dnGREP.Common
 
             IEnumerable<string> directories = new string[] { path };
             if (filter.IncludeSubfolders)
-                directories = directories.Concat(EnumerateDirectoriesImpl(path, filter, startDepth, gitignore));
+                directories = directories.Concat(EnumerateDirectoriesImpl(path, filter, startDepth, excludePatterns, gitignore));
 
             foreach (var directory in directories)
             {
-                IEnumerable<string> matches = EnumerateFilesImpl(directory, patterns, filter, gitignore);
+                IEnumerable<string> matches = EnumerateFilesImpl(directory, patterns, filter, excludePatterns, gitignore);
 
                 foreach (var file in matches)
                     yield return file;
@@ -217,7 +219,7 @@ namespace dnGREP.Common
         }
 
         private static IEnumerable<string> EnumerateDirectoriesImpl(string path,
-            FileFilter filter, int startDepth, Gitignore? gitignore)
+            FileFilter filter, int startDepth, IList<Regex>? excludePatterns, Gitignore? gitignore)
         {
             var dirOptions = baseDirOptions;
             if (filter.IncludeSubfolders)
@@ -252,6 +254,25 @@ namespace dnGREP.Common
                             return false;
                     }
 
+                    if (excludePatterns?.Count > 0)
+                    {
+                        // name\* (in wildcard) and name\\.*$ (in regex) is the canonical pattern
+                        // for excluding a directory. Unfortunately, it doesn't work with directory
+                        // paths with the trailing backslash
+
+                        foreach (Regex regex in excludePatterns)
+                        {
+                            if (regex.IsMatch(fsei.FullPath + Path.DirectorySeparatorChar))
+                            {
+                                return false;
+                            }
+                            if (regex.IsMatch(fsei.FullPath))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
                     if (filter.UseGitIgnore && fsei.FileName == ".git")
                     {
                         return false;
@@ -279,6 +300,21 @@ namespace dnGREP.Common
                             return false;
                     }
 
+                    if (excludePatterns?.Count > 0)
+                    {
+                        foreach (Regex regex in excludePatterns)
+                        {
+                            if (regex.IsMatch(fsei.FullPath + Path.DirectorySeparatorChar))
+                            {
+                                return false;
+                            }
+                            if (regex.IsMatch(fsei.FullPath))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
                     if (filter.UseGitIgnore && fsei.FileName == ".git")
                     {
                         return false;
@@ -292,7 +328,7 @@ namespace dnGREP.Common
         }
 
         private static IEnumerable<string> EnumerateFilesImpl(string path, IList<string> patterns,
-            FileFilter filter, Gitignore? gitignore)
+            FileFilter filter, IList<Regex>? excludePatterns, Gitignore? gitignore)
         {
             DirectoryEnumerationFilters fileFilters = new()
             {
@@ -306,6 +342,7 @@ namespace dnGREP.Common
 
             bool includeAllFiles = (patterns.Count == 0 ||
                 (patterns.Count == 1 && (patterns[0] == "*.*" || patterns[0] == "*"))) &&
+                (excludePatterns == null || excludePatterns.Count == 0) &&
                 (gitignore == null || gitignore.Files.Count == 0);
 
             if (includeAllFiles)
@@ -328,6 +365,17 @@ namespace dnGREP.Common
                     if (gitignore != null && gitignore.Files.Contains(fsei.FullPath))
                     {
                         return false;
+                    }
+
+                    if (excludePatterns?.Count > 0)
+                    {
+                        foreach (Regex regex in excludePatterns)
+                        {
+                            if (regex.IsMatch(fsei.FullPath))
+                            {
+                                return false;
+                            }
+                        }
                     }
 
                     if (patterns.Count > 0)

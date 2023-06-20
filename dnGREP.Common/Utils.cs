@@ -835,7 +835,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, gitignore, filter))
+                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, excludeRegexPatterns, gitignore, filter))
                 {
                     if (IsArchive(filePath))
                     {
@@ -986,16 +986,6 @@ namespace dnGREP.Common
                         }
                     }
                     if (!include)
-                    {
-                        return false;
-                    }
-                }
-
-                // exclude this file?
-                // wildcard exclude files are converted to regex
-                foreach (var pattern in excludeRegexPatterns)
-                {
-                    if (pattern.IsMatch(filePath))
                     {
                         return false;
                     }
