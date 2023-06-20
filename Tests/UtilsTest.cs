@@ -940,10 +940,10 @@ namespace Tests
             Assert.Equal(2, files.Length);
 
             // regex exclude filter
-            filter = new(destFolder, ".*", @"\b[abl]", true, false, false, true, -1, true,
+            filter = new(destFolder, ".*", @"\bshe", true, false, false, true, -1, true,
                 true, true, false, 0, 0, FileDateFilter.None, null, null);
             files = Utils.GetFileListIncludingArchives(filter).ToArray();
-            Assert.Equal(13, files.Length);
+            Assert.Equal(16, files.Length);
 
             // exclude hidden
             filter = new(destFolder, "*.ttt", string.Empty, false, false, false, true, -1, false,
