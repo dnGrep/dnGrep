@@ -1921,7 +1921,12 @@ namespace dnGREP.WPF
 
         private static void ShowHelp()
         {
-            Process.Start(@"https://github.com/dnGrep/dnGrep/wiki");
+            ProcessStartInfo startInfo = new()
+            { 
+                FileName = @"https://github.com/dnGrep/dnGrep/wiki",
+                UseShellExecute = true
+            };
+            using var proc = Process.Start(startInfo);
         }
 
         private static void ShowAbout()
@@ -2867,7 +2872,12 @@ namespace dnGREP.WPF
                             MessageBoxButton.YesNo, MessageBoxImage.Information,
                             MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) == MessageBoxResult.Yes)
                         {
-                            System.Diagnostics.Process.Start("https://github.com/dnGrep/dnGrep/releases/latest");
+                            ProcessStartInfo startInfo = new()
+                            {
+                                FileName = "https://github.com/dnGrep/dnGrep/releases/latest",
+                                UseShellExecute = true
+                            };
+                            using var proc = Process.Start(startInfo);
                         }
                     }
                     else if (fromCommand)

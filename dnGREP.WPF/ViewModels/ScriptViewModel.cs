@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -86,7 +87,15 @@ namespace dnGREP.WPF
             q => true);
 
         public ICommand HelpCommand => new RelayCommand(
-            p => System.Diagnostics.Process.Start(@"https://github.com/dnGrep/dnGrep/wiki/Scripting%20Commands"));
+            p =>
+            {
+                ProcessStartInfo startInfo = new()
+                {
+                    FileName = @"https://github.com/dnGrep/dnGrep/wiki/Scripting%20Commands",
+                    UseShellExecute = true,
+                };
+                using var proc = Process.Start(startInfo);
+            });
 
         public ICommand UndoCommand => new RelayCommand(
             p => textEditor.Undo(),
