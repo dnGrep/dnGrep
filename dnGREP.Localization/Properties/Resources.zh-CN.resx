@@ -1208,7 +1208,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>匹配计数</value>
+    <value>匹配个数</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
