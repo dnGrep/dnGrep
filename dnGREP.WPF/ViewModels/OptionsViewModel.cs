@@ -24,6 +24,8 @@ namespace dnGREP.WPF
 {
     public partial class OptionsViewModel : CultureAwareViewModel
     {
+        public event EventHandler? RequestClose;
+
         public enum PanelSelection { MainPanel = 0, OptionsExpander }
 
         public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
@@ -564,6 +566,7 @@ namespace dnGREP.WPF
         public void Save()
         {
             SaveSettings();
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

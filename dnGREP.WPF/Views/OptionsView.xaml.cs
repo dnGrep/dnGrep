@@ -17,6 +17,10 @@ namespace dnGREP.WPF
             DiginesisHelpProvider.ShowHelp = true;
 
             Loaded += (s, e) => { TextBoxCommands.BindCommandsToWindow(this); };
+
+            OptionsViewModel viewModel = new();
+            viewModel.RequestClose += (s, e) => Close();
+            DataContext = viewModel;
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

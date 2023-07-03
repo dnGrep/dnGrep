@@ -1898,10 +1898,7 @@ namespace dnGREP.WPF
         private void ShowOptions()
         {
             SaveSettings();
-            OptionsView optionsForm = new()
-            {
-                DataContext = new OptionsViewModel()
-            };
+            OptionsView optionsForm = new();
             if (ParentWindow != null)
             {
                 optionsForm.Owner = ParentWindow;
