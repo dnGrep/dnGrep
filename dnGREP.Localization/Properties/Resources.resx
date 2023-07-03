@@ -1956,7 +1956,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
+    <value>Use keywords '{0}' for file location, '{5}' for the page number, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DeleteFiles" xml:space="preserve">

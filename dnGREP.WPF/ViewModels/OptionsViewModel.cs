@@ -58,8 +58,17 @@ namespace dnGREP.WPF
 
             TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
             {
-                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                    File, Line, Pattern, Match, Column);
+                int count = TranslationSource.CountPlaceholders(Resources.Options_CustomEditorHelp);
+                if (count == 5)
+                {
+                    CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                        File, Line, Pattern, Match, Column);
+                }
+                else
+                {
+                    CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                        File, Line, Pattern, Match, Column, Page);
+                }
                 PanelTooltip = IsAdministrator ? string.Empty : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
                 WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
 
@@ -117,6 +126,7 @@ namespace dnGREP.WPF
         private static readonly string SHELL_KEY_NAME = "dnGREP";
         private static readonly string SHELL_MENU_TEXT = "dnGrep...";
         private const string File = "%file";
+        private const string Page = "%page";
         private const string Line = "%line";
         private const string Pattern = "%pattern";
         private const string Match = "%match";
@@ -677,8 +687,17 @@ namespace dnGREP.WPF
             ResultsFontSize = EditResultsFontSize =
                 ValueOrDefault(GrepSettings.Key.ResultsFontSize, SystemFonts.MessageFontSize);
 
-            CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                File, Line, Pattern, Match, Column);
+            int count = TranslationSource.CountPlaceholders(Resources.Options_CustomEditorHelp);
+            if (count == 5)
+            {
+                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                    File, Line, Pattern, Match, Column);
+            }
+            else
+            {
+                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                    File, Line, Pattern, Match, Column, Page);
+            }
 
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;

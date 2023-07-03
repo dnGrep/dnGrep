@@ -15,6 +15,11 @@ namespace dnGREP.Common
         public string Pattern { get; set; }
 
         /// <summary>
+        /// The match page number
+        /// </summary>
+        public int PageNumber { get; set; }
+
+        /// <summary>
         /// The match line number
         /// </summary>
         public int LineNumber { get; set; }
@@ -49,10 +54,11 @@ namespace dnGREP.Common
         /// </summary>
         public bool UseBaseEngine { get; set; }
 
-        public OpenFileArgs(GrepSearchResult searchResult, string pattern, int line, string firstMatch, int columnNumber, bool useCustomEditor, string customEditor, string customEditorArgs)
+        public OpenFileArgs(GrepSearchResult searchResult, string pattern, int page, int line, string firstMatch, int columnNumber, bool useCustomEditor, string customEditor, string customEditorArgs)
             : base()
         {
             SearchResult = searchResult;
+            PageNumber = page;
             LineNumber = line;
             FirstMatch = firstMatch;
             ColumnNumber = columnNumber;

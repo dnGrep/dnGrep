@@ -436,7 +436,7 @@ namespace dnGREP.Common
                 FileNameReal = args.SearchResult.FileNameReal,
                 FileNameDisplayed = args.SearchResult.FileNameDisplayed
             };
-            OpenFileArgs newArgs = new(newResult, args.Pattern, args.LineNumber, args.FirstMatch, args.ColumnNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
+            OpenFileArgs newArgs = new(newResult, args.Pattern, args.PageNumber, args.LineNumber, args.FirstMatch, args.ColumnNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
             newArgs.SearchResult.FileNameDisplayed = filePath;
             Utils.OpenFile(newArgs);
         }
