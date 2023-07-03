@@ -82,6 +82,7 @@
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="e" Modifiers="Alt"
                     Command="{Binding ToggleFileOptionsCommand}" />
+        <KeyBinding Key="F8" Command="{Binding OptionsCommand}" />
         <KeyBinding Gesture="Ctrl+F5" Command="{Binding ReloadThemeCommand}" />
         <KeyBinding Gesture="F7" Command="{Binding ToggleResultsMaximizeCommand}" />
     </my:ThemedWindow.InputBindings>
@@ -169,7 +170,7 @@
                               Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Settings'}" TabIndex="1">
                         <MenuItem Header="{l:Loc Key='Main_Menu_Personalize'}" IsCheckable="True" IsChecked="{Binding PersonalizationOn}"/>
-                        <MenuItem Header="{l:Loc Key='Main_Menu_Options'}" Command="{Binding OptionsCommand}"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_Options'}" Command="{Binding OptionsCommand}" InputGestureText="F8"/>
                     </MenuItem>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Scripts'}" TabIndex="2"
                               ItemsSource="{Binding Path=ScriptMenuItems, UpdateSourceTrigger=PropertyChanged}" >
