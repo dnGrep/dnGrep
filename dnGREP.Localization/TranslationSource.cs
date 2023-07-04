@@ -126,6 +126,15 @@ namespace dnGREP.Localization
             }
         }
 
+        public static int CountPlaceholders(string format)
+        {
+            if (!string.IsNullOrEmpty(format))
+            {
+                return PlaceholderRegex().Matches(format).Count;
+            }
+            return 0;
+        }
+
         public MessageBoxOptions FlowDirection => CurrentCulture.TextInfo.IsRightToLeft ?
             MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : MessageBoxOptions.None;
     }

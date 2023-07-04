@@ -768,6 +768,7 @@ namespace dnGREP.WPF
             try
             {
                 // Line was selected
+                int pageNumber = selectedNode.GrepLine.PageNumber;
                 int lineNumber = selectedNode.GrepLine.LineNumber;
 
                 int columnNumber = 1;
@@ -780,8 +781,8 @@ namespace dnGREP.WPF
                 }
 
                 FormattedGrepResult result = selectedNode.Parent;
-                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                    useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                    matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 bool isInArchive = Utils.IsArchive(result.GrepResult.FileNameReal);
                 if (isInArchive)
@@ -797,8 +798,8 @@ namespace dnGREP.WPF
                         GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
                     }
                     if (fileArg.UseBaseEngine)
-                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                            useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                             Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
                 }
             }
@@ -831,6 +832,7 @@ namespace dnGREP.WPF
             try
             {
                 // Line was selected
+                int pageNumber = 0;
                 int lineNumber = 0;
 
                 int columnNumber = 1;
@@ -838,6 +840,7 @@ namespace dnGREP.WPF
                 var firstLine = result.GrepResult.SearchResults.FirstOrDefault(r => !r.IsContext);
                 if (firstLine != null)
                 {
+                    pageNumber = firstLine.PageNumber;
                     lineNumber = firstLine.LineNumber;
 
                     var firstMatch = firstLine.Matches.FirstOrDefault();
@@ -848,8 +851,8 @@ namespace dnGREP.WPF
                     }
                 }
 
-                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                    useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                    matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
@@ -864,8 +867,8 @@ namespace dnGREP.WPF
                         GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
                     }
                     if (fileArg.UseBaseEngine)
-                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                            useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                             Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
                 }
             }
@@ -1895,10 +1898,7 @@ namespace dnGREP.WPF
         private void ShowOptions()
         {
             SaveSettings();
-            OptionsView optionsForm = new()
-            {
-                DataContext = new OptionsViewModel()
-            };
+            OptionsView optionsForm = new();
             if (ParentWindow != null)
             {
                 optionsForm.Owner = ParentWindow;

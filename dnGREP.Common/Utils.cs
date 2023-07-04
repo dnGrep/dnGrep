@@ -1238,12 +1238,14 @@ namespace dnGREP.Common
                 else
                 {
                     args.CustomEditorArgs ??= string.Empty;
+                    int pageNumber = args.PageNumber > 0 ? args.PageNumber : 1;
 
                     ProcessStartInfo startInfo = new(args.CustomEditor)
                     {
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         Arguments = args.CustomEditorArgs.Replace("%file", UiUtils.Quote(filePath), StringComparison.Ordinal)
+                            .Replace("%page", pageNumber.ToString(), StringComparison.Ordinal)
                             .Replace("%line", args.LineNumber.ToString(), StringComparison.Ordinal)
                             .Replace("%pattern", args.Pattern, StringComparison.Ordinal)
                             .Replace("%match", args.FirstMatch, StringComparison.Ordinal)

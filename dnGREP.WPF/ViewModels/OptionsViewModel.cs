@@ -24,6 +24,8 @@ namespace dnGREP.WPF
 {
     public partial class OptionsViewModel : CultureAwareViewModel
     {
+        public event EventHandler? RequestClose;
+
         public enum PanelSelection { MainPanel = 0, OptionsExpander }
 
         public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
@@ -58,8 +60,17 @@ namespace dnGREP.WPF
 
             TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
             {
-                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                    File, Line, Pattern, Match, Column);
+                int count = TranslationSource.CountPlaceholders(Resources.Options_CustomEditorHelp);
+                if (count == 5)
+                {
+                    CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                        File, Line, Pattern, Match, Column);
+                }
+                else
+                {
+                    CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                        File, Line, Pattern, Match, Column, Page);
+                }
                 PanelTooltip = IsAdministrator ? string.Empty : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
                 WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
 
@@ -117,6 +128,7 @@ namespace dnGREP.WPF
         private static readonly string SHELL_KEY_NAME = "dnGREP";
         private static readonly string SHELL_MENU_TEXT = "dnGrep...";
         private const string File = "%file";
+        private const string Page = "%page";
         private const string Line = "%line";
         private const string Pattern = "%pattern";
         private const string Match = "%match";
@@ -554,6 +566,7 @@ namespace dnGREP.WPF
         public void Save()
         {
             SaveSettings();
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -677,8 +690,17 @@ namespace dnGREP.WPF
             ResultsFontSize = EditResultsFontSize =
                 ValueOrDefault(GrepSettings.Key.ResultsFontSize, SystemFonts.MessageFontSize);
 
-            CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                File, Line, Pattern, Match, Column);
+            int count = TranslationSource.CountPlaceholders(Resources.Options_CustomEditorHelp);
+            if (count == 5)
+            {
+                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                    File, Line, Pattern, Match, Column);
+            }
+            else
+            {
+                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
+                    File, Line, Pattern, Match, Column, Page);
+            }
 
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
