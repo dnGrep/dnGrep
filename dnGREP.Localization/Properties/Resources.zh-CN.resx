@@ -1208,7 +1208,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>匹配计数</value>
+    <value>匹配个数</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
@@ -1643,7 +1643,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>关键词: '{0}' 表示文件路径, '{1}' 表示行号, '{2}' 表示搜索词, '{3}' 表示文件中第一个匹配的词, '{4}' 表示第一个匹配的词所在的列.</value>
+    <value>关键词: '{0}' 表示文件路径，'{5}'表示页码， '{1}' 表示行号，'{2}' 表示搜索词，'{3}' 表示文件中第一个匹配的词， '{4}' 表示第一个匹配的词所在的列。</value>
     <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
