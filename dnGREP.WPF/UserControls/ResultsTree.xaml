@@ -153,6 +153,9 @@
                           Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Click="BtnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Click="BtnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_CopyFiles'}" Click="BtnCopyFiles_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_MoveFiles'}" Click="BtnMoveFiles_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_DeleteFiles'}" Click="BtnDeleteFiles_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_MoveFilesToRecycleBin'}" Click="BtnRecycleFiles_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_MakeWritable'}" Click="BtnMakeWritable_Click" IsEnabled="{Binding HasReadOnlySelection}" />
                 <Separator />

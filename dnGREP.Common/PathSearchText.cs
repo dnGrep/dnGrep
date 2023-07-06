@@ -45,7 +45,7 @@ namespace dnGREP.Common
         {
             get
             {
-                if (baseFolder == null)
+                if (string.IsNullOrEmpty(baseFolder))
                 {
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {

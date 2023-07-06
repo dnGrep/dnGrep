@@ -3562,4 +3562,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
     <value>Make Lowercase</value>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copy files…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Move files…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Delete files</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>

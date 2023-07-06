@@ -35,6 +35,8 @@ namespace dnGREP.WPF
             SearchResultsMessenger.Register<ITreeItem>("IsSelectedChanged", OnSelectionChanged);
         }
 
+        public PathSearchText PathSearchText { get; internal set; } = new();
+
         private void OnSelectionChanged(ITreeItem item)
         {
             if (item != null)

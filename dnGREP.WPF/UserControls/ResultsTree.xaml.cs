@@ -499,7 +499,118 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        private void BtnCopyFiles_Click(object sender, RoutedEventArgs e)
+        {
+            var (files, indexOfFirst) = GetSelectedFiles();
+            if (files.Count > 0)
+            {
+                var fileList = files.Select(f => f.GrepResult).ToList();
+                var (success, message) = FileOperations.CopyFiles(
+                    fileList, viewModel.PathSearchText, null, false);
+            }
+        }
+
+        private void BtnMoveFiles_Click(object sender, RoutedEventArgs e)
+        {
+            var (files, indexOfFirst) = GetSelectedFiles();
+            if (files.Count > 0)
+            {
+                var fileList = files.Select(f => f.GrepResult).ToList();
+                var (success, message) = FileOperations.MoveFiles(
+                    fileList, viewModel.PathSearchText, null, false);
+
+                if (success)
+                {
+                    viewModel.DeselectAllItems();
+                    foreach (var gr in files)
+                    {
+                        viewModel.SearchResults.Remove(gr);
+                    }
+
+                    if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
+                    {
+                        // the first item was removed, select the new item in that position
+                        int idx = indexOfFirst;
+                        if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
+
+                        var nextResult = viewModel.SearchResults[idx];
+                        var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
+                        if (tvi != null)
+                        {
+                            tvi.IsSelected = false;
+                            tvi.IsSelected = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void BtnDeleteFiles_Click(object sender, RoutedEventArgs e)
+        {
+            var (files, indexOfFirst) = GetSelectedFiles();
+            if (files.Count > 0)
+            {
+                var fileList = files.Select(f => f.GrepResult).ToList();
+                var (success, message) = FileOperations.DeleteFiles(
+                    fileList, false, false);
+
+                if (success)
+                {
+                    viewModel.DeselectAllItems();
+                    foreach (var gr in files)
+                    {
+                        viewModel.SearchResults.Remove(gr);
+                    }
+
+                    if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
+                    {
+                        // the first item was removed, select the new item in that position
+                        int idx = indexOfFirst;
+                        if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
+
+                        var nextResult = viewModel.SearchResults[idx];
+                        var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
+                        if (tvi != null)
+                        {
+                            tvi.IsSelected = false;
+                            tvi.IsSelected = true;
+                        }
+                    }
+                }
+            }
+        }
+
         private void BtnRecycleFiles_Click(object sender, RoutedEventArgs e)
+        {
+            var (files, indexOfFirst) = GetSelectedFiles();
+            viewModel.DeselectAllItems();
+            foreach (var gr in files)
+            {
+                FileSystem.DeleteFile(gr.GrepResult.FileNameReal,
+                    UIOption.OnlyErrorDialogs,
+                    RecycleOption.SendToRecycleBin);
+
+
+                viewModel.SearchResults.Remove(gr);
+            }
+
+            if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
+            {
+                // the first item was removed, select the new item in that position
+                int idx = indexOfFirst;
+                if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
+
+                var nextResult = viewModel.SearchResults[idx];
+                var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
+                if (tvi != null)
+                {
+                    tvi.IsSelected = false;
+                    tvi.IsSelected = true;
+                }
+            }
+        }
+
+        private (IList<FormattedGrepResult> files, int indexOfFirst) GetSelectedFiles()
         {
             // get the unique set of files from the selections
             List<FormattedGrepResult> files = new();
@@ -528,32 +639,7 @@ namespace dnGREP.WPF.UserControls
                     indexOfFirst = viewModel.SearchResults.IndexOf(files.First());
                 }
             }
-
-            viewModel.DeselectAllItems();
-            foreach (var gr in files)
-            {
-                FileSystem.DeleteFile(gr.GrepResult.FileNameReal,
-                    UIOption.OnlyErrorDialogs,
-                    RecycleOption.SendToRecycleBin);
-
-
-                viewModel.SearchResults.Remove(gr);
-            }
-
-            if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
-            {
-                // the first item was removed, select the new item in that position
-                int idx = indexOfFirst;
-                if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
-
-                var nextResult = viewModel.SearchResults[idx];
-                var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
-                if (tvi != null)
-                {
-                    tvi.IsSelected = false;
-                    tvi.IsSelected = true;
-                }
-            }
+            return (files, indexOfFirst);
         }
 
         private void BtnCopyFileNames_Click(object sender, RoutedEventArgs e)
@@ -1345,7 +1431,7 @@ namespace dnGREP.WPF.UserControls
                         subContainer =
                             (TreeViewItem)container.ItemContainerGenerator.
                             ContainerFromIndex(idx);
-                        
+
                         // Bring the item into view to maintain the
                         // same behavior as with a virtualizing panel.
                         subContainer?.BringIntoView();
