@@ -2466,6 +2466,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy files….
+        /// </summary>
+        public static string Main_Results_CopyFiles {
+            get {
+                return ResourceManager.GetString("Main_Results_CopyFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy full file paths.
         /// </summary>
         public static string Main_Results_CopyFullFilePaths {
@@ -2480,6 +2489,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Results_CopyLinesOfText {
             get {
                 return ResourceManager.GetString("Main_Results_CopyLinesOfText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete files.
+        /// </summary>
+        public static string Main_Results_DeleteFiles {
+            get {
+                return ResourceManager.GetString("Main_Results_DeleteFiles", resourceCulture);
             }
         }
         
@@ -2507,6 +2525,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Results_MakeWritable {
             get {
                 return ResourceManager.GetString("Main_Results_MakeWritable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move files….
+        /// </summary>
+        public static string Main_Results_MoveFiles {
+            get {
+                return ResourceManager.GetString("Main_Results_MoveFiles", resourceCulture);
             }
         }
         

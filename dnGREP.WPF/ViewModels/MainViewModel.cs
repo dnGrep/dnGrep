@@ -63,6 +63,7 @@ namespace dnGREP.WPF
 
                 CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
 
+                ResultsViewModel.PathSearchText = PathSearchText;
                 ResultsViewModel.GrepLineSelected += SearchResults_GrepLineSelected;
                 ResultsViewModel.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
                 ResultsViewModel.PreviewFileRequest += SearchResults_PreviewFileRequest;
@@ -244,7 +245,6 @@ namespace dnGREP.WPF
         #region Private Variables and Properties
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private DateTime timer = DateTime.Now;
-        private readonly FileFolderDialogWin32 fileFolderDialog = new();
         private readonly BackgroundWorker workerSearchReplace = new();
         private BookmarksWindow? bookmarkWindow;
         private readonly HashSet<string> currentSearchFiles = new();
@@ -781,7 +781,7 @@ namespace dnGREP.WPF
                 }
 
                 FormattedGrepResult result = selectedNode.Parent;
-                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
                     matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 bool isInArchive = Utils.IsArchive(result.GrepResult.FileNameReal);
@@ -798,7 +798,7 @@ namespace dnGREP.WPF
                         GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
                     }
                     if (fileArg.UseBaseEngine)
-                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
                             matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                             Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
                 }
@@ -851,7 +851,7 @@ namespace dnGREP.WPF
                     }
                 }
 
-                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
                     matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
@@ -867,7 +867,7 @@ namespace dnGREP.WPF
                         GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
                     }
                     if (fileArg.UseBaseEngine)
-                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber, 
+                        Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
                             matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                             Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
                 }
@@ -1413,6 +1413,7 @@ namespace dnGREP.WPF
 
         private void Browse()
         {
+            FileFolderDialogWin32 fileFolderDialog = new();
             fileFolderDialog.Dialog.Multiselect = true;
             fileFolderDialog.SelectedPath = PathSearchText.BaseFolder;
             if (string.IsNullOrWhiteSpace(PathSearchText.BaseFolder))
@@ -1851,13 +1852,13 @@ namespace dnGREP.WPF
                         list = FastFileMatchBookmarks;
                         break;
                     case MRUType.ExcludePattern:
-                        list = FastFileNotMatchBookmarks; 
+                        list = FastFileNotMatchBookmarks;
                         break;
                     case MRUType.SearchFor:
-                        list = FastSearchBookmarks; 
+                        list = FastSearchBookmarks;
                         break;
                     case MRUType.ReplaceWith:
-                        list = FastReplaceBookmarks; 
+                        list = FastReplaceBookmarks;
                         break;
                 }
 
@@ -1922,7 +1923,7 @@ namespace dnGREP.WPF
         private static void ShowHelp()
         {
             ProcessStartInfo startInfo = new()
-            { 
+            {
                 FileName = @"https://github.com/dnGrep/dnGrep/wiki",
                 UseShellExecute = true
             };
@@ -2290,92 +2291,18 @@ namespace dnGREP.WPF
                 {
                     selectedPath = path;
                 }
-                else if (fileFolderDialog.ShowDialog() == true)
+
+                var (success, message) = FileOperations.CopyFiles(
+                    ResultsViewModel.GetList(), PathSearchText, selectedPath, IsScriptRunning);
+
+                if (!string.IsNullOrEmpty(message))
                 {
-                    selectedPath = fileFolderDialog.SelectedPath;
+                    AddScriptMessage(message);
                 }
 
-                if (!string.IsNullOrEmpty(selectedPath))
+                if (IsScriptRunning && !success)
                 {
-                    try
-                    {
-                        var fileList = ResultsViewModel.GetList();
-                        string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
-                        bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
-                        string baseFolder = PathSearchText.BaseFolder;
-
-                        if (!string.IsNullOrEmpty(destinationFolder) &&
-                            !Utils.CanCopyFiles(fileList, destinationFolder))
-                        {
-                            if (IsScriptRunning)
-                            {
-                                logger.Error(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
-                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
-                                AddScriptMessage(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
-                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
-                            }
-                            else
-                            {
-                                MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
-                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
-                                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
-                                    MessageBoxButton.OK, MessageBoxImage.Warning,
-                                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                            }
-                            return;
-                        }
-
-                        var overwritePref = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy);
-                        if (IsScriptRunning && overwritePref == OverwriteFile.Prompt)
-                        {
-                            overwritePref = OverwriteFile.No;
-                        }
-
-                        int count = 0;
-                        if (hasSingleBaseFolder && !string.IsNullOrEmpty(destinationFolder) &&
-                            !string.IsNullOrWhiteSpace(baseFolder))
-                        {
-                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, overwritePref);
-                        }
-                        else if (!string.IsNullOrEmpty(destinationFolder))
-                        {
-                            // without a common base path, copy all files to a single directory 
-                            count = Utils.CopyFiles(fileList, destinationFolder, overwritePref);
-                        }
-
-                        if (IsScriptRunning)
-                        {
-                            logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count) +
-                                " " + selectedPath);
-                            AddScriptMessage(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count) +
-                                " " + selectedPath);
-                        }
-                        else
-                        {
-                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count),
-                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
-                                MessageBoxButton.OK, MessageBoxImage.Information,
-                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "Error copying files");
-
-                        if (IsScriptRunning)
-                        {
-                            AddScriptMessage(Resources.Scripts_CopyFilesFailed + ex.Message);
-                            CancelScript();
-                        }
-                        else
-                        {
-                            MessageBox.Show(Resources.MessageBox_ThereWasAnErrorCopyingFiles + App.LogDir,
-                                Resources.MessageBox_DnGrep,
-                                MessageBoxButton.OK, MessageBoxImage.Error,
-                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                        }
-                    }
-                    CanUndo = false;
+                    CancelScript();
                 }
             }
         }
@@ -2389,91 +2316,22 @@ namespace dnGREP.WPF
                 {
                     selectedPath = path;
                 }
-                else if (fileFolderDialog.ShowDialog() == true)
+
+                var (success, message) = FileOperations.MoveFiles(
+                    ResultsViewModel.GetList(), PathSearchText, selectedPath, IsScriptRunning);
+
+                if (!string.IsNullOrEmpty(message))
                 {
-                    selectedPath = fileFolderDialog.SelectedPath;
+                    AddScriptMessage(message);
                 }
 
-                if (!string.IsNullOrEmpty(selectedPath))
+                if (IsScriptRunning && !success)
                 {
-                    try
-                    {
-                        var fileList = ResultsViewModel.GetList();
-                        string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
-                        bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
-                        string baseFolder = PathSearchText.BaseFolder;
+                    CancelScript();
+                }
 
-                        if (!string.IsNullOrEmpty(destinationFolder) &&
-                            !Utils.CanCopyFiles(fileList, destinationFolder))
-                        {
-                            if (IsScriptRunning)
-                            {
-                                logger.Error(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
-                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
-                                AddScriptMessage(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
-                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
-                            }
-                            else
-                            {
-                                MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
-                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
-                                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
-                                    MessageBoxButton.OK, MessageBoxImage.Warning,
-                                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                            }
-                            return;
-                        }
-
-                        var overwritePref = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
-                        if (IsScriptRunning && overwritePref == OverwriteFile.Prompt)
-                        {
-                            overwritePref = OverwriteFile.No;
-                        }
-
-                        int count = 0;
-                        if (hasSingleBaseFolder && !string.IsNullOrEmpty(destinationFolder) &&
-                            !string.IsNullOrWhiteSpace(baseFolder))
-                        {
-                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, overwritePref);
-                        }
-                        else if (!string.IsNullOrEmpty(destinationFolder))
-                        {
-                            // without a common base path, move all files to a single directory 
-                            count = Utils.MoveFiles(fileList, destinationFolder, overwritePref);
-                        }
-
-                        if (IsScriptRunning)
-                        {
-                            logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count) +
-                                " " + selectedPath);
-                            AddScriptMessage(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count) +
-                                " " + selectedPath);
-                        }
-                        else
-                        {
-                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count),
-                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
-                                MessageBoxButton.OK, MessageBoxImage.Information,
-                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "Error moving files");
-                        if (IsScriptRunning)
-                        {
-                            AddScriptMessage(Resources.Scripts_MoveFilesFailed + ex.Message);
-                            CancelScript();
-                        }
-                        else
-                        {
-                            MessageBox.Show(Resources.MessageBox_ThereWasAnErrorMovingFiles + App.LogDir,
-                                Resources.MessageBox_DnGrep,
-                                MessageBoxButton.OK, MessageBoxImage.Error,
-                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                        }
-                    }
-                    CanUndo = false;
+                if (success)
+                {
                     ClearMatchCountStatus();
                     ResultsViewModel.SearchResults.Clear();
                     FilesFound = false;
@@ -2485,63 +2343,25 @@ namespace dnGREP.WPF
         {
             if (FilesFound)
             {
-                try
-                {
-                    if (!IsScriptRunning)
-                    {
-                        if (MessageBox.Show(Resources.MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch + Environment.NewLine +
-                                Resources.MessageBox_AreYouSureYouWantToContinue,
-                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
-                                MessageBoxButton.YesNo, MessageBoxImage.Warning,
-                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
-                        {
-                            return;
-                        }
-                    }
+                var (success, message) = FileOperations.DeleteFiles(
+                    ResultsViewModel.GetList(), IsScriptRunning, true);
 
-                    int count;
-                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DeleteToRecycleBin))
-                    {
-                        count = Utils.SendToRecycleBin(ResultsViewModel.GetList());
-                    }
-                    else
-                    {
-                        count = Utils.DeleteFiles(ResultsViewModel.GetList());
-                    }
-
-                    if (IsScriptRunning)
-                    {
-                        logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count));
-                        AddScriptMessage(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count));
-                    }
-                    else
-                    {
-                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count),
-                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
-                            MessageBoxButton.OK, MessageBoxImage.Information,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                    }
-                }
-                catch (Exception ex)
+                if (!string.IsNullOrEmpty(message))
                 {
-                    logger.Error(ex, "Error deleting files");
-                    if (IsScriptRunning)
-                    {
-                        AddScriptMessage(Resources.Scripts_DeleteFilesFailed + ex.Message);
-                        CancelScript();
-                    }
-                    else
-                    {
-                        MessageBox.Show(Resources.MessageBox_ThereWasAnErrorDeletingFiles + App.LogDir,
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                    }
+                    AddScriptMessage(message);
                 }
-                CanUndo = false;
-                ClearMatchCountStatus();
-                ResultsViewModel.SearchResults.Clear();
-                FilesFound = false;
+
+                if (IsScriptRunning && !success)
+                {
+                    CancelScript();
+                }
+
+                if (success)
+                {
+                    ClearMatchCountStatus();
+                    ResultsViewModel.SearchResults.Clear();
+                    FilesFound = false;
+                }
             }
         }
 
