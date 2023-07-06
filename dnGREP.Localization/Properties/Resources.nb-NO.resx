@@ -2410,4 +2410,12 @@
     <value>Avbryt</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copy files…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Move files…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
