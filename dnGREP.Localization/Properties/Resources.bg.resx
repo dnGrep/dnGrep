@@ -3561,4 +3561,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_log_cmd_value" xml:space="preserve">
     <value>Низ със съобщение или „time“ за извеждане на изминалото време</value>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Копиране на файлове…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Преместване на файлове…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Премахване на файлове</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
