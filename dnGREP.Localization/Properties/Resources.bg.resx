@@ -1643,7 +1643,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Използвайте ключовата дума „{0}“ за пътя до файла, „{1}“ за номера на реда, „{2}“ за низа на търсенето, „{3}“ за първия съвпадащ текст на реда, и „{4}“ за колоната на първия съвпадащ текст на реда.</value>
+    <value>Използвайте ключовата дума „{0}“ за път до файла, „{5}“ за номер на страницата, „{1}“ за номер на реда, „{2}“ за низ на търсенето, „{3}“ за първи съвпадащ текст на реда, и „{4}“ за колона на първия съвпадащ текст на реда.</value>
     <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
