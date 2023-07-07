@@ -2849,4 +2849,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Nouveau Script…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Déplacer les fichiers…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copier les fichiers…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
