@@ -2703,4 +2703,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>결과 복원 (F7)</value>
     <comment>Main window, Maximize results button tooltip</comment>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copy files…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Move files…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
