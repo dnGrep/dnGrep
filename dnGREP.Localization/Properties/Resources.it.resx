@@ -1233,4 +1233,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Shift+Alt+Freccia su</value>
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copia file…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Sposta file…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
