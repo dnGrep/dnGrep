@@ -2661,4 +2661,12 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Otsingu valikud</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Liiguta failid…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Kopeeri failid…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
