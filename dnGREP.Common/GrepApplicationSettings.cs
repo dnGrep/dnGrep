@@ -730,121 +730,129 @@ namespace dnGREP.Common
         /// <returns></returns>
         public T Get<T>(string key)
         {
-            if (!settings.ContainsKey(key))
+            string? value = null;
+            try
             {
-                return GetDefaultValue<T>(key);
-            }
-
-            if (settings.TryGetValue(key, out string? value))
-            {
-                if (value == "xsi:nil")
+                if (!settings.ContainsKey(key))
                 {
-                    if (typeof(T) == typeof(string))
-                    {
-                        value = string.Empty;
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException($"Null is not allowed for key {key}");
-                    }
+                    return GetDefaultValue<T>(key);
                 }
 
-                if (typeof(T) == typeof(string))
+                if (settings.TryGetValue(key, out value))
                 {
-                    return (T)Convert.ChangeType(value.Replace("&#010;", "\n", StringComparison.Ordinal).Replace("&#013;", "\r", StringComparison.Ordinal), typeof(string));
-                }
-
-                if (typeof(T).IsEnum)
-                {
-                    return (T)Enum.Parse(typeof(T), value);
-                }
-
-                if (typeof(T) == typeof(Rect))
-                {
-                    return (T)Convert.ChangeType(Rect.Parse(value), typeof(Rect));
-                }
-
-                if (typeof(T) == typeof(List<string>))
-                {
-                    List<string?> list;
-                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray", StringComparison.Ordinal))
+                    if (value == "xsi:nil")
                     {
-                        list = Deserialize(value);
-                    }
-                    else
-                    {
-                        list = new();
-                    }
-                    return (T)Convert.ChangeType(list, typeof(List<string>));
-                }
-
-                if (typeof(T) == typeof(List<MostRecentlyUsed>))
-                {
-                    List<MostRecentlyUsed> list;
-                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray", StringComparison.Ordinal))
-                    {
-                        list = DeserializeMRU(value);
-                    }
-                    else
-                    {
-                        list = new List<MostRecentlyUsed>();
-                    }
-                    return (T)Convert.ChangeType(list, typeof(List<MostRecentlyUsed>));
-                }
-
-                if (typeof(T) == typeof(DateTime) || typeof(T) == typeof(DateTime?))
-                {
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        DateTime? dt = value.FromIso8601DateTime();
-                        if (dt.HasValue)
+                        if (typeof(T) == typeof(string))
                         {
-                            return (T)Convert.ChangeType(dt.Value, typeof(DateTime));
+                            value = string.Empty;
                         }
                         else
+                        {
+                            throw new InvalidOperationException($"Null is not allowed for key {key}");
+                        }
+                    }
+
+                    if (typeof(T) == typeof(string))
+                    {
+                        return (T)Convert.ChangeType(value.Replace("&#010;", "\n", StringComparison.Ordinal).Replace("&#013;", "\r", StringComparison.Ordinal), typeof(string));
+                    }
+
+                    if (typeof(T).IsEnum)
+                    {
+                        return (T)Enum.Parse(typeof(T), value);
+                    }
+
+                    if (typeof(T) == typeof(Rect))
+                    {
+                        return (T)Convert.ChangeType(Rect.Parse(value), typeof(Rect));
+                    }
+
+                    if (typeof(T) == typeof(List<string>))
+                    {
+                        List<string?> list;
+                        if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray", StringComparison.Ordinal))
+                        {
+                            list = Deserialize(value);
+                        }
+                        else
+                        {
+                            list = new();
+                        }
+                        return (T)Convert.ChangeType(list, typeof(List<string>));
+                    }
+
+                    if (typeof(T) == typeof(List<MostRecentlyUsed>))
+                    {
+                        List<MostRecentlyUsed> list;
+                        if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray", StringComparison.Ordinal))
+                        {
+                            list = DeserializeMRU(value);
+                        }
+                        else
+                        {
+                            list = new List<MostRecentlyUsed>();
+                        }
+                        return (T)Convert.ChangeType(list, typeof(List<MostRecentlyUsed>));
+                    }
+
+                    if (typeof(T) == typeof(DateTime) || typeof(T) == typeof(DateTime?))
+                    {
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            DateTime? dt = value.FromIso8601DateTime();
+                            if (dt.HasValue)
+                            {
+                                return (T)Convert.ChangeType(dt.Value, typeof(DateTime));
+                            }
+                            else
+                            {
+                                return GetDefaultValue<T>(key);
+                            }
+                        }
+                    }
+
+                    if (typeof(T) == typeof(bool) || typeof(T) == typeof(bool?))
+                    {
+                        if (bool.TryParse(value, out bool result))
+                        {
+                            return (T)Convert.ChangeType(result, typeof(bool));
+                        }
+                        else if (typeof(T) == typeof(bool?))
                         {
                             return GetDefaultValue<T>(key);
                         }
                     }
-                }
 
-                if (typeof(T) == typeof(bool) || typeof(T) == typeof(bool?))
-                {
-                    if (bool.TryParse(value, out bool result))
+                    if (typeof(T) == typeof(int))
                     {
-                        return (T)Convert.ChangeType(result, typeof(bool));
+                        if (int.TryParse(value, CultureInfo.InvariantCulture, out int result))
+                        {
+                            return (T)Convert.ChangeType(result, typeof(T));
+                        }
+                        else
+                        {
+                            return (T)Convert.ChangeType(0, typeof(T));
+                        }
                     }
-                    else if (typeof(T) == typeof(bool?))
-                    {
-                        return GetDefaultValue<T>(key);
-                    }
-                }
 
-                if (typeof(T) == typeof(int))
-                {
-                    if (int.TryParse(value, CultureInfo.InvariantCulture, out int result))
+                    if (typeof(T) == typeof(double))
                     {
-                        return (T)Convert.ChangeType(result, typeof(T));
+                        if (double.TryParse(value, CultureInfo.InvariantCulture, out double result))
+                        {
+                            return (T)Convert.ChangeType(result, typeof(T));
+                        }
+                        else
+                        {
+                            return (T)Convert.ChangeType(0, typeof(T));
+                        }
                     }
-                    else
-                    {
-                        return (T)Convert.ChangeType(0, typeof(T));
-                    }
-                }
 
-                if (typeof(T) == typeof(double))
-                {
-                    if (double.TryParse(value, CultureInfo.InvariantCulture, out double result))
-                    {
-                        return (T)Convert.ChangeType(result, typeof(T));
-                    }
-                    else
-                    {
-                        return (T)Convert.ChangeType(0, typeof(T));
-                    }
+                    return (T)Convert.ChangeType(value, typeof(T));
                 }
-
-                return (T)Convert.ChangeType(value, typeof(T));
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"Error converting settings key [{key}] of type [{typeof(T)}] from value [{value}]");
             }
 
             return GetDefaultValue<T>(key);
