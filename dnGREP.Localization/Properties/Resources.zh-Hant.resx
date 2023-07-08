@@ -3503,4 +3503,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="TextBox_Command_Paste" xml:space="preserve">
     <value>貼上</value>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>複製檔案…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>移動檔案…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>刪除檔案</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>

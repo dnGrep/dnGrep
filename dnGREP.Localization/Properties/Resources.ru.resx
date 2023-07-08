@@ -3535,4 +3535,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Фильтр времени 'до' часов</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Копировать файлы…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Переместить файлы…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Удаление файлов</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>

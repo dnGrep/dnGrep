@@ -2610,4 +2610,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>אישור</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>העתקת קבצים…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>העבר קבצים…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>

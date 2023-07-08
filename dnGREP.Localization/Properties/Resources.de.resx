@@ -2724,4 +2724,16 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Der Pfad und der Dateiname für den Bericht</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Datei kopieren…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Datei verschieben…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Dateien löschen</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
