@@ -3304,4 +3304,84 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Покрени екстерну команду</value>
     <comment>Script editor command tooltip</comment>
   </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Доња граница филтера величине (број)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>Подешавање типа сортирања</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>Образац претраживања или празан низ</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>Паралелна претрага</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Величина до</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>Образац филтера датотеке, као што је *.txt, или листа филтера</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Замена текста или празан низ</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>Смер сортирања</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>Обрасци који одговарају филтеру</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>Образац филтера датотеке, као што је test\\*, или листа филтера</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Преглед датотеке</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>Подешавање излаза извештаја</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>Ниво зумирања за стабло резултата (број)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>Извести излаз у одвојене линије</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Горња граница филтера величине (број)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>Тип обрасца претраге</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>Величина од</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Копирати датотеке…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Преместити датотеке…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Обриши фајлове</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
