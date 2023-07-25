@@ -273,7 +273,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 						}
 					} else
 						yield return extendSelection;
-				} else
+				} else if (!lastRect.IsEmpty)
 					yield return lastRect;
 			}
 		}
