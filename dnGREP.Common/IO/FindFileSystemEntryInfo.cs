@@ -321,8 +321,6 @@ namespace dnGREP.Common.IO
                 dirs.Enqueue(path);
             }
 
-            //using (new NativeMethods.ChangeErrorMode(NativeMethods.ErrorMode.FailCriticalErrors))
-
             while (dirs.Count > 0 && !CancellationToken.IsCancellationRequested)
             {
                 // Removes the object at the beginning of your Queue.
@@ -383,7 +381,7 @@ namespace dnGREP.Common.IO
                     if (Equals(res, default(T)))
                         continue;
 
-                    if (res !=  null)
+                    if (res != null)
                     {
                         yield return res;
                     }
@@ -510,7 +508,7 @@ namespace dnGREP.Common.IO
                 // We should really never get here, throwing an exception for a successful operation.
                 (uint)WIN32_ERROR.ERROR_SUCCESS or (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_INITIATED or (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_REQUIRED or (uint)WIN32_ERROR.ERROR_SUCCESS_RESTART_REQUIRED => new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "Incorrectly implemented function attempting to generate exception from successful operation {0}", errorMessage)),
                 // We don't have a specific exception to generate for this error.
-                _ => new IOException(errorMessage, GetHrFromWin32Error(errorCode)),               
+                _ => new IOException(errorMessage, GetHrFromWin32Error(errorCode)),
             };
         }
 

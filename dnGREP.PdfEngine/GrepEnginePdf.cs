@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using NLog;
@@ -46,7 +47,8 @@ namespace dnGREP.Engines.Pdf
 
         public bool PreviewPlainText { get; set; }
 
-        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken)
         {
             try
             {
@@ -55,10 +57,7 @@ namespace dnGREP.Engines.Pdf
                 if (!File.Exists(tempFile))
                     throw new ApplicationException("pdftotext failed to create text file.");
 
-                if (Utils.CancelSearch)
-                {
-                    return new List<GrepSearchResult>();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 // GrepCore cannot check encoding of the original pdf file. If the encoding parameter is not default
                 // then it is the user-specified code page.  If the encoding parameter *is* the default,
@@ -67,7 +66,7 @@ namespace dnGREP.Engines.Pdf
                     encoding = Utils.GetFileEncoding(tempFile);
 
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter, searchType);
-                List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
+                List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding, cancellationToken);
 
                 if (results.Count > 0)
                 {
@@ -96,15 +95,20 @@ namespace dnGREP.Engines.Pdf
 
                 return results;
             }
+            catch (OperationCanceledException)
+            {
+                // expected exception
+            }
             catch (Exception ex)
             {
                 logger.Error(ex, $"Failed to search inside PDF file: {ex.Message}");
-                return new List<GrepSearchResult>();
             }
+            return new List<GrepSearchResult>();
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken)
         {
             // write the stream to a temp folder, and run the file version of the search
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
@@ -121,7 +125,7 @@ namespace dnGREP.Engines.Pdf
                 input.CopyTo(fileStream);
             }
 
-            var results = Search(filePath, searchPattern, searchType, searchOptions, encoding);
+            var results = Search(filePath, searchPattern, searchType, searchOptions, encoding, cancellationToken);
 
             bool isInArchive = fileName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
             if (isInArchive && results.Count > 0)
@@ -174,7 +178,7 @@ namespace dnGREP.Engines.Pdf
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken)
         {
             throw new Exception("The method or operation is not implemented.");
         }

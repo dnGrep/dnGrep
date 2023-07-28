@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using dnGREP.Common;
 
 namespace dnGREP.Engines
@@ -34,7 +35,8 @@ namespace dnGREP.Engines
         /// <param name="isMultiline"></param>
         /// <param name="encoding"></param>
         /// <returns>List of results. If nothing is found returns empty list</returns>
-        List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
+        List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken);
 
         /// <summary>
         /// Searches an input stream for files whose content matches regex
@@ -46,10 +48,11 @@ namespace dnGREP.Engines
         /// <param name="searchOptions"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
+        List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken);
 
-        bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems);
+        bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken);
 
         /// <summary>
         /// Method gets called when search/replace process is complete
@@ -69,7 +72,7 @@ namespace dnGREP.Engines
     }
 
     public interface IGrepPluginEngine : IGrepEngine
-    { 
+    {
         bool PreviewPlainText { get; set; }
     }
 

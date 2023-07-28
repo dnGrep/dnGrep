@@ -2979,6 +2979,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace canceled – replaced text in {0} files..
+        /// </summary>
+        public static string Main_Status_ReplaceCanceledReplacedTextIn0Files {
+            get {
+                return ResourceManager.GetString("Main_Status_ReplaceCanceledReplacedTextIn0Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace completed – replaced text in {0} files..
         /// </summary>
         public static string Main_Status_ReplaceComplete0FilesReplaced {
@@ -3011,6 +3020,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Status_SearchCanceled {
             get {
                 return ResourceManager.GetString("Main_Status_SearchCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search canceled in {0} – {1} matches found in {2} files of {3} searched..
+        /// </summary>
+        public static string Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched {
+            get {
+                return ResourceManager.GetString("Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched", resourceCulture);
             }
         }
         

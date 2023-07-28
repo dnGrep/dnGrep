@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using dnGREP.Common;
 using dnGREP.Localization;
 using NLog;
@@ -26,14 +27,17 @@ namespace dnGREP.Engines.OpenXml
 
         public bool PreviewPlainText { get; set; }
 
-        public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken)
         {
             using var input = File.Open(fileName, FileMode.Open, FileAccess.Read);
-            return Search(input, fileName, searchPattern, searchType, searchOptions, encoding);
+            return Search(input, fileName, searchPattern, searchType, searchOptions, encoding, cancellationToken);
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
+            CancellationToken cancellationToken)
         {
             SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
             switch (searchType)
@@ -50,11 +54,14 @@ namespace dnGREP.Engines.OpenXml
                     break;
             }
 
-            List<GrepSearchResult> result = SearchMultiline(input, fileName, searchPattern, searchOptions, searchMethodMultiline);
+            List<GrepSearchResult> result = SearchMultiline(input, fileName, searchPattern, searchOptions,
+                searchMethodMultiline, cancellationToken);
             return result;
         }
 
-        private List<GrepSearchResult> SearchMultiline(Stream input, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
+        private List<GrepSearchResult> SearchMultiline(Stream input, string file, string searchPattern,
+            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+            CancellationToken cancellationToken)
         {
             List<GrepSearchResult> searchResults = new();
 
@@ -62,28 +69,30 @@ namespace dnGREP.Engines.OpenXml
 
             if (ext.StartsWith(".doc", StringComparison.OrdinalIgnoreCase))
             {
-                SearchWord(input, file, searchPattern, searchOptions, searchMethod, searchResults);
+                SearchWord(input, file, searchPattern, searchOptions, searchMethod, searchResults, cancellationToken);
             }
             else if (ext.StartsWith(".xls", StringComparison.OrdinalIgnoreCase))
             {
-                SearchExcel(input, file, searchPattern, searchOptions, searchMethod, searchResults);
+                SearchExcel(input, file, searchPattern, searchOptions, searchMethod, searchResults, cancellationToken);
             }
             else if (ext.StartsWith(".ppt", StringComparison.OrdinalIgnoreCase))
             {
-                SearchPowerPoint(input, file, searchPattern, searchOptions, searchMethod, searchResults);
+                SearchPowerPoint(input, file, searchPattern, searchOptions, searchMethod, searchResults, cancellationToken);
             }
 
             return searchResults;
         }
 
-        private void SearchExcel(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
+        private void SearchExcel(Stream stream, string file, string searchPattern,
+            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+            List<GrepSearchResult> searchResults, CancellationToken cancellationToken)
         {
             try
             {
-                var sheets = ExcelReader.ExtractExcelText(stream);
+                var sheets = ExcelReader.ExtractExcelText(stream, cancellationToken);
                 foreach (var kvPair in sheets)
                 {
-                    var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true);
+                    var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true, cancellationToken);
                     if (lines.Count > 0)
                     {
                         GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default)
@@ -103,19 +112,27 @@ namespace dnGREP.Engines.OpenXml
                     }
                 }
             }
+            catch (OperationCanceledException)
+            {
+                // expected exception
+                searchResults.Clear();
+            }
             catch (Exception ex)
             {
                 logger.Error(ex, string.Format("Failed to search inside Excel file '{0}'", file));
             }
         }
 
-        private void SearchWord(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
+        private void SearchWord(Stream stream, string file, string searchPattern,
+            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+            List<GrepSearchResult> searchResults, CancellationToken cancellationToken)
         {
             try
             {
-                var text = WordReader.ExtractWordText(stream);
+                var text = WordReader.ExtractWordText(stream, cancellationToken);
 
-                var lines = searchMethod(-1, 0, text, searchPattern, searchOptions, true);
+                var lines = searchMethod(-1, 0, text, searchPattern,
+                    searchOptions, true, cancellationToken);
                 if (lines.Count > 0)
                 {
                     GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
@@ -131,21 +148,29 @@ namespace dnGREP.Engines.OpenXml
                     searchResults.Add(result);
                 }
             }
+            catch (OperationCanceledException)
+            {
+                // expected exception
+                searchResults.Clear();
+            }
             catch (Exception ex)
             {
                 logger.Error(ex, string.Format("Failed to search inside Word file '{0}'", file));
             }
         }
 
-        private void SearchPowerPoint(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
+        private void SearchPowerPoint(Stream stream, string file, string searchPattern,
+            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+            List<GrepSearchResult> searchResults, CancellationToken cancellationToken)
         {
             try
             {
-                var slides = PowerPointReader.ExtractPowerPointText(stream);
+                var slides = PowerPointReader.ExtractPowerPointText(stream, cancellationToken);
 
                 foreach (var slide in slides)
                 {
-                    var lines = searchMethod(-1, 0, slide.Item2, searchPattern, searchOptions, true);
+                    var lines = searchMethod(-1, 0, slide.Item2, searchPattern,
+                        searchOptions, true, cancellationToken);
                     if (lines.Count > 0)
                     {
                         GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default)
@@ -165,6 +190,11 @@ namespace dnGREP.Engines.OpenXml
                         searchResults.Add(result);
                     }
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                // expected exception
+                searchResults.Clear();
             }
             catch (Exception ex)
             {
@@ -187,7 +217,7 @@ namespace dnGREP.Engines.OpenXml
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken)
         {
             throw new Exception("The method or operation is not implemented.");
         }

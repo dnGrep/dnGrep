@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using dnGREP.Common;
+using System.Threading;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -11,7 +11,7 @@ namespace dnGREP.Engines.OpenXml
 {
     internal static class WordReader
     {
-        public static string ExtractWordText(Stream stream)
+        public static string ExtractWordText(Stream stream, CancellationToken cancellationToken)
         {
             StringBuilder sb = new();
 
@@ -29,25 +29,20 @@ namespace dnGREP.Engines.OpenXml
                 }
                 if (body != null && docStyles != null)
                 {
-                    ExtractText(body, docStyles, wlm, sb);
+                    ExtractText(body, docStyles, wlm, sb, cancellationToken);
                 }
             }
 
-            if (Utils.CancelSearch)
-            {
-                sb.Clear();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             return sb.ToString();
         }
 
         private static bool isInTableRow;
-        private static void ExtractText(OpenXmlElement elem, IEnumerable<Style?> docStyles, WordListManager wlm, StringBuilder sb)
+        private static void ExtractText(OpenXmlElement elem, IEnumerable<Style?> docStyles,
+            WordListManager wlm, StringBuilder sb, CancellationToken cancellationToken)
         {
-            if (Utils.CancelSearch)
-            {
-                return;
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (elem is Paragraph para)
             {
@@ -67,7 +62,7 @@ namespace dnGREP.Engines.OpenXml
 
                 foreach (var child in elem)
                 {
-                    ExtractText(child, docStyles, wlm, sb);
+                    ExtractText(child, docStyles, wlm, sb, cancellationToken);
                 }
 
                 sb.AppendLine();
@@ -78,7 +73,7 @@ namespace dnGREP.Engines.OpenXml
             {
                 foreach (var child in elem)
                 {
-                    ExtractText(child, docStyles, wlm, sb);
+                    ExtractText(child, docStyles, wlm, sb, cancellationToken);
                 }
             }
         }

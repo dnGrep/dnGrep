@@ -3574,4 +3574,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Delete files</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Search canceled in {0} – {1} matches found in {2} files of {3} searched.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>Replace canceled – replaced text in {0} files.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
 </root>

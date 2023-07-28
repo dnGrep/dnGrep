@@ -194,7 +194,7 @@ namespace dnGREP.WPF
                 try
                 {
                     grepResults = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch,
-                        SearchOptions, encoding);
+                        SearchOptions, encoding, default);
 
                     if (TypeOfSearch == SearchType.Hex)
                     {
@@ -328,7 +328,7 @@ namespace dnGREP.WPF
                 using Stream inputStream = new MemoryStream(Encoding.Unicode.GetBytes(SampleText));
                 using Stream writeStream = new MemoryStream();
                 engine.Replace(inputStream, writeStream, SearchFor, replacePattern, TypeOfSearch,
-                    SearchOptions, Encoding.Unicode, grepResults[0].Matches);
+                    SearchOptions, Encoding.Unicode, grepResults[0].Matches, default);
                 writeStream.Position = 0;
                 using StreamReader reader = new(writeStream);
                 replacedString = reader.ReadToEnd();

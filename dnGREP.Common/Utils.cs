@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using dnGREP.Common.IO;
 using dnGREP.Common.UI;
@@ -394,7 +395,7 @@ namespace dnGREP.Common
         /// <param name="path"></param>
         public static void DeleteFolder(string path)
         {
-            string[] files = GetFileList(path, "*.*", string.Empty, false, false, true, true, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1, true);
+            string[] files = GetFileList(path, "*.*", string.Empty, false, false, true, true, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1, true, default);
             foreach (string file in files)
             {
                 File.SetAttributes(file, FileAttributes.Normal);
@@ -665,8 +666,6 @@ namespace dnGREP.Common
             }
         }
 
-        public static bool CancelSearch { get; set; } = false;
-
         public static bool PrepareSearchPatterns(FileFilter filter, List<string> includeSearchPatterns)
         {
             bool handled = false;
@@ -742,13 +741,14 @@ namespace dnGREP.Common
             }
         }
 
-        public static IEnumerable<FileData> GetFileListIncludingArchives(FileFilter filter)
+        public static IEnumerable<FileData> GetFileListIncludingArchives(FileFilter filter,
+            CancellationToken cancellationToken = default)
         {
-            foreach (var file in GetFileListEx(filter))
+            foreach (var file in GetFileListEx(filter, cancellationToken))
             {
                 if (IsArchive(file))
                 {
-                    foreach (var innerFile in ArchiveDirectory.EnumerateFiles(file, filter))
+                    foreach (var innerFile in ArchiveDirectory.EnumerateFiles(file, filter, cancellationToken))
                     {
                         yield return innerFile;
                     }
@@ -768,7 +768,8 @@ namespace dnGREP.Common
         /// </summary>
         /// <param name="filter">the file filter parameters</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetFileListEx(FileFilter filter)
+        public static IEnumerable<string> GetFileListEx(FileFilter filter,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(filter.Path) || filter.NamePatternToInclude == null)
             {
@@ -828,14 +829,14 @@ namespace dnGREP.Common
                 Gitignore? gitignore = null;
                 if (filter.UseGitIgnore)
                 {
-                    IList<string> gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders, filter.FollowSymlinks);
+                    IList<string> gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders, filter.FollowSymlinks, cancellationToken);
                     if (gitDirectories.Any())
                     {
                         gitignore = GitUtil.GetGitignore(gitDirectories);
                     }
                 }
 
-                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, excludeRegexPatterns, gitignore, filter))
+                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, excludeRegexPatterns, gitignore, filter, cancellationToken))
                 {
                     if (IsArchive(filePath))
                     {
@@ -1160,12 +1161,12 @@ namespace dnGREP.Common
             bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive,
             bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
             DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth,
-            bool skipRemoteCloudStorageFiles = true)
+            bool skipRemoteCloudStorageFiles = true, CancellationToken cancellationToken = default)
         {
             var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
                 includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary, includeArchive, followSymlinks, sizeFrom, sizeTo,
                 dateFilter, startTime, endTime, skipRemoteCloudStorageFiles);
-            return GetFileListEx(filter).ToArray();
+            return GetFileListEx(filter, cancellationToken).ToArray();
         }
 
         /// <summary>
