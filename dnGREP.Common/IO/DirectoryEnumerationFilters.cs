@@ -20,7 +20,6 @@
  */
 
 using System;
-using System.Threading;
 
 namespace dnGREP.Common.IO
 {
@@ -75,7 +74,7 @@ namespace dnGREP.Common.IO
 
 
         /// <summary>Gets or sets the cancellation token to abort the enumeration.</summary>
-        /// <value>A <see cref="CancellationToken"/> instance.</value>
-        public CancellationToken CancellationToken { get; set; }
+        /// <value>A <see cref="PauseCancelToken"/> instance.</value>
+        public PauseCancelToken PauseCancelToken { get; set; } = default;
     }
 }

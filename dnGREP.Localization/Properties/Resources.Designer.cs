@@ -2223,6 +2223,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pause.
+        /// </summary>
+        public static string Main_PauseButton {
+            get {
+                return ResourceManager.GetString("Main_PauseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paused.
+        /// </summary>
+        public static string Main_Paused {
+            get {
+                return ResourceManager.GetString("Main_Paused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slide {0}.
         /// </summary>
         public static string Main_PowerPointSlideNumber {
@@ -2642,6 +2660,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Results_ShowFileProperties {
             get {
                 return ResourceManager.GetString("Main_Results_ShowFileProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resume.
+        /// </summary>
+        public static string Main_ResumeButton {
+            get {
+                return ResourceManager.GetString("Main_ResumeButton", resourceCulture);
             }
         }
         

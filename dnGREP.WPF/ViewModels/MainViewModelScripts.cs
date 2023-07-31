@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
@@ -316,7 +315,7 @@ namespace dnGREP.WPF
 
         private void BeginScript(Queue<ScriptStatement> newScript, string name)
         {
-            if (currentScript == null && cancellationTokenSource == null)
+            if (currentScript == null && pauseCancelTokenSource == null)
             {
                 ScriptManager.Instance.ResetVariables();
                 ScriptMessages.Clear();
@@ -326,16 +325,18 @@ namespace dnGREP.WPF
                 IsScriptRunning = true;
                 CommandManager.InvalidateRequerySuggested();
                 scriptStartTime = DateTime.Now;
-                cancellationTokenSource = new();
-                ContinueScript(cancellationTokenSource.Token);
+                pauseCancelTokenSource = new();
+                ContinueScript(pauseCancelTokenSource.Token);
             }
         }
 
-        private void ContinueScript(CancellationToken cancellationToken)
+        private void ContinueScript(PauseCancelToken pauseCancelToken)
         {
             while (currentScript != null && currentScript.Count > 0)
             {
-                if (cancellationToken.IsCancellationRequested)
+                pauseCancelToken.WaitWhilePaused();
+
+                if (pauseCancelToken.IsCancellationRequested)
                 {
                     currentScript.Clear();
                     break;
@@ -428,7 +429,7 @@ namespace dnGREP.WPF
 
                     case "search":
                         SearchCommand.Execute(null);
-                        if (cancellationToken.IsCancellationRequested)
+                        if (pauseCancelToken.IsCancellationRequested)
                         {
                             break;
                         }
@@ -439,7 +440,7 @@ namespace dnGREP.WPF
 
                     case "replace":
                         ReplaceCommand.Execute(null);
-                        if (cancellationToken.IsCancellationRequested)
+                        if (pauseCancelToken.IsCancellationRequested)
                         {
                             break;
                         }
@@ -482,7 +483,7 @@ namespace dnGREP.WPF
 
                 if (ScriptMessages.Count > 0 || showEmptyMessageWindow)
                 {
-                    if (!cancellationTokenSource?.IsCancellationRequested ?? true)
+                    if (!pauseCancelTokenSource?.IsCancellationRequested ?? true)
                     {
                         if (ScriptMessages.Count == 0 && !string.IsNullOrEmpty(currentScriptFile))
                         {

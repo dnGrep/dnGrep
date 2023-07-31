@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
+using dnGREP.Common;
 using ExcelDataReader;
 using ExcelNumberFormat;
 
@@ -12,7 +12,7 @@ namespace dnGREP.Engines.OpenXml
     internal static class ExcelReader
     {
         public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             List<KeyValuePair<string, string>> results = new();
 
@@ -26,7 +26,7 @@ namespace dnGREP.Engines.OpenXml
                     StringBuilder sb = new();
                     while (reader.Read())
                     {
-                        cancellationToken.ThrowIfCancellationRequested();
+                        pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                         for (int col = 0; col < reader.FieldCount; col++)
                         {
@@ -36,7 +36,7 @@ namespace dnGREP.Engines.OpenXml
                         sb.Append(Environment.NewLine);
                     }
 
-                    cancellationToken.ThrowIfCancellationRequested();
+                    pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                     results.Add(new KeyValuePair<string, string>(reader.Name, sb.ToString()));
 
@@ -44,7 +44,7 @@ namespace dnGREP.Engines.OpenXml
 
             }
 
-            cancellationToken.ThrowIfCancellationRequested();
+            pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
             return results;
         }

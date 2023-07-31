@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using dnGREP.Common.IO;
 using dnGREP.Common.UI;
@@ -742,13 +741,13 @@ namespace dnGREP.Common
         }
 
         public static IEnumerable<FileData> GetFileListIncludingArchives(FileFilter filter,
-            CancellationToken cancellationToken = default)
+            PauseCancelToken pauseCancelToken = default)
         {
-            foreach (var file in GetFileListEx(filter, cancellationToken))
+            foreach (var file in GetFileListEx(filter, pauseCancelToken))
             {
                 if (IsArchive(file))
                 {
-                    foreach (var innerFile in ArchiveDirectory.EnumerateFiles(file, filter, cancellationToken))
+                    foreach (var innerFile in ArchiveDirectory.EnumerateFiles(file, filter, pauseCancelToken))
                     {
                         yield return innerFile;
                     }
@@ -769,7 +768,7 @@ namespace dnGREP.Common
         /// <param name="filter">the file filter parameters</param>
         /// <returns></returns>
         public static IEnumerable<string> GetFileListEx(FileFilter filter,
-            CancellationToken cancellationToken = default)
+            PauseCancelToken pauseCancelToken = default)
         {
             if (string.IsNullOrWhiteSpace(filter.Path) || filter.NamePatternToInclude == null)
             {
@@ -829,14 +828,14 @@ namespace dnGREP.Common
                 Gitignore? gitignore = null;
                 if (filter.UseGitIgnore)
                 {
-                    IList<string> gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders, filter.FollowSymlinks, cancellationToken);
+                    IList<string> gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders, filter.FollowSymlinks, pauseCancelToken);
                     if (gitDirectories.Any())
                     {
                         gitignore = GitUtil.GetGitignore(gitDirectories);
                     }
                 }
 
-                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, excludeRegexPatterns, gitignore, filter, cancellationToken))
+                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, excludeRegexPatterns, gitignore, filter, pauseCancelToken))
                 {
                     if (IsArchive(filePath))
                     {
@@ -1161,12 +1160,12 @@ namespace dnGREP.Common
             bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive,
             bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
             DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth,
-            bool skipRemoteCloudStorageFiles = true, CancellationToken cancellationToken = default)
+            bool skipRemoteCloudStorageFiles = true, PauseCancelToken pauseCancelToken = default)
         {
             var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
                 includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary, includeArchive, followSymlinks, sizeFrom, sizeTo,
                 dateFilter, startTime, endTime, skipRemoteCloudStorageFiles);
-            return GetFileListEx(filter, cancellationToken).ToArray();
+            return GetFileListEx(filter, pauseCancelToken).ToArray();
         }
 
         /// <summary>

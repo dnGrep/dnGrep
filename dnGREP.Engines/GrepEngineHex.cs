@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using dnGREP.Common;
 
 namespace dnGREP.Engines
@@ -19,21 +18,21 @@ namespace dnGREP.Engines
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern,
             string replacePattern, SearchType searchType, GrepSearchOption searchOptions,
-            Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken)
+            Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken)
         {
             // should not get here, replace is not allowed from a Hex search
             throw new NotImplementedException();
         }
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken)
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan);
-            return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, cancellationToken);
+            return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
         }
 
         public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken)
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             List<GrepSearchResult> searchResults = new();
 
@@ -53,12 +52,12 @@ namespace dnGREP.Engines
                 {
                     buffer2 = readStream.ReadBytes(bufferSize);
 
-                    matches.AddRange(DoByteArraySearch(buffer1, buffer2, searchArray, startIndex, searchPattern, cancellationToken));
+                    matches.AddRange(DoByteArraySearch(buffer1, buffer2, searchArray, startIndex, searchPattern, pauseCancelToken));
 
                     startIndex += buffer1.Length;
                     buffer1 = buffer2;
                 }
-                matches.AddRange(DoByteArraySearch(buffer1, null, searchArray, startIndex, searchPattern, cancellationToken));
+                matches.AddRange(DoByteArraySearch(buffer1, null, searchArray, startIndex, searchPattern, pauseCancelToken));
 
             }
 
@@ -90,27 +89,27 @@ namespace dnGREP.Engines
         }
 
         private static List<GrepMatch> DoByteArraySearch(byte[] buffer1, byte[]? buffer2,
-            byte?[] searchArray, int index, string searchPattern, CancellationToken cancellationToken)
+            byte?[] searchArray, int index, string searchPattern, PauseCancelToken pauseCancelToken)
         {
             List<GrepMatch> globalMatches = new();
-            foreach (var match in ByteArraySearchIterator(buffer1, buffer2, searchArray, index, searchPattern, cancellationToken))
+            foreach (var match in ByteArraySearchIterator(buffer1, buffer2, searchArray, index, searchPattern, pauseCancelToken))
             {
                 globalMatches.Add(match);
 
-                cancellationToken.ThrowIfCancellationRequested();
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
             }
 
             return globalMatches;
         }
 
         private static IEnumerable<GrepMatch> ByteArraySearchIterator(byte[] buffer1, byte[]? buffer2,
-            byte?[] searchArray, int startIndex, string searchPattern, CancellationToken cancellationToken)
+            byte?[] searchArray, int startIndex, string searchPattern, PauseCancelToken pauseCancelToken)
         {
             int combinedLength = buffer1.Length + (buffer2 == null ? 0 : buffer2.Length);
 
             for (int idx = 0; idx < buffer1.Length; idx++)
             {
-                cancellationToken.ThrowIfCancellationRequested();
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                 if (buffer1[idx] == searchArray[0] || !searchArray[0].HasValue)
                 {

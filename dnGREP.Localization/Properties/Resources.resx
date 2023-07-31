@@ -3582,4 +3582,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Replace canceled – replaced text in {0} files.</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>Resume</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>Pause</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>Paused</value>
+    <comment>Main window, status bar label</comment>
+  </data>
 </root>

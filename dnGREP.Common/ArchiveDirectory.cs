@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using NLog;
 using SevenZip;
 
@@ -47,7 +46,7 @@ namespace dnGREP.Common
         }
 
         public static IEnumerable<FileData> EnumerateFiles(string file, FileFilter filter,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             if (file.Length > 260 && !file.StartsWith(@"\\?\", StringComparison.Ordinal))
             {
@@ -55,14 +54,14 @@ namespace dnGREP.Common
             }
 
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
-            foreach (var item in EnumerateFiles(fileStream, file, filter, cancellationToken))
+            foreach (var item in EnumerateFiles(fileStream, file, filter, pauseCancelToken))
             {
                 yield return item;
             }
         }
 
         private static IEnumerable<FileData> EnumerateFiles(Stream input, string fileName, FileFilter filter,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             List<string> includeSearchPatterns = new();
             bool hasSearchPattern = Utils.PrepareSearchPatterns(filter, includeSearchPatterns);
@@ -78,7 +77,7 @@ namespace dnGREP.Common
 
             var enumerator = EnumerateFiles(input, fileName, filter, checkEncoding, includeSearchPatterns,
                     includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hiddenDirectories,
-                    cancellationToken).GetEnumerator();
+                    pauseCancelToken).GetEnumerator();
             while (true)
             {
                 FileData ret;
@@ -116,7 +115,7 @@ namespace dnGREP.Common
             FileFilter fileFilter, bool checkEncoding, List<string> includeSearchPatterns,
             List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns,
             List<Regex> includeShebangPatterns, HashSet<string> hiddenDirectories,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             using SevenZipExtractor extractor = new(input, true);
             foreach (var fileInfo in extractor.ArchiveFileData)
@@ -178,7 +177,7 @@ namespace dnGREP.Common
                     var enumerator = EnumerateFiles(stream, fileName + ArchiveSeparator + innerFileName,
                         fileFilter, checkEncoding, includeSearchPatterns, includeRegexPatterns,
                         excludeRegexPatterns, includeShebangPatterns, hiddenDirectories,
-                        cancellationToken).GetEnumerator();
+                        pauseCancelToken).GetEnumerator();
 
                     while (true)
                     {
@@ -236,7 +235,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                cancellationToken.ThrowIfCancellationRequested();
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
             }
         }
 

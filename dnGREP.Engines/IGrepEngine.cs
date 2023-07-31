@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading;
 using dnGREP.Common;
 
 namespace dnGREP.Engines
@@ -36,7 +35,7 @@ namespace dnGREP.Engines
         /// <param name="encoding"></param>
         /// <returns>List of results. If nothing is found returns empty list</returns>
         List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken);
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken);
 
         /// <summary>
         /// Searches an input stream for files whose content matches regex
@@ -49,10 +48,10 @@ namespace dnGREP.Engines
         /// <param name="encoding"></param>
         /// <returns></returns>
         List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
-            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken);
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken);
 
         bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken);
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken);
 
         /// <summary>
         /// Method gets called when search/replace process is complete

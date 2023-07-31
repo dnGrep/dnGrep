@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using NLog;
@@ -52,14 +51,14 @@ namespace dnGREP.Engines
         public Version? FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine))?.GetName()?.Version;
 
         List<GrepSearchResult> IGrepEngine.Search(string file, string searchPattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken)
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             // not used, just here to implement interface
             return new List<GrepSearchResult>();
         }
 
         List<GrepSearchResult> IGrepEngine.Search(Stream input, string fileName, string searchPattern,
-            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken)
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             // not used, just here to implement interface
             return new List<GrepSearchResult>();
@@ -67,7 +66,7 @@ namespace dnGREP.Engines
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             // should not get here, replace is not allowed in an archive
             throw new NotImplementedException();
@@ -79,7 +78,7 @@ namespace dnGREP.Engines
 
         public IEnumerable<List<GrepSearchResult>> Search(string file, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
@@ -90,7 +89,7 @@ namespace dnGREP.Engines
             }
 
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
-            foreach (var item in Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, cancellationToken))
+            foreach (var item in Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, pauseCancelToken))
             {
                 yield return item;
             }
@@ -98,10 +97,10 @@ namespace dnGREP.Engines
 
         public IEnumerable<List<GrepSearchResult>> Search(Stream input, string fileName,
             string searchPattern, SearchType searchType, GrepSearchOption searchOptions,
-            Encoding encoding, CancellationToken cancellationToken)
+            Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             var enumerator = SearchInsideArchive(input, fileName, searchPattern, searchType,
-                searchOptions, encoding, cancellationToken).GetEnumerator();
+                searchOptions, encoding, pauseCancelToken).GetEnumerator();
             while (true)
             {
                 List<GrepSearchResult> ret;
@@ -138,7 +137,7 @@ namespace dnGREP.Engines
 
         private IEnumerable<List<GrepSearchResult>> SearchInsideArchive(Stream input, string fileName,
             string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             using SevenZipExtractor extractor = new(input, true);
             foreach (var fileInfo in extractor.ArchiveFileData)
@@ -198,7 +197,7 @@ namespace dnGREP.Engines
                     extractor.ExtractFile(index, stream);
 
                     var enumerator = SearchInsideArchive(stream, fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
-                        searchPattern, searchType, searchOptions, encoding, cancellationToken).GetEnumerator();
+                        searchPattern, searchType, searchOptions, encoding, pauseCancelToken).GetEnumerator();
 
                     while (true)
                     {
@@ -239,7 +238,7 @@ namespace dnGREP.Engines
                     {
                         var res = SearchInnerFile(extractor, index, fileFilter, fileData,
                             fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
-                            searchPattern, searchType, searchOptions, encoding, cancellationToken);
+                            searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
                         if (res != null)
                         {
@@ -247,14 +246,14 @@ namespace dnGREP.Engines
                         }
                     }
                 }
-                cancellationToken.ThrowIfCancellationRequested();
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
             }
         }
 
         private List<GrepSearchResult>? SearchInnerFile(SevenZipExtractor extractor, int index,
             FileFilter fileFilter, FileData fileData, string innerFileName, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             List<GrepSearchResult>? innerFileResults = null;
             try
@@ -281,7 +280,7 @@ namespace dnGREP.Engines
                 StartingFileSearch?.Invoke(this, new DataEventArgs<string>(innerFileName));
 
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(innerFileName, searchParams, fileFilter, searchType);
-                innerFileResults = engine.Search(stream, innerFileName, searchPattern, searchType, searchOptions, encoding, cancellationToken);
+                innerFileResults = engine.Search(stream, innerFileName, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
                 if (innerFileResults.Any())
                 {
@@ -304,7 +303,7 @@ namespace dnGREP.Engines
                                 TempFile = tempFile
                             };
 
-                            cancellationToken.ThrowIfCancellationRequested();
+                            pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                             result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, engine.LinesBefore, engine.LinesAfter);
                         }
@@ -322,7 +321,7 @@ namespace dnGREP.Engines
                                 TempFile = tempFile
                             };
 
-                            cancellationToken.ThrowIfCancellationRequested();
+                            pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
                         }
                     }
                 }

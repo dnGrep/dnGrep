@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using dnGREP.Common;
 
 namespace dnGREP.Engines
@@ -23,14 +22,14 @@ namespace dnGREP.Engines
         }
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken = default)
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken = default)
         {
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan);
-            return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, cancellationToken);
+            return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
         }
 
         public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
-            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, CancellationToken cancellationToken = default)
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken = default)
         {
             SearchDelegates.DoSearch searchMethod = DoTextSearch;
             switch (searchType)
@@ -50,21 +49,21 @@ namespace dnGREP.Engines
             }
 
             if (searchOptions.HasFlag(GrepSearchOption.Multiline) || searchType == SearchType.XPath)
-                return SearchMultiline(input, fileName, searchPattern, searchOptions, searchMethod, encoding, cancellationToken);
+                return SearchMultiline(input, fileName, searchPattern, searchOptions, searchMethod, encoding, pauseCancelToken);
             else
-                return Search(input, fileName, searchPattern, searchOptions, searchMethod, encoding, cancellationToken);
+                return Search(input, fileName, searchPattern, searchOptions, searchMethod, encoding, pauseCancelToken);
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken = default)
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken = default)
         {
             using FileStream readStream = File.Open(sourceFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using FileStream writeStream = File.OpenWrite(destinationFile);
-            return Replace(readStream, writeStream, searchPattern, replacePattern, searchType, searchOptions, encoding, replaceItems, cancellationToken);
+            return Replace(readStream, writeStream, searchPattern, replacePattern, searchType, searchOptions, encoding, replaceItems, pauseCancelToken);
         }
 
         public bool Replace(Stream readStream, Stream writeStream, string searchPattern, string replacePattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken = default)
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken = default)
         {
             SearchDelegates.DoReplace replaceMethod = DoTextReplace;
             switch (searchType)
@@ -84,9 +83,9 @@ namespace dnGREP.Engines
             }
 
             if (searchOptions.HasFlag(GrepSearchOption.Multiline) || searchType == SearchType.XPath)
-                return ReplaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding, replaceItems, cancellationToken);
+                return ReplaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding, replaceItems, pauseCancelToken);
             else
-                return Replace(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding, replaceItems, cancellationToken);
+                return Replace(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding, replaceItems, pauseCancelToken);
         }
 
         public void Unload()
@@ -101,7 +100,7 @@ namespace dnGREP.Engines
         private static List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
 
             GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, Encoding encoding,
-            CancellationToken cancellationToken)
+            PauseCancelToken pauseCancelToken)
         {
             List<GrepSearchResult> searchResults = new();
 
@@ -114,7 +113,7 @@ namespace dnGREP.Engines
                 List<GrepMatch> matches = new();
                 while (!readStream.EndOfStream)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
+                    pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                     line = readStream.ReadLine();
                     if (line == null)
@@ -122,9 +121,9 @@ namespace dnGREP.Engines
                         continue;  // ? or break;
                     }
 
-                    cancellationToken.ThrowIfCancellationRequested();
+                    pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                    List<GrepMatch> results = searchMethod(lineNumber, filePosition, line, searchPattern, searchOptions, false, cancellationToken);
+                    List<GrepMatch> results = searchMethod(lineNumber, filePosition, line, searchPattern, searchOptions, false, pauseCancelToken);
                     if (results.Count > 0)
                     {
                         foreach (GrepMatch m in results)
@@ -145,14 +144,14 @@ namespace dnGREP.Engines
         }
 
         private static List<GrepSearchResult> SearchMultiline(Stream input, string fileName, string searchPattern,
-            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, Encoding encoding, CancellationToken cancellationToken)
+            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             List<GrepSearchResult> searchResults = new();
 
             using (StreamReader readStream = new(input, encoding, false, 4096, true))
             {
                 string fileBody = readStream.ReadToEnd();
-                var matches = searchMethod(-1, 0, fileBody, searchPattern, searchOptions, true, cancellationToken);
+                var matches = searchMethod(-1, 0, fileBody, searchPattern, searchOptions, true, pauseCancelToken);
                 if (matches.Count > 0)
                 {
                     searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches, encoding));
@@ -163,7 +162,7 @@ namespace dnGREP.Engines
         }
 
         private static bool Replace(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
-            SearchDelegates.DoReplace replaceMethod, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken)
+            SearchDelegates.DoReplace replaceMethod, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken)
         {
             using StreamReader readStream = new(inputStream, encoding, false, 4096, true);
             bool hasUtf8bom = encoding == Encoding.UTF8 && Utils.HasUtf8ByteOrderMark(inputStream);
@@ -194,7 +193,7 @@ namespace dnGREP.Engines
                         line = line.Replace("\ufeff", "", StringComparison.Ordinal); // remove BOM
                     int lineLength = line.Length;
 
-                    line = replaceMethod(lineNumber, filePosition, line, searchPattern, replacePattern, searchOptions, replaceItems, cancellationToken);
+                    line = replaceMethod(lineNumber, filePosition, line, searchPattern, replacePattern, searchOptions, replaceItems, pauseCancelToken);
                     writeStream.Write(line);  // keep original eol
 
                     lineNumber++;
@@ -209,14 +208,14 @@ namespace dnGREP.Engines
         }
 
         private static bool ReplaceMultiline(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
-            SearchDelegates.DoReplace replaceMethod, Encoding encoding, IEnumerable<GrepMatch> replaceItems, CancellationToken cancellationToken)
+            SearchDelegates.DoReplace replaceMethod, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken)
         {
             using StreamReader readStream = new(inputStream, encoding, false, 4096, true);
             StreamWriter writeStream = new(outputStream, encoding);
 
             string fileBody = readStream.ReadToEnd();
 
-            fileBody = replaceMethod(-1, 0, fileBody, searchPattern, replacePattern, searchOptions, replaceItems, cancellationToken);
+            fileBody = replaceMethod(-1, 0, fileBody, searchPattern, replacePattern, searchOptions, replaceItems, pauseCancelToken);
             writeStream.Write(fileBody);
 
             writeStream.Flush();

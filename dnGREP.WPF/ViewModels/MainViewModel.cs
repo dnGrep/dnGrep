@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,7 +38,7 @@ namespace dnGREP.WPF
 
         private Brush highlightForeground = Brushes.Yellow;
         private Brush highlightBackground = Brushes.Black;
-        private CancellationTokenSource? cancellationTokenSource;
+        private PauseCancelTokenSource? pauseCancelTokenSource;
 
         private readonly string enQuad = char.ConvertFromUtf32(0x2000);
 
@@ -273,6 +272,12 @@ namespace dnGREP.WPF
         private double mainFormFontSize;
 
         public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = new();
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(PauseResumeButtonLabel))]
+        private bool isSearchReplacePaused;
+
+        public string PauseResumeButtonLabel => IsSearchReplacePaused ? Resources.Main_ResumeButton : Resources.Main_PauseButton;
 
         public static bool IsGitInstalled => Utils.IsGitInstalled;
 
@@ -553,6 +558,10 @@ namespace dnGREP.WPF
         /// </summary>
         public ICommand CancelCommand => new RelayCommand(
             param => Cancel(),
+            param => CanCancel);
+
+        public ICommand PauseResumeCommand => new RelayCommand(
+            param => PauseResume(),
             param => CanCancel);
 
         /// <summary>
@@ -925,7 +934,7 @@ namespace dnGREP.WPF
 
         internal void CancelSearch()
         {
-            cancellationTokenSource?.Cancel();
+            pauseCancelTokenSource?.Cancel();
         }
 
         private void DoSearchReplace(object? sender, DoWorkEventArgs e)
@@ -991,7 +1000,7 @@ namespace dnGREP.WPF
                         if (string.IsNullOrEmpty(SearchFor) &&
                             Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern))
                         {
-                            fileInfos = Utils.GetFileListIncludingArchives(fileParams, param.CancellationToken);
+                            fileInfos = Utils.GetFileListIncludingArchives(fileParams, param.PauseCancelToken);
                         }
                         else if (param.Operation == GrepOperation.SearchInResults)
                         {
@@ -999,10 +1008,10 @@ namespace dnGREP.WPF
                         }
                         else
                         {
-                            files = Utils.GetFileListEx(fileParams, param.CancellationToken);
+                            files = Utils.GetFileListEx(fileParams, param.PauseCancelToken);
                         }
 
-                        param.CancellationToken.ThrowIfCancellationRequested();
+                        param.PauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                         if (param.TypeOfSearch == SearchType.Regex)
                         {
@@ -1072,15 +1081,15 @@ namespace dnGREP.WPF
                         if (CaptureGroupSearch && param.TypeOfFileSearch == FileSearchType.Regex &&
                             !string.IsNullOrEmpty(param.SearchFor) && files != null)
                         {
-                            e.Result = grep.CaptureGroupSearch(files, filePatternInclude, searchOptions, param.TypeOfSearch, param.SearchFor, param.CodePage, param.CancellationToken);
+                            e.Result = grep.CaptureGroupSearch(files, filePatternInclude, searchOptions, param.TypeOfSearch, param.SearchFor, param.CodePage, param.PauseCancelToken);
                         }
                         else if (files != null)
                         {
-                            e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage, param.CancellationToken);
+                            e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage, param.PauseCancelToken);
                         }
                         else if (fileInfos != null)
                         {
-                            e.Result = grep.ListFiles(fileInfos, searchOptions, param.CodePage, param.CancellationToken);
+                            e.Result = grep.ListFiles(fileInfos, searchOptions, param.CodePage, param.PauseCancelToken);
                         }
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
@@ -1112,7 +1121,7 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
-                        e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage, param.CancellationToken);
+                        e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage, param.PauseCancelToken);
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                 }
@@ -1172,7 +1181,7 @@ namespace dnGREP.WPF
                 {
                     if (StopAfterFirstMatch && progress.SearchResults?.Count > 0)
                     {
-                        cancellationTokenSource?.Cancel();
+                        pauseCancelTokenSource?.Cancel();
                     }
 
                     if (!progress.BeginSearch && progress.SearchResults != null && progress.SearchResults.Count > 0)
@@ -1261,13 +1270,14 @@ namespace dnGREP.WPF
 
         private void SearchReplaceCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
+            IsSearchReplacePaused = false;
             latestStatusMessage = string.Empty;
             idleTimer.Stop();
             try
             {
-                // cancellationTokenSource should be non-null unless a script was 
+                // pauseCancelTokenSource should be non-null unless a script was 
                 // canceled and it's already been disposed.
-                bool canceled = cancellationTokenSource?.IsCancellationRequested ?? true;
+                bool canceled = pauseCancelTokenSource?.IsCancellationRequested ?? true;
 
                 if (CurrentGrepOperation == GrepOperation.Search || CurrentGrepOperation == GrepOperation.SearchInResults)
                 {
@@ -1418,7 +1428,7 @@ namespace dnGREP.WPF
             }
             finally
             {
-                if (cancellationTokenSource?.IsCancellationRequested ?? false && IsScriptRunning)
+                if (pauseCancelTokenSource?.IsCancellationRequested ?? false && IsScriptRunning)
                 {
                     CancelScript();
                 }
@@ -1427,18 +1437,18 @@ namespace dnGREP.WPF
 
                 if (!IsScriptRunning)
                 {
-                    cancellationTokenSource?.Dispose();
-                    cancellationTokenSource = null;
+                    pauseCancelTokenSource?.Dispose();
+                    pauseCancelTokenSource = null;
                 }
                 else
                 {
                     // try to move on to next script statement
-                    ContinueScript(cancellationTokenSource?.Token ?? default);
+                    ContinueScript(pauseCancelTokenSource?.Token ?? default);
 
-                    if (cancellationTokenSource?.IsCancellationRequested ?? false)
+                    if (pauseCancelTokenSource?.IsCancellationRequested ?? false)
                     {
-                        cancellationTokenSource?.Dispose();
-                        cancellationTokenSource = null;
+                        pauseCancelTokenSource?.Dispose();
+                        pauseCancelTokenSource = null;
                     }
                 }
             }
@@ -1558,8 +1568,8 @@ namespace dnGREP.WPF
                 // clear temp files from the previous search
                 Utils.DeleteTempFolder();
 
-                cancellationTokenSource ??= new();
-                SearchReplaceCriteria workerParams = new(this, cancellationTokenSource.Token);
+                pauseCancelTokenSource ??= new();
+                SearchReplaceCriteria workerParams = new(this, pauseCancelTokenSource.Token);
                 if (SearchInResultsContent && CanSearchInResults)
                 {
                     List<string> foundFiles = new();
@@ -1575,6 +1585,7 @@ namespace dnGREP.WPF
                 UpdateReplaceButtonTooltip(true);
                 processedFiles = 0;
                 idleTimer.Start();
+                IsSearchReplacePaused = false;
                 workerSearchReplace.RunWorkerAsync(workerParams);
                 // toggle value to move focus to the results tree, and enable keyboard actions on the tree
                 ResultsViewModel.IsResultsTreeFocused = false;
@@ -1728,7 +1739,7 @@ namespace dnGREP.WPF
 
                 if (doReplace)
                 {
-                    cancellationTokenSource ??= new();
+                    pauseCancelTokenSource ??= new();
                     CanUndo = false;
                     Utils.DeleteUndoFolder();
                     undoList.Clear();
@@ -1750,7 +1761,7 @@ namespace dnGREP.WPF
 
                         CurrentGrepOperation = GrepOperation.Replace;
 
-                        SearchReplaceCriteria workerParams = new(this, cancellationTokenSource.Token);
+                        SearchReplaceCriteria workerParams = new(this, pauseCancelTokenSource.Token);
 
                         workerParams.AddReplaceFiles(undoList);
 
@@ -1763,7 +1774,7 @@ namespace dnGREP.WPF
                     else if (IsScriptRunning)
                     {
                         AddScriptMessage("Search list is empty, nothing to replace.");
-                        Dispatcher.CurrentDispatcher.Invoke(() => ContinueScript(cancellationTokenSource.Token));
+                        Dispatcher.CurrentDispatcher.Invoke(() => ContinueScript(pauseCancelTokenSource.Token));
                     }
                 }
             }
@@ -1930,7 +1941,25 @@ namespace dnGREP.WPF
         {
             if (CurrentGrepOperation != GrepOperation.None)
             {
-                cancellationTokenSource?.Cancel();
+                pauseCancelTokenSource?.Cancel();
+            }
+        }
+
+        private void PauseResume()
+        {
+            if (CurrentGrepOperation != GrepOperation.None &&
+                pauseCancelTokenSource != null)
+            {
+                if (pauseCancelTokenSource.IsPaused)
+                {
+                    pauseCancelTokenSource.Resume();
+                    IsSearchReplacePaused = false;
+                }
+                else
+                {
+                    pauseCancelTokenSource.Pause();
+                    IsSearchReplacePaused = true;
+                }
             }
         }
 
