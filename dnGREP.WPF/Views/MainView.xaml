@@ -248,9 +248,17 @@
                               Visibility="{Binding ResultsTreeOptionsExpanderVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 </StatusBarItem>
                 <StatusBarItem DockPanel.Dock="Left">
-                    <ProgressBar Width="120" Height="18" Margin="3,0"
-                                 IsIndeterminate="True"
-                                 Visibility="{Binding IsOperationInProgress, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <Grid Width="120" Margin="3,0"
+                          Visibility="{Binding IsOperationInProgress, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ProgressBar Height="18" 
+                                     IsIndeterminate="{Binding IsSearchReplacePaused, Converter={StaticResource InverseBooleanConverter}}" />
+                        <TextBlock Text="{l:Loc Key='Main_Paused'}" Style="{StaticResource LabelTextBlockStyle}"
+                                   Width="120" TextAlignment="Center"
+                                   Foreground="{DynamicResource Match.Skip.Foreground}"
+                                   Background="{DynamicResource Match.Skip.Background}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Visibility="{Binding IsSearchReplacePaused, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    </Grid>
                 </StatusBarItem>
                 <StatusBarItem DockPanel.Dock="Left">
                     <TextBlock Margin="3,0"
@@ -1050,10 +1058,14 @@
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
+                        <Button Margin="3" Padding="8,3" 
+                                Content="{Binding PauseResumeButtonLabel, FallbackValue='Pause'}"
+                                Command="{Binding PauseResumeCommand}"
+                                TabIndex="87" />
                         <Button Margin="3,3,8,3" Padding="8,3"
                                 Content="{l:Loc Key='Main_CancelButton'}"
                                 Command="{Binding CancelCommand}"
-                                TabIndex="87" />
+                                TabIndex="88" />
                     </WrapPanel>
                 </Grid>
                 <uc:ResultsTree x:Name="resultsTree" DataContext="{Binding ResultsViewModel}" TabIndex="90" />

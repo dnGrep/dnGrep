@@ -11,7 +11,8 @@ namespace dnGREP.Engines.OpenXml
 {
     internal static class ExcelReader
     {
-        public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream)
+        public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream,
+            PauseCancelToken pauseCancelToken)
         {
             List<KeyValuePair<string, string>> results = new();
 
@@ -25,10 +26,7 @@ namespace dnGREP.Engines.OpenXml
                     StringBuilder sb = new();
                     while (reader.Read())
                     {
-                        if (Utils.CancelSearch)
-                        {
-                            break;
-                        }
+                        pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                         for (int col = 0; col < reader.FieldCount; col++)
                         {
@@ -38,10 +36,7 @@ namespace dnGREP.Engines.OpenXml
                         sb.Append(Environment.NewLine);
                     }
 
-                    if (Utils.CancelSearch)
-                    {
-                        break;
-                    }
+                    pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                     results.Add(new KeyValuePair<string, string>(reader.Name, sb.ToString()));
 
@@ -49,10 +44,7 @@ namespace dnGREP.Engines.OpenXml
 
             }
 
-            if (Utils.CancelSearch)
-            {
-                results.Clear();
-            }
+            pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
             return results;
         }

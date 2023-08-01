@@ -11,7 +11,7 @@ namespace dnGREP.Engines.OpenXml
 {
     internal static class WordReader
     {
-        public static string ExtractWordText(Stream stream)
+        public static string ExtractWordText(Stream stream, PauseCancelToken pauseCancelToken)
         {
             StringBuilder sb = new();
 
@@ -29,25 +29,20 @@ namespace dnGREP.Engines.OpenXml
                 }
                 if (body != null && docStyles != null)
                 {
-                    ExtractText(body, docStyles, wlm, sb);
+                    ExtractText(body, docStyles, wlm, sb, pauseCancelToken);
                 }
             }
 
-            if (Utils.CancelSearch)
-            {
-                sb.Clear();
-            }
+            pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
             return sb.ToString();
         }
 
         private static bool isInTableRow;
-        private static void ExtractText(OpenXmlElement elem, IEnumerable<Style?> docStyles, WordListManager wlm, StringBuilder sb)
+        private static void ExtractText(OpenXmlElement elem, IEnumerable<Style?> docStyles,
+            WordListManager wlm, StringBuilder sb, PauseCancelToken pauseCancelToken)
         {
-            if (Utils.CancelSearch)
-            {
-                return;
-            }
+            pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
             if (elem is Paragraph para)
             {
@@ -67,7 +62,7 @@ namespace dnGREP.Engines.OpenXml
 
                 foreach (var child in elem)
                 {
-                    ExtractText(child, docStyles, wlm, sb);
+                    ExtractText(child, docStyles, wlm, sb, pauseCancelToken);
                 }
 
                 sb.AppendLine();
@@ -78,7 +73,7 @@ namespace dnGREP.Engines.OpenXml
             {
                 foreach (var child in elem)
                 {
-                    ExtractText(child, docStyles, wlm, sb);
+                    ExtractText(child, docStyles, wlm, sb, pauseCancelToken);
                 }
             }
         }

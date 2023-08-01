@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.Storage.FileSystem;
@@ -76,7 +75,7 @@ namespace dnGREP.Common.IO
 
                 ErrorHandler = customFilters.ErrorFilter;
 
-                CancellationToken = customFilters.CancellationToken;
+                PauseCancelToken = customFilters.PauseCancelToken;
             }
 
 
@@ -203,8 +202,8 @@ namespace dnGREP.Common.IO
 
 
         /// <summary>Gets or sets the cancellation token to abort the enumeration.</summary>
-        /// <value>A <see cref="CancellationToken"/> instance.</value>
-        private CancellationToken CancellationToken { get; set; }
+        /// <value>A <see cref="PauseCancelToken"/> instance.</value>
+        private PauseCancelToken PauseCancelToken { get; set; }
 
         #endregion // Properties
 
@@ -321,10 +320,10 @@ namespace dnGREP.Common.IO
                 dirs.Enqueue(path);
             }
 
-            //using (new NativeMethods.ChangeErrorMode(NativeMethods.ErrorMode.FailCriticalErrors))
-
-            while (dirs.Count > 0 && !CancellationToken.IsCancellationRequested)
+            while (dirs.Count > 0 && !PauseCancelToken.IsCancellationRequested)
             {
+                PauseCancelToken.WaitWhilePaused();
+
                 // Removes the object at the beginning of your Queue.
                 // The algorithmic complexity of this is O(1). It doesn't loop over elements.
 
@@ -339,6 +338,8 @@ namespace dnGREP.Common.IO
 
                 do
                 {
+                    PauseCancelToken.WaitWhilePaused();
+
                     if (lastError == (uint)WIN32_ERROR.ERROR_NO_MORE_FILES)
                     {
                         lastError = (uint)WIN32_ERROR.NO_ERROR;
@@ -383,18 +384,18 @@ namespace dnGREP.Common.IO
                     if (Equals(res, default(T)))
                         continue;
 
-                    if (res !=  null)
+                    if (res != null)
                     {
                         yield return res;
                     }
 
-                } while (!CancellationToken.IsCancellationRequested &&
+                } while (!PauseCancelToken.IsCancellationRequested &&
                    PInvoke.FindNextFile(handle, out win32FindData));
 
 
                 lastError = (uint)Marshal.GetLastWin32Error();
 
-                if (!ContinueOnException && !CancellationToken.IsCancellationRequested)
+                if (!ContinueOnException && !PauseCancelToken.IsCancellationRequested)
                     ThrowPossibleException(lastError, pathLp);
             }
         }
@@ -510,7 +511,7 @@ namespace dnGREP.Common.IO
                 // We should really never get here, throwing an exception for a successful operation.
                 (uint)WIN32_ERROR.ERROR_SUCCESS or (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_INITIATED or (uint)WIN32_ERROR.ERROR_SUCCESS_REBOOT_REQUIRED or (uint)WIN32_ERROR.ERROR_SUCCESS_RESTART_REQUIRED => new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "Incorrectly implemented function attempting to generate exception from successful operation {0}", errorMessage)),
                 // We don't have a specific exception to generate for this error.
-                _ => new IOException(errorMessage, GetHrFromWin32Error(errorCode)),               
+                _ => new IOException(errorMessage, GetHrFromWin32Error(errorCode)),
             };
         }
 

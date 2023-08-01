@@ -17,7 +17,8 @@ namespace dnGREP.Engines.OpenXml
     {
         private static readonly string bar = char.ConvertFromUtf32(0x2016) + " ";
 
-        public static IEnumerable<Tuple<int, string>> ExtractPowerPointText(Stream stream)
+        public static IEnumerable<Tuple<int, string>> ExtractPowerPointText(Stream stream,
+            PauseCancelToken pauseCancelToken)
         {
             // Open a given PointPoint document as readonly
             using PresentationDocument ppt = PresentationDocument.Open(stream, false);
@@ -25,12 +26,9 @@ namespace dnGREP.Engines.OpenXml
 
             for (int idx = 0; idx < numberOfSlides; idx++)
             {
-                if (Utils.CancelSearch)
-                {
-                    break;
-                }
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                string text = GetSlideText(ppt, idx);
+                string text = GetSlideText(ppt, idx, pauseCancelToken);
 
                 yield return new Tuple<int, string>(idx + 1, text);
             }
@@ -51,7 +49,8 @@ namespace dnGREP.Engines.OpenXml
             return slidesCount;
         }
 
-        internal static string GetSlideText(PresentationDocument ppt, int idx)
+        internal static string GetSlideText(PresentationDocument ppt, int idx,
+            PauseCancelToken pauseCancelToken)
         {
             // Get the relationship ID of the first slide.
             PresentationPart? part = ppt.PresentationPart;
@@ -71,10 +70,7 @@ namespace dnGREP.Engines.OpenXml
             var paragraphs = slidePart.Slide.Descendants<Paragraph>();
             foreach (Paragraph paragraph in paragraphs)
             {
-                if (Utils.CancelSearch)
-                {
-                    break;
-                }
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                 var elements = paragraph.Descendants();
                 foreach (OpenXmlElement element in elements)
@@ -98,10 +94,7 @@ namespace dnGREP.Engines.OpenXml
                 var texts = slidePart.NotesSlidePart.NotesSlide.Descendants<Text>();
                 foreach (Text text in texts)
                 {
-                    if (Utils.CancelSearch)
-                    {
-                        break;
-                    }
+                    pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                     if (text.Parent is Field field && (field.Type?.HasValue is true) && field.Type.Value == "slidenum")
                     {
@@ -113,10 +106,7 @@ namespace dnGREP.Engines.OpenXml
                 }
             }
 
-            if (Utils.CancelSearch)
-            {
-                sb.Clear();
-            }
+            pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
             return sb.ToString();
         }

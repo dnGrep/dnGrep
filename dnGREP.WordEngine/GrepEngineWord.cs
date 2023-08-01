@@ -79,7 +79,8 @@ namespace dnGREP.Engines.Word
         public bool PreviewPlainText { get; set; }
 
 
-        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             Load();
             SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
@@ -97,12 +98,14 @@ namespace dnGREP.Engines.Word
                     break;
             }
 
-            List<GrepSearchResult> result = SearchMultiline(file, searchPattern, searchOptions, searchMethodMultiline);
+            List<GrepSearchResult> result = SearchMultiline(file, searchPattern, searchOptions,
+                searchMethodMultiline, pauseCancelToken);
             return result;
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             // write the stream to a temp folder, and run the file version of the search
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-WORD");
@@ -120,10 +123,11 @@ namespace dnGREP.Engines.Word
                 input.CopyTo(fileStream);
             }
 
-            return Search(filePath, searchPattern, searchType, searchOptions, encoding);
+            return Search(filePath, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
         }
 
-        private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
+        private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions,
+            SearchDelegates.DoSearch searchMethod, PauseCancelToken pauseCancelToken)
         {
             List<GrepSearchResult> searchResults = new();
 
@@ -142,7 +146,8 @@ namespace dnGREP.Engines.Word
                         if (text != null)
                         {
                             string docText = Utils.CleanLineBreaks(text.ToString() ?? string.Empty);
-                            var lines = searchMethod(-1, 0, docText, searchPattern, searchOptions, true);
+                            var lines = searchMethod(-1, 0, docText, searchPattern,
+                                searchOptions, true, pauseCancelToken);
                             if (lines.Count > 0)
                             {
                                 GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
@@ -161,6 +166,11 @@ namespace dnGREP.Engines.Word
                     }
                     CloseDocument(wordDocument);
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                // expected exception
+                searchResults.Clear();
             }
             catch (Exception ex)
             {
@@ -184,7 +194,7 @@ namespace dnGREP.Engines.Word
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken)
         {
             throw new Exception("The method or operation is not implemented.");
         }

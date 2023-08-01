@@ -75,7 +75,7 @@ namespace dnGREP.Common
                     FileFilter fileParams = new(path, template.ExeFileName, string.Empty, false, false, false, true, -1, true, true, false, false, 0, 0, FileDateFilter.None, null, null, true);
 
                     var exePath = SafeDirectory.EnumerateFiles(path, new string[] { template.ExeFileName },
-                        null, null, fileParams).FirstOrDefault();
+                        null, null, fileParams, default).FirstOrDefault();
 
                     if (!string.IsNullOrEmpty(exePath))
                     {

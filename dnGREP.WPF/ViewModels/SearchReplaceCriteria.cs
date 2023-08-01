@@ -7,7 +7,7 @@ namespace dnGREP.WPF
 {
     public class SearchReplaceCriteria
     {
-        public SearchReplaceCriteria(MainViewModel vm)
+        public SearchReplaceCriteria(MainViewModel vm, PauseCancelToken pauseCancelToken)
         {
             Operation = vm.CurrentGrepOperation;
             UseFileSizeFilter = vm.UseFileSizeFilter;
@@ -35,6 +35,7 @@ namespace dnGREP.WPF
             ReplaceWith = vm.ReplaceWith;
             SearchInFiles = Enumerable.Empty<string>();
             ReplaceFiles = Enumerable.Empty<ReplaceDef>();
+            PauseCancelToken = pauseCancelToken;
         }
 
         public void AddSearchFiles(IEnumerable<string> files)
@@ -74,5 +75,6 @@ namespace dnGREP.WPF
 
         public IEnumerable<string> SearchInFiles { get; private set; }
         public IEnumerable<ReplaceDef> ReplaceFiles { get; private set; }
+        public PauseCancelToken PauseCancelToken { get; private set; }
     }
 }

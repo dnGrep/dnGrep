@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
@@ -23,7 +22,6 @@ namespace dnGREP.WPF
         private static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
 
         private readonly List<ScriptEditorWindow> scriptEditorWindows = new();
-        private bool cancelingScript = false;
         private bool showEmptyMessageWindow = false;
         private string currentScriptFile = string.Empty;
         private string currentScriptLine = string.Empty;
@@ -271,7 +269,6 @@ namespace dnGREP.WPF
 
         private void CancelScript()
         {
-            cancelingScript = true;
             Cancel();
 
             if (!ScriptMessages.Contains(Resources.Scripts_ScriptCanceled))
@@ -318,26 +315,28 @@ namespace dnGREP.WPF
 
         private void BeginScript(Queue<ScriptStatement> newScript, string name)
         {
-            if (currentScript == null)
+            if (currentScript == null && pauseCancelTokenSource == null)
             {
                 ScriptManager.Instance.ResetVariables();
                 ScriptMessages.Clear();
                 currentScript = newScript;
                 currentScriptFile = name;
-                cancelingScript = false;
                 showEmptyMessageWindow = false;
                 IsScriptRunning = true;
                 CommandManager.InvalidateRequerySuggested();
                 scriptStartTime = DateTime.Now;
-                ContinueScript();
+                pauseCancelTokenSource = new();
+                ContinueScript(pauseCancelTokenSource.Token);
             }
         }
 
-        private void ContinueScript()
+        private void ContinueScript(PauseCancelToken pauseCancelToken)
         {
             while (currentScript != null && currentScript.Count > 0)
             {
-                if (cancelingScript || Utils.CancelSearch)
+                pauseCancelToken.WaitWhilePaused();
+
+                if (pauseCancelToken.IsCancellationRequested)
                 {
                     currentScript.Clear();
                     break;
@@ -430,7 +429,7 @@ namespace dnGREP.WPF
 
                     case "search":
                         SearchCommand.Execute(null);
-                        if (cancelingScript || Utils.CancelSearch)
+                        if (pauseCancelToken.IsCancellationRequested)
                         {
                             break;
                         }
@@ -441,7 +440,7 @@ namespace dnGREP.WPF
 
                     case "replace":
                         ReplaceCommand.Execute(null);
-                        if (cancelingScript || Utils.CancelSearch)
+                        if (pauseCancelToken.IsCancellationRequested)
                         {
                             break;
                         }
@@ -484,7 +483,7 @@ namespace dnGREP.WPF
 
                 if (ScriptMessages.Count > 0 || showEmptyMessageWindow)
                 {
-                    if (!cancelingScript)
+                    if (!pauseCancelTokenSource?.IsCancellationRequested ?? true)
                     {
                         if (ScriptMessages.Count == 0 && !string.IsNullOrEmpty(currentScriptFile))
                         {
