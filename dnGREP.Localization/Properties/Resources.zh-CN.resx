@@ -3593,4 +3593,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>取消了替换操作 – 替换了 {0} 个文件的文本。</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>页</value>
+    <comment>Report content - heading for page number</comment>
+  </data>
 </root>
