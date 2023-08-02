@@ -1589,7 +1589,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>關鍵字: '{0}' 為檔案路徑, '{1}' 為行號, '{2}' 為搜尋樣式, '{3}' 為首個符合文字的所在行, '{4}' 為檔案中首個符合文字.</value>
+    <value>關鍵字: '{0}' 為檔案路徑,'{5}' 為頁碼, '{1}' 為行號, '{2}' 為搜尋樣式, '{3}' 為首個符合文字的所在行, '{4}' 為檔案中首個符合文字.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
