@@ -3594,4 +3594,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Paused</value>
     <comment>Main window, status bar label</comment>
   </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>Page</value>
+    <comment>Report content - heading for page number</comment>
+  </data>
 </root>

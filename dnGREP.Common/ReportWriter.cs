@@ -133,7 +133,7 @@ namespace dnGREP.Common
             sb.Append(options).AppendLine();
             sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
-                .AppendLine().AppendLine();
+                .AppendLine();
             sb.Append(GetResultLinesWithContext(source, orClauses ?? new()));
 
             File.WriteAllText(destinationPath, sb.ToString(), Encoding.UTF8);
@@ -144,6 +144,7 @@ namespace dnGREP.Common
             int hexLineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
 
             StringBuilder sb = new();
+            string previousFileName = string.Empty;
             foreach (var result in source)
             {
                 string orResults = string.Empty;
@@ -172,20 +173,39 @@ namespace dnGREP.Common
                     var lineCount = result.Matches.Where(r => r.LineNumber > 0)
                         .Select(r => r.LineNumber).Distinct().Count();
 
-                    sb.AppendLine(result.FileNameDisplayed)
-                      .AppendFormat(Resources.Report_Has0MatchesOn1Lines, matchCount, lineCount).AppendLine();
+                    if (previousFileName != result.FileNameDisplayed)
+                    {
+                        sb.AppendLine("--------------------------------------------------------------------------------")
+                          .AppendLine()
+                          .AppendLine(result.FileNameDisplayed);
+                        previousFileName = result.FileNameDisplayed;
+                    }
+
+                    if (!string.IsNullOrEmpty(result.AdditionalInformation))
+                    {
+                        sb.Append(result.AdditionalInformation.Trim()).Append(' ');
+                    }
+                    sb.AppendFormat(Resources.Report_Has0MatchesOn1Lines, matchCount, lineCount);
 
                     if (!string.IsNullOrEmpty(orResults))
-                        sb.AppendLine(orResults);
+                        sb.AppendLine().Append(orResults);
 
                     if (searchResults.Any())
                     {
+                        int prevPageNum = -1;
                         int prevLineNum = -1;
                         foreach (var line in searchResults)
                         {
-                            // Adding separator
-                            if (line.LineNumber != prevLineNum + 1)
+                            if (line.PageNumber != prevPageNum)
+                            {
+                                sb.AppendLine().Append(Resources.Report_Page).Append(' ').AppendLine(line.PageNumber.ToString());
+                                prevPageNum = line.PageNumber;
+                            }
+                            else if (line.LineNumber != prevLineNum + 1)
+                            {
+                                // Adding separator
                                 sb.AppendLine();
+                            }
 
                             var formattedLineNumber = line.LineNumber == -1 ? string.Empty :
                                 line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * hexLineSize) :
@@ -200,7 +220,6 @@ namespace dnGREP.Common
                         sb.AppendLine(Resources.Report_FileNotFoundHasItBeenDeletedOrMoved);
                     }
                 }
-                sb.AppendLine("--------------------------------------------------------------------------------").AppendLine();
             }
             return sb.ToString();
         }
