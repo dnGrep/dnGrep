@@ -27,6 +27,7 @@ namespace dnGREP.WPF.UserControls
             GotFocus += OnTreeViewItemGotFocus;
             PreviewMouseLeftButtonDown += OnTreeViewItemPreviewMouseDown;
             PreviewMouseLeftButtonUp += OnTreeViewItemPreviewMouseUp;
+            PreviewMouseRightButtonUp += OnTreeViewItemPreviewMouseUp;
         }
 
         private static TreeViewItem? _selectTreeViewItemOnMouseUp;
@@ -106,14 +107,14 @@ namespace dnGREP.WPF.UserControls
         {
             _selectTreeViewItemOnMouseUp = null;
             if (e.OriginalSource is TreeView) return;
-            if (Mouse.RightButton == MouseButtonState.Pressed) return;
 
             if (sender is MultiSelectTreeView treeView)
             {
                 var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
                 if (treeViewItem != null)
                 {
-                    if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
+                    if ((Mouse.LeftButton == MouseButtonState.Pressed || Mouse.RightButton == MouseButtonState.Pressed) &&
+                        GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
                     {
                         _selectTreeViewItemOnMouseUp = treeViewItem;
                         return;
