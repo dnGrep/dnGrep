@@ -3598,4 +3598,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Page</value>
     <comment>Report content - heading for page number</comment>
   </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>Not configured</value>
+    <comment>Main window, results list, context menu item tooltip</comment>
+  </data>
 </root>

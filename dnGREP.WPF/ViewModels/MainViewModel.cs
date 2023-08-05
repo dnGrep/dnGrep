@@ -1503,14 +1503,14 @@ namespace dnGREP.WPF
                 {
                     if (IsScriptRunning)
                     {
-                        logger.Error(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel));
-                        AddScriptMessage(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel));
+                        logger.Error(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel.Replace("_", "", StringComparison.Ordinal)));
+                        AddScriptMessage(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel.Replace("_", "", StringComparison.Ordinal)));
 
                         CancelScript();
                     }
                     else
                     {
-                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel),
+                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel.Replace("_", "", StringComparison.Ordinal)),
                             Resources.MessageBox_DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Warning,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);

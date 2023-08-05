@@ -2664,6 +2664,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not configured.
+        /// </summary>
+        public static string Main_Results_Tooltip_NotConfigured {
+            get {
+                return ResourceManager.GetString("Main_Results_Tooltip_NotConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resume.
         /// </summary>
         public static string Main_ResumeButton {
