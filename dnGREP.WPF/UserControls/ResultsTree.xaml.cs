@@ -1000,11 +1000,50 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        private void TreeView_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            // middle button click on a file node or line node opens file with custom editor
+            if (e.ChangedButton == MouseButton.Middle)
+            {
+                if (treeView.SelectedItem is FormattedGrepResult file)
+                {
+                    viewModel.OpenFile(file, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
+                }
+                else if (treeView.SelectedItem is FormattedGrepLine line)
+                {
+                    viewModel.OpenFile(line, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
+                }
+                e.Handled = true;
+            }
+        }
+
+        private void TreeView_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // alt+double click on a file node or line node opens file with associated application
+            if (Keyboard.Modifiers.HasFlag(ModifierKeys.Alt))
+            {
+                if (treeView.SelectedItem is FormattedGrepResult fileNode)
+                {
+                    viewModel.OpenFile(fileNode, false);
+                }
+                else if (treeView.SelectedItem is FormattedGrepLine line)
+                {
+                    viewModel.OpenFile(line, false);
+                }
+                e.Handled = true;
+            }
+        }
+
         private void TreeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (treeView.SelectedItem is FormattedGrepLine line && (e.OriginalSource is TextBlock || e.OriginalSource is Run))
+            // double click on a line node opens file
+            if (treeView.SelectedItem is FormattedGrepLine line && 
+                (e.OriginalSource is TextBlock || e.OriginalSource is Run))
             {
-                viewModel.OpenFile(line, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
+                bool useCustomEditor = !Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) &&
+                    GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor);
+                viewModel.OpenFile(line, useCustomEditor);
+                e.Handled = true;
             }
         }
 

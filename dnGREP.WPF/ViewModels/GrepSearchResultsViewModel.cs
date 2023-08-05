@@ -263,12 +263,12 @@ namespace dnGREP.WPF
                 item.RaiseSettingsPropertiesChanged();
             }
         }
-        public static bool CustomEditorConfigured
+        public bool CustomEditorConfigured
         {
             get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor); }
         }
 
-        public static bool CompareApplicationConfigured
+        public bool CompareApplicationConfigured
         {
             get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CompareApplication); }
         }
@@ -349,8 +349,12 @@ namespace dnGREP.WPF
         {
             get
             {
-                int count = GetSelectedFiles().Count;
-                return count == 2 || count == 3;
+                if (CompareApplicationConfigured)
+                {
+                    int count = GetSelectedFiles().Count;
+                    return count == 2 || count == 3;
+                }
+                return false;
             }
         }
 

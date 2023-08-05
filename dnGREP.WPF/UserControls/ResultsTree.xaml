@@ -9,11 +9,13 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    
+
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Hidden" FalseValue="Visible" />
         <my:BoolToScollBarVisibilityConverter x:Key="BoolToScollBarVisibilityConverter"/>
         <my:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
+        <my:BooleanAndConverter x:Key="BooleanAndConverter"/>
         <my:GridLengthConverter x:Key="GridLengthConverter" />
         <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
             <Setter Property="FontFamily" Value="{Binding Path=DataContext.ApplicationFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -31,7 +33,9 @@
                                   MultiSelectRootLevelOnly="False" 
                                   VirtualizingStackPanel.IsVirtualizing="True"
                                   MouseDoubleClick="TreeView_MouseDoubleClick" 
+                                  MouseUp="TreeView_MouseUp"
                                   PreviewKeyDown="TreeKeyDown"
+                                  PreviewMouseDoubleClick="TreeView_PreviewMouseDoubleClick"
                                   Grid.IsSharedSizeScope="True"
                                   ScrollViewer.HorizontalScrollBarVisibility="{Binding Path=WrapText, Converter={StaticResource BoolToScollBarVisibilityConverter}}">
         <TreeView.ItemsPanel>
@@ -148,9 +152,19 @@
         <TreeView.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Click="BtnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_OpenWithCustomEditor'}" Click="BtnOpenFileCustomEditor_Click"
-                          IsEnabled="{Binding HasSelection}"
-                          Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_OpenWithCustomEditor'}" Click="BtnOpenFileCustomEditor_Click" 
+                          ToolTipService.ShowOnDisabled="True">
+                    <MenuItem.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanAndConverter}">
+                            <Binding Path="HasSelection"/>
+                            <Binding Path="CustomEditorConfigured"/>
+                        </MultiBinding>
+                    </MenuItem.IsEnabled>
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="{l:Loc Key='Main_Results_Tooltip_NotConfigured'}"
+                                 Visibility="{Binding Path=CustomEditorConfigured, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+                    </MenuItem.ToolTip>
+                </MenuItem>
                 <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Click="BtnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Click="BtnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_CopyFiles'}" Click="BtnCopyFiles_Click" IsEnabled="{Binding HasSelection}" />
@@ -163,7 +177,12 @@
                 <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Click="BtnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
                 <Separator />
                 <MenuItem Header="{l:Loc Key='Main_Results_CompareFiles'}" Command="{Binding CompareFilesCommand}"
-                          Visibility="{Binding CompareApplicationConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                          ToolTipService.ShowOnDisabled="True">
+                    <MenuItem.ToolTip>
+                        <ToolTip Content="{l:Loc Key='Main_Results_Tooltip_NotConfigured'}"
+                                 Visibility="{Binding Path=CompareApplicationConfigured, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+                    </MenuItem.ToolTip>
+                </MenuItem>
                 <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Click="BtnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Click="BtnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_CopyLinesOfText'}" Click="BtnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
