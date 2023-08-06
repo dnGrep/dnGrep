@@ -718,7 +718,7 @@ namespace dnGREP.Common
                 return GetDefaultValueNullable<T>(key);
             }
 
-            if (!settings.TryGetValue(key, out string? value) || value == "xsi:nil")
+            if (!settings.TryGetValue(key, out string? value) || string.IsNullOrWhiteSpace(value) || value == "xsi:nil")
             {
                 return default;
             }
