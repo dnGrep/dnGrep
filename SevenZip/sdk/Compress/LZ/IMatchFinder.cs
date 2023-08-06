@@ -8,17 +8,17 @@ namespace SevenZip.Sdk.Compression.LZ
         void SetStream(Stream inStream);
         void Init();
         void ReleaseStream();
-        Byte GetIndexByte(Int32 index);
-        UInt32 GetMatchLen(Int32 index, UInt32 distance, UInt32 limit);
-        UInt32 GetNumAvailableBytes();
+        byte GetIndexByte(int index);
+        uint GetMatchLen(int index, uint distance, uint limit);
+        uint GetNumAvailableBytes();
     }
 
     internal interface IMatchFinder : IInWindowStream
     {
-        void Create(UInt32 historySize, UInt32 keepAddBufferBefore,
-                    UInt32 matchMaxLen, UInt32 keepAddBufferAfter);
+        void Create(uint historySize, uint keepAddBufferBefore,
+                    uint matchMaxLen, uint keepAddBufferAfter);
 
-        UInt32 GetMatches(UInt32[] distances);
-        void Skip(UInt32 num);
+        uint GetMatches(uint[] distances);
+        void Skip(uint num);
     }
 }

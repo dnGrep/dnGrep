@@ -18,7 +18,7 @@ namespace SevenZip
         Done,
 
         /// <summary>
-        /// An exception occured during extraction of the file.
+        /// An exception occurred during extraction of the file.
         /// </summary>
         Failure
     }

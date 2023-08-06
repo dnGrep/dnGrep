@@ -40,7 +40,7 @@
         /// </summary>
         /// <param name="defaultMessage">Default exception message</param>
         /// <param name="message">Additional detailed message</param>
-        /// <param name="inner">Inner exception occured</param>
+        /// <param name="inner">Inner exception occurred</param>
         public SevenZipException(string defaultMessage, string message, Exception inner)
             : base(
                 defaultMessage + (defaultMessage.EndsWith(" ", StringComparison.CurrentCulture) ? "" : " Message: ") +
@@ -51,7 +51,7 @@
         /// Initializes a new instance of the SevenZipException class
         /// </summary>
         /// <param name="defaultMessage">Default exception message</param>
-        /// <param name="inner">Inner exception occured</param>
+        /// <param name="inner">Inner exception occurred</param>
         public SevenZipException(string defaultMessage, Exception inner)
             : base(defaultMessage, inner) { }
         /// <summary>

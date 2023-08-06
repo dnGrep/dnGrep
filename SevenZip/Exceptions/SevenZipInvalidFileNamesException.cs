@@ -12,7 +12,7 @@ namespace SevenZip
     public class SevenZipInvalidFileNamesException : SevenZipException
     {
         /// <summary>
-        /// Exception dafault message which is displayed if no extra information is specified
+        /// Exception default message which is displayed if no extra information is specified
         /// </summary>
         public const string DEFAULT_MESSAGE = "Invalid file names have been specified: ";
 
@@ -31,7 +31,7 @@ namespace SevenZip
         /// Initializes a new instance of the SevenZipInvalidFileNamesException class
         /// </summary>
         /// <param name="message">Additional detailed message</param>
-        /// <param name="inner">Inner exception occured</param>
+        /// <param name="inner">Inner exception occurred</param>
         public SevenZipInvalidFileNamesException(string message, Exception inner) : base(DEFAULT_MESSAGE, message, inner) { }
 
         /// <summary>

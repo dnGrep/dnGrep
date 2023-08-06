@@ -7,8 +7,6 @@
     /// </summary>
     public class PercentDoneEventArgs : EventArgs
     {
-        private readonly byte _percentDone;
-
         /// <summary>
         /// Initializes a new instance of the PercentDoneEventArgs class.
         /// </summary>
@@ -18,16 +16,17 @@
         {
             if (percentDone > 100 || percentDone < 0)
             {
-                throw new ArgumentOutOfRangeException("percentDone",
+                throw new ArgumentOutOfRangeException(nameof(percentDone),
                     "The percent of finished work must be between 0 and 100.");
             }
-            _percentDone = percentDone;
+
+            PercentDone = percentDone;
         }
 
         /// <summary>
         /// Gets the percent of finished work.
         /// </summary>
-        public byte PercentDone => _percentDone;
+        public byte PercentDone { get; }
 
         /// <summary>
         /// Converts a [0, 1] rate to its percent equivalent.

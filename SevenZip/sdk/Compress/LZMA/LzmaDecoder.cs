@@ -58,7 +58,7 @@ namespace SevenZip.Sdk.Compression.Lzma
         /// <param name="outStream">The output stream</param>
         /// <param name="progress">Progress interface</param>
         public void Code(Stream inStream, Stream outStream,
-                         Int64 inSize, Int64 outSize, ICodeProgress progress)
+                         long inSize, long outSize, ICodeProgress progress)
         {
             Init(inStream, outStream);
 
@@ -66,8 +66,8 @@ namespace SevenZip.Sdk.Compression.Lzma
             state.Init();
             uint rep0 = 0, rep1 = 0, rep2 = 0, rep3 = 0;
 
-            UInt64 nowPos64 = 0;
-            var outSize64 = (UInt64) outSize;
+            ulong nowPos64 = 0;
+            var outSize64 = (ulong) outSize;
             if (nowPos64 < outSize64)
             {
                 if (m_IsMatchDecoders[state.Index << Base.kNumPosStatesBitsMax].Decode(m_RangeDecoder) != 0)
@@ -118,7 +118,7 @@ namespace SevenZip.Sdk.Compression.Lzma
                             }
                             else
                             {
-                                UInt32 distance;
+                                uint distance;
                                 if (m_IsRepG1Decoders[state.Index].Decode(m_RangeDecoder) == 0)
                                 {
                                     distance = rep1;
@@ -200,9 +200,9 @@ namespace SevenZip.Sdk.Compression.Lzma
             int pb = remainder/5;
             if (pb > Base.kNumPosStatesBitsMax)
                 throw new InvalidParamException();
-            UInt32 dictionarySize = 0;
+            uint dictionarySize = 0;
             for (int i = 0; i < 4; i++)
-                dictionarySize += ((UInt32) (properties[1 + i])) << (i*8);
+                dictionarySize += ((uint) (properties[1 + i])) << (i*8);
             SetDictionarySize(dictionarySize);
             SetLiteralProperties(lp, lc);
             SetPosBitsProperties(pb);

@@ -11,55 +11,55 @@ namespace SevenZip.Sdk.Compression.LZ
         /// <summary>
         /// Size of Allocated memory block
         /// </summary>
-        public UInt32 _blockSize;
+        public uint _blockSize;
 
         /// <summary>
         /// The pointer to buffer with data
         /// </summary>
-        public Byte[] _bufferBase;
+        public byte[] _bufferBase;
 
         /// <summary>
         /// Buffer offset value
         /// </summary>
-        public UInt32 _bufferOffset;
+        public uint _bufferOffset;
 
         /// <summary>
         /// How many BYTEs must be kept buffer after _pos
         /// </summary>
-        private UInt32 _keepSizeAfter;
+        private uint _keepSizeAfter;
 
         /// <summary>
         /// How many BYTEs must be kept in buffer before _pos
         /// </summary>
-        private UInt32 _keepSizeBefore;
+        private uint _keepSizeBefore;
 
-        private UInt32 _pointerToLastSafePosition;
+        private uint _pointerToLastSafePosition;
 
         /// <summary>
         /// Offset (from _buffer) of curent byte
         /// </summary>
-        public UInt32 _pos;
+        public uint _pos;
 
-        private UInt32 _posLimit; // offset (from _buffer) of first byte when new block reading must be done
+        private uint _posLimit; // offset (from _buffer) of first byte when new block reading must be done
         private Stream _stream;
         private bool _streamEndWasReached; // if (true) then _streamPos shows real end of stream
 
         /// <summary>
         /// Offset (from _buffer) of first not read byte from Stream
         /// </summary>
-        public UInt32 _streamPos;
+        public uint _streamPos;
 
         public void MoveBlock()
         {
-            UInt32 offset = (_bufferOffset) + _pos - _keepSizeBefore;
+            uint offset = (_bufferOffset) + _pos - _keepSizeBefore;
             // we need one additional byte, since MovePos moves on 1 byte.
             if (offset > 0)
                 offset--;
 
-            UInt32 numBytes = (_bufferOffset) + _streamPos - offset;
+            uint numBytes = (_bufferOffset) + _streamPos - offset;
 
             // check negative offset ????
-            for (UInt32 i = 0; i < numBytes; i++)
+            for (uint i = 0; i < numBytes; i++)
                 _bufferBase[i] = _bufferBase[offset + i];
             _bufferOffset -= offset;
         }
@@ -77,14 +77,14 @@ namespace SevenZip.Sdk.Compression.LZ
                 if (numReadBytes == 0)
                 {
                     _posLimit = _streamPos;
-                    UInt32 pointerToPostion = _bufferOffset + _posLimit;
+                    uint pointerToPostion = _bufferOffset + _posLimit;
                     if (pointerToPostion > _pointerToLastSafePosition)
                         _posLimit = (_pointerToLastSafePosition - _bufferOffset);
 
                     _streamEndWasReached = true;
                     return;
                 }
-                _streamPos += (UInt32) numReadBytes;
+                _streamPos += (uint) numReadBytes;
                 if (_streamPos >= _pos + _keepSizeAfter)
                     _posLimit = _streamPos - _keepSizeAfter;
             }
@@ -95,16 +95,16 @@ namespace SevenZip.Sdk.Compression.LZ
             _bufferBase = null;
         }
 
-        public void Create(UInt32 keepSizeBefore, UInt32 keepSizeAfter, UInt32 keepSizeReserv)
+        public void Create(uint keepSizeBefore, uint keepSizeAfter, uint keepSizeReserv)
         {
             _keepSizeBefore = keepSizeBefore;
             _keepSizeAfter = keepSizeAfter;
-            UInt32 blockSize = keepSizeBefore + keepSizeAfter + keepSizeReserv;
+            uint blockSize = keepSizeBefore + keepSizeAfter + keepSizeReserv;
             if (_bufferBase == null || _blockSize != blockSize)
             {
                 Free();
                 _blockSize = blockSize;
-                _bufferBase = new Byte[_blockSize];
+                _bufferBase = new byte[_blockSize];
             }
             _pointerToLastSafePosition = _blockSize - keepSizeAfter;
         }
@@ -133,14 +133,14 @@ namespace SevenZip.Sdk.Compression.LZ
             _pos++;
             if (_pos > _posLimit)
             {
-                UInt32 pointerToPostion = _bufferOffset + _pos;
+                uint pointerToPostion = _bufferOffset + _pos;
                 if (pointerToPostion > _pointerToLastSafePosition)
                     MoveBlock();
                 ReadBlock();
             }
         }
 
-        public Byte GetIndexByte(Int32 index)
+        public byte GetIndexByte(int index)
         {
             return _bufferBase[_bufferOffset + _pos + index];
         }
@@ -152,31 +152,31 @@ namespace SevenZip.Sdk.Compression.LZ
         /// <param name="distance"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public UInt32 GetMatchLen(Int32 index, UInt32 distance, UInt32 limit)
+        public uint GetMatchLen(int index, uint distance, uint limit)
         {
             if (_streamEndWasReached)
                 if ((_pos + index) + limit > _streamPos)
-                    limit = _streamPos - (UInt32) (_pos + index);
+                    limit = _streamPos - (uint) (_pos + index);
             distance++;
             // Byte *pby = _buffer + (size_t)_pos + index;
-            UInt32 pby = _bufferOffset + _pos + (UInt32) index;
+            uint pby = _bufferOffset + _pos + (uint) index;
 
-            UInt32 i;
+            uint i;
             for (i = 0; i < limit && _bufferBase[pby + i] == _bufferBase[pby + i - distance]; i++) ;
             return i;
         }
 
-        public UInt32 GetNumAvailableBytes()
+        public uint GetNumAvailableBytes()
         {
             return _streamPos - _pos;
         }
 
-        public void ReduceOffsets(Int32 subValue)
+        public void ReduceOffsets(int subValue)
         {
-            _bufferOffset += (UInt32) subValue;
-            _posLimit -= (UInt32) subValue;
-            _pos -= (UInt32) subValue;
-            _streamPos -= (UInt32) subValue;
+            _bufferOffset += (uint) subValue;
+            _posLimit -= (uint) subValue;
+            _pos -= (uint) subValue;
+            _streamPos -= (uint) subValue;
         }
     }
 }
