@@ -3573,4 +3573,28 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>删除文件</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>继续</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>已暂停</value>
+    <comment>Main window, status bar label</comment>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>暂停</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>搜索持续了 {0} 后被取消 – 找到了 {1} 个匹配项，它们位于 {2} 个文件中，共搜索了 {3} 个文件。</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>取消了替换操作 – 替换了 {0} 个文件的文本。</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>页</value>
+    <comment>Report content - heading for page number</comment>
+  </data>
 </root>
