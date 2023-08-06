@@ -286,6 +286,10 @@ namespace dnGREP.Common
             public const string OverwriteFilesOnMove = "OverwriteFilesOnMove";
             [DefaultValue(-1)]
             public const string MaxDegreeOfParallelism = "MaxDegreeOfParallelism";
+            [DefaultValue(true)]
+            public const string PreserveFolderLayoutOnCopy = "PreserveFolderLayoutOnCopy";
+            [DefaultValue(true)]
+            public const string PreserveFolderLayoutOnMove = "PreserveFolderLayoutOnMove";
         }
 
         private static GrepSettings? instance;

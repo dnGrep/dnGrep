@@ -1,10 +1,10 @@
 ﻿<my:ThemedWindow x:Class="dnGREP.WPF.OptionsView"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
                  mc:Ignorable="d"
                  Title="{l:Loc Key='Options_OptionsTitle'}"
                  Height="600"
@@ -207,7 +207,7 @@
                                 </MultiBinding>
                             </ComboBox.Width>
                         </ComboBox>
-                        
+
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,3" 
                                    HorizontalAlignment="Right" Text="{l:Loc Key='Options_MainFontSize'}" />
                         <TextBox Grid.Row="2" Grid.Column="1" Margin="6,3"
@@ -231,7 +231,7 @@
                         <TextBlock Grid.Row="2" Grid.Column="2" Margin="12,3" Text="{l:Loc Key='Options_SampleText'}"
                                    FontFamily="{Binding Path=EditApplicationFontFamily}"
                                    FontSize="{Binding Path=EditMainFormFontSize}"/>
-                        
+
                         <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,3" 
                                    HorizontalAlignment="Right" Text="{l:Loc Key='Options_ReplaceFontSize'}" />
                         <TextBox Grid.Row="3" Grid.Column="1" Margin="6,3"
@@ -255,7 +255,7 @@
                         <TextBlock Grid.Row="3" Grid.Column="2" Margin="12,3" Text="{l:Loc Key='Options_SampleText'}"
                                    FontFamily="{Binding Path=EditApplicationFontFamily}"
                                    FontSize="{Binding Path=EditReplaceFormFontSize}"/>
-                        
+
                         <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,3" 
                                    HorizontalAlignment="Right" Text="{l:Loc Key='Options_DialogFontSize'}" />
                         <TextBox Grid.Row="4" Grid.Column="1" Margin="6,3"
@@ -464,7 +464,7 @@
                                 <ItemsControl ItemsSource="{Binding Source={StaticResource mainWindowControlGroups}}">
                                     <ItemsControl.GroupStyle>
                                         <GroupStyle>
-                                             <GroupStyle.ContainerStyle>
+                                            <GroupStyle.ContainerStyle>
                                                 <Style TargetType="{x:Type GroupItem}">
                                                     <Setter Property="Template">
                                                         <Setter.Value>
@@ -573,6 +573,8 @@
 
                 <GroupBox Header="{l:Loc Key='Options_CopyFiles'}">
                     <StackPanel>
+                        <CheckBox Margin="3,6,3,3" Content="{l:Loc Key='Options_PreserveSourceFolderLayout'}"
+                                  IsChecked="{Binding PreserveFolderLayoutOnCopy}"/>
                         <Label Content="{l:Loc Key='Options_OnFileCopyOverwrite'}"/>
                         <StackPanel Orientation="Horizontal" Margin="12,0">
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Yes'}" GroupName="copyOverwrite"
@@ -587,6 +589,8 @@
 
                 <GroupBox Header="{l:Loc Key='Options_MoveFiles'}">
                     <StackPanel>
+                        <CheckBox Margin="3,6,3,3" Content="{l:Loc Key='Options_PreserveSourceFolderLayout'}"
+                                  IsChecked="{Binding PreserveFolderLayoutOnMove}"/>
                         <Label Content="{l:Loc Key='Options_OnFileMoveOverwrite'}"/>
                         <StackPanel Orientation="Horizontal" Margin="12,0">
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Yes'}" GroupName="moveOverwrite"

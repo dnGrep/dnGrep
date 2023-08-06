@@ -4716,6 +4716,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preserve source folder layout.
+        /// </summary>
+        public static string Options_PreserveSourceFolderLayout {
+            get {
+                return ResourceManager.GetString("Options_PreserveSourceFolderLayout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Press F1 for help on options.
         /// </summary>
         public static string Options_PressF1ForHelpOnOptions {
