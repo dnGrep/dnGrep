@@ -136,6 +136,7 @@ namespace SevenZip
             _volumeFileNames.Add(name);
             if (_wrappers.ContainsKey(name))
             {
+                _wrappers[name].Seek(0, SeekOrigin.Begin, IntPtr.Zero);
                 inStream = _wrappers[name];
             }
             else
