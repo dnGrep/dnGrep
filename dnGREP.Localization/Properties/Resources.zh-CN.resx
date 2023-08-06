@@ -3597,4 +3597,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>页</value>
     <comment>Report content - heading for page number</comment>
   </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>未配置</value>
+    <comment>Main window, results list, context menu item tooltip</comment>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>保存源文件夹布局</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
 </root>
