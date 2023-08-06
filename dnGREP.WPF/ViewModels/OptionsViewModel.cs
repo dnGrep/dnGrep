@@ -174,6 +174,8 @@ namespace dnGREP.WPF
                     DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent) ||
                 CopyOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy) ||
                 MoveOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove) ||
+                PreserveFolderLayoutOnCopy != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy) ||
+                PreserveFolderLayoutOnMove != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
@@ -447,6 +449,12 @@ namespace dnGREP.WPF
         private OverwriteFile moveOverwriteFileOption = OverwriteFile.Prompt;
 
         [ObservableProperty]
+        private bool preserveFolderLayoutOnCopy = true;
+
+        [ObservableProperty]
+        private bool preserveFolderLayoutOnMove = true;
+
+        [ObservableProperty]
         private int hexResultByteLength = 16;
 
         [ObservableProperty]
@@ -673,6 +681,8 @@ namespace dnGREP.WPF
                 DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent;
             CopyOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy);
             MoveOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
+            PreserveFolderLayoutOnCopy = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy);
+            PreserveFolderLayoutOnMove = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
 
@@ -817,7 +827,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.DeleteToRecycleBin, DeleteOption == DeleteFilesDestination.Recycle);
             Settings.Set(GrepSettings.Key.OverwriteFilesOnCopy, CopyOverwriteFileOption);
             Settings.Set(GrepSettings.Key.OverwriteFilesOnMove, MoveOverwriteFileOption);
-
+            Settings.Set(GrepSettings.Key.PreserveFolderLayoutOnCopy, PreserveFolderLayoutOnCopy);
+            Settings.Set(GrepSettings.Key.PreserveFolderLayoutOnMove, PreserveFolderLayoutOnMove);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
             Settings.Set(GrepSettings.Key.CurrentCulture, CurrentCulture);

@@ -3602,4 +3602,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Not configured</value>
     <comment>Main window, results list, context menu item tooltip</comment>
   </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Preserve source folder layout</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
 </root>

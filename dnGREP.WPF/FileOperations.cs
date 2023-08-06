@@ -40,6 +40,7 @@ namespace dnGREP.WPF
                 {
                     try
                     {
+                        bool preserveFolderLayout = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy);
                         string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(pathSearchText.FileOrFolderPath);
                         string baseFolder = pathSearchText.BaseFolder;
@@ -72,8 +73,8 @@ namespace dnGREP.WPF
                         }
 
                         int filesCopied = 0;
-                        if (hasSingleBaseFolder && !string.IsNullOrEmpty(destinationFolder) &&
-                            !string.IsNullOrWhiteSpace(baseFolder))
+                        if (preserveFolderLayout && hasSingleBaseFolder &&
+                            !string.IsNullOrEmpty(destinationFolder) && !string.IsNullOrWhiteSpace(baseFolder))
                         {
                             filesCopied = Utils.CopyFiles(fileList, baseFolder, destinationFolder, overwritePref);
                             success = true;
@@ -149,6 +150,7 @@ namespace dnGREP.WPF
                 {
                     try
                     {
+                        bool preserveFolderLayout = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove);
                         string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(pathSearchText.FileOrFolderPath);
                         string baseFolder = pathSearchText.BaseFolder;
@@ -181,8 +183,8 @@ namespace dnGREP.WPF
                         }
 
                         int filesMoved = 0;
-                        if (hasSingleBaseFolder && !string.IsNullOrEmpty(destinationFolder) &&
-                            !string.IsNullOrWhiteSpace(baseFolder))
+                        if (preserveFolderLayout && hasSingleBaseFolder &&
+                            !string.IsNullOrEmpty(destinationFolder) && !string.IsNullOrWhiteSpace(baseFolder))
                         {
                             filesMoved = Utils.MoveFiles(fileList, baseFolder, destinationFolder, overwritePref);
                             success = true;
