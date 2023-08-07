@@ -4,7 +4,11 @@
     <OutputType>Library</OutputType>
     <Platforms>x86;x64</Platforms>
     <AssemblyName>SevenZipSharp</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>SevenZipSharp</AssemblyTitle>
+    <Company>Markovtsev Vadim</Company>
+    <Product>SevenZipSharp</Product>
+    <Description>7-zip native library wrapper</Description>
+    <Copyright>Copyright (C) Markovtsev Vadim 2009, 2010, licensed under LGPLv3</Copyright>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

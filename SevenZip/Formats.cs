@@ -584,7 +584,7 @@
         /// <exception cref="System.ArgumentException"/>
         public static InArchiveFormat FormatByFileName(string fileName, bool reportErrors)
         {
-            if (String.IsNullOrEmpty(fileName) && reportErrors)
+            if (string.IsNullOrEmpty(fileName) && reportErrors)
             {
                 throw new ArgumentException("File name is null or empty string!");
             }

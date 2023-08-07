@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,7 +7,6 @@ using System.Runtime.InteropServices;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
@@ -20,21 +18,3 @@ using System.Runtime.InteropServices;
     "4db0149e1bd71f314943b667ac6f1374ce06a32ce8db9d8389385cbbd3a0bc1d9e9ad9ce51b440" +
     "08d909c438dc9473a79c088ffc51e9f9b26d89c89fe93c17e8fc2d6e771c400423608bea1577b6" +
     "a2c3cdad")]
-
-[assembly: AssemblyCompany("Markovtsev Vadim")]
-[assembly: AssemblyProduct("SevenZipSharp")]
-[assembly: AssemblyTitle("SevenZipSharp")]
-[assembly: AssemblyCopyright("Copyright (C) Markovtsev Vadim 2009, 2010, licensed under LGPLv3")]
-[assembly: AssemblyDescription("7-zip native library wrapper")]
-
-#if DEBUG
-[assembly: AssemblyConfiguration("LiteDebug")]
-#else
-[assembly: AssemblyConfiguration("LiteRelease")]
-#endif
-
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0.0")]
-
-

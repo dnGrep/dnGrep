@@ -285,6 +285,7 @@ namespace SevenZip
                 var fiea = new FileNameEventArgs(_files != null? _files[index].Name : _entries[index],
                                                  PercentDoneEventArgs.ProducePercentDone(_doneRate));
                 OnFileCompression(fiea);
+                
                 if (fiea.Cancel)
                 {
                     Canceled = true;
@@ -314,26 +315,17 @@ namespace SevenZip
 
         private void OnFileCompression(FileNameEventArgs e)
         {
-            if (FileCompressionStarted != null)
-            {
-                FileCompressionStarted(this, e);
-            }
+            FileCompressionStarted?.Invoke(this, e);
         }
 
         private void OnCompressing(ProgressEventArgs e)
         {
-            if (Compressing != null)
-            {
-                Compressing(this, e);
-            }
+            Compressing?.Invoke(this, e);
         }
 
         private void OnFileCompressionFinished(EventArgs e)
         {
-            if (FileCompressionFinished != null)
-            {
-                FileCompressionFinished(this, e);
-            }
+            FileCompressionFinished?.Invoke(this, e);
         }
 
         #endregion
@@ -351,7 +343,7 @@ namespace SevenZip
                 case InternalCompressionMode.Create:
                     newData = 1;
                     newProperties = 1;
-                    indexInArchive = UInt32.MaxValue;
+                    indexInArchive = uint.MaxValue;
                     break;
                 case InternalCompressionMode.Append:
                     if (index < _indexInArchive)
@@ -364,7 +356,7 @@ namespace SevenZip
                     {
                         newData = 1;
                         newProperties = 1;
-                        indexInArchive = UInt32.MaxValue;
+                        indexInArchive = uint.MaxValue;
                     }
                     break;
                 case InternalCompressionMode.Modify:
@@ -374,16 +366,19 @@ namespace SevenZip
                     if (_updateData.FileNamesToModify.ContainsKey((int)index)
                         && _updateData.FileNamesToModify[(int)index] == null)
                     {
-                        indexInArchive = (UInt32)_updateData.ArchiveFileData.Count;
-                        foreach (KeyValuePair<Int32, string> pairModification in _updateData.FileNamesToModify)
-                            if ((pairModification.Key <= index) && (pairModification.Value == null))
+                        indexInArchive = (uint)_updateData.ArchiveFileData.Count;
+
+                        foreach (var pairModification in _updateData.FileNamesToModify)
+                        {
+                            if (pairModification.Key <= index && (pairModification.Value == null))
                             {
                                 do
                                 {
                                     indexInArchive--;
+                                } while (indexInArchive > 0 
+                                         && _updateData.FileNamesToModify.ContainsKey((int)indexInArchive)
+                                         && _updateData.FileNamesToModify[(int)indexInArchive] == null);
                                 }
-                                while ((indexInArchive > 0) && _updateData.FileNamesToModify.ContainsKey((Int32)indexInArchive)
-                                    && (_updateData.FileNamesToModify[(Int32)indexInArchive] == null));
                             }
                     }
                     else
@@ -392,6 +387,7 @@ namespace SevenZip
                     }
                     break;
             }
+
             return 0;
         }
 
@@ -476,7 +472,7 @@ namespace SevenZip
                         #region Size
 
                         value.VarType = VarEnum.VT_UI8;
-                        UInt64 size;
+                        ulong size;
                         if (_updateData.Mode != InternalCompressionMode.Modify)
                         {
                             if (_files == null)
@@ -739,8 +735,9 @@ namespace SevenZip
 
         public int CryptoGetTextPassword2(ref int passwordIsDefined, out string password)
         {
-            passwordIsDefined = String.IsNullOrEmpty(Password) ? 0 : 1;
+            passwordIsDefined = string.IsNullOrEmpty(Password) ? 0 : 1;
             password = Password;
+
             return 0;
         }
 
@@ -761,8 +758,11 @@ namespace SevenZip
                 catch (ObjectDisposedException) {}
             }
 
-            if (_wrappersToDispose != null)
+            if (_wrappersToDispose == null)
             {
+                return;
+            }
+
                 foreach (var wrapper in _wrappersToDispose)
                 {
                     try
@@ -773,9 +773,6 @@ namespace SevenZip
                 }
             }
 
-            GC.SuppressFinalize(this);
-        }
-
         #endregion
 
         private void IntEventArgsHandler(object sender, IntEventArgs e)
@@ -784,23 +781,23 @@ namespace SevenZip
 
             lock (lockObject)
             {
-                var pold = (byte) (_bytesWrittenOld*100/_bytesCount);
+                var pOld = (byte) (_bytesWrittenOld*100/_bytesCount);
                 _bytesWritten += e.Value;
-                byte pnow;
+                byte pNow;
 
                 if (_bytesCount < _bytesWritten) //Holy shit, this check for ZIP is golden
                 {
-                    pnow = 100;
+                    pNow = 100;
                 }
                 else
                 {
-                    pnow = (byte)((_bytesWritten * 100) / _bytesCount);
+                    pNow = (byte)((_bytesWritten * 100) / _bytesCount);
                 }
 
-                if (pnow > pold)
+                if (pNow > pOld)
                 {
                     _bytesWrittenOld = _bytesWritten;
-                    OnCompressing(new ProgressEventArgs(pnow, (byte) (pnow - pold)));
+                    OnCompressing(new ProgressEventArgs(pNow, (byte) (pNow - pOld)));
                 }
             }
         }

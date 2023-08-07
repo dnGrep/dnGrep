@@ -5,8 +5,6 @@
     /// </summary>
     public sealed class FileInfoEventArgs : PercentDoneEventArgs, ICancellable
     {
-        private readonly ArchiveFileInfo _fileInfo;
-
         /// <summary>
         /// Initializes a new instance of the FileInfoEventArgs class.
         /// </summary>
@@ -15,7 +13,7 @@
         public FileInfoEventArgs(ArchiveFileInfo fileInfo, byte percentDone)
             : base(percentDone)
         {
-            _fileInfo = fileInfo;
+            FileInfo = fileInfo;
         }
 
         /// <summary>
@@ -31,6 +29,6 @@
         /// <summary>
         /// Gets the corresponding FileInfo to the event.
         /// </summary>
-        public ArchiveFileInfo FileInfo => _fileInfo;
+        public ArchiveFileInfo FileInfo { get; }
     }
 }

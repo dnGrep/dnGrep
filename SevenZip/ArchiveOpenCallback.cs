@@ -28,7 +28,7 @@ namespace SevenZip
         /// <param name="fileName">Volume file name.</param>
         private void Init(string fileName)
         {
-            if (!String.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName))
             {
                 _fileInfo = new FileInfo(fileName);
                 _volumeFileNames.Add(fileName);
@@ -98,7 +98,7 @@ namespace SevenZip
                     break;
                 case ItemPropId.Size:
                     value.VarType = VarEnum.VT_UI8;
-                    value.UInt64Value = (UInt64) _fileInfo.Length;
+                    value.UInt64Value = (ulong) _fileInfo.Length;
                     break;
                 case ItemPropId.Attributes:
                     value.VarType = VarEnum.VT_UI4;
@@ -136,6 +136,7 @@ namespace SevenZip
             _volumeFileNames.Add(name);
             if (_wrappers.ContainsKey(name))
             {
+                _wrappers[name].Seek(0, SeekOrigin.Begin, IntPtr.Zero);
                 inStream = _wrappers[name];
             }
             else

@@ -9,8 +9,6 @@ namespace SevenZip
     /// </summary>
     public sealed class FileNameEventArgs : PercentDoneEventArgs, ICancellable
     {
-        private readonly string _fileName;
-
         /// <summary>
         /// Initializes a new instance of the FileNameEventArgs class.
         /// </summary>
@@ -19,7 +17,7 @@ namespace SevenZip
         public FileNameEventArgs(string fileName, byte percentDone) :
             base(percentDone)
         {
-            _fileName = fileName;
+            FileName = fileName;
         }
 
         /// <summary>
@@ -39,7 +37,7 @@ namespace SevenZip
         /// <summary>
         /// Gets the file name.
         /// </summary>
-        public string FileName => _fileName;
+        public string FileName { get; }
     }
 }
 

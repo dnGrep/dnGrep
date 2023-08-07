@@ -83,7 +83,7 @@ namespace SevenZip
                 _baseStream = null;                                
             }    
             
-            if (!String.IsNullOrEmpty(_fileName) && File.Exists(_fileName))
+            if (!string.IsNullOrEmpty(_fileName) && File.Exists(_fileName))
             {
                 try
                 {

@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.IO;
     using System.Runtime.InteropServices;
-#if NET45 || NETSTANDARD2_0
+#if NET472 || NETSTANDARD2_0
     using System.Security.Permissions;
 #endif
     using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
@@ -122,7 +122,7 @@
         {
             get
             {
-#if NET45 || NETSTANDARD2_0
+#if NET472 || NETSTANDARD2_0
                 var sp = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
                 sp.Demand();
 #endif

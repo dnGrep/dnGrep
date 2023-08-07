@@ -204,7 +204,7 @@
                     InArchiveFormat.Arj
                 })
                 {
-                    var pos = actualSignature.IndexOf(Formats.InSignatureFormatsReversed[format]);
+                    var pos = actualSignature.IndexOf(Formats.InSignatureFormatsReversed[format], StringComparison.InvariantCulture);
 
                     if (pos > -1)
                     {

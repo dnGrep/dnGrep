@@ -9,7 +9,7 @@ namespace SevenZip.Sdk.Compression.RangeCoder
         public const int kNumBitPriceShiftBits = 6;
         private const int kNumMoveBits = 5;
         private const int kNumMoveReducingBits = 2;
-        private static readonly UInt32[] ProbPrices = new UInt32[kBitModelTotal >> kNumMoveReducingBits];
+        private static readonly uint[] ProbPrices = new uint[kBitModelTotal >> kNumMoveReducingBits];
 
         private uint Prob;
 
@@ -18,10 +18,10 @@ namespace SevenZip.Sdk.Compression.RangeCoder
             const int kNumBits = (kNumBitModelTotalBits - kNumMoveReducingBits);
             for (int i = kNumBits - 1; i >= 0; i--)
             {
-                UInt32 start = (UInt32) 1 << (kNumBits - i - 1);
-                UInt32 end = (UInt32) 1 << (kNumBits - i);
-                for (UInt32 j = start; j < end; j++)
-                    ProbPrices[j] = ((UInt32) i << kNumBitPriceShiftBits) +
+                uint start = (uint) 1 << (kNumBits - i - 1);
+                uint end = (uint) 1 << (kNumBits - i);
+                for (uint j = start; j < end; j++)
+                    ProbPrices[j] = ((uint) i << kNumBitPriceShiftBits) +
                                     (((end - j) << kNumBitPriceShiftBits) >> (kNumBits - i - 1));
             }
         }

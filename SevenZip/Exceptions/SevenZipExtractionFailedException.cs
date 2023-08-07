@@ -31,7 +31,7 @@ namespace SevenZip
         /// Initializes a new instance of the SevenZipExtractionFailedException class
         /// </summary>
         /// <param name="message">Additional detailed message</param>
-        /// <param name="inner">Inner exception occured</param>
+        /// <param name="inner">Inner exception occurred</param>
         public SevenZipExtractionFailedException(string message, Exception inner) : base(DEFAULT_MESSAGE, message, inner) { }
 
         /// <summary>
