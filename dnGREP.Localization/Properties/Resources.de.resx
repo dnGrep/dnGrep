@@ -238,7 +238,7 @@
     <value>Sternchenmuster</value>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
-    <value>Alles</value>
+    <value>Everything</value>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
     <value>_Regulären Ausdruck</value>
@@ -370,7 +370,7 @@
     <value>_Anwenden</value>
   </data>
   <data name="Help_CmdLineArguments" xml:space="preserve">
-    <value>Argumente:</value>
+    <value>Parameter:</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
@@ -394,7 +394,7 @@
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
-    <value>Sind keine Argumente angegeben, werden die zuletzt gespeicherten Benutzereinstellungen verwendet.</value>
+    <value>Sind keine Parameter angegeben, werden die zuletzt gespeicherten Benutzereinstellungen verwendet.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
@@ -405,17 +405,17 @@
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample1" xml:space="preserve">
-    <value>dnGrep [Argumente]
-Mit einer beliebigen Kombination von Argumenten aus der folgenden Liste.
+    <value>dnGrep [Parameter]
+Mit einer beliebigen Kombination von Parametern aus der folgenden Liste.
 Beispiel:
 dnGrep /f "C:\Programme\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample2" xml:space="preserve">
-    <value>dnGrep [folderPath] [searchFor]
-Ein oder zwei Argumente ohne Flags: Das erste Argument ist der zu durchsuchende Ordner, das zweite der reguläre Ausdruck, nach dem gesucht werden soll.
+    <value>dnGrep [Verzeichnispfad] [Suchausdruck]
+Ein oder zwei Parameter ohne Flags: Der erste Parameter ist der zu durchsuchende Ordner, der zweite der reguläre Ausdruck nach dem gesucht werden soll.
 Beispiel:
-dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
+dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExit" xml:space="preserve">
@@ -514,7 +514,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>OK</value>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>Ein oder mehre Argumente sind falsch.</value>
+    <value>Einer oder mehre Parameter sind nicht korrekt.</value>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
     <value>Suchmuster-Lesezeichen hinzufügen</value>
@@ -682,7 +682,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Fundstellen hervorheben</value>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Gruppen von Regulären Ausdrücken hervorheben - Änderungen werden bei der nächsten Suche übernommen</value>
+    <value>Gruppen von Regulären Ausdrücken hervorheben - Änderungen werden bei der nächsten Suche übernommen.</value>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
     <value>Binärdateien einschliessen</value>
@@ -697,7 +697,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Unterverzeichnisse einschliessen</value>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value>Maximal Tiefe</value>
+    <value>Maximale Tiefe</value>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
     <value>_Über</value>
@@ -799,7 +799,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Ergebnis Dateiformat</value>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value>Zurücksetzen</value>
+    <value>Filter zurücksetzen</value>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
     <value>zusätzliche Muster:</value>
@@ -988,7 +988,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Ersetzen abgeschlossen - {0} Dateien bearbeitet.</value>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>Ersetzen fehlerhaft.</value>
+    <value>Ersetzen fehlgeschlagen</value>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
     <value>Ersetzen…</value>
@@ -1045,7 +1045,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>XPtah ist nicht gültig!</value>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath ist OK!</value>
+    <value>XPath ist OK</value>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
     <value>_Ganze Wörter</value>
@@ -1162,7 +1162,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Starte dnGrep als Administrator zur Aktivierung der Ansicht von dnGrep im Explorer Context Menu</value>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>Starte dnGrep als Administrator zur Änderung der Startup Parameter</value>
+    <value>Starte dnGrep als Administrator zur Änderung der Startup-Parameter.</value>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
     <value>Fehler beim Suchen, für Details siehe Fehlerprotokoll: </value>
@@ -1225,10 +1225,10 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Fehler beim Deaktivieren des Autostarts , für Details siehe Fehlerprotokoll: </value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>Diese Lesezeichen ist verknüpft mit {0} anderen Verzeichnissen:</value>
+    <value>Dieses Lesezeichen ist mit {0} anderen Verzeichnissen verknüpft.</value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>Diese Lesezeichen ist verknüpft mit einem anderen Verzeichniss</value>
+    <value>Dieses Lesezeichen ist mit einem anderen Verzeichnis verknüpft.</value>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
     <value>Rückgängig machen</value>
@@ -1267,10 +1267,10 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Tage</value>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Beim Windowsstart auf Update prüfen</value>
+    <value>Beim start von Windows auf Updates prüfen</value>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
-    <value>Auf Update prüfen</value>
+    <value>Aktualisierungen</value>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
     <value>Alte Suchvorgänge löschen</value>
@@ -1282,10 +1282,10 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Dateivergleich</value>
   </data>
   <data name="Options_CompareArguments" xml:space="preserve">
-    <value>Argumente</value>
+    <value>Parameter</value>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
-    <value>Kommando</value>
+    <value>Befehlszeile</value>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
     <value>danach</value>
@@ -1297,7 +1297,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>externer Editor</value>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Verwenden Sie die Schlüsselwörter '{0}' für den Speicherort der Datei, '{1}' für die Zeilennummer, '{2}' für das Suchmuster, '{3}' für den ersten übereinstimmenden Text in der Zeile und '{4}' für die Spaltennummer der ersten Übereinstimmung in der Zeile.</value>
+    <value>Verwenden Sie die Schlüsselwörter '{0}' für den Speicherort der Datei, '{5}' für die Seitennummer, '{1}' für die Zeilennummer, '{2}' für das Suchmuster, '{3}' für den ersten übereinstimmenden Text in der Zeile und '{4}' für die Spaltennummer der ersten Übereinstimmung in der Zeile.</value>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
     <value>Erkennung der Dateikodierung, nur wenn nach Dateinamensmustern gesucht wird</value>
@@ -1309,25 +1309,25 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>dnGrep fügt die ausgewählten Dateien an das Ende der Befehlszeile an.</value>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value>Argumente</value>
+    <value>Parameter</value>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
-    <value>Kommando</value>
+    <value>Befehlszeile</value>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>Aktiviert die automatische Prüfung alle</value>
+    <value>Automatisch überprüfen alle</value>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
     <value>Aktiviert dnGrep im Windows Explorer Context Menu.</value>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value>Angepasst am Windows Theme</value>
+    <value>Dem Windows-Theme folgen</value>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>Schriftartenfamilie</value>
+    <value>Schriftart</value>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
-    <value>Hilfe beim dnGrep-Übersetzten.</value>
+    <value>Helfen Sie beim Übersetzten von dnGrep.</value>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
     <value>Historie Anzeige</value>
@@ -1423,7 +1423,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Theme wählen</value>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>zeige dnGrep im Explorer Context Menu</value>
+    <value>dnGrep zum Explorer Context-Menü hinzufügen</value>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
     <value>zeige Dateiinfo ToolTips</value>
@@ -1438,7 +1438,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>zeige Ergebnisbaum ausführlich</value>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
-    <value>zeige Suchoptionen:</value>
+    <value>Zeige Suchoptionen</value>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
     <value>zeige Anzahl der Übereinstimmungen</value>
@@ -1564,7 +1564,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>[Schreibgeschützt]</value>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Ersetze aller Fundstellen in allen Dateien [F10]</value>
+    <value>Ersetze alle Funde in allen Dateien [F10]</value>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
     <value>_Ersetze</value>
@@ -1609,7 +1609,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Nicht</value>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'Ersetze in der Datei'</value>
+    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'Ersetze in der Datei'.</value>
   </data>
   <data name="Replace_Title" xml:space="preserve">
     <value>Text ersetzen</value>
@@ -1669,7 +1669,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Datei Suchmuster:</value>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Maximale Verzeichnistiefe {0}</value>
+    <value>Maximale Verzeichnistiefe: {0}</value>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
     <value>Mehrzeilig</value>
@@ -1841,7 +1841,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
-    <value>dateien und individuelle Übereinstimmungen</value>
+    <value>Dateien und jeweilige Übereinstimmungen</value>
     <comment>Options dialog, Replace layout option radio button label (accel)</comment>
   </data>
   <data name="Options_FilesOnly" xml:space="preserve">
@@ -1861,7 +1861,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>Ergebnisse Schriftfamilie</value>
+    <value>Ergebnisse Schriftart</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Options_ResultsFontSize" xml:space="preserve">
@@ -1909,23 +1909,23 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
-    <value>Boolean expression has an unknown error</value>
+    <value>Boolscher Ausdruck fehlerhaft</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
-    <value>Boolean expression has mismatched parentheses</value>
+    <value>Klammerfehler in Booleschem Ausdruck</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
-    <value>Boolean expression is missing a Boolean operator</value>
+    <value>Boolescher Operator fehlt im Ausdruck</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
-    <value>Boolean expression is missing a search pattern</value>
+    <value>Suchmuster fehlt in Boolschem Ausdruck</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
-    <value>Boolean expression is not valid</value>
+    <value>Ungültiger Boolscher Ausdruck</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
@@ -1937,7 +1937,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
-    <value>dnGrep is up to date.</value>
+    <value>dnGrep ist aktuell.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
   <data name="Main_Results_PreviousFile" xml:space="preserve">
@@ -2226,7 +2226,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Script_Editor_Close" xml:space="preserve">
-    <value>_Schliessen</value>
+    <value>_Schließen</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Delete" xml:space="preserve">
@@ -2234,7 +2234,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
-    <value>_Editieren</value>
+    <value>_Bearbeiten</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
@@ -2246,7 +2246,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
-    <value>Boolische Operatoren</value>
+    <value>Boolsche Operatoren</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
@@ -2254,7 +2254,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
-    <value>Groß-/Kleinschreibung</value>
+    <value>Groß-/Kleinschreibung berücksichtigen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
@@ -2262,7 +2262,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
-    <value>Folge Symbolischen Links</value>
+    <value>Folge symbolischen Verknüpfungen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
@@ -2274,7 +2274,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
-    <value>versteckte Verzeichnisse einschliessen</value>
+    <value>Versteckte Verzeichnisse einschliessen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
@@ -2725,15 +2725,66 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
-    <value>Datei kopieren…</value>
+    <value>Dateien kopieren…</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_MoveFiles" xml:space="preserve">
-    <value>Datei verschieben…</value>
+    <value>Dateien verschieben…</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_DeleteFiles" xml:space="preserve">
     <value>Dateien löschen</value>
     <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>Filter auf den Standardwert zurücksetzen</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Ein PowerShell-Script ausführen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>Maximale Anzahl von parallelen Suchoperationen</value>
+    <comment>Options dialog, parallel options label</comment>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Suche abgebrochen nach {0} - {1} Übereinstimmungen in {2} von {3} durchsuchten Dateien gefunden.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>Ersetzen abgebrochen - Text in {0} Dateien wurde ersetzt.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>Fortsetzen</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>Pausieren</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>Pausiert</value>
+    <comment>Main window, status bar label</comment>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Ausschneiden</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Einfügen</value>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>Seite</value>
+    <comment>Report content - heading for page number</comment>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>in kleinbuchstaben umwandeln</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>in GROẞBUCHSTABEN umwandeln</value>
   </data>
 </root>
