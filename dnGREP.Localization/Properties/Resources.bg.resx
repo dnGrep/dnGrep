@@ -2291,7 +2291,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_Title" xml:space="preserve">
-    <value>Проверка</value>
+    <value>Проверяване на заявката</value>
     <comment>Test window title</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
@@ -3028,7 +3028,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
   <data name="Script_Validation_Header_Message" xml:space="preserve">
-    <value>Текст</value>
+    <value>Съобщение</value>
     <comment>Script validation list header</comment>
   </data>
   <data name="ScriptHint_bookmark" xml:space="preserve">
@@ -3596,5 +3596,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
     <value>Търсенето е спряно след {0} - намерени {1} съвпадения в {2} файла от {3} претърсени.</value>
     <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>Не е настроен</value>
+    <comment>Main window, results list, context menu item tooltip</comment>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Запазване на подредбата на изходната папка</value>
+    <comment>Options dialog, checkbox label</comment>
   </data>
 </root>
