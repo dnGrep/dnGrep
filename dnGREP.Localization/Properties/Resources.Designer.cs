@@ -7785,6 +7785,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Illegal characters.
+        /// </summary>
+        public static string Validation_stringToDouble_IllegalCharacters {
+            get {
+                return ResourceManager.GetString("Validation_stringToDouble_IllegalCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid input type.
+        /// </summary>
+        public static string Validation_stringToDouble_InvalidInputType {
+            get {
+                return ResourceManager.GetString("Validation_stringToDouble_InvalidInputType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a value in the range: {0}-{1}..
+        /// </summary>
+        public static string Validation_stringToDouble_PleaseEnterAValueInTheRange01 {
+            get {
+                return ResourceManager.GetString("Validation_stringToDouble_PleaseEnterAValueInTheRange01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Window_Close {

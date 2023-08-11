@@ -766,6 +766,11 @@ namespace dnGREP.Common
                         return (T)Enum.Parse(typeof(T), value);
                     }
 
+                    if (typeof(T) == typeof(Point))
+                    {
+                        return (T)Convert.ChangeType(Point.Parse(value), typeof(Point));
+                    }
+
                     if (typeof(T) == typeof(Rect))
                     {
                         return (T)Convert.ChangeType(Rect.Parse(value), typeof(Rect));
@@ -839,6 +844,18 @@ namespace dnGREP.Common
                         }
                     }
 
+                    if (typeof(T) == typeof(float))
+                    {
+                        if (float.TryParse(value, CultureInfo.InvariantCulture, out float result))
+                        {
+                            return (T)Convert.ChangeType(result, typeof(T));
+                        }
+                        else
+                        {
+                            return (T)Convert.ChangeType(0, typeof(T));
+                        }
+                    }
+
                     if (typeof(T) == typeof(double))
                     {
                         if (double.TryParse(value, CultureInfo.InvariantCulture, out double result))
@@ -891,6 +908,27 @@ namespace dnGREP.Common
             else if (typeof(T).IsEnum && value is Enum en)
             {
                 settings[key] = en.ToString();
+            }
+            else if (typeof(T) == typeof(int))
+            {
+                int num = (int)Convert.ChangeType(value, typeof(int));
+                settings[key] = num.ToString(CultureInfo.InvariantCulture);
+            }
+            else if (typeof(T) == typeof(float))
+            {
+                float num = (float)Convert.ChangeType(value, typeof(float));
+                settings[key] = num.ToString(CultureInfo.InvariantCulture);
+            }
+            else if (typeof(T) == typeof(double))
+            {
+                double num = (double)Convert.ChangeType(value, typeof(double));
+                settings[key] = num.ToString(CultureInfo.InvariantCulture);
+            }
+            else if (typeof(T) == typeof(Point))
+            {
+                Point pt = (Point)Convert.ChangeType(value, typeof(Point));
+                // need invariant culture for Rect.Parse to work
+                settings[key] = pt.ToString(CultureInfo.InvariantCulture);
             }
             else if (typeof(T) == typeof(Rect))
             {

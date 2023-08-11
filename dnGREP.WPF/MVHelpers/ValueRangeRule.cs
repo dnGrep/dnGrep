@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Controls;
+using dnGREP.Localization;
+using dnGREP.Localization.Properties;
 
 namespace dnGREP.WPF
 {
@@ -20,18 +22,18 @@ namespace dnGREP.WPF
 
                 if (!double.TryParse(text, style, CultureInfo.CurrentCulture, out double num))
                 {
-                    return new ValidationResult(false, "Illegal characters");
+                    return new ValidationResult(false, Resources.Validation_stringToDouble_IllegalCharacters);
                 }
 
                 if ((num < Min) || (num > Max) || string.IsNullOrEmpty(text))
                 {
                     return new ValidationResult(false,
-                      $"Please enter a value in the range: {Min}-{Max}.");
+                        TranslationSource.Format(Resources.Validation_stringToDouble_PleaseEnterAValueInTheRange01, Min, Max));
                 }
             }
             else
             {
-                return new ValidationResult(false, "Invalid input type");
+                return new ValidationResult(false, Resources.Validation_stringToDouble_InvalidInputType);
             }
             return ValidationResult.ValidResult;
         }
