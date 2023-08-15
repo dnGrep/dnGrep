@@ -731,6 +731,7 @@ namespace dnGREP.Engines
                             {
                                 case XmlNodeType.Element:
                                 case XmlNodeType.Comment:
+                                case XmlNodeType.Text:
 
                                     if (currPos.Count <= reader.Depth)
                                     {
