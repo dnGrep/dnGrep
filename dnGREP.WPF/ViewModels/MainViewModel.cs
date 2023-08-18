@@ -54,7 +54,8 @@ namespace dnGREP.WPF
                 PreviewWindowState = LayoutProperties.PreviewWindowState;
                 IsPreviewDocked = LayoutProperties.PreviewDocked;
                 PreviewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
-                if (Enum.TryParse(LayoutProperties.PreviewDockSide, out Dock side))
+                if (Enum.TryParse(LayoutProperties.PreviewDockSide, out Dock side) &&
+                    Enum.IsDefined(side))
                 {
                     PreviewDockSide = side;
                 }
