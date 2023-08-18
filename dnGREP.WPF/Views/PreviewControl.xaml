@@ -16,6 +16,7 @@
     <UserControl.Resources>
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
+        <my:EnumBooleanConverter x:Key="ebc" />
         <Style TargetType="Label">
             <Setter Property="FontSize">
                 <Setter.Value>
@@ -97,7 +98,20 @@
                            Foreground="{DynamicResource AvalonEdit.Foreground}"
                            Background="{DynamicResource AvalonEdit.Background}"
                            ShowLineNumbers="True" IsReadOnly="True"
-                           WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}" />
+                           WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}">
+                <ae:TextEditor.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{l:Loc Key='TextBox_Command_Copy'}" Command="Copy"/>
+                        <Separator/>
+                        <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" 
+                                  IsChecked="{Binding Path=MainViewModel.PreviewAutoPosition}"/>
+                        <my:RadioMenuItem Header="{l:Loc Key='Main_DockRight'}" GroupName="D1" 
+                                      IsChecked="{Binding Path=MainViewModel.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
+                        <my:RadioMenuItem Header="{l:Loc Key='Main_DockBottom'}" GroupName="D1" 
+                                      IsChecked="{Binding Path=MainViewModel.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Bottom}"/>
+                    </ContextMenu>
+                </ae:TextEditor.ContextMenu>
+            </ae:TextEditor>
         </DockPanel>
     </Border>
 </UserControl>

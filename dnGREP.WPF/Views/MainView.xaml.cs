@@ -100,6 +100,7 @@ namespace dnGREP.WPF
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
             DataContext = viewModel;
 
+            previewControl.ViewModel.MainViewModel = viewModel;
             viewModel.PreviewModel = previewControl.ViewModel;
 
             Loaded += Window_Loaded;

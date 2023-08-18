@@ -85,6 +85,9 @@ namespace dnGREP.WPF
             }
         }
 
+        // for binding the docking context menu items
+        public MainViewModel MainViewModel { get; internal set; }
+
         public event EventHandler? ShowPreview;
 
         public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();
