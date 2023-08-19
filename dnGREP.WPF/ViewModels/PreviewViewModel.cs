@@ -85,8 +85,7 @@ namespace dnGREP.WPF
             }
         }
 
-        // for binding the docking context menu items
-        public MainViewModel MainViewModel { get; internal set; }
+        public DockViewModel DockVM => DockViewModel.Instance;
 
         public event EventHandler? ShowPreview;
 

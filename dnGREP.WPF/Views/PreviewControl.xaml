@@ -104,11 +104,13 @@
                         <MenuItem Header="{l:Loc Key='TextBox_Command_Copy'}" Command="Copy"/>
                         <Separator/>
                         <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" 
-                                  IsChecked="{Binding Path=MainViewModel.PreviewAutoPosition}"/>
+                                  IsChecked="{Binding DockVM.PreviewAutoPosition}"/>
                         <my:RadioMenuItem Header="{l:Loc Key='Main_DockRight'}" GroupName="D1" 
-                                      IsChecked="{Binding Path=MainViewModel.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
+                                  IsChecked="{Binding DockVM.PreviewDockSide, 
+                                        Converter={StaticResource ebc}, ConverterParameter=Right}"/>
                         <my:RadioMenuItem Header="{l:Loc Key='Main_DockBottom'}" GroupName="D1" 
-                                      IsChecked="{Binding Path=MainViewModel.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Bottom}"/>
+                                  IsChecked="{Binding DockVM.PreviewDockSide, 
+                                        Converter={StaticResource ebc}, ConverterParameter=Bottom}"/>
                     </ContextMenu>
                 </ae:TextEditor.ContextMenu>
             </ae:TextEditor>
