@@ -7,7 +7,6 @@
         <Setter Property="BorderBrush" Value="{DynamicResource WindowBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource GroupBox.Foreground}" />
-        <Setter Property="Padding" Value="4" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="HeaderTemplate">
             <Setter.Value>

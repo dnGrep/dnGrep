@@ -150,14 +150,14 @@
                               ProportionalResize="True" />
 
         <DockPanel>
-            <DockPanel Margin="5,5,5,0" DockPanel.Dock="Top"
+            <DockPanel Margin="0" DockPanel.Dock="Top"
                        Background="{DynamicResource Menu.Normal.Background}">
                 <TextBlock DockPanel.Dock="Left" 
-                           FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=4}" 
+                           Margin="12,0,0,3"
                            FontWeight="DemiBold"
                            Text="{l:Loc Key='Main_DnGREP_Title'}"
                            Style="{StaticResource ThemedTextBlock}" />
-                <Menu HorizontalAlignment="Right">
+                <Menu HorizontalAlignment="Right" Margin="6,0">
                     <Menu.Resources>
                         <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}">
                             <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
@@ -336,8 +336,8 @@
                           Visibility="{Binding IsResultTreeMaximized, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -346,12 +346,12 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="{Binding PatternColumnWidth, Converter={StaticResource GridLengthConverter}}" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Margin="3,8"
+                        <Label Grid.Row="0" Grid.Column="0" Margin="3,1"
                                Content="{Binding SearchTextBoxLabel, FallbackValue='Folder:'}"
                                Style="{StaticResource ThemedLabel}" 
                                Target="{Binding ElementName=searchPath}"/>
                         <ComboBox x:Name="searchPath" Grid.Row="0" Grid.Column="1"
-                                  Margin="3,4" Padding="3" TabIndex="10"
+                                  Margin="3,0,3,3" Padding="0" TabIndex="10"
                                   Text="{Binding FileOrFolderPath}"
                                   Grid.IsSharedSizeScope="True"
                                   ItemsSource="{Binding FastPathBookmarks}"
@@ -365,7 +365,7 @@
                             </ComboBox.ItemContainerStyle>
                         </ComboBox>
                         <Button Grid.Row="0" Grid.Column="2"
-                                Margin="3,4"
+                                Margin="3,0,3,3"
                                 Command="{Binding BrowseCommand}"
                                 ToolTip="{l:Loc Key='Main_BrowseForFolderOrFiles'}" TabIndex="11" 
                                 Content="{l:Loc Key='Main_OpenFolder'}" >
@@ -382,18 +382,20 @@
                                   IsExpanded="{Binding IsFiltersExpanded}"
                                   TabIndex="14" SizeChanged="Expander_SizeChanged">
                             <Expander.Header>
-                                <StackPanel Margin="0,6" Orientation="Horizontal">
+                                <StackPanel Margin="0" Orientation="Horizontal">
                                     <Label x:Name="fileOptions" Content="{l:Loc Key='Main_More'}"
+                                           Margin="0,1,0,0"
                                            Style="{DynamicResource ThemedLabel}" />
                                     <TextBlock MaxWidth="{Binding MaxFileFiltersSummaryWidth}"
-                                               Margin="12,0,0,0"
+                                               Margin="12,1,0,0"
                                                Text="{Binding FileFiltersSummary}"
                                                Style="{StaticResource GrayTextBlockStyle}"
                                                TextTrimming="CharacterEllipsis" />
                                 </StackPanel>
                             </Expander.Header>
                             <Border BorderBrush="{DynamicResource GroupBox.Border}"
-                                    BorderThickness="1" CornerRadius="4">
+                                    BorderThickness="1" CornerRadius="4"
+                                    Margin="0,4,0,0">
                                 <DockPanel>
                                     <!--  right panel first so it has size precedence  -->
                                     <Grid x:Name="RightFileOptions" DockPanel.Dock="Right"
@@ -721,7 +723,7 @@
                             </Border>
                         </Expander>
                         <!--  must be *after* the Expander so they are higher in the z-order  -->
-                        <Label Grid.Row="0" Grid.Column="3" Margin="3"
+                        <Label Grid.Row="0" Grid.Column="3" Margin="3,1"
                                Content="{l:Loc Key='Main_PatternsToMatch'}"
                                ToolTip="{l:Loc Key='Main_IncludeFilesByNameOrType'}"
                                Style="{DynamicResource ThemedLabel}"
@@ -729,7 +731,9 @@
                                Target="{Binding ElementName=tbFilePattern}"
                                Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                         <ComboBox Name="tbFilePattern" Grid.Row="0" Grid.Column="4"
-                                  Margin="3,4" my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
+                                  Margin="3,0,3,3" 
+                                  Style="{StaticResource ComboBoxBaseStyle}"
+                                  my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
                                   my:DiginesisHelpProvider.HelpNavigator="Topic"
                                   my:DiginesisHelpProvider.ShowHelp="True" TabIndex="12"
                                   Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"
@@ -746,20 +750,20 @@
                             </ComboBox.ItemContainerStyle>
                         </ComboBox>
                         <CheckBox Name="cbIncludeArchives" Grid.Row="1" Grid.Column="1"
-                                  Grid.ColumnSpan="2" Margin="3,10,8,3" HorizontalAlignment="Right"
+                                  Grid.ColumnSpan="2" Margin="3,6,8,0" HorizontalAlignment="Right"
                                   VerticalAlignment="Top"
                                   IsChecked="{Binding Path=IncludeArchive}"
                                   TabIndex="13" Content="{l:Loc Key='Main_SearchInArchives'}"
                                   Visibility="{Binding CompositeSearchInArchivesVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Label Name="pathsToIgnoreLabel" Grid.Row="1" Grid.Column="3"
-                               Margin="3,8" HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Margin="3,3,3,0" HorizontalAlignment="Right" VerticalAlignment="Top"
                                Content="{l:Loc Key='Main_PatternsToExclude'}"
                                ToolTip="{l:Loc Key='Main_ExcludeFilesByTypeAndFoldersByName'}"
                                Style="{DynamicResource ThemedLabel}"
                                Target="{Binding ElementName=tbFilePatternIgnore}"
                                Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                         <ComboBox Name="tbFilePatternIgnore" Grid.Row="1" Grid.Column="4"
-                                  Margin="3,4,3,0" VerticalAlignment="Top"
+                                  Margin="3,3,3,0" VerticalAlignment="Top"
                                   Height="{Binding ElementName=tbFilePattern, Path=ActualHeight}"
                                   my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
                                   my:DiginesisHelpProvider.HelpNavigator="Topic"
@@ -782,7 +786,7 @@
                 <GroupBox Header="{l:Loc Key='Main_SearchGroup'}" DockPanel.Dock="Top"
                           Visibility="{Binding IsResultTreeMaximized, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                     <DockPanel Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
+                        <Grid Margin="0,0,0,3" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
@@ -841,33 +845,33 @@
                                 </Border>
                             </DockPanel>
                         </Grid>
-                        <StackPanel Margin="0,5,0,3" DockPanel.Dock="Bottom"
+                        <StackPanel Margin="0,5,0,0" DockPanel.Dock="Bottom"
                                     Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
                             <WrapPanel Margin="0,0,0,0" Orientation="Horizontal">
-                                <CheckBox Margin="3"
+                                <CheckBox Margin="3,1"
                                           IsChecked="{Binding CaseSensitive}"
                                           IsEnabled="{Binding IsCaseSensitiveEnabled}"
                                           TabIndex="70" Content="{l:Loc Key='Main_CaseSensitive'}" />
-                                <CheckBox Margin="3"
+                                <CheckBox Margin="3,1"
                                           IsChecked="{Binding WholeWord}"
                                           IsEnabled="{Binding IsWholeWordEnabled}"
                                           TabIndex="71" Content="{l:Loc Key='Main_WholeWord'}" />
-                                <CheckBox Margin="3"
+                                <CheckBox Margin="3,1"
                                           IsChecked="{Binding Multiline}"
                                           IsEnabled="{Binding IsMultilineEnabled}"
                                           TabIndex="72" Content="{l:Loc Key='Main_Multiline'}" />
-                                <CheckBox Margin="3"
+                                <CheckBox Margin="3,1"
                                           IsChecked="{Binding Singleline}"
                                           IsEnabled="{Binding IsSinglelineEnabled}"
                                           TabIndex="73" Content="{l:Loc Key='Main_DotAsNewline'}" 
                                           Visibility="{Binding SearchTypeRegexVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                <CheckBox Margin="3"
+                                <CheckBox Margin="3,1"
                                           IsChecked="{Binding BooleanOperators}"
                                           IsEnabled="{Binding IsBooleanOperatorsEnabled}"
                                           TabIndex="74" Content="{l:Loc Key='Main_BooleanOperators'}" 
                                           ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"
                                           Visibility="{Binding BooleanOperatorsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                <CheckBox Margin="3"
+                                <CheckBox Margin="3,1"
                                           IsChecked="{Binding CaptureGroupSearch}"
                                           IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                           TabIndex="75" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
@@ -878,19 +882,18 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="5" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Margin="3,3,3,3"
+                            <Label Grid.Row="0" Grid.Column="0" Margin="3,0"
                                    Content="{l:Loc Key='Main_SearchFor'}"
                                    Style="{DynamicResource ThemedLabel}"
                                    Target="{Binding ElementName=tbSearchFor}"/>
                             <my:MultilineComboBox x:Name="tbSearchFor" Grid.Row="0" Grid.Column="1"
-                                      Margin="3,0,3,1" Padding="5"
+                                      Margin="3,0,3,3" Padding="0"
                                       my:DiginesisHelpProvider.HelpKeyword="Regular-Expressions"
                                       my:DiginesisHelpProvider.HelpNavigator="Topic"
                                       my:DiginesisHelpProvider.ShowHelp="True"
@@ -915,13 +918,13 @@
                                     </ToolTip>
                                 </ComboBox.ToolTip>
                             </my:MultilineComboBox>
-                            <Label Grid.Row="2" Grid.Column="0" Margin="3,3,3,4"
+                            <Label Grid.Row="1" Grid.Column="0" Margin="3,0"
                                    Content="{l:Loc Key='Main_ReplaceWith'}" 
                                    Style="{DynamicResource ThemedLabel}"
                                    Target="{Binding ElementName=tbReplaceWith}"
                                    Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                            <my:MultilineComboBox x:Name="tbReplaceWith" Grid.Row="2" Grid.Column="1"
-                                      Margin="3,1,3,0" Padding="5"
+                            <my:MultilineComboBox x:Name="tbReplaceWith" Grid.Row="1" Grid.Column="1"
+                                      Margin="3,3,3,0" Padding="0"
                                       Text="{Binding ReplaceWith}"
                                       IsEditable="True"
                                       ItemsSource="{Binding FastReplaceBookmarks}"

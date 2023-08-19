@@ -267,7 +267,7 @@
                           BorderThickness="{TemplateBinding BorderThickness}"
                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                           Style="{StaticResource ComboBoxToggleButton2}" />
-            <Border x:Name="border" Margin="3,1" Background="{DynamicResource Control.Static.Background}">
+            <Border x:Name="border" Margin="3,1.5" Background="{DynamicResource Control.Static.Background}">
                 <TextBox x:Name="PART_EditableTextBox" Margin="0"
                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
