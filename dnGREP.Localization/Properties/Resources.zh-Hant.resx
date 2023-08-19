@@ -2473,7 +2473,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, option label</comment>
   </data>
   <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
-    <value>於 {0} 内搜尋完成 – 共搜尋 {3} 個檔案, 在 {2} 個檔案中找到 {1} 個符合項.</value>
+    <value>搜尋於 {0} 完成 – 共搜尋 {3} 個檔案, 在 {2} 個檔案中找到 {1} 個符合項.</value>
     <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
   </data>
   <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
@@ -3514,5 +3514,37 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Results_DeleteFiles" xml:space="preserve">
     <value>刪除檔案</value>
     <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>保持來源資料夾佈局</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>搜尋於 {0} 取消 – 共搜尋 {3} 個檔案, 在 {2} 個檔案中找到了 {1} 個符合項.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>暫停</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>已暫停</value>
+    <comment>Main window, status bar label</comment>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>重新開始</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>取代已取消 – 取代 {0} 個檔案的文字.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>頁</value>
+    <comment>Report content - heading for page number</comment>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>未配置</value>
+    <comment>Main window, results list, context menu item tooltip</comment>
   </data>
 </root>
