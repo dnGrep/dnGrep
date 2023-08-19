@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,6 +100,7 @@ namespace dnGREP.WPF
             DataContext = viewModel;
 
             viewModel.PreviewModel = previewControl.ViewModel;
+            DockViewModel.Instance.PropertyChanged += ViewModel_PropertyChanged;
 
             Loaded += Window_Loaded;
             Closing += MainForm_Closing;
@@ -189,7 +189,8 @@ namespace dnGREP.WPF
 
         private void SetActivePreviewDockSite()
         {
-            if (viewModel.PreviewDockSide == Dock.Right)
+            var dvm = DockViewModel.Instance;
+            if (dvm.PreviewDockSide == Dock.Right)
             {
                 var element = dockSiteBottom.Content;
                 if (element != null)
@@ -198,7 +199,7 @@ namespace dnGREP.WPF
                     dockSiteRight.Content = element;
                 }
             }
-            else if (viewModel.PreviewDockSide == Dock.Bottom)
+            else if (dvm.PreviewDockSide == Dock.Bottom)
             {
                 var element = dockSiteRight.Content;
                 if (element != null)
@@ -211,15 +212,18 @@ namespace dnGREP.WPF
 
         private void AutoPosistionPreviewWindow(double ratio)
         {
-            if (viewModel.PreviewFileContent && viewModel.IsPreviewDocked && viewModel.PreviewAutoPosition)
+            var dvm = DockViewModel.Instance;
+            if (viewModel.PreviewFileContent && dvm.IsPreviewDocked && dvm.PreviewAutoPosition)
             {
-                if (ratio > UpperThreshold && viewModel.PreviewDockSide == Dock.Bottom)
+                if (ratio > UpperThreshold && dvm.PreviewDockSide == Dock.Bottom)
                 {
-                    viewModel.PreviewDockSide = Dock.Right;
+                    dvm.PreviewDockSide = Dock.Right;
+                    dvm.SaveSettings();
                 }
-                else if (ratio < LowerThreshold && viewModel.PreviewDockSide == Dock.Right)
+                else if (ratio < LowerThreshold && dvm.PreviewDockSide == Dock.Right)
                 {
-                    viewModel.PreviewDockSide = Dock.Bottom;
+                    dvm.PreviewDockSide = Dock.Bottom;
+                    dvm.SaveSettings();
                 }
             }
         }
@@ -306,14 +310,17 @@ namespace dnGREP.WPF
                 SetActivePreviewDockSite();
 
                 // if the user manually selects the other dock location, turn off auto positioning
+                var dvm = DockViewModel.Instance;
                 double ratio = ActualWidth / ActualHeight;
-                if (ratio > UpperThreshold && viewModel.PreviewDockSide == Dock.Bottom)
+                if (ratio > UpperThreshold && dvm.PreviewDockSide == Dock.Bottom)
                 {
-                    viewModel.PreviewAutoPosition = false;
+                    dvm.PreviewAutoPosition = false;
+                    dvm.SaveSettings();
                 }
-                else if (ratio < LowerThreshold && viewModel.PreviewDockSide == Dock.Right)
+                else if (ratio < LowerThreshold && dvm.PreviewDockSide == Dock.Right)
                 {
-                    viewModel.PreviewAutoPosition = false;
+                    dvm.PreviewAutoPosition = false;
+                    dvm.SaveSettings();
                 }
             }
         }

@@ -99,17 +99,17 @@
                      ShowHeader="True"
                      FloatWindowBounds="{Binding PreviewWindowBounds, Mode=TwoWay}"
                      FloatWindowState="{Binding PreviewWindowState, Mode=TwoWay}"
-                     IsDocked="{Binding IsPreviewDocked, Mode=TwoWay}"
+                     IsDocked="{Binding DockVM.IsPreviewDocked, Mode=TwoWay}"
                      IsHidden="{Binding IsPreviewHidden, Mode=TwoWay}"
                      FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                      Style="{StaticResource ThemedDockSite}">
             <df:DockSite.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" IsChecked="{Binding PreviewAutoPosition}"/>
+                    <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" IsChecked="{Binding DockVM.PreviewAutoPosition}"/>
                     <my:RadioMenuItem Header="{l:Loc Key='Main_DockRight'}" GroupName="D1" 
-                                      IsChecked="{Binding Path=PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
+                                      IsChecked="{Binding Path=DockVM.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
                     <my:RadioMenuItem Header="{l:Loc Key='Main_DockBottom'}" GroupName="D1" 
-                                      IsChecked="{Binding Path=PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Bottom}"/>
+                                      IsChecked="{Binding Path=DockVM.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Bottom}"/>
                 </ContextMenu>
             </df:DockSite.ContextMenu>
             <Border x:Name="previewRootElement">
@@ -129,17 +129,17 @@
                      ShowHeader="True"
                      FloatWindowBounds="{Binding PreviewWindowBounds, Mode=TwoWay}"
                      FloatWindowState="{Binding PreviewWindowState, Mode=TwoWay}"
-                     IsDocked="{Binding IsPreviewDocked, Mode=TwoWay}"
+                     IsDocked="{Binding DockVM.IsPreviewDocked, Mode=TwoWay}"
                      IsHidden="{Binding IsPreviewHidden, Mode=TwoWay}"
                      FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                      Style="{StaticResource ThemedDockSite}">
             <df:DockSite.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" IsChecked="{Binding PreviewAutoPosition}"/>
+                    <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" IsChecked="{Binding DockVM.PreviewAutoPosition}"/>
                     <my:RadioMenuItem Header="{l:Loc Key='Main_DockRight'}" GroupName="D1" 
-                                      IsChecked="{Binding Path=PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
+                                      IsChecked="{Binding Path=DockVM.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
                     <my:RadioMenuItem Header="{l:Loc Key='Main_DockBottom'}" GroupName="D1" 
-                                      IsChecked="{Binding Path=PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Bottom}"/>
+                                      IsChecked="{Binding Path=DockVM.PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Bottom}"/>
                 </ContextMenu>
             </df:DockSite.ContextMenu>
             <!-- Content panel is in just one DockSite -->
