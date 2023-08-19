@@ -78,6 +78,14 @@ namespace dnGREP.WPF
                 {
                     item.UpdateLabel();
                 }
+
+                // call these to reformat decimal separators
+                OnPropertyChanged(nameof(EditMainFormFontSize));
+                OnPropertyChanged(nameof(EditReplaceFormFontSize));
+                OnPropertyChanged(nameof(EditDialogFontSize));
+                OnPropertyChanged(nameof(EditResultsFontSize));
+                OnPropertyChanged(nameof(MatchTimeout));
+                OnPropertyChanged(nameof(MatchThreshold));
             };
 
 
