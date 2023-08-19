@@ -2654,7 +2654,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>Olgu</value>
+    <value>OK</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Options_SearchOptions" xml:space="preserve">
