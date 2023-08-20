@@ -436,6 +436,27 @@ namespace dnGREP.WPF
             }
         }
 
+        /// <summary>Brings main window to foreground.</summary>
+        public void BringToForeground(string searchPath)
+        {
+            if (!string.IsNullOrEmpty(searchPath))
+            {
+                viewModel.FileOrFolderPath = searchPath;
+            }
+
+            if (WindowState == WindowState.Minimized || Visibility == Visibility.Hidden)
+            {
+                Show();
+                WindowState = WindowState.Normal;
+            }
+
+            // According to some sources these steps gurantee that an app will be brought to foreground.
+            Activate();
+            Topmost = true;
+            Topmost = false;
+            Focus();
+        }
+
         [GeneratedRegex("\\d+")]
         private static partial Regex AllowedTextRegex();
     }

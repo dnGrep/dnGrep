@@ -290,6 +290,8 @@ namespace dnGREP.Common
             public const string PreserveFolderLayoutOnCopy = "PreserveFolderLayoutOnCopy";
             [DefaultValue(true)]
             public const string PreserveFolderLayoutOnMove = "PreserveFolderLayoutOnMove";
+            [DefaultValue(true)]
+            public const string IsSingletonInstance = "IsSingletonInstance";
         }
 
         private static GrepSettings? instance;
