@@ -52,16 +52,9 @@ namespace dnGREP.WPF
 
                 PreviewWindowBounds = LayoutProperties.PreviewBounds;
                 PreviewWindowState = LayoutProperties.PreviewWindowState;
-                IsPreviewDocked = LayoutProperties.PreviewDocked;
                 PreviewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
-                if (Enum.TryParse(LayoutProperties.PreviewDockSide, out Dock side) &&
-                    Enum.IsDefined(side))
-                {
-                    PreviewDockSide = side;
-                }
                 PreviewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
                 IsPreviewHidden = LayoutProperties.PreviewHidden;
-                PreviewAutoPosition = Settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
 
                 CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
 
@@ -269,6 +262,8 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
+        public DockViewModel DockVM => DockViewModel.Instance;
+
         [ObservableProperty]
         private double mainFormFontSize;
 
@@ -324,15 +319,6 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private WindowState previewWindowState = WindowState.Normal;
-
-        [ObservableProperty]
-        private bool isPreviewDocked = false;
-
-        [ObservableProperty]
-        private bool previewAutoPosition = true;
-
-        [ObservableProperty]
-        private Dock previewDockSide = Dock.Right;
 
         [ObservableProperty]
         private bool isPreviewHidden = false;
@@ -698,7 +684,7 @@ namespace dnGREP.WPF
                             PreviewFile(grepResult);
                         }
                     }
-                    else if (IsPreviewHidden && !IsPreviewDocked)
+                    else if (IsPreviewHidden && !DockVM.IsPreviewDocked)
                     {
                         PreviewShow?.Invoke(this, EventArgs.Empty);
                     }
@@ -761,13 +747,11 @@ namespace dnGREP.WPF
 
             LayoutProperties.PreviewBounds = PreviewWindowBounds;
             LayoutProperties.PreviewWindowState = PreviewWindowState;
-            LayoutProperties.PreviewDocked = IsPreviewDocked;
-            LayoutProperties.PreviewDockSide = PreviewDockSide.ToString();
             LayoutProperties.PreviewDockedWidth = PreviewDockedWidth;
             LayoutProperties.PreviewDockedHeight = PreviewDockedHeight;
             LayoutProperties.PreviewHidden = IsPreviewHidden;
 
-            Settings.Set(GrepSettings.Key.PreviewAutoPosition, PreviewAutoPosition);
+            DockVM.SaveSettings();
 
             base.SaveSettings();
         }
@@ -3015,7 +2999,7 @@ namespace dnGREP.WPF
                 PreviewModel.Encoding = result.Encoding;
                 PreviewModel.FilePath = filePath;
 
-                if (!IsPreviewDocked)
+                if (!DockVM.IsPreviewDocked)
                     PreviewShow?.Invoke(this, EventArgs.Empty);
             }
         }

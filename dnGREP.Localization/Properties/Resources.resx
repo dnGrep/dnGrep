@@ -3537,30 +3537,39 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="ScriptHint_env_cmd" xml:space="preserve">
     <value>Set an environment variable</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_env_cmd_value" xml:space="preserve">
     <value>Variable=string (string may be empty to clear a variable)</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_log_cmd" xml:space="preserve">
     <value>Write a string or elapsed time to the log file</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_log_cmd_value" xml:space="preserve">
     <value>A message string, or 'time' to log the elapsed time</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="TextBox_Command_Cut" xml:space="preserve">
     <value>Cut</value>
+    <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="TextBox_Command_Copy" xml:space="preserve">
     <value>Copy</value>
+    <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="TextBox_Command_Paste" xml:space="preserve">
     <value>Paste</value>
+    <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
     <value>Make Uppercase</value>
+    <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
     <value>Make Lowercase</value>
+    <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
     <value>Copy files…</value>
@@ -3605,5 +3614,17 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
     <value>Preserve source folder layout</value>
     <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>Illegal characters</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>Please enter a value in the range: {0}-{1}.</value>
+    <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>Invalid input type</value>
+    <comment>Validation message for user input of numeric values</comment>
   </data>
 </root>

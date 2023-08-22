@@ -85,6 +85,8 @@ namespace dnGREP.WPF
             }
         }
 
+        public DockViewModel DockVM => DockViewModel.Instance;
+
         public event EventHandler? ShowPreview;
 
         public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();

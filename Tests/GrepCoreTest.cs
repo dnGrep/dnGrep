@@ -339,7 +339,7 @@ namespace Tests
             foreach (var line in resultLines)
             {
                 if (line.LineNumber <= lastLine)
-                    Assert.True(false, "Lines are not sequential");
+                    Assert.Fail("Lines are not sequential");
                 lastLine = line.LineNumber;
             }
         }
@@ -776,7 +776,7 @@ namespace Tests
                 if (!uniqueGuids.Contains(match.Value))
                     uniqueGuids.Add(match.Value);
                 else
-                    Assert.True(false, "All GUIDs should be unique.");
+                    Assert.Fail("All GUIDs should be unique.");
             }
         }
 

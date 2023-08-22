@@ -13,8 +13,8 @@
                     <Condition Value="False">
                         <Condition.Binding>
                             <MultiBinding Converter="{StaticResource dockSiteConverter}">
-                                <Binding Path="IsPreviewDocked"/>
-                                <Binding Path="PreviewDockSide"/>
+                                <Binding Path="DockVM.IsPreviewDocked"/>
+                                <Binding Path="DockVM.PreviewDockSide"/>
                                 <Binding RelativeSource="{RelativeSource Mode=Self}" Path="(DockPanel.Dock)"/>
                             </MultiBinding>
                         </Condition.Binding>

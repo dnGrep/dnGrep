@@ -31,6 +31,7 @@
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:InverseBooleanConverter x:Key="not" />
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
+        <my:DoubleToStringConverter x:Key="doubleToString"/>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelTextBlockStyle}" />
 
         <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource ThemedGroupBox}">
@@ -214,7 +215,8 @@
                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <TextBox.Text>
                                 <Binding Path="EditMainFormFontSize" Mode="TwoWay" 
-                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250"
+                                         Converter="{StaticResource doubleToString}">
                                     <Binding.ValidationRules>
                                         <my:ValueRangeRule Min="8" Max="24"/>
                                     </Binding.ValidationRules>
@@ -238,7 +240,8 @@
                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <TextBox.Text>
                                 <Binding Path="EditReplaceFormFontSize" Mode="TwoWay" 
-                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250"
+                                         Converter="{StaticResource doubleToString}">
                                     <Binding.ValidationRules>
                                         <my:ValueRangeRule Min="8" Max="24"/>
                                     </Binding.ValidationRules>
@@ -262,7 +265,8 @@
                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <TextBox.Text>
                                 <Binding Path="EditDialogFontSize" Mode="TwoWay" 
-                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250"
+                                         Converter="{StaticResource doubleToString}">
                                     <Binding.ValidationRules>
                                         <my:ValueRangeRule Min="8" Max="24"/>
                                     </Binding.ValidationRules>
@@ -319,7 +323,8 @@
                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <TextBox.Text>
                                 <Binding Path="EditResultsFontSize" Mode="TwoWay" 
-                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250"
+                                         Converter="{StaticResource doubleToString}">
                                     <Binding.ValidationRules>
                                         <my:ValueRangeRule Min="8" Max="24"/>
                                     </Binding.ValidationRules>
@@ -683,7 +688,8 @@
                                      Margin="3,0">
                                 <TextBox.Text>
                                     <Binding Path="MatchTimeout" Mode="TwoWay" 
-                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250"
+                                         Converter="{StaticResource doubleToString}">
                                         <Binding.ValidationRules>
                                             <my:ValueRangeRule Min="0.001" Max="3600"/>
                                         </Binding.ValidationRules>
@@ -716,7 +722,8 @@
                             <TextBox Name="tbFuzzyMatchThreshold">
                                 <TextBox.Text>
                                     <Binding Path="MatchThreshold" Mode="TwoWay" 
-                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250"
+                                         Converter="{StaticResource doubleToString}">
                                         <Binding.ValidationRules>
                                             <my:ValueRangeRule Min="0" Max="1"/>
                                         </Binding.ValidationRules>
