@@ -233,7 +233,9 @@ namespace dnGREP.WPF
                             case "/pt":
                             case "-pt":
                             case "-patterntype":
-                                if (!string.IsNullOrWhiteSpace(value) && Enum.TryParse(value, out FileSearchType tofs))
+                                if (!string.IsNullOrWhiteSpace(value) && 
+                                    Enum.TryParse(value, out FileSearchType tofs) &&
+                                    Enum.IsDefined(tofs))
                                 {
                                     TypeOfFileSearch = tofs;
                                     idx++;
@@ -266,7 +268,9 @@ namespace dnGREP.WPF
                             case "/st":
                             case "-st":
                             case "-searchtype":
-                                if (!string.IsNullOrWhiteSpace(value) && Enum.TryParse(value, out SearchType tos))
+                                if (!string.IsNullOrWhiteSpace(value) && 
+                                    Enum.TryParse(value, out SearchType tos) &&
+                                    Enum.IsDefined(tos))
                                 {
                                     TypeOfSearch = tos;
                                     idx++;
@@ -356,7 +360,9 @@ namespace dnGREP.WPF
                             case "/mode":
                             case "-mode":
                             case "-reportmode":
-                                if (!string.IsNullOrWhiteSpace(value) && Enum.TryParse(value, out ReportMode rm))
+                                if (!string.IsNullOrWhiteSpace(value) && 
+                                    Enum.TryParse(value, out ReportMode rm) &&
+                                    Enum.IsDefined(rm))
                                 {
                                     ReportMode = rm;
                                     idx++;
@@ -416,7 +422,9 @@ namespace dnGREP.WPF
                             case "/scope":
                             case "-scope":
                             case "-uniquescope":
-                                if (!string.IsNullOrWhiteSpace(value) && Enum.TryParse(value, out UniqueScope scope))
+                                if (!string.IsNullOrWhiteSpace(value) && 
+                                    Enum.TryParse(value, out UniqueScope scope) &&
+                                    Enum.IsDefined(scope))
                                 {
                                     UniqueScope = scope;
                                     idx++;
