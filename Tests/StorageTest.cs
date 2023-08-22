@@ -58,6 +58,8 @@ namespace Tests
             storage.Set("startDate", start);
             DateTime? end = new(2023, 02, 28, 16, 14, 12, DateTimeKind.Local);
             storage.Set("endDate", end);
+            bool? indetermnate = null;
+            storage.Set("indetermnate", indetermnate);
 
             storage.Save(destinationFolder + "\\test.xml");
             storage.Clear();
@@ -68,6 +70,7 @@ namespace Tests
             Assert.True(storage.Get<bool>("isTrue"));
             Assert.Null(storage.GetNullable<DateTime?>("startDate"));
             Assert.Equal(end, storage.GetNullable<DateTime?>("endDate"));
+            Assert.Null(storage.GetNullable<bool?>("indetermnate"));
         }
     }
 }
