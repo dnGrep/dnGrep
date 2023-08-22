@@ -723,7 +723,14 @@ namespace dnGREP.Common
                 return default;
             }
 
-            return Get<T>(key);
+            try
+            {
+                return Get<T>(key);
+            }
+            catch (Exception)
+            {
+                return default;
+            }
         }
 
         /// <summary>
@@ -826,7 +833,7 @@ namespace dnGREP.Common
                         {
                             return (T)Convert.ChangeType(result, typeof(bool));
                         }
-                        else if (typeof(T) == typeof(bool?))
+                        else
                         {
                             return GetDefaultValue<T>(key);
                         }
