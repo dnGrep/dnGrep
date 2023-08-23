@@ -23,11 +23,9 @@ namespace dnGREP.Engines
         private static readonly ConcurrentDictionary<string, string> guidxMatches = new();
         internal static void ResetGuidxCache() => guidxMatches.Clear();
 
-        public static TimeSpan MatchTimeout { get; } = TimeSpan.FromSeconds(4.0);
 
         public GrepEngineBase()
         {
-            FileFilter = new FileFilter();
         }
 
         public virtual bool Initialize(GrepEngineInitParams param, FileFilter filter)
@@ -37,7 +35,7 @@ namespace dnGREP.Engines
             return true;
         }
 
-        public FileFilter FileFilter { get; protected set; }
+        public FileFilter FileFilter { get; protected set; } = FileFilter.Default;
 
         public int LinesAfter => initParams.LinesAfter;
         public int LinesBefore => initParams.LinesBefore;
@@ -167,7 +165,7 @@ namespace dnGREP.Engines
 
             List<GrepMatch> globalMatches = new();
 
-            Regex regex = new(searchPattern, regexOptions, MatchTimeout);
+            Regex regex = new(searchPattern, regexOptions, GrepCore.MatchTimeout);
             var matches = regex.Matches(textToSearch);
             foreach (Match match in matches.Cast<Match>())
             {
@@ -380,7 +378,7 @@ namespace dnGREP.Engines
                             return match.Value;
                         }
                     },
-                    regexOptions, MatchTimeout);
+                    regexOptions, GrepCore.MatchTimeout);
 
                 if (convertToWindowsNewline)
                     replaceText = replaceText.Replace("\n", "\r\n", StringComparison.Ordinal);

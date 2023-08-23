@@ -12,6 +12,8 @@ namespace dnGREP.Common
             MaxSubfolderDepth = -1;
         }
 
+        public static FileFilter Default => new();
+
         /// <summary>
         /// Stores the file filter parameters 
         /// </summary>
