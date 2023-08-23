@@ -21,18 +21,19 @@ namespace dnGREP.Common
 
         public GrepCore()
         {
-            SearchParams = GrepEngineInitParams.Default;
-            FileFilter = new FileFilter();
         }
 
-        public GrepEngineInitParams SearchParams { get; set; }
-        public FileFilter FileFilter { get; set; }
+        public GrepEngineInitParams SearchParams { get; set; } = GrepEngineInitParams.Default;
+        public FileFilter FileFilter { get; set; } = FileFilter.Default;
 
 
         private readonly List<GrepSearchResult> searchResults = new();
         private readonly object lockObj = new();
         private int processedFilesCount;
         private int foundfilesCount;
+
+        public static TimeSpan MatchTimeout { get; private set; }
+
 
         public List<GrepSearchResult> ListFiles(IEnumerable<FileData> files, GrepSearchOption searchOptions,
             int codePage, PauseCancelToken pauseCancelToken = default)
@@ -106,6 +107,8 @@ namespace dnGREP.Common
 
             if (string.IsNullOrEmpty(searchPattern))
                 return searchResults;
+
+            MatchTimeout = TimeSpan.FromSeconds(GrepSettings.Instance.Get<double>(GrepSettings.Key.MatchTimeout));
 
             processedFilesCount = 0;
             foundfilesCount = 0;
@@ -181,6 +184,8 @@ namespace dnGREP.Common
 
             if (files == null || !files.Any())
                 return searchResults;
+
+            MatchTimeout = TimeSpan.FromSeconds(GrepSettings.Instance.Get<double>(GrepSettings.Key.MatchTimeout));
 
             try
             {

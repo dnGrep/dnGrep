@@ -187,7 +187,7 @@ namespace dnGREP.WPF
                 engine = new GrepEnginePlainText();
                 encoding = Encoding.Unicode;
             }
-            engine.Initialize(InitParameters, new FileFilter());
+            engine.Initialize(InitParameters, FileFilter.Default);
 
             using (Stream inputStream = new MemoryStream(encoding.GetBytes(SampleText)))
             {
@@ -306,7 +306,7 @@ namespace dnGREP.WPF
             string replacePattern = Utils.ReplaceSpecialCharacters(ReplaceWith) ?? string.Empty;
 
             GrepEnginePlainText engine = new();
-            engine.Initialize(InitParameters, new FileFilter());
+            engine.Initialize(InitParameters, FileFilter.Default);
 
             string replacedString = string.Empty;
             try

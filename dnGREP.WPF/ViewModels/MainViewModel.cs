@@ -787,7 +787,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter(), TypeOfSearch);
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, FileFilter.Default, TypeOfSearch);
                     if (engine != null)
                     {
                         engine.OpenFile(fileArg);
@@ -856,7 +856,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter(), TypeOfSearch);
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, FileFilter.Default, TypeOfSearch);
                     if (engine != null)
                     {
                         engine.OpenFile(fileArg);

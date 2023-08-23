@@ -24,8 +24,8 @@ namespace dnGREP.Engines
         public bool IsSearchOnly => true;
 
         private bool precacheResults;
-        private FileFilter fileFilter = new();
-        private GrepEngineInitParams searchParams = new();
+        private FileFilter fileFilter = FileFilter.Default;
+        private GrepEngineInitParams searchParams = GrepEngineInitParams.Default;
         private readonly List<string> includeSearchPatterns = new();
         private readonly List<Regex> includeRegexPatterns = new();
         private readonly List<Regex> excludeRegexPatterns = new();
