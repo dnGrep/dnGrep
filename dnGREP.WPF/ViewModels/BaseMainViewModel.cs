@@ -807,7 +807,7 @@ namespace dnGREP.WPF
             return IsValidPattern;
         }
 
-        protected void ResetOptions()
+        protected virtual void ResetOptions()
         {
             UseFileSizeFilter = FileSizeFilter.No;
             IncludeBinary = true;

@@ -9,6 +9,7 @@ namespace dnGREP.Common
             Path = ".";
             NamePatternToInclude = "*.*";
             NamePatternToExclude = string.Empty;
+            IgnoreFilterFile = string.Empty;
             MaxSubfolderDepth = -1;
         }
 
@@ -32,9 +33,14 @@ namespace dnGREP.Common
         /// <param name="dateFilter">Filter by file modified or created date time range</param>
         /// <param name="startTime">start of time range</param>
         /// <param name="endTime">end of time range</param>
-        public FileFilter(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool useGitignore, bool useEverything,
-            bool includeSubfolders, int maxSbufolderDepth, bool includeHidden, bool includeBinary, bool includeArchive, bool followSymlinks,
-            int sizeFrom, int sizeTo, FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime, bool skipRemoteCloudStorageFiles = true)
+        /// <param name="skipRemoteCloudStorageFiles">true to skip cloud  directories</param>
+        /// <param name="ignoreFilterFile">File path to a dnGrep ignore file</param>
+        public FileFilter(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
+            bool useGitignore, bool useEverything, bool includeSubfolders,
+            int maxSbufolderDepth, bool includeHidden, bool includeBinary, bool includeArchive,
+            bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
+            DateTime? startTime, DateTime? endTime, bool skipRemoteCloudStorageFiles = true,
+            string ignoreFilterFile = "")
         {
             Path = path;
             NamePatternToInclude = namePatternToInclude;
@@ -54,6 +60,7 @@ namespace dnGREP.Common
             StartTime = startTime;
             EndTime = endTime;
             SkipRemoteCloudStorageFiles = skipRemoteCloudStorageFiles;
+            IgnoreFilterFile = ignoreFilterFile;
         }
 
         public FileFilter ChangePath(string path)
@@ -90,7 +97,8 @@ namespace dnGREP.Common
                 DateFilter,
                 StartTime,
                 EndTime,
-                SkipRemoteCloudStorageFiles
+                SkipRemoteCloudStorageFiles,
+                IgnoreFilterFile
                 );
         }
 
@@ -98,6 +106,7 @@ namespace dnGREP.Common
         public string NamePatternToInclude { get; private set; }
         public string NamePatternToExclude { get; private set; }
         public bool UseGitIgnore { get; private set; }
+        public string IgnoreFilterFile { get; private set; }
         public bool IsRegex { get; private set; }
         public bool UseEverything { get; private set; }
         public bool IncludeSubfolders { get; private set; }

@@ -394,7 +394,7 @@ namespace dnGREP.Common
         /// <param name="path"></param>
         public static void DeleteFolder(string path)
         {
-            string[] files = GetFileList(path, "*.*", string.Empty, false, false, true, true, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1, true, default);
+            string[] files = GetFileList(path, "*.*", string.Empty, false, false, true, true, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1, true, string.Empty, default);
             foreach (string file in files)
             {
                 File.SetAttributes(file, FileAttributes.Normal);
@@ -713,6 +713,110 @@ namespace dnGREP.Common
             {
                 excludeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
             }
+
+            if (!string.IsNullOrEmpty(filter.IgnoreFilterFile))
+            {
+                FillIgnorePatterns(filter.IgnoreFilterFile, excludeRegexPatterns, null);
+            }
+        }
+
+        private static void FillIgnorePatterns(string filePath, List<Regex> patternList, List<string>? rawPatterns)
+        {
+            if (File.Exists(filePath))
+            {
+                // exclude the dngrep.ignore file
+                var fileName = Path.GetFileName(filePath);
+                if (fileName.Equals("dngrep.ignore", StringComparison.OrdinalIgnoreCase))
+                {
+                    var regex = GetRegex(fileName, false);
+                    if (!patternList.Contains(regex))
+                    {
+                        patternList.Add(GetRegex(fileName, false));
+                        rawPatterns?.Add(fileName);
+                    }
+                }
+
+                FileSearchType mode = FileSearchType.Asterisk;
+                foreach (string line in File.ReadAllLines(filePath, Encoding.UTF8))
+                {
+                    if (line.StartsWith('#'))
+                    {
+                        continue;
+                    }
+
+                    Match patternType = PatternTypeRegex().Match(line);
+                    if (patternType.Success)
+                    {
+                        if (patternType.Groups.Count > 1)
+                        {
+                            Group group = patternType.Groups[1];
+                            string name = group.Value;
+                            if (name.Equals("regex", StringComparison.OrdinalIgnoreCase) ||
+                                name.Equals("regular expression", StringComparison.OrdinalIgnoreCase))
+                            {
+                                mode = FileSearchType.Regex;
+                            }
+                            else // wildcard, asterisk, or whatever defaul to this
+                            {
+                                mode = FileSearchType.Asterisk;
+                            }
+                        }
+                        continue;
+                    }
+
+                    // a pattern line
+                    string pattern = line;
+                    int pos = pattern.IndexOf('#', 0);
+                    if (pos > 0)
+                    {
+                        pattern = pattern[..pos].Trim();
+                    }
+                    if (!string.IsNullOrWhiteSpace(pattern))
+                    {
+                        var regexPatten = GetRegex(pattern, mode == FileSearchType.Regex);
+                        if (!patternList.Contains(regexPatten))
+                        {
+                            patternList.Add(regexPatten);
+                            rawPatterns?.Add(pattern);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static List<(string path, string pattern)> GetCompositeIgnoreList(string fileOrFolderPath,
+            string filePatternIgnore, bool isRegex, string ignoreFilePath)
+        {
+            List<(string path, string pattern)> results = new();
+            foreach (var subPath in UiUtils.SplitPath(fileOrFolderPath, false))
+            {
+                List<Regex> regexList = new();
+                List<string> patterns = new();
+                if (!string.IsNullOrWhiteSpace(filePatternIgnore))
+                {
+                    var excludePatterns = UiUtils.SplitPattern(filePatternIgnore);
+                    foreach (var pattern in excludePatterns)
+                    {
+                        Regex regex = GetRegex(pattern, isRegex);
+                        regexList.Add(regex);
+                        patterns.Add(pattern);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(ignoreFilePath))
+                {
+                    FillIgnorePatterns(ignoreFilePath, regexList, patterns);
+                }
+
+                string dnGrepIgnore = Path.Combine(subPath, "dngrep.ignore");
+                if (File.Exists(dnGrepIgnore))
+                {
+                    FillIgnorePatterns(dnGrepIgnore, regexList, patterns);
+                }
+
+                results.Add(new(subPath, string.Join(";", patterns)));
+            }
+            return results;
         }
 
         private static Regex GetRegex(string pattern, bool isRegex)
@@ -775,21 +879,12 @@ namespace dnGREP.Common
                 yield break;
             }
 
-
             // Hash set to ensure file name uniqueness
             HashSet<string> matches = new();
 
-            var includeSearchPatterns = new List<string>();
-            bool hasSearchPattern = PrepareSearchPatterns(filter, includeSearchPatterns);
-
-            var includeRegexPatterns = new List<Regex>();
-            var excludeRegexPatterns = new List<Regex>();
-            var includeShebangPatterns = new List<Regex>();
-            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hasSearchPattern);
-
             if (filter.UseEverything)
             {
-                var files = GetFileListEverything(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns);
+                var files = GetFileListEverything(filter);
                 foreach (var file in files)
                 {
                     if (!matches.Contains(file))
@@ -802,8 +897,26 @@ namespace dnGREP.Common
                 yield break;
             }
 
+            List<string> includeSearchPatterns = new();
+            bool hasSearchPattern = PrepareSearchPatterns(filter, includeSearchPatterns);
+
+            List<Regex> includeRegexPatterns = new();
+            List<Regex> excludeRegexPatterns = new();
+            List<Regex> includeShebangPatterns = new();
+            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hasSearchPattern);
+
             foreach (var subPath in UiUtils.SplitPath(filter.Path, false))
             {
+                List<Regex> mergedExcludePatterns = excludeRegexPatterns;
+                string dnGrepIgnore = Path.Combine(subPath, "dngrep.ignore");
+                if (File.Exists(dnGrepIgnore))
+                {
+                    // make a copy so we don't append to the original list
+                    // if there are multiple root directories, the file only applies to the current directory
+                    mergedExcludePatterns = new(excludeRegexPatterns);
+                    FillIgnorePatterns(dnGrepIgnore, mergedExcludePatterns, null);
+                }
+
                 if (File.Exists(subPath))
                 {
                     if (IsArchive(subPath) && filter.IncludeArchive)
@@ -812,7 +925,7 @@ namespace dnGREP.Common
                         yield return subPath;
                     }
                     else if (IncludeFile(subPath, filter, null, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) &&
+                        includeRegexPatterns, mergedExcludePatterns, includeShebangPatterns) &&
                         !matches.Contains(subPath))
                     {
                         matches.Add(subPath);
@@ -835,7 +948,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, excludeRegexPatterns, gitignore, filter, pauseCancelToken))
+                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, mergedExcludePatterns, gitignore, filter, pauseCancelToken))
                 {
                     if (IsArchive(filePath))
                     {
@@ -845,8 +958,9 @@ namespace dnGREP.Common
                             yield return filePath;
                         }
                     }
+                    // EnumerateFiles already applied the exclude patterns, so don't repeat them here
                     else if (IncludeFile(filePath, filter, null, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) &&
+                        includeRegexPatterns, new List<Regex>(), includeShebangPatterns) &&
                         !matches.Contains(filePath))
                     {
                         matches.Add(filePath);
@@ -856,8 +970,7 @@ namespace dnGREP.Common
             }
         }
 
-        private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns,
-            IList<Regex> excludeRegexPatterns, IList<Regex> includeShebangPatterns)
+        private static IEnumerable<string> GetFileListEverything(FileFilter filter)
         {
             string searchString = filter.Path.Trim();
             if (filter.IncludeArchive)
@@ -891,8 +1004,8 @@ namespace dnGREP.Common
                         continue;
                     }
                 }
-                else if (IncludeFile(fileInfo.FullName, filter, fileData, new List<string>(),
-                    includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns))
+                else if (IncludeFile(fileInfo.FullName, filter, fileData, null,
+                    null, null, null))
                 {
                     yield return fileInfo.FullName;
                 }
@@ -965,9 +1078,9 @@ namespace dnGREP.Common
         /// Evaluates if a file should be included in the search results
         /// </summary>
         public static bool IncludeFile(string filePath, FileFilter filter, FileData? fileInfo,
-            IList<string> includeSearchPatterns,
-            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns,
-            IList<Regex> includeShebangPatterns)
+            IList<string>? includeSearchPatterns,
+            IList<Regex>? includeRegexPatterns, IList<Regex>? excludeRegexPatterns,
+            IList<Regex>? includeShebangPatterns)
         {
             try
             {
@@ -988,6 +1101,19 @@ namespace dnGREP.Common
                     if (!include)
                     {
                         return false;
+                    }
+                }
+
+                // exclude this file?
+                // wildcard exclude files are converted to regex
+                if (excludeRegexPatterns != null && excludeRegexPatterns.Count > 0)
+                {
+                    foreach (var pattern in excludeRegexPatterns)
+                    {
+                        if (pattern.IsMatch(filePath))
+                        {
+                            return false;
+                        }
                     }
                 }
 
@@ -1035,10 +1161,10 @@ namespace dnGREP.Common
 
                 if (!filter.IncludeBinary && !IsArchive(filePath) && !IsFileInArchive(filePath))
                 {
-                    bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
-                    bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
-                    bool isPowerPointMatch = IsPowerPointFile(filePath) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
-                    bool isPdfMatch = IsPdfFile(filePath) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
+                    bool isExcelMatch = IsExcelFile(filePath) && (includeSearchPatterns?.Contains(".xls", StringComparison.OrdinalIgnoreCase) ?? false);
+                    bool isWordMatch = IsWordFile(filePath) && (includeSearchPatterns?.Contains(".doc", StringComparison.OrdinalIgnoreCase) ?? false);
+                    bool isPowerPointMatch = IsPowerPointFile(filePath) && (includeSearchPatterns?.Contains(".ppt", StringComparison.OrdinalIgnoreCase) ?? false);
+                    bool isPdfMatch = IsPdfFile(filePath) && (includeSearchPatterns?.Contains(".pdf", StringComparison.OrdinalIgnoreCase) ?? false);
 
                     // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check:
                     // If someone is searching for one of these types, don't make them include binary to 
@@ -1160,11 +1286,12 @@ namespace dnGREP.Common
             bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive,
             bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
             DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth,
-            bool skipRemoteCloudStorageFiles = true, PauseCancelToken pauseCancelToken = default)
+            bool skipRemoteCloudStorageFiles = true, string ignoreFilterFile = "", PauseCancelToken pauseCancelToken = default)
         {
-            var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
-                includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary, includeArchive, followSymlinks, sizeFrom, sizeTo,
-                dateFilter, startTime, endTime, skipRemoteCloudStorageFiles);
+            var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex,
+                useGitignore, useEverything, includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary,
+                includeArchive, followSymlinks, sizeFrom, sizeTo, dateFilter, startTime, endTime,
+                skipRemoteCloudStorageFiles, ignoreFilterFile);
             return GetFileListEx(filter, pauseCancelToken).ToArray();
         }
 
@@ -2203,6 +2330,9 @@ namespace dnGREP.Common
 
         [GeneratedRegex("(\v)")]
         private static partial Regex UnixEolRegex3();
+
+        [GeneratedRegex(@"\[(\w+)\]")]
+        private static partial Regex PatternTypeRegex();
     }
 
     public class KeyValueComparer : IComparer<KeyValuePair<string, int>>

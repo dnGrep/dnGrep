@@ -1,6 +1,7 @@
 ﻿<my:ThemedWindow x:Class="dnGREP.WPF.MainForm"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
                  xmlns:uc="clr-namespace:dnGREP.WPF.UserControls"
@@ -407,51 +408,80 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                                                    Margin="3,0" HorizontalAlignment="Right">
-                                            <StackPanel Orientation="Horizontal">
-                                                <RadioButton Name="rbFileRegex" Margin="3,0,3,3" GroupName="FileSearchType"
-                                                             TabIndex="40" Content="{l:Loc Key='Main_PatternType_Regex'}"
-                                                             IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
-                                                             ToolTip="{l:Loc Key='Main_ForExampleRegularExpession'}" />
-                                                <RadioButton Name="rbFileAsterisk" Margin="3,0,3,3" GroupName="FileSearchType"
-                                                             TabIndex="41" Content="{l:Loc Key='Main_PatternType_Asterisk'}"
-                                                             IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}"
-                                                             ToolTip="{l:Loc Key='Main_ForExampleAsteriskPattern'}" />
-                                                <RadioButton Name="rbFileEverything" Margin="3,0,3,3" GroupName="FileSearchType"
-                                                             TabIndex="41" Content="{l:Loc Key='Main_PatternType_Everything'}"
-                                                             IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}"
-                                                             ToolTip="{l:Loc Key='Main_EverythingIndexService'}"
-                                                             Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
-                                            </StackPanel>
+                                                    Margin="3,0" Orientation="Horizontal"
+                                                    HorizontalAlignment="Right">
+                                            <RadioButton Name="rbFileRegex" Margin="3,0,3,3" GroupName="FileSearchType"
+                                                            TabIndex="40" Content="{l:Loc Key='Main_PatternType_Regex'}"
+                                                            IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
+                                                            ToolTip="{l:Loc Key='Main_ForExampleRegularExpession'}" />
+                                            <RadioButton Name="rbFileAsterisk" Margin="3,0,3,3" GroupName="FileSearchType"
+                                                            TabIndex="41" Content="{l:Loc Key='Main_PatternType_Asterisk'}"
+                                                            IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}"
+                                                            ToolTip="{l:Loc Key='Main_ForExampleAsteriskPattern'}" />
+                                            <RadioButton Name="rbFileEverything" Margin="3,0,3,3" GroupName="FileSearchType"
+                                                            TabIndex="41" Content="{l:Loc Key='Main_PatternType_Everything'}"
+                                                            IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}"
+                                                            ToolTip="{l:Loc Key='Main_EverythingIndexService'}"
+                                                            Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
                                         </StackPanel>
-                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,3,3,6"
-                                                  IsChecked="{Binding SearchParallel}"
-                                                  Content="{l:Loc Key='Main_SearchParallel'}" TabIndex="42"
-                                                  ToolTip="{l:Loc Key='Main_SearchFilesInMultipleThreads'}"
-                                                  Visibility="{Binding SearchParallelVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,3,3,6"
-                                                  IsChecked="{Binding UseGitignore}"
-                                                  Content="{l:Loc Key='Main_UseGitignore'}" TabIndex="43"
-                                                  ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" 
-                                                  Visibility="{Binding CompositeUseGitIgnoreVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-                                        <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,3,3,3"
+                                        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                   LastChildFill="True">
+                                            <CheckBox DockPanel.Dock="Right" Margin="6,3"
+                                                      IsChecked="{Binding UseGitignore}"
+                                                      Content="{l:Loc Key='Main_UseGitignore'}" 
+                                                      TabIndex="43"
+                                                      ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" 
+                                                      Visibility="{Binding CompositeUseGitIgnoreVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            <Label DockPanel.Dock="Left" Margin="3,3,3,6"
+                                                   Content="{l:Loc Key='Main_Filter'}" 
+                                                   Style="{DynamicResource ThemedLabel}"
+                                                   Target="{Binding ElementName=cbIgnoreFilter}"/>
+                                            <ComboBox Name="cbIgnoreFilter" 
+                                                      Margin="3,0,3,3" 
+                                                      TabIndex="42"
+                                                      DisplayMemberPath="Name" SelectedValuePath="."
+                                                      ItemsSource="{Binding Path=IgnoreFilterList}"
+                                                      SelectedValue="{Binding Path=IgnoreFilter}">
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="DropDownOpened">
+                                                        <i:InvokeCommandAction Command="{Binding FilterComboBoxGotFocusCommand}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ComboBox>
+                                        </DockPanel>
+                                        <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                                                  Margin="3" HorizontalAlignment="Left"
                                                   IsChecked="{Binding Path=SkipRemoteCloudStorageFiles}"
-                                                  TabIndex="44" Content="{l:Loc Key='Main_SkipRemoteCloudStorageFiles'}"
+                                                  Content="{l:Loc Key='Main_SkipRemoteCloudStorageFiles'}"
+                                                  TabIndex="44" 
                                                   Visibility="{Binding SkipCloudStorageVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                        <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                                                  Margin="3" HorizontalAlignment="Left"
+                                                  IsChecked="{Binding SearchParallel}"
+                                                  Content="{l:Loc Key='Main_SearchParallel'}" 
+                                                  ToolTip="{l:Loc Key='Main_SearchFilesInMultipleThreads'}"
+                                                  TabIndex="45"
+                                                  Visibility="{Binding SearchParallelVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                                     Margin="3" VerticalAlignment="Center" Orientation="Horizontal"
                                                     Visibility="{Binding EncodingVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                             <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_Encoding'}"
                                                    Style="{DynamicResource ThemedLabel}"
                                                    Target="{Binding ElementName=cbEncoding}"/>
                                             <ComboBox Name="cbEncoding" 
-                                                      Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="45"
+                                                      Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="46"
                                                       DisplayMemberPath="Key" SelectedValuePath="Value"
                                                       ItemsSource="{Binding Path=Encodings}"
                                                       SelectedValue="{Binding Path=CodePage}"
@@ -470,13 +500,13 @@
                                                 </ComboBox.Width>
                                             </ComboBox>
                                         </StackPanel>
-                                        <Button Grid.Row="4" Grid.Column="1"
+                                        <Button Grid.Row="5" Grid.Column="1"
                                                 Margin="3,0,3,3"  Padding="8,3" HorizontalAlignment="Right"
                                                 HorizontalContentAlignment="Center" 
                                                 Content="{l:Loc Key='Main_ResetOptions'}"
                                                 Command="{Binding ResetOptionsCommand}"
-                                                TabIndex="49" />
-                                        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                                                TabIndex="47" />
+                                        <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                                               Margin="4,3,3,3"
                                               Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                                             <Grid.RowDefinitions>
@@ -491,29 +521,29 @@
                                             <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding CaseSensitive}"
                                                       IsEnabled="{Binding IsCaseSensitiveEnabled}"
-                                                      TabIndex="45" Content="{l:Loc Key='Main_CaseSensitive'}" />
+                                                      TabIndex="48" Content="{l:Loc Key='Main_CaseSensitive'}" />
                                             <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding WholeWord}"
                                                       IsEnabled="{Binding IsWholeWordEnabled}"
-                                                      TabIndex="46" Content="{l:Loc Key='Main_WholeWord'}" />
+                                                      TabIndex="49" Content="{l:Loc Key='Main_WholeWord'}" />
                                             <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding Multiline}"
                                                       IsEnabled="{Binding IsMultilineEnabled}"
-                                                      TabIndex="47" Content="{l:Loc Key='Main_Multiline'}" />
+                                                      TabIndex="49" Content="{l:Loc Key='Main_Multiline'}" />
                                             <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding Singleline}"
                                                       IsEnabled="{Binding IsSinglelineEnabled}"
-                                                      TabIndex="48" Content="{l:Loc Key='Main_DotAsNewline'}" />
+                                                      TabIndex="49" Content="{l:Loc Key='Main_DotAsNewline'}" />
                                             <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding BooleanOperators}"
                                                       IsEnabled="{Binding IsBooleanOperatorsEnabled}"
-                                                      TabIndex="48" Content="{l:Loc Key='Main_BooleanOperators'}" 
+                                                      TabIndex="49" Content="{l:Loc Key='Main_BooleanOperators'}" 
                                                       ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"
                                                       Visibility="{Binding BooleanOperatorsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                             <CheckBox Grid.Row="2" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding CaptureGroupSearch}"
                                                       IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
-                                                      TabIndex="48" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
+                                                      TabIndex="49" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
                                                       ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"
                                                       Visibility="{Binding CaptureGroupSearchVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </Grid>

@@ -107,7 +107,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                return list ?? new();
+                return list;
             }
             catch (OperationCanceledException)
             {

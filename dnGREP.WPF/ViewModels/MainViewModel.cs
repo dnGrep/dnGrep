@@ -11,7 +11,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -41,6 +40,7 @@ namespace dnGREP.WPF
         private PauseCancelTokenSource? pauseCancelTokenSource;
 
         private readonly string enQuad = char.ConvertFromUtf32(0x2000);
+        public static readonly string IgnoreFilterFolder = "Filters";
 
         public MainViewModel()
             : base()
@@ -70,6 +70,7 @@ namespace dnGREP.WPF
                 ControlsInit();
                 PopulateEncodings();
                 PopulateScripts();
+                PopulateIgnoreFilters();
 
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
@@ -268,6 +269,18 @@ namespace dnGREP.WPF
         private double mainFormFontSize;
 
         public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = new();
+
+        public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = new();
+
+        [ObservableProperty]
+        private IgnoreFilterFile ignoreFilter = IgnoreFilterFile.None;
+        partial void OnIgnoreFilterChanged(IgnoreFilterFile? oldValue, IgnoreFilterFile newValue)
+        {
+            if (newValue != null)
+            {
+                Settings.Set(GrepSettings.Key.IgnoreFilter, newValue.Name);
+            }
+        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(PauseResumeButtonLabel))]
@@ -604,6 +617,9 @@ namespace dnGREP.WPF
             p => DeleteMRUItem(p as MRUViewModel),
             q => true);
 
+        public ICommand FilterComboBoxGotFocusCommand => new RelayCommand(
+            p => PopulateIgnoreFilters());
+
         #endregion
 
         #region Public Methods
@@ -744,6 +760,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             Settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
             Settings.Set(GrepSettings.Key.PersonalizationOn, PersonalizationOn);
+            Settings.Set(GrepSettings.Key.IgnoreFilter, IgnoreFilter.Name);
 
             LayoutProperties.PreviewBounds = PreviewWindowBounds;
             LayoutProperties.PreviewWindowState = PreviewWindowState;
@@ -917,6 +934,13 @@ namespace dnGREP.WPF
 
         #region Private Methods
 
+        protected override void ResetOptions()
+        {
+            base.ResetOptions();
+
+            IgnoreFilter = IgnoreFilterFile.None;
+        }
+
         internal void CancelSearch()
         {
             pauseCancelTokenSource?.Cancel();
@@ -980,7 +1004,7 @@ namespace dnGREP.WPF
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                             param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
-                            SkipRemoteCloudStorageFiles);
+                            param.SkipRemoteCloudStorageFiles, param.IgnoreFilterFile);
 
                         if (string.IsNullOrEmpty(SearchFor) &&
                             Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern))
@@ -1037,7 +1061,7 @@ namespace dnGREP.WPF
                                 param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                                 param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                                 param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
-                                SkipRemoteCloudStorageFiles)
+                                param.SkipRemoteCloudStorageFiles, param.IgnoreFilterFile)
                         };
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -2638,6 +2662,9 @@ namespace dnGREP.WPF
 
             List<string> options = new();
 
+            var excludePatterns = Utils.GetCompositeIgnoreList(FileOrFolderPath, FilePatternIgnore,
+                TypeOfFileSearch == FileSearchType.Regex, IgnoreFilter.FilePath);
+
             sb.Append(Resources.ReportSummary_SearchFor).Append(" '").Append(SearchFor).AppendLine("'")
               .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToLocalizedString());
 
@@ -2654,8 +2681,20 @@ namespace dnGREP.WPF
 
             sb.Append(Resources.ReportSummary_SearchIn).Append(' ').AppendLine(FileOrFolderPath)
               .Append(Resources.ReportSummary_FilePattern).Append(' ').AppendLine(FilePattern);
-            if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
-                sb.Append(Resources.ReportSummary_ExcludePattern).Append(' ').AppendLine(FilePatternIgnore);
+
+            if (excludePatterns.Count == 1 && !string.IsNullOrEmpty(excludePatterns[0].pattern))
+            {
+                sb.Append(Resources.ReportSummary_ExcludePattern).Append(' ').AppendLine(excludePatterns[0].pattern);
+            }
+            else
+            {
+                sb.AppendLine(Resources.ReportSummary_ExcludePattern);
+                foreach (var (path, pattern) in excludePatterns)
+                {
+                    sb.Append("  ").Append(path).Append(": ").AppendLine(pattern);
+                }
+            }
+
             if (TypeOfFileSearch == FileSearchType.Regex)
                 sb.AppendLine(Resources.ReportSummary_UsingRegexFilePattern);
             else if (TypeOfFileSearch == FileSearchType.Everything)
@@ -2804,6 +2843,37 @@ namespace dnGREP.WPF
             {
                 Encodings.Add(enc);
                 BookmarkViewModel.Encodings.Add(enc);
+            }
+        }
+
+        private void PopulateIgnoreFilters()
+        {
+            IgnoreFilterList.Clear();
+            IgnoreFilterList.Add(IgnoreFilterFile.None);
+            IgnoreFilter = IgnoreFilterFile.None;
+
+            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), IgnoreFilterFolder);
+            if (!Directory.Exists(dataFolder))
+            {
+                Directory.CreateDirectory(dataFolder);
+            }
+
+            HashSet<string> names = new();
+            foreach (string fileName in Directory.GetFiles(dataFolder, "*.ignore", SearchOption.AllDirectories))
+            {
+                string name = Path.GetFileNameWithoutExtension(fileName);
+
+                if (!names.Contains(name))
+                {
+                    IgnoreFilterList.Add(new IgnoreFilterFile(name, fileName));
+                }
+            }
+
+            string filterName = GrepSettings.Instance.Get<string>(GrepSettings.Key.IgnoreFilter);
+            var filter = IgnoreFilterList.FirstOrDefault(f => f.Name.Equals(filterName, StringComparison.OrdinalIgnoreCase));
+            if (filter != null)
+            {
+                IgnoreFilter = filter;
             }
         }
 
@@ -3046,6 +3116,20 @@ namespace dnGREP.WPF
                     Settings.Set(itemKey, items);
                 }
             }
+        }
+
+        public class IgnoreFilterFile
+        {
+            public static IgnoreFilterFile None => new(string.Empty, string.Empty);
+
+            public IgnoreFilterFile(string name, string filePath)
+            {
+                Name = name;
+                FilePath = filePath;
+            }
+
+            public string Name { get; private set; }
+            public string FilePath { get; private set; }
         }
         #endregion
     }
