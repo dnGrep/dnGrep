@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -321,6 +322,7 @@ namespace dnGREP.WPF
                         IncludeHiddenFiles = editBmk.IncludeHidden,
                         IncludeBinaryFiles = editBmk.IncludeBinary,
                         UseGitignore = editBmk.UseGitignore,
+                        IgnoreFilterName = editBmk.IgnoreFilterName,
                         SkipRemoteCloudStorageFiles = editBmk.SkipRemoteCloudStorageFiles,
                         IncludeArchive = editBmk.IncludeArchive,
                         FollowSymlinks = editBmk.FollowSymlinks,
@@ -385,6 +387,7 @@ namespace dnGREP.WPF
                         IncludeHiddenFiles = duplicateBmk.IncludeHidden,
                         IncludeBinaryFiles = duplicateBmk.IncludeBinary,
                         UseGitignore = duplicateBmk.UseGitignore,
+                        IgnoreFilterName = duplicateBmk.IgnoreFilterName,
                         SkipRemoteCloudStorageFiles = duplicateBmk.SkipRemoteCloudStorageFiles,
                         IncludeArchive = duplicateBmk.IncludeArchive,
                         FollowSymlinks = duplicateBmk.FollowSymlinks,
@@ -445,6 +448,7 @@ namespace dnGREP.WPF
                     IncludeHiddenFiles = editBmk.IncludeHidden,
                     IncludeBinaryFiles = editBmk.IncludeBinary,
                     UseGitignore = editBmk.UseGitignore,
+                    IgnoreFilterName = editBmk.IgnoreFilterName,
                     SkipRemoteCloudStorageFiles = editBmk.SkipRemoteCloudStorageFiles,
                     IncludeArchive = editBmk.IncludeArchive,
                     FollowSymlinks = editBmk.FollowSymlinks,
@@ -467,7 +471,7 @@ namespace dnGREP.WPF
 
     public partial class BookmarkViewModel : CultureAwareViewModel
     {
-        public static ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
+        public static ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new();
 
         private Bookmark? _original;
 
@@ -504,6 +508,7 @@ namespace dnGREP.WPF
             IncludeSubfolders = bk.IncludeSubfolders;
             MaxSubfolderDepth = bk.MaxSubfolderDepth;
             UseGitignore = bk.UseGitignore;
+            IgnoreFilterName = bk.IgnoreFilterName;
             SkipRemoteCloudStorageFiles = bk.SkipRemoteCloudStorageFiles;
             IncludeArchive = bk.IncludeArchive;
             FollowSymlinks = bk.FollowSymlinks;
@@ -519,6 +524,8 @@ namespace dnGREP.WPF
             UpdateTypeOfSearchState();
 
             SetExtendedProperties();
+
+            PopulateIgnoreFilters();
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
@@ -547,6 +554,7 @@ namespace dnGREP.WPF
             IncludeSubfolders = toCopy.IncludeSubfolders;
             MaxSubfolderDepth = toCopy.MaxSubfolderDepth;
             UseGitignore = toCopy.UseGitignore;
+            IgnoreFilterName = toCopy.IgnoreFilterName;
             SkipRemoteCloudStorageFiles = toCopy.SkipRemoteCloudStorageFiles;
             IncludeArchive = toCopy.IncludeArchive;
             FollowSymlinks = toCopy.FollowSymlinks;
@@ -574,6 +582,8 @@ namespace dnGREP.WPF
 
             UpdateSectionIndex();
             SetExtendedProperties();
+
+            PopulateIgnoreFilters();
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
@@ -655,6 +665,7 @@ namespace dnGREP.WPF
                 IncludeBinaryFiles = IncludeBinary,
                 MaxSubfolderDepth = MaxSubfolderDepth,
                 UseGitignore = UseGitignore,
+                IgnoreFilterName = IgnoreFilterName,
                 SkipRemoteCloudStorageFiles = SkipRemoteCloudStorageFiles,
                 IncludeArchive = IncludeArchive,
                 FollowSymlinks = FollowSymlinks,
@@ -700,6 +711,51 @@ namespace dnGREP.WPF
                 CaseSensitive = false;
                 Singleline = false;
                 BooleanOperators = false;
+            }
+        }
+
+        private void PopulateIgnoreFilters()
+        {
+            var selectedFilter = IgnoreFilterName;
+
+            if (IgnoreFilterList.Count == 0)
+            {
+                IgnoreFilterList.Add(string.Empty);
+            }
+            else
+            {
+                IgnoreFilterName = string.Empty;
+                // do not empty the list: the IgnoreFilterName will be set to null
+                while (IgnoreFilterList.Count > 1)
+                {
+                    IgnoreFilterList.RemoveAt(IgnoreFilterList.Count - 1);
+                }
+            }
+
+            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), MainViewModel.IgnoreFilterFolder);
+            if (!Directory.Exists(dataFolder))
+            {
+                Directory.CreateDirectory(dataFolder);
+            }
+
+            HashSet<string> names = new();
+            foreach (string fileName in Directory.GetFiles(dataFolder, "*.ignore", SearchOption.AllDirectories))
+            {
+                string name = Path.GetFileNameWithoutExtension(fileName);
+
+                if (!names.Contains(name))
+                {
+                    IgnoreFilterList.Add(name);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(selectedFilter))
+            {
+                var filter = IgnoreFilterList.FirstOrDefault(f => f.Equals(selectedFilter, StringComparison.OrdinalIgnoreCase));
+                if (filter != null)
+                {
+                    IgnoreFilterName = filter;
+                }
             }
         }
 
@@ -799,6 +855,11 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private bool useGitignore = false;
 
+        public ObservableCollection<string> IgnoreFilterList { get; } = new();
+
+        [ObservableProperty]
+        private string ignoreFilterName = string.Empty;
+
         [ObservableProperty]
         private bool skipRemoteCloudStorageFiles = true;
 
@@ -880,6 +941,9 @@ namespace dnGREP.WPF
             SectionIndex = value;
         }
 
+        public ICommand FilterComboBoxDropDownCommand => new RelayCommand(
+            p => PopulateIgnoreFilters());
+
         /// <summary>
         /// Returns a command that checks for can save
         /// </summary>
@@ -930,6 +994,7 @@ namespace dnGREP.WPF
                 FollowSymlinks == otherVM.FollowSymlinks &&
                 MaxSubfolderDepth == otherVM.MaxSubfolderDepth &&
                 UseGitignore == otherVM.UseGitignore &&
+                IgnoreFilterName == otherVM.IgnoreFilterName &&
                 SkipRemoteCloudStorageFiles == otherVM.SkipRemoteCloudStorageFiles &&
                 IncludeArchive == otherVM.IncludeArchive &&
                 CodePage == otherVM.CodePage &&
@@ -959,6 +1024,7 @@ namespace dnGREP.WPF
                 hashCode = (hashCode * 17) ^ IncludeBinary.GetHashCode();
                 hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
                 hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
+                hashCode = (hashCode * 17) ^ IgnoreFilterName.GetHashCode(StringComparison.Ordinal);
                 hashCode = (hashCode * 17) ^ SkipRemoteCloudStorageFiles.GetHashCode();
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
                 hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
