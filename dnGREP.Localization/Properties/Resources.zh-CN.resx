@@ -3605,4 +3605,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>保存源文件夹布局</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>请输入下列区间内的值：{0}-{1}。</value>
+    <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>无效的输入类型</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>非法字符</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
 </root>
