@@ -433,18 +433,18 @@
                                         </StackPanel>
                                         <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                                    LastChildFill="True">
-                                            <CheckBox DockPanel.Dock="Right" Margin="6,3"
+                                            <CheckBox DockPanel.Dock="Right" Margin="6,0"
                                                       IsChecked="{Binding UseGitignore}"
                                                       Content="{l:Loc Key='Main_UseGitignore'}" 
                                                       TabIndex="43"
                                                       ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" 
                                                       Visibility="{Binding CompositeUseGitIgnoreVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-                                            <Label DockPanel.Dock="Left" Margin="3,3,3,6"
+                                            <Label DockPanel.Dock="Left" Margin="3,0"
                                                    Content="{l:Loc Key='Main_Filter'}" 
                                                    Style="{DynamicResource ThemedLabel}"
                                                    Target="{Binding ElementName=cbIgnoreFilter}"/>
                                             <ComboBox Name="cbIgnoreFilter" 
-                                                      Margin="3,0,3,3" 
+                                                      Margin="3,0" 
                                                       TabIndex="42"
                                                       DisplayMemberPath="Name" SelectedValuePath="."
                                                       ItemsSource="{Binding Path=IgnoreFilterList}"
@@ -456,7 +456,7 @@
                                                 </ComboBox.ItemContainerStyle>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="DropDownOpened">
-                                                        <i:InvokeCommandAction Command="{Binding FilterComboBoxGotFocusCommand}"/>
+                                                        <i:InvokeCommandAction Command="{Binding FilterComboBoxDropDownCommand}"/>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </ComboBox>

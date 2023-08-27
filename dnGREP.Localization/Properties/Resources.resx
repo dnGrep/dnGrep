@@ -3631,4 +3631,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Filter:</value>
     <comment>Main window, ignore filter file selector label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
 </root>

@@ -70,7 +70,7 @@ namespace dnGREP.WPF
                 ControlsInit();
                 PopulateEncodings();
                 PopulateScripts();
-                PopulateIgnoreFilters();
+                PopulateIgnoreFilters(true);
 
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
@@ -274,13 +274,6 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private IgnoreFilterFile ignoreFilter = IgnoreFilterFile.None;
-        partial void OnIgnoreFilterChanged(IgnoreFilterFile? oldValue, IgnoreFilterFile newValue)
-        {
-            if (newValue != null)
-            {
-                Settings.Set(GrepSettings.Key.IgnoreFilter, newValue.Name);
-            }
-        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(PauseResumeButtonLabel))]
@@ -617,8 +610,8 @@ namespace dnGREP.WPF
             p => DeleteMRUItem(p as MRUViewModel),
             q => true);
 
-        public ICommand FilterComboBoxGotFocusCommand => new RelayCommand(
-            p => PopulateIgnoreFilters());
+        public ICommand FilterComboBoxDropDownCommand => new RelayCommand(
+            p => PopulateIgnoreFilters(false));
 
         #endregion
 
@@ -2055,6 +2048,7 @@ namespace dnGREP.WPF
             nameof(FollowSymlinks),
             nameof(MaxSubfolderDepth),
             nameof(UseGitignore),
+            nameof(IgnoreFilter),
             nameof(SkipRemoteCloudStorageFiles),
             nameof(IncludeArchive),
             nameof(CodePage),
@@ -2081,6 +2075,7 @@ namespace dnGREP.WPF
                 IncludeBinaryFiles = IncludeBinary,
                 MaxSubfolderDepth = MaxSubfolderDepth,
                 UseGitignore = UseGitignore,
+                IgnoreFilterName = IgnoreFilter.Name,
                 SkipRemoteCloudStorageFiles = SkipRemoteCloudStorageFiles,
                 IncludeArchive = IncludeArchive,
                 FollowSymlinks = FollowSymlinks,
@@ -2299,6 +2294,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    IgnoreFilter = SetFilter(bmk.IgnoreFilterName);
                     SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
@@ -2846,11 +2842,25 @@ namespace dnGREP.WPF
             }
         }
 
-        private void PopulateIgnoreFilters()
+        private void PopulateIgnoreFilters(bool firstTime)
         {
-            IgnoreFilterList.Clear();
-            IgnoreFilterList.Add(IgnoreFilterFile.None);
-            IgnoreFilter = IgnoreFilterFile.None;
+            var selectedFilter = firstTime ? 
+                GrepSettings.Instance.Get<string>(GrepSettings.Key.IgnoreFilter) :
+                IgnoreFilter.Name;
+
+            if (IgnoreFilterList.Count == 0)
+            {
+                IgnoreFilterList.Add(IgnoreFilterFile.None);
+            }
+            else
+            {
+                IgnoreFilter = IgnoreFilterFile.None;
+                // do not empty the list: the IgnoreFilter will be set to null
+                while (IgnoreFilterList.Count > 1)
+                {
+                    IgnoreFilterList.RemoveAt(IgnoreFilterList.Count - 1);
+                }
+            }
 
             string dataFolder = Path.Combine(Utils.GetDataFolderPath(), IgnoreFilterFolder);
             if (!Directory.Exists(dataFolder))
@@ -2869,12 +2879,20 @@ namespace dnGREP.WPF
                 }
             }
 
-            string filterName = GrepSettings.Instance.Get<string>(GrepSettings.Key.IgnoreFilter);
-            var filter = IgnoreFilterList.FirstOrDefault(f => f.Name.Equals(filterName, StringComparison.OrdinalIgnoreCase));
-            if (filter != null)
+            IgnoreFilter = SetFilter(selectedFilter);
+        }
+
+        private IgnoreFilterFile SetFilter(string filterName)
+        {
+            if (!string.IsNullOrEmpty(filterName))
             {
-                IgnoreFilter = filter;
+                var filter = IgnoreFilterList.FirstOrDefault(f => f.Name.Equals(filterName, StringComparison.OrdinalIgnoreCase));
+                if (filter != null)
+                {
+                    return filter;
+                }
             }
+            return IgnoreFilterFile.None;
         }
 
         private void BookmarkForm_UseBookmark(object? sender, EventArgs e)
@@ -2898,6 +2916,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    IgnoreFilter = SetFilter(bmk.IgnoreFilterName);
                     SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
@@ -2924,6 +2943,10 @@ namespace dnGREP.WPF
                     BooleanOperators = bmk.BooleanOperators;
                 }
             }
+            // edge case: if a bookmark is edited to match the current state
+            // applying the bookmark doesn't change any properties and the
+            // bookmark star indicator doesn't update.
+            UpdateState(nameof(FilePattern));
         }
 
         private void ApplyBookmark(Bookmark bmk)
@@ -2946,6 +2969,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    IgnoreFilter = SetFilter(bmk.IgnoreFilterName);
                     SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
@@ -3118,7 +3142,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public class IgnoreFilterFile
+        public class IgnoreFilterFile : IComparable<IgnoreFilterFile>, IComparable, IEquatable<IgnoreFilterFile>
         {
             public static IgnoreFilterFile None => new(string.Empty, string.Empty);
 
@@ -3130,6 +3154,37 @@ namespace dnGREP.WPF
 
             public string Name { get; private set; }
             public string FilePath { get; private set; }
+
+            public override int GetHashCode()
+            {
+                return string.GetHashCode(Name, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public override bool Equals(object? obj)
+            {
+                return Equals(obj as IgnoreFilterFile);
+
+            }
+
+            public bool Equals(IgnoreFilterFile? other)
+            {
+                if (other == null) return false;
+
+                return Name.Equals(other.Name, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public int CompareTo(object? obj)
+            {
+                return CompareTo(obj as IgnoreFilterFile);
+            }
+
+            public int CompareTo(IgnoreFilterFile? other)
+            {
+                if (other == null)
+                    return 1;
+                else
+                    return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
+            }
         }
         #endregion
     }

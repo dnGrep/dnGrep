@@ -358,6 +358,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter:.
+        /// </summary>
+        public static string BookmarkDetails_Filter {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File filters.
         /// </summary>
         public static string BookmarkDetails_Filters_Group {
