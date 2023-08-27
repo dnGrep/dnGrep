@@ -3617,4 +3617,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>非法字符</value>
     <comment>Validation message for user input of numeric values</comment>
   </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>筛选器：</value>
+    <comment>Main window, ignore filter file selector label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>筛选器：</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
 </root>
