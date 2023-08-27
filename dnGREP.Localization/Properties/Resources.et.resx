@@ -2654,7 +2654,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Olgu</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Options_SearchOptions" xml:space="preserve">
@@ -2668,5 +2668,13 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
     <value>Kopeeri failid…</value>
     <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Main window, ignore filter file selector label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
 </root>
