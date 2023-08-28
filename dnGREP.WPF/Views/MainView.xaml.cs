@@ -7,6 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
+using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.DockFloat;
 using dnGREP.Localization;
@@ -434,6 +435,54 @@ namespace dnGREP.WPF
                 resultsTree.PreviousFile();
                 e.Handled = true;
             }
+        }
+
+        private DateTime timeOfLastMessage = DateTime.Now;
+
+        /// <summary>Brings main window to foreground.</summary>
+        public void BringToForeground(string searchPath)
+        {
+            TimeSpan fromLastMessage = DateTime.Now - timeOfLastMessage;
+            timeOfLastMessage = DateTime.Now;
+
+            bool replace = fromLastMessage > TimeSpan.FromMilliseconds(500);
+
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) &&
+                !string.IsNullOrEmpty(searchPath))
+            {
+                if (replace || string.IsNullOrEmpty(viewModel.FileOrFolderPath))
+                {
+                    viewModel.FileOrFolderPath = searchPath;
+                }
+                else
+                {
+                    bool found = false;
+                    foreach (var subPath in UiUtils.SplitPath(viewModel.FileOrFolderPath, true))
+                    {
+                        if (subPath.Equals(searchPath, StringComparison.OrdinalIgnoreCase))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        viewModel.FileOrFolderPath += ";" + searchPath;
+                    }
+                }
+            }
+
+            if (WindowState == WindowState.Minimized || Visibility == Visibility.Hidden)
+            {
+                Show();
+                WindowState = WindowState.Normal;
+            }
+
+            // According to some sources these steps gurantee that an app will be brought to foreground.
+            Activate();
+            Topmost = true;
+            Topmost = false;
+            Focus();
         }
 
         [GeneratedRegex("\\d+")]

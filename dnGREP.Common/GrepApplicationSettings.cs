@@ -292,6 +292,10 @@ namespace dnGREP.Common
             public const string PreserveFolderLayoutOnMove = "PreserveFolderLayoutOnMove";
             [DefaultValue("")]
             public const string IgnoreFilter = "IgnoreFilter";
+            [DefaultValue(false)]
+            public const string IsSingletonInstance = "IsSingletonInstance";
+            [DefaultValue(true)]
+            public const string PassSearchFolderToSingleton = "PassSearchFolderToSingleton";
         }
 
         private static GrepSettings? instance;

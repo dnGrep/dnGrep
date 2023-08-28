@@ -4329,6 +4329,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forward search folder to existing window.
+        /// </summary>
+        public static string Options_ForwardSearchFolderToExistingWindow {
+            get {
+                return ResourceManager.GetString("Options_ForwardSearchFolderToExistingWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help translate dnGrep..
         /// </summary>
         public static string Options_HelpTranslateDnGrep {
@@ -4352,6 +4361,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_HistoryLists {
             get {
                 return ResourceManager.GetString("Options_HistoryLists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the second instance has a search folder argument, change the folder in the existing window..
+        /// </summary>
+        public static string Options_IfTheSecondInstanceHasASearchFolderArgument {
+            get {
+                return ResourceManager.GetString("Options_IfTheSecondInstanceHasASearchFolderArgument", resourceCulture);
             }
         }
         
@@ -4806,6 +4824,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to * Restart required when changed.
+        /// </summary>
+        public static string Options_RestartRequiredWhenChanged {
+            get {
+                return ResourceManager.GetString("Options_RestartRequiredWhenChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results font family.
         /// </summary>
         public static string Options_ResultsFontFamily {
@@ -4838,6 +4865,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ResultsOptions {
             get {
                 return ResourceManager.GetString("Options_ResultsOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reuse existing window (single instance) *.
+        /// </summary>
+        public static string Options_ReuseExistingWindow {
+            get {
+                return ResourceManager.GetString("Options_ReuseExistingWindow", resourceCulture);
             }
         }
         
