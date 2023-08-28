@@ -11,7 +11,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -41,6 +40,7 @@ namespace dnGREP.WPF
         private PauseCancelTokenSource? pauseCancelTokenSource;
 
         private readonly string enQuad = char.ConvertFromUtf32(0x2000);
+        public static readonly string IgnoreFilterFolder = "Filters";
 
         public MainViewModel()
             : base()
@@ -70,6 +70,7 @@ namespace dnGREP.WPF
                 ControlsInit();
                 PopulateEncodings();
                 PopulateScripts();
+                PopulateIgnoreFilters(true);
 
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
@@ -268,6 +269,11 @@ namespace dnGREP.WPF
         private double mainFormFontSize;
 
         public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = new();
+
+        public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = new();
+
+        [ObservableProperty]
+        private IgnoreFilterFile ignoreFilter = IgnoreFilterFile.None;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(PauseResumeButtonLabel))]
@@ -604,6 +610,9 @@ namespace dnGREP.WPF
             p => DeleteMRUItem(p as MRUViewModel),
             q => true);
 
+        public ICommand FilterComboBoxDropDownCommand => new RelayCommand(
+            p => PopulateIgnoreFilters(false));
+
         #endregion
 
         #region Public Methods
@@ -744,6 +753,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             Settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
             Settings.Set(GrepSettings.Key.PersonalizationOn, PersonalizationOn);
+            Settings.Set(GrepSettings.Key.IgnoreFilter, IgnoreFilter.Name);
 
             LayoutProperties.PreviewBounds = PreviewWindowBounds;
             LayoutProperties.PreviewWindowState = PreviewWindowState;
@@ -787,7 +797,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter(), TypeOfSearch);
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, FileFilter.Default, TypeOfSearch);
                     if (engine != null)
                     {
                         engine.OpenFile(fileArg);
@@ -856,7 +866,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter(), TypeOfSearch);
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, FileFilter.Default, TypeOfSearch);
                     if (engine != null)
                     {
                         engine.OpenFile(fileArg);
@@ -916,6 +926,13 @@ namespace dnGREP.WPF
         #endregion
 
         #region Private Methods
+
+        protected override void ResetOptions()
+        {
+            base.ResetOptions();
+
+            IgnoreFilter = IgnoreFilterFile.None;
+        }
 
         internal void CancelSearch()
         {
@@ -980,7 +997,7 @@ namespace dnGREP.WPF
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                             param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
-                            SkipRemoteCloudStorageFiles);
+                            param.SkipRemoteCloudStorageFiles, param.IgnoreFilterFile);
 
                         if (string.IsNullOrEmpty(SearchFor) &&
                             Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern))
@@ -1037,7 +1054,7 @@ namespace dnGREP.WPF
                                 param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                                 param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                                 param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
-                                SkipRemoteCloudStorageFiles)
+                                param.SkipRemoteCloudStorageFiles, param.IgnoreFilterFile)
                         };
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -2031,6 +2048,7 @@ namespace dnGREP.WPF
             nameof(FollowSymlinks),
             nameof(MaxSubfolderDepth),
             nameof(UseGitignore),
+            nameof(IgnoreFilter),
             nameof(SkipRemoteCloudStorageFiles),
             nameof(IncludeArchive),
             nameof(CodePage),
@@ -2057,6 +2075,7 @@ namespace dnGREP.WPF
                 IncludeBinaryFiles = IncludeBinary,
                 MaxSubfolderDepth = MaxSubfolderDepth,
                 UseGitignore = UseGitignore,
+                IgnoreFilterName = IgnoreFilter.Name,
                 SkipRemoteCloudStorageFiles = SkipRemoteCloudStorageFiles,
                 IncludeArchive = IncludeArchive,
                 FollowSymlinks = FollowSymlinks,
@@ -2275,6 +2294,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    IgnoreFilter = SetFilter(bmk.IgnoreFilterName);
                     SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
@@ -2638,6 +2658,9 @@ namespace dnGREP.WPF
 
             List<string> options = new();
 
+            var excludePatterns = Utils.GetCompositeIgnoreList(FileOrFolderPath, FilePatternIgnore,
+                TypeOfFileSearch == FileSearchType.Regex, IgnoreFilter.FilePath);
+
             sb.Append(Resources.ReportSummary_SearchFor).Append(" '").Append(SearchFor).AppendLine("'")
               .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToLocalizedString());
 
@@ -2654,8 +2677,20 @@ namespace dnGREP.WPF
 
             sb.Append(Resources.ReportSummary_SearchIn).Append(' ').AppendLine(FileOrFolderPath)
               .Append(Resources.ReportSummary_FilePattern).Append(' ').AppendLine(FilePattern);
-            if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
-                sb.Append(Resources.ReportSummary_ExcludePattern).Append(' ').AppendLine(FilePatternIgnore);
+
+            if (excludePatterns.Count == 1 && !string.IsNullOrEmpty(excludePatterns[0].pattern))
+            {
+                sb.Append(Resources.ReportSummary_ExcludePattern).Append(' ').AppendLine(excludePatterns[0].pattern);
+            }
+            else
+            {
+                sb.AppendLine(Resources.ReportSummary_ExcludePattern);
+                foreach (var (path, pattern) in excludePatterns)
+                {
+                    sb.Append("  ").Append(path).Append(": ").AppendLine(pattern);
+                }
+            }
+
             if (TypeOfFileSearch == FileSearchType.Regex)
                 sb.AppendLine(Resources.ReportSummary_UsingRegexFilePattern);
             else if (TypeOfFileSearch == FileSearchType.Everything)
@@ -2807,6 +2842,59 @@ namespace dnGREP.WPF
             }
         }
 
+        private void PopulateIgnoreFilters(bool firstTime)
+        {
+            var selectedFilter = firstTime ? 
+                GrepSettings.Instance.Get<string>(GrepSettings.Key.IgnoreFilter) :
+                IgnoreFilter.Name;
+
+            if (IgnoreFilterList.Count == 0)
+            {
+                IgnoreFilterList.Add(IgnoreFilterFile.None);
+            }
+            else
+            {
+                IgnoreFilter = IgnoreFilterFile.None;
+                // do not empty the list: the IgnoreFilter will be set to null
+                while (IgnoreFilterList.Count > 1)
+                {
+                    IgnoreFilterList.RemoveAt(IgnoreFilterList.Count - 1);
+                }
+            }
+
+            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), IgnoreFilterFolder);
+            if (!Directory.Exists(dataFolder))
+            {
+                Directory.CreateDirectory(dataFolder);
+            }
+
+            HashSet<string> names = new();
+            foreach (string fileName in Directory.GetFiles(dataFolder, "*.ignore", SearchOption.AllDirectories))
+            {
+                string name = Path.GetFileNameWithoutExtension(fileName);
+
+                if (!names.Contains(name))
+                {
+                    IgnoreFilterList.Add(new IgnoreFilterFile(name, fileName));
+                }
+            }
+
+            IgnoreFilter = SetFilter(selectedFilter);
+        }
+
+        private IgnoreFilterFile SetFilter(string filterName)
+        {
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                var filter = IgnoreFilterList.FirstOrDefault(f => f.Name.Equals(filterName, StringComparison.OrdinalIgnoreCase));
+                if (filter != null)
+                {
+                    return filter;
+                }
+            }
+            return IgnoreFilterFile.None;
+        }
+
         private void BookmarkForm_UseBookmark(object? sender, EventArgs e)
         {
             var bmk = bookmarkWindow?.ViewModel.SelectedBookmark;
@@ -2828,6 +2916,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    IgnoreFilter = SetFilter(bmk.IgnoreFilterName);
                     SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
@@ -2854,6 +2943,10 @@ namespace dnGREP.WPF
                     BooleanOperators = bmk.BooleanOperators;
                 }
             }
+            // edge case: if a bookmark is edited to match the current state
+            // applying the bookmark doesn't change any properties and the
+            // bookmark star indicator doesn't update.
+            UpdateState(nameof(FilePattern));
         }
 
         private void ApplyBookmark(Bookmark bmk)
@@ -2876,6 +2969,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    IgnoreFilter = SetFilter(bmk.IgnoreFilterName);
                     SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
@@ -3045,6 +3139,51 @@ namespace dnGREP.WPF
                     }
                     Settings.Set(itemKey, items);
                 }
+            }
+        }
+
+        public class IgnoreFilterFile : IComparable<IgnoreFilterFile>, IComparable, IEquatable<IgnoreFilterFile>
+        {
+            public static IgnoreFilterFile None => new(string.Empty, string.Empty);
+
+            public IgnoreFilterFile(string name, string filePath)
+            {
+                Name = name;
+                FilePath = filePath;
+            }
+
+            public string Name { get; private set; }
+            public string FilePath { get; private set; }
+
+            public override int GetHashCode()
+            {
+                return string.GetHashCode(Name, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public override bool Equals(object? obj)
+            {
+                return Equals(obj as IgnoreFilterFile);
+
+            }
+
+            public bool Equals(IgnoreFilterFile? other)
+            {
+                if (other == null) return false;
+
+                return Name.Equals(other.Name, StringComparison.OrdinalIgnoreCase);
+            }
+
+            public int CompareTo(object? obj)
+            {
+                return CompareTo(obj as IgnoreFilterFile);
+            }
+
+            public int CompareTo(IgnoreFilterFile? other)
+            {
+                if (other == null)
+                    return 1;
+                else
+                    return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
             }
         }
         #endregion

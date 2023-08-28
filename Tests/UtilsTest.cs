@@ -586,7 +586,7 @@ namespace Tests
             try
             {
                 Utils.CopyFiles(source, sourceFolder, destinationFolder, OverwriteFile.No);
-                Assert.True(false, "Not supposed to get here");
+                Assert.Fail("Not supposed to get here");
             }
             catch
             {
@@ -614,7 +614,7 @@ namespace Tests
             try
             {
                 Utils.CopyFiles(source, sourceFolder, longDestinationFolder, OverwriteFile.No);
-                Assert.True(false, "Not supposed to get here");
+                Assert.Fail("Not supposed to get here");
             }
             catch
             {

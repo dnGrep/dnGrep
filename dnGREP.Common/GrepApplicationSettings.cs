@@ -290,6 +290,8 @@ namespace dnGREP.Common
             public const string PreserveFolderLayoutOnCopy = "PreserveFolderLayoutOnCopy";
             [DefaultValue(true)]
             public const string PreserveFolderLayoutOnMove = "PreserveFolderLayoutOnMove";
+            [DefaultValue("")]
+            public const string IgnoreFilter = "IgnoreFilter";
             [DefaultValue(false)]
             public const string IsSingletonInstance = "IsSingletonInstance";
             [DefaultValue(true)]
@@ -727,7 +729,14 @@ namespace dnGREP.Common
                 return default;
             }
 
-            return Get<T>(key);
+            try
+            {
+                return Get<T>(key);
+            }
+            catch (Exception)
+            {
+                return default;
+            }
         }
 
         /// <summary>
@@ -830,7 +839,7 @@ namespace dnGREP.Common
                         {
                             return (T)Convert.ChangeType(result, typeof(bool));
                         }
-                        else if (typeof(T) == typeof(bool?))
+                        else
                         {
                             return GetDefaultValue<T>(key);
                         }
