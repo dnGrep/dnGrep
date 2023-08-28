@@ -7,6 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
+using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.DockFloat;
 using dnGREP.Localization;
@@ -436,12 +437,39 @@ namespace dnGREP.WPF
             }
         }
 
+        private DateTime timeOfLastMessage = DateTime.Now;
+
         /// <summary>Brings main window to foreground.</summary>
         public void BringToForeground(string searchPath)
         {
-            if (!string.IsNullOrEmpty(searchPath))
+            TimeSpan fromLastMessage = DateTime.Now - timeOfLastMessage;
+            timeOfLastMessage = DateTime.Now;
+
+            bool replace = fromLastMessage > TimeSpan.FromMilliseconds(500);
+
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) &&
+                !string.IsNullOrEmpty(searchPath))
             {
-                viewModel.FileOrFolderPath = searchPath;
+                if (replace || string.IsNullOrEmpty(viewModel.FileOrFolderPath))
+                {
+                    viewModel.FileOrFolderPath = searchPath;
+                }
+                else
+                {
+                    bool found = false;
+                    foreach (var subPath in UiUtils.SplitPath(viewModel.FileOrFolderPath, true))
+                    {
+                        if (subPath.Equals(searchPath, StringComparison.OrdinalIgnoreCase))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        viewModel.FileOrFolderPath += ";" + searchPath;
+                    }
+                }
             }
 
             if (WindowState == WindowState.Minimized || Visibility == Visibility.Hidden)

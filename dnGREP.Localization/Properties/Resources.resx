@@ -3627,4 +3627,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Invalid input type</value>
     <comment>Validation message for user input of numeric values</comment>
   </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Reuse existing window (single instance) *</value>
+    <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
+  </data>
+  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
+    <value>Forward search folder to existing window</value>
+    <comment>Options dialog, change folder option label</comment>
+  </data>
+  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
+    <value>If the second instance has a search folder argument, change the folder in the existing window.</value>
+    <comment>Options dialog, change folder option tooltip</comment>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* Restart required when changed</value>
+    <comment>Options dialog, footnote text</comment>
+  </data>
 </root>

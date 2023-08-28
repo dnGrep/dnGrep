@@ -154,6 +154,8 @@ namespace dnGREP.WPF
             {
                 if (EnableWindowsIntegration != IsShellRegistered("Directory") ||
                 EnableRunAtStartup != IsStartupRegistered() ||
+                IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
+                PassSearchFolderToSingleton != Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) ||
                 EnableCheckForUpdates != Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
                 CheckForUpdatesInterval != Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
                 ShowLinesInContext != Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
@@ -285,6 +287,12 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool enableWindowsIntegration;
+
+        [ObservableProperty]
+        private bool isSingletonInstance;
+
+        [ObservableProperty]
+        private bool passSearchFolderToSingleton;
 
         [ObservableProperty]
         private string? windowsIntegrationTooltip;
@@ -661,6 +669,8 @@ namespace dnGREP.WPF
             }
             EnableWindowsIntegration = IsShellRegistered("Directory");
             EnableRunAtStartup = IsStartupRegistered();
+            IsSingletonInstance = Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance);
+            PassSearchFolderToSingleton = Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton);
             EnableCheckForUpdates = Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
             CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
             CustomEditorPath = Settings.Get<string>(GrepSettings.Key.CustomEditor);
@@ -808,6 +818,8 @@ namespace dnGREP.WPF
             ResultsFontFamily = EditResultsFontFamily;
             ResultsFontSize = EditResultsFontSize;
 
+            Settings.Set(GrepSettings.Key.IsSingletonInstance, IsSingletonInstance);
+            Settings.Set(GrepSettings.Key.PassSearchFolderToSingleton, PassSearchFolderToSingleton);
             Settings.Set(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
             Settings.Set(GrepSettings.Key.CustomEditor, CustomEditorPath);

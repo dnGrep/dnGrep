@@ -83,12 +83,22 @@
         <ScrollViewer Grid.Row="0">
             <StackPanel HorizontalAlignment="Stretch">
 
-                <GroupBox Header="{l:Loc Key='Options_StartupOptions'}" ToolTip="{Binding Path=PanelTooltip}">
+                <GroupBox Header="{l:Loc Key='Options_StartupOptions'}">
                     <StackPanel Orientation="Vertical">
-                        <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
-                                  IsChecked="{Binding Path=EnableWindowsIntegration}"
-                                  ToolTip="{Binding Path=WindowsIntegrationTooltip}"
-                                  IsEnabled="{Binding Path=IsAdministrator}" />
+                        <Border ToolTip="{Binding Path=PanelTooltip}">
+                            <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
+                                      IsChecked="{Binding Path=EnableWindowsIntegration}"
+                                      ToolTip="{Binding Path=WindowsIntegrationTooltip}"
+                                      IsEnabled="{Binding Path=IsAdministrator}" />
+                        </Border>
+                        <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ReuseExistingWindow'}"
+                                  IsChecked="{Binding Path=IsSingletonInstance}" />
+                        <CheckBox Margin="24,3,0,3" Content="{l:Loc Key='Options_ForwardSearchFolderToExistingWindow'}"
+                                  ToolTip="{l:Loc Key='Options_IfTheSecondInstanceHasASearchFolderArgument'}"
+                                  IsChecked="{Binding Path=PassSearchFolderToSingleton}"
+                                  IsEnabled="{Binding IsSingletonInstance}"/>
+                        <Label Margin="0,3" Content="{l:Loc Key='Options_RestartRequiredWhenChanged'}"
+                               Style="{StaticResource ThemedLabel}"/>
                     </StackPanel>
                 </GroupBox>
 

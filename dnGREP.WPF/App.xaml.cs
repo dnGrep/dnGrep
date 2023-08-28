@@ -24,14 +24,10 @@ namespace dnGREP.WPF
         public CommandLineArgs? AppArgs { get; private set; }
 
         /// <summary>The pipe name.</summary>
-        private const string UniqueEventName = "{C5475DAC-0582-42DE-B2B8-C17DFF29988A}";
         private const string UniquePipeName = "{C5475DAC-0582-42DE-B2B8-C17DFF29988A}";
 
         /// <summary>The unique mutex name.</summary>
         private const string UniqueMutexName = "{EB56AF15-5E08-4EEF-B8C4-18749C927C78}";
-
-        /// <summary>The event wait handle.</summary>
-        private EventWaitHandle? eventWaitHandle;
 
         /// <summary>The mutex.</summary>
         private Mutex? mutex;
@@ -118,27 +114,26 @@ namespace dnGREP.WPF
         private bool ConfigureSingetonInstance(CommandLineArgs args)
         {
             mutex = new Mutex(true, UniqueMutexName, out bool isOwned);
-            //eventWaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, UniqueEventName);
 
             if (isOwned)
             {
                 // Spawn a thread which will be waiting for our event
-                var thread = new Thread(
+                Thread thread = new(
                     () =>
                     {
                         while (true)
                         {
                             try
                             {
-                                using (NamedPipeClientStream pipeClientStream = new(".", 
-                                    UniquePipeName, PipeDirection.In, PipeOptions.CurrentUserOnly))
+                                using (NamedPipeServerStream namedPipeServer = new NamedPipeServerStream(
+                                   UniquePipeName, PipeDirection.In, NamedPipeServerStream.MaxAllowedServerInstances,
+                                   PipeTransmissionMode.Message, PipeOptions.CurrentUserOnly))
                                 {
-                                    logger.Info("Am first, calling client pipe connect");
                                     // Wait until the pipe is available.
-                                    pipeClientStream.Connect();
+                                    namedPipeServer.WaitForConnection();
 
                                     string path = string.Empty;
-                                    using (StreamReader sr = new(pipeClientStream))
+                                    using (StreamReader sr = new(namedPipeServer))
                                     {
                                         string? temp;
                                         while ((temp = sr.ReadLine()) != null)
@@ -147,23 +142,21 @@ namespace dnGREP.WPF
                                         }
                                     }
 
-                                    logger.Info("Am first, recieved message: " + path);
                                     Current.Dispatcher.BeginInvoke(
-                                        () => ((MainForm)Current.MainWindow).BringToForeground(path));
+                                        () =>
+                                        {
+                                            if (Current.MainWindow is MainForm wnd)
+                                            {
+                                                wnd.BringToForeground(path);
+                                            }
+                                        });
                                 }
                             }
                             catch (IOException ex)
                             {
-                                logger.Info("Caught exception on client: " + ex.Message);
+                                logger.Error(ex, "Exception on NamedPipeServer");
                             }
                         }
-
-                        //logger.Info("Am first, waiting on event handle");
-                        //while (eventWaitHandle.WaitOne())
-                        //{
-                        //    Current.Dispatcher.BeginInvoke(
-                        //        () => ((MainForm)Current.MainWindow).BringToForeground(""));
-                        //}
                     });
 
                 // It is important mark it as background otherwise it will prevent app from exiting.
@@ -172,17 +165,10 @@ namespace dnGREP.WPF
                 return true;
             }
 
-            //logger.Info("Am second, calling eventWaitHandle.Set()");
-            //// Notify other instance so it could bring itself to foreground.
-            //eventWaitHandle.Set();
-
-            logger.Info("Am second, starting named pipe server to send message");
-
-            using (NamedPipeServerStream namedPipeServer = new NamedPipeServerStream(
-                UniquePipeName, PipeDirection.Out, NamedPipeServerStream.MaxAllowedServerInstances,
-                PipeTransmissionMode.Message, PipeOptions.CurrentUserOnly))
+            using (NamedPipeClientStream pipeClientStream = new(".",
+                UniquePipeName, PipeDirection.Out, PipeOptions.CurrentUserOnly))
             {
-                namedPipeServer.WaitForConnection();
+                pipeClientStream.Connect();
                 try
                 {
                     string path = string.Empty;
@@ -191,19 +177,18 @@ namespace dnGREP.WPF
                         path = args.SearchPath;
                     }
 
-                    // Read user input and send that to the client process.
-                    using (StreamWriter sw = new(namedPipeServer))
+                    // Read user input and send that to the server process.
+                    using (StreamWriter sw = new(pipeClientStream))
                     {
                         sw.AutoFlush = true;
-                        sw.WriteLine(path);
-                        Thread.Sleep(200);
+                        sw.Write(path);
                     }
                 }
                 // Catch the IOException that is raised if the pipe is broken
                 // or disconnected.
                 catch (IOException ex)
                 {
-                    logger.Info("Caught exception on server: " + ex.Message);
+                    logger.Error(ex, "Exception on NamedPipeClient");
                 }
             }
 
