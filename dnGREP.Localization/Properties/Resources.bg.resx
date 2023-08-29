@@ -3625,4 +3625,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Филтър:</value>
     <comment>Main window, ignore filter file selector label (accel)</comment>
   </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* При промяна е необходим рестарт</value>
+    <comment>Options dialog, footnote text</comment>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Преизползване на прозореца (един екземпляр)*</value>
+    <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
+  </data>
 </root>
