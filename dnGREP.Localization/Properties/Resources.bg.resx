@@ -3633,4 +3633,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Преизползване на прозореца (един екземпляр)*</value>
     <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
   </data>
+  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
+    <value>Препращане на папката от търсенето в отворения прозорец</value>
+    <comment>Options dialog, change folder option label</comment>
+  </data>
+  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
+    <value>Ако втория екземпляр има аргумент с папка за търсене, да бъде направена промяна в отворения прозорец.</value>
+    <comment>Options dialog, change folder option tooltip</comment>
+  </data>
 </root>
