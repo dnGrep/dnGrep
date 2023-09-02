@@ -392,7 +392,11 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double dialogFontSize;
 
-        public bool IsOperationInProgress => CurrentGrepOperation != GrepOperation.None;
+        public bool IsOperationInProgress => IsScriptRunning || CurrentGrepOperation != GrepOperation.None;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsOperationInProgress))]
+        private bool isScriptRunning = false;
 
         #endregion
 

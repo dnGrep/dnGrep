@@ -3651,4 +3651,60 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>* Restart required when changed</value>
     <comment>Options dialog, footnote text</comment>
   </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>Replace in files is running.</value>
+    <comment>Message box text for: Replace is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Allow it complete or cancel it before exiting.</value>
+    <comment>Message box text for: Replace is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>A script is running.</value>
+    <comment>Message box text for: Script is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>Do you want to stop the script and exit?</value>
+    <comment>Message box text for: Script is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>Yes, exit anyway</value>
+    <comment>Message box button text for exit confirmation</comment>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Do not show this message again</value>
+    <comment>Message box button text for confirmation dialog</comment>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>The search is running.</value>
+    <comment>Message box text for: Search is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>Do you want to stop the search and exit?</value>
+    <comment>Message box text for: Search is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>Search results will be cleared on exit.</value>
+    <comment>Message box text for: Search results on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>Do you want to exit?</value>
+    <comment>Message box text for: Search results on exit, line 2</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>Ask for confirmation on exit when Script is running</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>Exit</value>
+    <comment>Options dialog, Exit group header label</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>Ask for confirmation on exit when Search runs longer than</value>
+    <comment>Options dialog, confirmation option check box label</comment>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>minutes</value>
+    <comment>Options dialog, confirmation value units label</comment>
+  </data>
 </root>

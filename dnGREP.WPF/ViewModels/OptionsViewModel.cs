@@ -155,6 +155,9 @@ namespace dnGREP.WPF
                 if (EnableWindowsIntegration != IsShellRegistered("Directory") ||
                 EnableRunAtStartup != IsStartupRegistered() ||
                 IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
+                ConfirmExitScript != Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript) ||
+                ConfirmExitSearch != Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch) ||
+                ConfirmExitSearchDuration != Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration) ||
                 PassSearchFolderToSingleton != Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) ||
                 EnableCheckForUpdates != Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
                 CheckForUpdatesInterval != Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
@@ -290,6 +293,15 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool isSingletonInstance;
+
+        [ObservableProperty]
+        private bool confirmExitScript;
+
+        [ObservableProperty]
+        private bool confirmExitSearch;
+
+        [ObservableProperty]
+        private double confirmExitSearchDuration;
 
         [ObservableProperty]
         private bool passSearchFolderToSingleton;
@@ -670,6 +682,9 @@ namespace dnGREP.WPF
             EnableWindowsIntegration = IsShellRegistered("Directory");
             EnableRunAtStartup = IsStartupRegistered();
             IsSingletonInstance = Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance);
+            ConfirmExitScript = Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript);
+            ConfirmExitSearch = Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch);
+            ConfirmExitSearchDuration = Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration);
             PassSearchFolderToSingleton = Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton);
             EnableCheckForUpdates = Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
             CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
@@ -819,6 +834,9 @@ namespace dnGREP.WPF
             ResultsFontSize = EditResultsFontSize;
 
             Settings.Set(GrepSettings.Key.IsSingletonInstance, IsSingletonInstance);
+            Settings.Set(GrepSettings.Key.ConfirmExitScript, ConfirmExitScript);
+            Settings.Set(GrepSettings.Key.ConfirmExitSearch, ConfirmExitSearch);
+            Settings.Set(GrepSettings.Key.ConfirmExitSearchDuration, ConfirmExitSearchDuration);
             Settings.Set(GrepSettings.Key.PassSearchFolderToSingleton, PassSearchFolderToSingleton);
             Settings.Set(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);

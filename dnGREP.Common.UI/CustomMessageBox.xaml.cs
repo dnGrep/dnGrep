@@ -30,15 +30,15 @@ namespace dnGREP.Common.UI
             yesButton.Visibility = Visibility.Collapsed;
             yesToAllButton.Visibility = Visibility.Collapsed;
             noToAllButton.Visibility = Visibility.Collapsed;
-            onceCheckbox.Visibility = Visibility.Collapsed;
-            onceCheckbox.IsChecked = false;
+            doNotAskAgainCheckbox.Visibility = Visibility.Collapsed;
+            doNotAskAgainCheckbox.IsChecked = false;
 
             SourceInitialized += (s, e) => NativeMethods.RemoveIcon(this);
         }
 
         public MessageBoxResultEx MessageBoxResultEx { get; private set; } = MessageBoxResultEx.None;
 
-        public bool OnceOnly => onceCheckbox.IsChecked ?? false;
+        public bool OnceOnly => doNotAskAgainCheckbox.IsChecked ?? false;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -176,9 +176,9 @@ namespace dnGREP.Common.UI
 
         private void SetButtonText(MessageBoxCustoms customs)
         {
-            if (!string.IsNullOrEmpty(customs.OnceCheckboxText))
+            if (!string.IsNullOrEmpty(customs.DoNotAskAgainCheckboxText))
             {
-                onceCheckbox.Content = customs. OnceCheckboxText;
+                doNotAskAgainCheckbox.Content = customs. DoNotAskAgainCheckboxText;
             }
             if (!string.IsNullOrEmpty(customs.OKButtonText))
             {
@@ -298,9 +298,9 @@ namespace dnGREP.Common.UI
             dlg.SetButtonVisibility(button, defaultResult);
             dlg.SetButtonText(customs);
 
-            if (customs.ShowOnceCheckbox)
+            if (customs.ShowDoNotAskAgainCheckbox)
             {
-                dlg.onceCheckbox.Visibility = Visibility.Visible;
+                dlg.doNotAskAgainCheckbox.Visibility = Visibility.Visible;
             }
             if (customs.Icon != null)
             {
@@ -414,14 +414,14 @@ namespace dnGREP.Common.UI
 
     public class CustomMessageBoxResult
     {
-        public CustomMessageBoxResult(MessageBoxResultEx result, bool onceOnly)
+        public CustomMessageBoxResult(MessageBoxResultEx result, bool doNotAskAgain)
         {
             Result = result;
-            OnceOnly = onceOnly;
+            DoNotAskAgain = doNotAskAgain;
         }
 
         public MessageBoxResultEx Result { get; private set; }
-        public bool OnceOnly { get; private set; }
+        public bool DoNotAskAgain { get; private set; }
     }
 
 
@@ -462,7 +462,7 @@ namespace dnGREP.Common.UI
     public class MessageBoxCustoms
     {
         public static readonly MessageBoxCustoms None = new();
-        public static readonly MessageBoxCustoms Once = new() { ShowOnceCheckbox = true };
+        public static readonly MessageBoxCustoms DoNotAskAgain = new() { ShowDoNotAskAgainCheckbox = true };
 
         /// <summary>
         /// Gets or sets a custom icon for the message box (see class for example)
@@ -475,8 +475,8 @@ namespace dnGREP.Common.UI
         /// var customs = new MessageBoxCustoms() { Icon = bitmapImage };
         /// </example>
         public ImageSource? Icon { get; set; }
-        public bool ShowOnceCheckbox { get; set; }
-        public string OnceCheckboxText { get; set; } = string.Empty;
+        public bool ShowDoNotAskAgainCheckbox { get; set; }
+        public string DoNotAskAgainCheckboxText { get; set; } = string.Empty;
         public string OKButtonText { get; set; } = string.Empty;
         public string CancelButtonText { get; set; } = string.Empty;
         public string NoButtonText { get; set; } = string.Empty;

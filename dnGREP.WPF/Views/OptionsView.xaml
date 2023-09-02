@@ -9,7 +9,7 @@
                  Title="{l:Loc Key='Options_OptionsTitle'}"
                  Height="600"
                  MinWidth="500"
-                 d:DesignHeight="2400"
+                 d:DesignHeight="2800"
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
@@ -101,11 +101,42 @@
                                Style="{StaticResource ThemedLabel}"/>
                     </StackPanel>
                 </GroupBox>
+                
+                <GroupBox Header="{l:Loc Key='Options_Exit'}">
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox Content="{l:Loc Key='Options_AskForConfirmationOnExitWhenScriptIsRunning'}"
+                                  IsChecked="{Binding Path=ConfirmExitScript}" />
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="0,0,3,0" Content="{l:Loc Key='Options_AskForConfirmationOnExitWhenSearchRunsLongerThan'}"
+                                      IsChecked="{Binding Path=ConfirmExitSearch}" />
+                            <TextBox Margin="3,0,0,0">
+                                <TextBox.Text>
+                                    <Binding Path="ConfirmExitSearchDuration" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged"
+                                         Converter="{StaticResource doubleToString}">
+                                        <Binding.ValidationRules>
+                                            <my:ValueRangeRule Min="0" Max="10000"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
+                            <Label Margin="1,0" Content="{l:Loc Key='Options_Minutes'}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_CheckingForUpdates'}">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox Name="cbCheckForUpdates" Content="{l:Loc Key='Options_EnableAutomaticCheckingEvery'}"
+                            <CheckBox Margin="0,0,3,0" Name="cbCheckForUpdates" Content="{l:Loc Key='Options_EnableAutomaticCheckingEvery'}"
                                   IsChecked="{Binding Path=EnableCheckForUpdates}" />
                             <TextBox Margin="3,0,0,0"
                                  IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}"
