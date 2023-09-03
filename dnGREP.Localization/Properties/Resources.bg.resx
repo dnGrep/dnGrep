@@ -3605,4 +3605,40 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Запазване на подредбата на изходната папка</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>Неприемливи знаци</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>Въведете стойност в интервала {0}-{1}.</value>
+    <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>Недействителен вид на входните данни</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Филтър:</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>Филтър:</value>
+    <comment>Main window, ignore filter file selector label (accel)</comment>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* При промяна е необходим рестарт</value>
+    <comment>Options dialog, footnote text</comment>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Преизползване на прозореца (един екземпляр)*</value>
+    <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
+  </data>
+  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
+    <value>Препращане на папката от търсенето в отворения прозорец</value>
+    <comment>Options dialog, change folder option label</comment>
+  </data>
+  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
+    <value>Ако втория екземпляр има аргумент с папка за търсене, да бъде направена промяна в отворения прозорец.</value>
+    <comment>Options dialog, change folder option tooltip</comment>
+  </data>
 </root>
