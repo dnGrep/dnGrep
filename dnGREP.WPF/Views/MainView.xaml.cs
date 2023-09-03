@@ -248,6 +248,21 @@ namespace dnGREP.WPF
             }), null);
         }
 
+        /// <summary>
+        /// Show drag-drop effects for file drop when over the search path text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchPath_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                bool append = e.KeyStates.HasFlag(DragDropKeyStates.ControlKey);
+                e.Effects = append ? DragDropEffects.Copy : DragDropEffects.Move;
+                e.Handled = true;
+            }
+        }
+
         private void MainForm_Closing(object? sender, CancelEventArgs e)
         {
             if (viewModel.IsReplaceRunning)

@@ -358,7 +358,8 @@
                                   ItemsSource="{Binding FastPathBookmarks}"
                                   TextSearch.TextPath="StringValue"
                                   ItemTemplate="{StaticResource comboBoxPinDelTemplate}"
-                                  IsEditable="True">
+                                  IsEditable="True"
+                                  PreviewDragOver="SearchPath_PreviewDragOver">
                             <ComboBox.ItemContainerStyle>
                                 <Style TargetType="ComboBoxItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
