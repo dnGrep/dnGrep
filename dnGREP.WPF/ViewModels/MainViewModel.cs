@@ -240,7 +240,7 @@ namespace dnGREP.WPF
 
         #region Private Variables and Properties
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private DateTime timer = DateTime.Now;
+        private DateTime searchReplaceStartTime = DateTime.Now;
         private readonly BackgroundWorker workerSearchReplace = new();
         private BookmarksWindow? bookmarkWindow;
         private readonly HashSet<string> currentSearchFiles = new();
@@ -259,6 +259,22 @@ namespace dnGREP.WPF
 
         public PreviewViewModel PreviewModel { get; internal set; } = new(); // the default will get replaced with the real view model
 
+        public bool IsReplaceRunning => CurrentGrepOperation == GrepOperation.Replace;
+
+        public TimeSpan CurrentSearchDuration
+        {
+            get
+            {
+                if (CurrentGrepOperation == GrepOperation.Search ||
+                    CurrentGrepOperation == GrepOperation.SearchInResults)
+                {
+                    return DateTime.Now.Subtract(searchReplaceStartTime);
+                }
+                return TimeSpan.Zero;
+            }
+        }
+
+        public TimeSpan LatestSearchDuration { get; private set; } = TimeSpan.Zero;
         #endregion
 
         #region Presentation Properties
@@ -945,10 +961,12 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    timer = DateTime.Now;
+                    searchReplaceStartTime = DateTime.Now;
 
                     if (param.Operation == GrepOperation.Search || param.Operation == GrepOperation.SearchInResults)
                     {
+                        LatestSearchDuration = TimeSpan.Zero;
+
                         int sizeFrom = 0;
                         int sizeTo = 0;
                         if (param.UseFileSizeFilter == FileSizeFilter.Yes)
@@ -1296,7 +1314,11 @@ namespace dnGREP.WPF
                     }
                     else
                     {
-                        TimeSpan duration = DateTime.Now.Subtract(timer);
+                        TimeSpan duration = DateTime.Now.Subtract(searchReplaceStartTime);
+                        if (!IsScriptRunning)
+                        {
+                            LatestSearchDuration = duration;
+                        }
                         int successFileCount = 0;
                         totalMatchCount = 0;
                         if (e.Result is List<GrepSearchResult> results)
@@ -1334,7 +1356,7 @@ namespace dnGREP.WPF
                         IsResultTreeMaximized = true;
                     }
 
-                    if (Application.Current is App app && app.AppArgs != null)
+                    if (Application.Current is App app && app.AppArgs != null && !IsScriptRunning)
                     {
                         ProcessCommands(app.AppArgs);
                     }
@@ -1430,7 +1452,7 @@ namespace dnGREP.WPF
             }
             finally
             {
-                if (pauseCancelTokenSource?.IsCancellationRequested ?? false && IsScriptRunning)
+                if ((pauseCancelTokenSource?.IsCancellationRequested ?? false) && IsScriptRunning)
                 {
                     CancelScript();
                 }
@@ -1949,7 +1971,7 @@ namespace dnGREP.WPF
 
         private void PauseResume()
         {
-            if (CurrentGrepOperation != GrepOperation.None &&
+            if ((IsScriptRunning || CurrentGrepOperation != GrepOperation.None) &&
                 pauseCancelTokenSource != null)
             {
                 if (pauseCancelTokenSource.IsPaused)
@@ -1963,6 +1985,99 @@ namespace dnGREP.WPF
                     IsSearchReplacePaused = true;
                 }
             }
+        }
+
+        internal bool ConfirmScriptExit()
+        {
+            if (IsScriptRunning && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ConfirmExitScript))
+            {
+                if (pauseCancelTokenSource != null && !pauseCancelTokenSource.IsPaused)
+                {
+                    pauseCancelTokenSource.Pause();
+                    IsSearchReplacePaused = true;
+                }
+
+                MessageBoxCustoms customs = new()
+                {
+                    YesButtonText = Resources.MessageBox_YesExitAnyway,
+                    DoNotAskAgainCheckboxText = Resources.MessageBox_DoNotShowThisMessageAgain,
+                    ShowDoNotAskAgainCheckbox = true,
+                };
+
+                var answer = CustomMessageBox.Show(Resources.MessageBox_AScriptIsRunning + Environment.NewLine +
+                    Resources.MessageBox_DoYouWantToStopTheScriptAndExit,
+                    Resources.MessageBox_DnGrep,
+                    MessageBoxButtonEx.YesNo, MessageBoxImage.Question,
+                    MessageBoxResultEx.No, customs,
+                    TranslationSource.Instance.FlowDirection);
+
+                if (answer.Result == MessageBoxResultEx.No &&
+                    pauseCancelTokenSource != null && pauseCancelTokenSource.IsPaused)
+                {
+                    pauseCancelTokenSource.Resume();
+                    IsSearchReplacePaused = false;
+                }
+
+                if (answer.DoNotAskAgain)
+                {
+                    GrepSettings.Instance.Set(GrepSettings.Key.ConfirmExitScript, false);
+                }
+
+                return answer.Result == MessageBoxResultEx.Yes;
+            }
+
+            return true;
+        }
+
+        internal bool ConfirmSearchExit()
+        {
+            TimeSpan threshold = TimeSpan.FromMinutes(GrepSettings.Instance.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration));
+            bool pastThreshold = CurrentSearchDuration > threshold || LatestSearchDuration > threshold;
+
+            if (pastThreshold && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ConfirmExitSearch))
+            {
+                bool running = CurrentSearchDuration > TimeSpan.Zero;
+                if (running && pauseCancelTokenSource != null && !pauseCancelTokenSource.IsPaused)
+                {
+                    pauseCancelTokenSource.Pause();
+                    IsSearchReplacePaused = true;
+                }
+
+                MessageBoxCustoms customs = new()
+                {
+                    YesButtonText = Resources.MessageBox_YesExitAnyway,
+                    DoNotAskAgainCheckboxText = Resources.MessageBox_DoNotShowThisMessageAgain,
+                    ShowDoNotAskAgainCheckbox = true,
+                };
+
+                string msg = running ? 
+                    Resources.MessageBox_TheSearchIsRunning + Environment.NewLine +
+                    Resources.MessageBox_DoYouWantToStopTheSearchAndExit : 
+                    Resources.MessageBox_SearchResultsWillBeClearedOnExit + Environment.NewLine +
+                    Resources.MessageBox_DoYouWantToExit;
+
+                var answer = CustomMessageBox.Show(msg,
+                    Resources.MessageBox_DnGrep,
+                    MessageBoxButtonEx.YesNo, MessageBoxImage.Question,
+                    MessageBoxResultEx.No, customs,
+                    TranslationSource.Instance.FlowDirection);
+
+                if (answer.Result == MessageBoxResultEx.No &&
+                    pauseCancelTokenSource != null && pauseCancelTokenSource.IsPaused)
+                {
+                    pauseCancelTokenSource.Resume();
+                    IsSearchReplacePaused = false;
+                }
+
+                if (answer.DoNotAskAgain)
+                {
+                    GrepSettings.Instance.Set(GrepSettings.Key.ConfirmExitSearch, false);
+                }
+
+                return answer.Result == MessageBoxResultEx.Yes;
+            }
+
+            return true;
         }
 
         private void ShowOptions()
@@ -2844,7 +2959,7 @@ namespace dnGREP.WPF
 
         private void PopulateIgnoreFilters(bool firstTime)
         {
-            var selectedFilter = firstTime ? 
+            var selectedFilter = firstTime ?
                 GrepSettings.Instance.Get<string>(GrepSettings.Key.IgnoreFilter) :
                 IgnoreFilter.Name;
 

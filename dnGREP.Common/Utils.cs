@@ -248,7 +248,7 @@ namespace dnGREP.Common
                 TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting, fileName, directoryName),
                 Resources.MessageBox_DnGrep,
                 MessageBoxButtonEx.YesAllNoAllCancel, MessageBoxImage.Question,
-                MessageBoxResultEx.No, MessageBoxCustoms.Once,
+                MessageBoxResultEx.No, MessageBoxCustoms.DoNotAskAgain,
                 TranslationSource.Instance.FlowDirection);
 
             if (answer.Result == MessageBoxResultEx.Cancel)
@@ -259,7 +259,7 @@ namespace dnGREP.Common
             {
                 overwrite = false;
 
-                if (answer.OnceOnly)
+                if (answer.DoNotAskAgain)
                 {
                     // set the action to overwrite:no for the remainder of the set of files
                     action = OverwriteFile.No;
@@ -275,7 +275,7 @@ namespace dnGREP.Common
                 // set the action to overwrite:no for the remainder of the set of files
                 action = OverwriteFile.No;
 
-                if (answer.OnceOnly)
+                if (answer.DoNotAskAgain)
                 {
                     // set user option to no for future operations
                     string key = deleteAfterCopy ? GrepSettings.Key.OverwriteFilesOnMove : GrepSettings.Key.OverwriteFilesOnCopy;
@@ -286,7 +286,7 @@ namespace dnGREP.Common
             {
                 overwrite = true;
 
-                if (answer.OnceOnly)
+                if (answer.DoNotAskAgain)
                 {
                     // set the action to overwrite:yes for the remainder of the set of files
                     action = OverwriteFile.Yes;
@@ -302,7 +302,7 @@ namespace dnGREP.Common
                 // set the action to overwrite:yes for the remainder of the set of files
                 action = OverwriteFile.Yes;
 
-                if (answer.OnceOnly)
+                if (answer.DoNotAskAgain)
                 {
                     // set user option to yes for future operations
                     string key = deleteAfterCopy ? GrepSettings.Key.OverwriteFilesOnMove : GrepSettings.Key.OverwriteFilesOnCopy;

@@ -296,6 +296,12 @@ namespace dnGREP.Common
             public const string IsSingletonInstance = "IsSingletonInstance";
             [DefaultValue(true)]
             public const string PassSearchFolderToSingleton = "PassSearchFolderToSingleton";
+            [DefaultValue(false)]
+            public const string ConfirmExitScript = "ConfirmExitScript";
+            [DefaultValue(false)]
+            public const string ConfirmExitSearch = "ConfirmExitSearch";
+            [DefaultValue(10.0)]
+            public const string ConfirmExitSearchDuration = "ConfirmExitSearchDuration";
         }
 
         private static GrepSettings? instance;

@@ -6,8 +6,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Localization.Properties;
@@ -42,9 +42,6 @@ namespace dnGREP.WPF
         }
 
         public ObservableCollection<string> ScriptMessages { get; } = new();
-
-        [ObservableProperty]
-        private bool isScriptRunning = false;
 
         public void InitializeScriptTargets()
         {
@@ -456,7 +453,7 @@ namespace dnGREP.WPF
                     case "log":
                         if (string.Equals(stmt.Value, "time", StringComparison.OrdinalIgnoreCase))
                         {
-                            TimeSpan elapsedTime = DateTime.Now - scriptStartTime;
+                            TimeSpan elapsedTime = DateTime.Now.Subtract(scriptStartTime);
                             logger.Info($"Script [{currentScriptFile}] elapsed time: {elapsedTime.GetPrettyString()}");
                         }
                         else if (!string.IsNullOrWhiteSpace(stmt.Value))
@@ -480,6 +477,8 @@ namespace dnGREP.WPF
             {
                 currentScript = null;
                 IsScriptRunning = false;
+                pauseCancelTokenSource?.Dispose();
+                pauseCancelTokenSource = null;
 
                 if (ScriptMessages.Count > 0 || showEmptyMessageWindow)
                 {
@@ -495,6 +494,11 @@ namespace dnGREP.WPF
 
                     MessagesWindow dlg = new(this);
                     dlg.ShowDialog();
+                }
+
+                if (Application.Current is App app && app.AppArgs != null)
+                {
+                    ProcessCommands(app.AppArgs);
                 }
             }
 

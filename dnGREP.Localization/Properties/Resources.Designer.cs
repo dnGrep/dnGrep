@@ -3375,6 +3375,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow it complete or cancel it before exiting..
+        /// </summary>
+        public static string MessageBox_AllowItCompleteOrCancelItBeforeExiting {
+            get {
+                return ResourceManager.GetString("MessageBox_AllowItCompleteOrCancelItBeforeExiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue?.
         /// </summary>
         public static string MessageBox_AreYouSureYouWantToContinue {
@@ -3389,6 +3398,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString {
             get {
                 return ResourceManager.GetString("MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A script is running..
+        /// </summary>
+        public static string MessageBox_AScriptIsRunning {
+            get {
+                return ResourceManager.GetString("MessageBox_AScriptIsRunning", resourceCulture);
             }
         }
         
@@ -3537,11 +3555,47 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not show this message again.
+        /// </summary>
+        public static string MessageBox_DoNotShowThisMessageAgain {
+            get {
+                return ResourceManager.GetString("MessageBox_DoNotShowThisMessageAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue?.
         /// </summary>
         public static string MessageBox_DoYouWantToContinue {
             get {
                 return ResourceManager.GetString("MessageBox_DoYouWantToContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to exit?.
+        /// </summary>
+        public static string MessageBox_DoYouWantToExit {
+            get {
+                return ResourceManager.GetString("MessageBox_DoYouWantToExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to stop the script and exit?.
+        /// </summary>
+        public static string MessageBox_DoYouWantToStopTheScriptAndExit {
+            get {
+                return ResourceManager.GetString("MessageBox_DoYouWantToStopTheScriptAndExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to stop the search and exit?.
+        /// </summary>
+        public static string MessageBox_DoYouWantToStopTheSearchAndExit {
+            get {
+                return ResourceManager.GetString("MessageBox_DoYouWantToStopTheSearchAndExit", resourceCulture);
             }
         }
         
@@ -3717,6 +3771,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace in files is running..
+        /// </summary>
+        public static string MessageBox_ReplaceInFilesIsRunning {
+            get {
+                return ResourceManager.GetString("MessageBox_ReplaceInFilesIsRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resources file &apos;{0}&apos;, is not a resx file..
         /// </summary>
         public static string MessageBox_ResourcesFile0IsNotAResxFile {
@@ -3785,6 +3848,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_SearchPathInTheFieldIsNotValid {
             get {
                 return ResourceManager.GetString("MessageBox_SearchPathInTheFieldIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search results will be cleared on exit..
+        /// </summary>
+        public static string MessageBox_SearchResultsWillBeClearedOnExit {
+            get {
+                return ResourceManager.GetString("MessageBox_SearchResultsWillBeClearedOnExit", resourceCulture);
             }
         }
         
@@ -3942,6 +4014,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The search is running..
+        /// </summary>
+        public static string MessageBox_TheSearchIsRunning {
+            get {
+                return ResourceManager.GetString("MessageBox_TheSearchIsRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This bookmark is associated with {0} other folders..
         /// </summary>
         public static string MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders {
@@ -4014,6 +4095,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yes, exit anyway.
+        /// </summary>
+        public static string MessageBox_YesExitAnyway {
+            get {
+                return ResourceManager.GetString("MessageBox_YesExitAnyway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes to _All.
         /// </summary>
         public static string MessageBox_YesToAll {
@@ -4082,6 +4172,24 @@ namespace dnGREP.Localization.Properties {
         public static string Options_Ask {
             get {
                 return ResourceManager.GetString("Options_Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask for confirmation on exit when Script is running.
+        /// </summary>
+        public static string Options_AskForConfirmationOnExitWhenScriptIsRunning {
+            get {
+                return ResourceManager.GetString("Options_AskForConfirmationOnExitWhenScriptIsRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask for confirmation on exit when Search runs longer than.
+        /// </summary>
+        public static string Options_AskForConfirmationOnExitWhenSearchRunsLongerThan {
+            get {
+                return ResourceManager.GetString("Options_AskForConfirmationOnExitWhenSearchRunsLongerThan", resourceCulture);
             }
         }
         
@@ -4293,6 +4401,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        public static string Options_Exit {
+            get {
+                return ResourceManager.GetString("Options_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to files and individual matches.
         /// </summary>
         public static string Options_FilesAndIndividualMatches {
@@ -4496,6 +4613,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_MaximumNumberOfParallelSearches {
             get {
                 return ResourceManager.GetString("Options_MaximumNumberOfParallelSearches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutes.
+        /// </summary>
+        public static string Options_Minutes {
+            get {
+                return ResourceManager.GetString("Options_Minutes", resourceCulture);
             }
         }
         

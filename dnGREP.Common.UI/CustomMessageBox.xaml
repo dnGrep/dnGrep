@@ -27,7 +27,7 @@
                 Padding="20,12">
 
             <StackPanel>
-                <CheckBox x:Name="onceCheckbox" 
+                <CheckBox x:Name="doNotAskAgainCheckbox" 
                           Content="{l:Loc Key='MessageBox_DoNotAskAgain'}"
                           Margin="3,-3,3,6"
                           Style="{x:Null}"/>

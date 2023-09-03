@@ -250,6 +250,42 @@ namespace dnGREP.WPF
 
         private void MainForm_Closing(object? sender, CancelEventArgs e)
         {
+            if (viewModel.IsReplaceRunning)
+            {
+                MessageBox.Show(Localization.Properties.Resources.MessageBox_ReplaceInFilesIsRunning + Environment.NewLine +
+                    Localization.Properties.Resources.MessageBox_AllowItCompleteOrCancelItBeforeExiting,
+                    Localization.Properties.Resources.MessageBox_DnGrep,
+                    MessageBoxButton.OK, MessageBoxImage.Warning,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+
+                e.Cancel = true;
+                return;
+            }
+
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ConfirmExitScript) &&
+                viewModel.IsScriptRunning)
+            {
+                if (!viewModel.ConfirmScriptExit())
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ConfirmExitSearch))
+            {
+                TimeSpan threshold = TimeSpan.FromMinutes(GrepSettings.Instance.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration));
+
+                if (viewModel.CurrentSearchDuration > threshold || viewModel.LatestSearchDuration > threshold)
+                {
+                    if (!viewModel.ConfirmSearchExit())
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+            }
+
             viewModel.CancelSearch();
 
             if (WindowState == WindowState.Normal)
