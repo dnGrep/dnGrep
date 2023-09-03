@@ -3641,4 +3641,60 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>更改后需重启*</value>
     <comment>Options dialog, footnote text</comment>
   </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>正在执行文件内替换。</value>
+    <comment>Message box text for: Replace is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>一枚脚本正在运行。</value>
+    <comment>Message box text for: Script is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>不再显示这则消息</value>
+    <comment>Message box button text for confirmation dialog</comment>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>允许其完成或在退出前取消它。</value>
+    <comment>Message box text for: Replace is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>你想停止脚本并退出吗？</value>
+    <comment>Message box text for: Script is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>是的，退出</value>
+    <comment>Message box button text for exit confirmation</comment>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>搜索运行中。</value>
+    <comment>Message box text for: Search is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>你想停止搜索并退出吗？</value>
+    <comment>Message box text for: Search is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>退出时将清除搜索结果。</value>
+    <comment>Message box text for: Search results on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>你想退出吗？</value>
+    <comment>Message box text for: Search results on exit, line 2</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>脚本运行时，需要确认方可退出</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>退出</value>
+    <comment>Options dialog, Exit group header label</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>退出时请求确认，如搜索运行时长超过</value>
+    <comment>Options dialog, confirmation option check box label</comment>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>分钟</value>
+    <comment>Options dialog, confirmation value units label</comment>
+  </data>
 </root>
