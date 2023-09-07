@@ -783,4 +783,12 @@
     <value>الكلمة بالكامل</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>تصفيه:</value>
+    <comment>Main window, ignore filter file selector label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>تصفيه:</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
 </root>
