@@ -1958,7 +1958,7 @@ namespace dnGREP.WPF
                 if (!list[idx].IsPinned)
                     return idx;
             }
-            return 0;
+            return list.Count;
         }
 
         private void Cancel()
