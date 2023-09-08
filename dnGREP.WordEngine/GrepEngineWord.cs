@@ -7,6 +7,7 @@ using System.Text;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using NLog;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Engines.Word
 {
@@ -83,6 +84,13 @@ namespace dnGREP.Engines.Word
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             Load();
+            if (!isLoaded)
+            {
+                return new List<GrepSearchResult>
+                {
+                    new GrepSearchResult(file, searchPattern, Resources.Error_DocumentReadFailed, false)
+                };
+            }
             SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
             switch (searchType)
             {
@@ -175,6 +183,7 @@ namespace dnGREP.Engines.Word
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to search inside Word file");
+                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
             }
             return searchResults;
         }

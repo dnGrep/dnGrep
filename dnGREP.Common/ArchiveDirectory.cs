@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NLog;
 using SevenZip;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
 {
@@ -96,7 +97,7 @@ namespace dnGREP.Common
                 }
                 catch (Exception ex)
                 {
-                    string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", fileName);
+                    string msg = string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedToSearchInsideArchive0, fileName);
                     logger.Error(ex, msg);
 
                     ret = new FileData(fileName)
@@ -197,7 +198,7 @@ namespace dnGREP.Common
                         }
                         catch (Exception ex)
                         {
-                            string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", fileName + ArchiveSeparator + innerFileName);
+                            string msg = string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedToSearchInsideArchive0, fileName + ArchiveSeparator + innerFileName);
                             logger.Error(ex, msg);
 
                             fileData.ErrorMsg = msg + ": " + ex.Message;
@@ -340,7 +341,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", compositeFileName));
+                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedToSearchInsideArchive0, compositeFileName));
             }
             return true;
         }
@@ -541,7 +542,7 @@ namespace dnGREP.Common
                         }
                         catch (Exception ex)
                         {
-                            logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed extract file {0} from archive '{1}'", innerFileName, searchResult.FileNameReal));
+                            logger.Error(ex, string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedExtractFile0FromArchive1, innerFileName, searchResult.FileNameReal));
                         }
                     }
                 }
@@ -636,7 +637,7 @@ namespace dnGREP.Common
                     }
                     catch (Exception ex)
                     {
-                        logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed extract file {0} from archive '{1}'", innerFileName, diskFile));
+                        logger.Error(ex, string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedExtractFile0FromArchive1, innerFileName, diskFile));
                     }
                 }
             }

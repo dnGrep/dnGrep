@@ -10,6 +10,7 @@ using dnGREP.Common;
 using dnGREP.Common.IO;
 using NLog;
 using SevenZip;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Engines
 {
@@ -119,7 +120,7 @@ namespace dnGREP.Engines
                 }
                 catch (Exception ex)
                 {
-                    string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", fileName);
+                    string msg = string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedToSearchInsideArchive0, fileName);
                     logger.Error(ex, msg);
 
                     FileData fileData = new(fileName)
@@ -217,7 +218,7 @@ namespace dnGREP.Engines
                         }
                         catch (Exception ex)
                         {
-                            string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", fileName + ArchiveDirectory.ArchiveSeparator + innerFileName);
+                            string msg = string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedToSearchInsideArchive0, fileName + ArchiveDirectory.ArchiveSeparator + innerFileName);
                             logger.Error(ex, msg);
 
                             fileData.ErrorMsg = msg + ": " + ex.Message;
@@ -339,7 +340,7 @@ namespace dnGREP.Engines
             }
             catch (Exception ex)
             {
-                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", innerFileName));
+                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, Resources.Error_FailedToSearchInsideArchive0, innerFileName));
             }
 
             return innerFileResults;

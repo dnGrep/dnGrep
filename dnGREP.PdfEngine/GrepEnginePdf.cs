@@ -111,7 +111,7 @@ namespace dnGREP.Engines.Pdf
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Failed to search inside PDF file: '{file}'");
+                logger.Error(ex, $"Failed to search inside PDF file: [{file}]");
                 return new List<GrepSearchResult>()
                 {
                     new GrepSearchResult(file, searchPattern, ex.Message, false)
@@ -189,12 +189,12 @@ namespace dnGREP.Engines.Pdf
                 string errorMessage = string.Empty;
                 errorMessage = process.ExitCode switch
                 {
-                    1 => Localization.Properties.Resources.PDF_ErrorOpeningPDFFile,
-                    2 => Localization.Properties.Resources.PDF_ErrorOpeningAnOutputFile,
-                    3 => Localization.Properties.Resources.PDF_ErrorRelatedToPDFPermissions,
-                    _ => Localization.Properties.Resources.PDF_OtherError,
+                    1 => Localization.Properties.Resources.Error_ErrorOpeningPDFFile,
+                    2 => Localization.Properties.Resources.Error_ErrorOpeningAnOutputFile,
+                    3 => Localization.Properties.Resources.Error_ErrorRelatedToPDFPermissions,
+                    _ => Localization.Properties.Resources.Error_OtherError,
                 };
-                throw new PdfToTextException(TranslationSource.Format(Localization.Properties.Resources.PDF_PdftotextReturned0Reading1, errorMessage, pdfFilePath));
+                throw new PdfToTextException(TranslationSource.Format(Localization.Properties.Resources.Error_PdftotextReturned0Reading1, errorMessage, pdfFilePath));
             }
         }
 

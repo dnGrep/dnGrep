@@ -118,7 +118,8 @@ namespace dnGREP.Engines.OpenXml
             }
             catch (Exception ex)
             {
-                logger.Error(ex, string.Format("Failed to search inside Excel file '{0}'", file));
+                logger.Error(ex, string.Format("Failed to search inside Excel file [{0}]", file));
+                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
             }
         }
 
@@ -155,6 +156,7 @@ namespace dnGREP.Engines.OpenXml
             catch (Exception ex)
             {
                 logger.Error(ex, string.Format("Failed to search inside Word file '{0}'", file));
+                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
             }
         }
 
@@ -198,6 +200,7 @@ namespace dnGREP.Engines.OpenXml
             catch (Exception ex)
             {
                 logger.Error(ex, string.Format("Failed to search inside PowerPoint file '{0}'", file));
+                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
             }
         }
 
