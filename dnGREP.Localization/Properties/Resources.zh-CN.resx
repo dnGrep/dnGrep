@@ -3605,4 +3605,96 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>保存源文件夹布局</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>请输入下列区间内的值：{0}-{1}。</value>
+    <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>无效的输入类型</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>非法字符</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>筛选器：</value>
+    <comment>Main window, ignore filter file selector label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>筛选器：</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
+  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
+    <value>如果第二个实例有搜索文件夹参数，则更改现有窗口中的文件夹。</value>
+    <comment>Options dialog, change folder option tooltip</comment>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>重用现有窗口（单个实例） *</value>
+    <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
+  </data>
+  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
+    <value>转发搜索文件夹到现有窗口</value>
+    <comment>Options dialog, change folder option label</comment>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>更改后需重启*</value>
+    <comment>Options dialog, footnote text</comment>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>正在执行文件内替换。</value>
+    <comment>Message box text for: Replace is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>一枚脚本正在运行。</value>
+    <comment>Message box text for: Script is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>不再显示这则消息</value>
+    <comment>Message box button text for confirmation dialog</comment>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>允许其完成或在退出前取消它。</value>
+    <comment>Message box text for: Replace is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>你想停止脚本并退出吗？</value>
+    <comment>Message box text for: Script is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>是的，退出</value>
+    <comment>Message box button text for exit confirmation</comment>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>搜索运行中。</value>
+    <comment>Message box text for: Search is running on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>你想停止搜索并退出吗？</value>
+    <comment>Message box text for: Search is running on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>退出时将清除搜索结果。</value>
+    <comment>Message box text for: Search results on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>你想退出吗？</value>
+    <comment>Message box text for: Search results on exit, line 2</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>脚本运行时，需要确认方可退出</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>退出</value>
+    <comment>Options dialog, Exit group header label</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>退出时请求确认，如搜索运行时长超过</value>
+    <comment>Options dialog, confirmation option check box label</comment>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>分钟</value>
+    <comment>Options dialog, confirmation value units label</comment>
+  </data>
 </root>
