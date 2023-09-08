@@ -988,6 +988,78 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document read failed.
+        /// </summary>
+        public static string Error_DocumentReadFailed {
+            get {
+                return ResourceManager.GetString("Error_DocumentReadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error opening an output file.
+        /// </summary>
+        public static string Error_ErrorOpeningAnOutputFile {
+            get {
+                return ResourceManager.GetString("Error_ErrorOpeningAnOutputFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error opening PDF file.
+        /// </summary>
+        public static string Error_ErrorOpeningPDFFile {
+            get {
+                return ResourceManager.GetString("Error_ErrorOpeningPDFFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error related to PDF permissions.
+        /// </summary>
+        public static string Error_ErrorRelatedToPDFPermissions {
+            get {
+                return ResourceManager.GetString("Error_ErrorRelatedToPDFPermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed extract file &apos;{0}&apos; from archive &apos;{1}&apos;.
+        /// </summary>
+        public static string Error_FailedExtractFile0FromArchive1 {
+            get {
+                return ResourceManager.GetString("Error_FailedExtractFile0FromArchive1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to search inside archive &apos;{0}&apos;.
+        /// </summary>
+        public static string Error_FailedToSearchInsideArchive0 {
+            get {
+                return ResourceManager.GetString("Error_FailedToSearchInsideArchive0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other error.
+        /// </summary>
+        public static string Error_OtherError {
+            get {
+                return ResourceManager.GetString("Error_OtherError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pdftotext returned &apos;{0}&apos; reading &apos;{1}&apos;.
+        /// </summary>
+        public static string Error_PdftotextReturned0Reading1 {
+            get {
+                return ResourceManager.GetString("Error_PdftotextReturned0Reading1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arguments:.
         /// </summary>
         public static string Help_CmdLineArguments {

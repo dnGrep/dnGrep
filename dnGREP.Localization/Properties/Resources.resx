@@ -3707,4 +3707,36 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>minutes</value>
     <comment>Options dialog, confirmation value units label</comment>
   </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Error opening PDF file</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Error opening an output file</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Error related to PDF permissions</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>Other error</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext returned '{0}' reading '{1}'</value>
+    <comment>format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Failed to search inside archive '{0}'</value>
+    <comment>Error message returned to results list. {0} is the file name</comment>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Failed extract file '{0}' from archive '{1}'</value>
+    <comment>Error message returned to the results list. {0} is the file name and {1} is the archive file name</comment>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>Document read failed</value>
+    <comment>Error message returned to results list</comment>
+  </data>
 </root>

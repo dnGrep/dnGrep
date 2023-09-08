@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Common.IO;
+using dnGREP.Localization;
 using NLog;
 
 namespace dnGREP.Engines.Pdf
@@ -49,10 +50,12 @@ namespace dnGREP.Engines.Pdf
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
+            string tempFile = string.Empty;
+            IGrepEngine? engine = null;
             try
             {
                 // Extract text
-                string tempFile = ExtractText(file);
+                tempFile = ExtractText(file);
                 if (!File.Exists(tempFile))
                     throw new ApplicationException("pdftotext failed to create text file.");
 
@@ -64,43 +67,62 @@ namespace dnGREP.Engines.Pdf
                 if (encoding == Encoding.Default)
                     encoding = Utils.GetFileEncoding(tempFile);
 
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter, searchType);
-                List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
-
-                if (results.Count > 0)
+                engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter, searchType);
+                if (engine != null)
                 {
-                    using (FileStream reader = new(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan))
-                    using (StreamReader streamReader = new(reader, encoding, false, 4096, true))
+                    List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+
+                    if (results.Count > 0)
                     {
-                        foreach (var result in results)
+                        using (FileStream reader = new(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan))
+                        using (StreamReader streamReader = new(reader, encoding, false, 4096, true))
                         {
-                            result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, initParams.LinesBefore, initParams.LinesAfter, true);
+                            foreach (var result in results)
+                            {
+                                result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, initParams.LinesBefore, initParams.LinesAfter, true);
+                            }
+                        }
+
+                        foreach (GrepSearchResult result in results)
+                        {
+                            result.IsReadOnlyFileType = true;
+                            result.FileNameDisplayed = file;
+                            if (PreviewPlainText)
+                            {
+                                result.FileInfo.TempFile = tempFile;
+                            }
+                            result.FileNameReal = file;
                         }
                     }
 
-                    foreach (GrepSearchResult result in results)
-                    {
-                        result.IsReadOnlyFileType = true;
-                        result.FileNameDisplayed = file;
-                        if (PreviewPlainText)
-                        {
-                            result.FileInfo.TempFile = tempFile;
-                        }
-                        result.FileNameReal = file;
-                    }
+                    return results;
                 }
-
-                GrepEngineFactory.ReturnToPool(tempFile, engine);
-
-                return results;
             }
             catch (OperationCanceledException)
             {
                 // expected exception
             }
+            catch (PdfToTextException ex)
+            {
+                return new List<GrepSearchResult>()
+                {
+                    new GrepSearchResult(file, searchPattern, ex.Message, false)
+                };
+            }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Failed to search inside PDF file: {ex.Message}");
+                logger.Error(ex, $"Failed to search inside PDF file: [{file}]");
+                return new List<GrepSearchResult>()
+                {
+                    new GrepSearchResult(file, searchPattern, ex.Message, false)
+                };
+            }
+            finally
+            {
+                if (engine != null)
+                {
+                    GrepEngineFactory.ReturnToPool(tempFile, engine);
+                }
             }
             return new List<GrepSearchResult>();
         }
@@ -146,13 +168,13 @@ namespace dnGREP.Engines.Pdf
             string fileName = Path.GetFileNameWithoutExtension(pdfFilePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
             string tempFileName = Path.Combine(tempFolder, fileName);
 
-            pdfFilePath = PathEx.GetLongPath(pdfFilePath);
+            string longPdfFilePath = PathEx.GetLongPath(pdfFilePath);
             string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions) ?? "-layout -enc UTF-8 -bom -cfg xpdfrc";
 
             using Process process = new();
             // use command prompt
             process.StartInfo.FileName = pathToPdfToText;
-            process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, pdfFilePath, tempFileName);
+            process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, longPdfFilePath, tempFileName);
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.WorkingDirectory = Path.Combine(Utils.GetCurrentPath(typeof(GrepEnginePdf)), "xpdf");
             process.StartInfo.CreateNoWindow = true;
@@ -167,12 +189,12 @@ namespace dnGREP.Engines.Pdf
                 string errorMessage = string.Empty;
                 errorMessage = process.ExitCode switch
                 {
-                    1 => "Error opening PDF file",
-                    2 => "Error opening an output file",
-                    3 => "Error related to PDF permissions",
-                    _ => "Unknown error",
+                    1 => Localization.Properties.Resources.Error_ErrorOpeningPDFFile,
+                    2 => Localization.Properties.Resources.Error_ErrorOpeningAnOutputFile,
+                    3 => Localization.Properties.Resources.Error_ErrorRelatedToPDFPermissions,
+                    _ => Localization.Properties.Resources.Error_OtherError,
                 };
-                throw new Exception($"pdftotext returned '{errorMessage}' converting '{pdfFilePath}'");
+                throw new PdfToTextException(TranslationSource.Format(Localization.Properties.Resources.Error_PdftotextReturned0Reading1, errorMessage, pdfFilePath));
             }
         }
 
