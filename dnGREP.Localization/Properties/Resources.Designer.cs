@@ -5193,6 +5193,51 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error opening an output file.
+        /// </summary>
+        public static string PDF_ErrorOpeningAnOutputFile {
+            get {
+                return ResourceManager.GetString("PDF_ErrorOpeningAnOutputFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error opening PDF file.
+        /// </summary>
+        public static string PDF_ErrorOpeningPDFFile {
+            get {
+                return ResourceManager.GetString("PDF_ErrorOpeningPDFFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error related to PDF permissions.
+        /// </summary>
+        public static string PDF_ErrorRelatedToPDFPermissions {
+            get {
+                return ResourceManager.GetString("PDF_ErrorRelatedToPDFPermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other error.
+        /// </summary>
+        public static string PDF_OtherError {
+            get {
+                return ResourceManager.GetString("PDF_OtherError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pdftotext returned &apos;{0}&apos; reading &apos;{1}&apos;.
+        /// </summary>
+        public static string PDF_PdftotextReturned0Reading1 {
+            get {
+                return ResourceManager.GetString("PDF_PdftotextReturned0Reading1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changes text editor zoom.
         /// </summary>
         public static string Preview_ChangesTextEditorZoom {

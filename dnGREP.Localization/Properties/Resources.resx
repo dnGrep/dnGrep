@@ -3707,4 +3707,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>minutes</value>
     <comment>Options dialog, confirmation value units label</comment>
   </data>
+  <data name="PDF_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Error opening PDF file</value>
+    <comment>pdftotext error message</comment>
+  </data>
+  <data name="PDF_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Error opening an output file</value>
+    <comment>pdftotext error message</comment>
+  </data>
+  <data name="PDF_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Error related to PDF permissions</value>
+    <comment>pdftotext error message</comment>
+  </data>
+  <data name="PDF_OtherError" xml:space="preserve">
+    <value>Other error</value>
+    <comment>pdftotext error message</comment>
+  </data>
+  <data name="PDF_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext returned '{0}' reading '{1}'</value>
+    <comment>format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
+  </data>
 </root>
