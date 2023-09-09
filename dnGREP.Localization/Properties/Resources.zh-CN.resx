@@ -3697,4 +3697,36 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>分钟</value>
     <comment>Options dialog, confirmation value units label</comment>
   </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>打开输出文件出错</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>未能在压缩文件 '{0}' 内搜索</value>
+    <comment>Error message returned to results list. {0} is the file name</comment>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>与 PDF 权限相关的错误</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext 返回 '{0}' ，发生于读取 '{1}' 时</value>
+    <comment>format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>文档读取失败</value>
+    <comment>Error message returned to results list</comment>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>打开 PDF 文件出错</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>其他错误</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>从压缩文件 '{1}' 提取文件 '{0}' 失败</value>
+    <comment>Error message returned to the results list. {0} is the file name and {1} is the archive file name</comment>
+  </data>
 </root>
