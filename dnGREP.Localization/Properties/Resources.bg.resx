@@ -3697,4 +3697,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Оставете го да звърши или го прекъснете преди изход.</value>
     <comment>Message box text for: Replace is running on exit, line 2</comment>
   </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Грешка при отваряне на изходния файл</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Грешка, свързана с правата на PDF</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Грешка при отваряне на PDF файл</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>Друг вид грешка</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
 </root>
