@@ -51,18 +51,34 @@ namespace dnGREP.Engines.OpenXml
 
         private static string GetFormattedValue(IExcelDataReader reader, int columnIndex, CultureInfo culture)
         {
-            string result;
+            string? result = null;
             var value = reader.GetValue(columnIndex);
             var formatString = reader.GetNumberFormatString(columnIndex);
             if (formatString != null)
             {
-                var format = new NumberFormat(formatString);
-                result = format.Format(value, culture);
+                try
+                {
+                    var format = new NumberFormat(formatString);
+                    if (format.IsValid)
+                    {
+                        result = format.Format(value, culture);
+                    }
+                }
+                catch (OverflowException)
+                {
+                    try
+                    {
+                        if (value is double num && formatString.Contains("E", StringComparison.OrdinalIgnoreCase))
+                        {
+                            result = num.ToString(formatString, culture);
+                        }
+                    }
+                    catch { }
+                }
             }
-            else
-            {
-                result = Convert.ToString(value, culture) ?? string.Empty;
-            }
+
+            result ??= Convert.ToString(value, culture) ?? string.Empty;
+
             return result.Replace('\r', ' ').Replace('\n', ' ');
         }
     }
