@@ -6,11 +6,14 @@ using System.Text;
 using dnGREP.Common;
 using ExcelDataReader;
 using ExcelNumberFormat;
+using NLog;
 
 namespace dnGREP.Engines.OpenXml
 {
     internal static class ExcelReader
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream,
             PauseCancelToken pauseCancelToken)
         {
@@ -53,6 +56,11 @@ namespace dnGREP.Engines.OpenXml
         {
             string? result = null;
             var value = reader.GetValue(columnIndex);
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
             var formatString = reader.GetNumberFormatString(columnIndex);
             if (formatString != null)
             {
@@ -66,6 +74,7 @@ namespace dnGREP.Engines.OpenXml
                 }
                 catch (OverflowException)
                 {
+                    // issue 951: there is a known error in ExcelNumberFormat formatting zero in scientific format
                     try
                     {
                         if (value is double num && formatString.Contains("E", StringComparison.OrdinalIgnoreCase))
@@ -74,6 +83,10 @@ namespace dnGREP.Engines.OpenXml
                         }
                     }
                     catch { }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, $"Error formatting Excel value '{value}' with format '{formatString}'");
                 }
             }
 
