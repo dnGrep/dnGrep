@@ -3555,4 +3555,120 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>過濾器:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>非法字元</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>分鐘</value>
+    <comment>Options dialog, confirmation value units label</comment>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>退出時將清除搜尋結果.</value>
+    <comment>Message box text for: Search results on exit, line 1</comment>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>不再顯示此訊息</value>
+    <comment>Message box button text for confirmation dialog</comment>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>無效的輸入類型</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>開啟輸出文件錯誤</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>於壓縮檔案 '{0}' 中搜尋失敗</value>
+    <comment>Error message returned to results list. {0} is the file name</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>請求退出確認, 當搜索執行時間超過</value>
+    <comment>Options dialog, confirmation option check box label</comment>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>請輸入範圍內的值: {0}-{1}.</value>
+    <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
+  </data>
+  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
+    <value>若第二個實例有搜尋資料夾參數, 則變更現有視窗中的資料夾.</value>
+    <comment>Options dialog, change folder option tooltip</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>您想停止此腳本並退出嗎?</value>
+    <comment>Message box text for: Script is running on exit, line 2</comment>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>重新使用現有視窗 (單一實例) *</value>
+    <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>你要退出嗎?</value>
+    <comment>Message box text for: Search results on exit, line 2</comment>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>是的, 退出</value>
+    <comment>Message box button text for exit confirmation</comment>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>與 PDF 權限相關的錯誤</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>讀取 '{1}' , pdftotext 傳回 '{0}'</value>
+    <comment>format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>一個腳本正在執行.</value>
+    <comment>Message box text for: Script is running on exit, line 1</comment>
+  </data>
+  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
+    <value>將搜尋資料夾轉送到現有視窗</value>
+    <comment>Options dialog, change folder option label</comment>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>文件讀取失敗</value>
+    <comment>Error message returned to results list</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>腳本執行時需確認才可退出</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>退出</value>
+    <comment>Options dialog, Exit group header label</comment>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>正在執行檔案中取代.</value>
+    <comment>Message box text for: Replace is running on exit, line 1</comment>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>開啟 PDF 檔案錯誤</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>其他錯誤</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>搜尋正在進行中.</value>
+    <comment>Message box text for: Search is running on exit, line 1</comment>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>於壓縮檔案 '{1}' 中提取檔案 '{0}' 失敗</value>
+    <comment>Error message returned to the results list. {0} is the file name and {1} is the archive file name</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>您想停止搜尋並退出嗎?</value>
+    <comment>Message box text for: Search is running on exit, line 2</comment>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* 變更後需重新啟動</value>
+    <comment>Options dialog, footnote text</comment>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>允許其完成或在退出前取消它.</value>
+    <comment>Message box text for: Replace is running on exit, line 2</comment>
+  </data>
 </root>
