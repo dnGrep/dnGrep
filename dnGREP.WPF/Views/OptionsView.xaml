@@ -792,6 +792,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" 
                                    Text="{l:Loc Key='Options_ArchiveExtensions'}"
@@ -807,6 +809,15 @@
                                  Text="{Binding MappedExtensions}" TextWrapping="Wrap"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" 
+                                   Text="{l:Loc Key='Options_OpenTheWholeArchiveForTheseExtensions'}"
+                                   VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                 Margin="0,3,12,3" Width="540"
+                                 HorizontalAlignment="Left"
+                                 Text="{Binding CustomExtensions}" TextWrapping="Wrap"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                     </Grid>
                 </GroupBox>
 
@@ -819,7 +830,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="252.333"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,3"
                                    Text="{l:Loc Key='Options_PdfToTextExeCommandLineOptions'}"/>

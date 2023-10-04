@@ -3739,4 +3739,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Document read failed</value>
     <comment>Error message returned to results list</comment>
   </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>On file open, open the whole archive for these extensions:</value>
+    <comment>Options dialog, custom archive extension label</comment>
+  </data>
 </root>

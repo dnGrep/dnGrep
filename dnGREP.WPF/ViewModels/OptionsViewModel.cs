@@ -142,6 +142,7 @@ namespace dnGREP.WPF
         private const string Match = "%match";
         private const string Column = "%column";
         private const string ArchiveNameKey = "Archive";
+        private const string CustomNameKey = " Custom";
         private const string Enabledkey = "Enabled";
         private const string PreviewTextKey = "PreviewText";
         private static GrepSettings Settings => GrepSettings.Instance;
@@ -758,8 +759,12 @@ namespace dnGREP.WPF
                 string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey,
                     ArchiveDirectory.DefaultExtensions));
 
-                archiveOptions = new PluginOptions(ArchiveNameKey, true, false,
-                    extensionList, string.Join(", ", ArchiveDirectory.DefaultExtensions));
+                string customExtensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey + CustomNameKey,
+                    new List<string>()));
+
+                ArchiveOptions = new PluginOptions(ArchiveNameKey, true, false,
+                    extensionList, string.Join(", ", ArchiveDirectory.DefaultExtensions),
+                    customExtensionList);
             }
 
             Plugins.Clear();
@@ -770,6 +775,8 @@ namespace dnGREP.WPF
                 string previewTextKey = nameKey + PreviewTextKey;
                 string extensionList = string.Join(", ", Settings.GetExtensionList(nameKey,
                     plugin.DefaultExtensions));
+                string customExtensionList = string.Join(", ", Settings.GetExtensionList(nameKey + CustomNameKey,
+                    new List<string>()));
 
                 bool isEnabled = true;
                 if (GrepSettings.Instance.ContainsKey(enabledkey))
@@ -781,7 +788,8 @@ namespace dnGREP.WPF
 
                 var pluginOptions = new PluginOptions(
                     plugin.Name, isEnabled, previewTextEnabled,
-                    extensionList, string.Join(", ", plugin.DefaultExtensions));
+                    extensionList, string.Join(", ", plugin.DefaultExtensions),
+                    customExtensionList);
 
                 Plugins.Add(pluginOptions);
             }
@@ -892,6 +900,7 @@ namespace dnGREP.WPF
             if (ArchiveOptions.IsChanged)
             {
                 Settings.SetExtensions(ArchiveNameKey, ArchiveOptions.MappedExtensions);
+                Settings.SetExtensions(ArchiveNameKey + CustomNameKey, ArchiveOptions.CustomExtensions);
 
                 ArchiveOptions.SetUnchanged();
                 ArchiveDirectory.Reinitialize();
@@ -907,6 +916,7 @@ namespace dnGREP.WPF
                 Settings.Set(enabledkey, plugin.IsEnabled);
                 Settings.Set(previewTextKey, plugin.PreviewTextEnabled);
                 Settings.SetExtensions(nameKey, plugin.MappedExtensions);
+                Settings.SetExtensions(nameKey + CustomNameKey, plugin.CustomExtensions);
 
                 plugin.SetUnchanged();
             }
@@ -1152,18 +1162,20 @@ namespace dnGREP.WPF
     public partial class PluginOptions : CultureAwareViewModel
     {
         public PluginOptions(string name, bool enabled, bool previewTextEnabled,
-            string extensions, string defaultExtensions)
+            string extensions, string defaultExtensions, string customExtensions)
         {
             Name = name;
             IsEnabled = origIsEnabled = enabled;
             PreviewTextEnabled = origPreviewTextEnabled = previewTextEnabled;
             MappedExtensions = origMappedExtensions = extensions;
             DefaultExtensions = defaultExtensions ?? string.Empty;
+            CustomExtensions = origCustomExtensions = customExtensions ?? string.Empty;
         }
 
         public bool IsChanged => IsEnabled != origIsEnabled ||
             PreviewTextEnabled != origPreviewTextEnabled ||
-            MappedExtensions != origMappedExtensions;
+            MappedExtensions != origMappedExtensions ||
+            CustomExtensions != origCustomExtensions;
 
         [ObservableProperty]
         private string name = string.Empty;
@@ -1183,6 +1195,12 @@ namespace dnGREP.WPF
 
         public string DefaultExtensions { get; private set; }
 
+
+        [ObservableProperty]
+        private string customExtensions = string.Empty;
+        private string origCustomExtensions = string.Empty;
+
+
         public ICommand ResetExtensions => new RelayCommand(
             p => MappedExtensions = DefaultExtensions,
             q => !MappedExtensions.Equals(DefaultExtensions, StringComparison.Ordinal));
@@ -1193,6 +1211,7 @@ namespace dnGREP.WPF
             origIsEnabled = IsEnabled;
             origPreviewTextEnabled = PreviewTextEnabled;
             origMappedExtensions = MappedExtensions;
+            origCustomExtensions = CustomExtensions;
         }
     }
 

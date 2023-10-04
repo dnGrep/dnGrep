@@ -878,7 +878,21 @@ namespace dnGREP.WPF
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
-                    ArchiveDirectory.OpenFile(fileArg);
+                    var customExtensions = Settings.GetExtensionList("Archive Custom", new List<string>());
+                    if (customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
+                    {
+                        // open the archive, not the inner file
+                        GrepSearchResult grepSearchResult = new(result.GrepResult.FileNameReal,
+                            result.GrepResult.Pattern, string.Empty, true);
+
+                        Utils.OpenFile(new(grepSearchResult, grepSearchResult.Pattern, pageNumber, lineNumber,
+                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                    }
+                    else
+                    {
+                        ArchiveDirectory.OpenFile(fileArg);
+                    }
                 }
                 else
                 {
