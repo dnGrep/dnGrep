@@ -6,11 +6,14 @@ using System.Text;
 using dnGREP.Common;
 using ExcelDataReader;
 using ExcelNumberFormat;
+using NLog;
 
 namespace dnGREP.Engines.OpenXml
 {
     internal static class ExcelReader
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream,
             PauseCancelToken pauseCancelToken)
         {
@@ -51,18 +54,44 @@ namespace dnGREP.Engines.OpenXml
 
         private static string GetFormattedValue(IExcelDataReader reader, int columnIndex, CultureInfo culture)
         {
-            string result;
+            string? result = null;
             var value = reader.GetValue(columnIndex);
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
             var formatString = reader.GetNumberFormatString(columnIndex);
             if (formatString != null)
             {
-                var format = new NumberFormat(formatString);
-                result = format.Format(value, culture);
+                try
+                {
+                    var format = new NumberFormat(formatString);
+                    if (format.IsValid)
+                    {
+                        result = format.Format(value, culture);
+                    }
+                }
+                catch (OverflowException)
+                {
+                    // issue 951: there is a known error in ExcelNumberFormat formatting zero in scientific format
+                    try
+                    {
+                        if (value is double num && formatString.Contains("E", StringComparison.OrdinalIgnoreCase))
+                        {
+                            result = num.ToString(formatString, culture);
+                        }
+                    }
+                    catch { }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, $"Error formatting Excel value '{value}' with format '{formatString}'");
+                }
             }
-            else
-            {
-                result = Convert.ToString(value, culture) ?? string.Empty;
-            }
+
+            result ??= Convert.ToString(value, culture) ?? string.Empty;
+
             return result.Replace('\r', ' ').Replace('\n', ' ');
         }
     }
