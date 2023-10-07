@@ -219,7 +219,7 @@
     <comment>Message box title</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
@@ -1202,7 +1202,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
