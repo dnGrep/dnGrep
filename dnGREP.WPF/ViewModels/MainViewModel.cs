@@ -806,10 +806,24 @@ namespace dnGREP.WPF
                 OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
                     matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                bool isInArchive = Utils.IsArchive(result.GrepResult.FileNameReal);
-                if (isInArchive)
+                if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
-                    ArchiveDirectory.OpenFile(fileArg);
+                    var customExtensions = Settings.GetExtensionList("Archive Custom", new List<string>());
+                    if (!useCustomEditor &&
+                        customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
+                    {
+                        // open the archive, not the inner file
+                        GrepSearchResult grepSearchResult = new(result.GrepResult.FileNameReal,
+                            result.GrepResult.Pattern, string.Empty, true);
+
+                        Utils.OpenFile(new(grepSearchResult, grepSearchResult.Pattern, pageNumber, lineNumber,
+                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                    }
+                    else
+                    {
+                        ArchiveDirectory.OpenFile(fileArg);
+                    }
                 }
                 else
                 {
@@ -879,7 +893,8 @@ namespace dnGREP.WPF
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
                     var customExtensions = Settings.GetExtensionList("Archive Custom", new List<string>());
-                    if (customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
+                    if (!useCustomEditor &&
+                        customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
                     {
                         // open the archive, not the inner file
                         GrepSearchResult grepSearchResult = new(result.GrepResult.FileNameReal,
