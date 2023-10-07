@@ -4752,6 +4752,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to On file open, open the whole archive for these extensions:.
+        /// </summary>
+        public static string Options_OpenTheWholeArchiveForTheseExtensions {
+            get {
+                return ResourceManager.GetString("Options_OpenTheWholeArchiveForTheseExtensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string Options_OptionsTitle {

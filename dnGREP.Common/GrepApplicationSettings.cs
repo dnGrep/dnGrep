@@ -302,6 +302,7 @@ namespace dnGREP.Common
             public const string ConfirmExitSearch = "ConfirmExitSearch";
             [DefaultValue(10.0)]
             public const string ConfirmExitSearchDuration = "ConfirmExitSearchDuration";
+            public const string OpenWholeArchiveExtenstions = "OpenWholeArchiveExtenstions";
         }
 
         private static GrepSettings? instance;
@@ -1059,7 +1060,8 @@ namespace dnGREP.Common
 
         public IList<string> GetExtensionList(string nameKey, IList<string> defaultExtensions)
         {
-            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey);
+            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey)
+                 .Replace(" ", "", StringComparison.Ordinal);
             string addKey = "Add" + nameKey + "Extensions";
             string remKey = "Rem" + nameKey + "Extensions";
             string listKey = nameKey + "Extensions";
@@ -1072,7 +1074,7 @@ namespace dnGREP.Common
                 if (!string.IsNullOrEmpty(csv))
                 {
                     string[] split = csv.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    var items = split.Select(s => s.TrimStart('.').Trim());
+                    var items = split.Select(s => s.TrimStart('.').Trim().ToLowerInvariant());
 
                     list = new List<string>(items);
                 }
@@ -1117,7 +1119,8 @@ namespace dnGREP.Common
 
         public void SetExtensions(string nameKey, string extensions)
         {
-            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey);
+            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey)
+                .Replace(" ", "", StringComparison.Ordinal);
             string addKey = "Add" + nameKey + "Extensions";
             string remKey = "Rem" + nameKey + "Extensions";
             string listKey = nameKey + "Extensions";
