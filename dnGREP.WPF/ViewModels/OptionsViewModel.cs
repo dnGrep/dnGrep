@@ -956,7 +956,8 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location;
+                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location
+                        .Replace("dll", "exe", StringComparison.OrdinalIgnoreCase);
                     if (assemblyPath != null)
                     {
                         if (location == "here")
@@ -1077,7 +1078,8 @@ namespace dnGREP.WPF
                 {
                     string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
-                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location;
+                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location
+                        .Replace("dll", "exe", StringComparison.OrdinalIgnoreCase);
                     if (assemblyPath != null)
                     {
                         using RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath, true);
