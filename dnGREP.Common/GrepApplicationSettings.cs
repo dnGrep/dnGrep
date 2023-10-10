@@ -302,7 +302,6 @@ namespace dnGREP.Common
             public const string ConfirmExitSearch = "ConfirmExitSearch";
             [DefaultValue(10.0)]
             public const string ConfirmExitSearchDuration = "ConfirmExitSearchDuration";
-            public const string OpenWholeArchiveExtenstions = "OpenWholeArchiveExtenstions";
         }
 
         private static GrepSettings? instance;
