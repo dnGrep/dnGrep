@@ -17,7 +17,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 install: 
-  - ps: ./dotnet-install.ps1 -Channel 7.0 -Version 7.0.401
+  - ps: ./dotnet-install.ps1 -Channel 7.0 -Version 7.0.402
 before_build:
   - cmd: nuget restore
 build:
