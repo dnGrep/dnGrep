@@ -3729,4 +3729,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>从压缩文件 '{1}' 提取文件 '{0}' 失败</value>
     <comment>Error message returned to the results list. {0} is the file name and {1} is the archive file name</comment>
   </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>打开文件时，打开这些扩展名的整个压缩包：</value>
+    <comment>Options dialog, custom archive extension label</comment>
+  </data>
 </root>

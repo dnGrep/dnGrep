@@ -3713,4 +3713,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Друг вид грешка</value>
     <comment>pdftotext error message returned to results list</comment>
   </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Грешка при търсене в архива „{0}“</value>
+    <comment>Error message returned to results list. {0} is the file name</comment>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext върна „{0}“ от „{1}“</value>
+    <comment>format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>Грешка при прочитане на документа</value>
+    <comment>Error message returned to results list</comment>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Грешка при извличане на „{0}“ от архива „{1}“</value>
+    <comment>Error message returned to the results list. {0} is the file name and {1} is the archive file name</comment>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>При отваряне на файл, следните разширения да бъдат възприемани като архив:</value>
+    <comment>Options dialog, custom archive extension label</comment>
+  </data>
 </root>
