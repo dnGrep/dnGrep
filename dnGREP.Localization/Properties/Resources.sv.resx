@@ -898,4 +898,8 @@
     <value>XPath-sökning (endast för XML-dokument)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
   </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Wildcard</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
+  </data>
 </root>
