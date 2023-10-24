@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,276 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Ersätt med</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Booleska operatorer</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Sök efter:</value>
+    <comment>Replace window, search pattern label</comment>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Stäng</value>
+    <comment>Options dialog, close button text (accel)</comment>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>före och</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Använd .gitignore för att filtrera filer</value>
+    <comment>Main window, search option checkbox tooltip</comment>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Inkludera binärfiler</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Sök efter:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Main window, ignore filter file selector label (accel)</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Inga undermappar</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Hoppa över molnlagringsfiler</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Inga dolda</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetiskt sök</value>
+    <comment>Main window, Phonetic search type tooltip</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Söktyp</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Sök i arkiv</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>_Stäng</value>
+    <comment>Test window, Close button text (accel)</comment>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>efter</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Hela ordet</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Hoppa över molnlagringsfiler</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Booleska operatorer</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Fonetiskt sök</value>
+    <comment>Options dialog, phonetic group header label</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Sök efter</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Versalkänslig</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Använd .gitignore</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Booleska operatorer</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Redigera</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Versalkänslig</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Flytta filer…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>Inga binära</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Sök i arkiv</value>
+    <comment>Main window, checkbox label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_Text</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>versalkänslig</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Hela ordet</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Oformaterad sökning</value>
+    <comment>Main window, Text search type tooltip</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Ta bort</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>versalkänslig</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Text</value>
+    <comment>Main window, Text search type radio button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Markera grupper</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Kopiera filnamn</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Kopiera filer…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetisk</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+    <comment>Options dialog, browse for file button label</comment>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Sök efter:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>till</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Stäng</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Inkludera undermappar</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Ersätt med:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Inga binära</value>
+    <comment>Main window options summary</comment>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetisk</value>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Ersätt med:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Använd .gitignore</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Inkludera gömda mappar</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Everything index service</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
 </root>
