@@ -574,10 +574,6 @@
     <value>Max mappdjup: {0}</value>
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
-  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value></value>
-    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
-  </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
     <value>Inkludera dolda mappar</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
