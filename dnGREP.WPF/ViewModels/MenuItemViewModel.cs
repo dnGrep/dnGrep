@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,13 +11,13 @@ namespace dnGREP.WPF
     {
         public MenuItemViewModel(string? header, RelayCommand? relayCommand)
         {
-            if (relayCommand == null)
+            if (string.IsNullOrEmpty(header) && relayCommand == null)
             {
                 IsSeparator = true;
             }
             else
             {
-                Header = header ?? string.Empty;
+                Header = (header ?? string.Empty).Replace("_", "__", StringComparison.Ordinal);
                 Command = relayCommand;
             }
 
