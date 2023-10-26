@@ -344,7 +344,7 @@ namespace dnGREP.WPF
                 switch (stmt.Command)
                 {
                     case "set":
-                        if (SetCommandMap.TryGetValue(stmt.Target, out IScriptCommand? set) && !string.IsNullOrEmpty(stmt.Value))
+                        if (SetCommandMap.TryGetValue(stmt.Target, out IScriptCommand? set))
                         {
                             set.Execute(stmt.Value);
                         }
