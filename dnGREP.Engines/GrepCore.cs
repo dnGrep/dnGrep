@@ -34,6 +34,11 @@ namespace dnGREP.Common
 
         public static TimeSpan MatchTimeout { get; private set; }
 
+        public static void Initialize()
+        {
+            MatchTimeout = TimeSpan.FromSeconds(GrepSettings.Instance.Get<double>(GrepSettings.Key.MatchTimeout));
+        }
+
 
         public List<GrepSearchResult> ListFiles(IEnumerable<FileData> files, GrepSearchOption searchOptions,
             int codePage, PauseCancelToken pauseCancelToken = default)
