@@ -143,7 +143,7 @@ namespace dnGREP.WPF
         private const string Column = "%column";
         private const string ArchiveNameKey = "Archive";
         private const string CustomNameKey = " Custom";
-        private const string Enabledkey = "Enabled";
+        private const string EnabledKey = "Enabled";
         private const string PreviewTextKey = "PreviewText";
         private static GrepSettings Settings => GrepSettings.Instance;
         #endregion
@@ -205,6 +205,13 @@ namespace dnGREP.WPF
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
+                WordExtractFootnotes != Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes) ||
+                WordFootnoteReference != Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference) ||
+                WordExtractComments != Settings.Get<bool>(GrepSettings.Key.WordExtractComments) ||
+                WordCommentReference != Settings.Get<CommentRefType>(GrepSettings.Key.WordCommentReference) ||
+                WordExtractHeaders != Settings.Get<bool>(GrepSettings.Key.WordExtractHeaders) ||
+                WordExtractFooters != Settings.Get<bool>(GrepSettings.Key.WordExtractFooters) ||
+                WordHeaderFooterPosition != Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition) ||
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins) ||
                 IsChanged(VisibilityOptions)
@@ -493,6 +500,27 @@ namespace dnGREP.WPF
         private PdfNumberType pdfNumberStyle = PdfNumberType.PageNumber;
 
         [ObservableProperty]
+        private bool wordExtractComments = false;
+
+        [ObservableProperty]
+        private FootnoteRefType wordFootnoteReference = FootnoteRefType.None;
+
+        [ObservableProperty]
+        private bool wordExtractFootnotes = false;
+
+        [ObservableProperty]
+        private CommentRefType wordCommentReference = CommentRefType.None;
+
+        [ObservableProperty]
+        private bool wordExtractHeaders = false;
+
+        [ObservableProperty]
+        private bool wordExtractFooters = false;
+
+        [ObservableProperty]
+        private HeaderFooterPosition wordHeaderFooterPosition = HeaderFooterPosition.SectionStart;
+
+        [ObservableProperty]
         private PluginOptions archiveOptions;
 
         [ObservableProperty]
@@ -755,6 +783,14 @@ namespace dnGREP.WPF
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
+            WordExtractFootnotes = Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes);
+            WordFootnoteReference = Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference);
+            WordExtractComments = Settings.Get<bool>(GrepSettings.Key.WordExtractComments);
+            WordCommentReference = Settings.Get<CommentRefType>(GrepSettings.Key.WordCommentReference);
+            WordExtractHeaders = Settings.Get<bool>(GrepSettings.Key.WordExtractHeaders);
+            WordExtractFooters = Settings.Get<bool>(GrepSettings.Key.WordExtractFooters);
+            WordHeaderFooterPosition = Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition);
+
             {
                 string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey,
                     ArchiveDirectory.DefaultExtensions));
@@ -771,7 +807,7 @@ namespace dnGREP.WPF
             foreach (var plugin in GrepEngineFactory.AllPlugins.OrderBy(p => p.Name))
             {
                 string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
-                string enabledkey = nameKey + Enabledkey;
+                string enabledkey = nameKey + EnabledKey;
                 string previewTextKey = nameKey + PreviewTextKey;
                 string extensionList = string.Join(", ", Settings.GetExtensionList(nameKey,
                     plugin.DefaultExtensions));
@@ -888,6 +924,13 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
             Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
+            Settings.Set(GrepSettings.Key.WordExtractFootnotes, WordExtractFootnotes);
+            Settings.Set(GrepSettings.Key.WordFootnoteReference, WordFootnoteReference);
+            Settings.Set(GrepSettings.Key.WordExtractComments, WordExtractComments);
+            Settings.Set(GrepSettings.Key.WordCommentReference, WordCommentReference);
+            Settings.Set(GrepSettings.Key.WordExtractHeaders, WordExtractHeaders);
+            Settings.Set(GrepSettings.Key.WordExtractFooters, WordExtractFooters);
+            Settings.Set(GrepSettings.Key.WordHeaderFooterPosition, WordHeaderFooterPosition);
 
             foreach (var visOpt in VisibilityOptions)
             {
@@ -910,7 +953,7 @@ namespace dnGREP.WPF
             foreach (var plugin in Plugins)
             {
                 string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
-                string enabledkey = nameKey + Enabledkey;
+                string enabledkey = nameKey + EnabledKey;
                 string previewTextKey = nameKey + PreviewTextKey;
 
                 Settings.Set(enabledkey, plugin.IsEnabled);

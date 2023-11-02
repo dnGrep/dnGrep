@@ -302,6 +302,20 @@ namespace dnGREP.Common
             public const string ConfirmExitSearch = "ConfirmExitSearch";
             [DefaultValue(10.0)]
             public const string ConfirmExitSearchDuration = "ConfirmExitSearchDuration";
+            [DefaultValue(false)]
+            public const string WordExtractFootnotes = "WordExtractFootnotes";
+            [DefaultValue(FootnoteRefType.None)]
+            public const string WordFootnoteReference = "WordFootnoteReference";
+            [DefaultValue(false)]
+            public const string WordExtractComments = "WordExtractComments";
+            [DefaultValue(CommentRefType.None)]
+            public const string WordCommentReference = "WordCommentReference";
+            [DefaultValue(false)]
+            public const string WordExtractHeaders = "WordExtractHeaders";
+            [DefaultValue(false)]
+            public const string WordExtractFooters = "WordExtractFooters";
+            [DefaultValue(HeaderFooterPosition.SectionStart)]
+            public const string WordHeaderFooterPosition = "WordHeaderFooterPosition";
         }
 
         private static GrepSettings? instance;
