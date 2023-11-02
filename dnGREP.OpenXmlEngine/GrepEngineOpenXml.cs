@@ -22,6 +22,12 @@ namespace dnGREP.Engines.OpenXml
             get { return new string[] { "docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm" }; }
         }
 
+        public override bool Initialize(GrepEngineInitParams param, FileFilter filter)
+        {
+            WordReader.Initialize();
+            return base.Initialize(param, filter);
+        }
+
         public bool IsSearchOnly => true;
 
         public bool PreviewPlainText { get; set; }

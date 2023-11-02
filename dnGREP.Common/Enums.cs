@@ -111,4 +111,25 @@ namespace dnGREP.Common
         ReplaceWith,
     }
 
+    public enum FootnoteRefType
+    { 
+        None,
+        Superscript,
+        Character,
+        Parenthesis,
+    }
+
+    public enum CommentRefType
+    {
+        None,
+        Subscript,
+        Parenthesis
+    }
+
+    public enum HeaderFooterPosition
+    { 
+        SectionStart,
+        DocumentEnd
+    }
+
 }

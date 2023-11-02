@@ -4320,6 +4320,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment reference numbers:.
+        /// </summary>
+        public static string Options_CommentReferenceNumbers {
+            get {
+                return ResourceManager.GetString("Options_CommentReferenceNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare application.
         /// </summary>
         public static string Options_CompareApplication {
@@ -4473,11 +4482,65 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End of document.
+        /// </summary>
+        public static string Options_EndOfDocument {
+            get {
+                return ResourceManager.GetString("Options_EndOfDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string Options_Exit {
             get {
                 return ResourceManager.GetString("Options_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract comments.
+        /// </summary>
+        public static string Options_ExtractComments {
+            get {
+                return ResourceManager.GetString("Options_ExtractComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracted header and footer position:.
+        /// </summary>
+        public static string Options_ExtractedHeaderAndFooterPosition {
+            get {
+                return ResourceManager.GetString("Options_ExtractedHeaderAndFooterPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract footers.
+        /// </summary>
+        public static string Options_ExtractFooters {
+            get {
+                return ResourceManager.GetString("Options_ExtractFooters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract footnotes.
+        /// </summary>
+        public static string Options_ExtractFootnotes {
+            get {
+                return ResourceManager.GetString("Options_ExtractFootnotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract headers.
+        /// </summary>
+        public static string Options_ExtractHeaders {
+            get {
+                return ResourceManager.GetString("Options_ExtractHeaders", resourceCulture);
             }
         }
         
@@ -4518,11 +4581,47 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Footnote reference characters:.
+        /// </summary>
+        public static string Options_FootnoteReferenceCharacters {
+            get {
+                return ResourceManager.GetString("Options_FootnoteReferenceCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forward search folder to existing window.
         /// </summary>
         public static string Options_ForwardSearchFolderToExistingWindow {
             get {
                 return ResourceManager.GetString("Options_ForwardSearchFolderToExistingWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full size character.
+        /// </summary>
+        public static string Options_FullSizeCharacter {
+            get {
+                return ResourceManager.GetString("Options_FullSizeCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full size character in parenthesis.
+        /// </summary>
+        public static string Options_FullSizeCharacterInParenthesis {
+            get {
+                return ResourceManager.GetString("Options_FullSizeCharacterInParenthesis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full size number in parenthesis.
+        /// </summary>
+        public static string Options_FullSizeNumberInParenthesis {
+            get {
+                return ResourceManager.GetString("Options_FullSizeNumberInParenthesis", resourceCulture);
             }
         }
         
@@ -4689,6 +4788,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to May not be supported in all fonts.
+        /// </summary>
+        public static string Options_MayNotBeSupportedInAllFonts {
+            get {
+                return ResourceManager.GetString("Options_MayNotBeSupportedInAllFonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to minutes.
         /// </summary>
         public static string Options_Minutes {
@@ -4721,6 +4829,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_NoFixedLimit {
             get {
                 return ResourceManager.GetString("Options_NoFixedLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not shown.
+        /// </summary>
+        public static string Options_NotShown {
+            get {
+                return ResourceManager.GetString("Options_NotShown", resourceCulture);
             }
         }
         
@@ -5112,6 +5229,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Section start.
+        /// </summary>
+        public static string Options_SectionStart {
+            get {
+                return ResourceManager.GetString("Options_SectionStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected theme.
         /// </summary>
         public static string Options_SelectedTheme {
@@ -5202,6 +5328,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscript.
+        /// </summary>
+        public static string Options_Subscript {
+            get {
+                return ResourceManager.GetString("Options_Subscript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Superscipt.
+        /// </summary>
+        public static string Options_Superscipt {
+            get {
+                return ResourceManager.GetString("Options_Superscipt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking..
         /// </summary>
         public static string Options_TheMatchTimeoutLimits {
@@ -5261,6 +5405,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_WhenDeletingFiles {
             get {
                 return ResourceManager.GetString("Options_WhenDeletingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Word (docx).
+        /// </summary>
+        public static string Options_WordDocx {
+            get {
+                return ResourceManager.GetString("Options_WordDocx", resourceCulture);
             }
         }
         
