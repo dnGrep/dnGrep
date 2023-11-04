@@ -127,7 +127,7 @@ namespace dnGREP.WPF
 
             StatusMessage = string.Empty;
             ClearMatchCountStatus();
-            ResultsViewModel.SearchResults.Clear();
+            ResultsViewModel.Clear();
             UpdateReplaceButtonTooltip(true);
         }
 
@@ -212,7 +212,7 @@ namespace dnGREP.WPF
                 return 0;
             }
 
-            if (!preceedingMatches.TryGetValue(formattedGrepResult.GrepResult.Id, out int count))
+            if (!precedingMatches.TryGetValue(formattedGrepResult.GrepResult.Id, out int count))
             {
                 count = 0;
                 foreach (var item in ResultsViewModel.SearchResults)
@@ -223,7 +223,7 @@ namespace dnGREP.WPF
                     }
                     count += item.Matches;
                 }
-                preceedingMatches.Add(formattedGrepResult.GrepResult.Id, count);
+                precedingMatches.Add(formattedGrepResult.GrepResult.Id, count);
             }
             return count;
         }
@@ -247,7 +247,7 @@ namespace dnGREP.WPF
         private int processedFiles;
         private readonly List<ReplaceDef> undoList = new();
         private readonly DispatcherTimer idleTimer = new(DispatcherPriority.ContextIdle);
-        private readonly Dictionary<string, int> preceedingMatches = new();
+        private readonly Dictionary<string, int> precedingMatches = new();
         private int totalMatchCount;
         private string latestStatusMessage = string.Empty;
 
@@ -455,7 +455,7 @@ namespace dnGREP.WPF
             StatusMessage3Tooltip = string.Empty;
             StatusMessage4Tooltip = string.Empty;
 
-            preceedingMatches.Clear();
+            precedingMatches.Clear();
         }
 
         public string DropDownFontFamily { get; set; } = SystemSymbols.DropDownFontFamily;
@@ -1354,22 +1354,24 @@ namespace dnGREP.WPF
                             totalMatchCount = results.Where(r => r.IsSuccess).SelectMany(r => r.Matches).Count();
                         }
 
+                        int filesSearched = processedFiles - ResultsViewModel.FailureCount;
+
                         if (canceled)
                         {
                             StatusMessage = TranslationSource.Format(Resources.Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched,
-                                duration.GetPrettyString(), totalMatchCount, successFileCount, processedFiles);
+                                duration.GetPrettyString(), totalMatchCount, successFileCount, filesSearched);
                         }
                         else
                         {
                             StatusMessage = TranslationSource.Format(Resources.Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched,
-                                duration.GetPrettyString(), totalMatchCount, successFileCount, processedFiles);
+                                duration.GetPrettyString(), totalMatchCount, successFileCount, filesSearched);
                         }
 
                         if (IsEverythingSearchMode && Everything.EverythingSearch.CountMissingFiles > 0)
                         {
                             StatusMessage += enQuad + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
                         }
-                        logger.Info($"{StatusMessage} {Resources.Main_SearchFor.Replace("_", "", StringComparison.Ordinal)} {SearchFor}\t{duration.GetPrettyString()}\t{totalMatchCount}\t{successFileCount}\t{processedFiles}");
+                        logger.Info($"{StatusMessage} {Resources.Main_SearchFor.Replace("_", "", StringComparison.Ordinal)} {SearchFor}\t{duration.GetPrettyString()}\t{totalMatchCount}\t{successFileCount}\t{filesSearched}");
                     }
 
                     FilesFound = ResultsViewModel.SearchResults.Count > 0;
@@ -1432,7 +1434,7 @@ namespace dnGREP.WPF
                     OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     ClearMatchCountStatus();
-                    ResultsViewModel.SearchResults.Clear();
+                    ResultsViewModel.Clear();
                     UpdateReplaceButtonTooltip(false);
                 }
 
@@ -1632,7 +1634,7 @@ namespace dnGREP.WPF
                 SearchParametersChanged = false;
 
                 ClearMatchCountStatus();
-                ResultsViewModel.SearchResults.Clear();
+                ResultsViewModel.Clear();
                 UpdateReplaceButtonTooltip(true);
                 processedFiles = 0;
                 idleTimer.Start();
@@ -1817,7 +1819,7 @@ namespace dnGREP.WPF
                         workerParams.AddReplaceFiles(undoList);
 
                         ClearMatchCountStatus();
-                        ResultsViewModel.SearchResults.Clear();
+                        ResultsViewModel.Clear();
                         idleTimer.Start();
                         workerSearchReplace.RunWorkerAsync(workerParams);
                         UpdateBookmarks();
@@ -2547,7 +2549,7 @@ namespace dnGREP.WPF
                 if (success)
                 {
                     ClearMatchCountStatus();
-                    ResultsViewModel.SearchResults.Clear();
+                    ResultsViewModel.Clear();
                     FilesFound = false;
                 }
             }
@@ -2573,7 +2575,7 @@ namespace dnGREP.WPF
                 if (success)
                 {
                     ClearMatchCountStatus();
-                    ResultsViewModel.SearchResults.Clear();
+                    ResultsViewModel.Clear();
                     FilesFound = false;
                 }
             }

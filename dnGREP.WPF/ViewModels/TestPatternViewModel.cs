@@ -230,7 +230,7 @@ namespace dnGREP.WPF
                 }
             }
 
-            ResultsViewModel.SearchResults.Clear();
+            ResultsViewModel.Clear();
             ResultsViewModel.AddRangeForTestView(grepResults);
             Paragraph paragraph = new();
             if (ResultsViewModel.SearchResults.Count == 1)

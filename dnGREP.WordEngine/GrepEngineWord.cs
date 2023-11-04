@@ -86,6 +86,7 @@ namespace dnGREP.Engines.Word
             Load();
             if (!isLoaded)
             {
+                logger.Error(Resources.Error_DocumentReadFailed + $": '{file}'");
                 return new List<GrepSearchResult>
                 {
                     new GrepSearchResult(file, searchPattern, Resources.Error_DocumentReadFailed, false)
@@ -182,7 +183,7 @@ namespace dnGREP.Engines.Word
             }
             catch (Exception ex)
             {
-                logger.Error(ex, "Failed to search inside Word file");
+                logger.Error(ex, "Failed to search inside Word file '{0}'", file);
                 searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
             }
             return searchResults;

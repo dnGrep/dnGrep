@@ -1042,6 +1042,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} files could not be searched due to permissions, locks, or errors: see dnGrep log file for details.
+        /// </summary>
+        public static string Error_FilesCouldNotBeSearched {
+            get {
+                return ResourceManager.GetString("Error_FilesCouldNotBeSearched", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other error.
         /// </summary>
         public static string Error_OtherError {
@@ -1051,11 +1060,38 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pdftotext failed to create text file.
+        /// </summary>
+        public static string Error_PdftotextFailedToCreateTextFile {
+            get {
+                return ResourceManager.GetString("Error_PdftotextFailedToCreateTextFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pdftotext returned &apos;{0}&apos;.
+        /// </summary>
+        public static string Error_PdftotextReturned0 {
+            get {
+                return ResourceManager.GetString("Error_PdftotextReturned0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to pdftotext returned &apos;{0}&apos; reading &apos;{1}&apos;.
         /// </summary>
         public static string Error_PdftotextReturned0Reading1 {
             get {
                 return ResourceManager.GetString("Error_PdftotextReturned0Reading1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PDF file contains no text.
+        /// </summary>
+        public static string Error_ThisPDFFileContainsNoText {
+            get {
+                return ResourceManager.GetString("Error_ThisPDFFileContainsNoText", resourceCulture);
             }
         }
         
@@ -5279,6 +5315,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ShowFilePathInResultsPanel {
             get {
                 return ResourceManager.GetString("Options_ShowFilePathInResultsPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show files with search errors in results panel.
+        /// </summary>
+        public static string Options_ShowFilesWithSearchErrorsInResultsPanel {
+            get {
+                return ResourceManager.GetString("Options_ShowFilesWithSearchErrorsInResultsPanel", resourceCulture);
             }
         }
         

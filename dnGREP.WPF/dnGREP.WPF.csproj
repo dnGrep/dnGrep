@@ -28,6 +28,7 @@
     <AssemblyOriginatorKeyFile>dnGREP.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\ExclamationPoint.png" />
     <None Remove="nlog.config" />
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +45,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\dnGrep48.png" />
+    <Resource Include="Images\ExclamationPoint.png" />
     <Resource Include="ThemedControls\next.png" />
     <Resource Include="ThemedControls\prev.png" />
     <Resource Include="Images\dnGrep96.png" />

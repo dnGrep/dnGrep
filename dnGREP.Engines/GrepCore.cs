@@ -322,7 +322,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Error(ex, "Failed in Search");
+                logger.Error(ex, "Error searching file: '{0}'", file);
                 AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
                 if (ProcessedFile != null)
                 {

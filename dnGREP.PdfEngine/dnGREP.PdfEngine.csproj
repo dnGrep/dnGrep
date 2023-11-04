@@ -75,6 +75,7 @@
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj" />
     <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj" />
+    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
