@@ -3733,4 +3733,72 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>打开文件时，打开这些扩展名的整个压缩包：</value>
     <comment>Options dialog, custom archive extension label</comment>
   </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>圆括号内全尺寸字符</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>提取附注</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>不显示</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>提取脚注</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>可能不是所有字体都支持</value>
+    <comment>Options dialog, radio button tooltip</comment>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+    <comment>Options dialog, section heading</comment>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>提取脚注</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>提取页眉</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>文档末尾</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>圆括号内全尺寸编号</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>脚注参照字符集：</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>子脚本</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>全尺寸字符</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>提取的页眉和脚注位置：</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>附注参考编号：</value>
+    <comment>Options dialog, options group label</comment>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Superscipt</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>段落开头</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
