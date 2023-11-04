@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using dnGREP.Localization;
 using NLog;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Engines.Pdf
 {
@@ -57,7 +59,31 @@ namespace dnGREP.Engines.Pdf
                 // Extract text
                 tempFile = ExtractText(file);
                 if (!File.Exists(tempFile))
-                    throw new ApplicationException("pdftotext failed to create text file.");
+                {
+                    string message = Resources.Error_PdftotextFailedToCreateTextFile;
+                    logger.Error(message + $": '{file}'");
+                    return new List<GrepSearchResult>()
+                    {
+                        new GrepSearchResult(file, searchPattern, message, false)
+                    };
+                }
+
+                FileInfo fileInfo = new(tempFile);
+                if (fileInfo.Length < 8)
+                {
+                    string text = File.ReadAllText(tempFile, Encoding.UTF8);
+                    // strip control characters
+                    text = new string(text.Where(c => char.IsLetterOrDigit(c) || (c >= ' ' && c <= byte.MaxValue)).ToArray());
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        string message = Resources.Error_ThisPDFFileContainsNoText;
+                        logger.Error(message + $": '{file}'");
+                        return new List<GrepSearchResult>()
+                        {
+                            new GrepSearchResult(file, searchPattern, message, false)
+                        };
+                    }
+                }
 
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
@@ -104,6 +130,7 @@ namespace dnGREP.Engines.Pdf
             }
             catch (PdfToTextException ex)
             {
+                logger.Error(ex.Message); // message is sufficient, no need for stack trace
                 return new List<GrepSearchResult>()
                 {
                     new GrepSearchResult(file, searchPattern, ex.Message, false)
@@ -111,7 +138,7 @@ namespace dnGREP.Engines.Pdf
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Failed to search inside PDF file: [{file}]");
+                logger.Error(ex, $"Failed to search inside PDF file: '{file}'");
                 return new List<GrepSearchResult>()
                 {
                     new GrepSearchResult(file, searchPattern, ex.Message, false)
@@ -189,12 +216,12 @@ namespace dnGREP.Engines.Pdf
                 string errorMessage = string.Empty;
                 errorMessage = process.ExitCode switch
                 {
-                    1 => Localization.Properties.Resources.Error_ErrorOpeningPDFFile,
-                    2 => Localization.Properties.Resources.Error_ErrorOpeningAnOutputFile,
-                    3 => Localization.Properties.Resources.Error_ErrorRelatedToPDFPermissions,
-                    _ => Localization.Properties.Resources.Error_OtherError,
+                    1 => Resources.Error_ErrorOpeningPDFFile,
+                    2 => Resources.Error_ErrorOpeningAnOutputFile,
+                    3 => Resources.Error_ErrorRelatedToPDFPermissions,
+                    _ => Resources.Error_OtherError,
                 };
-                throw new PdfToTextException(TranslationSource.Format(Localization.Properties.Resources.Error_PdftotextReturned0Reading1, errorMessage, pdfFilePath));
+                throw new PdfToTextException(TranslationSource.Format(Resources.Error_PdftotextReturned0, errorMessage));
             }
         }
 

@@ -35,6 +35,12 @@ namespace dnGREP.WPF
             SearchResultsMessenger.Register<ITreeItem>("IsSelectedChanged", OnSelectionChanged);
         }
 
+        public void Clear()
+        {
+            SearchResults.Clear();
+            FailureCount = 0;
+        }
+
         public PathSearchText PathSearchText { get; internal set; } = new();
 
         private void OnSelectionChanged(ITreeItem item)
@@ -198,35 +204,46 @@ namespace dnGREP.WPF
 
         public void AddRange(List<GrepSearchResult> list)
         {
-            foreach (var l in list)
+            foreach (var r in list)
             {
-                var fmtResult = new FormattedGrepResult(l, FolderPath)
+                if (!r.IsSuccess)
                 {
-                    WrapText = WrapText
-                };
-                SearchResults.Add(fmtResult);
+                    FailureCount++;
+                }
 
-                // moved this check out of FormattedGrepResult constructor:
-                // does not work correctly in TestPatternView, which does not lazy load
-                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
+                bool showErrors = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults);
+                if (r.IsSuccess || showErrors)
                 {
-                    fmtResult.IsExpanded = true;
+                    var fmtResult = new FormattedGrepResult(r, FolderPath)
+                    {
+                        WrapText = WrapText
+                    };
+                    SearchResults.Add(fmtResult);
+
+                    // moved this check out of FormattedGrepResult constructor:
+                    // does not work correctly in TestPatternView, which does not lazy load
+                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
+                    {
+                        fmtResult.IsExpanded = true;
+                    }
                 }
             }
         }
 
         public void AddRangeForTestView(List<GrepSearchResult> list)
         {
-            foreach (var l in list)
+            foreach (var r in list)
             {
-                SearchResults.Add(new FormattedGrepResult(l, FolderPath));
+                SearchResults.Add(new FormattedGrepResult(r, FolderPath));
             }
         }
 
         public void AddRange(IEnumerable<FormattedGrepResult> items)
         {
             foreach (var item in items)
+            {
                 SearchResults.Add(item);
+            }
         }
 
         public string FolderPath { get; set; } = string.Empty;
@@ -275,6 +292,15 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private double resultsScale = 1.0;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(HasFailures))]
+        [NotifyPropertyChangedFor(nameof(FileReadErrors))]
+        public int failureCount;
+
+        public bool HasFailures => FailureCount > 0;
+
+        public string FileReadErrors => TranslationSource.Format(Resources.Error_FilesCouldNotBeSearched, FailureCount);
 
         public bool HasSelection
         {

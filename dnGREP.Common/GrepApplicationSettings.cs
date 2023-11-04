@@ -78,6 +78,8 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string ShowFilePathInResults = "ShowFilePathInResults";
             [DefaultValue(true)]
+            public const string ShowFileErrorsInResults = "ShowFileErrorsInResults";
+            [DefaultValue(true)]
             public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
             [DefaultValue(true)]
             public const string DetectEncodingForFileNamePattern = "DetectEncodingForFileNamePattern";

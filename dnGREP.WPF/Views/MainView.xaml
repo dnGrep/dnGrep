@@ -242,7 +242,7 @@
                                Style="{StaticResource LabelTextBlockStyle}"/>
                 </StatusBarItem>
                 <StatusBarItem DockPanel.Dock="Left">
-                    <CheckBox Margin="3,0" Background="{DynamicResource Control.Static.Background}"
+                    <CheckBox Margin="3,0,0,0" Background="{DynamicResource Control.Static.Background}"
                               ToolTip="{Binding ResultOptionsButtonTooltip}"
                               Template="{DynamicResource ExpanderButtonTemplate}"
                               IsChecked="{Binding IsResultOptionsExpanded}"
@@ -260,6 +260,13 @@
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Visibility="{Binding IsSearchReplacePaused, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     </Grid>
+                </StatusBarItem>
+                <StatusBarItem DockPanel.Dock="Left">
+                    <Border Background="#D0ffff00" CornerRadius="4"
+                        Visibility="{Binding ResultsViewModel.HasFailures, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Image Source="/dnGREP;component/Images/ExclamationPoint.png" Stretch="Uniform" Width="28" Height="20"
+                           ToolTip="{Binding ResultsViewModel.FileReadErrors}"/>
+                    </Border>
                 </StatusBarItem>
                 <StatusBarItem DockPanel.Dock="Left">
                     <TextBlock Margin="3,0"

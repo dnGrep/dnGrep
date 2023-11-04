@@ -170,6 +170,7 @@ namespace dnGREP.WPF
                 CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
                 CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
+                ShowFileErrorsInResults != Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults) ||
                 AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
                 DetectEncodingForFileNamePattern != Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern) ||
                 AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
@@ -396,6 +397,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool showFilePathInResults;
+
+        [ObservableProperty]
+        private bool showFileErrorsInResults;
 
         [ObservableProperty]
         private bool showLinesInContext;
@@ -722,6 +726,7 @@ namespace dnGREP.WPF
             CompareApplicationPath = Settings.Get<string>(GrepSettings.Key.CompareApplication);
             CompareApplicationArgs = Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
+            ShowFileErrorsInResults = Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults);
             AllowSearchWithEmptyPattern = Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             DetectEncodingForFileNamePattern = Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern);
             AutoExpandSearchTree = Settings.Get<bool>(GrepSettings.Key.ExpandResults);
@@ -889,6 +894,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.CompareApplication, CompareApplicationPath);
             Settings.Set(GrepSettings.Key.CompareApplicationArgs, CompareApplicationArgs);
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
+            Settings.Set(GrepSettings.Key.ShowFileErrorsInResults, ShowFileErrorsInResults);
             Settings.Set(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
             Settings.Set(GrepSettings.Key.DetectEncodingForFileNamePattern, DetectEncodingForFileNamePattern);
             Settings.Set(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);

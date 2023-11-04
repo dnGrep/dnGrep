@@ -3725,7 +3725,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
     <value>pdftotext returned '{0}' reading '{1}'</value>
-    <comment>format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
+    <comment>Format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
   </data>
   <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
     <value>Failed to search inside archive '{0}'</value>
@@ -3737,7 +3737,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Error_DocumentReadFailed" xml:space="preserve">
     <value>Document read failed</value>
-    <comment>Error message returned to results list</comment>
+    <comment>Word plugin error message returned to results list</comment>
   </data>
   <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
     <value>On file open, open the whole archive for these extensions:</value>
@@ -3810,5 +3810,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_CommentReferenceNumbers" xml:space="preserve">
     <value>Comment reference numbers:</value>
     <comment>Options dialog, options group label</comment>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Show files with search errors in results panel</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>{0} files could not be searched due to permissions, locks, or errors: see dnGrep log file for details</value>
+    <comment>Main window tooltip. {0} is the count of file read errors</comment>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>This PDF file contains no text</value>
+    <comment>Main window search results message</comment>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext failed to create text file</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext returned '{0}'</value>
+    <comment>Format string for pdftotext error messages: {0} is the error message</comment>
   </data>
 </root>
