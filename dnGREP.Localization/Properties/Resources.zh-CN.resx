@@ -3801,4 +3801,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>段落开头</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>在结果面板中显示搜索出错的文件</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext 返回了 '{0}'</value>
+    <comment>Format string for pdftotext error messages: {0} is the error message</comment>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext 未能创建文本文件</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>由于权限、锁定或错误，有 {0} 个文件无法被搜素：请查看 dnGrep 日志文件了解详情</value>
+    <comment>Main window tooltip. {0} is the count of file read errors</comment>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>此 PDF 文件不包含文本</value>
+    <comment>Main window search results message</comment>
+  </data>
 </root>
