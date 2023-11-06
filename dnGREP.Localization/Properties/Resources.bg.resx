@@ -3801,4 +3801,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>В началото на секцията</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Файлове с грешки от търсенето в панела с резултати</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext върна „{0}“</value>
+    <comment>Format string for pdftotext error messages: {0} is the error message</comment>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>Грешка при създаване на файл от pdftotext</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>{0} файла не са претърсени поради липса на достъп, били са заключени или грешки. За подробности вижте дневника на dnGrep</value>
+    <comment>Main window tooltip. {0} is the count of file read errors</comment>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>Този PDF не съдържа текст</value>
+    <comment>Main window search results message</comment>
+  </data>
 </root>
