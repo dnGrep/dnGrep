@@ -3831,4 +3831,44 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>pdftotext returned '{0}'</value>
     <comment>Format string for pdftotext error messages: {0} is the error message</comment>
   </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Copy and rename result files using regular expressions</value>
+    <comment>Script editor command tooltip </comment>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Error: pattern is required for argument {0}</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Error: True or False is required for argument {0}</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Error: path is required for argument {0}</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Error: {0} for argument {1}</value>
+    <comment>Script copy command validation error message. {0} is the error message and {1} is the command argument name.</comment>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>Could not create destination directory: '{0}'</value>
+    <comment>Script copy command error message.  {0} is the directory name.</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>Destination file exists and overwrite is false: '{0}'</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>Destination file is the same as the source file: {0}</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>Error {0} processing file '{1}'</value>
+    <comment>Script copy command error message. {0} is the error message and {1} is the source path and file name.</comment>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>Copied '{0}' to '{1}'</value>
+    <comment>Script copy command success message. {0} is the source file name and {1} is the destination file name.</comment>
+  </data>
 </root>

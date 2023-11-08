@@ -41,7 +41,7 @@ namespace dnGREP.WPF
             return result.Skip(1).ToArray(); // Drop the program path, and return array of all strings
         }
 
-        private static IEnumerable<string> ParseLine(string input)
+        internal static IEnumerable<string> ParseLine(string input)
         {
             int startPosition = 0;
             bool isInQuotes = false;
@@ -107,7 +107,7 @@ namespace dnGREP.WPF
             return string.Join(";", parts);
         }
 
-        private static string StripQuotes(string input)
+        internal static string StripQuotes(string input)
         {
             if (input.Length > 2 && input.StartsWith("\"", StringComparison.Ordinal) && input.EndsWith("\"", StringComparison.Ordinal))
             {

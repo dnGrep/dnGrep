@@ -988,6 +988,87 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copied &apos;{0}&apos; to &apos;{1}&apos;.
+        /// </summary>
+        public static string CopyCommand_Copied0To1 {
+            get {
+                return ResourceManager.GetString("CopyCommand_Copied0To1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create destination directory: &apos;{0}&apos;.
+        /// </summary>
+        public static string CopyCommand_CouldNotCreateDestinationDirectory0 {
+            get {
+                return ResourceManager.GetString("CopyCommand_CouldNotCreateDestinationDirectory0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination file exists and overwrite is false: &apos;{0}&apos;.
+        /// </summary>
+        public static string CopyCommand_DestinationFileExistsAndOverwriteIsFalse0 {
+            get {
+                return ResourceManager.GetString("CopyCommand_DestinationFileExistsAndOverwriteIsFalse0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination file is the same as the source file: {0}.
+        /// </summary>
+        public static string CopyCommand_DestinationFileIsTheSameAsTheSourceFile0 {
+            get {
+                return ResourceManager.GetString("CopyCommand_DestinationFileIsTheSameAsTheSourceFile0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: {0} for argument {1}.
+        /// </summary>
+        public static string CopyCommand_Error0ForArgument1 {
+            get {
+                return ResourceManager.GetString("CopyCommand_Error0ForArgument1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error {0} processing file &apos;{1}&apos;.
+        /// </summary>
+        public static string CopyCommand_Error0ProcessingFile1 {
+            get {
+                return ResourceManager.GetString("CopyCommand_Error0ProcessingFile1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: path is required for argument {0}.
+        /// </summary>
+        public static string CopyCommand_ErrorPathIsRequiredForArgument0 {
+            get {
+                return ResourceManager.GetString("CopyCommand_ErrorPathIsRequiredForArgument0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: pattern is required for argument {0}.
+        /// </summary>
+        public static string CopyCommand_ErrorPatternIsRequiredForArgument0 {
+            get {
+                return ResourceManager.GetString("CopyCommand_ErrorPatternIsRequiredForArgument0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: True or False is required for argument {0}.
+        /// </summary>
+        public static string CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0 {
+            get {
+                return ResourceManager.GetString("CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document read failed.
         /// </summary>
         public static string Error_DocumentReadFailed {
@@ -6872,6 +6953,15 @@ namespace dnGREP.Localization.Properties {
         public static string ScriptHint_bookmark_use_value {
             get {
                 return ResourceManager.GetString("ScriptHint_bookmark_use_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy and rename result files using regular expressions.
+        /// </summary>
+        public static string ScriptHint_copy {
+            get {
+                return ResourceManager.GetString("ScriptHint_copy", resourceCulture);
             }
         }
         

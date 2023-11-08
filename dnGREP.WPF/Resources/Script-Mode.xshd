@@ -32,6 +32,7 @@
       <Word>resetfilters</Word>
       <Word>sort</Word>
       <Word>undo</Word>
+      <Word>copy</Word>
       <Word>copyfiles</Word>
       <Word>movefiles</Word>
       <Word>deletefiles</Word>
@@ -112,6 +113,10 @@
       <Word>powershell</Word>
       <Word>cmd</Word>
       <Word>time</Word>
+      <Word>match</Word>
+      <Word>rename</Word>
+      <Word>overwrite</Word>
+      <Word>out</Word>
     </Keywords>
     <Keywords foreground="#FF016183">
       <Word>False</Word>

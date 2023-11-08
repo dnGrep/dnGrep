@@ -389,6 +389,10 @@ namespace dnGREP.WPF
                         UndoCommand.Execute(false);
                         break;
 
+                    case "copy":
+                        CopyCommand(stmt.Value);
+                        break;
+
                     case "copyfiles":
                         CopyFilesCommand.Execute(ScriptManager.Instance.ExpandEnvironmentVariables(stmt.Value));
                         break;
@@ -503,6 +507,45 @@ namespace dnGREP.WPF
             }
 
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void CopyCommand(string value)
+        {
+            if (FilesFound)
+            {
+                CopyCommand cmd = new(value);
+
+                if (cmd.Errors.Count > 0)
+                {
+                    foreach (var error in cmd.Errors)
+                    {
+                        AddScriptMessage(error);
+                    }
+                    CancelScript();
+                    return;
+                }
+
+                bool success = cmd.Execute(ResultsViewModel.GetList());
+                if (cmd.Errors.Count > 0)
+                {
+                    foreach (var error in cmd.Errors)
+                    {
+                        AddScriptMessage(error);
+                    }
+                }
+                if (cmd.Messages.Count > 0)
+                {
+                    foreach (var msg in cmd.Messages)
+                    {
+                        AddScriptMessage(msg);
+                    }
+                }
+
+                if (!success)
+                {
+                    CancelScript();
+                }
+            }
         }
 
         private void RunCommand(string target, string value)
