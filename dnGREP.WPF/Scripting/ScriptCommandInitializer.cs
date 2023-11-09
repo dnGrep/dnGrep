@@ -571,6 +571,14 @@ namespace dnGREP.WPF
             };
             scriptCommands.Add(cmd);
 
+            scriptCommands.Add(new ScriptCommandDefinition() 
+            { 
+                Command = "copy",
+                Priority = cmdPriority--,
+                ValueType = typeof(string),
+                Description = Resources.ScriptHint_copy,
+                ValueHint = "-match [pattern] -rename [pattern] -overwrite [True/False] -out [destination]"
+            });
 
             scriptCommands.Add(new ScriptCommandDefinition()
             {
