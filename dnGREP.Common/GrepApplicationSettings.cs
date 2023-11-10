@@ -324,6 +324,8 @@ namespace dnGREP.Common
             public const string BookmarkColumnWidths = "BookmarkColumnWidths";
             public const string BookmarkWindowBounds = "BookmarkWindowBounds";
             public const string BookmarkWindowState = "BookmarkWindowState";
+            [DefaultValue(true)]
+            public const string EscapeQuotesInMatchArgument = "EscapeQuotesInMatchArgument";
         }
 
         private static GrepSettings? instance;

@@ -15,6 +15,8 @@ namespace dnGREP.Common
             {"Atom", new ConfigurationTemplate("atom.exe", @"%file:%line:%column", "AppDataLocal") },
             {"GVim", new ConfigurationTemplate("gvim.exe", @"+/""%match"" +%line %file", "ProgramFilesx86") },
             {"Notepad++", new ConfigurationTemplate("notepad++.exe", @"-n%line -c%column %file", "ProgramFilesx86") },
+            {"Notepad3", new ConfigurationTemplate("notepad3.exe", @"/m ""%match"" %file", "ProgramFilesx86") },
+            {"Sublime Text", new ConfigurationTemplate("subl.exe", @"%file:%line:%column", "ProgramFiles") },
             {"VSCode", new ConfigurationTemplate("code.exe", @"-r -g %file:%line:%column", "AppDataLocal", "ProgramFiles") },
         };
 

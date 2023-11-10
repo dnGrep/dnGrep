@@ -393,6 +393,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -417,7 +418,10 @@
                                    Text="{l:Loc Key='Options_EditorArguments'}" />
                         <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3"
+                        <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="3"
+                                  Content="{Binding EscapeQuotesLabel, FallbackValue='Escape quotes'}"
+                                  IsChecked="{Binding EscapeQuotesInMatchArgument}"/>
+                        <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="3"
                                   ItemsSource="{Binding Path=CustomEditorTemplates}"
                                   DisplayMemberPath="Key"
                                   SelectedValuePath="Value"
@@ -430,7 +434,7 @@
                                 </MultiBinding>
                             </ComboBox.Width>
                         </ComboBox>
-                        <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" Margin="3"
+                        <TextBlock Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Margin="3"
                                    Text="{Binding CustomEditorHelp}"/>
                     </Grid>
                 </GroupBox>

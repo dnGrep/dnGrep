@@ -3871,4 +3871,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Copied '{0}' to '{1}'</value>
     <comment>Script copy command success message. {0} is the source file name and {1} is the destination file name.</comment>
   </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>Escape quotes in the '{0}' argument</value>
+    <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
+  </data>
 </root>

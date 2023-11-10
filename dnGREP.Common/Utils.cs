@@ -1367,6 +1367,9 @@ namespace dnGREP.Common
                     args.CustomEditorArgs ??= string.Empty;
                     int pageNumber = args.PageNumber > 0 ? args.PageNumber : 1;
 
+                    bool escapeQuotes = GrepSettings.Instance.Get<bool>(GrepSettings.Key.EscapeQuotesInMatchArgument);
+                    string matchValue = escapeQuotes ? EscapeQuotes(args.FirstMatch) : args.FirstMatch;
+
                     ProcessStartInfo startInfo = new(args.CustomEditor)
                     {
                         UseShellExecute = false,
@@ -1375,12 +1378,17 @@ namespace dnGREP.Common
                             .Replace("%page", pageNumber.ToString(), StringComparison.Ordinal)
                             .Replace("%line", args.LineNumber.ToString(), StringComparison.Ordinal)
                             .Replace("%pattern", args.Pattern, StringComparison.Ordinal)
-                            .Replace("%match", args.FirstMatch, StringComparison.Ordinal)
+                            .Replace("%match", matchValue, StringComparison.Ordinal)
                             .Replace("%column", args.ColumnNumber.ToString(), StringComparison.Ordinal),
                     };
                     using var proc = Process.Start(startInfo);
                 }
             }
+        }
+
+        private static string EscapeQuotes(string value)
+        {
+            return value.Replace("\"", "\\\"", StringComparison.Ordinal);
         }
 
         /// <summary>
