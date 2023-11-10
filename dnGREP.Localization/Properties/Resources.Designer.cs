@@ -4509,6 +4509,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Escape quotes in the &apos;{0}&apos; argument.
+        /// </summary>
+        public static string Options_CustomEditorEscapeQuotes {
+            get {
+                return ResourceManager.GetString("Options_CustomEditorEscapeQuotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use keywords &apos;{0}&apos; for file location, &apos;{5}&apos; for the page number, &apos;{1}&apos; for the line number, &apos;{2}&apos; for the search pattern, &apos;{3}&apos; for the first matched text on the line, and &apos;{4}&apos; for the column number of the first match on the line..
         /// </summary>
         public static string Options_CustomEditorHelp {

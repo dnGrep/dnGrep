@@ -167,6 +167,7 @@ namespace dnGREP.WPF
                 ContextLinesAfter != Settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
                 CustomEditorPath != Settings.Get<string>(GrepSettings.Key.CustomEditor) ||
                 CustomEditorArgs != Settings.Get<string>(GrepSettings.Key.CustomEditorArgs) ||
+                EscapeQuotesInMatchArgument != Settings.Get<bool>(GrepSettings.Key.EscapeQuotesInMatchArgument) ||
                 CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
                 CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
@@ -378,6 +379,12 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private string customEditorArgs = string.Empty;
+
+        [ObservableProperty]
+        private bool escapeQuotesInMatchArgument = true;
+
+        [ObservableProperty]
+        private string escapeQuotesLabel = string.Empty;
 
         [ObservableProperty]
         private string customEditorHelp = string.Empty;
@@ -723,6 +730,7 @@ namespace dnGREP.WPF
             CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
             CustomEditorPath = Settings.Get<string>(GrepSettings.Key.CustomEditor);
             CustomEditorArgs = Settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
+            EscapeQuotesInMatchArgument = Settings.Get<bool>(GrepSettings.Key.EscapeQuotesInMatchArgument);
             CompareApplicationPath = Settings.Get<string>(GrepSettings.Key.CompareApplication);
             CompareApplicationArgs = Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
@@ -766,6 +774,8 @@ namespace dnGREP.WPF
                 ValueOrDefault(GrepSettings.Key.ResultsFontFamily, GrepSettings.DefaultMonospaceFontFamily);
             ResultsFontSize = EditResultsFontSize =
                 ValueOrDefault(GrepSettings.Key.ResultsFontSize, SystemFonts.MessageFontSize);
+
+            escapeQuotesLabel = TranslationSource.Format(Resources.Options_CustomEditorEscapeQuotes, Match);
 
             int count = TranslationSource.CountPlaceholders(Resources.Options_CustomEditorHelp);
             if (count == 5)
@@ -891,6 +901,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
             Settings.Set(GrepSettings.Key.CustomEditor, CustomEditorPath);
             Settings.Set(GrepSettings.Key.CustomEditorArgs, CustomEditorArgs);
+            Settings.Set(GrepSettings.Key.EscapeQuotesInMatchArgument, EscapeQuotesInMatchArgument);
             Settings.Set(GrepSettings.Key.CompareApplication, CompareApplicationPath);
             Settings.Set(GrepSettings.Key.CompareApplicationArgs, CompareApplicationArgs);
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
