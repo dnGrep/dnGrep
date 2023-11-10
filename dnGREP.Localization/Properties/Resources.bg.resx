@@ -3733,4 +3733,92 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>При отваряне на файл, следните разширения да бъдат възприемани като архив:</value>
     <comment>Options dialog, custom archive extension label</comment>
   </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>Знак с нормален размер в скоби</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>Извличане на коментари</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>Да не бъде показван</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>Извличане на долни колонтитули</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>Възможно е да не се поддържа от всички шрифтове</value>
+    <comment>Options dialog, radio button tooltip</comment>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+    <comment>Options dialog, section heading</comment>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>Извличане на бележки под линия</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Извличане на горни колонтитули</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>Накрая на документа</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>Число с нормален размер в скоби</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>Идентификатор на бележки под линия:</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>Долен индекс</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>Знак с нормален размер</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>Разполагане на извлеченото от колонтитулите:</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>Идентификатор на коментар:</value>
+    <comment>Options dialog, options group label</comment>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Горен индекс</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>В началото на секцията</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Файлове с грешки от търсенето в панела с резултати</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext върна „{0}“</value>
+    <comment>Format string for pdftotext error messages: {0} is the error message</comment>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>Грешка при създаване на файл от pdftotext</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>{0} файла не са претърсени поради липса на достъп, били са заключени или грешки. За подробности вижте дневника на dnGrep</value>
+    <comment>Main window tooltip. {0} is the count of file read errors</comment>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>Този PDF не съдържа текст</value>
+    <comment>Main window search results message</comment>
+  </data>
 </root>

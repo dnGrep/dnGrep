@@ -3671,4 +3671,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>允許其完成或在退出前取消它.</value>
     <comment>Message box text for: Replace is running on exit, line 2</comment>
   </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>開啟檔案時, 開啟這些附檔名的整個壓縮檔案:</value>
+    <comment>Options dialog, custom archive extension label</comment>
+  </data>
 </root>
