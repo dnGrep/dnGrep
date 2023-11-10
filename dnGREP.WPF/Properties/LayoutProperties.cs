@@ -21,6 +21,8 @@ namespace dnGREP.WPF.Properties
 
         private static Rect? mainWindowBounds;
         private static WindowState? mainWindowState;
+        private static Rect? bookmarkWindowBounds;
+        private static WindowState? bookmarkWindowState;
         private static Rect? replaceBounds;
         private static Rect? previewBounds;
         private static WindowState? previewWindowState;
@@ -86,6 +88,55 @@ namespace dnGREP.WPF.Properties
             {
                 mainWindowState = value;
                 GrepSettings.Instance.Set(GrepSettings.Key.MainWindowState, mainWindowState.Value);
+            }
+        }
+
+        public static Rect BookmarkWindowBounds
+        {
+            get
+            {
+                if (!bookmarkWindowBounds.HasValue)
+                {
+                    if (GrepSettings.Instance.IsSet(GrepSettings.Key.BookmarkWindowBounds))
+                    {
+                        bookmarkWindowBounds = GrepSettings.Instance.Get<Rect>(GrepSettings.Key.BookmarkWindowBounds);
+                    }
+                    else
+                    {
+                        bookmarkWindowBounds = new(0, 0, 0, 0);
+                    }
+                    bookmarkWindowBounds = Validate(bookmarkWindowBounds.Value);
+                }
+                return bookmarkWindowBounds.Value;
+            }
+            set
+            {
+                bookmarkWindowBounds = Validate(value);
+                GrepSettings.Instance.Set(GrepSettings.Key.BookmarkWindowBounds, bookmarkWindowBounds.Value);
+            }
+        }
+
+        public static WindowState BookmarkWindowState
+        {
+            get
+            {
+                if (!bookmarkWindowState.HasValue)
+                {
+                    if (GrepSettings.Instance.IsSet(GrepSettings.Key.BookmarkWindowState))
+                    {
+                        bookmarkWindowState = GrepSettings.Instance.Get<WindowState>(GrepSettings.Key.BookmarkWindowState);
+                    }
+                    else
+                    {
+                        bookmarkWindowState = WindowState.Normal;
+                    }
+                }
+                return bookmarkWindowState.Value;
+            }
+            set
+            {
+                bookmarkWindowState = value;
+                GrepSettings.Instance.Set(GrepSettings.Key.BookmarkWindowState, bookmarkWindowState.Value);
             }
         }
 

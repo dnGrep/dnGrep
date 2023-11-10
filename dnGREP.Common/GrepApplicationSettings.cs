@@ -318,6 +318,12 @@ namespace dnGREP.Common
             public const string WordExtractFooters = "WordExtractFooters";
             [DefaultValue(HeaderFooterPosition.SectionStart)]
             public const string WordHeaderFooterPosition = "WordHeaderFooterPosition";
+            [DefaultValue("")]
+            public const string BookmarkColumnOrder = "BookmarkColumnOrder";
+            [DefaultValue("")]
+            public const string BookmarkColumnWidths = "BookmarkColumnWidths";
+            public const string BookmarkWindowBounds = "BookmarkWindowBounds";
+            public const string BookmarkWindowState = "BookmarkWindowState";
         }
 
         private static GrepSettings? instance;

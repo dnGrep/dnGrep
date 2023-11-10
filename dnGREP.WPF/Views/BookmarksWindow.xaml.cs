@@ -6,6 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Common.UI;
+using dnGREP.WPF.Properties;
 
 namespace dnGREP.WPF
 {
@@ -24,10 +25,69 @@ namespace dnGREP.WPF
             DataContext = ViewModel;
             Closing += BookmarksWindow_Closing;
             ViewModel.SetFocus += ViewModel_SetFocus;
+
+            // fix for placements on monitors with different DPIs:
+            // initial placement on the primary monitor, then move it
+            // to the saved location when the window is loaded
+            Left = 0;
+            Top = 0;
+            Width = LayoutProperties.BookmarkWindowBounds.Width;
+            Height = LayoutProperties.BookmarkWindowBounds.Height;
+            WindowState = WindowState.Normal;
+
+            Rect windowBounds = new(
+                LayoutProperties.BookmarkWindowBounds.X,
+                LayoutProperties.BookmarkWindowBounds.Y,
+                LayoutProperties.BookmarkWindowBounds.Width,
+                LayoutProperties.BookmarkWindowBounds.Height);
+
+            Loaded += (s, e) =>
+            {
+                if (windowBounds.IsOnScreen())
+                {
+                    // setting Left and Top does not work when
+                    // moving to a monitor with a different DPI
+                    // than the primary monitor
+                    this.MoveWindow(
+                        LayoutProperties.BookmarkWindowBounds.X,
+                        LayoutProperties.BookmarkWindowBounds.Y);
+                    WindowState = LayoutProperties.BookmarkWindowState;
+                }
+                else
+                {
+                    this.CenterWindow();
+                }
+
+                this.ConstrainToScreen();
+            };
+
+        }
+
+        private void SaveSettings()
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                LayoutProperties.BookmarkWindowBounds = new Rect(
+                    Left,
+                    Top,
+                    ActualWidth,
+                    ActualHeight);
+            }
+            else
+            {
+                LayoutProperties.BookmarkWindowBounds = RestoreBounds;
+            }
+
+            LayoutProperties.BookmarkWindowState = WindowState.Normal;
+            if (WindowState == WindowState.Maximized)
+                LayoutProperties.BookmarkWindowState = WindowState.Maximized;
+
+            LayoutProperties.Save();
         }
 
         internal void ApplicationExit()
         {
+            SaveSettings();
             ViewModel.BookmarksWindow_Hiding();
             Closing -= BookmarksWindow_Closing;
             Close();

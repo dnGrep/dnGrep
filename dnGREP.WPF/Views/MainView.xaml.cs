@@ -319,12 +319,14 @@ namespace dnGREP.WPF
             if (WindowState == WindowState.Maximized)
                 LayoutProperties.MainWindowState = WindowState.Maximized;
 
-            previewControl.SaveSettings();
-            viewModel.SaveSettings();
             if (!viewModel.Closing())
             {
                 e.Cancel = true;
             }
+            // save settings after call to viewModel.Closing to
+            // get the changes to the Bookmarks window closing
+            previewControl.SaveSettings();
+            viewModel.SaveSettings();
         }
 
         private void ViewModel_PreviewShow(object? sender, EventArgs e)
