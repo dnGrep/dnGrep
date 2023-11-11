@@ -1190,7 +1190,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
@@ -1202,7 +1202,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
