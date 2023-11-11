@@ -1,6 +1,7 @@
 ﻿DeleteObject
 SetParent
 ShellExecuteEx
+StrCmpLogicalW
 
 HWND_MESSAGE
 SHOW_WINDOW_CMD

@@ -3186,6 +3186,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Natural sort order.
+        /// </summary>
+        public static string Main_SortMenu_NaturalSortOrder {
+            get {
+                return ResourceManager.GetString("Main_SortMenu_NaturalSortOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Path and file name, breadth-first.
         /// </summary>
         public static string Main_SortMenu_PathAndFileNameBreadthFirst {
@@ -3200,6 +3209,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_SortMenu_PathAndFileNameDepthFirst {
             get {
                 return ResourceManager.GetString("Main_SortMenu_PathAndFileNameDepthFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort digits in numerical order.
+        /// </summary>
+        public static string Main_SortMenu_SortDigitsInNumericalOrder {
+            get {
+                return ResourceManager.GetString("Main_SortMenu_SortDigitsInNumericalOrder", resourceCulture);
             }
         }
         
