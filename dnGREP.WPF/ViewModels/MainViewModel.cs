@@ -373,6 +373,13 @@ namespace dnGREP.WPF
         }
 
         [ObservableProperty]
+        private bool naturalSort;
+        partial void OnNaturalSortChanged(bool value)
+        {
+            SortResults();
+        }
+
+        [ObservableProperty]
         private bool highlightsOn;
 
         [ObservableProperty]
@@ -729,6 +736,7 @@ namespace dnGREP.WPF
             // the Options dialog is closed
             SortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
             SortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+            NaturalSort = GrepSettings.Instance.Get<bool>(GrepSettings.Key.NaturalSort);
             ResultsViewModel.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
             ResultsViewModel.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
             IsResultOptionsExpanded = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowResultOptions);
@@ -760,6 +768,7 @@ namespace dnGREP.WPF
             CopyBookmarksToSettings();
 
             Settings.Set(GrepSettings.Key.SortDirection, SortDirection);
+            Settings.Set(GrepSettings.Key.NaturalSort, NaturalSort);
             Settings.Set(GrepSettings.Key.TypeOfSort, SortType);
             Settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
             Settings.Set(GrepSettings.Key.ResultsTreeScale, ResultsViewModel.ResultsScale);
@@ -2079,9 +2088,9 @@ namespace dnGREP.WPF
                     ShowDoNotAskAgainCheckbox = true,
                 };
 
-                string msg = running ? 
+                string msg = running ?
                     Resources.MessageBox_TheSearchIsRunning + Environment.NewLine +
-                    Resources.MessageBox_DoYouWantToStopTheSearchAndExit : 
+                    Resources.MessageBox_DoYouWantToStopTheSearchAndExit :
                     Resources.MessageBox_SearchResultsWillBeClearedOnExit + Environment.NewLine +
                     Resources.MessageBox_DoYouWantToExit;
 
@@ -2768,17 +2777,17 @@ namespace dnGREP.WPF
                 switch (SortType)
                 {
                     case SortType.FileNameOnly:
-                        list.Sort(new FileNameOnlyComparer(SortDirection));
+                        list.Sort(new FileNameOnlyComparer(SortDirection, NaturalSort));
                         break;
                     case SortType.FileTypeAndName:
-                        list.Sort(new FileTypeAndNameComparer(SortDirection));
+                        list.Sort(new FileTypeAndNameComparer(SortDirection, NaturalSort));
                         break;
                     case SortType.FileNameDepthFirst:
                     default:
-                        list.Sort(new FileNameDepthFirstComparer(SortDirection));
+                        list.Sort(new FileNameDepthFirstComparer(SortDirection, NaturalSort));
                         break;
                     case SortType.FileNameBreadthFirst:
-                        list.Sort(new FileNameBreadthFirstComparer(SortDirection));
+                        list.Sort(new FileNameBreadthFirstComparer(SortDirection, NaturalSort));
                         break;
                     case SortType.Size:
                         list.Sort(new FileSizeComparer(SortDirection));

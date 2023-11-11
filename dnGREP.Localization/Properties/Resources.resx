@@ -3875,4 +3875,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Escape quotes in the '{0}' argument</value>
     <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
   </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>Natural sort order</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>Sort digits in numerical order</value>
+    <comment>Main window sort options menu item tooltip</comment>
+  </data>
 </root>

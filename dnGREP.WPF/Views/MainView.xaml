@@ -1062,6 +1062,11 @@
                                     <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_Descending'}"
                                                       GroupName="S2" 
                                                       IsChecked="{Binding Path=SortDirection, Converter={StaticResource ebc}, ConverterParameter=Descending}"/>
+                                    <Separator/>
+                                    <MenuItem Header="{l:Loc Key='Main_SortMenu_NaturalSortOrder'}" 
+                                              ToolTip="{l:Loc Key='Main_SortMenu_SortDigitsInNumericalOrder'}"
+                                              IsCheckable="True"
+                                              IsChecked="{Binding NaturalSort}"/>
                                 </ContextMenu>
                             </my:SplitButton.ContextMenu>
                         </my:SplitButton>

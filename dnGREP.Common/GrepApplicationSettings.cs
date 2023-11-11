@@ -142,6 +142,8 @@ namespace dnGREP.Common
             [DefaultValue(ListSortDirection.Ascending)]
             public const string SortDirection = "SortDirection";
             [DefaultValue(true)]
+            public const string NaturalSort = "NaturalSort";
+            [DefaultValue(true)]
             public const string ShowFileInfoTooltips = "ShowFileInfoTooltips";
             [DefaultValue(true)]
             public const string HighlightMatches = "HighlightMatches";

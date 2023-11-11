@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using Windows.Win32;
 
 namespace dnGREP.WPF.MVHelpers
 {
@@ -9,9 +10,11 @@ namespace dnGREP.WPF.MVHelpers
     public class FileNameOnlyComparer : IComparer<FormattedGrepResult>
     {
         private readonly ListSortDirection direction;
-        public FileNameOnlyComparer(ListSortDirection direction)
+        private readonly bool naturalSort;
+        public FileNameOnlyComparer(ListSortDirection direction, bool naturalSort)
         {
             this.direction = direction;
+            this.naturalSort = naturalSort;
         }
 
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
@@ -22,16 +25,25 @@ namespace dnGREP.WPF.MVHelpers
             var leftSort = Path.GetFileName(left?.GrepResult.FileNameDisplayed);
             var rightSort = Path.GetFileName(right?.GrepResult.FileNameDisplayed);
 
-            return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+            if (naturalSort)
+            {
+                return PInvoke.StrCmpLogical(leftSort, rightSort);
+            }
+            else
+            {
+                return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+            }
         }
     }
 
     public class FileTypeAndNameComparer : IComparer<FormattedGrepResult>
     {
         private readonly ListSortDirection direction;
-        public FileTypeAndNameComparer(ListSortDirection direction)
+        private readonly bool naturalSort;
+        public FileTypeAndNameComparer(ListSortDirection direction, bool naturalSort)
         {
             this.direction = direction;
+            this.naturalSort = naturalSort;
         }
 
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
@@ -49,16 +61,25 @@ namespace dnGREP.WPF.MVHelpers
             var leftSort = Path.GetFileName(left?.GrepResult.FileNameDisplayed);
             var rightSort = Path.GetFileName(right?.GrepResult.FileNameDisplayed);
 
-            return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+            if (naturalSort)
+            {
+                return PInvoke.StrCmpLogical(leftSort, rightSort);
+            }
+            else
+            {
+                return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+            }
         }
     }
 
     public class FileNameDepthFirstComparer : IComparer<FormattedGrepResult>
     {
         private readonly ListSortDirection direction;
-        public FileNameDepthFirstComparer(ListSortDirection direction)
+        private readonly bool naturalSort;
+        public FileNameDepthFirstComparer(ListSortDirection direction, bool naturalSort)
         {
             this.direction = direction;
+            this.naturalSort = naturalSort;
         }
 
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
@@ -78,16 +99,25 @@ namespace dnGREP.WPF.MVHelpers
                 Path.GetDirectoryName(right?.GrepResult.InnerFileName) + "/!" +
                 Path.GetFileName(right?.GrepResult.InnerFileName));
 
-            return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+            if (naturalSort)
+            {
+                return PInvoke.StrCmpLogical(leftSort, rightSort);
+            }
+            else
+            {
+                return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+            }
         }
     }
 
     public class FileNameBreadthFirstComparer : IComparer<FormattedGrepResult>
     {
         private readonly ListSortDirection direction;
-        public FileNameBreadthFirstComparer(ListSortDirection direction)
+        private readonly bool naturalSort;
+        public FileNameBreadthFirstComparer(ListSortDirection direction, bool naturalSort)
         {
             this.direction = direction;
+            this.naturalSort = naturalSort;
         }
 
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
@@ -104,15 +134,40 @@ namespace dnGREP.WPF.MVHelpers
             if (leftDepth != rightDepth)
                 return leftDepth.CompareTo(rightDepth);
 
-            int comp = string.Compare(leftDir, rightDir, StringComparison.CurrentCulture);
+            int comp;
+            if (naturalSort)
+            {
+                comp = PInvoke.StrCmpLogical(leftDir, rightDir);
+            }
+            else
+            {
+                comp = string.Compare(leftDir, rightDir, StringComparison.CurrentCulture);
+            }
             if (comp != 0)
                 return comp;
 
             if (left?.GrepResult.FileNameReal != right?.GrepResult.FileNameReal)
-                return string.Compare(left?.GrepResult.FileNameReal, right?.GrepResult.FileNameReal, StringComparison.CurrentCulture);
+            {
+                if (naturalSort)
+                {
+                    return PInvoke.StrCmpLogical(left?.GrepResult.FileNameReal, right?.GrepResult.FileNameReal);
+                }
+                else
+                {
+                    return string.Compare(left?.GrepResult.FileNameReal, right?.GrepResult.FileNameReal, StringComparison.CurrentCulture);
+                }
+            }
 
-            return string.Compare(left?.GrepResult.InnerFileName, right?.GrepResult.InnerFileName, StringComparison.CurrentCulture);
+            if (naturalSort)
+            {
+                return PInvoke.StrCmpLogical(left?.GrepResult.InnerFileName, right?.GrepResult.InnerFileName);
+            }
+            else
+            {
+                return string.Compare(left?.GrepResult.InnerFileName, right?.GrepResult.InnerFileName, StringComparison.CurrentCulture);
+            }
         }
+
         private static int GetDepth(DirectoryInfo di)
         {
             int depth = 0;
