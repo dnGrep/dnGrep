@@ -3861,4 +3861,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>错误：路径对变量 {0} 是必需的</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>以数字顺序排列数字</value>
+    <comment>Main window sort options menu item tooltip</comment>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>转义 '{0}' 变量中的引用</value>
+    <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>自然排列顺序</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
 </root>
