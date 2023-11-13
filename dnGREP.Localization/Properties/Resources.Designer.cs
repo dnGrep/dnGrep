@@ -2718,6 +2718,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current line.
+        /// </summary>
+        public static string Main_Results_CurrentLine {
+            get {
+                return ResourceManager.GetString("Main_Results_CurrentLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete files.
         /// </summary>
         public static string Main_Results_DeleteFiles {
@@ -5432,6 +5441,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ShowFilesWithSearchErrorsInResultsPanel {
             get {
                 return ResourceManager.GetString("Options_ShowFilesWithSearchErrorsInResultsPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show navigation buttons.
+        /// </summary>
+        public static string Options_ShowNavigationButtons {
+            get {
+                return ResourceManager.GetString("Options_ShowNavigationButtons", resourceCulture);
             }
         }
         

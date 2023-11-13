@@ -466,29 +466,75 @@ namespace dnGREP.WPF
         {
             if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
             {
-                resultsTree.SetFocus();
-                resultsTree.Next();
+                NextMatch();
                 e.Handled = true;
             }
             else if (e.Key == Key.F3 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
-                resultsTree.SetFocus();
-                resultsTree.NextFile();
+                NextFile();
                 e.Handled = true;
             }
             else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
             {
-                resultsTree.SetFocus();
-                resultsTree.Previous();
+                PreviousMatch();
                 e.Handled = true;
             }
             else if (e.Key == Key.F4 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
-                resultsTree.SetFocus();
-                resultsTree.PreviousFile();
+                PreviousFile();
                 e.Handled = true;
             }
         }
+
+        internal void NextMatch()
+        {
+            resultsTree.SetFocus();
+            resultsTree.Next();
+        }
+
+        internal void NextFile()
+        {
+            resultsTree.SetFocus();
+            resultsTree.NextFile();
+        }
+
+        internal void PreviousMatch()
+        {
+            resultsTree.SetFocus();
+            resultsTree.Previous();
+        }
+
+        internal void PreviousFile()
+        {
+            resultsTree.SetFocus();
+            resultsTree.PreviousFile();
+        }
+
+        internal void ScrollToCurrent()
+        {
+            resultsTree.SetFocus();
+
+            // move the treeViewItem to the middle of the treeView
+            if (resultsTree.treeView.StartTreeViewItem is TreeViewItem treeViewItem &&
+                resultsTree.treeView.Template.FindName("_tv_scrollviewer_", resultsTree.treeView) is ScrollViewer scrollViewer)
+            {
+                var currentTop = treeViewItem.TranslatePoint(new Point(), resultsTree.treeView).Y;
+                var itemHeight = treeViewItem.ActualHeight;
+                var viewHeight = resultsTree.treeView.ActualHeight;
+                var desiredTop = (viewHeight - itemHeight) / 2.0;
+                var desiredDelta = currentTop - desiredTop;
+
+                // calculations relative to the scrollViewer within the treeView
+                var currentOffset = scrollViewer.VerticalOffset;
+                var desiredOffset = currentOffset + desiredDelta;
+                scrollViewer.ScrollToVerticalOffset(desiredOffset);
+            }
+            else
+            {
+                resultsTree.treeView.StartTreeViewItem?.BringIntoView();
+            }
+        }
+
 
         private DateTime timeOfLastMessage = DateTime.Now;
 
@@ -531,7 +577,7 @@ namespace dnGREP.WPF
                 WindowState = WindowState.Normal;
             }
 
-            // According to some sources these steps gurantee that an app will be brought to foreground.
+            // According to some sources these steps guarantee that an app will be brought to foreground.
             Activate();
             Topmost = true;
             Topmost = false;

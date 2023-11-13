@@ -488,59 +488,6 @@
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="{l:Loc Key='Options_Layout'}">
-                    <StackPanel>
-                        <StackPanel Margin="0,6,0,0">
-                            <TextBlock Text="{l:Loc Key='Options_ShowSearchOptions'}" />
-                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_OnMainPanel'}" GroupName="searchLocation"
-                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
-                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_InOptionsExpander'}" GroupName="searchLocation"
-                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" />
-                        </StackPanel>
-                        <StackPanel Margin="0,6,0,0">
-                            <TextBlock Text="{l:Loc Key='Options_ReplaceDialogLayout'}" />
-                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesAndIndividualMatches'}" GroupName="replaceLayout"
-                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FullDialog}" />
-                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesOnly'}" GroupName="replaceLayout"
-                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FilesOnly}" />
-                        </StackPanel>
-                        <StackPanel  Margin="0,6,0,0">
-                            <TextBlock Text="{l:Loc Key='Options_PersonalizeControlVisibility'}" 
-                                       ToolTip="{l:Loc Key='Options_PersonalizeControlVisibility_Tooltip'}" />
-                            <ScrollViewer Height="280" Margin="18,3"
-                                          HorizontalAlignment="Left"
-                                          VerticalScrollBarVisibility="Auto"
-                                          HorizontalScrollBarVisibility="Disabled">
-                                <ItemsControl ItemsSource="{Binding Source={StaticResource mainWindowControlGroups}}">
-                                    <ItemsControl.GroupStyle>
-                                        <GroupStyle>
-                                            <GroupStyle.ContainerStyle>
-                                                <Style TargetType="{x:Type GroupItem}">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                                <StackPanel>
-                                                                    <TextBlock Text="{Binding Name}"/>
-                                                                    <ItemsPresenter Margin="18,3"/>
-                                                                </StackPanel>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </GroupStyle.ContainerStyle>
-                                        </GroupStyle>
-                                    </ItemsControl.GroupStyle>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Content="{Binding Label}" IsChecked="{Binding IsVisible}"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </StackPanel>
-                    </StackPanel>
-                </GroupBox>
-
                 <GroupBox Header="{l:Loc Key='Options_SearchOptions'}">
                     <StackPanel Margin="0,3,0,0">
                         <Label Content="{l:Loc Key='Options_MaximumNumberOfParallelSearches'}"/>
@@ -560,6 +507,8 @@
                     <StackPanel Margin="0,3,0,0">
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_MaximizeResultsPanelOnSearch'}"
                                   IsChecked="{Binding Path=MaximizeResultsTreeOnSearch}" />
+                        <CheckBox Margin="3" Content="{l:Loc Key='Options_ShowNavigationButtons'}"
+                                  IsChecked="{Binding Path=NavigationButtonsVisible}" />
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_ShowFilesWithSearchErrorsInResultsPanel'}"
                                   IsChecked="{Binding Path=ShowFileErrorsInResults}" />
                         <CheckBox Name="cbShowPath" Margin="3" Content="{l:Loc Key='Options_ShowFilePathInResultsPanel'}"
@@ -619,6 +568,59 @@
                                 ItemsSource="{Binding Path=HexLengthOptions}"
                                 Width="60"
                                 SelectedValue="{Binding Path=HexResultByteLength, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="{l:Loc Key='Options_Layout'}">
+                    <StackPanel>
+                        <StackPanel Margin="0,6,0,0">
+                            <TextBlock Text="{l:Loc Key='Options_ShowSearchOptions'}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_OnMainPanel'}" GroupName="searchLocation"
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_InOptionsExpander'}" GroupName="searchLocation"
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,6,0,0">
+                            <TextBlock Text="{l:Loc Key='Options_ReplaceDialogLayout'}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesAndIndividualMatches'}" GroupName="replaceLayout"
+                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FullDialog}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesOnly'}" GroupName="replaceLayout"
+                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FilesOnly}" />
+                        </StackPanel>
+                        <StackPanel  Margin="0,6,0,0">
+                            <TextBlock Text="{l:Loc Key='Options_PersonalizeControlVisibility'}" 
+                                       ToolTip="{l:Loc Key='Options_PersonalizeControlVisibility_Tooltip'}" />
+                            <ScrollViewer Height="280" Margin="18,3"
+                                          HorizontalAlignment="Left"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl ItemsSource="{Binding Source={StaticResource mainWindowControlGroups}}">
+                                    <ItemsControl.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.ContainerStyle>
+                                                <Style TargetType="{x:Type GroupItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                                <StackPanel>
+                                                                    <TextBlock Text="{Binding Name}"/>
+                                                                    <ItemsPresenter Margin="18,3"/>
+                                                                </StackPanel>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </GroupStyle.ContainerStyle>
+                                        </GroupStyle>
+                                    </ItemsControl.GroupStyle>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Label}" IsChecked="{Binding IsVisible}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

@@ -262,6 +262,8 @@ namespace dnGREP.Common
             public const string WrapTextPreviewWndVisible = "WrapTextPreviewWndVisible";
             [DefaultValue(true)]
             public const string SyntaxPreviewWndVisible = "SyntaxPreviewWndVisible";
+            [DefaultValue(true)]
+            public const string NavigationButtonsVisible = "NavigationButtonsVisible";
             [DefaultValue(Common.ReportMode.FullLine)]
             public const string ReportMode = "ReportMode";
             [DefaultValue(true)]

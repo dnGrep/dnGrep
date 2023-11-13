@@ -3883,4 +3883,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Sort digits in numerical order</value>
     <comment>Main window sort options menu item tooltip</comment>
   </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>Current line</value>
+    <comment>Main window, results list, button tooltip</comment>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>Show navigation buttons</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
 </root>
