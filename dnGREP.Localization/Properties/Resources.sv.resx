@@ -902,4 +902,8 @@
     <value>Wildcard</value>
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Tack till</value>
+    <comment>About dialog text</comment>
+  </data>
 </root>
