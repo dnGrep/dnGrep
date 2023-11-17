@@ -1069,6 +1069,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The match pattern failed to match filename &apos;{0}&apos;.
+        /// </summary>
+        public static string CopyCommand_TheMatchPatternFailedToMatchFilename0 {
+            get {
+                return ResourceManager.GetString("CopyCommand_TheMatchPatternFailedToMatchFilename0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document read failed.
         /// </summary>
         public static string Error_DocumentReadFailed {
