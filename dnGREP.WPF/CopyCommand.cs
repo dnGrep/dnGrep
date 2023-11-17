@@ -199,7 +199,7 @@ namespace dnGREP.WPF
                         }
 
                         string sourceFileName = Path.GetFileName(result.FileNameReal);
-                        string destinationFileName = sourceFileName;
+                        string destinationFileName = string.Empty;
 
                         if (!string.IsNullOrEmpty(MatchPattern) && !string.IsNullOrEmpty(RenamePattern))
                         {
@@ -207,7 +207,17 @@ namespace dnGREP.WPF
                             {
                                 return match.Result(RenamePattern);
                             },
-                            RegexOptions.None, GrepCore.MatchTimeout);
+                            RegexOptions.IgnoreCase, GrepCore.MatchTimeout);
+
+                            if (ReferenceEquals(sourceFileName, destinationFileName))
+                            {
+                                Errors.Add(TranslationSource.Format(Resources.CopyCommand_TheMatchPatternFailedToMatchFilename0, sourceFileName));
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            destinationFileName = sourceFileName;
                         }
 
                         FileInfo sourceFileInfo = new(result.FileNameReal);

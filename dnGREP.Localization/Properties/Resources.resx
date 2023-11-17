@@ -3883,4 +3883,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Sort digits in numerical order</value>
     <comment>Main window sort options menu item tooltip</comment>
   </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>The match pattern failed to match filename '{0}'</value>
+    <comment>Script copy command error message.  {0} is the source file name.</comment>
+  </data>
 </root>
