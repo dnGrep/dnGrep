@@ -48,18 +48,20 @@ namespace dnGREP.Engines.OpenXml
 
         private static string Format(long value, NumberFormatValues format)
         {
-            return format switch
-            {
-                NumberFormatValues.UpperRoman => ToRoman((int)value),
-                NumberFormatValues.LowerRoman => ToRoman((int)value).ToLowerInvariant(),
-                NumberFormatValues.UpperLetter => ToLetter((int)value),
-                NumberFormatValues.LowerLetter => ToLetter((int)value).ToLowerInvariant(),
-                NumberFormatValues.Chicago => ToChicago((int)value),
-                _ => value.ToString(),
-            };
+            if (format == NumberFormatValues.UpperRoman) 
+                return ToRoman((int)value);
+            if (format == NumberFormatValues.LowerRoman)
+                return ToRoman((int)value).ToLowerInvariant();
+            if (format == NumberFormatValues.UpperLetter)
+                return ToLetter((int)value);
+            if (format == NumberFormatValues.LowerLetter)
+                return ToLetter((int)value).ToLowerInvariant();
+            if (format == NumberFormatValues.Chicago)
+                return ToChicago((int)value);
+            return value.ToString();
         }
 
-        private readonly static char[] chicagoChars = new char[] { '*', '†', '‡', '§' };
+        private readonly static char[] chicagoChars = ['*', '†', '‡', '§'];
 
         private static string ToChicago(int num)
         {
