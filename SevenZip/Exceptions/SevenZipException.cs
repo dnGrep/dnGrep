@@ -54,13 +54,5 @@
         /// <param name="inner">Inner exception occurred</param>
         public SevenZipException(string defaultMessage, Exception inner)
             : base(defaultMessage, inner) { }
-        /// <summary>
-        /// Initializes a new instance of the SevenZipException class
-        /// </summary>
-        /// <param name="info">All data needed for serialization or deserialization</param>
-        /// <param name="context">Serialized stream descriptor</param>
-        protected SevenZipException(
-            SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
     }
 }

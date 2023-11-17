@@ -26,12 +26,5 @@ namespace dnGREP.Engines.Pdf
         public PdfToTextException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
-        /// <summary>
-        /// Deserializes a PdfToTextException.
-        /// </summary>
-        protected PdfToTextException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

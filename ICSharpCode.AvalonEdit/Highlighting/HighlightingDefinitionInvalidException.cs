@@ -47,12 +47,5 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		public HighlightingDefinitionInvalidException(string message, Exception innerException) : base(message, innerException)
 		{
 		}
-
-		/// <summary>
-		/// Creates a new HighlightingDefinitionInvalidException instance.
-		/// </summary>
-		protected HighlightingDefinitionInvalidException(SerializationInfo info, StreamingContext context) : base(info, context)
-		{
-		}
 	}
 }
