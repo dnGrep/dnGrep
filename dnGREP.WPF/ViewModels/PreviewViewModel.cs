@@ -85,15 +85,15 @@ namespace dnGREP.WPF
             }
         }
 
-        public DockViewModel DockVM => DockViewModel.Instance;
+        public static DockViewModel DockVM => DockViewModel.Instance;
 
         public event EventHandler? ShowPreview;
 
-        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();
+        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = [];
 
-        public ObservableCollection<Marker> Markers { get; } = new();
+        public ObservableCollection<Marker> Markers { get; } = [];
 
-        public List<int> MarkerLineNumbers = new();
+        public List<int> MarkerLineNumbers = [];
 
         public Encoding Encoding { get; set; } = Encoding.UTF8;
 
@@ -239,16 +239,10 @@ namespace dnGREP.WPF
 
     public enum MarkerType { Global, Local }
 
-    public class Marker
+    public class Marker(double position, MarkerType markerType)
     {
-        public Marker(double position, MarkerType markerType)
-        {
-            Position = position;
-            MarkerType = markerType;
-        }
-
-        public double Position { get; private set; }
-        public MarkerType MarkerType { get; private set; }
+        public double Position { get; private set; } = position;
+        public MarkerType MarkerType { get; private set; } = markerType;
     }
 
 }

@@ -22,7 +22,7 @@ namespace Tests
             {
                 //get the currently logged in user
                 user = WindowsIdentity.GetCurrent();
-                WindowsPrincipal principal = new WindowsPrincipal(user);
+                WindowsPrincipal principal = new(user);
                 isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
             catch (UnauthorizedAccessException)
@@ -35,8 +35,7 @@ namespace Tests
             }
             finally
             {
-                if (user != null)
-                    user.Dispose();
+                user?.Dispose();
             }
             return isAdmin;
         }

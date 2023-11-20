@@ -11,7 +11,7 @@ namespace dnGREP.Engines
     public class GrepPlugin
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly IDictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
+        private readonly Dictionary<string, Assembly> loadedAssemblies = [];
         private Type? pluginType;
 
         public IGrepEngine? CreateEngine()
@@ -72,8 +72,8 @@ namespace dnGREP.Engines
         public GrepPlugin(string pluginFilePath)
         {
             PluginFilePath = pluginFilePath;
-            DefaultExtensions = new List<string>();
-            Extensions = new List<string>();
+            DefaultExtensions = [];
+            Extensions = [];
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
@@ -122,7 +122,7 @@ namespace dnGREP.Engines
                         }
                     }
 
-                    IList<string>? defaultExtensions = null;
+                    List<string>? defaultExtensions = null;
                     if (pluginType != null)
                     {
                         PluginName = pluginType.Name;
@@ -139,7 +139,7 @@ namespace dnGREP.Engines
 
                     GetEnabledFromSettings(Name);
                     GetPreviewPlainTextFromSettings(Name);
-                    GetExtensionsFromSettings(Name, defaultExtensions ?? new List<string>());
+                    GetExtensionsFromSettings(Name, defaultExtensions ?? []);
 
                     result = pluginType != null;
                 }
@@ -174,7 +174,7 @@ namespace dnGREP.Engines
             }
         }
 
-        private void GetExtensionsFromSettings(string name, IList<string> defaultExtensions)
+        private void GetExtensionsFromSettings(string name, List<string> defaultExtensions)
         {
             var list = GrepSettings.Instance.GetExtensionList(name, defaultExtensions);
 
@@ -189,15 +189,15 @@ namespace dnGREP.Engines
         {
             Assembly? assembly = null;
 
-            if (loadedAssemblies.ContainsKey(args.Name))
+            if (loadedAssemblies.TryGetValue(args.Name, out Assembly? value))
             {
-                assembly = loadedAssemblies[args.Name];
+                assembly = value;
             }
             else if (!string.IsNullOrWhiteSpace(PluginFilePath) && !string.IsNullOrWhiteSpace(DllFilePath))
             {
                 var name = new AssemblyName(args.Name).Name + ".dll";
 
-                var filePath = Path.Combine(Path.GetDirectoryName(PluginFilePath) ?? string.Empty, 
+                var filePath = Path.Combine(Path.GetDirectoryName(PluginFilePath) ?? string.Empty,
                     Path.GetDirectoryName(DllFilePath) ?? string.Empty, name);
                 if (File.Exists(filePath))
                 {

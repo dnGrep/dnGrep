@@ -412,16 +412,10 @@ namespace dnGREP.Common.UI
         #endregion
     }
 
-    public class CustomMessageBoxResult
+    public class CustomMessageBoxResult(MessageBoxResultEx result, bool doNotAskAgain)
     {
-        public CustomMessageBoxResult(MessageBoxResultEx result, bool doNotAskAgain)
-        {
-            Result = result;
-            DoNotAskAgain = doNotAskAgain;
-        }
-
-        public MessageBoxResultEx Result { get; private set; }
-        public bool DoNotAskAgain { get; private set; }
+        public MessageBoxResultEx Result { get; private set; } = result;
+        public bool DoNotAskAgain { get; private set; } = doNotAskAgain;
     }
 
 

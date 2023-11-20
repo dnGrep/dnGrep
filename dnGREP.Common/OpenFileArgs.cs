@@ -2,71 +2,56 @@ using System;
 
 namespace dnGREP.Common
 {
-    public class OpenFileArgs : EventArgs
+    public class OpenFileArgs(GrepSearchResult searchResult, string pattern, int page, int line, string firstMatch, int columnNumber, bool useCustomEditor, string customEditor, string customEditorArgs) : EventArgs()
     {
         /// <summary>
         /// Search result containing file name
         /// </summary>
-        public GrepSearchResult SearchResult { get; set; }
+        public GrepSearchResult SearchResult { get; set; } = searchResult;
 
         /// <summary>
         /// The search pattern
         /// </summary>
-        public string Pattern { get; set; }
+        public string Pattern { get; set; } = pattern;
 
         /// <summary>
         /// The match page number
         /// </summary>
-        public int PageNumber { get; set; }
+        public int PageNumber { get; set; } = page;
 
         /// <summary>
         /// The match line number
         /// </summary>
-        public int LineNumber { get; set; }
+        public int LineNumber { get; set; } = line;
 
         /// <summary>
         /// The first match string on this line
         /// </summary>
-        public string FirstMatch { get; set; }
+        public string FirstMatch { get; set; } = firstMatch;
 
         /// <summary>
         /// The column number of the first match on this line
         /// </summary>
-        public int ColumnNumber { get; set; }
+        public int ColumnNumber { get; set; } = columnNumber;
 
         /// <summary>
         /// If true, CustomEditor is used to open the file
         /// </summary>
-        public bool UseCustomEditor { get; set; }
+        public bool UseCustomEditor { get; set; } = useCustomEditor;
 
         /// <summary>
         /// Path to custom editor (if UseCustomEditor is true)
         /// </summary>
-        public string CustomEditor { get; set; }
+        public string CustomEditor { get; set; } = customEditor;
 
         /// <summary>
         /// Command line arguments for custom editor
         /// </summary>
-        public string CustomEditorArgs { get; set; }
+        public string CustomEditorArgs { get; set; } = customEditorArgs;
 
         /// <summary>
         /// Set to true to have base engine handle the request
         /// </summary>
-        public bool UseBaseEngine { get; set; }
-
-        public OpenFileArgs(GrepSearchResult searchResult, string pattern, int page, int line, string firstMatch, int columnNumber, bool useCustomEditor, string customEditor, string customEditorArgs)
-            : base()
-        {
-            SearchResult = searchResult;
-            PageNumber = page;
-            LineNumber = line;
-            FirstMatch = firstMatch;
-            ColumnNumber = columnNumber;
-            UseCustomEditor = useCustomEditor;
-            CustomEditor = customEditor;
-            CustomEditorArgs = customEditorArgs;
-            UseBaseEngine = false;
-            Pattern = pattern;
-        }
+        public bool UseBaseEngine { get; set; } = false;
     }
 }

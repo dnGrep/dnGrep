@@ -17,12 +17,12 @@ namespace dnGREP.WPF
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly object lockObj = new();
-        private readonly List<SyntaxDefinition> syntaxDefinitions = new();
-        private readonly Dictionary<string, string> extensionToNameMap = new();
-        private readonly HashSet<string> loadQueue = new();
+        private readonly List<SyntaxDefinition> syntaxDefinitions = [];
+        private readonly Dictionary<string, string> extensionToNameMap = [];
+        private readonly HashSet<string> loadQueue = [];
 
-        private readonly Dictionary<string, Lazy<IHighlightingDefinition?>> normalHighlightingsByName = new();
-        private readonly Dictionary<string, Lazy<IHighlightingDefinition?>> invertedHighlightingsByName = new();
+        private readonly Dictionary<string, Lazy<IHighlightingDefinition?>> normalHighlightingsByName = [];
+        private readonly Dictionary<string, Lazy<IHighlightingDefinition?>> invertedHighlightingsByName = [];
 
         private ThemedHighlightingManager()
         {
@@ -38,7 +38,7 @@ namespace dnGREP.WPF
                 lock (lockObj)
                 {
                     return syntaxDefinitions
-                        .Where(r => !string.IsNullOrEmpty(r.Name) && r.Extensions.Any())
+                        .Where(r => !string.IsNullOrEmpty(r.Name) && r.Extensions.Length != 0)
                         .Select(r => r.Name);
                 }
             }
@@ -192,13 +192,13 @@ namespace dnGREP.WPF
             {
                 if (!normalHighlightingsByName.ContainsKey(syntax.Name))
                 {
-                    normalHighlightingsByName.Add(syntax.Name, 
+                    normalHighlightingsByName.Add(syntax.Name,
                         new Lazy<IHighlightingDefinition?>(() => LoadHighlightingDefinition(syntax, false)));
                 }
 
                 if (!invertedHighlightingsByName.ContainsKey(syntax.Name))
                 {
-                    invertedHighlightingsByName.Add(syntax.Name, 
+                    invertedHighlightingsByName.Add(syntax.Name,
                         new Lazy<IHighlightingDefinition?>(() => LoadHighlightingDefinition(syntax, true)));
                 }
             }
@@ -207,7 +207,7 @@ namespace dnGREP.WPF
         private IHighlightingDefinition? LoadHighlightingDefinition(SyntaxDefinition syntax, bool invertColors)
         {
             IHighlightingDefinition? highlighting;
-            if (syntax.IsEmbededResource)
+            if (syntax.IsEmbeddedResource)
             {
                 highlighting = LoadResourceHighlightingDefinition(syntax.FileName);
             }
@@ -259,20 +259,12 @@ namespace dnGREP.WPF
         }
     }
 
-    public class SyntaxDefinition
+    public class SyntaxDefinition(string name, string fileName, string[] extensions)
     {
-        public SyntaxDefinition(string name, string fileName, string[] extensions)
-        {
-            Name = name;
-            FileName = fileName;
-            IsEmbededResource = !Path.IsPathRooted(fileName);
-            Extensions = extensions ?? Array.Empty<string>();
-        }
-
-        public string Name { get; private set; }
-        public string FileName { get; private set; }
-        public bool IsEmbededResource { get; private set; }
-        public string[] Extensions { get; private set; }
+        public string Name { get; private set; } = name;
+        public string FileName { get; private set; } = fileName;
+        public bool IsEmbeddedResource { get; private set; } = !Path.IsPathRooted(fileName);
+        public string[] Extensions { get; private set; } = extensions ?? [];
     }
 
 }

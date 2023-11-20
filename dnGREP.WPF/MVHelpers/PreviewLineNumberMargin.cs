@@ -28,7 +28,7 @@ namespace dnGREP.WPF
         /// <summary>
         /// The map of line numbers to page numbers from the original source file
         /// </summary>
-        public Dictionary<int, int> LineToPageMap { get; } = new Dictionary<int, int>();
+        public Dictionary<int, int> LineToPageMap { get; } = [];
 
         protected override Size MeasureOverride(Size availableSize)
         {

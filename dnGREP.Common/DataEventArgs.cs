@@ -2,13 +2,8 @@
 
 namespace dnGREP.Common
 {
-    public class DataEventArgs<T> : EventArgs
+    public class DataEventArgs<T>(T data) : EventArgs
     {
-        public DataEventArgs(T data)
-        {
-            Data = data;
-        }
-
-        public T Data { get; private set; }
+        public T Data { get; private set; } = data;
     }
 }

@@ -30,7 +30,7 @@ namespace dnGREP.WPF
             ownerWnd = owner;
             ClearStar = clearStar;
 
-            _bookmarks = new List<BookmarkViewModel>();
+            _bookmarks = [];
             SynchToLibrary();
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
@@ -196,6 +196,8 @@ namespace dnGREP.WPF
             }
         }
 
+        private static readonly char[] newlines = ['\n', '\r'];
+
         private void MoveDown()
         {
             if (SelectedBookmark != null)
@@ -331,7 +333,7 @@ namespace dnGREP.WPF
                         ApplyFilePropertyFilters = editBmk.ApplyFilePropertyFilters,
                         ApplyContentSearchFilters = editBmk.ApplyContentSearchFilters,
                     };
-                    string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] paths = editBmk.PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
                     newBmk.FolderReferences.AddRange(paths);
 
                     BookmarkLibrary.Instance.Bookmarks.Add(newBmk);
@@ -457,7 +459,7 @@ namespace dnGREP.WPF
                     ApplyFilePropertyFilters = editBmk.ApplyFilePropertyFilters,
                     ApplyContentSearchFilters = editBmk.ApplyContentSearchFilters,
                 };
-                string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] paths = editBmk.PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
                 newBmk.FolderReferences.AddRange(paths);
 
                 editBmk.Id = newBmk.Id;
@@ -471,7 +473,7 @@ namespace dnGREP.WPF
 
     public partial class BookmarkViewModel : CultureAwareViewModel
     {
-        public static ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new();
+        public static ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = [];
 
         private Bookmark? _original;
 
@@ -600,7 +602,7 @@ namespace dnGREP.WPF
 
         internal void SetExtendedProperties()
         {
-            var tempList = new List<string>();
+            List<string> tempList = [];
 
             if (ApplyFileSourceFilters)
             {
@@ -642,6 +644,8 @@ namespace dnGREP.WPF
             }
         }
 
+        private static readonly char[] newlines = ['\n', '\r'];
+
         public Bookmark ToBookmark()
         {
             return new Bookmark(Id)
@@ -673,7 +677,7 @@ namespace dnGREP.WPF
                 ApplyFileSourceFilters = ApplyFileSourceFilters,
                 ApplyFilePropertyFilters = ApplyFilePropertyFilters,
                 ApplyContentSearchFilters = ApplyContentSearchFilters,
-                FolderReferences = PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+                FolderReferences = [.. PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries)]
             };
         }
 
@@ -738,7 +742,7 @@ namespace dnGREP.WPF
                 Directory.CreateDirectory(dataFolder);
             }
 
-            HashSet<string> names = new();
+            HashSet<string> names = [];
             foreach (string fileName in Directory.GetFiles(dataFolder, "*.ignore", SearchOption.AllDirectories))
             {
                 string name = Path.GetFileNameWithoutExtension(fileName);
@@ -855,7 +859,7 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private bool useGitignore = false;
 
-        public ObservableCollection<string> IgnoreFilterList { get; } = new();
+        public ObservableCollection<string> IgnoreFilterList { get; } = [];
 
         [ObservableProperty]
         private string ignoreFilterName = string.Empty;

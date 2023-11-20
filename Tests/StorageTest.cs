@@ -18,6 +18,7 @@ namespace Tests
         public void Dispose()
         {
             Directory.Delete(destinationFolder, true);
+            GC.SuppressFinalize(this);
         }
 
         [Fact]

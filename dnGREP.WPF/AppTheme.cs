@@ -45,7 +45,7 @@ namespace dnGREP.WPF
         // current value may not equal the saved settings value
         public bool FollowWindowsTheme { get; private set; }
 
-        private readonly List<string> themeNames = new() { "Light", "Dark" };
+        private readonly List<string> themeNames = ["Light", "Dark"];
         public IEnumerable<string> ThemeNames { get => themeNames; }
 
         internal void ReloadCurrentTheme()

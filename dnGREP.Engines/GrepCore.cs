@@ -27,7 +27,7 @@ namespace dnGREP.Common
         public FileFilter FileFilter { get; set; } = FileFilter.Default;
 
 
-        private readonly List<GrepSearchResult> searchResults = new();
+        private readonly List<GrepSearchResult> searchResults = [];
         private readonly object lockObj = new();
         private int processedFilesCount;
         private int foundfilesCount;
@@ -96,7 +96,7 @@ namespace dnGREP.Common
 
             ProcessedFile?.Invoke(this, new ProgressStatus(false, searchResults.Count, successful, searchResults, string.Empty));
 
-            return new List<GrepSearchResult>(searchResults);
+            return [.. searchResults];
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace dnGREP.Common
                 GrepEngineFactory.UnloadEngines();
             }
 
-            return new List<GrepSearchResult>(searchResults);
+            return [.. searchResults];
         }
 
         public List<GrepSearchResult> CaptureGroupSearch(IEnumerable<string> files, string filePatternInclude,
@@ -236,7 +236,7 @@ namespace dnGREP.Common
             {
                 GrepEngineFactory.UnloadEngines();
             }
-            return new List<GrepSearchResult>(searchResults);
+            return [.. searchResults];
         }
 
         private void AddSearchResult(GrepSearchResult result)
@@ -326,10 +326,10 @@ namespace dnGREP.Common
                 AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
                 if (ProcessedFile != null)
                 {
-                    List<GrepSearchResult> _results = new()
-                    {
+                    List<GrepSearchResult> _results =
+                    [
                         new GrepSearchResult(file, searchPattern, ex.Message, false)
-                    };
+                    ];
                     ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, _results, file));
                 }
             }
@@ -381,19 +381,19 @@ namespace dnGREP.Common
             {
                 foreach (var item in files)
                 {
-                    ProcessedFile?.Invoke(this, new ProgressStatus(true, processedFiles, processedFiles, null, item.OrginalFile));
+                    ProcessedFile?.Invoke(this, new ProgressStatus(true, processedFiles, processedFiles, null, item.OriginalFile));
 
                     // the value in the files dictionary is the temp file name assigned by
                     // the caller for any possible Undo operation
                     string undoFileName = Path.Combine(undoFolder, item.BackupName);
-                    IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(item.OrginalFile, SearchParams, FileFilter);
+                    IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(item.OriginalFile, SearchParams, FileFilter);
 
                     try
                     {
                         processedFiles++;
                         // Copy file					
-                        Utils.CopyFile(item.OrginalFile, undoFileName, true);
-                        Utils.DeleteFile(item.OrginalFile);
+                        Utils.CopyFile(item.OriginalFile, undoFileName, true);
+                        Utils.DeleteFile(item.OriginalFile);
 
                         Encoding encoding = Encoding.Default;
                         if (codePage > -1)
@@ -411,40 +411,40 @@ namespace dnGREP.Common
 
                         pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                        if (!engine.Replace(undoFileName, item.OrginalFile, searchPattern, replacePattern, searchType, searchOptions,
+                        if (!engine.Replace(undoFileName, item.OriginalFile, searchPattern, replacePattern, searchType, searchOptions,
                             encoding, item.ReplaceItems, pauseCancelToken))
                         {
-                            throw new ApplicationException("Replace failed for file: " + item.OrginalFile);
+                            throw new ApplicationException("Replace failed for file: " + item.OriginalFile);
                         }
 
 
-                        ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFiles, processedFiles, null, item.OrginalFile));
+                        ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFiles, processedFiles, null, item.OriginalFile));
 
 
-                        File.SetAttributes(item.OrginalFile, File.GetAttributes(undoFileName));
+                        File.SetAttributes(item.OriginalFile, File.GetAttributes(undoFileName));
 
                         if (restoreLastModifiedDate)
                         {
                             try
                             {
-                                FileInfo info = new(item.OrginalFile)
+                                FileInfo info = new(item.OriginalFile)
                                 {
                                     LastWriteTime = item.LastWriteTime
                                 };
                             }
                             catch (IOException ex)
                             {
-                                throw new ApplicationException("Failed to reset last write time for file: " + item.OrginalFile, ex);
+                                throw new ApplicationException("Failed to reset last write time for file: " + item.OriginalFile, ex);
                             }
                         }
 
-                        GrepEngineFactory.ReturnToPool(item.OrginalFile, engine);
+                        GrepEngineFactory.ReturnToPool(item.OriginalFile, engine);
                     }
                     catch (OperationCanceledException)
                     {
                         // Replace the file
-                        Utils.DeleteFile(item.OrginalFile);
-                        Utils.CopyFile(undoFileName, item.OrginalFile, true);
+                        Utils.DeleteFile(item.OriginalFile);
+                        Utils.CopyFile(undoFileName, item.OriginalFile, true);
                         throw;
                     }
                     catch (Exception ex)
@@ -453,10 +453,10 @@ namespace dnGREP.Common
                         try
                         {
                             // Replace the file
-                            if (File.Exists(undoFileName) && File.Exists(item.OrginalFile))
+                            if (File.Exists(undoFileName) && File.Exists(item.OriginalFile))
                             {
-                                Utils.DeleteFile(item.OrginalFile);
-                                Utils.CopyFile(undoFileName, item.OrginalFile, true);
+                                Utils.DeleteFile(item.OriginalFile);
+                                Utils.CopyFile(undoFileName, item.OriginalFile, true);
                             }
                         }
                         catch
@@ -489,7 +489,7 @@ namespace dnGREP.Common
                 {
                     string sourceFile = Path.Combine(undoFolder, item.BackupName);
                     if (File.Exists(sourceFile))
-                        Utils.CopyFile(sourceFile, item.OrginalFile, true);
+                        Utils.CopyFile(sourceFile, item.OriginalFile, true);
                 }
                 return true;
             }
@@ -501,20 +501,12 @@ namespace dnGREP.Common
         }
     }
 
-    public class ProgressStatus
+    public class ProgressStatus(bool beginSearch, int processed, int successful, List<GrepSearchResult>? results, string fileName)
     {
-        public ProgressStatus(bool beginSearch, int processed, int successful, List<GrepSearchResult>? results, string fileName)
-        {
-            BeginSearch = beginSearch;
-            ProcessedFiles = processed;
-            SuccessfulFiles = successful;
-            SearchResults = results;
-            FileName = fileName;
-        }
-        public bool BeginSearch { get; private set; }
-        public int ProcessedFiles { get; private set; }
-        public int SuccessfulFiles { get; private set; }
-        public List<GrepSearchResult>? SearchResults { get; private set; }
-        public string FileName { get; private set; }
+        public bool BeginSearch { get; private set; } = beginSearch;
+        public int ProcessedFiles { get; private set; } = processed;
+        public int SuccessfulFiles { get; private set; } = successful;
+        public List<GrepSearchResult>? SearchResults { get; private set; } = results;
+        public string FileName { get; private set; } = fileName;
     }
 }

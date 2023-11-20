@@ -29,7 +29,7 @@ namespace dnGREP.WPF
 
         private static string[] SplitCommandLine(string line)
         {
-            List<string> result = new();
+            List<string> result = [];
             foreach (string arg in ParseLine(line))
             {
                 string s = arg.Trim();
@@ -69,11 +69,11 @@ namespace dnGREP.WPF
             }
         }
 
-        private static readonly List<char> separators = new() { ',', ';' };
+        private static readonly List<char> separators = [',', ';'];
 
         private static string FormatPathArgs(string input)
         {
-            List<string> parts = new();
+            List<string> parts = [];
             int startPosition = 0;
             bool isInQuotes = false;
             for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
@@ -109,14 +109,14 @@ namespace dnGREP.WPF
 
         internal static string StripQuotes(string input)
         {
-            if (input.Length > 2 && input.StartsWith("\"", StringComparison.Ordinal) && input.EndsWith("\"", StringComparison.Ordinal))
+            if (input.Length > 2 && input.StartsWith('"') && input.EndsWith('"'))
             {
                 input = input[1..^1];
             }
             return input;
         }
 
-        private readonly List<string> pathFlags = new() { "/f", "-f", "-folder" };
+        private readonly List<string> pathFlags = ["/f", "-f", "-folder"];
 
         private void EvaluateArgs(string[] args)
         {
@@ -129,8 +129,7 @@ namespace dnGREP.WPF
                 if (!string.IsNullOrEmpty(arg))
                 {
                     // old style command line args
-                    if (idx < 2 && !(arg.StartsWith("/", StringComparison.Ordinal) ||
-                          arg.StartsWith("-", StringComparison.Ordinal)))
+                    if (idx < 2 && !(arg.StartsWith('/') || arg.StartsWith('-')))
                     {
                         if (idx == 0)
                         {
@@ -233,7 +232,7 @@ namespace dnGREP.WPF
                             case "/pt":
                             case "-pt":
                             case "-patterntype":
-                                if (!string.IsNullOrWhiteSpace(value) && 
+                                if (!string.IsNullOrWhiteSpace(value) &&
                                     Enum.TryParse(value, out FileSearchType tofs) &&
                                     Enum.IsDefined(tofs))
                                 {
@@ -268,7 +267,7 @@ namespace dnGREP.WPF
                             case "/st":
                             case "-st":
                             case "-searchtype":
-                                if (!string.IsNullOrWhiteSpace(value) && 
+                                if (!string.IsNullOrWhiteSpace(value) &&
                                     Enum.TryParse(value, out SearchType tos) &&
                                     Enum.IsDefined(tos))
                                 {
@@ -360,7 +359,7 @@ namespace dnGREP.WPF
                             case "/mode":
                             case "-mode":
                             case "-reportmode":
-                                if (!string.IsNullOrWhiteSpace(value) && 
+                                if (!string.IsNullOrWhiteSpace(value) &&
                                     Enum.TryParse(value, out ReportMode rm) &&
                                     Enum.IsDefined(rm))
                                 {
@@ -422,7 +421,7 @@ namespace dnGREP.WPF
                             case "/scope":
                             case "-scope":
                             case "-uniquescope":
-                                if (!string.IsNullOrWhiteSpace(value) && 
+                                if (!string.IsNullOrWhiteSpace(value) &&
                                     Enum.TryParse(value, out UniqueScope scope) &&
                                     Enum.IsDefined(scope))
                                 {

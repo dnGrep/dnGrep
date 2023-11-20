@@ -20,18 +20,18 @@ namespace dnGREP.Engines
 
         public event EventHandler<DataEventArgs<string>>? StartingFileSearch;
 
-        public IList<string> DefaultFileExtensions => ArchiveDirectory.DefaultExtensions;
+        public List<string> DefaultFileExtensions => ArchiveDirectory.DefaultExtensions;
 
         public bool IsSearchOnly => true;
 
         private bool precacheResults;
         private FileFilter fileFilter = FileFilter.Default;
         private GrepEngineInitParams searchParams = GrepEngineInitParams.Default;
-        private readonly List<string> includeSearchPatterns = new();
-        private readonly List<Regex> includeRegexPatterns = new();
-        private readonly List<Regex> excludeRegexPatterns = new();
-        private readonly List<Regex> includeShebangPatterns = new();
-        private readonly HashSet<string> hiddenDirectories = new();
+        private readonly List<string> includeSearchPatterns = [];
+        private readonly List<Regex> includeRegexPatterns = [];
+        private readonly List<Regex> excludeRegexPatterns = [];
+        private readonly List<Regex> includeShebangPatterns = [];
+        private readonly HashSet<string> hiddenDirectories = [];
 
         public void SetSearchOptions(FileFilter filter, GrepEngineInitParams initParams)
         {
@@ -55,14 +55,14 @@ namespace dnGREP.Engines
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             // not used, just here to implement interface
-            return new List<GrepSearchResult>();
+            return [];
         }
 
         List<GrepSearchResult> IGrepEngine.Search(Stream input, string fileName, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             // not used, just here to implement interface
-            return new List<GrepSearchResult>();
+            return [];
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern,
@@ -81,8 +81,7 @@ namespace dnGREP.Engines
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
             PauseCancelToken pauseCancelToken)
         {
-            if (file == null)
-                throw new ArgumentNullException(nameof(file));
+            ArgumentNullException.ThrowIfNull(file, nameof(file));
 
             if (file.Length > 260 && !file.StartsWith(PathEx.LongPathPrefix, StringComparison.Ordinal))
             {
@@ -127,7 +126,7 @@ namespace dnGREP.Engines
                     {
                         ErrorMsg = msg + ": " + ex.Message
                     };
-                    ret = new List<GrepSearchResult> { new GrepSearchResult(fileData, encoding) };
+                    ret = [new(fileData, encoding)];
                 }
                 if (ret != null)
                 {
@@ -222,7 +221,7 @@ namespace dnGREP.Engines
                             logger.Error(ex, msg);
 
                             fileData.ErrorMsg = msg + ": " + ex.Message;
-                            ret = new List<GrepSearchResult> { new GrepSearchResult(fileData, encoding) };
+                            ret = [new(fileData, encoding)];
                         }
                         if (ret != null)
                         {
@@ -283,7 +282,7 @@ namespace dnGREP.Engines
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(innerFileName, searchParams, fileFilter, searchType);
                 innerFileResults = engine.Search(stream, innerFileName, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
-                if (innerFileResults.Any())
+                if (innerFileResults.Count != 0)
                 {
                     if (precacheResults)
                     {

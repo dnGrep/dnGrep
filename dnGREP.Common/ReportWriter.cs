@@ -31,7 +31,7 @@ namespace dnGREP.Common
 
         public static string GetResultsAsText(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
-            if (source != null && source.Any())
+            if (source.Count != 0)
             {
                 if (options.FilterUniqueValues)
                 {
@@ -60,7 +60,7 @@ namespace dnGREP.Common
 
         public static string GetResultsAsCSV(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
-            if (source != null && source.Any())
+            if (source.Count != 0)
             {
                 if (options.FilterUniqueValues)
                 {
@@ -134,7 +134,7 @@ namespace dnGREP.Common
             sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine();
-            sb.Append(GetResultLinesWithContext(source, orClauses ?? new()));
+            sb.Append(GetResultLinesWithContext(source, orClauses ?? []));
 
             File.WriteAllText(destinationPath, sb.ToString(), Encoding.UTF8);
         }
@@ -148,7 +148,7 @@ namespace dnGREP.Common
             foreach (var result in source)
             {
                 string orResults = string.Empty;
-                if (orClauses.Any())
+                if (orClauses.Count != 0)
                 {
                     var set = result.Matches.Select(m => m.SearchPattern);
                     var hits = orClauses.Intersect(set);
@@ -190,7 +190,7 @@ namespace dnGREP.Common
                     if (!string.IsNullOrEmpty(orResults))
                         sb.AppendLine().Append(orResults);
 
-                    if (searchResults.Any())
+                    if (searchResults.Count != 0)
                     {
                         int prevPageNum = -1;
                         int prevLineNum = -1;
@@ -374,7 +374,7 @@ namespace dnGREP.Common
                 if (options.IncludeFileInformation)
                 {
                     bool fileHasGroups = result.SearchResults
-                        .SelectMany(s => s.Matches.Where(m => m.Groups.Any())).Any();
+                        .SelectMany(s => s.Matches.Where(m => m.Groups.Count != 0)).Any();
 
                     if (fileHasGroups)
                     {
@@ -383,7 +383,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                if (result.SearchResults.Any())
+                if (result.SearchResults.Count != 0)
                 {
                     bool mergeLines = !options.IncludeFileInformation && !options.OutputOnSeparateLines;
 
@@ -393,7 +393,7 @@ namespace dnGREP.Common
                         int count = 0;
                         bool lineHasGroups = false;
 
-                        foreach (GrepMatch match in line.Matches.Where(m => m.Groups.Any()))
+                        foreach (GrepMatch match in line.Matches.Where(m => m.Groups.Count != 0))
                         {
                             lineHasGroups = true;
                             foreach (GrepCaptureGroup group in match.Groups)
@@ -517,12 +517,13 @@ namespace dnGREP.Common
             return sb.ToString();
         }
 
+#pragma warning disable CA1868
         private static Dictionary<string, List<string>> GetUniqueMatches(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             int fileCount = 0;
-            HashSet<string> unique = new();
-            Dictionary<string, List<string>> resultSet = new();
-            List<string> values = new();
+            HashSet<string> unique = [];
+            Dictionary<string, List<string>> resultSet = [];
+            List<string> values = [];
 
             if (options.UniqueScope == UniqueScope.Global)
             {
@@ -534,7 +535,7 @@ namespace dnGREP.Common
                 if (options.UniqueScope == UniqueScope.PerFile)
                 {
                     unique.Clear();
-                    values = new List<string>();
+                    values = [];
                     resultSet.Add(result.FileNameDisplayed, values);
                 }
 
@@ -585,9 +586,9 @@ namespace dnGREP.Common
         private static Dictionary<string, List<string>> GetUniqueGroups(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             int fileCount = 0;
-            HashSet<string> unique = new();
-            Dictionary<string, List<string>> resultSet = new();
-            List<string> values = new();
+            HashSet<string> unique = [];
+            Dictionary<string, List<string>> resultSet = [];
+            List<string> values = [];
 
             if (options.UniqueScope == UniqueScope.Global)
             {
@@ -599,7 +600,7 @@ namespace dnGREP.Common
                 if (options.UniqueScope == UniqueScope.PerFile)
                 {
                     unique.Clear();
-                    values = new List<string>();
+                    values = [];
                     resultSet.Add(result.FileNameDisplayed, values);
                 }
 
@@ -645,6 +646,7 @@ namespace dnGREP.Common
 
             return resultSet;
         }
+#pragma warning restore CA1868
 
         private static string GetFullLinesAsCSV(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
@@ -710,7 +712,7 @@ namespace dnGREP.Common
 
             foreach (GrepSearchResult result in source)
             {
-                if (!result.SearchResults.Any() && options.IncludeFileInformation)
+                if (result.SearchResults.Count == 0 && options.IncludeFileInformation)
                 {
                     sb.AppendLine(Quote(result.FileNameDisplayed));
                     lineCount++;
@@ -814,7 +816,7 @@ namespace dnGREP.Common
 
             foreach (GrepSearchResult result in source)
             {
-                if (!result.SearchResults.Any() && options.IncludeFileInformation)
+                if (result.SearchResults.Count == 0 && options.IncludeFileInformation)
                 {
                     sb.AppendLine(Quote(result.FileNameDisplayed));
                     lineCount++;
@@ -831,7 +833,7 @@ namespace dnGREP.Common
                         int count = 0;
                         bool lineHasGroups = false;
 
-                        foreach (GrepMatch match in line.Matches.Where(m => m.Groups.Any()))
+                        foreach (GrepMatch match in line.Matches.Where(m => m.Groups.Count != 0))
                         {
                             lineHasGroups = true;
                             foreach (GrepCaptureGroup group in match.Groups)

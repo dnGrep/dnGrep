@@ -29,7 +29,7 @@ namespace dnGREP.WPF
         /// <summary>
         /// The ordered list of line numbers from the original source file
         /// </summary>
-        public List<int> LineNumbers { get; } = new List<int>();
+        public List<int> LineNumbers { get; } = [];
 
         protected override Size MeasureOverride(Size availableSize)
         {

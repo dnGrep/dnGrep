@@ -31,7 +31,7 @@ namespace dnGREP.WPF
             IsCheckable = isCheckable;
         }
 
-        public ObservableCollection<MenuItemViewModel> Children { get; } = new();
+        public ObservableCollection<MenuItemViewModel> Children { get; } = [];
 
         [ObservableProperty]
         private bool isSeparator = false;

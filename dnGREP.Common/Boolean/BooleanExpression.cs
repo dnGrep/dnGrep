@@ -23,12 +23,12 @@ namespace dnGREP.Common
         /// <summary>
         /// Gets the parsed input as list of tokens in postfix order
         /// </summary>
-        public List<BooleanToken> PostfixTokens { get; private set; } = new();
+        public List<BooleanToken> PostfixTokens { get; private set; } = [];
 
         /// <summary>
         /// Gets the list of operands from the parsed input
         /// </summary>
-        public IList<BooleanToken> Operands => PostfixTokens.Where(r => r.IsOperand).ToList();
+        public List<BooleanToken> Operands => PostfixTokens.Where(r => r.IsOperand).ToList();
 
         /// <summary>
         /// Returns true if at least one operator is an "OR"
@@ -79,10 +79,10 @@ namespace dnGREP.Common
         {
             var savedState = Operands.Select(o => o.EvaluatedResult).ToList();
 
-            List<List<bool>> values = new();
+            List<List<bool>> values = [];
             for (int idx = 0; idx < Math.Pow(2, Operands.Count); idx++)
             {
-                values.Add(new List<bool>());
+                values.Add([]);
                 string binary = Convert.ToString(idx, 2).PadLeft(Operands.Count, '0');
 
                 for (int jdx = 0; jdx < Operands.Count; jdx++)
@@ -167,7 +167,7 @@ namespace dnGREP.Common
                             operandStack.Push(token.EvaluatedResult.Value);
                             if (modifyMatches)
                             {
-                                tokens.Push(new List<BooleanToken> { token });
+                                tokens.Push([token]);
                             }
                         }
                         else
@@ -206,7 +206,7 @@ namespace dnGREP.Common
                                     btb.ForEach(x => x.Matches = null);
                                     bta.ForEach(x => x.Matches = null);
                                 }
-                                tokens.Push(btb.Concat(bta).ToList());
+                                tokens.Push([.. btb, .. bta]);
                             }
                         }
                         break;
@@ -225,7 +225,7 @@ namespace dnGREP.Common
                                     btb.ForEach(x => x.Matches = null);
                                     bta.ForEach(x => x.Matches = null);
                                 }
-                                tokens.Push(btb.Concat(bta).ToList());
+                                tokens.Push([.. btb, .. bta]);
                             }
                         }
                         break;
@@ -239,7 +239,7 @@ namespace dnGREP.Common
                             {
                                 var btb = tokens.Pop();
                                 var bta = tokens.Pop();
-                                tokens.Push(btb.Concat(bta).ToList());
+                                tokens.Push([.. btb, .. bta]);
                             }
                         }
                         break;
@@ -253,7 +253,7 @@ namespace dnGREP.Common
                             {
                                 var btb = tokens.Pop();
                                 var bta = tokens.Pop();
-                                tokens.Push(btb.Concat(bta).ToList());
+                                tokens.Push([.. btb, .. bta]);
                             }
                         }
                         break;
@@ -272,7 +272,7 @@ namespace dnGREP.Common
                                     btb.ForEach(x => x.Matches = null);
                                     bta.ForEach(x => x.Matches = null);
                                 }
-                                tokens.Push(btb.Concat(bta).ToList());
+                                tokens.Push([.. btb, .. bta]);
                             }
                         }
                         break;
@@ -334,7 +334,7 @@ namespace dnGREP.Common
                 throw new InvalidStateException(ParserErrorState.MissingOperand);
             }
 
-            var stack = new Stack<BooleanToken>();
+            Stack<BooleanToken> stack = new();
             TokenType previousToken = TokenType.NotDefined;
             foreach (var token in tokens)
             {
@@ -351,7 +351,7 @@ namespace dnGREP.Common
                     case TokenType.NOR:
                         if (previousToken == TokenType.StringValue || previousToken == TokenType.CloseParens)
                         {
-                            while (stack.Any() && token.IsLowerPrecedence(stack.Peek()))
+                            while (stack.Count != 0 && token.IsLowerPrecedence(stack.Peek()))
                             {
                                 yield return stack.Pop();
                             }
@@ -364,7 +364,7 @@ namespace dnGREP.Common
                         break;
 
                     case TokenType.NOT:
-                        while (stack.Any() && token.IsLowerPrecedence(stack.Peek()))
+                        while (stack.Count != 0 && token.IsLowerPrecedence(stack.Peek()))
                         {
                             yield return stack.Pop();
                         }
@@ -392,7 +392,7 @@ namespace dnGREP.Common
                 }
                 previousToken = token.TokenType;
             }
-            while (stack.Any())
+            while (stack.Count != 0)
             {
                 var token = stack.Pop();
                 yield return token;
@@ -423,12 +423,12 @@ namespace dnGREP.Common
                 }
                 else if (TokenType.Operator.HasFlag(token.TokenType))
                 {
-                    if (token.Value.StartsWith(")", StringComparison.Ordinal))
+                    if (token.Value.StartsWith(')'))
                     {
                         sb.Append(" ) ");
                     }
                     sb.Append($" {token.TokenType} ");
-                    if (token.Value.EndsWith("(", StringComparison.Ordinal))
+                    if (token.Value.EndsWith('('))
                     {
                         sb.Append(" ( ");
                     }
@@ -458,14 +458,8 @@ namespace dnGREP.Common
         True = 1,
     }
 
-    public class InvalidStateException : Exception
+    public class InvalidStateException(ParserErrorState state) : Exception(state.ToString())
     {
-        public InvalidStateException(ParserErrorState state)
-            : base(state.ToString())
-        {
-            State = state;
-        }
-
-        public ParserErrorState State { get; private set; }
+        public ParserErrorState State { get; private set; } = state;
     }
 }

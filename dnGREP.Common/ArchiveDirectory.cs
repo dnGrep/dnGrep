@@ -21,19 +21,18 @@ namespace dnGREP.Common
             GetExtensionsFromSettings("Archive");
         }
 
-        public static IList<string> DefaultExtensions
-        {
-            get { return new string[] { "zip", "7z", "jar", "war", "ear", "rar", "cab", "gz", "gzip", "tar", "rpm", "iso", "isx", "bz2", "bzip2", "tbz2", "tbz", "tgz", "arj", "cpio", "deb", "dmg", "hfs", "hfsx", "lzh", "lha", "lzma", "z", "taz", "xar", "pkg", "xz", "txz", "zipx", "epub", "wim", "chm" }; }
-        }
+        public static List<string> DefaultExtensions => ["zip", "7z", "jar", "war", "ear", "rar", "cab", "gz", "gzip", "tar", "rpm", "iso", "isx", "bz2", "bzip2", "tbz2", "tbz", "tgz", "arj", "cpio", "deb", "dmg", "hfs", "hfsx", "lzh", "lha", "lzma", "z", "taz", "xar", "pkg", "xz", "txz", "zipx", "epub", "wim", "chm"];
 
         public static void Reinitialize()
         {
             GetExtensionsFromSettings("Archive");
         }
 
-        public static List<string> Extensions { get; private set; } = new();
+        public static List<string> Extensions { get; private set; } = [];
 
-        public static List<string> Patterns { get; private set; } = new();
+        public static List<string> Patterns { get; private set; } = [];
+
+        private static readonly char[] separator = ['/'];
 
         private static void GetExtensionsFromSettings(string name)
         {
@@ -64,15 +63,15 @@ namespace dnGREP.Common
         private static IEnumerable<FileData> EnumerateFiles(Stream input, string fileName, FileFilter filter,
             PauseCancelToken pauseCancelToken)
         {
-            List<string> includeSearchPatterns = new();
+            List<string> includeSearchPatterns = [];
             bool hasSearchPattern = Utils.PrepareSearchPatterns(filter, includeSearchPatterns);
 
-            List<Regex> includeRegexPatterns = new();
-            List<Regex> excludeRegexPatterns = new();
-            List<Regex> includeShebangPatterns = new();
+            List<Regex> includeRegexPatterns = [];
+            List<Regex> excludeRegexPatterns = [];
+            List<Regex> includeShebangPatterns = [];
             Utils.PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hasSearchPattern);
 
-            HashSet<string> hiddenDirectories = new();
+            HashSet<string> hiddenDirectories = [];
 
             bool checkEncoding = GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern);
 
@@ -463,10 +462,10 @@ namespace dnGREP.Common
 
         public static List<GrepLine> GetLinesWithContext(GrepSearchResult searchResult, int linesBefore, int linesAfter)
         {
-            string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = searchResult.FileNameDisplayed.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator, StringComparison.Ordinal) || parts.Length < 2)
             {
-                return new List<GrepLine>();
+                return [];
             }
 
             string innerFileName = parts.Last();
@@ -484,7 +483,7 @@ namespace dnGREP.Common
 
         private static List<GrepLine> GetLinesWithContext(Stream input, GrepSearchResult searchResult, int linesBefore, int linesAfter, string innerFileName, string[] intermediateFiles)
         {
-            List<GrepLine> results = new();
+            List<GrepLine> results = [];
 
             using (SevenZipExtractor extractor = new(input, true))
             {
@@ -554,7 +553,7 @@ namespace dnGREP.Common
         {
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-Archive", Utils.GetHash(searchResult.FileNameReal));
 
-            string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = searchResult.FileNameDisplayed.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator, StringComparison.Ordinal) || parts.Length < 2)
             {
                 return string.Empty;

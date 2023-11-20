@@ -63,7 +63,7 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private bool hasValidationErrors = false;
 
-        public ObservableCollection<ValidationErrorViewModel> ValidationData { get; } = new();
+        public ObservableCollection<ValidationErrorViewModel> ValidationData { get; } = [];
 
 #pragma warning disable CA1822
         public ICommand NewCommand => new RelayCommand(
@@ -421,12 +421,14 @@ namespace dnGREP.WPF
             return true;
         }
 
+        private static readonly char[] newlines = ['\n', '\r'];
+
         private bool ValidateScript(bool doingSave)
         {
             ValidationData.Clear();
             HasValidationErrors = false;
 
-            string[] script = textEditor.Text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] script = textEditor.Text.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
             var queue = ScriptManager.Instance.ParseScript(script, false);
             var results = ScriptManager.Instance.Validate(queue);
 

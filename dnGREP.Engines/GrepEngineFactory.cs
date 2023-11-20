@@ -13,13 +13,13 @@ namespace dnGREP.Engines
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static readonly Dictionary<string, GrepPlugin> fileTypeEngines = new();
+        private static readonly Dictionary<string, GrepPlugin> fileTypeEngines = [];
         private static List<GrepPlugin>? plugins = null;
-        private static readonly List<GrepPlugin> disabledPlugins = new();
-        private static readonly Dictionary<string, string> poolKeys = new();
-        private static readonly List<IGrepEngine> loadedEngines = new();
-        private static readonly Dictionary<string, Queue<IGrepEngine>> pooledEngines = new();
-        private static readonly Dictionary<string, string> failedEngines = new();
+        private static readonly List<GrepPlugin> disabledPlugins = [];
+        private static readonly Dictionary<string, string> poolKeys = [];
+        private static readonly List<IGrepEngine> loadedEngines = [];
+        private static readonly Dictionary<string, Queue<IGrepEngine>> pooledEngines = [];
+        private static readonly Dictionary<string, string> failedEngines = [];
         private static readonly object lockObj = new();
 
         public static IEnumerable<GrepPlugin> AllPlugins
@@ -40,7 +40,7 @@ namespace dnGREP.Engines
             {
                 if (plugins == null)
                 {
-                    plugins = new List<GrepPlugin>();
+                    plugins = [];
                     disabledPlugins.Clear();
                     string pluginPath = Path.Combine(Utils.GetCurrentPath(), "Plugins");
                     if (Directory.Exists(pluginPath))
@@ -70,7 +70,7 @@ namespace dnGREP.Engines
                                             }
 
                                             logger.Debug(string.Format("Loading plugin: {0} for extensions {1}",
-                                                plugin.DllFilePath, string.Join(", ", plugin.Extensions.ToArray())));
+                                                plugin.DllFilePath, string.Join(", ", [.. plugin.Extensions])));
 
                                         }
                                         else
@@ -124,9 +124,7 @@ namespace dnGREP.Engines
 
             lock (lockObj)
             {
-                var pluginList = new List<GrepPlugin>();
-                pluginList.AddRange(plugins);
-                pluginList.AddRange(disabledPlugins);
+                List<GrepPlugin> pluginList = [.. plugins, .. disabledPlugins];
 
                 plugins.Clear();
                 disabledPlugins.Clear();
@@ -154,7 +152,7 @@ namespace dnGREP.Engines
                             }
 
                             logger.Debug(string.Format("Loading plugin: {0} for extensions {1}",
-                                plugin.DllFilePath, string.Join(", ", plugin.Extensions.ToArray())));
+                                plugin.DllFilePath, string.Join(", ", [.. plugin.Extensions])));
 
                         }
                         else
@@ -265,11 +263,7 @@ namespace dnGREP.Engines
 
         private static IGrepEngine GetPlainTextEngine(string fileExtension, GrepEngineInitParams param, FileFilter filter)
         {
-            if (!poolKeys.ContainsKey(fileExtension))
-            {
-                poolKeys.Add(fileExtension, "GrepEnginePlainText");
-            }
-
+            poolKeys.TryAdd(fileExtension, "GrepEnginePlainText");
             IGrepEngine? poolEngine = FetchFromPool(fileExtension);
             if (poolEngine != null)
             {
@@ -277,7 +271,7 @@ namespace dnGREP.Engines
                 return poolEngine;
             }
 
-            IGrepEngine engine = new GrepEnginePlainText();
+            var engine = new GrepEnginePlainText();
             loadedEngines.Add(engine);
             engine.Initialize(param, filter);
             return engine;
@@ -285,11 +279,7 @@ namespace dnGREP.Engines
 
         private static IGrepEngine GetArchiveEngine(string fileExtension, GrepEngineInitParams param, FileFilter filter)
         {
-            if (!poolKeys.ContainsKey(fileExtension))
-            {
-                poolKeys.Add(fileExtension, "GrepArchiveEngine");
-            }
-
+            poolKeys.TryAdd(fileExtension, "GrepArchiveEngine");
             IGrepEngine? poolEngine = FetchFromPool(fileExtension);
             if (poolEngine != null)
             {
@@ -297,15 +287,15 @@ namespace dnGREP.Engines
                 return poolEngine;
             }
 
-            IGrepEngine engine = new ArchiveEngine();
+            var engine = new ArchiveEngine();
             loadedEngines.Add(engine);
             engine.Initialize(param, filter);
             return engine;
         }
 
-        private static IGrepEngine GetHexEngine(GrepEngineInitParams param, FileFilter filter)
+        private static GrepEngineHex GetHexEngine(GrepEngineInitParams param, FileFilter filter)
         {
-            IGrepEngine engine = new GrepEngineHex();
+            var engine = new GrepEngineHex();
             loadedEngines.Add(engine);
             engine.Initialize(param, filter);
             return engine;

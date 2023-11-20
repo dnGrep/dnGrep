@@ -66,6 +66,8 @@ namespace dnGREP.WPF
             }
         }
 
+        private static readonly char[] newlines = ['\n', '\r'];
+
         public string ScriptFile => viewModel.ScriptFile;
 
         public IEnumerable<string> ScriptText
@@ -77,7 +79,7 @@ namespace dnGREP.WPF
                     string text = textEditor.Text;
                     if (!string.IsNullOrEmpty(text))
                     {
-                        return text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                        return text.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
                     }
                 }
                 return Enumerable.Empty<string>();

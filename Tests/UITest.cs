@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -49,15 +48,13 @@ namespace Tests
             }
         }
 
-        private ResourceDictionary? LoadXaml(string path)
+        private static ResourceDictionary? LoadXaml(string path)
         {
-            using (FileStream s = new FileStream(path, FileMode.Open))
+            using FileStream s = new(path, FileMode.Open);
+            object obj = XamlReader.Load(s);
+            if (obj is ResourceDictionary dict)
             {
-                object obj = XamlReader.Load(s);
-                if (obj is ResourceDictionary dict)
-                {
-                    return dict;
-                }
+                return dict;
             }
             return null;
         }

@@ -17,20 +17,12 @@ namespace dnGREP.WPF.MVHelpers
         public RectangleF ParentWindowSize { get; set; }
     }
 
-    public class GrepLineSelectEventArgs : EventArgs
+    public class GrepLineSelectEventArgs(FormattedGrepLine? formattedGrepLine, int lineMatchCount, int matchOrdinal, int fileMatchCount) : EventArgs
     {
-        public GrepLineSelectEventArgs(FormattedGrepLine? formattedGrepLine, int lineMatchCount, int matchOrdinal, int fileMatchCount)
-        {
-            FormattedGrepLine = formattedGrepLine;
-            LineMatchCount = lineMatchCount;
-            MatchOrdinal = matchOrdinal;
-            FileMatchCount = fileMatchCount;
-        }
-
-        public FormattedGrepLine? FormattedGrepLine { get; private set; }
-        public int LineMatchCount { get; set; }
-        public int MatchOrdinal { get; private set; }
-        public int FileMatchCount { get; private set; }
+        public FormattedGrepLine? FormattedGrepLine { get; private set; } = formattedGrepLine;
+        public int LineMatchCount { get; set; } = lineMatchCount;
+        public int MatchOrdinal { get; private set; } = matchOrdinal;
+        public int FileMatchCount { get; private set; } = fileMatchCount;
     }
 
 }

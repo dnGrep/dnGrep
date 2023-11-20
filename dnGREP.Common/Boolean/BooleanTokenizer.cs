@@ -10,19 +10,19 @@ namespace dnGREP.Common
         // A && B && C || D  means  ((A && B) && C) || D
         // !A && B || C      means  ((!A) && B) || C
 
-        private readonly IList<Token> tokenDefinitions = new List<Token>
-        {
-            new Token(TokenType.NOT, @"\bnot\b", 6), // highest precedence
-            new Token(TokenType.AND, @"\band\b", 5),
-            new Token(TokenType.NAND, @"\bnand\b", 4),
-            new Token(TokenType.XOR, @"\bxor\b", 3),
-            new Token(TokenType.OR, @"\bor\b", 2),
-            new Token(TokenType.NOR, @"\bnor\b", 1),
-            new Token(TokenType.CloseParens, @"\)", 0),
-            new Token(TokenType.OpenParens, @"\(", 0),
-            new Token(TokenType.StringValue, @"`([^`]*)`", 0),
-            new Token(TokenType.StringValue, @"<([^`]*?)>", 0),
-        };
+        private readonly List<Token> tokenDefinitions =
+        [
+            new(TokenType.NOT, @"\bnot\b", 6), // highest precedence
+            new(TokenType.AND, @"\band\b", 5),
+            new(TokenType.NAND, @"\bnand\b", 4),
+            new(TokenType.XOR, @"\bxor\b", 3),
+            new(TokenType.OR, @"\bor\b", 2),
+            new(TokenType.NOR, @"\bnor\b", 1),
+            new(TokenType.CloseParens, @"\)", 0),
+            new(TokenType.OpenParens, @"\(", 0),
+            new(TokenType.StringValue, @"`([^`]*)`", 0),
+            new(TokenType.StringValue, @"<([^`]*?)>", 0),
+        ];
 
         public IEnumerable<BooleanToken> Tokenize(string input)
         {
@@ -67,7 +67,7 @@ namespace dnGREP.Common
 
         private List<TokenMatch> FindTokenMatches(string input)
         {
-            var tokenMatches = new List<TokenMatch>();
+            List<TokenMatch> tokenMatches = [];
 
             foreach (var tokenDefinition in tokenDefinitions)
                 tokenMatches.AddRange(tokenDefinition.FindMatches(input).ToList());

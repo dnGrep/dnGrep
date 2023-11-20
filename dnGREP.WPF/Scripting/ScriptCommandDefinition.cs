@@ -17,11 +17,11 @@ namespace dnGREP.WPF
 
         public bool AllowNullValue { get; set; } = false;
 
-        public List<ScriptTargetDefinition> Targets { get; } = new List<ScriptTargetDefinition>();
+        public List<ScriptTargetDefinition> Targets { get; } = [];
 
-        public List<ScriptValueDefinition> Values { get; } = new List<ScriptValueDefinition>();
+        public List<ScriptValueDefinition> Values { get; } = [];
 
-        public List<ScriptingCompletionData> CompletionData { get; } = new List<ScriptingCompletionData>();
+        public List<ScriptingCompletionData> CompletionData { get; } = [];
 
         public bool IsTargetCommand => Targets.Count > 0;
 

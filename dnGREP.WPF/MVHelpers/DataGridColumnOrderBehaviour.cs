@@ -51,7 +51,7 @@ namespace dnGREP.WPF
             {
                 if (sender is DataGrid grid)
                 {
-                    List<int> displayIndexes = new();
+                    List<int> displayIndexes = [];
                     for (int idx = 0; idx < grid.Columns.Count; idx++)
                     {
                         displayIndexes.Add(grid.Columns[idx].DisplayIndex);

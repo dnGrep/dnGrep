@@ -90,7 +90,7 @@ namespace dnGREP.Common
     [Serializable]
     public class BookmarkEntity
     {
-        public List<Bookmark> Bookmarks { get; private set; } = new();
+        public List<Bookmark> Bookmarks { get; private set; } = [];
 
         internal void Initialize()
         {
@@ -114,7 +114,7 @@ namespace dnGREP.Common
 
         public Bookmark? Find(Bookmark bookmark)
         {
-            if (!Bookmarks.Any()) return null;
+            if (Bookmarks.Count == 0) return null;
 
             Bookmark? item = null;
 
@@ -241,7 +241,7 @@ namespace dnGREP.Common
         public bool IncludeArchive { get; set; }
         public bool FollowSymlinks { get; set; }
         public int CodePage { get; set; } = -1;
-        public List<string> FolderReferences { get; set; } = new();
+        public List<string> FolderReferences { get; set; } = [];
         public bool ApplyFileSourceFilters { get; set; } = true;
         public bool ApplyFilePropertyFilters { get; set; } = true;
         public bool ApplyContentSearchFilters { get; set; } = true;

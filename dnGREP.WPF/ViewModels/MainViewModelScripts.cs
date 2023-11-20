@@ -17,11 +17,11 @@ namespace dnGREP.WPF
 {
     public partial class MainViewModel
     {
-        private static readonly IDictionary<string, IScriptCommand> SetCommandMap = new Dictionary<string, IScriptCommand>();
-        private static readonly IDictionary<string, IScriptCommand> BookmarkCommandMap = new Dictionary<string, IScriptCommand>();
-        private static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
+        private static readonly Dictionary<string, IScriptCommand> SetCommandMap = [];
+        private static readonly Dictionary<string, IScriptCommand> BookmarkCommandMap = [];
+        private static readonly Dictionary<string, IScriptCommand> ReportCommandMap = [];
 
-        private readonly List<ScriptEditorWindow> scriptEditorWindows = new();
+        private readonly List<ScriptEditorWindow> scriptEditorWindows = [];
         private bool showEmptyMessageWindow = false;
         private string currentScriptFile = string.Empty;
         private string currentScriptLine = string.Empty;
@@ -41,7 +41,7 @@ namespace dnGREP.WPF
             ScriptMessages.Add(message);
         }
 
-        public ObservableCollection<string> ScriptMessages { get; } = new();
+        public ObservableCollection<string> ScriptMessages { get; } = [];
 
         public void InitializeScriptTargets()
         {
@@ -184,7 +184,7 @@ namespace dnGREP.WPF
             SortMenuRecursive(ScriptMenuItems, 4);
         }
 
-        void SortMenuRecursive(Collection<MenuItemViewModel> coll, int start)
+        static void SortMenuRecursive(Collection<MenuItemViewModel> coll, int start)
         {
             // sorts directories on top, files on bottom, both in sort order
             for (int i = start; i < coll.Count - 1; i++)

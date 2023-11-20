@@ -8,14 +8,9 @@ using ICSharpCode.AvalonEdit.Rendering;
 
 namespace dnGREP.WPF
 {
-    public class PreviewHighlighter : IBackgroundRenderer
+    public class PreviewHighlighter(GrepSearchResult result) : IBackgroundRenderer
     {
-        private readonly GrepSearchResult grepSearchResult;
-        public PreviewHighlighter(GrepSearchResult result)
-        {
-            grepSearchResult = result;
-        }
-
+        private readonly GrepSearchResult grepSearchResult = result;
         private readonly Brush? markerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
         private readonly Pen? markerPen = null;
         private readonly double markerCornerRadius = 3;

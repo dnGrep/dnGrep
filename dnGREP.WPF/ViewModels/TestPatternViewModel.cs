@@ -20,7 +20,7 @@ namespace dnGREP.WPF
         private bool hasMatches;
         private int searchHash;
         private int replaceHash;
-        private List<GrepSearchResult> grepResults = new();
+        private List<GrepSearchResult> grepResults = [];
         private readonly string horizontalBar = new(char.ConvertFromUtf32(0x2015)[0], 80);
         private readonly int hexLineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
 
@@ -30,7 +30,7 @@ namespace dnGREP.WPF
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
             ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
-            GrepCore.Initialize(); 
+            GrepCore.Initialize();
         }
 
         [ObservableProperty]

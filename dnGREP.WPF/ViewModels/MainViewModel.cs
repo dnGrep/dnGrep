@@ -243,11 +243,11 @@ namespace dnGREP.WPF
         private DateTime searchReplaceStartTime = DateTime.Now;
         private readonly BackgroundWorker workerSearchReplace = new();
         private BookmarksWindow? bookmarkWindow;
-        private readonly HashSet<string> currentSearchFiles = new();
+        private readonly HashSet<string> currentSearchFiles = [];
         private int processedFiles;
-        private readonly List<ReplaceDef> undoList = new();
+        private readonly List<ReplaceDef> undoList = [];
         private readonly DispatcherTimer idleTimer = new(DispatcherPriority.ContextIdle);
-        private readonly Dictionary<string, int> precedingMatches = new();
+        private readonly Dictionary<string, int> precedingMatches = [];
         private int totalMatchCount;
         private string latestStatusMessage = string.Empty;
 
@@ -281,14 +281,14 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        public DockViewModel DockVM => DockViewModel.Instance;
+        public static DockViewModel DockVM => DockViewModel.Instance;
 
         [ObservableProperty]
         private double mainFormFontSize;
 
-        public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = new();
+        public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = [];
 
-        public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = new();
+        public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = [];
 
         [ObservableProperty]
         private IgnoreFilterFile ignoreFilter = IgnoreFilterFile.None;
@@ -493,16 +493,16 @@ namespace dnGREP.WPF
         /// <summary>
         /// Returns a help command
         /// </summary>
-        public ICommand HelpCommand => new RelayCommand(
+        public static ICommand HelpCommand => new RelayCommand(
             param => ShowHelp());
 
         /// <summary>
         /// Returns an about command
         /// </summary>
-        public ICommand AboutCommand => new RelayCommand(
+        public static ICommand AboutCommand => new RelayCommand(
             param => ShowAbout());
 
-        public ICommand CheckForUpdatesCommand => new RelayCommand(
+        public static ICommand CheckForUpdatesCommand => new RelayCommand(
             param => CheckForUpdates(true));
 
         /// <summary>
@@ -624,13 +624,13 @@ namespace dnGREP.WPF
         /// <summary>
         /// Returns a command that reloads the current theme file.
         /// </summary>
-        public ICommand ReloadThemeCommand => new RelayCommand(
+        public static ICommand ReloadThemeCommand => new RelayCommand(
             param => AppTheme.Instance.ReloadCurrentTheme());
 
         public ICommand ToggleResultsMaximizeCommand => new RelayCommand(
             p => IsResultTreeMaximized = !IsResultTreeMaximized);
 
-        public ICommand OpenAppDataCommand => new RelayCommand(
+        public static ICommand OpenAppDataCommand => new RelayCommand(
             p => OpenAppDataFolder(),
             q => true);
 
@@ -842,7 +842,7 @@ namespace dnGREP.WPF
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
-                    var customExtensions = Settings.GetExtensionList("Archive Custom", new List<string>());
+                    var customExtensions = Settings.GetExtensionList("Archive Custom", []);
                     if (customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
                     {
                         // open the archive, not the inner file
@@ -925,7 +925,7 @@ namespace dnGREP.WPF
                     Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
-                    var customExtensions = Settings.GetExtensionList("Archive Custom", new List<string>());
+                    var customExtensions = Settings.GetExtensionList("Archive Custom", []);
                     if (customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
                     {
                         // open the archive, not the inner file
@@ -1306,13 +1306,11 @@ namespace dnGREP.WPF
                 {
                     if (progress.BeginSearch)
                     {
-                        if (!currentSearchFiles.Contains(fileName))
-                            currentSearchFiles.Add(fileName);
+                        currentSearchFiles.Add(fileName);
                     }
                     else
                     {
-                        if (currentSearchFiles.Contains(fileName))
-                            currentSearchFiles.Remove(fileName);
+                        currentSearchFiles.Remove(fileName);
 
                         if (currentSearchFiles.Count > 0)
                             fileName = currentSearchFiles.FirstOrDefault() ?? string.Empty;
@@ -1659,7 +1657,7 @@ namespace dnGREP.WPF
                 SearchReplaceCriteria workerParams = new(this, pauseCancelTokenSource.Token);
                 if (SearchInResultsContent && CanSearchInResults)
                 {
-                    List<string> foundFiles = new();
+                    List<string> foundFiles = [];
                     foreach (FormattedGrepResult n in ResultsViewModel.SearchResults)
                         foundFiles.Add(n.GrepResult.FileNameReal);
                     workerParams.AddSearchFiles(foundFiles);
@@ -1790,7 +1788,7 @@ namespace dnGREP.WPF
                 }
 
                 List<GrepSearchResult> replaceList = ResultsViewModel.GetWritableList()
-                    .Where(sr => sr.Matches.Any()).ToList(); // filter out files with errors shown in results tree
+                    .Where(sr => sr.Matches.Count != 0).ToList(); // filter out files with errors shown in results tree
                 foreach (var file in roFiles)
                 {
                     var item = replaceList.FirstOrDefault(r => r.FileNameReal == file);
@@ -1833,7 +1831,7 @@ namespace dnGREP.WPF
                     foreach (GrepSearchResult gsr in replaceList)
                     {
                         string filePath = gsr.FileNameReal;
-                        if (!gsr.IsReadOnlyFileType && !undoList.Any(r => r.OrginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
+                        if (!gsr.IsReadOnlyFileType && !undoList.Any(r => r.OriginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
                         {
                             undoList.Add(new ReplaceDef(filePath, gsr.Matches));
                         }
@@ -1946,7 +1944,8 @@ namespace dnGREP.WPF
             inUpdateBookmarks = false;
         }
 
-        private static string UpdateMRUList(MRUType valueType, IList<MRUViewModel> list, string value, int maxCount)
+        private static string UpdateMRUList(MRUType valueType, ObservableCollection<MRUViewModel> list, 
+            string value, int maxCount)
         {
             string returnValue = value;
             // keep pinned items in order at the top of the list
@@ -1980,7 +1979,7 @@ namespace dnGREP.WPF
         {
             if (item != null)
             {
-                IList<MRUViewModel>? list = null;
+                ObservableCollection<MRUViewModel>? list = null;
                 switch (item.ValueType)
                 {
                     case MRUType.SearchPath:
@@ -2206,8 +2205,8 @@ namespace dnGREP.WPF
         }
 
         // list of properties that are saved in a bookmarks
-        private static readonly HashSet<string> bookmarkParameters = new()
-        {
+        private static readonly HashSet<string> bookmarkParameters =
+        [
             nameof(SearchFor),
             nameof(ReplaceWith),
             nameof(FileOrFolderPath), // when in Everything mode
@@ -2230,7 +2229,7 @@ namespace dnGREP.WPF
             nameof(SkipRemoteCloudStorageFiles),
             nameof(IncludeArchive),
             nameof(CodePage),
-        };
+        ];
 
         public Bookmark CurrentBookmarkSettings()
         {
@@ -2733,7 +2732,7 @@ namespace dnGREP.WPF
             get
             {
                 var writableFiles = ResultsViewModel.GetWritableList();
-                var hasWritableFiles = writableFiles.Any() &&
+                var hasWritableFiles = writableFiles.Count != 0 &&
                     writableFiles.SelectMany(m => m.Matches).Any();
 
                 bool enabled = FilesFound && CurrentGrepOperation == GrepOperation.None &&
@@ -2755,7 +2754,7 @@ namespace dnGREP.WPF
             if (!clear && !CanReplace && FilesFound)
             {
                 var writableFiles = ResultsViewModel.GetWritableList();
-                var hasWritableFiles = writableFiles.Any();
+                var hasWritableFiles = writableFiles.Count != 0;
                 var hasMatches = writableFiles.SelectMany(m => m.Matches).Any();
 
                 if (!hasWritableFiles)
@@ -2834,7 +2833,7 @@ namespace dnGREP.WPF
         {
             StringBuilder sb = new();
 
-            List<string> options = new();
+            List<string> options = [];
 
             var excludePatterns = Utils.GetCompositeIgnoreList(FileOrFolderPath, FilePatternIgnore,
                 TypeOfFileSearch == FileSearchType.Regex, IgnoreFilter.FilePath);
@@ -2850,7 +2849,7 @@ namespace dnGREP.WPF
             if (SearchInResultsContent) options.Add(Resources.ReportSummary_SearchInResults);
             if (StopAfterFirstMatch) options.Add(Resources.ReportSummary_StopAfterFirstMatch);
             if (options.Count > 0)
-                sb.AppendLine(string.Join(", ", options.ToArray()));
+                sb.AppendLine(string.Join(", ", [.. options]));
             sb.AppendLine();
 
             sb.Append(Resources.ReportSummary_SearchIn).Append(' ').AppendLine(FileOrFolderPath)
@@ -2882,7 +2881,7 @@ namespace dnGREP.WPF
             if (!IncludeArchive) options.Add(Resources.ReportSummary_NoArchives);
             if (!FollowSymlinks) options.Add(Resources.ReportSummary_NoSymlinks);
             if (options.Count > 0)
-                sb.AppendLine(string.Join(", ", options.ToArray()));
+                sb.AppendLine(string.Join(", ", [.. options]));
 
             if (UseFileSizeFilter == FileSizeFilter.Yes)
                 sb.AppendFormat(Resources.ReportSummary_SizeFrom0To1KB, SizeFrom, SizeTo).AppendLine();
@@ -2997,8 +2996,8 @@ namespace dnGREP.WPF
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             KeyValuePair<string, int> defaultValue = new(Resources.Main_EncodingAutoDetection, -1);
 
-            List<KeyValuePair<string, int>> tempUni = new();
-            List<KeyValuePair<string, int>> tempEnc = new();
+            List<KeyValuePair<string, int>> tempUni = [];
+            List<KeyValuePair<string, int>> tempEnc = [];
             foreach (EncodingInfo ei in Encoding.GetEncodings())
             {
                 Encoding e = ei.GetEncoding();
@@ -3046,16 +3045,19 @@ namespace dnGREP.WPF
                 Directory.CreateDirectory(dataFolder);
             }
 
-            HashSet<string> names = new();
+#pragma warning disable CA1868
+            HashSet<string> names = [];
             foreach (string fileName in Directory.GetFiles(dataFolder, "*.ignore", SearchOption.AllDirectories))
             {
                 string name = Path.GetFileNameWithoutExtension(fileName);
 
                 if (!names.Contains(name))
                 {
+                    names.Add(name);
                     IgnoreFilterList.Add(new IgnoreFilterFile(name, fileName));
                 }
             }
+#pragma warning restore CA1868
 
             IgnoreFilter = SetFilter(selectedFilter);
         }
@@ -3192,7 +3194,7 @@ namespace dnGREP.WPF
 
         private static void CopyMRUListToSettings(IList<MRUViewModel> list, int maxCount, string itemKey)
         {
-            List<MostRecentlyUsed> items = new();
+            List<MostRecentlyUsed> items = [];
             for (int i = 0; i < list.Count && i < maxCount; i++)
             {
                 items.Add(list[i].AsMostRecentlyUsed());
@@ -3280,7 +3282,7 @@ namespace dnGREP.WPF
         {
             if (item != null)
             {
-                IList<MRUViewModel>? list = null;
+                ObservableCollection<MRUViewModel>? list = null;
                 string? itemKey = null;
                 switch (item.ValueType)
                 {
@@ -3310,7 +3312,7 @@ namespace dnGREP.WPF
                 {
                     list.Remove(item);
 
-                    List<MostRecentlyUsed> items = new();
+                    List<MostRecentlyUsed> items = [];
                     for (int i = 0; i < list.Count; i++)
                     {
                         items.Add(list[i].AsMostRecentlyUsed());
@@ -3320,18 +3322,12 @@ namespace dnGREP.WPF
             }
         }
 
-        public class IgnoreFilterFile : IComparable<IgnoreFilterFile>, IComparable, IEquatable<IgnoreFilterFile>
+        public class IgnoreFilterFile(string name, string filePath) : IComparable<IgnoreFilterFile>, IComparable, IEquatable<IgnoreFilterFile>
         {
             public static IgnoreFilterFile None => new(string.Empty, string.Empty);
 
-            public IgnoreFilterFile(string name, string filePath)
-            {
-                Name = name;
-                FilePath = filePath;
-            }
-
-            public string Name { get; private set; }
-            public string FilePath { get; private set; }
+            public string Name { get; private set; } = name;
+            public string FilePath { get; private set; } = filePath;
 
             public override int GetHashCode()
             {

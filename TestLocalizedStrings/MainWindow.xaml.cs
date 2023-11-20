@@ -14,7 +14,7 @@ namespace dnGREP.TestLocalizedStrings
             TranslationSource.Instance.SetCulture("en");
         }
 
-        private readonly TestStringsViewModel vm = new TestStringsViewModel();
+        private readonly TestStringsViewModel vm = new();
 
         public MainWindow()
         {

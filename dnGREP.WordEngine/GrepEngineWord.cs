@@ -53,7 +53,7 @@ namespace dnGREP.Engines.Word
             {
                 // Close the application.
                 wordApplication.GetType().InvokeMember("Quit", BindingFlags.InvokeMethod, null,
-                    wordApplication, Array.Empty<object>());
+                    wordApplication, []);
             }
 
             if (wordApplication != null)
@@ -73,7 +73,7 @@ namespace dnGREP.Engines.Word
 
         #endregion
 
-        public IList<string> DefaultFileExtensions => new string[] { "doc" };
+        public List<string> DefaultFileExtensions => ["doc"];
 
         public bool IsSearchOnly => true;
 
@@ -87,10 +87,10 @@ namespace dnGREP.Engines.Word
             if (!isLoaded)
             {
                 logger.Error(Resources.Error_DocumentReadFailed + $": '{file}'");
-                return new List<GrepSearchResult>
-                {
-                    new GrepSearchResult(file, searchPattern, Resources.Error_DocumentReadFailed, false)
-                };
+                return
+                [
+                    new(file, searchPattern, Resources.Error_DocumentReadFailed, false)
+                ];
             }
             SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
             switch (searchType)
@@ -138,7 +138,7 @@ namespace dnGREP.Engines.Word
         private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions,
             SearchDelegates.DoSearch searchMethod, PauseCancelToken pauseCancelToken)
         {
-            List<GrepSearchResult> searchResults = new();
+            List<GrepSearchResult> searchResults = [];
 
             try
             {
@@ -336,7 +336,7 @@ namespace dnGREP.Engines.Word
         private static object? GetProperty(object obj, string prop)
         {
             return obj?.GetType().InvokeMember(prop,
-                BindingFlags.GetProperty, null, obj, Array.Empty<object>());
+                BindingFlags.GetProperty, null, obj, []);
         }
 
         #endregion

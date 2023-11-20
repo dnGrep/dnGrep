@@ -27,11 +27,11 @@ namespace dnGREP.Common
         private const string dot = ".";
         private const string star = "*";
 
-        public static IList<string> GetGitignoreDirectories(string path, bool recursive, bool followSymlinks,
+        public static List<string> GetGitignoreDirectories(string path, bool recursive, bool followSymlinks,
             PauseCancelToken pauseCancelToken)
         {
             if (File.Exists(Path.Combine(path, ".gitignore")))
-                return new List<string> { path };
+                return [path];
 
             var fileOptions = baseFileOptions;
             if (recursive)
@@ -39,10 +39,7 @@ namespace dnGREP.Common
             if (followSymlinks)
                 fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
-            List<string> dontRecurseBelow = new()
-            {
-                @"C:\$Recycle.Bin"
-            };
+            List<string> dontRecurseBelow = [@"C:\$Recycle.Bin"];
             foreach (var sf in new[]
                 {
                     Environment.SpecialFolder.Windows,
@@ -111,12 +108,12 @@ namespace dnGREP.Common
             }
             catch (OperationCanceledException)
             {
-                return new List<string>();
+                return [];
             }
         }
 
-        public static IEnumerable<string> EnumerateFiles(string path, IList<string> patterns,
-            IList<Regex>? excludePatterns, Gitignore? gitignore, FileFilter filter,
+        public static IEnumerable<string> EnumerateFiles(string path, List<string> patterns,
+            List<Regex>? excludePatterns, Gitignore? gitignore, FileFilter filter,
             PauseCancelToken pauseCancelToken)
         {
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
@@ -133,7 +130,7 @@ namespace dnGREP.Common
                 return EnumerateFilesWithFilters(path, patterns, excludePatterns, gitignore, filter, pauseCancelToken);
         }
 
-        private static IEnumerable<string> EnumerateAllFiles(string path, IList<string> patterns,
+        private static IEnumerable<string> EnumerateAllFiles(string path, List<string> patterns,
             bool includeArchive, bool recursive, bool followSymlinks,
             PauseCancelToken pauseCancelToken)
         {
@@ -193,8 +190,8 @@ namespace dnGREP.Common
             return DirectoryEx.EnumerateFiles(path, fileOptions, fileFilters);
         }
 
-        private static IEnumerable<string> EnumerateFilesWithFilters(string path, IList<string> patterns,
-            IList<Regex>? excludePatterns, Gitignore? gitignore, FileFilter filter,
+        private static IEnumerable<string> EnumerateFilesWithFilters(string path, List<string> patterns,
+            List<Regex>? excludePatterns, Gitignore? gitignore, FileFilter filter,
             PauseCancelToken pauseCancelToken)
         {
             DirectoryInfo di = new(path);
@@ -206,7 +203,7 @@ namespace dnGREP.Common
             if (filter.MaxSubfolderDepth > 0)
                 startDepth = GetDepth(di);
 
-            IEnumerable<string> directories = new string[] { path };
+            IEnumerable<string> directories = [path];
             if (filter.IncludeSubfolders)
                 directories = directories.Concat(EnumerateDirectoriesImpl(path, filter, startDepth, excludePatterns, gitignore, pauseCancelToken));
 
@@ -220,7 +217,7 @@ namespace dnGREP.Common
         }
 
         private static IEnumerable<string> EnumerateDirectoriesImpl(string path,
-            FileFilter filter, int startDepth, IList<Regex>? excludePatterns, Gitignore? gitignore,
+            FileFilter filter, int startDepth, List<Regex>? excludePatterns, Gitignore? gitignore,
             PauseCancelToken pauseCancelToken)
         {
             var dirOptions = baseDirOptions;
@@ -330,8 +327,8 @@ namespace dnGREP.Common
             return DirectoryEx.EnumerateDirectories(path, dirOptions, dirFilters);
         }
 
-        private static IEnumerable<string> EnumerateFilesImpl(string path, IList<string> patterns,
-            FileFilter filter, IList<Regex>? excludePatterns, Gitignore? gitignore,
+        private static IEnumerable<string> EnumerateFilesImpl(string path, List<string> patterns,
+            FileFilter filter, List<Regex>? excludePatterns, Gitignore? gitignore,
             PauseCancelToken pauseCancelToken)
         {
             DirectoryEnumerationFilters fileFilters = new()

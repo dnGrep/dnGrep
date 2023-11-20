@@ -9,8 +9,8 @@ namespace dnGREP.WPF
 {
     public class IntToImageValueConverter : IValueConverter
     {
-        private static readonly Dictionary<string, BitmapImage> lightImageCache = new();
-        private static readonly Dictionary<string, BitmapImage> darkImageCache = new();
+        private static readonly Dictionary<string, BitmapImage> lightImageCache = [];
+        private static readonly Dictionary<string, BitmapImage> darkImageCache = [];
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

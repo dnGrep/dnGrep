@@ -85,10 +85,8 @@ namespace dnGREP.WPF
 
         private static bool IsFontInstalled(string familyName)
         {
-            using (Font fontTester = new Font(familyName, 12))
-            {
-                return fontTester.Name == familyName;
-            }
+            using Font fontTester = new(familyName, 12);
+            return fontTester.Name == familyName;
         }
     }
 }

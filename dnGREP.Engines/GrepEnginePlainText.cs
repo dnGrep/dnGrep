@@ -11,15 +11,9 @@ namespace dnGREP.Engines
     {
         public GrepEnginePlainText() : base() { }
 
-        public IList<string> DefaultFileExtensions
-        {
-            get { return Array.Empty<string>(); }
-        }
+        public List<string> DefaultFileExtensions => [];
 
-        public bool IsSearchOnly
-        {
-            get { return false; }
-        }
+        public bool IsSearchOnly => false;
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken = default)
@@ -102,7 +96,7 @@ namespace dnGREP.Engines
             GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, Encoding encoding,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepSearchResult> searchResults = new();
+            List<GrepSearchResult> searchResults = [];
 
             using (StreamReader baseReader = new(input, encoding, false, 4096, true))
             {
@@ -110,7 +104,7 @@ namespace dnGREP.Engines
                 string? line = null;
                 int lineNumber = 1;
                 int filePosition = 0;
-                List<GrepMatch> matches = new();
+                List<GrepMatch> matches = [];
                 while (!readStream.EndOfStream)
                 {
                     pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
@@ -146,7 +140,7 @@ namespace dnGREP.Engines
         private static List<GrepSearchResult> SearchMultiline(Stream input, string fileName, string searchPattern,
             GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            List<GrepSearchResult> searchResults = new();
+            List<GrepSearchResult> searchResults = [];
 
             using (StreamReader readStream = new(input, encoding, false, 4096, true))
             {

@@ -100,9 +100,11 @@ namespace dnGREP.WPF
             ResetVariables();
         }
 
-        private readonly IDictionary<string, string> _scripts = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _scripts = [];
 
         public ICollection<string> ScriptKeys { get { return _scripts.Keys; } }
+
+        private static readonly char[] space = [' '];
 
         public string GetScriptPath(string script)
         {
@@ -130,18 +132,15 @@ namespace dnGREP.WPF
                 {
                     name = Path.GetRelativePath(dataFolder, fileFolder) + Path.DirectorySeparatorChar + name;
                 }
-                if (!_scripts.ContainsKey(name))
-                {
-                    _scripts.Add(name, fileName);
-                }
+                _scripts.TryAdd(name, fileName);
             }
         }
 
         [MemberNotNull(nameof(scriptCommands), nameof(commandCompletionData))]
         private static void LoadScriptCommands()
         {
-            scriptCommands = new List<ScriptCommandDefinition>();
-            commandCompletionData = new List<ScriptingCompletionData>();
+            scriptCommands = [];
+            commandCompletionData = [];
 
             ScriptCommandInitializer.LoadScriptCommands(ref scriptCommands, ref commandCompletionData);
         }
@@ -206,7 +205,7 @@ namespace dnGREP.WPF
 
             string command, target = string.Empty, value = string.Empty;
 
-            string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = line.Split(space, StringSplitOptions.RemoveEmptyEntries);
 
             if (parts.Length > 0)
             {
@@ -255,7 +254,7 @@ namespace dnGREP.WPF
         {
             string result = value.TrimStart();
 
-            if (result.StartsWith("\"", StringComparison.Ordinal) && result.TrimEnd().EndsWith("\"", StringComparison.Ordinal))
+            if (result.StartsWith('"') && result.TrimEnd().EndsWith('"'))
             {
                 result = result.TrimEnd();
                 result = result[1..^1];
@@ -270,7 +269,7 @@ namespace dnGREP.WPF
 
         public List<Tuple<int, ScriptValidationError>> Validate(Queue<ScriptStatement> statements)
         {
-            List<Tuple<int, ScriptValidationError>> errors = new();
+            List<Tuple<int, ScriptValidationError>> errors = [];
 
             foreach (ScriptStatement statement in statements)
             {

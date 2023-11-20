@@ -4,19 +4,11 @@ using System.Text;
 
 namespace dnGREP.Common
 {
-    public class EolReader : IDisposable
+    public class EolReader(TextReader reader) : IDisposable
     {
-        private readonly TextReader baseReader;
-        private readonly char[] charBuffer;
+        private readonly char[] charBuffer = new char[1024];
         private int charPos;
         private int charLen;
-
-        public EolReader(TextReader reader)
-        {
-            baseReader = reader;
-
-            charBuffer = new char[1024];
-        }
 
         public void Dispose()
         {
@@ -28,7 +20,7 @@ namespace dnGREP.Common
             charLen = 0;
             charPos = 0;
 
-            charLen = baseReader.ReadBlock(charBuffer, 0, 1024);
+            charLen = reader.ReadBlock(charBuffer, 0, 1024);
 
             return charLen;
         }
@@ -37,7 +29,7 @@ namespace dnGREP.Common
         {
             get
             {
-                if (baseReader == null)
+                if (reader == null)
                     return true;
 
                 if (charPos < charLen)
@@ -50,7 +42,7 @@ namespace dnGREP.Common
 
         public string? ReadLine()
         {
-            if (baseReader == null)
+            if (reader == null)
                 return null;
 
             if (charPos == charLen)

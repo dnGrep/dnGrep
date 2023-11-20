@@ -290,7 +290,7 @@ namespace dnGREP.WPF.UserControls
 
         public void DeselectAllItems()
         {
-            ICollection<ITreeItem> allItems = new List<ITreeItem>();
+            List<ITreeItem> allItems = [];
             GetAllItems(this, allItems);
 
             foreach (ITreeItem item in allItems)
@@ -301,7 +301,7 @@ namespace dnGREP.WPF.UserControls
 
         public void DeselectAllChildItems()
         {
-            ICollection<ITreeItem> allItems = new List<ITreeItem>();
+            List<ITreeItem> allItems = [];
             GetAllItems(this, allItems);
 
             foreach (ITreeItem item in allItems.Where(i => i.Level > 0))
@@ -340,7 +340,7 @@ namespace dnGREP.WPF.UserControls
 
                 bool msRootOnly = treeView.MultiSelectRootLevelOnly;
 
-                ICollection<ITreeItem> allItems = new List<ITreeItem>();
+                List<ITreeItem> allItems = [];
                 GetAllItems(treeView, allItems);
                 bool isBetween = false;
                 foreach (var item in allItems)
@@ -373,7 +373,7 @@ namespace dnGREP.WPF.UserControls
         }
 #pragma warning restore IDE0075
 
-        private static void GetAllItems(TreeView treeView, ICollection<ITreeItem> allItems)
+        private static void GetAllItems(TreeView treeView, List<ITreeItem> allItems)
         {
             if (treeView != null && treeView.Items != null)
             {

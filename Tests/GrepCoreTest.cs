@@ -17,6 +17,7 @@ namespace Tests
 #pragma warning disable SYSLIB1045
         private readonly string sourceFolder;
         private string destinationFolder;
+        private static readonly char[] newlines = ['\r', '\n'];
 
         public GrepCoreTest()
         {
@@ -32,19 +33,19 @@ namespace Tests
 
         public string GetLongPathDestination(string leafFolder)
         {
-            var parts = new string[]
-            {
+            string[] parts =
+            [
                 destinationFolder,
-                new string('a', 50),
-                new string('b', 50),
-                new string('c', 50),
-                new string('d', 50),
-                new string('e', 50),
-                new string('f', 50),
-                new string('g', 50),
-                new string('h', 50),
+                new('a', 50),
+                new('b', 50),
+                new('c', 50),
+                new('d', 50),
+                new('e', 50),
+                new('f', 50),
+                new('g', 50),
+                new('h', 50),
                 leafFolder
-            };
+            ];
             destinationFolder = Path.Combine(parts);
 
             if (!Directory.Exists(destinationFolder))
@@ -418,10 +419,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destinationFolder, "TestCase4", "books_no_decl.xml");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
             core.Replace(files, SearchType.XPath, "(//@category)[2]", "general", GrepSearchOption.None, -1);
 
             var fileContent = File.ReadAllLines(testFile, Encoding.UTF8);
@@ -449,10 +450,10 @@ namespace Tests
             results[0].Matches[3].ReplaceMatch = true;
 
             string testFile = Path.Combine(destinationFolder, "TestCase4", "books_no_decl.xml");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
             core.Replace(files, SearchType.XPath, "(//@currency)", "EUR", GrepSearchOption.None, -1);
 
             var fileContent = File.ReadAllText(testFile, Encoding.UTF8);
@@ -483,15 +484,15 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase4\app.config");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             string replaceText = "<add key=\"test\" value=\"true\" />";
             core.Replace(files, SearchType.XPath, "//appSettings", replaceText, GrepSearchOption.None, -1);
 
-            results = core.Search(new string[] { testFile }, SearchType.XPath, "//add", GrepSearchOption.None, -1);
+            results = core.Search([testFile], SearchType.XPath, "//add", GrepSearchOption.None, -1);
             Assert.Single(results);
             Assert.Single(results[0].Matches);
             var hit = results[0].SearchResults.Where(r => !r.IsContext).ToArray();
@@ -521,15 +522,15 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase15\books.xml");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             string replaceText = "dnGrep";
             core.Replace(files, SearchType.XPath, "/bookstore/book/title[1]/@lang", replaceText, GrepSearchOption.None, -1);
 
-            results = core.Search(new string[] { testFile }, SearchType.XPath, "/bookstore/book/title[1]/@lang", GrepSearchOption.None, -1);
+            results = core.Search([testFile], SearchType.XPath, "/bookstore/book/title[1]/@lang", GrepSearchOption.None, -1);
             Assert.Single(results);
             Assert.Equal(5, results[0].Matches.Count);
             var hits = results[0].SearchResults.Where(r => !r.IsContext).ToArray();
@@ -698,10 +699,10 @@ namespace Tests
             {
                 match.ReplaceMatch = true;
             }
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             core.Replace(files, SearchType.Regex, pattern, replace, GrepSearchOption.None, -1);
 
@@ -728,10 +729,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase8\test.txt");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             core.Replace(files, SearchType.Regex, "here", "\\\\n", GrepSearchOption.None, -1);
             Assert.Equal(2, File.ReadAllText(testFile, Encoding.ASCII).Trim().Split('\n').Length);
@@ -762,15 +763,15 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase9\test.txt");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             core.Replace(files, type, "here", "$(guid)", GrepSearchOption.None, -1);
             string fileContent = File.ReadAllText(testFile, Encoding.UTF8).Trim();
             Assert.Equal(6, GuidRegex().Matches(fileContent).Count);
-            HashSet<string> uniqueGuids = new();
+            HashSet<string> uniqueGuids = [];
             foreach (Match match in GuidRegex().Matches(fileContent).Cast<Match>())
             {
                 if (!uniqueGuids.Contains(match.Value))
@@ -797,22 +798,22 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destinationFolder, @"TestCase9\guidx.txt");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             // all instances of the same string matched will get the same guid
             core.Replace(files, SearchType.Regex, "h\\wre", "$(guidx)", GrepSearchOption.None, -1);
             string fileContent = File.ReadAllText(testFile, Encoding.UTF8).Trim();
             Assert.Equal(6, GuidRegex().Matches(fileContent).Count);
-            Dictionary<string, int> uniqueGuids = new();
+            Dictionary<string, int> uniqueGuids = [];
             foreach (Match match in GuidRegex().Matches(fileContent).Cast<Match>())
             {
-                if (!uniqueGuids.ContainsKey(match.Value))
+                if (!uniqueGuids.TryGetValue(match.Value, out int value))
                     uniqueGuids[match.Value] = 1;
                 else
-                    uniqueGuids[match.Value]++;
+                    uniqueGuids[match.Value] = ++value;
             }
             Assert.Equal(2, uniqueGuids.Keys.Count);
         }
@@ -841,10 +842,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destinationFolder, "TestCase15", "books.xml");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
             core.Replace(files, type, searchFor, replaceWith, option, -1);
 
             using (FileStream stream = File.Open(testFile, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -891,10 +892,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destinationFolder, "TestCase15", "books_bom.xml");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
             core.Replace(files, type, searchFor, replaceWith, option, -1);
 
             using (FileStream stream = File.Open(testFile, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -943,10 +944,10 @@ namespace Tests
             results[0].Matches[1].ReplaceMatch = true;
 
             string testFile = Path.Combine(destinationFolder, "TestCase15", "books.xml");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
             core.Replace(files, type, searchFor, replaceWith, option, -1);
 
             var fileContent = File.ReadAllText(testFile, Encoding.UTF8);
@@ -976,10 +977,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase3\test-file-code.cs");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             core.Replace(files, SearchType.PlainText, "body", "text", GrepSearchOption.None, -1);
             string content = File.ReadAllText(testFile, Encoding.ASCII);
@@ -1148,10 +1149,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase3\test-file-code.cs");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             core.Replace(files, SearchType.Regex, @"\w*y", @"$&Text", GrepSearchOption.None, -1);
             string content = File.ReadAllText(testFile, Encoding.ASCII);
@@ -1184,10 +1185,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase3\test-file-code.cs");
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             core.Replace(files, SearchType.Regex, @"-(\d)", @"$1", GrepSearchOption.None, -1);
             string content = File.ReadAllText(testFile, Encoding.ASCII);
@@ -1228,10 +1229,10 @@ namespace Tests
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase16", fileName);
-            List<ReplaceDef> files = new()
-            {
+            List<ReplaceDef> files =
+            [
                 new(testFile, results[0].Matches)
-            };
+            ];
 
             core.Replace(files, SearchType.Regex, @"\w*\.$.P\w*", $"end.{newLine}Start", GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
 
@@ -1556,7 +1557,7 @@ namespace Tests
             Assert.Equal(matchLength, results[0].Matches[0].Length);
 
             // mark for replace
-            List<ReplaceDef> replaceFiles = new();
+            List<ReplaceDef> replaceFiles = [];
             results[0].Matches[0].ReplaceMatch = true;
             replaceFiles.Add(new(file, results[0].Matches));
 
@@ -1587,7 +1588,7 @@ namespace Tests
             Assert.Equal(matchLength, results[0].Matches[0].Length);
 
             // mark for replace
-            List<ReplaceDef> replaceFiles = new();
+            List<ReplaceDef> replaceFiles = [];
             results[0].Matches[0].ReplaceMatch = true;
             replaceFiles.Add(new(file, results[0].Matches));
 
@@ -1716,10 +1717,10 @@ namespace Tests
         [InlineData("zz a1111 b2222\r\nzz c3333 d4444", false)]
         [InlineData("a1111 z b2222\r\nc3333 z d4444", false)]
         [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", false)]
-        public void TestCaptureGroupHighlightMutlipleMatches1(string content, bool verboseMatchCount)
+        public void TestCaptureGroupHighlightMultipleMatches1(string content, bool verboseMatchCount)
         {
             string pattern = @"\w(\d+)";
-            string[] textLines = content.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] textLines = content.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
@@ -1739,7 +1740,7 @@ namespace Tests
             Assert.Single(results);
             Assert.Equal(4, results[0].Matches.Count);
 
-            List<GrepLine> lines = new();
+            List<GrepLine> lines = [];
             using (StringReader reader = new(content))
             {
                 lines = Utils.GetLinesEx(reader, results[0].Matches, 0, 0);
@@ -1797,10 +1798,10 @@ namespace Tests
         [InlineData("zz a1111 b2222\r\nzz c3333 d4444", false)]
         [InlineData("a1111 z b2222\r\nc3333 z d4444", false)]
         [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", false)]
-        public void TestCaptureGroupHighlightMutlipleMatches2(string content, bool verboseMatchCount)
+        public void TestCaptureGroupHighlightMultipleMatches2(string content, bool verboseMatchCount)
         {
             string pattern = @"\w(\d+)";
-            string[] textLines = content.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] textLines = content.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
@@ -1820,7 +1821,7 @@ namespace Tests
             Assert.Single(results);
             Assert.Equal(4, results[0].Matches.Count);
 
-            List<GrepLine> lines = new();
+            List<GrepLine> lines = [];
             using (StringReader reader = new(content))
             {
                 lines = Utils.GetLinesEx(reader, results[0].Matches, 0, 0);
@@ -1881,7 +1882,7 @@ namespace Tests
         public void TestCaptureGroupHighlightSingleMatchesMultipleGroups(string content, bool verboseMatchCount)
         {
             string pattern = @"a(\d+).+b(\d+).+c(\d+).+d(\d+)\s?$";
-            string[] textLines = content.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] textLines = content.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
@@ -1901,7 +1902,7 @@ namespace Tests
             Assert.Single(results);
             Assert.Single(results[0].Matches);
 
-            List<GrepLine> lines = new();
+            List<GrepLine> lines = [];
             using (StringReader reader = new(content))
             {
                 lines = Utils.GetLinesEx(reader, results[0].Matches, 0, 0);

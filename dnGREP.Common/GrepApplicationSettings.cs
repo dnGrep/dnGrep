@@ -353,7 +353,7 @@ namespace dnGREP.Common
             }
         }
 
-        private readonly Dictionary<string, string> settings = new();
+        private readonly Dictionary<string, string> settings = [];
 
         public int Version { get; private set; } = 1;
 
@@ -669,7 +669,7 @@ namespace dnGREP.Common
 
         private static List<string?> Deserialize(string xmlContent)
         {
-            List<string?> list = new();
+            List<string?> list = [];
 
             if (!string.IsNullOrEmpty(xmlContent))
             {
@@ -719,7 +719,7 @@ namespace dnGREP.Common
 
         private static List<MostRecentlyUsed> DeserializeMRU(string xmlContent)
         {
-            List<MostRecentlyUsed> list = new();
+            List<MostRecentlyUsed> list = [];
 
             if (!string.IsNullOrEmpty(xmlContent))
             {
@@ -832,7 +832,7 @@ namespace dnGREP.Common
                         }
                         else
                         {
-                            list = new();
+                            list = [];
                         }
                         return (T)Convert.ChangeType(list, typeof(List<string>));
                     }
@@ -846,7 +846,7 @@ namespace dnGREP.Common
                         }
                         else
                         {
-                            list = new List<MostRecentlyUsed>();
+                            list = [];
                         }
                         return (T)Convert.ChangeType(list, typeof(List<MostRecentlyUsed>));
                     }
@@ -1016,12 +1016,13 @@ namespace dnGREP.Common
         private static bool IsNullable(Type type) => Nullable.GetUnderlyingType(type) != null;
 
         private List<FieldInfo>? constantKeys;
+        private static readonly char[] separators = [',', ';', ' '];
 
         private void InitializeConstantKeys()
         {
             if (constantKeys == null)
             {
-                constantKeys = new List<FieldInfo>();
+                constantKeys = [];
                 FieldInfo[] thisObjectProperties = typeof(Key).GetFields();
                 foreach (FieldInfo fi in thisObjectProperties)
                 {
@@ -1085,7 +1086,7 @@ namespace dnGREP.Common
             return default;
         }
 
-        public IList<string> GetExtensionList(string nameKey, IList<string> defaultExtensions)
+        public List<string> GetExtensionList(string nameKey, List<string> defaultExtensions)
         {
             nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey)
                  .Replace(" ", "", StringComparison.Ordinal);
@@ -1093,29 +1094,29 @@ namespace dnGREP.Common
             string remKey = "Rem" + nameKey + "Extensions";
             string listKey = nameKey + "Extensions";
 
-            List<string> list = new();
+            List<string> list = [];
 
             if (ContainsKey(listKey))
             {
                 var csv = Get<string>(listKey)?.Trim();
                 if (!string.IsNullOrEmpty(csv))
                 {
-                    string[] split = csv.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] split = csv.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                     var items = split.Select(s => s.TrimStart('.').Trim().ToLowerInvariant());
 
-                    list = new List<string>(items);
+                    list = items.ToList();
                 }
             }
             else
             {
-                list = new List<string>(defaultExtensions);
+                list = defaultExtensions;
 
                 if (ContainsKey(addKey))
                 {
                     var addCsv = Get<string>(addKey)?.Trim();
                     if (!string.IsNullOrEmpty(addCsv))
                     {
-                        var parts = addCsv.Split(new char[] { ',', ';', ' ' },
+                        var parts = addCsv.Split(separators,
                             StringSplitOptions.RemoveEmptyEntries)
                             .Select(s => s.Trim(' ', '.').ToLower());
                         list.AddRange(parts);
@@ -1127,15 +1128,12 @@ namespace dnGREP.Common
                     var remCsv = Get<string>(remKey)?.Trim();
                     if (!string.IsNullOrEmpty(remCsv))
                     {
-                        var parts = remCsv.Split(new char[] { ',', ';', ' ' },
+                        var parts = remCsv.Split(separators,
                           StringSplitOptions.RemoveEmptyEntries)
                           .Select(s => s.Trim(' ', '.').ToLower());
                         foreach (var ext in parts)
                         {
-                            if (list.Contains(ext))
-                            {
-                                list.Remove(ext);
-                            }
+                            list.Remove(ext);
                         }
                     }
                 }
@@ -1162,7 +1160,7 @@ namespace dnGREP.Common
             if (string.IsNullOrWhiteSpace(extensions))
                 return string.Empty;
 
-            string[] split = extensions.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] split = extensions.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             var cleaned = split.Select(s => s.TrimStart('.').Trim());
             return string.Join(",", cleaned);
         }

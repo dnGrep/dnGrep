@@ -17,7 +17,7 @@ namespace dnGREP.Setup.FileCheck
             {
                 string solutionDir = args[0];
 
-                string[] platforms = new[] { "win-x64", "win-x86" };
+                string[] platforms = ["win-x64", "win-x86"];
 
                 foreach (string platform in platforms)
                 {
@@ -60,7 +60,7 @@ namespace dnGREP.Setup.FileCheck
                     }
                     Console.WriteLine();
 
-                    
+
                     string outFile = Path.Combine(solutionDir, "excludeFiles_" + platform + ".txt");
                     using FileStream stream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.None);
                     using StreamWriter writer = new(stream);
@@ -75,7 +75,7 @@ namespace dnGREP.Setup.FileCheck
             }
         }
 
-        private static readonly List<string> includeExtensions = new() { ".exe", ".dll", ".pdb", ".json", ".config", ".plugin", ".txt" };
+        private static readonly List<string> includeExtensions = [".exe", ".dll", ".pdb", ".json", ".config", ".plugin", ".txt"];
         private static readonly Dictionary<string, string> x86Map = new()
         {
             {"$(var.App.PlatformShort)",  "32" },
@@ -93,7 +93,7 @@ namespace dnGREP.Setup.FileCheck
 
         private static List<string> GetAllFiles(string publishDir)
         {
-            List<string> files = new();
+            List<string> files = [];
 
             var allFiles = Directory.GetFiles(publishDir, "*", SearchOption.AllDirectories);
             foreach (var file in allFiles)
@@ -106,7 +106,7 @@ namespace dnGREP.Setup.FileCheck
 
         private static List<string> GetIncludeFiles(string publishDir)
         {
-            List<string> files = new();
+            List<string> files = [];
 
             var root = Directory.GetFiles(publishDir, "*", SearchOption.TopDirectoryOnly);
             foreach (var file in root)
@@ -157,7 +157,7 @@ namespace dnGREP.Setup.FileCheck
         {
             XNamespace wi = "http://schemas.microsoft.com/wix/2006/wi";
             var map = is32bit ? x86Map : x64Map;
-            List<string> components = new();
+            List<string> components = [];
             var root = Directory.GetFiles(fragmentsDir, "*.wxs", SearchOption.TopDirectoryOnly);
             foreach (var file in root)
             {

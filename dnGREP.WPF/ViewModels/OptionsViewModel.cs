@@ -44,13 +44,15 @@ namespace dnGREP.WPF
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
 
-            CultureNames = TranslationSource.AppCultures
-                .OrderBy(kv => kv.Value, StringComparer.CurrentCulture).ToArray();
+            CultureNames =
+            [
+                .. TranslationSource.AppCultures.OrderBy(kv => kv.Value, StringComparer.CurrentCulture),
+            ];
 
-            CustomEditorTemplates = ConfigurationTemplate.EditorConfigurationTemplates.ToArray();
-            CompareApplicationTemplates = ConfigurationTemplate.CompareConfigurationTemplates.ToArray();
+            CustomEditorTemplates = [.. ConfigurationTemplate.EditorConfigurationTemplates];
+            CompareApplicationTemplates = [.. ConfigurationTemplate.CompareConfigurationTemplates];
 
-            HexLengthOptions = new List<int> { 8, 16, 32, 64, 128 };
+            HexLengthOptions = [8, 16, 32, 64, 128];
 
             hasWindowsThemes = AppTheme.HasWindowsThemes;
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
@@ -247,7 +249,7 @@ namespace dnGREP.WPF
 
         public List<int> HexLengthOptions { get; }
 
-        public ObservableCollection<PluginOptions> Plugins { get; } = new();
+        public ObservableCollection<PluginOptions> Plugins { get; } = [];
 
         public static IList<FontInfo> FontFamilies
         {
@@ -294,9 +296,9 @@ namespace dnGREP.WPF
             }
         }
 
-        public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = new();
+        public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = [];
 
-        public ObservableCollection<string> ThemeNames { get; } = new();
+        public ObservableCollection<string> ThemeNames { get; } = [];
 
 
         [ObservableProperty]
@@ -615,13 +617,13 @@ namespace dnGREP.WPF
         /// <summary>
         /// Returns a command that clears old searches.
         /// </summary>
-        public ICommand ClearSearchesCommand => new RelayCommand(
+        public static ICommand ClearSearchesCommand => new RelayCommand(
             param => ClearSearches());
 
         /// <summary>
         /// Returns a command that reloads the current theme file.
         /// </summary>
-        public ICommand ReloadThemeCommand => new RelayCommand(
+        public static ICommand ReloadThemeCommand => new RelayCommand(
             param => AppTheme.Instance.ReloadCurrentTheme());
 
         /// <summary>
@@ -815,8 +817,7 @@ namespace dnGREP.WPF
                 string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey,
                     ArchiveDirectory.DefaultExtensions));
 
-                string customExtensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey + CustomNameKey,
-                    new List<string>()));
+                string customExtensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey + CustomNameKey, []));
 
                 ArchiveOptions = new PluginOptions(ArchiveNameKey, true, false,
                     extensionList, string.Join(", ", ArchiveDirectory.DefaultExtensions),
@@ -827,16 +828,16 @@ namespace dnGREP.WPF
             foreach (var plugin in GrepEngineFactory.AllPlugins.OrderBy(p => p.Name))
             {
                 string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
-                string enabledkey = nameKey + EnabledKey;
+                string enabledKey = nameKey + EnabledKey;
                 string previewTextKey = nameKey + PreviewTextKey;
-                string extensionList = string.Join(", ", Settings.GetExtensionList(nameKey,
-                    plugin.DefaultExtensions));
-                string customExtensionList = string.Join(", ", Settings.GetExtensionList(nameKey + CustomNameKey,
-                    new List<string>()));
+                string extensionList = string.Join(", ",
+                    Settings.GetExtensionList(nameKey, plugin.DefaultExtensions));
+                string customExtensionList = string.Join(", ",
+                    Settings.GetExtensionList(nameKey + CustomNameKey, []));
 
                 bool isEnabled = true;
-                if (GrepSettings.Instance.ContainsKey(enabledkey))
-                    isEnabled = GrepSettings.Instance.Get<bool>(enabledkey);
+                if (GrepSettings.Instance.ContainsKey(enabledKey))
+                    isEnabled = GrepSettings.Instance.Get<bool>(enabledKey);
 
                 bool previewTextEnabled = true;
                 if (GrepSettings.Instance.ContainsKey(previewTextKey))
@@ -1319,15 +1320,10 @@ namespace dnGREP.WPF
     }
 
 
-    public class FontInfo
+    public class FontInfo(string familyName)
     {
-        public FontInfo(string familyName)
-        {
-            FamilyName = familyName;
-            IsMonospaced = GetIsMonospaced(familyName);
-        }
-        public string FamilyName { get; private set; }
-        public bool IsMonospaced { get; private set; }
+        public string FamilyName { get; private set; } = familyName;
+        public bool IsMonospaced { get; private set; } = GetIsMonospaced(familyName);
 
         private static bool GetIsMonospaced(string familyName)
         {
