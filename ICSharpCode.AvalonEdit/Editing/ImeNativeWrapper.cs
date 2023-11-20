@@ -116,7 +116,14 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			if (!textFrameworkThreadMgrInitialized) {
 				textFrameworkThreadMgrInitialized = true;
-				TF_CreateThreadMgr(out textFrameworkThreadMgr);
+				try
+				{
+					TF_CreateThreadMgr(out textFrameworkThreadMgr);
+				}
+				catch
+				{
+					// The call will fail if the current runtime doesn't have COM interop
+				}
 			}
 			return textFrameworkThreadMgr;
 		}
