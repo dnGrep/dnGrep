@@ -185,8 +185,9 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 				throw new ArgumentNullException("highlighting");
 
 			lock (lockObj) {
-				allHighlightings.Add(highlighting);
 				if (name != null) {
+					if (highlightingsByName.TryGetValue(name, out var existingDefinition))
+						allHighlightings.Remove(existingDefinition);
 					highlightingsByName[name] = highlighting;
 				}
 				if (extensions != null) {
@@ -194,6 +195,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 						highlightingsByExtension[ext] = highlighting;
 					}
 				}
+				allHighlightings.Add(highlighting);
 			}
 		}
 
