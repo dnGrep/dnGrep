@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <LangVersion>12</LangVersion>
     <OutputType>Library</OutputType>
     <Platforms>x86;x64</Platforms>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>

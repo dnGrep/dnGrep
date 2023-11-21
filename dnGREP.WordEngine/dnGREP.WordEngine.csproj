@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <OutputType>Library</OutputType>
+     <LangVersion>12</LangVersion>
+   <OutputType>Library</OutputType>
     <Platforms>x86;x64</Platforms>
     <RootNamespace>dnGREP.Engines.Word</RootNamespace>
     <AssemblyName>dnGREP.Engines.Word</AssemblyName>
