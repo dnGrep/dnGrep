@@ -18,6 +18,7 @@ assembly_info:
   assembly_informational_version: '{version}'
 install: 
   - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.100
+  - cmd: dotnet add package Microsoft.Build.Framework --version 17.8.3
 before_build:
   - cmd: nuget restore
 build:
