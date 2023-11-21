@@ -18,8 +18,6 @@ assembly_info:
   assembly_informational_version: '{version}'
 install: 
   - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.100
-environment: 
-  path: C:\Users\appveyor\AppData\Local\Microsoft\dotnet\sdk\8.0.100;%path%
 before_build:
   - cmd: nuget restore
 build:
