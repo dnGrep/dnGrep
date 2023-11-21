@@ -17,6 +17,9 @@
         <Component Id="cmp65CA3425451848238FB8FF1E6D13CDA9" Guid="{C5371275-C7D3-4DEF-AE79-8E4899E0F364}">
           <File Id="filCA288BE1E6F14D62A1934307C0323E65" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\DocumentFormat.OpenXml.dll" />
         </Component>
+        <Component Id="cmpC0E9A82FADF741929B016DC35DA7647E" Guid="{66AB6B2A-B1C0-45CC-8328-0FEBC7473B8F}">
+          <File Id="fil1A22013943B447DCB22369D7AD76E3BF" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\DocumentFormat.OpenXml.Framework.dll" />
+        </Component>
         <Component Id="cmpCD493559D3B041348B088DB173CD2DCD" Guid="{F9CA3DA1-F7B3-49F6-AB10-B4C918AFDCC5}">
           <File Id="fil7F1A083B4FD94BD28C3D9A221A252C9A" KeyPath="yes" Source="$(var.PublishDir)\Plugins\OpenXmlSearch\ExcelDataReader.dll" />
         </Component>
@@ -32,6 +35,7 @@
       <ComponentRef Id="cmp9AE5CE4DD02847B5B250275883270610" />
       <ComponentRef Id="cmpDF455B1E3377429FAE5377F40EF22D5A" />
       <ComponentRef Id="cmp65CA3425451848238FB8FF1E6D13CDA9" />
+      <ComponentRef Id="cmpC0E9A82FADF741929B016DC35DA7647E" />
       <ComponentRef Id="cmpCD493559D3B041348B088DB173CD2DCD" />
       <ComponentRef Id="cmpA45314E8043447409B314877181AFFC2" />
     </ComponentGroup>

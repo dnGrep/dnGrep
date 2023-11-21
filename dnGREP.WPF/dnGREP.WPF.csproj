@@ -222,6 +222,7 @@
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.OpenXml.dll" />
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.OpenXml.pdb" />
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\DocumentFormat.OpenXml.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\DocumentFormat.OpenXml.Framework.dll" />
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\ExcelDataReader.dll" />
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\ExcelNumberFormat.dll" />
   </ItemGroup>
