@@ -417,6 +417,7 @@ namespace dnGREP.Common
             DetectionDetail resultDetected = results.Detected;
             // Get the System.Text.Encoding of the found encoding (can be null if not available)
             Encoding encoding = resultDetected?.Encoding ?? Encoding.Default;
+            encoding = CheckForUnicodeWithNoBOM(encoding, resultDetected, readStream);
             return encoding;
         }
 
@@ -432,9 +433,86 @@ namespace dnGREP.Common
             DetectionDetail resultDetected = results.Detected;
             // Get the System.Text.Encoding of the found encoding (can be null if not available)
             Encoding encoding = resultDetected?.Encoding ?? Encoding.Default;
+            encoding = CheckForUnicodeWithNoBOM(encoding, resultDetected, stream);
 
             // reset the stream back to the beginning
             stream.Seek(0, SeekOrigin.Begin);
+            return encoding;
+        }
+
+        private static Encoding CheckForUnicodeWithNoBOM(Encoding encoding, DetectionDetail? resultDetected,
+            Stream readStream)
+        {
+            if (resultDetected != null)
+            {
+                if (resultDetected.Confidence >= 0.5f &&
+                    (resultDetected.HasBOM ||
+                    resultDetected.EncodingName.Equals("utf-8", StringComparison.OrdinalIgnoreCase)))
+                {
+                    return encoding;
+                }
+            }
+
+            readStream.Seek(0, SeekOrigin.Begin);
+            byte[] buff = new byte[1024];
+            int count = readStream.Read(buff, 0, buff.Length);
+
+            // LE: 20 00  0D 00  0A 00
+            // BE: 00 20  00 0D  00 0A
+
+            int le16Count = 0, be16Count = 0;
+            int le32Count = 0, be32Count = 0;
+            for (int i = 0; i < count - 1; i += 2)
+            {
+                byte b1 = buff[i];
+                byte b2 = buff[i + 1];
+                if (b2 == 0x0 && ((b1 >= 0x20 && b1 <= 0x7E) || b1 == 0x0A || b1 == 0x0D))
+                {
+                    // check for UTF-32
+                    if (i < count - 3 && buff[i + 2] == 0x0 && buff[i + 3] == 0x0)
+                    {
+                        le32Count++;
+                    }
+                    else
+                    {
+                        le16Count++;
+                    }
+                }
+                else if (b1 == 0x0 && ((b2 >= 0x20 && b2 <= 0x7E) || b2 == 0x0A || b2 == 0x0D))
+                {
+                    // check for UTF-32
+                    if (i > 2 && buff[i - 1] == 0x0 && buff[i - 2] == 0x0)
+                    {
+                        be32Count++;
+                    }
+                    else
+                    {
+                        be16Count++;
+                    }
+                }
+
+                if (le16Count > 2)
+                {
+                    encoding = Encoding.Unicode;
+                    break;
+                }
+                else if (le32Count > 2)
+                {
+                    encoding = Encoding.UTF32;
+                    break;
+                }
+                else if (be16Count > 2)
+                {
+                    encoding = Encoding.BigEndianUnicode;
+                    break;
+                }
+                else if (be32Count > 2)
+                {
+                    encoding = Encoding.GetEncoding(12001);
+                    break;
+                }
+            }
+
             return encoding;
         }
 
