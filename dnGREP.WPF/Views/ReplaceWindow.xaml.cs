@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -178,7 +179,9 @@ namespace dnGREP.WPF
             {
                 if (!string.IsNullOrWhiteSpace(ViewModel.FilePath))
                 {
-                    textEditor.Load(ViewModel.FilePath);
+                    using FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using StreamReader reader = new(stream, ViewModel.Encoding);
+                    textEditor.Text = reader.ReadToEnd();
                 }
                 else
                 {

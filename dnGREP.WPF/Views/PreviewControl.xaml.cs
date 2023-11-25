@@ -132,7 +132,8 @@ namespace dnGREP.WPF
 
                         using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         {
-                            textEditor.Load(stream);
+                            using StreamReader reader = new(stream, ViewModel.Encoding);
+                            textEditor.Text = reader.ReadToEnd();
                         }
 
                         if (!string.IsNullOrEmpty(textEditor.Text))
