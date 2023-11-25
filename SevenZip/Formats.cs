@@ -16,6 +16,11 @@
         /// <remarks><a href="http://en.wikipedia.org/wiki/7-zip">Wikipedia information</a></remarks> 
         SevenZip,
         /// <summary>
+        /// AR archive format, used for Windows .lib files
+        /// </summary>  
+        /// <remarks><a href="https://en.wikipedia.org/wiki/Ar_(Unix)">Wikipedia information</a></remarks>
+        Ar,
+        /// <summary>
         /// Proprietary Arj archive format.
         /// </summary>
         /// <remarks><a href="http://en.wikipedia.org/wiki/ARJ">Wikipedia information</a></remarks>
@@ -380,6 +385,7 @@
 
             {
                 {InArchiveFormat.SevenZip,  new Guid("23170f69-40c1-278a-1000-000110070000")},
+                {InArchiveFormat.Ar,        new Guid("23170f69-40c1-278a-1000-000110ec0000")},
                 {InArchiveFormat.Arj,       new Guid("23170f69-40c1-278a-1000-000110040000")},
                 {InArchiveFormat.BZip2,     new Guid("23170f69-40c1-278a-1000-000110020000")},
                 {InArchiveFormat.Cab,       new Guid("23170f69-40c1-278a-1000-000110080000")},
@@ -498,6 +504,7 @@
              {"cab",    InArchiveFormat.Cab},
              {"chm",    InArchiveFormat.Chm},
              {"deb",    InArchiveFormat.Deb},
+             {"lib",    InArchiveFormat.Ar},
              {"iso",    InArchiveFormat.Iso},
              {"rpm",    InArchiveFormat.Rpm},
              {"wim",    InArchiveFormat.Wim},
@@ -543,6 +550,7 @@
             {"4D-53-43-46",								                        InArchiveFormat.Cab},
             {"49-54-53-46",								                        InArchiveFormat.Chm},
             {"21-3C-61-72-63-68-3E-0A-64-65-62-69-61-6E-2D-62-69-6E-61-72-79",	InArchiveFormat.Deb},
+            {"21-3C-61-72-63-68-3E-0A",                                         InArchiveFormat.Ar},
             {"30-37-30-37-30",                                                  InArchiveFormat.Cpio},
             {"43-44-30-30-31",							                        InArchiveFormat.Iso},
             //^ 0x8001, 0x8801 or 0x9001 byte offset

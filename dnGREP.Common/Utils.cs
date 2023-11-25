@@ -469,12 +469,11 @@ namespace dnGREP.Common
                 int count = stream.Read(buffer, 0, buffer.Length);
                 for (int i = 0; i < count - 3; i++)
                 {
-                    // check for 2 consecutive nulls:
-                    // may give false positive on UTF-32, but 4 consecutive nulls
-                    // gives false negative on other files such as msvc .lib files
-                    if (buffer[i] == 0 && buffer[i + 1] == 0)
+                    // check for 4 consecutive nulls - 2 will give false positive on UTF-32 and some UTF-16
+                    if (buffer[i] == 0 && buffer[i + 1] == 0 && buffer[i + 2] == 0 && buffer[i + 3] == 0)
                     {
                         result = true;
+                        break;
                     }
                 }
             }
