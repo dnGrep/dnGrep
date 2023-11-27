@@ -228,7 +228,7 @@ namespace dnGREP.WPF
 
         public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();
 
-        public Encoding? Encoding { get; private set; }
+        public Encoding Encoding { get; private set; } = Encoding.UTF8;
 
         public IList<int> LineNumbers { get; } = new List<int>();
 

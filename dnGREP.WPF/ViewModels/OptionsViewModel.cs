@@ -812,8 +812,16 @@ namespace dnGREP.WPF
             WordHeaderFooterPosition = Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition);
 
             {
-                string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey,
-                    ArchiveDirectory.DefaultExtensions));
+                var list = Settings.GetExtensionList(ArchiveNameKey, ArchiveDirectory.DefaultExtensions);
+                string extensionList = string.Join(", ", list);
+
+                // added new default extension, "lib" - add it to the user's config
+                if (!list.Contains("lib"))
+                {
+                    list.Add("lib");
+                    extensionList = string.Join(", ", list);
+                    Settings.SetExtensions(ArchiveNameKey, extensionList);
+                }
 
                 string customExtensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey + CustomNameKey,
                     new List<string>()));
