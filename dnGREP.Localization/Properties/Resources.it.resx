@@ -227,7 +227,7 @@
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">

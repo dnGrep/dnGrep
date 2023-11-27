@@ -3873,4 +3873,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>自然排列顺序</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>显示导航按钮</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>匹配模式未能匹配文件名 '{0}'</value>
+    <comment>Script copy command error message.  {0} is the source file name.</comment>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>当前行</value>
+    <comment>Main window, results list, button tooltip</comment>
+  </data>
 </root>
