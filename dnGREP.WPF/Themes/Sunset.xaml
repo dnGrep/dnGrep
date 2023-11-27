@@ -8,6 +8,7 @@
     <SolidColorBrush x:Key="AvalonEdit.Foreground" po:Freeze="true" Color="#FFF5F5F5" />
     <SolidColorBrush x:Key="AvalonEdit.Background" po:Freeze="true" Color="#FF1E1E1E" />
     <SolidColorBrush x:Key="AvalonEdit.Link" po:Freeze="true" Color="#FF00C0FF" />
+    <SolidColorBrush x:Key="AvalonEdit.BigEllipsis" po:Freeze="true" Color="#FF00BFFF" />
     <sys:Boolean x:Key="AvalonEdit.SyntaxColor.Invert">true</sys:Boolean>
 
     <SolidColorBrush x:Key="Match.Highlight.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
@@ -129,8 +130,8 @@
     <SolidColorBrush x:Key="Button.Disabled.Foreground" po:Freeze="true" Color="#FFB8B8B8" />
 
     <!-- Toggle Button -->
-    <BitmapImage x:Key="pinBitmap" UriSource="/dnGrep;component/Images/pinDark.png" />
-    <BitmapImage x:Key="unpinBitmap" UriSource="/dnGrep;component/Images/unpinDark.png" />
+    <BitmapImage x:Key="pinBitmap" UriSource="pack://application:,,,/dnGrep;component/Images/pinDark.png" />
+    <BitmapImage x:Key="unpinBitmap" UriSource="pack://application:,,,/dnGrep;component/Images/unpinDark.png" />
 
     <!--  Text Box  -->
     <SolidColorBrush x:Key="Control.Foreground" po:Freeze="true" Color="#FFFFFFFF" />

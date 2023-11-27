@@ -90,6 +90,10 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <inheritdoc/>
 		public override TextRun CreateTextRun(int startVisualColumn, ITextRunConstructionContext context)
 		{
+			if (formattedText != null) {
+				return new FormattedTextRun(this, this.TextRunProperties);
+			}
+
 			if (textLine == null) {
 				var formatter = TextFormatterFactory.Create(context.TextView);
 				textLine = PrepareText(formatter, this.text, this.TextRunProperties);

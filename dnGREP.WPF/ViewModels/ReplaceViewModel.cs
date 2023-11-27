@@ -209,7 +209,7 @@ namespace dnGREP.WPF
             {
                 var lineMatch = SelectedSearchResult.SearchResults.Where(sr => sr.LineNumber == line)
                     .SelectMany(sr => sr.Matches)
-                    .FirstOrDefault(m => m.StartLocation <= column && column <= m.EndPosition);
+                    .FirstOrDefault(m => m.DisplayStartLocation <= column && column <= m.EndPosition);
 
                 if (lineMatch != null)
                 {
@@ -231,8 +231,6 @@ namespace dnGREP.WPF
         public Encoding? Encoding { get; private set; }
 
         public IList<int> LineNumbers { get; } = new List<int>();
-
-        public string FilePath { get; private set; } = string.Empty;
 
         public string FileText { get; private set; } = string.Empty;
 
@@ -257,7 +255,6 @@ namespace dnGREP.WPF
                 Encoding = SelectedSearchResult.Encoding;
                 LineNumbers.Clear();
                 FileText = string.Empty;
-                FilePath = string.Empty;
                 IndividualReplaceEnabled = true;
 
                 FileInfo fileInfo = new(SelectedSearchResult.FileNameReal);
@@ -284,7 +281,14 @@ namespace dnGREP.WPF
                         foreach (var line in SelectedSearchResult.SearchResults)
                         {
                             line.ClippedFileLineNumber = tempLineNum;
-                            sb.Append(line.LineText).Append(SelectedSearchResult.EOL);
+
+                            string lineText = line.LineText;
+                            if (lineText.Length > 7990)
+                            {
+                                lineText = ChopLongLines(line.LineText, line);
+                            }
+
+                            sb.Append(lineText).Append(SelectedSearchResult.EOL);
                             LineNumbers.Add(line.LineNumber);
 
                             tempLineNum++;
@@ -293,12 +297,118 @@ namespace dnGREP.WPF
                     }
                     else
                     {
-                        FilePath = SelectedSearchResult.FileNameReal;
+                        StringBuilder sb = new();
+                        using (FileStream stream = File.Open(SelectedSearchResult.FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        {
+                            using StreamReader reader = new(stream, Encoding);
+                            string? lineText;
+                            int lineNum = 1;
+                            while (!reader.EndOfStream)
+                            {
+                                lineText = reader.ReadLine();
+                                if (lineText != null)
+                                {
+                                    if (lineText.Length > 7990)
+                                    {
+                                        GrepLine? grepLine = SelectedSearchResult.SearchResults
+                                            .FirstOrDefault(sr => sr.LineNumber == lineNum);
+
+                                        if (grepLine != null)
+                                        {
+                                            lineText = ChopLongLines(lineText, grepLine);
+                                        }
+                                    }
+
+                                    sb.Append(lineText).Append(SelectedSearchResult.EOL);
+                                }
+                            }
+                        }
+
+                        FileText = sb.ToString();
                     }
                 }
 
                 LoadFile?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private string ChopLongLines(string lineText, GrepLine grepLine)
+        {
+            if (grepLine.Matches.Count == 0)
+            {
+                return lineText;
+            }
+
+            StringBuilder sb = new();
+            int maxLineLength = 8000 - 10;
+            int matchCount = grepLine.Matches.Count;
+            int matchCharacters = grepLine.Matches.Sum(m => m.Length);
+            int ellipsisCharacters = BigEllipsisColorizer.ellipsis.Length * (matchCount + 1);
+            int startContext = 40;
+            int contextChars = Math.Min(100,
+                (maxLineLength - matchCharacters - ellipsisCharacters - startContext) / matchCount / 2);
+
+            GrepMatch first = grepLine.Matches[0];
+            if (first.StartLocation > contextChars)
+            {
+                sb.Append(lineText.AsSpan(0, startContext));
+                sb.Append(BigEllipsisColorizer.ellipsis);
+            }
+
+            // position of the last character captured from the lineText
+            int position = startContext;
+
+            for (int idx = 0; idx < grepLine.Matches.Count; idx++)
+            {
+                GrepMatch match = grepLine.Matches[idx];
+                GrepMatch? nextMatch = null;
+                if (idx < grepLine.Matches.Count - 1)
+                {
+                    nextMatch = grepLine.Matches[idx + 1];
+                }
+
+                // context before
+                int ctxStart = Math.Max(position, match.StartLocation - contextChars);
+                sb.Append(lineText.AsSpan(ctxStart, match.StartLocation - ctxStart));
+                position = match.StartLocation;
+
+                // the match itself
+                match.DisplayStartLocation = sb.Length;
+                sb.Append(lineText.AsSpan(match.StartLocation, match.Length));
+                position += match.Length;
+
+                // context after
+                if (nextMatch != null && nextMatch.StartLocation < position + contextChars)
+                {
+                    // the context between will be added by the next match
+                }
+                else if (nextMatch != null && nextMatch.StartLocation < position + 2 * contextChars)
+                {
+                    // add trailing context, but no ellipsis
+                    // the rest of the context will be added by the next match
+                    sb.Append(lineText.AsSpan(position, contextChars));
+                    position += contextChars;
+                }
+                else if (position + contextChars < lineText.Length)
+                {
+                    sb.Append(lineText.AsSpan(position, contextChars));
+                    sb.Append(BigEllipsisColorizer.ellipsis);
+                    position += contextChars;
+                }
+                else // at end of line
+                {
+                    sb.Append(lineText.AsSpan(position, lineText.Length - position));
+                    position = lineText.Length;
+                }
+            }
+
+            if (position < lineText.Length)
+            {
+                position = Math.Max(position, lineText.Length - 10);
+                sb.Append(lineText.AsSpan(position, lineText.Length - position));
+            }
+
+            return sb.ToString();
         }
 
         [ObservableProperty]
@@ -316,7 +426,7 @@ namespace dnGREP.WPF
 
                     ColNumber = lineMatch.Matches
                         .Where(m => m.FileMatchId == SelectedGrepMatch.FileMatchId)
-                        .Select(m => m.StartLocation).FirstOrDefault();
+                        .Select(m => m.DisplayStartLocation).FirstOrDefault();
                 }
             }
         }

@@ -63,6 +63,9 @@ namespace dnGREP.WPF
 
                 textEditor.ShowLineNumbers = false; // using custom line numbers
 
+                textEditor.TextArea.TextView.ElementGenerators.Add(new TruncateLongLines());
+                textEditor.TextArea.TextView.LineTransformers.Add(new BigEllipsisColorizer());
+
                 lineNumberMargin = new ReplaceViewLineNumberMargin();
                 Line line = (Line)DottedLineMargin.Create();
                 textEditor.TextArea.LeftMargins.Insert(0, lineNumberMargin);
@@ -176,14 +179,7 @@ namespace dnGREP.WPF
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(ViewModel.FilePath))
-                {
-                    textEditor.Load(ViewModel.FilePath);
-                }
-                else
-                {
-                    textEditor.Text = ViewModel.FileText;
-                }
+                textEditor.Text = ViewModel.FileText;
             }
             catch (Exception ex)
             {
