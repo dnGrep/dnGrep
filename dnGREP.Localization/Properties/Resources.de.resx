@@ -2795,4 +2795,8 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Filter:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>Der Gesamtbericht</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
