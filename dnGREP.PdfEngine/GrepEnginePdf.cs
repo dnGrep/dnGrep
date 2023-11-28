@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
@@ -64,28 +63,9 @@ namespace dnGREP.Engines.Pdf
                     logger.Error(message + $": '{file}'");
                     return new List<GrepSearchResult>()
                     {
-                        new GrepSearchResult(file, searchPattern, message, false)
+                        new(file, searchPattern, message, false)
                     };
                 }
-
-                FileInfo fileInfo = new(tempFile);
-                if (fileInfo.Length < 8)
-                {
-                    string text = File.ReadAllText(tempFile, Encoding.UTF8);
-                    // strip control characters
-                    text = new string(text.Where(c => char.IsLetterOrDigit(c) || (c >= ' ' && c <= byte.MaxValue)).ToArray());
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        string message = Resources.Error_ThisPDFFileContainsNoText;
-                        logger.Error(message + $": '{file}'");
-                        return new List<GrepSearchResult>()
-                        {
-                            new GrepSearchResult(file, searchPattern, message, false)
-                        };
-                    }
-                }
-
-                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                 // GrepCore cannot check encoding of the original pdf file. If the encoding parameter is not default
                 // then it is the user-specified code page.  If the encoding parameter *is* the default,
@@ -93,15 +73,34 @@ namespace dnGREP.Engines.Pdf
                 if (encoding == Encoding.Default)
                     encoding = Utils.GetFileEncoding(tempFile);
 
+                using StreamReader sr = new(tempFile, encoding, detectEncodingFromByteOrderMarks: false);
+                string text = sr.ReadToEnd();
+
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
+                if (!HasSearchableText(text))
+                {
+                    string message = Resources.Error_ThisPDFFileContainsNoText;
+                    logger.Error(message + $": '{file}'");
+                    return new List<GrepSearchResult>()
+                    {
+                        new(file, searchPattern, message, false)
+                    };
+                }
+
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
                 engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter, searchType);
                 if (engine != null)
                 {
-                    List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+                    using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
+                    List<GrepSearchResult> results = engine.Search(inputStream, tempFile, searchPattern,
+                        searchType, searchOptions, encoding, pauseCancelToken);
 
                     if (results.Count > 0)
                     {
-                        using (FileStream reader = new(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan))
-                        using (StreamReader streamReader = new(reader, encoding, false, 4096, true))
+                        inputStream.Seek(0, SeekOrigin.Begin);
+                        using (StreamReader streamReader = new(inputStream, encoding, false, 4096, true))
                         {
                             foreach (var result in results)
                             {
@@ -133,7 +132,7 @@ namespace dnGREP.Engines.Pdf
                 logger.Error(ex.Message); // message is sufficient, no need for stack trace
                 return new List<GrepSearchResult>()
                 {
-                    new GrepSearchResult(file, searchPattern, ex.Message, false)
+                    new(file, searchPattern, ex.Message, false)
                 };
             }
             catch (Exception ex)
@@ -141,7 +140,7 @@ namespace dnGREP.Engines.Pdf
                 logger.Error(ex, $"Failed to search inside PDF file: '{file}'");
                 return new List<GrepSearchResult>()
                 {
-                    new GrepSearchResult(file, searchPattern, ex.Message, false)
+                    new(file, searchPattern, ex.Message, false)
                 };
             }
             finally
@@ -223,6 +222,18 @@ namespace dnGREP.Engines.Pdf
                 };
                 throw new PdfToTextException(TranslationSource.Format(Resources.Error_PdftotextReturned0, errorMessage));
             }
+        }
+
+        private static bool HasSearchableText(string text)
+        {
+            foreach (char c in text.AsSpan())
+            {
+                if (char.IsLetterOrDigit(c) || char.IsBetween(c, ' ', (char)255))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
