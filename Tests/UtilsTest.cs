@@ -1530,7 +1530,7 @@ namespace Tests
         [InlineData(@"abcdef", false, "$")]
         public void TestContainsNotUnescaped(string input, bool expected, string toCheck)
         {
-            bool actual = input.ConstainsNotEscaped(toCheck);
+            bool actual = input.ContainsNotEscaped(toCheck);
             Assert.Equal(expected, actual);
         }
 

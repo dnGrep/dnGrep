@@ -36,7 +36,7 @@ namespace dnGREP.Common
             return -1;
         }
 
-        public static bool ConstainsNotEscaped(this string input, string toCheck)
+        public static bool ContainsNotEscaped(this string input, string toCheck)
         {
             bool found = false;
             int startIndex = 0;

@@ -144,7 +144,7 @@ namespace dnGREP.Engines
             bool convertedFromWindowsNewline = false;
             List<int>? newlineIndexes = null;
 
-            if (searchPattern.ConstainsNotEscaped("$") || searchPatternEndsWithDot)
+            if (searchPattern.ContainsNotEscaped("$") || searchPatternEndsWithDot)
             {
                 if (text.Contains("\r\n", StringComparison.Ordinal))
                 {
@@ -352,7 +352,7 @@ namespace dnGREP.Engines
                 // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
                 bool convertToWindowsNewline = false;
                 string searchPatternForReplace = searchPattern;
-                if (searchPattern.ConstainsNotEscaped("$") && text.Contains("\r\n", StringComparison.Ordinal))
+                if (searchPattern.ContainsNotEscaped("$") && text.Contains("\r\n", StringComparison.Ordinal))
                 {
                     convertToWindowsNewline = true;
                     searchPatternForReplace = searchPattern.Replace("\r\n", "\n", StringComparison.Ordinal);
