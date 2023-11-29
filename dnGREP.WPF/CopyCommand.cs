@@ -23,7 +23,7 @@ namespace dnGREP.WPF
         private static string[] SplitCommandLine(string commandLine)
         {
             List<string> result = new();
-            foreach (string arg in CommandLineArgs.ParseLine(commandLine))
+            foreach (string arg in CommandLineArgs.ParseLine(commandLine, arguments))
             {
                 string s = arg.Trim();
                 if (!string.IsNullOrEmpty(s))
@@ -124,7 +124,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private static readonly List<string> arguments = new()
+        private static readonly HashSet<string> arguments = new()
         {
             "-match", "/match",
             "-rename", "/rename",
