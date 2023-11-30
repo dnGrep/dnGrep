@@ -23,7 +23,7 @@ namespace dnGREP.WPF
         private static string[] SplitCommandLine(string commandLine)
         {
             List<string> result = new();
-            foreach (string arg in CommandLineArgs.ParseLine(commandLine, arguments))
+            foreach (string arg in CommandLineArgs.ParseLine(commandLine))
             {
                 string s = arg.Trim();
                 if (!string.IsNullOrEmpty(s))
