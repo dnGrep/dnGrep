@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -20,16 +19,6 @@ namespace dnGREP.WPF
         {
             // Getting the arguments from Environment.GetCommandLineArgs() or StartupEventArgs 
             // does strange things with quoted strings, so parse them here:
-
-            // strip off the application path and name to avoid confusing the parser
-            // with strings in the path
-            int pos = commandLine.IndexOf(appName, 0, StringComparison.OrdinalIgnoreCase);
-            if (pos > -1)
-            {
-                pos += appName.Length;
-                commandLine = commandLine[pos..].TrimStart('\"').TrimStart();
-            }
-
             string[] args = SplitCommandLine(commandLine);
             Count = args.Length;
             if (args.Length > 0)
@@ -43,127 +32,49 @@ namespace dnGREP.WPF
         private static string[] SplitCommandLine(string line)
         {
             List<string> result = new();
-            foreach (string arg in ParseLine(line, allFlags))
+            foreach (string arg in ParseLine(line))
             {
-                string s = arg.Trim();
-                if (!string.IsNullOrEmpty(s))
+                string token = arg.Trim();
+                if (!string.IsNullOrEmpty(token))
                 {
-                    result.Add(s);
+                    result.Add(token);
                 }
             }
-            return result.ToArray(); // return array of all strings
+            return result.Skip(1).ToArray(); // skip the app and return array of all strings
         }
 
-        internal static IEnumerable<string> ParseLine(string input, HashSet<string> flags)
+        internal static IEnumerable<string> ParseLine(string input)
         {
-            if (!ContainsFlag(input, flags))
+            int startPosition = 0;
+            bool isInQuotes = false;
+            char prevChar = '\0';
+            for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
             {
-                // old style: one or two arguments, no flags
-                int startPosition = 0;
-                bool isInQuotes = false;
-                for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
+                // checking prevChar for quote allows this pattern:
+                // -folder ""c:\folder 1";"c:\folder 2""
+
+                if (input[currentPosition] == '\"' && prevChar != '\"')
                 {
-                    if (input[currentPosition] == '\"')
-                    {
-                        isInQuotes = !isInQuotes;
-                    }
-                    else if (input[currentPosition] == ' ' && !isInQuotes)
-                    {
-                        yield return input[startPosition..currentPosition];
-                        startPosition = currentPosition + 1;
-                    }
+                    isInQuotes = !isInQuotes;
+                }
+                else if (input[currentPosition] == ' ' && !isInQuotes)
+                {
+                    yield return input[startPosition..currentPosition];
+                    startPosition = currentPosition + 1;
                 }
 
-                string lastToken = input[startPosition..];
-                if (!string.IsNullOrWhiteSpace(lastToken))
-                {
-                    yield return lastToken;
-                }
-                else
-                {
-                    yield break;
-                }
+                prevChar = input[currentPosition];
+            }
+
+            string lastToken = input[startPosition..];
+            if (!string.IsNullOrWhiteSpace(lastToken))
+            {
+                yield return lastToken;
             }
             else
             {
-                int startPosition = 0, currentPosition = 0;
-                while (startPosition < input.Length)
-                {
-                    var (nextStart, nextEnd, flag) = IndexOfFlag(input, startPosition, flags);
-                    if (nextStart > -1 && !string.IsNullOrEmpty(flag))
-                    {
-                        if (nextStart > startPosition)
-                        {
-                            yield return input[currentPosition..nextStart];
-                        }
-                        yield return flag;
-                        startPosition = nextEnd + 1;
-                        currentPosition = nextEnd + 1;
-                    }
-                    else if (nextEnd > -1)
-                    {
-                        startPosition = nextEnd + 1;
-                        // currentPosition does not change
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (startPosition < input.Length)
-                {
-                    string lastToken = input[startPosition..];
-                    if (!string.IsNullOrWhiteSpace(lastToken))
-                    {
-                        yield return lastToken;
-                    }
-                }
-
                 yield break;
             }
-        }
-
-        private static bool ContainsFlag(string input, HashSet<string> flags)
-        {
-            int startPosition = 0;
-            while (startPosition < input.Length)
-            {
-                var (nextStart, nextEnd, flag) = IndexOfFlag(input, startPosition, flags);
-                if (nextStart > -1 && !string.IsNullOrEmpty(flag))
-                {
-                    return true;
-                }
-                else if (nextEnd > -1)
-                {
-                    startPosition = nextEnd + 1;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            return false;
-        }
-
-        private static readonly char[] flagTokens = new char[] { '-', '/' };
-
-        private static (int start, int end, string flag) IndexOfFlag(string input, int startIndex, HashSet<string> flags)
-        {
-            int pos1 = input.IndexOfAny(flagTokens, startIndex);
-            if (pos1 >= 0)
-            {
-                int pos2 = input.IndexOf(' ', pos1);
-                if (pos2 == -1)
-                {
-                    pos2 = input.Length;
-                }
-
-                string flag = input.Substring(pos1, pos2 - pos1);
-                if (flags.Contains(flag))
-                    return (pos1, pos2, flag);
-            }
-            return (-1, pos1, string.Empty);
         }
 
         private static readonly List<char> separators = new() { ',', ';' };
@@ -212,35 +123,6 @@ namespace dnGREP.WPF
         }
 
         private static readonly HashSet<string> pathFlags = new() { "/f", "-f", "-folder" };
-        private static readonly HashSet<string> allFlags = new()
-        {
-            "/warmup",
-            "/sc", "-sc", "-script",
-            "/f", "-f", "-folder",
-            "/pm", "-pm", "-pathtomatch",
-            "/pi", "-pi", "-pathtoignore",
-            "/pt", "-pt", "-patterntype",
-            "/s", "-s", "-searchfor",
-            "/st", "-st", "-searchtype",
-            "/cs", "-cs", "-casesensitive",
-            "/ww", "-ww", "-wholeword",
-            "/ml", "-ml", "-multiline",
-            "/dn", "-dn", "-dotasnewline",
-            "/bo", "-bo", "-booleanoperators",
-            "/mode", "-mode", "-reportmode",
-            "/fi", "-fi", "-fileinformation",
-            "/trim", "-trim", "-trimwhitespace",
-            "/unique", "-unique", "-uniqueValues",
-            "/scope", "-scope", "-uniquescope",
-            "/sl", "-sl", "-separatelines",
-            "/sep", "-sep", "-listitemseparator",
-            "/rpt", "-rpt", "-report",
-            "/txt", "-txt", "-text",
-            "/csv", "-csv",
-            "/x", "-x", "-exit",
-            "/h", "-h", "-help",
-            "/v", "-v", "-version",
-        };
 
         private void EvaluateArgs(string[] args)
         {

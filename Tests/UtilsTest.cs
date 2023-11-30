@@ -1439,7 +1439,10 @@ namespace Tests
         [InlineData(@" -f ""c:\temp\test files"";""c:\temp\testData"" -s p\w*", 4, false, false, @"""c:\temp\test files"";""c:\temp\testData""", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -f ""c:\temp\test files"";""c:\temp\testData"" -s ""p\w*""", 4, false, false, @"""c:\temp\test files"";""c:\temp\testData""", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -f ""c:\temp\testData;c:\temp\test files""", 2, false, false, @"c:\temp\testData;c:\temp\test files", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" -f c:\temp\testData;c:\temp\test files", 2, false, false, @"c:\temp\testData;c:\temp\test files", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData;""c:\temp\test files""", 2, false, false, @"c:\temp\testData;""c:\temp\test files""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\test files"";c:\temp\testData", 2, false, false, @"""c:\temp\test files"";c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData;""c:\temp\test files"" -s p\w*", 4, false, false, @"c:\temp\testData;""c:\temp\test files""", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\test files"";c:\temp\testData -s p\w*", 4, false, false, @"""c:\temp\test files"";c:\temp\testData", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -f c:\temp\testData\", 2, false, false, @"c:\temp\testData\", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -f c:\temp\testData", 2, false, false, @"c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -f ""c:\temp\test data\"" -s p\w*", 4, false, false, @"c:\temp\test data\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
@@ -1464,12 +1467,11 @@ namespace Tests
         [InlineData(@" -f c:\temp\testData\ -s p\w* -mode FullLine -fi true -trim true -rpt c:\temp\report.txt", 12, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, @"c:\temp\report.txt", null, null, ReportMode.FullLine, true, true, null, null, null, null, null, false)]
         [InlineData(@" -sep "" """, 2, false, false, null, null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, " ", null, false)]
         [InlineData(@" -script scriptName", 2, false, false, null, null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, "scriptName", false)]
-        [InlineData(@" -folder D:\folder 1;D:\folder 2", 2, false, false, @"D:\folder 1;D:\folder 2", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -folder ""D:\folder 1"";""D:\folder 2""", 2, false, false, @"""D:\folder 1"";""D:\folder 2""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -folder """"D:\folder 1"";""D:\folder 2""""", 2, false, false, @"""D:\folder 1"";""D:\folder 2""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" -folder D:\folder 1\;D:\folder 2\", 2, false, false, @"D:\folder 1\;D:\folder 2\", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -folder ""D:\folder 1\"";""D:\folder 2\""", 2, false, false, @"""D:\folder 1\"";""D:\folder 2\""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -folder """"D:\folder 1\"";""D:\folder 2\""""", 2, false, false, @"""D:\folder 1\"";""D:\folder 2\""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -folder ""D:\folder-version 1"";""D:\folder 2""", 2, false, false, @"""D:\folder-version 1"";""D:\folder 2""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         public void SplitCommandLineTest(string commandLine, int argCount,
             bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor,
             SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude,
@@ -1480,54 +1482,43 @@ namespace Tests
             UniqueScope? uniqueScope, bool? outputOnSeparateLines, string listItemSeparator,
             string script, bool expExit)
         {
-            string[] paths = new string[]
-            {
-                @"""C:\\Program Files\\dnGREP\\dnGREP.exe""",
-                @"""C:\Repos\dnGrep\dnGREP.WPF\bin\x64\Debug\net7.0-windows\dnGREP.exe""",
-                // include the string -version to try to confuse the parser
-                @"""C:\Repos\dnGrep\release-version 7\dnGREP.exe""",
-            };
+            string program = @"""C:\\Program Files\\dnGREP\\dnGREP.exe""";
 
-            foreach (var program in paths)
-            {
-                CommandLineArgs args = new(program + commandLine);
+            CommandLineArgs args = new(program + commandLine);
 
-                Assert.Equal(argCount, args.Count);
-                Assert.Equal(expInvalidArgument, args.InvalidArgument);
-                Assert.Equal(expIsWarmUp, args.WarmUp);
-                Assert.Equal(expSearchPath, args.SearchPath);
-                Assert.Equal(expSearchFor, args.SearchFor);
-                Assert.Equal(expSearchType, args.TypeOfSearch);
-                Assert.Equal(expPatternToInclude, args.NamePatternToInclude);
-                Assert.Equal(expPatternToExclude, args.NamePatternToExclude);
-                Assert.Equal(expTypeOfFileSearch, args.TypeOfFileSearch);
-                Assert.Equal(expCaseSensitive, args.CaseSensitive);
-                Assert.Equal(expWholeWord, args.WholeWord);
-                Assert.Equal(expMultiline, args.Multiline);
-                Assert.Equal(expDotAsNewLine, args.DotAsNewline);
-                Assert.Equal(expBooleanOperators, args.BooleanOperators);
-                Assert.Equal(expExecuteSearch, args.ExecuteSearch);
-                Assert.Equal(expReportPath, args.ReportPath);
-                Assert.Equal(expTextPath, args.TextPath);
-                Assert.Equal(expCsvPath, args.CsvPath);
-                Assert.Equal(reportMode, args.ReportMode);
-                Assert.Equal(includeFileInformation, args.IncludeFileInformation);
-                Assert.Equal(trimWhitespace, args.TrimWhitespace);
-                Assert.Equal(filterUniqueValues, args.FilterUniqueValues);
-                Assert.Equal(uniqueScope, args.UniqueScope);
-                Assert.Equal(outputOnSeparateLines, args.OutputOnSeparateLines);
-                Assert.Equal(listItemSeparator, args.ListItemSeparator);
-                Assert.Equal(script, args.Script);
-                Assert.Equal(expExit, args.Exit);
-            }
+            Assert.Equal(argCount, args.Count);
+            Assert.Equal(expInvalidArgument, args.InvalidArgument);
+            Assert.Equal(expIsWarmUp, args.WarmUp);
+            Assert.Equal(expSearchPath, args.SearchPath);
+            Assert.Equal(expSearchFor, args.SearchFor);
+            Assert.Equal(expSearchType, args.TypeOfSearch);
+            Assert.Equal(expPatternToInclude, args.NamePatternToInclude);
+            Assert.Equal(expPatternToExclude, args.NamePatternToExclude);
+            Assert.Equal(expTypeOfFileSearch, args.TypeOfFileSearch);
+            Assert.Equal(expCaseSensitive, args.CaseSensitive);
+            Assert.Equal(expWholeWord, args.WholeWord);
+            Assert.Equal(expMultiline, args.Multiline);
+            Assert.Equal(expDotAsNewLine, args.DotAsNewline);
+            Assert.Equal(expBooleanOperators, args.BooleanOperators);
+            Assert.Equal(expExecuteSearch, args.ExecuteSearch);
+            Assert.Equal(expReportPath, args.ReportPath);
+            Assert.Equal(expTextPath, args.TextPath);
+            Assert.Equal(expCsvPath, args.CsvPath);
+            Assert.Equal(reportMode, args.ReportMode);
+            Assert.Equal(includeFileInformation, args.IncludeFileInformation);
+            Assert.Equal(trimWhitespace, args.TrimWhitespace);
+            Assert.Equal(filterUniqueValues, args.FilterUniqueValues);
+            Assert.Equal(uniqueScope, args.UniqueScope);
+            Assert.Equal(outputOnSeparateLines, args.OutputOnSeparateLines);
+            Assert.Equal(listItemSeparator, args.ListItemSeparator);
+            Assert.Equal(script, args.Script);
+            Assert.Equal(expExit, args.Exit);
         }
 
         [Theory]
         [InlineData(@"-match (\w+).txt -rename $1.bak", 0, @"(\w+).txt", @"$1.bak", false, null)]
         [InlineData(@"-match ""(\w+).txt"" -rename ""$1.bak""", 0, @"(\w+).txt", @"$1.bak", false, null)]
         [InlineData(@"-overwrite true -out "".\folder 1""", 0, null, null, true, @".\folder 1")]
-        [InlineData(@"-overwrite true -out folder 1", 0, null, null, true, @"folder 1")]
-        [InlineData(@"-out folder 1 -overwrite true", 0, null, null, true, @"folder 1")]
         [InlineData(@"-out ""folder 1"" -overwrite true", 0, null, null, true, @"folder 1")]
         [InlineData(@"-match (*).txt -rename $1.bak", 1, null, @"$1.bak", false, null)]
         [InlineData(@"-match -rename $1.bak", 1, null, @"$1.bak", false, null)]
