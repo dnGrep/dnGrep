@@ -3821,4 +3821,28 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Този PDF не съдържа текст</value>
     <comment>Main window search results message</comment>
   </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Грешка: {0} за аргумента {1}</value>
+    <comment>Script copy command validation error message. {0} is the error message and {1} is the command argument name.</comment>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Грешка: аргументът {0} изисква модел</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>Целевата папка не може да бъде създадена: „{0}“</value>
+    <comment>Script copy command error message.  {0} is the directory name.</comment>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Грешка: аргументът {0} изисква True или False</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Копиране и преименуване на файлове чрез регулярни изрази</value>
+    <comment>Script editor command tooltip </comment>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Грешка: аргументът {0} изисква път</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
 </root>
