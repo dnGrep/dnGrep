@@ -3845,4 +3845,44 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Грешка: аргументът {0} изисква път</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>Бутони за придвижване</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>Целевият файл съществува, а презаписването е изключено: „{0}“</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>Целевият и изходният файл са един и същи: {0}</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>Сортира числата по реда на увеличаване</value>
+    <comment>Main window sort options menu item tooltip</comment>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>Грешка {0} при обработка на файла „{1}“</value>
+    <comment>Script copy command error message. {0} is the error message and {1} is the source path and file name.</comment>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>Изключваща последователност към кавичките в аргумента „{0}“</value>
+    <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>Моделът на файл не съвпада с името „{0}“</value>
+    <comment>Script copy command error message.  {0} is the source file name.</comment>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>Копирано „{0}“ в/ъв „{1}“</value>
+    <comment>Script copy command success message. {0} is the source file name and {1} is the destination file name.</comment>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>Текущ ред</value>
+    <comment>Main window, results list, button tooltip</comment>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>Естествено сортиране</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
 </root>
