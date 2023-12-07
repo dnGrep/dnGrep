@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -535,6 +536,41 @@ namespace dnGREP.WPF
             }
         }
 
+        internal void CollapseAll()
+        {
+            resultsTree.SetFocus();
+
+            foreach (FormattedGrepResult result in resultsTree.treeView.Items)
+            {
+                result.CollapseTreeNode();
+            }
+        }
+
+        internal bool HasSearchResults
+        {
+            get
+            {
+                if (resultsTree.treeView.DataContext is GrepSearchResultsViewModel vm)
+                {
+                    return vm.SearchResults.Count > 0;
+                }
+                return false;
+            }
+        }
+
+        internal bool HasExpandedNode
+        {
+            get
+            {
+                if (resultsTree.treeView.DataContext is GrepSearchResultsViewModel vm)
+                {
+                    return vm.SearchResults.Any(n => n.IsExpanded);
+                }
+                return false;
+            }
+        }
+
+        internal bool HasStartItem => resultsTree.treeView.HasStartItem;
 
         private DateTime timeOfLastMessage = DateTime.Now;
 

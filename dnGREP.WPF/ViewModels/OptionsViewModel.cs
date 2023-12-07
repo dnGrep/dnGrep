@@ -173,6 +173,8 @@ namespace dnGREP.WPF
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
                 ShowFileErrorsInResults != Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults) ||
                 NavigationButtonsVisible != Settings.Get<bool>(GrepSettings.Key.NavigationButtonsVisible) ||
+                NavigationToolsPosition != Settings.Get<NavigationToolsPosition>(GrepSettings.Key.NavToolsPosition) ||
+                NavigationToolsSize != Settings.Get<ToolSize>(GrepSettings.Key.NavToolsSize) ||
                 AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
                 DetectEncodingForFileNamePattern != Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern) ||
                 AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
@@ -412,6 +414,27 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private bool navigationButtonsVisible;
 
+        partial void OnNavigationButtonsVisibleChanged(bool value)
+        {
+            NavigationToolsViewModel.Instance.ChangeNavigationToolsPosition(value, NavigationToolsPosition);
+        }
+
+        [ObservableProperty]
+        private NavigationToolsPosition navigationToolsPosition;
+
+        partial void OnNavigationToolsPositionChanged(NavigationToolsPosition value)
+        {
+            NavigationToolsViewModel.Instance.ChangeNavigationToolsPosition(NavigationButtonsVisible, value);
+        }
+
+        [ObservableProperty]
+        private ToolSize navigationToolsSize;
+
+        partial void OnNavigationToolsSizeChanged(ToolSize value)
+        {
+            NavigationToolsViewModel.Instance.ChangeNavigationToolsSize(EditMainFormFontSize, value);
+        }
+
         [ObservableProperty]
         private bool showLinesInContext;
 
@@ -564,6 +587,11 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private double editMainFormFontSize;
+
+        partial void OnEditMainFormFontSizeChanged(double value)
+        {
+            NavigationToolsViewModel.Instance.ChangeNavigationToolsSize(value, NavigationToolsSize);
+        }
 
         [ObservableProperty]
         private double replaceFormFontSize;
@@ -740,6 +768,8 @@ namespace dnGREP.WPF
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
             ShowFileErrorsInResults = Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults);
             NavigationButtonsVisible = Settings.Get<bool>(GrepSettings.Key.NavigationButtonsVisible);
+            NavigationToolsPosition = Settings.Get<NavigationToolsPosition>(GrepSettings.Key.NavToolsPosition);
+            NavigationToolsSize = Settings.Get<ToolSize>(GrepSettings.Key.NavToolsSize);
             AllowSearchWithEmptyPattern = Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             DetectEncodingForFileNamePattern = Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern);
             AutoExpandSearchTree = Settings.Get<bool>(GrepSettings.Key.ExpandResults);
@@ -920,6 +950,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
             Settings.Set(GrepSettings.Key.ShowFileErrorsInResults, ShowFileErrorsInResults);
             Settings.Set(GrepSettings.Key.NavigationButtonsVisible, NavigationButtonsVisible);
+            Settings.Set(GrepSettings.Key.NavToolsPosition, NavigationToolsPosition);
+            Settings.Set(GrepSettings.Key.NavToolsSize, NavigationToolsSize);
             Settings.Set(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
             Settings.Set(GrepSettings.Key.DetectEncodingForFileNamePattern, DetectEncodingForFileNamePattern);
             Settings.Set(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);

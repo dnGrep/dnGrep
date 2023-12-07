@@ -95,10 +95,7 @@ namespace dnGREP.WPF.UserControls
 
         public TreeViewItem? StartTreeViewItem => GetStartItem(this);
 
-        public void ClearStartTreeViewItem()
-        {
-            SetStartItem(this, null);
-        }
+        public bool HasStartItem => GetStartItem(this) != null;
 
         public bool MultiSelectRootLevelOnly { get; set; }
 
