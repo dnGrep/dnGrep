@@ -3895,4 +3895,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Show navigation buttons</value>
     <comment>Options dialog, check box label</comment>
   </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>Button size:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>Small</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>Medium</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>Large</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>Panel position:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>Above results tree</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>Docked to side of results tree:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
 </root>

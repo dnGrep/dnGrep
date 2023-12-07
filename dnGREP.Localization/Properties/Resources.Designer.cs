@@ -4347,6 +4347,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Above results tree.
+        /// </summary>
+        public static string Options_AboveResultsTree {
+            get {
+                return ResourceManager.GetString("Options_AboveResultsTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List files using the file name pattern when the &apos;Search for&apos; field is empty.
         /// </summary>
         public static string Options_AllowSearchingForFileNamePatternOnly {
@@ -4424,6 +4433,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_BrowseFileLocation {
             get {
                 return ResourceManager.GetString("Options_BrowseFileLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button size:.
+        /// </summary>
+        public static string Options_ButtonSize {
+            get {
+                return ResourceManager.GetString("Options_ButtonSize", resourceCulture);
             }
         }
         
@@ -4604,6 +4622,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_DnGrepWillAddTheSelectedFiles {
             get {
                 return ResourceManager.GetString("Options_DnGrepWillAddTheSelectedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Docked to side of results tree:.
+        /// </summary>
+        public static string Options_DockedToSideOfResultsTree {
+            get {
+                return ResourceManager.GetString("Options_DockedToSideOfResultsTree", resourceCulture);
             }
         }
         
@@ -4869,6 +4896,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Large.
+        /// </summary>
+        public static string Options_Large {
+            get {
+                return ResourceManager.GetString("Options_Large", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Layout.
         /// </summary>
         public static string Options_Layout {
@@ -4955,6 +4991,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_MayNotBeSupportedInAllFonts {
             get {
                 return ResourceManager.GetString("Options_MayNotBeSupportedInAllFonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        public static string Options_Medium {
+            get {
+                return ResourceManager.GetString("Options_Medium", resourceCulture);
             }
         }
         
@@ -5054,6 +5099,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_PageNumbers {
             get {
                 return ResourceManager.GetString("Options_PageNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panel position:.
+        /// </summary>
+        public static string Options_PanelPosition {
+            get {
+                return ResourceManager.GetString("Options_PanelPosition", resourceCulture);
             }
         }
         
@@ -5495,6 +5549,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ShowVerboseMatchCount {
             get {
                 return ResourceManager.GetString("Options_ShowVerboseMatchCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small.
+        /// </summary>
+        public static string Options_Small {
+            get {
+                return ResourceManager.GetString("Options_Small", resourceCulture);
             }
         }
         
