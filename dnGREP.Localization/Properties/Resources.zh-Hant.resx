@@ -1441,7 +1441,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>檔案樣式 '{0}' 不是合法的正則運算式:{1}{2}</value>
+    <value>檔案樣式 '{0}' 不是合法的正則運算式: {1}{2}</value>
     <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
@@ -3674,5 +3674,157 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
     <value>開啟檔案時, 開啟這些附檔名的整個壓縮檔案:</value>
     <comment>Options dialog, custom archive extension label</comment>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>錯誤: 參數 {1} 的錯誤訊息 {0}</value>
+    <comment>Script copy command validation error message. {0} is the error message and {1} is the command argument name.</comment>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>在結果面板中顯示搜尋錯誤的檔案</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>顯示導航按鈕</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>括號內為全形字元</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>提取備註</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>錯誤: 參數 {0} 需要樣式</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>目的檔案存在且覆寫錯誤: '{0}'</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>不顯示</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>提取頁角</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>目的檔案與來源檔案相同: {0}</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>按數字順序排序數字</value>
+    <comment>Main window sort options menu item tooltip</comment>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>可能並非支援所有字體</value>
+    <comment>Options dialog, radio button tooltip</comment>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext 返回了 '{0}'</value>
+    <comment>Format string for pdftotext error messages: {0} is the error message</comment>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>處理檔案 '{1}' 時發生錯誤 {0}</value>
+    <comment>Script copy command error message. {0} is the error message and {1} is the source path and file name.</comment>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+    <comment>Options dialog, section heading</comment>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext 無法建立文字檔案</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>提取註腳</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>'{0}' 參數中的轉義引號</value>
+    <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>提取頁眉</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>符合樣式無法符合檔案名稱 '{0}'</value>
+    <comment>Script copy command error message.  {0} is the source file name.</comment>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>無法建立目的目錄: '{0}'</value>
+    <comment>Script copy command error message.  {0} is the directory name.</comment>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>錯誤: 參數 {0} 需要 True 或 False</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>使用正則運算式複製和重新命名結果檔案</value>
+    <comment>Script editor command tooltip </comment>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>文件末尾</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>已複製 '{0}' 到 '{1}'</value>
+    <comment>Script copy command success message. {0} is the source file name and {1} is the destination file name.</comment>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>括號內為全形數字</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>註腳參照字元集:</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>下標</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>目前行</value>
+    <comment>Main window, results list, button tooltip</comment>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>全形字元</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>提取的頁首和頁腳位置:</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>備註參照編號:</value>
+    <comment>Options dialog, options group label</comment>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>上標</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>由於權限, 鎖定或錯誤, {0} 個檔案無法搜尋: 詳細訊息請參閱 dnGrep 日誌檔案</value>
+    <comment>Main window tooltip. {0} is the count of file read errors</comment>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>自然排序</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>錯誤: 參數 {0} 需要路徑</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>段落開頭</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>此 PDF 檔案不包含任何文字</value>
+    <comment>Main window search results message</comment>
   </data>
 </root>
