@@ -2801,4 +2801,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Filtro:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Destacar correspondências</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
