@@ -43,6 +43,8 @@ namespace dnGREP.WPF
             line.SetBinding(Line.StrokeProperty, lineNumbersForeground);
             lineNumberMargin.SetBinding(Control.ForegroundProperty, lineNumbersForeground);
 
+            textEditor.TextArea.TextView.ElementGenerators.Add(new TruncateLongLines());
+
             ViewModel.ShowPreview += ViewModel_ShowPreview;
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewWindowWrap);
@@ -132,7 +134,8 @@ namespace dnGREP.WPF
 
                         using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         {
-                            textEditor.Load(stream);
+                            using StreamReader reader = new(stream, ViewModel.Encoding);
+                            textEditor.Text = reader.ReadToEnd();
                         }
 
                         if (!string.IsNullOrEmpty(textEditor.Text))
@@ -192,7 +195,7 @@ namespace dnGREP.WPF
             {
                 lineNumber++;
                 string? line = reader.ReadLine();
-                if (!string.IsNullOrEmpty(line) && line.Contains('\f', StringComparison.Ordinal) && 
+                if (!string.IsNullOrEmpty(line) && line.Contains('\f', StringComparison.Ordinal) &&
                     !(reader.EndOfStream && line.Equals("\f", StringComparison.Ordinal)))
                 {
                     pageNumber += line.Count(c => c.Equals('\f'));

@@ -507,8 +507,6 @@
                     <StackPanel Margin="0,3,0,0">
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_MaximizeResultsPanelOnSearch'}"
                                   IsChecked="{Binding Path=MaximizeResultsTreeOnSearch}" />
-                        <CheckBox Margin="3" Content="{l:Loc Key='Options_ShowNavigationButtons'}"
-                                  IsChecked="{Binding Path=NavigationButtonsVisible}" />
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_ShowFilesWithSearchErrorsInResultsPanel'}"
                                   IsChecked="{Binding Path=ShowFileErrorsInResults}" />
                         <CheckBox Name="cbShowPath" Margin="3" Content="{l:Loc Key='Options_ShowFilePathInResultsPanel'}"
@@ -588,7 +586,74 @@
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesOnly'}" GroupName="replaceLayout"
                                          IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FilesOnly}" />
                         </StackPanel>
-                        <StackPanel  Margin="0,6,0,0">
+                        
+                        <CheckBox Margin="0,9,0,0" Content="{l:Loc Key='Options_ShowNavigationButtons'}"
+                                  IsChecked="{Binding Path=NavigationButtonsVisible}" />
+                        <TextBlock Text="{l:Loc Key='Options_ButtonSize'}" Margin="24,3,0,0"/>
+                        <StackPanel Orientation="Horizontal" Margin="48,0,0,0"
+                                    IsEnabled="{Binding Path=NavigationButtonsVisible}">
+                            <RadioButton Content="{l:Loc Key='Options_Small'}" Margin="3" 
+                                         IsChecked="{Binding NavigationToolsSize, Converter={StaticResource ebc}, ConverterParameter=Small}"/>
+                            <RadioButton Content="{l:Loc Key='Options_Medium'}" Margin="3"
+                                         IsChecked="{Binding NavigationToolsSize, Converter={StaticResource ebc}, ConverterParameter=Medium}"/>
+                            <RadioButton Content="{l:Loc Key='Options_Large'}" Margin="3"
+                                         IsChecked="{Binding NavigationToolsSize, Converter={StaticResource ebc}, ConverterParameter=Large}"/>
+                        </StackPanel>
+                        <TextBlock Text="{l:Loc Key='Options_PanelPosition'}" Margin="24,3,0,3"/>
+                        <Grid Margin="48,0,0,0" HorizontalAlignment="Left"
+                              IsEnabled="{Binding Path=NavigationButtonsVisible}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="400"/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="3"
+                                         Content="{l:Loc Key='Options_AboveResultsTree'}"
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=Above}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Margin="3"
+                                       Text="{l:Loc Key='Options_DockedToSideOfResultsTree'}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="1" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=TopLeft}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="2" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=TopCenter}"/>
+                            <RadioButton Grid.Row="2" Grid.Column="3" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=TopRight}"/>
+
+                            <RadioButton Grid.Row="3" Grid.Column="0" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=LeftTop}"/>
+                            <RadioButton Grid.Row="4" Grid.Column="0" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=LeftCenter}"/>
+                            <RadioButton Grid.Row="5" Grid.Column="0" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=LeftBottom}"/>
+
+                            <RadioButton Grid.Row="3" Grid.Column="4" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=RightTop}"/>
+                            <RadioButton Grid.Row="4" Grid.Column="4" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=RightCenter}"/>
+                            <RadioButton Grid.Row="5" Grid.Column="4" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=RightBottom}"/>
+
+                            <RadioButton Grid.Row="6" Grid.Column="1" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=BottomLeft}"/>
+                            <RadioButton Grid.Row="6" Grid.Column="2" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=BottomCenter}"/>
+                            <RadioButton Grid.Row="6" Grid.Column="3" Content=""
+                                         IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=BottomRight}"/>
+                        </Grid>
+                        
+                        <StackPanel  Margin="0,16,0,0">
                             <TextBlock Text="{l:Loc Key='Options_PersonalizeControlVisibility'}" 
                                        ToolTip="{l:Loc Key='Options_PersonalizeControlVisibility_Tooltip'}" />
                             <ScrollViewer Height="280" Margin="18,3"

@@ -13,6 +13,8 @@ namespace dnGREP.WPF
 {
     public partial class CommandLineArgs
     {
+        private const string appName = "dnGREP.exe";
+
         public CommandLineArgs(string commandLine)
         {
             // Getting the arguments from Environment.GetCommandLineArgs() or StartupEventArgs 
@@ -32,22 +34,26 @@ namespace dnGREP.WPF
             List<string> result = [];
             foreach (string arg in ParseLine(line))
             {
-                string s = arg.Trim();
-                if (!string.IsNullOrEmpty(s))
+                string token = arg.Trim();
+                if (!string.IsNullOrEmpty(token))
                 {
-                    result.Add(s);
+                    result.Add(token);
                 }
             }
-            return result.Skip(1).ToArray(); // Drop the program path, and return array of all strings
+            return result.Skip(1).ToArray(); // skip the app and return array of all strings
         }
 
         internal static IEnumerable<string> ParseLine(string input)
         {
             int startPosition = 0;
             bool isInQuotes = false;
+            char prevChar = '\0';
             for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
             {
-                if (input[currentPosition] == '\"')
+                // checking prevChar for quote allows this pattern:
+                // -folder ""c:\folder 1";"c:\folder 2""
+
+                if (input[currentPosition] == '\"' && prevChar != '\"')
                 {
                     isInQuotes = !isInQuotes;
                 }
@@ -56,6 +62,8 @@ namespace dnGREP.WPF
                     yield return input[startPosition..currentPosition];
                     startPosition = currentPosition + 1;
                 }
+
+                prevChar = input[currentPosition];
             }
 
             string lastToken = input[startPosition..];
@@ -73,38 +81,36 @@ namespace dnGREP.WPF
 
         private static string FormatPathArgs(string input)
         {
-            List<string> parts = [];
-            int startPosition = 0;
-            bool isInQuotes = false;
-            for (int currentPosition = 0; currentPosition < input.Length; currentPosition++)
+            if (input.IndexOfAny(separators.ToArray()) > -1)
             {
-                if (input[currentPosition] == '\"')
+                List<string> parts = new();
+                string[] split = input.Split(separators.ToArray());
+
+                foreach (string part in split)
                 {
-                    isInQuotes = !isInQuotes;
-                }
-                else if (separators.Contains(input[currentPosition]) && !isInQuotes)
-                {
-                    string token = input[startPosition..currentPosition];
-                    token = StripQuotes(token);
-                    token = UiUtils.QuoteIfNeeded(token);
+                    string token = part.Replace("\"\"", "\"", StringComparison.Ordinal);
+                    if (token.StartsWith('\"') && !token.EndsWith('\"'))
+                    {
+                        token = token.TrimStart('\"');
+                    }
+                    if (token.EndsWith('\"') && !token.StartsWith('\"'))
+                    {
+                        token = token.TrimEnd('\"');
+                    }
                     if (!string.IsNullOrWhiteSpace(token))
                     {
                         parts.Add(token);
                     }
-
-                    startPosition = currentPosition + 1;
                 }
-            }
 
-            string lastToken = input[startPosition..];
-            lastToken = StripQuotes(lastToken);
-            lastToken = UiUtils.QuoteIfNeeded(lastToken);
-            if (!string.IsNullOrWhiteSpace(lastToken))
+                return string.Join(";", parts);
+            }
+            else
             {
-                parts.Add(lastToken);
+                string path = StripQuotes(input);
+                path = UiUtils.QuoteIfNeeded(path);
+                return path;
             }
-
-            return string.Join(";", parts);
         }
 
         internal static string StripQuotes(string input)
@@ -116,7 +122,7 @@ namespace dnGREP.WPF
             return input;
         }
 
-        private readonly List<string> pathFlags = ["/f", "-f", "-folder"];
+        private static readonly HashSet<string> pathFlags = [ "/f", "-f", "-folder" ];
 
         private void EvaluateArgs(string[] args)
         {

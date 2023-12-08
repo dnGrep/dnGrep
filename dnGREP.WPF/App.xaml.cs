@@ -7,6 +7,7 @@ using System.Windows;
 using dnGREP.Common;
 using dnGREP.Localization;
 using NLog;
+using Windows.Win32;
 
 namespace dnGREP.WPF
 {
@@ -36,7 +37,9 @@ namespace dnGREP.WPF
                 LogDir = Path.Combine(Utils.GetDataFolderPath(), "logs");
                 GlobalDiagnosticsContext.Set("logDir", LogDir);
 
-                AppArgs = new CommandLineArgs(Environment.CommandLine);
+                // get the raw, unaltered command line
+                string? commandLine = PInvoke.GetCommandLine().ToString();
+                AppArgs = new CommandLineArgs(commandLine ?? string.Empty);
 
                 if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.IsSingletonInstance) &&
                     !ConfigureSingletonInstance(AppArgs))

@@ -124,16 +124,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private static readonly List<string> arguments =
+        private static readonly HashSet<string> arguments = 
         [
-            "-match",
-            "/match",
-            "-rename",
-            "/rename",
-            "-overwrite",
-            "/overwrite",
-            "-out",
-            "/out",
+            "-match", "/match",
+            "-rename", "/rename",
+            "-overwrite", "/overwrite",
+            "-out", "/out",
         ];
 
         private static bool IsNotAnArgument(string value)

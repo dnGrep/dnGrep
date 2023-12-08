@@ -283,6 +283,8 @@ namespace dnGREP.WPF
 
         public static DockViewModel DockVM => DockViewModel.Instance;
 
+        public NavigationToolsViewModel NavTools => NavigationToolsViewModel.Instance;
+
         [ObservableProperty]
         private double mainFormFontSize;
 
@@ -380,9 +382,6 @@ namespace dnGREP.WPF
         {
             SortResults();
         }
-
-        [ObservableProperty]
-        private bool navigationButtonsVisible = true;
 
         [ObservableProperty]
         private bool highlightsOn;
@@ -641,25 +640,6 @@ namespace dnGREP.WPF
         public ICommand FilterComboBoxDropDownCommand => new RelayCommand(
             p => PopulateIgnoreFilters(false));
 
-        public ICommand PreviousFileCommand => new RelayCommand(
-            p => MainForm?.PreviousFile(),
-            q => ResultsViewModel.SearchResults.Any());
-
-        public ICommand PreviousMatchCommand => new RelayCommand(
-            p => MainForm?.PreviousMatch(),
-            q => ResultsViewModel.SearchResults.Any());
-
-        public ICommand NextMatchCommand => new RelayCommand(
-            p => MainForm?.NextMatch(),
-            q => ResultsViewModel.SearchResults.Any());
-
-        public ICommand NextFileCommand => new RelayCommand(
-            p => MainForm?.NextFile(),
-            q => ResultsViewModel.SearchResults.Any());
-
-        public ICommand ScrollToCurrentCommand => new RelayCommand(
-            p => MainForm?.ScrollToCurrent(),
-            q => ResultsViewModel.SelectedItems.Count > 0);
         #endregion
 
         #region Public Methods
@@ -764,7 +744,6 @@ namespace dnGREP.WPF
             ResultsViewModel.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
             ResultsViewModel.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
             IsResultOptionsExpanded = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowResultOptions);
-            NavigationButtonsVisible = GrepSettings.Instance.Get<bool>(GrepSettings.Key.NavigationButtonsVisible);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -62,6 +63,9 @@ namespace dnGREP.WPF
                 zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.ReplaceWindowFontSize);
 
                 textEditor.ShowLineNumbers = false; // using custom line numbers
+
+                textEditor.TextArea.TextView.ElementGenerators.Add(new TruncateLongLines());
+                textEditor.TextArea.TextView.LineTransformers.Add(new BigEllipsisColorizer());
 
                 lineNumberMargin = new ReplaceViewLineNumberMargin();
                 Line line = (Line)DottedLineMargin.Create();
@@ -176,14 +180,7 @@ namespace dnGREP.WPF
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(ViewModel.FilePath))
-                {
-                    textEditor.Load(ViewModel.FilePath);
-                }
-                else
-                {
-                    textEditor.Text = ViewModel.FileText;
-                }
+                textEditor.Text = ViewModel.FileText;
             }
             catch (Exception ex)
             {

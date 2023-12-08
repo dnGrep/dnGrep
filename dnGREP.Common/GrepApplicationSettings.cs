@@ -264,6 +264,10 @@ namespace dnGREP.Common
             public const string SyntaxPreviewWndVisible = "SyntaxPreviewWndVisible";
             [DefaultValue(true)]
             public const string NavigationButtonsVisible = "NavigationButtonsVisible";
+            [DefaultValue(ToolSize.Small)]
+            public const string NavToolsSize = "NavToolsSize";
+            [DefaultValue(NavigationToolsPosition.LeftTop)]
+            public const string NavToolsPosition = "NavToolsPosition";
             [DefaultValue(Common.ReportMode.FullLine)]
             public const string ReportMode = "ReportMode";
             [DefaultValue(true)]
