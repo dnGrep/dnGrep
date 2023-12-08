@@ -5580,7 +5580,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Superscipt.
+        ///   Looks up a localized string similar to Superscript.
         /// </summary>
         public static string Options_Superscipt {
             get {
@@ -7542,7 +7542,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hightlight matches.
+        ///   Looks up a localized string similar to Highlight matches.
         /// </summary>
         public static string ScriptHint_set_highlightmatches {
             get {
