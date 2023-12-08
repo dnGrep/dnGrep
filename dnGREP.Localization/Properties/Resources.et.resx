@@ -2677,4 +2677,8 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Filter:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Vastete esiletõstmine</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
