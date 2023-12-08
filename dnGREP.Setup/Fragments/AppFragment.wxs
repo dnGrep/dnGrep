@@ -142,6 +142,11 @@
           <File Id="filB4C7A5A6EE9348258AA427A5C478A4E5" KeyPath="yes" Source="$(var.PublishDir)\it\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
+      <Directory Id="dirC426F648C7CD430CA60FFBDDDC003706" Name="ja">
+        <Component Id="cmpEF129B5CFD8B40FB9C7555BF6D620918" Guid="{11C657A4-C246-489F-838A-CA654452944E}">
+          <File Id="filA641B33F9E0D4A8584E13A514443562F" KeyPath="yes" Source="$(var.PublishDir)\ja\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dir81107CFE26CB427B97564A01AB5F3C04" Name="ko">
         <Component Id="cmp815A7822FDA7432DBDA15118BD15B268" Guid="{0407BAD4-273A-4D34-84BF-4B4D912A7174}">
           <File Id="fil65E20FCCC3234B6AB9DC98621F391C9D" KeyPath="yes" Source="$(var.PublishDir)\ko\dnGREP.Localization.resources.dll" />
@@ -165,6 +170,16 @@
       <Directory Id="dir7C6E45B1E4684255BFCD427B3065445B" Name="sr">
         <Component Id="cmpB2EB07F7E92E4BD4938C28491950F8E9" Guid="{5BD1E3D5-ABB0-4880-9FB5-06149E9DC64D}">
           <File Id="filA896E151FDC9464C85B043B3AAD3A443" KeyPath="yes" Source="$(var.PublishDir)\sr\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirBA74C0DE93C34658A0BF2088B8D5822A" Name="sv">
+        <Component Id="cmpBBD6394D685A464F8245AC34979232C6" Guid="{51A525D5-2FAE-4DB9-8023-BE7386A039F1}">
+          <File Id="filE22347F018AE4067B67D2B6E80D026FE" KeyPath="yes" Source="$(var.PublishDir)\sv\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirD3A3A41353C140CCBD18100868809117" Name="th">
+        <Component Id="cmp6335FA99004B460885826BB9591C05F5" Guid="{2844F560-1356-4D13-B95C-73A5E298EDBD}">
+          <File Id="filCE1CAF2E38894BC58F93079D4B0C7BB2" KeyPath="yes" Source="$(var.PublishDir)\th\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dirA4EC8179E248460287F4AFABC0797241" Name="tr">
@@ -229,11 +244,14 @@
       <ComponentRef Id="cmp07E78D4355184BD597B4E22D98A656C7" />
       <ComponentRef Id="cmp6E066DAA55234C4DB9125224795D9984" />
       <ComponentRef Id="cmp5FA1DA548251420EB4A61036F1783260" />
+      <ComponentRef Id="cmpEF129B5CFD8B40FB9C7555BF6D620918" />
       <ComponentRef Id="cmp815A7822FDA7432DBDA15118BD15B268" />
       <ComponentRef Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" />
       <ComponentRef Id="cmpC6739B2DA71444638D0B8EC7C82FBED7" />
       <ComponentRef Id="cmp2B23830370BC47F1B72CDB2222A8F99C" />
       <ComponentRef Id="cmpB2EB07F7E92E4BD4938C28491950F8E9" />
+      <ComponentRef Id="cmpBBD6394D685A464F8245AC34979232C6" />
+      <ComponentRef Id="cmp6335FA99004B460885826BB9591C05F5" />
       <ComponentRef Id="cmpB7DBE238D9FE4572892D097082097953" />
       <ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />
       <ComponentRef Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" />
