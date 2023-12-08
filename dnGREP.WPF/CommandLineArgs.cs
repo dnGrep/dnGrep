@@ -81,10 +81,10 @@ namespace dnGREP.WPF
 
         private static string FormatPathArgs(string input)
         {
-            if (input.IndexOfAny(separators.ToArray()) > -1)
+            if (input.IndexOfAny([.. separators]) > -1)
             {
-                List<string> parts = new();
-                string[] split = input.Split(separators.ToArray());
+                List<string> parts = [];
+                string[] split = input.Split([.. separators]);
 
                 foreach (string part in split)
                 {

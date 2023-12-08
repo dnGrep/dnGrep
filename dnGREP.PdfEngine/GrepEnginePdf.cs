@@ -82,10 +82,10 @@ namespace dnGREP.Engines.Pdf
                 {
                     string message = Resources.Error_ThisPDFFileContainsNoText;
                     logger.Error(message + $": '{file}'");
-                    return new List<GrepSearchResult>()
-                    {
+                    return
+                    [
                         new(file, searchPattern, message, false)
-                    };
+                    ];
                 }
 
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
@@ -130,18 +130,18 @@ namespace dnGREP.Engines.Pdf
             catch (PdfToTextException ex)
             {
                 logger.Error(ex.Message); // message is sufficient, no need for stack trace
-                return new List<GrepSearchResult>()
-                {
+                return
+                [
                     new(file, searchPattern, ex.Message, false)
-                };
+                ];
             }
             catch (Exception ex)
             {
                 logger.Error(ex, $"Failed to search inside PDF file: '{file}'");
-                return new List<GrepSearchResult>()
-                {
+                return
+                [
                     new(file, searchPattern, ex.Message, false)
-                };
+                ];
             }
             finally
             {
