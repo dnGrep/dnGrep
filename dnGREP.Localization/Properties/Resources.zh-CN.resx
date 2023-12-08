@@ -3794,7 +3794,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, options group label</comment>
   </data>
   <data name="Options_Superscipt" xml:space="preserve">
-    <value>Superscipt</value>
+    <value>Superscript</value>
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Options_SectionStart" xml:space="preserve">
