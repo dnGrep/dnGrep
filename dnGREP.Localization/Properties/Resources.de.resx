@@ -2799,4 +2799,8 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Der Gesamtbericht</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Fundstellen hervorheben</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
