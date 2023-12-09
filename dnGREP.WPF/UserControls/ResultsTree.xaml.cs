@@ -330,9 +330,17 @@ namespace dnGREP.WPF.UserControls
             if (selectedResult == null && selectedLine == null)
             {
                 var firstResult = viewModel.SearchResults.FirstOrDefault();
-                if (firstResult != null)
+                if (firstResult != null && firstResult.FormattedLines.Count > 0)
                 {
                     await SelectFirstChild(firstResult);
+                }
+                else if (firstResult != null)
+                {
+                    var tvi = GetTreeViewItem(treeView, firstResult, null, SearchDirection.Down, 1);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                    }
                 }
             }
             else if (selectedLine != null)
@@ -343,9 +351,13 @@ namespace dnGREP.WPF.UserControls
                     await SelectNextResult(selectedLine);
                 }
             }
-            else if (selectedResult != null)
+            else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
             {
                 await SelectFirstChild(selectedResult);
+            }
+            else if (selectedResult != null)
+            {
+                SelectNextFile(selectedResult);
             }
         }
 
@@ -362,18 +374,30 @@ namespace dnGREP.WPF.UserControls
             if (selectedResult == null && selectedLine == null)
             {
                 var firstResult = viewModel.SearchResults.FirstOrDefault();
-                if (firstResult != null)
+                if (firstResult != null && firstResult.FormattedLines.Count > 0)
                 {
                     await SelectFirstChild(firstResult);
+                }
+                else if (firstResult != null)
+                {
+                    var tvi = GetTreeViewItem(treeView, firstResult, null, SearchDirection.Down, 1);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                    }
                 }
             }
             else if (selectedLine != null)
             {
                 await SelectNextResult(selectedLine);
             }
-            else if (selectedResult != null)
+            else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
             {
                 await SelectNextResult(selectedResult.FormattedLines.First());
+            }
+            else if (selectedResult != null)
+            {
+                SelectNextFile(selectedResult);
             }
         }
 
@@ -390,9 +414,17 @@ namespace dnGREP.WPF.UserControls
             if (selectedResult == null && selectedLine == null)
             {
                 var lastResult = viewModel.SearchResults.LastOrDefault();
-                if (lastResult != null)
+                if (lastResult != null && lastResult.FormattedLines.Count > 0)
                 {
                     await SelectLastChild(lastResult);
+                }
+                else if (lastResult != null)
+                {
+                    var tvi = GetTreeViewItem(treeView, lastResult, null, SearchDirection.Down, 1);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                    }
                 }
             }
             else if (selectedLine != null)
@@ -403,9 +435,13 @@ namespace dnGREP.WPF.UserControls
                     await SelectPreviousResult(selectedLine);
                 }
             }
-            else if (selectedResult != null)
+            else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
             {
                 await SelectPreviousResult(selectedResult);
+            }
+            else if (selectedResult != null)
+            {
+                SelectPreviousFile(selectedResult);
             }
         }
 
@@ -422,18 +458,30 @@ namespace dnGREP.WPF.UserControls
             if (selectedResult == null && selectedLine == null)
             {
                 var lastResult = viewModel.SearchResults.LastOrDefault();
-                if (lastResult != null)
+                if (lastResult != null && lastResult.FormattedLines.Count > 0)
                 {
                     await SelectLastChild(lastResult);
+                }
+                else if (lastResult != null)
+                {
+                    var tvi = GetTreeViewItem(treeView, lastResult, null, SearchDirection.Down, 1);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                    }
                 }
             }
             else if (selectedLine != null)
             {
                 await SelectPreviousResult(selectedLine);
             }
-            else if (selectedResult != null)
+            else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
             {
                 await SelectPreviousResult(selectedResult);
+            }
+            else if (selectedResult != null)
+            {
+                SelectPreviousFile(selectedResult);
             }
         }
 
@@ -1284,6 +1332,19 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        private void SelectNextFile(FormattedGrepResult selectedResult)
+        {
+            int idx = viewModel.SearchResults.IndexOf(selectedResult) + 1;
+            if (idx >= viewModel.SearchResults.Count) idx = 0;
+
+            var nextResult = viewModel.SearchResults[idx];
+            var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
+            if (tvi != null)
+            {
+                tvi.IsSelected = true;
+            }
+        }
+
         private async Task SelectNextResult(FormattedGrepLine currentLine)
         {
             var grepResult = currentLine.Parent;
@@ -1333,6 +1394,19 @@ namespace dnGREP.WPF.UserControls
                 {
                     tvi.IsSelected = true;
                 }
+            }
+        }
+
+        private void SelectPreviousFile(FormattedGrepResult result)
+        {
+            int idx = viewModel.SearchResults.IndexOf(result) - 1;
+            if (idx < 0) idx = viewModel.SearchResults.Count - 1;
+
+            var previousResult = viewModel.SearchResults[idx];
+            var tvi = GetTreeViewItem(treeView, previousResult, null, SearchDirection.Down, 1);
+            if (tvi != null)
+            {
+                tvi.IsSelected = true;
             }
         }
 
