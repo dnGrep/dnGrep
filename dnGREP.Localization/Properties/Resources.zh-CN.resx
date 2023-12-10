@@ -3794,7 +3794,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, options group label</comment>
   </data>
   <data name="Options_Superscipt" xml:space="preserve">
-    <value>Superscipt</value>
+    <value>Superscript</value>
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Options_SectionStart" xml:space="preserve">
@@ -3872,5 +3872,45 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
     <value>自然排列顺序</value>
     <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>显示导航按钮</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>匹配模式未能匹配文件名 '{0}'</value>
+    <comment>Script copy command error message.  {0} is the source file name.</comment>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>当前行</value>
+    <comment>Main window, results list, button tooltip</comment>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>小</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>按钮大小：</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>大</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>面板位置：</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>中</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>和结果树一侧相接：</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>在结果树上方</value>
+    <comment>Options dialog, layout radio button label</comment>
   </data>
 </root>

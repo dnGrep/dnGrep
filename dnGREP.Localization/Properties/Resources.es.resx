@@ -1589,7 +1589,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Utilice palabras clave '{0}' para la ubicación del archivo, '{1}' para el número de línea, '{2}' para el patrón de búsqueda, '{3}' para el primer texto coincidente en la línea, y '{4}' para el número de columna de la primera coincidencia en la línea..</value>
+    <value>Utilice las palabras clave '{0}' para la ubicación del archivo, '{5}' para el número de página, '{1}' para el número de línea, '{2}' para el patrón de búsqueda, '{3}' para el primer texto coincidente de la línea y '{4}' para el número de columna de la primera coincidencia de la línea.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
