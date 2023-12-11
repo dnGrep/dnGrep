@@ -122,4 +122,28 @@
     <value>.NET 版 Word, Excel連携ライブラリ</value>
     <comment>About dialog acknowledgments</comment>
   </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>関連するフォルダ:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>.NET WPF テキストエディターコンポーネント</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>バージョン</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>ブックマーク名称:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>論理演算子</value>
+    <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>About dialog button label</comment>
+  </data>
 </root>
