@@ -3827,4 +3827,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>此 PDF 檔案不包含任何文字</value>
     <comment>Main window search results message</comment>
   </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>小</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>按鈕大小:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>大</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>面板位置:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>中</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>停駐於結果樹狀圖一側:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>位於結果樹狀圖上方</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
 </root>
