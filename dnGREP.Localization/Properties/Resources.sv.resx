@@ -906,4 +906,8 @@
     <value>Tack till</value>
     <comment>About dialog text</comment>
   </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Markera matchningar</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
