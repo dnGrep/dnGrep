@@ -288,9 +288,7 @@ namespace Tests
         [InlineData("0.9.0.5557", "0.9.1.5550", true)]
         [InlineData("0.9.1", "0.9.0.5556", false)]
         [InlineData("0.9.5.5000", "0.9.0.5556", false)]
-        [InlineData(null, "0.9.0.5556", false)]
         [InlineData("0.9.5.5000", "", false)]
-        [InlineData("0.9.5.5000", null, false)]
         [InlineData("xyz", "abc", false)]
         public void CompareVersions(string v1, string v2, bool expected)
         {
@@ -465,7 +463,7 @@ namespace Tests
         [InlineData("", "", 2)]
         [InlineData(null, ".*\\.cs", 1)]
         [InlineData(".*\\.txt", null, 1)]
-        public void TestCopyFiles(string includePattern, string excludePattern, int expected)
+        public void TestCopyFiles(string? includePattern, string? excludePattern, int expected)
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase1", destinationFolder, includePattern, excludePattern);
             Assert.Equal(expected, Directory.GetFiles(destinationFolder).Length);
@@ -476,7 +474,7 @@ namespace Tests
         [InlineData("", "", 2)]
         [InlineData(null, ".*\\.cs", 1)]
         [InlineData(".*\\.txt", null, 1)]
-        public void TestCopyFilesLongPath(string includePattern, string excludePattern, int expected)
+        public void TestCopyFilesLongPath(string? includePattern, string? excludePattern, int expected)
         {
             string longDestinationFolder = GetLongPathDestination(Guid.NewGuid().ToString());
             Utils.CopyFiles(sourceFolder + "\\TestCase1", longDestinationFolder, includePattern, excludePattern);
@@ -485,7 +483,7 @@ namespace Tests
 
         [Theory]
         [InlineData(null, null, 2)]
-        public void TestCopyFilesToNonExistingFolder(string includePattern, string excludePattern, int expected)
+        public void TestCopyFilesToNonExistingFolder(string? includePattern, string? excludePattern, int expected)
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase1", destinationFolder + "\\123", includePattern, excludePattern);
             Assert.Equal(expected, Directory.GetFiles(destinationFolder + "\\123").Length);
@@ -493,7 +491,7 @@ namespace Tests
 
         [Theory]
         [InlineData(null, null, 2)]
-        public void TestCopyFilesToNonExistingFolderLongPath(string includePattern, string excludePattern, int expected)
+        public void TestCopyFilesToNonExistingFolderLongPath(string? includePattern, string? excludePattern, int expected)
         {
             string longDestinationFolder = GetLongPathDestination(Guid.NewGuid().ToString());
             Utils.CopyFiles(sourceFolder + "\\TestCase1", longDestinationFolder + "\\123", includePattern, excludePattern);
@@ -782,7 +780,7 @@ namespace Tests
         [InlineData("*.*", false, true, false, 1, 40, 1)]
         [InlineData(".*\\.txt", true, true, true, 0, 0, 3)]
         [InlineData(".*\\.txt", true, false, true, 0, 0, 2)]
-        [InlineData(null, true, false, true, 0, 0, 0)]
+        [InlineData("", true, false, true, 0, 0, 4)]
         [InlineData("", true, true, true, 0, 0, 5)]
         public void GetFileListTest(string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, int expected)
         {
@@ -815,7 +813,7 @@ namespace Tests
         [InlineData("*.*", false, true, false, 1, 40, 1)]
         [InlineData(".*\\.txt", true, true, true, 0, 0, 3)]
         [InlineData(".*\\.txt", true, false, true, 0, 0, 2)]
-        [InlineData(null, true, false, true, 0, 0, 0)]
+        [InlineData("", true, false, true, 0, 0, 4)]
         [InlineData("", true, true, true, 0, 0, 5)]
         public void GetFileListTestLongPath(string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, int expected)
         {
@@ -1370,7 +1368,7 @@ namespace Tests
         [Theory]
         [InlineData("\\TestCase2", "*.txt", 2)]
         [InlineData("\\TestCase2", "*.txt;*.xls", 3)]
-        [InlineData("\\TestCase2", null, 0)]
+        [InlineData("\\TestCase2", "", 4)]
         [InlineData("\\TestCase11", "#!*python", 2)]
         [InlineData("\\TestCase11", "#!*python;#!*sh", 3)]
         public void TestAsteriskGetFilesWithoutExclude(string folder, string pattern, int expectedCount)
@@ -1473,14 +1471,14 @@ namespace Tests
         [InlineData(@" -folder """"D:\folder 1\"";""D:\folder 2\""""", 2, false, false, @"""D:\folder 1\"";""D:\folder 2\""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -folder ""D:\folder-version 1"";""D:\folder 2""", 2, false, false, @"""D:\folder-version 1"";""D:\folder 2""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         public void SplitCommandLineTest(string commandLine, int argCount,
-            bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor,
-            SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude,
+            bool? expInvalidArgument, bool? expIsWarmUp, string? expSearchPath, string? expSearchFor,
+            SearchType? expSearchType, string? expPatternToInclude, string? expPatternToExclude,
             FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord,
-            bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool expExecuteSearch,
-            string expReportPath, string expTextPath, string expCsvPath, ReportMode? reportMode,
+            bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool? expExecuteSearch,
+            string? expReportPath, string? expTextPath, string? expCsvPath, ReportMode? reportMode,
             bool? includeFileInformation, bool? trimWhitespace, bool? filterUniqueValues,
-            UniqueScope? uniqueScope, bool? outputOnSeparateLines, string listItemSeparator,
-            string script, bool expExit)
+            UniqueScope? uniqueScope, bool? outputOnSeparateLines, string? listItemSeparator,
+            string? script, bool? expExit)
         {
             string program = @"""C:\\Program Files\\dnGREP\\dnGREP.exe""";
 

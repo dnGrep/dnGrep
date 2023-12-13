@@ -1335,7 +1335,7 @@ namespace Tests
         [InlineData("plum apple\r\norange\r\n", "l..", GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 4, "le\r\n")]
         [InlineData("plum apple\norange\n", "l...", GrepSearchOption.SingleLine, 1, 1, 4, "lum ", 0, 0, null)]
         [InlineData("plum apple\r\norange\r\n", "l...", GrepSearchOption.SingleLine, 1, 1, 4, "lum ", 0, 0, null)]
-        public void TestRegexPatternSinglelineEndingInDot(string content, string pattern, GrepSearchOption regexOption, int matches, int start1, int len1, string text1, int start2, int len2, string text2)
+        public void TestRegexPatternSinglelineEndingInDot(string content, string pattern, GrepSearchOption regexOption, int matches, int start1, int len1, string text1, int start2, int len2, string? text2)
         {
             string path = Path.Combine(destinationFolder, @"TestNewlines");
             if (Directory.Exists(path))
