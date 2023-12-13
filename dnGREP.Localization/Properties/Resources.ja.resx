@@ -123,11 +123,11 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value>関連するフォルダ:</value>
+    <value>この設定を紐付けたフォルダ:</value>
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value>.NET WPF テキストエディターコンポーネント</value>
+    <value>.NET版 テキストエディタコンポーネント</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_Version" xml:space="preserve">
@@ -1503,7 +1503,7 @@
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
-    <value>Word (docx)</value>
+    <value>Word （docx）</value>
     <comment>Options dialog, section heading</comment>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
