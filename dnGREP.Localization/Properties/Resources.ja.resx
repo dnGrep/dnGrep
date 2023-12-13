@@ -303,7 +303,7 @@
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$$ は、置換テキストに単一のドル記号を挿入します。</value>
+    <value>$$ は、置換テキストに単一のドル記号を挿入します</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
