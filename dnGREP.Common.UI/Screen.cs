@@ -102,7 +102,7 @@ namespace dnGREP.Common.UI
             {
                 List<Screen> screens = [];
 
-                PInvoke.EnumDisplayMonitors(new HDC(), null,
+                PInvoke.EnumDisplayMonitors(new HDC(), (RECT?)null,
                     delegate (HMONITOR hMonitor, HDC hdcMonitor, RECT* lprcMonitor, LPARAM dwData)
                     {
                         screens.Add(new Screen(hMonitor));
