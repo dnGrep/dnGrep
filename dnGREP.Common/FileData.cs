@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using dnGREP.Everything;
@@ -180,6 +181,9 @@ namespace dnGREP.Common
                     DateTime.MinValue;
             }
         }
+
+        public string LastWriteTimeString => LastWriteTime.ToString(CultureInfo.CurrentCulture);
+
 #pragma warning restore IDE0075
 
         public bool IsBinary { get; set; }

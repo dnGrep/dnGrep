@@ -81,7 +81,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTime, StringFormat={}{0:g}}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </ToolTip>

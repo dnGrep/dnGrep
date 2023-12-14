@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -187,6 +188,11 @@ namespace dnGREP.WPF
             {
                 wm.Content = Localization.Properties.Resources.Main_SelectADate;
             }
+
+            // use CurrentCulture here to get the user's region settings from Windows
+            // not the language selection in the dnGrep Options (which doesn't cover 
+            // country differences)
+            dp.Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
         }
 
         private void SetActivePreviewDockSite()
