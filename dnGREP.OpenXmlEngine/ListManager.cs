@@ -12,17 +12,17 @@ namespace dnGREP.Engines.OpenXml
 {
     public partial class ListManager
     {
-        protected static List<KeyValuePair<string, string>> BulletSubstitutions { get; } = new List<KeyValuePair<string, string>>
-        {
-            new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf0b7), char.ConvertFromUtf32(0x2022)),
-            new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf0a7), char.ConvertFromUtf32(0x221a)),
-            new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf0fc), char.ConvertFromUtf32(0x2192)),
-            new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf076), char.ConvertFromUtf32(0x2666)),
-            new KeyValuePair<string, string>(char.ConvertFromUtf32(0xf0d8), char.ConvertFromUtf32(0x25ba)),
-        };
+        protected static List<KeyValuePair<string, string>> BulletSubstitutions { get; } =
+        [
+            new(char.ConvertFromUtf32(0xf0b7), char.ConvertFromUtf32(0x2022)),
+            new(char.ConvertFromUtf32(0xf0a7), char.ConvertFromUtf32(0x221a)),
+            new(char.ConvertFromUtf32(0xf0fc), char.ConvertFromUtf32(0x2192)),
+            new(char.ConvertFromUtf32(0xf076), char.ConvertFromUtf32(0x2666)),
+            new(char.ConvertFromUtf32(0xf0d8), char.ConvertFromUtf32(0x25ba)),
+        ];
 
-        protected Dictionary<int, ParagraphLevelCounter> listLevelMap = new();
-        protected Dictionary<int, LevelTuple[]> overrideTupleMap = new();
+        protected Dictionary<int, ParagraphLevelCounter> listLevelMap = [];
+        protected Dictionary<int, LevelTuple[]> overrideTupleMap = [];
 
         protected partial class ParagraphLevelCounter
         {
@@ -34,7 +34,7 @@ namespace dnGREP.Engines.OpenXml
             private readonly int NOT_SEEN_YET = -1;
             private readonly int FIRST_SKIPPED = -2;
             private readonly LevelTuple[] levelTuples;
-            private readonly List<int> counts = new();
+            private readonly List<int> counts = [];
             private int lastLevel = -1;
 
             public ParagraphLevelCounter(LevelTuple[] levelTuples)
@@ -206,15 +206,15 @@ namespace dnGREP.Engines.OpenXml
             {
                 //this is only good for locale == English
                 string countString = count.ToString();
-                if (countString.EndsWith("1", StringComparison.Ordinal))
+                if (countString.EndsWith('1'))
                 {
                     return countString + "st";
                 }
-                else if (countString.EndsWith("2", StringComparison.Ordinal))
+                else if (countString.EndsWith('2'))
                 {
                     return countString + "nd";
                 }
-                else if (countString.EndsWith("3", StringComparison.Ordinal))
+                else if (countString.EndsWith('3'))
                 {
                     return countString + "rd";
                 }
@@ -329,16 +329,9 @@ namespace dnGREP.Engines.OpenXml
         }
     }
 
-    public class WordListManager : ListManager
+    public class WordListManager(Numbering numbering) : ListManager
     {
-        private readonly Numbering numbering;
-
         public static WordListManager Empty { get; } = new(new());
-
-        public WordListManager(Numbering numbering)
-        {
-            this.numbering = numbering;
-        }
 
         public string GetFormattedNumber(Paragraph paragraph)
         {
@@ -404,7 +397,7 @@ namespace dnGREP.Engines.OpenXml
 
             if (levels.Length == 0)
             {
-                return Array.Empty<LevelTuple>();
+                return [];
             }
 
             LevelTuple[] levelTuples = new LevelTuple[length];
@@ -541,11 +534,11 @@ namespace dnGREP.Engines.OpenXml
 
     public static class NumberFormatter
     {
-        private static readonly string[] ROMAN_LETTERS = { "m", "cm", "d", "cd", "c",
-            "xc", "l", "xl", "x", "ix", "v", "iv", "i" };
+        private static readonly string[] ROMAN_LETTERS = [ "m", "cm", "d", "cd", "c",
+            "xc", "l", "xl", "x", "ix", "v", "iv", "i" ];
 
-        private static readonly int[] ROMAN_VALUES = { 1000, 900, 500, 400, 100, 90,
-            50, 40, 10, 9, 5, 4, 1 };
+        private static readonly int[] ROMAN_VALUES = [ 1000, 900, 500, 400, 100, 90,
+            50, 40, 10, 9, 5, 4, 1 ];
 
         public static string GetNumber(int num, NumberFmtStyle style)
         {

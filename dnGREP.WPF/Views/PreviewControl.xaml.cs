@@ -199,13 +199,9 @@ namespace dnGREP.WPF
                     !(reader.EndOfStream && line.Equals("\f", StringComparison.Ordinal)))
                 {
                     pageNumber += line.Count(c => c.Equals('\f'));
-                    if (lineNumberMargin.LineToPageMap.ContainsKey(lineNumber))
+                    if (!lineNumberMargin.LineToPageMap.TryAdd(lineNumber, pageNumber))
                     {
                         lineNumberMargin.LineToPageMap[lineNumber] = pageNumber;
-                    }
-                    else
-                    {
-                        lineNumberMargin.LineToPageMap.Add(lineNumber, pageNumber);
                     }
                 }
             }

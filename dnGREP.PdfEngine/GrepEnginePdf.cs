@@ -42,7 +42,7 @@ namespace dnGREP.Engines.Pdf
 
         #endregion
 
-        public IList<string> DefaultFileExtensions => new string[] { "pdf" };
+        public List<string> DefaultFileExtensions => ["pdf"];
 
         public bool IsSearchOnly => true;
 
@@ -61,10 +61,10 @@ namespace dnGREP.Engines.Pdf
                 {
                     string message = Resources.Error_PdftotextFailedToCreateTextFile;
                     logger.Error(message + $": '{file}'");
-                    return new List<GrepSearchResult>()
-                    {
+                    return
+                    [
                         new(file, searchPattern, message, false)
-                    };
+                    ];
                 }
 
                 // GrepCore cannot check encoding of the original pdf file. If the encoding parameter is not default
@@ -82,10 +82,10 @@ namespace dnGREP.Engines.Pdf
                 {
                     string message = Resources.Error_ThisPDFFileContainsNoText;
                     logger.Error(message + $": '{file}'");
-                    return new List<GrepSearchResult>()
-                    {
+                    return
+                    [
                         new(file, searchPattern, message, false)
-                    };
+                    ];
                 }
 
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
@@ -130,18 +130,18 @@ namespace dnGREP.Engines.Pdf
             catch (PdfToTextException ex)
             {
                 logger.Error(ex.Message); // message is sufficient, no need for stack trace
-                return new List<GrepSearchResult>()
-                {
+                return
+                [
                     new(file, searchPattern, ex.Message, false)
-                };
+                ];
             }
             catch (Exception ex)
             {
                 logger.Error(ex, $"Failed to search inside PDF file: '{file}'");
-                return new List<GrepSearchResult>()
-                {
+                return
+                [
                     new(file, searchPattern, ex.Message, false)
-                };
+                ];
             }
             finally
             {
@@ -150,7 +150,7 @@ namespace dnGREP.Engines.Pdf
                     GrepEngineFactory.ReturnToPool(tempFile, engine);
                 }
             }
-            return new List<GrepSearchResult>();
+            return [];
         }
 
         // the stream version will get called if the file is in an archive

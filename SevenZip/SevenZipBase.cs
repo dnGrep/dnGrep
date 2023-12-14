@@ -210,6 +210,9 @@ namespace SevenZip
                             case -2146233086:
                                 exception = new SevenZipException("Argument is out of range. (0x80131502: E_ARGUMENTOUTOFRANGE)");
                                 break;
+                            case -2147024690:
+                                exception = new SevenZipException("Filename or extension is too long. (0x800700CE: ERROR_FILENAME_EXCED_RANGE)");
+                                break;
                             default:
                                 exception = new SevenZipException(
                                     $"Execution has failed due to an internal SevenZipSharp issue (0x{hresult:x} / {hresult}).\n" +

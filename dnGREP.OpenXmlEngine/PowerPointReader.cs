@@ -59,7 +59,7 @@ namespace dnGREP.Engines.OpenXml
             OpenXmlElementList? slideIds = part.Presentation.SlideIdList?.ChildElements;
             if (slideIds == null) return string.Empty;
 
-            string? relId = (slideIds[idx] as SlideId)?.RelationshipId;
+            string? relId = (slideIds.Value[idx] as SlideId)?.RelationshipId;
             if (relId == null) return string.Empty;
 
             // Get the slide part from the relationship ID.

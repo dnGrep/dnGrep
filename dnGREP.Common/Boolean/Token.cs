@@ -3,20 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace dnGREP.Common
 {
-    public class Token
+    public class Token(TokenType tokenType, string regexPattern, int precedence)
     {
-        private readonly Regex regex;
+        private readonly Regex regex = new(regexPattern, RegexOptions.IgnoreCase);
 
-        public Token(TokenType tokenType, string regexPattern, int precedence)
-        {
-            TokenType = tokenType;
-            Precedence = precedence;
-            regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
-        }
+        public TokenType TokenType { get; private set; } = tokenType;
 
-        public TokenType TokenType { get; private set; }
-
-        public int Precedence { get; private set; }
+        public int Precedence { get; private set; } = precedence;
 
         public IEnumerable<TokenMatch> FindMatches(string inputString)
         {

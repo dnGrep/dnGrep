@@ -17,7 +17,7 @@ namespace dnGREP.Engines.OpenXml
         public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream,
             PauseCancelToken pauseCancelToken)
         {
-            List<KeyValuePair<string, string>> results = new();
+            List<KeyValuePair<string, string>> results = [];
 
             // Auto-detect format, supports:
             //  - Binary Excel files (2.0-2003 format; *.xls)
@@ -77,7 +77,7 @@ namespace dnGREP.Engines.OpenXml
                     // issue 951: there is a known error in ExcelNumberFormat formatting zero in scientific format
                     try
                     {
-                        if (value is double num && formatString.Contains("E", StringComparison.OrdinalIgnoreCase))
+                        if (value is double num && formatString.Contains('E', StringComparison.OrdinalIgnoreCase))
                         {
                             result = num.ToString(formatString, culture);
                         }

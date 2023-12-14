@@ -23,7 +23,7 @@ namespace dnGREP.WPF
                 if (text.Equals("*", StringComparison.Ordinal))
                     return new GridLength(1, GridUnitType.Star);
 
-                if (text.EndsWith("*", StringComparison.Ordinal))
+                if (text.EndsWith('*'))
                 {
                     text = text.TrimEnd('*');
 

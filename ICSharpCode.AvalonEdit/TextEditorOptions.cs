@@ -47,8 +47,7 @@ namespace ICSharpCode.AvalonEdit
 
 			// copy each value over to 'this'
 			foreach (FieldInfo fi in fields) {
-				if (!fi.IsNotSerialized)
-					fi.SetValue(this, fi.GetValue(options));
+				fi.SetValue(this, fi.GetValue(options));
 			}
 		}
 		#endregion

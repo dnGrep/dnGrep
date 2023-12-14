@@ -31,7 +31,7 @@ namespace dnGREP.WPF
 
         private static string[] SplitCommandLine(string line)
         {
-            List<string> result = new();
+            List<string> result = [];
             foreach (string arg in ParseLine(line))
             {
                 string token = arg.Trim();
@@ -77,14 +77,14 @@ namespace dnGREP.WPF
             }
         }
 
-        private static readonly List<char> separators = new() { ',', ';' };
+        private static readonly List<char> separators = [',', ';'];
 
         private static string FormatPathArgs(string input)
         {
-            if (input.IndexOfAny(separators.ToArray()) > -1)
+            if (input.IndexOfAny([.. separators]) > -1)
             {
-                List<string> parts = new();
-                string[] split = input.Split(separators.ToArray());
+                List<string> parts = [];
+                string[] split = input.Split([.. separators]);
 
                 foreach (string part in split)
                 {
@@ -115,14 +115,14 @@ namespace dnGREP.WPF
 
         internal static string StripQuotes(string input)
         {
-            if (input.Length > 2 && input.StartsWith("\"", StringComparison.Ordinal) && input.EndsWith("\"", StringComparison.Ordinal))
+            if (input.Length > 2 && input.StartsWith('"') && input.EndsWith('"'))
             {
                 input = input[1..^1];
             }
             return input;
         }
 
-        private static readonly HashSet<string> pathFlags = new() { "/f", "-f", "-folder" };
+        private static readonly HashSet<string> pathFlags = [ "/f", "-f", "-folder" ];
 
         private void EvaluateArgs(string[] args)
         {
@@ -135,8 +135,7 @@ namespace dnGREP.WPF
                 if (!string.IsNullOrEmpty(arg))
                 {
                     // old style command line args
-                    if (idx < 2 && !(arg.StartsWith("/", StringComparison.Ordinal) ||
-                          arg.StartsWith("-", StringComparison.Ordinal)))
+                    if (idx < 2 && !(arg.StartsWith('/') || arg.StartsWith('-')))
                     {
                         if (idx == 0)
                         {

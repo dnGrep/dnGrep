@@ -83,7 +83,7 @@ namespace dnGREP.TestLocalizedStrings
         /// <typeparam name="T"></typeparam>
         /// <param name="expression"></param>
         /// <returns></returns>
-        protected string GetPropertyName<T>(Expression<Func<T>> expression)
+        protected static string GetPropertyName<T>(Expression<Func<T>> expression)
         {
             MemberExpression memberExpression = (MemberExpression)expression.Body;
             return memberExpression.Member.Name;

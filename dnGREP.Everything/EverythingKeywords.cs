@@ -4,28 +4,28 @@ namespace dnGREP.Everything
 {
     public static class EverythingKeywords
     {
-        public static readonly List<string> PathPrefixes = new()
-        {
+        public static readonly List<string> PathPrefixes =
+        [
             "parent:",
             "infolder:",
             "nosubfolders:",
-        };
+        ];
 
 
-        public static readonly List<string> Wildcards = new()
-        {
+        public static readonly List<string> Wildcards =
+        [
             "*",
             "?",
-        };
+        ];
 
-        public static readonly List<string> UnicodeChars = new()
-        {
+        public static readonly List<string> UnicodeChars =
+        [
             "#<n>:", // Literal unicode character <n> in decimal.
             "#x<n>:", // Literal unicode character <n> in hexadecimal.
-        };
+        ];
 
-        public static readonly List<string> Macros = new()
-        {
+        public static readonly List<string> Macros =
+        [
             "quot:", // Literal double quote "
             "apos:", // Literal apostrophe '
             "amp:", // Literal ampersand &
@@ -37,10 +37,10 @@ namespace dnGREP.Everything
             "exe:", // Search for executable files.
             "pic:", // Search for picture files.
             "video:", // Search for video files.
-        };
+        ];
 
-        public static readonly List<string> Modifiers = new()
-        {
+        public static readonly List<string> Modifiers =
+        [
             "ascii:", // Enable or disable fast ASCII case comparisons.
             "utf8:",
             "noascii:",
@@ -68,10 +68,10 @@ namespace dnGREP.Everything
             "noww:",
             "wildcards:", // Enable or disable wildcards.
             "nowildcards:",
-        };
+        ];
 
-        public static readonly List<string> Functions = new()
-        {
+        public static readonly List<string> Functions =
+        [
             "album:", //<album>  Search for the ID3 or FLAC album.
             "artist:", //<artist> Search for the ID3 or FLAC artist.
             "attrib:", //<attributes>
@@ -130,10 +130,10 @@ namespace dnGREP.Everything
             "title:", //<title> Search for the ID3 or FLAC title.
             "type:", //<type> Search for files and folders with the specified type.
             "width:", //<width> Search for images with the specified width in pixels.
-        };
+        ];
 
-        public static readonly List<string> SizeConstraints = new()
-        {
+        public static readonly List<string> SizeConstraints =
+        [
             "empty",    //
             "tiny",     //  0 KB < size <= 10 KB
             "small",    //  10 KB < size <= 100 KB
@@ -142,10 +142,10 @@ namespace dnGREP.Everything
             "huge",     //  16 MB < size <= 128 MB
             "gigantic", //  size > 128 MB
             "unknown",  //
-        };
+        ];
 
-        public static readonly List<string> ID3Tags = new()
-        {
+        public static readonly List<string> ID3Tags =
+        [
             "track:",  //<track> Track number or track range.
             "year:",   //<year>  Year or year range.
             "title:",  //<title> Song title.
@@ -153,19 +153,19 @@ namespace dnGREP.Everything
             "album:",  //<album>  Album name.
             "comment:",//<comment> Track comment.
             "genre:",  //<genre>  Track genre.
-        };
+        ];
 
-        public static readonly List<string> ImageInfo = new()
-        {
+        public static readonly List<string> ImageInfo =
+        [
             "width:",  //<width>   The width of the image in pixels.
             "height:",  //<height> The height of the image in pixels.
             "dimensions:",  //<width>x<height> The width and height of the image in pixels. Use a x to separate the width and height.
             "orientation:",  //<type>  <type> can landscape or portrait.
             "bitdepth:",  //<bitdepth> Find images with the specified bits per pixel.
-        };
+        ];
 
-        public static readonly List<string> DuplicatedFiles = new()
-        {
+        public static readonly List<string> DuplicatedFiles =
+        [
             "dupe:",  // Find files and folders with the same filename.
             "attribdupe:",  // Find files and folders with the same attributes. Sort by attributes for the best results.
             "dadupe:",  // Find files and folders with the same date accessed. Sort by date accessed for the best results.
@@ -173,6 +173,6 @@ namespace dnGREP.Everything
             "dmdupe:",  // Find files and folders with the same date modified. Sort by date modified for the best results.
             "namepartdupe:",  // Find files and folders with the same name part (excluding extension).
             "sizedupe:",  // Find files and folders with the same size. Sort by size for the best results.
-        };
+        ];
     }
 }

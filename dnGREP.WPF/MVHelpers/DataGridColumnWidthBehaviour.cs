@@ -61,7 +61,7 @@ namespace dnGREP.WPF
                 if (sender is DataGrid grid && !grid.IsVisible)
                 {
                     // Only supporting Auto and Absolute widths
-                    List<string> displayWidths = new();
+                    List<string> displayWidths = [];
                     for (int idx = 0; idx < grid.Columns.Count; idx++)
                     {
                         if (grid.Columns[idx].Width.IsAuto)

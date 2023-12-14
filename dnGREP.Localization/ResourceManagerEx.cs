@@ -6,7 +6,8 @@ using System.Resources;
 
 namespace dnGREP.Localization
 {
-    public class ResourceManagerEx : ResourceManager
+    public class ResourceManagerEx(string baseName, Assembly assembly)
+        : ResourceManager(baseName, assembly)
     {
         private static ResourceManagerEx? instance = null;
         public static ResourceManagerEx Instance
@@ -34,11 +35,6 @@ namespace dnGREP.Localization
             fi?.SetValue(null, manager);
 
             instance = manager;
-        }
-
-        public ResourceManagerEx(string baseName, Assembly assembly)
-            : base(baseName, assembly)
-        {
         }
 
         public override string? GetString(string name, CultureInfo? culture)

@@ -21,6 +21,7 @@ namespace dnGREP.Common
 {
     public static partial class Utils
     {
+        private const string metacharacters = "+()^$.{}|\\";
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private static readonly char[] chars =
@@ -30,7 +31,7 @@ namespace dnGREP.Common
         private static readonly string undoFolderName;
 
         private static readonly object regexLock = new();
-        private static readonly Dictionary<string, Regex> regexCache = new();
+        private static readonly Dictionary<string, Regex> regexCache = [];
 
         static Utils()
         {
@@ -102,7 +103,7 @@ namespace dnGREP.Common
             if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
             int count = 0;
-            HashSet<string> files = new();
+            HashSet<string> files = [];
 
             foreach (GrepSearchResult result in source)
             {
@@ -172,7 +173,7 @@ namespace dnGREP.Common
             if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
             int count = 0;
-            HashSet<string> files = new();
+            HashSet<string> files = [];
 
             foreach (GrepSearchResult result in source)
             {
@@ -224,7 +225,7 @@ namespace dnGREP.Common
 
             destinationDirectory = FixFolderName(destinationDirectory);
 
-            HashSet<string> files = new();
+            HashSet<string> files = [];
 
             foreach (GrepSearchResult result in source)
             {
@@ -318,7 +319,7 @@ namespace dnGREP.Common
         /// <param name="source"></param>
         public static int DeleteFiles(List<GrepSearchResult> source)
         {
-            HashSet<string> files = new();
+            HashSet<string> files = [];
             int count = 0;
             foreach (GrepSearchResult result in source)
             {
@@ -338,7 +339,7 @@ namespace dnGREP.Common
         /// <param name="source"></param>
         public static int SendToRecycleBin(List<GrepSearchResult> source)
         {
-            HashSet<string> files = new();
+            HashSet<string> files = [];
             int count = 0;
             foreach (GrepSearchResult result in source)
             {
@@ -864,11 +865,11 @@ namespace dnGREP.Common
         public static List<(string path, string pattern)> GetCompositeIgnoreList(string fileOrFolderPath,
             string filePatternIgnore, bool isRegex, string ignoreFilePath)
         {
-            List<(string path, string pattern)> results = new();
+            List<(string path, string pattern)> results = [];
             foreach (var subPath in UiUtils.SplitPath(fileOrFolderPath, false))
             {
-                List<Regex> regexList = new();
-                List<string> patterns = new();
+                List<Regex> regexList = [];
+                List<string> patterns = [];
                 if (!string.IsNullOrWhiteSpace(filePatternIgnore))
                 {
                     var excludePatterns = UiUtils.SplitPattern(filePatternIgnore);
@@ -956,8 +957,9 @@ namespace dnGREP.Common
                 yield break;
             }
 
+#pragma warning disable CA1868
             // Hash set to ensure file name uniqueness
-            HashSet<string> matches = new();
+            HashSet<string> matches = [];
 
             if (filter.UseEverything)
             {
@@ -970,16 +972,16 @@ namespace dnGREP.Common
                         yield return file;
                     }
                 }
-
                 yield break;
             }
+#pragma warning restore CA1868
 
-            List<string> includeSearchPatterns = new();
+            List<string> includeSearchPatterns = [];
             bool hasSearchPattern = PrepareSearchPatterns(filter, includeSearchPatterns);
 
-            List<Regex> includeRegexPatterns = new();
-            List<Regex> excludeRegexPatterns = new();
-            List<Regex> includeShebangPatterns = new();
+            List<Regex> includeRegexPatterns = [];
+            List<Regex> excludeRegexPatterns = [];
+            List<Regex> includeShebangPatterns = [];
             PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hasSearchPattern);
 
             foreach (var subPath in UiUtils.SplitPath(filter.Path, false))
@@ -1018,8 +1020,8 @@ namespace dnGREP.Common
                 Gitignore? gitignore = null;
                 if (filter.UseGitIgnore)
                 {
-                    IList<string> gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders, filter.FollowSymlinks, pauseCancelToken);
-                    if (gitDirectories.Any())
+                    List<string> gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders, filter.FollowSymlinks, pauseCancelToken);
+                    if (gitDirectories.Count != 0)
                     {
                         gitignore = GitUtil.GetGitignore(gitDirectories);
                     }
@@ -1037,7 +1039,7 @@ namespace dnGREP.Common
                     }
                     // EnumerateFiles already applied the exclude patterns, so don't repeat them here
                     else if (IncludeFile(filePath, filter, null, includeSearchPatterns,
-                        includeRegexPatterns, new List<Regex>(), includeShebangPatterns) &&
+                        includeRegexPatterns, [], includeShebangPatterns) &&
                         !matches.Contains(filePath))
                     {
                         matches.Add(filePath);
@@ -1390,7 +1392,7 @@ namespace dnGREP.Common
                     sb.Append(".*");
                 else if (chars[i] == '?')
                     sb.Append('.');
-                else if ("+()^$.{}|\\".IndexOf(chars[i], StringComparison.Ordinal) != -1)
+                else if (metacharacters.Contains(chars[i], StringComparison.Ordinal))
                     sb.Append('\\').Append(chars[i]); // prefix all metacharacters with backslash
                 else
                     sb.Append(chars[i]);
@@ -1566,7 +1568,7 @@ namespace dnGREP.Common
 
             if (!string.IsNullOrWhiteSpace(application))
             {
-                List<string> paths = new();
+                List<string> paths = [];
                 foreach (var item in files)
                 {
                     string filePath = item.FileNameReal;
@@ -1727,7 +1729,7 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static List<string> GetReadOnlyFiles(List<GrepSearchResult>? results)
         {
-            List<string> files = new();
+            List<string> files = [];
             if (results == null || results.Count == 0)
                 return files;
 
@@ -1786,9 +1788,9 @@ namespace dnGREP.Common
                 {
                     if (line.EndsWith("\r\n", StringComparison.Ordinal))
                         return "\r\n";
-                    else if (line.EndsWith("\n", StringComparison.Ordinal))
+                    else if (line.EndsWith('\n'))
                         return "\n";
-                    else if (line.EndsWith("\r", StringComparison.Ordinal))
+                    else if (line.EndsWith('\r'))
                         return "\r";
                 }
             }
@@ -1807,15 +1809,15 @@ namespace dnGREP.Common
         public static List<GrepLine> GetLinesEx(TextReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines, bool isPdfText = false)
         {
             if (body == null || bodyMatches == null)
-                return new List<GrepLine>();
+                return [];
 
             List<GrepMatch> bodyMatchesClone = new(bodyMatches);
-            Dictionary<int, GrepLine> results = new();
-            Dictionary<int, int> lineToPageMap = new();
-            List<GrepLine> contextLines = new();
-            Dictionary<int, string> lineStrings = new();
-            List<int> lineNumbers = new();
-            List<GrepMatch> matches = new();
+            Dictionary<int, GrepLine> results = [];
+            Dictionary<int, int> lineToPageMap = [];
+            List<GrepLine> contextLines = [];
+            Dictionary<int, string> lineStrings = [];
+            List<int> lineNumbers = [];
+            List<GrepMatch> matches = [];
 
             string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
 
@@ -1981,7 +1983,7 @@ namespace dnGREP.Common
 
             if (lineStrings.Count == 0)
             {
-                return new List<GrepLine>();
+                return [];
             }
 
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
@@ -1989,9 +1991,9 @@ namespace dnGREP.Common
             {
                 if (isPdfText)
                 {
-                    if (lineToPageMap.ContainsKey(matches[i].LineNumber))
+                    if (lineToPageMap.TryGetValue(matches[i].LineNumber, out int value))
                     {
-                        pageNumber = lineToPageMap[matches[i].LineNumber];
+                        pageNumber = value;
                     }
                     else
                     {
@@ -2006,20 +2008,20 @@ namespace dnGREP.Common
                     results[contextLines[i].LineNumber] = contextLines[i];
             }
 
-            return results.Values.OrderBy(l => l.LineNumber).ToList();
+            return [.. results.Values.OrderBy(l => l.LineNumber)];
         }
 
         public static List<GrepLine> GetLinesHexFormat(BinaryReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
             if (body == null || bodyMatches == null)
-                return new List<GrepLine>();
+                return [];
 
             //List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
-            Dictionary<int, GrepLine> results = new();
-            List<GrepLine> contextLines = new();
-            Dictionary<int, string> lineStrings = new();
-            List<int> lineNumbers = new();
-            List<GrepMatch> matches = new();
+            Dictionary<int, GrepLine> results = [];
+            List<GrepLine> contextLines = [];
+            Dictionary<int, string> lineStrings = [];
+            List<int> lineNumbers = [];
+            List<GrepMatch> matches = [];
 
             // Context line (before)
             Queue<string> beforeQueue = new();
@@ -2148,7 +2150,7 @@ namespace dnGREP.Common
 
             if (lineStrings.Count == 0)
             {
-                return new List<GrepLine>();
+                return [];
             }
 
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
@@ -2162,7 +2164,7 @@ namespace dnGREP.Common
                     results[contextLines[i].LineNumber] = contextLines[i];
             }
 
-            return results.Values.OrderBy(l => l.LineNumber).ToList();
+            return [.. results.Values.OrderBy(l => l.LineNumber)];
         }
 
         private static List<GrepMatch> ConvertGrepMatchesToHexLines(List<GrepMatch> bodyMatches, int bufferSize)
@@ -2171,7 +2173,7 @@ namespace dnGREP.Common
             // and trailing space is removed
             int lineLength = bufferSize * 3 - 1;
 
-            List<GrepMatch> list = new();
+            List<GrepMatch> list = [];
             foreach (GrepMatch match in bodyMatches)
             {
                 int lineNum = match.StartLocation / bufferSize;
@@ -2252,33 +2254,32 @@ namespace dnGREP.Common
                 return false;
 
             if (beginText.Equals(string.Empty, StringComparison.Ordinal) ||
-               beginText.EndsWith(" ", StringComparison.Ordinal) ||
-               beginText.EndsWith("<", StringComparison.Ordinal) ||
-               beginText.EndsWith(">", StringComparison.Ordinal) ||
-               beginText.EndsWith("$", StringComparison.Ordinal) ||
-               beginText.EndsWith("+", StringComparison.Ordinal) ||
-               beginText.EndsWith("*", StringComparison.Ordinal) ||
-               beginText.EndsWith("[", StringComparison.Ordinal) ||
-               beginText.EndsWith("{", StringComparison.Ordinal) ||
-               beginText.EndsWith("(", StringComparison.Ordinal) ||
-               beginText.EndsWith(".", StringComparison.Ordinal) ||
-               beginText.EndsWith("?", StringComparison.Ordinal) ||
-               beginText.EndsWith("!", StringComparison.Ordinal) ||
-               beginText.EndsWith(",", StringComparison.Ordinal) ||
-               beginText.EndsWith(":", StringComparison.Ordinal) ||
-               beginText.EndsWith(";", StringComparison.Ordinal) ||
-               beginText.EndsWith("-", StringComparison.Ordinal) ||
-               beginText.EndsWith("=", StringComparison.Ordinal) ||
-               beginText.EndsWith("\\", StringComparison.Ordinal) ||
-               beginText.EndsWith("/", StringComparison.Ordinal) ||
-               beginText.EndsWith("'", StringComparison.Ordinal) ||
-               beginText.EndsWith("\"", StringComparison.Ordinal) ||
+               beginText.EndsWith(' ') ||
+               beginText.EndsWith('<') ||
+               beginText.EndsWith('>') ||
+               beginText.EndsWith('$') ||
+               beginText.EndsWith('+') ||
+               beginText.EndsWith('*') ||
+               beginText.EndsWith('[') ||
+               beginText.EndsWith('{') ||
+               beginText.EndsWith('(') ||
+               beginText.EndsWith('.') ||
+               beginText.EndsWith('?') ||
+               beginText.EndsWith('!') ||
+               beginText.EndsWith(',') ||
+               beginText.EndsWith(':') ||
+               beginText.EndsWith(';') ||
+               beginText.EndsWith('-') ||
+               beginText.EndsWith('=') ||
+               beginText.EndsWith('\\') ||
+               beginText.EndsWith('/') ||
+               beginText.EndsWith('\'') ||
+               beginText.EndsWith('"') ||
                beginText.EndsWith(Environment.NewLine, StringComparison.Ordinal) ||
                beginText.EndsWith("\r\n", StringComparison.Ordinal) ||
-               beginText.EndsWith("\r", StringComparison.Ordinal) ||
-               beginText.EndsWith("\n", StringComparison.Ordinal) ||
-               beginText.EndsWith("\t", StringComparison.Ordinal)
-               )
+               beginText.EndsWith('\r') ||
+               beginText.EndsWith('\n') ||
+               beginText.EndsWith('\t'))
             {
                 return true;
             }
@@ -2313,36 +2314,35 @@ namespace dnGREP.Common
                 return false;
 
             if (endText.Equals(string.Empty, StringComparison.Ordinal) ||
-               endText.StartsWith(" ", StringComparison.Ordinal) ||
-               endText.StartsWith("<", StringComparison.Ordinal) ||
-               endText.StartsWith("$", StringComparison.Ordinal) ||
-               endText.StartsWith("+", StringComparison.Ordinal) ||
-               endText.StartsWith("*", StringComparison.Ordinal) ||
-               endText.StartsWith("[", StringComparison.Ordinal) ||
-               endText.StartsWith("{", StringComparison.Ordinal) ||
-               endText.StartsWith("(", StringComparison.Ordinal) ||
-               endText.StartsWith(".", StringComparison.Ordinal) ||
-               endText.StartsWith("?", StringComparison.Ordinal) ||
-               endText.StartsWith("!", StringComparison.Ordinal) ||
-               endText.StartsWith(",", StringComparison.Ordinal) ||
-               endText.StartsWith(":", StringComparison.Ordinal) ||
-               endText.StartsWith(";", StringComparison.Ordinal) ||
-               endText.StartsWith("-", StringComparison.Ordinal) ||
-               endText.StartsWith("=", StringComparison.Ordinal) ||
-               endText.StartsWith(">", StringComparison.Ordinal) ||
-               endText.StartsWith("]", StringComparison.Ordinal) ||
-               endText.StartsWith("}", StringComparison.Ordinal) ||
-               endText.StartsWith(")", StringComparison.Ordinal) ||
-               endText.StartsWith("\\", StringComparison.Ordinal) ||
-               endText.StartsWith("/", StringComparison.Ordinal) ||
-               endText.StartsWith("'", StringComparison.Ordinal) ||
-               endText.StartsWith("\"", StringComparison.Ordinal) ||
+               endText.StartsWith(' ') ||
+               endText.StartsWith('<') ||
+               endText.StartsWith('$') ||
+               endText.StartsWith('+') ||
+               endText.StartsWith('*') ||
+               endText.StartsWith('[') ||
+               endText.StartsWith('{') ||
+               endText.StartsWith('(') ||
+               endText.StartsWith('.') ||
+               endText.StartsWith('?') ||
+               endText.StartsWith('!') ||
+               endText.StartsWith(',') ||
+               endText.StartsWith(':') ||
+               endText.StartsWith(';') ||
+               endText.StartsWith('-') ||
+               endText.StartsWith('=') ||
+               endText.StartsWith('>') ||
+               endText.StartsWith(']') ||
+               endText.StartsWith('}') ||
+               endText.StartsWith(')') ||
+               endText.StartsWith('\\') ||
+               endText.StartsWith('/') ||
+               endText.StartsWith('\'') ||
+               endText.StartsWith('"') ||
                endText.StartsWith(Environment.NewLine, StringComparison.Ordinal) ||
                endText.StartsWith("\r\n", StringComparison.Ordinal) ||
-               endText.StartsWith("\r", StringComparison.Ordinal) ||
-               endText.StartsWith("\n", StringComparison.Ordinal) ||
-               endText.StartsWith("\t", StringComparison.Ordinal)
-               )
+               endText.StartsWith('\r') ||
+               endText.StartsWith('\n') ||
+               endText.StartsWith('\t'))
             {
                 return true;
             }
@@ -2436,9 +2436,9 @@ namespace dnGREP.Common
                 return text;
             if (text.EndsWith("\r\n", StringComparison.Ordinal))
                 return text[..^2];
-            else if (text.EndsWith("\r", StringComparison.Ordinal))
+            else if (text.EndsWith('\r'))
                 return text[..^1];
-            else if (text.EndsWith("\n", StringComparison.Ordinal))
+            else if (text.EndsWith('\n'))
                 return text[..^1];
             else
                 return text;

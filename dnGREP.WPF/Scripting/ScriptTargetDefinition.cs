@@ -19,9 +19,9 @@ namespace dnGREP.WPF
 
         public bool AllowNullValue { get; set; } = false;
 
-        public List<ScriptValueDefinition> Values { get; } = new List<ScriptValueDefinition>();
+        public List<ScriptValueDefinition> Values { get; } = [];
 
-        public List<ScriptingCompletionData> CompletionData { get; } = new List<ScriptingCompletionData>();
+        public List<ScriptingCompletionData> CompletionData { get; } = [];
 
         public bool IsValueCommand => Values.Count > 0;
 

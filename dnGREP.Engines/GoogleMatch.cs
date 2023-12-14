@@ -76,14 +76,14 @@ namespace dnGREP.Engines
             }
         }
 
-        public static int MatchLength(string text, string pattern, int loc, bool isWholeWord, double threashold)
+        public static int MatchLength(string text, string pattern, int loc, bool isWholeWord, double threshold)
         {
             // Case 0: pattern.length = 0 or text.length = 0
             if (text == null || pattern == null || text.Length == 0 || pattern.Length == 0)
                 return 0;
             // Case 1: exact match
             if (loc + pattern.Length < text.Length &&
-                text.Substring(loc, pattern.Length).ToLower() == pattern.ToLower())
+                text.Substring(loc, pattern.Length).Equals(pattern, StringComparison.OrdinalIgnoreCase))
             {
                 if (!(isWholeWord && loc + pattern.Length < text.Length && !Utils.IsValidEndText(text.Substring(loc, pattern.Length + 1))))
                     return pattern.Length;
@@ -116,7 +116,7 @@ namespace dnGREP.Engines
                     break;
                 }
             }
-            if (matchIndex < threashold)
+            if (matchIndex < threshold)
                 return -1;
             else
                 return matchWord.Length;
@@ -164,7 +164,7 @@ namespace dnGREP.Engines
             int bin_min, bin_mid;
             int bin_max = pattern.Length + text.Length;
             // Empty initialization added to appease C# compiler.
-            int[] last_rd = Array.Empty<int>();
+            int[] last_rd = [];
             for (int d = 0; d < pattern.Length; d++)
             {
                 // Scan for the best match; each iteration allows for one more error.
@@ -195,14 +195,14 @@ namespace dnGREP.Engines
                 for (int j = finish; j >= start; j--)
                 {
                     int charMatch;
-                    if (text.Length <= j - 1 || !s.ContainsKey(text[j - 1]))
+                    if (text.Length <= j - 1 || !s.TryGetValue(text[j - 1], out int value))
                     {
                         // Out of range.
                         charMatch = 0;
                     }
                     else
                     {
-                        charMatch = s[text[j - 1]];
+                        charMatch = value;
                     }
                     if (d == 0)
                     {
@@ -269,20 +269,17 @@ namespace dnGREP.Engines
         }
 
         /**
-         * Initialise the alphabet for the Bitap algorithm.
+         * Initialize the alphabet for the Bitap algorithm.
          * @param pattern The text to encode.
          * @return Hash of character locations.
          */
         protected static Dictionary<char, int> MatchAlphabet(string pattern)
         {
-            Dictionary<char, int> s = new();
+            Dictionary<char, int> s = [];
             char[] char_pattern = pattern.ToCharArray();
             foreach (char c in char_pattern)
             {
-                if (!s.ContainsKey(c))
-                {
-                    s.Add(c, 0);
-                }
+                s.TryAdd(c, 0);
             }
             int i = 0;
             foreach (char c in char_pattern)

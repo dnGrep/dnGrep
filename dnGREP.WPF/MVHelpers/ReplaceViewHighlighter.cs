@@ -30,7 +30,7 @@ namespace dnGREP.WPF
         /// <summary>
         /// The ordered list of line numbers from the original source file
         /// </summary>
-        public List<int> LineNumbers { get; } = new List<int>();
+        public List<int> LineNumbers { get; } = [];
 
         private readonly Brush? skipBackground = Application.Current.Resources["Match.Skip.Background"] as Brush;
         private readonly Brush? replBackground = Application.Current.Resources["Match.Replace.Background"] as Brush;

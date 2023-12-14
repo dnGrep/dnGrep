@@ -217,7 +217,7 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double buttonFontSize = 20;
 
-        private MainForm? MainForm => Application.Current.MainWindow as MainForm;
+        private static MainForm? MainForm => Application.Current.MainWindow as MainForm;
 
         public ICommand PreviousFileCommand => new RelayCommand(
             p => MainForm?.PreviousFile(),

@@ -12,7 +12,7 @@ namespace dnGREP.Localization
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private readonly Dictionary<string, string> resources = new();
+        private readonly Dictionary<string, string> resources = [];
 
         public void ReadFile(string filePath)
         {
@@ -26,7 +26,7 @@ namespace dnGREP.Localization
                     var fileName = Path.GetFileNameWithoutExtension(filePath);
                     if (!string.IsNullOrEmpty(fileName))
                     {
-                        int pos = fileName.IndexOf(".");
+                        int pos = fileName.IndexOf('.');
                         if (pos < 0 && fileName.Contains("resourcesresx"))
                         {
                             // try the file name format used by Transifex downloads:
@@ -36,7 +36,7 @@ namespace dnGREP.Localization
                             pos = fileName.IndexOf("resx");
                             if (pos > -1)
                             {
-                                pos = fileName.IndexOf("_", pos);
+                                pos = fileName.IndexOf('_', pos);
                             }
                         }
                         if (pos < 0)
@@ -46,7 +46,7 @@ namespace dnGREP.Localization
                             // dngrep-dngrep-application-zh_Hans.resx
                             // dngrep-dngrep-application-zh_Hans (1).resx
                             // get the last dash in the filename
-                            pos = fileName.LastIndexOf("-");
+                            pos = fileName.LastIndexOf('-');
                         }
                         if (pos > -1)
                         {
@@ -54,7 +54,7 @@ namespace dnGREP.Localization
                             if (!string.IsNullOrEmpty(tag) && tag.Contains('('))
                             {
                                 // remove file numbers: 'he (1)'
-                                pos = tag.IndexOf("(");
+                                pos = tag.IndexOf('(');
                                 if (pos > -1)
                                 {
                                     tag = tag[..pos].Trim();

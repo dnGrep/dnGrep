@@ -2,23 +2,15 @@
 
 namespace dnGREP.Common
 {
-    public class GrepCaptureGroup : IComparable<GrepCaptureGroup>, IComparable, IEquatable<GrepCaptureGroup>
+    public class GrepCaptureGroup(string name, int startPosition, int length, string value) : IComparable<GrepCaptureGroup>, IComparable, IEquatable<GrepCaptureGroup>
     {
-        public GrepCaptureGroup(string name, int startPosition, int length, string value)
-        {
-            Name = name;
-            StartLocation = startPosition;
-            Length = length;
-            Value = value;
-        }
+        public string Name { get; } = name;
 
-        public string Name { get; } = string.Empty;
+        public int StartLocation { get; } = startPosition;
 
-        public int StartLocation { get; } = 0;
+        public int Length { get; } = length;
 
-        public int Length { get; } = 0;
-
-        public string Value { get; }
+        public string Value { get; } = value;
 
         public override string ToString()
         {

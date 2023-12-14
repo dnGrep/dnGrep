@@ -11,7 +11,7 @@ namespace dnGREP.Common
             LineText = text;
             IsContext = context;
             if (matches == null)
-                Matches = new List<GrepMatch>();
+                Matches = [];
             else
                 Matches = matches;
         }

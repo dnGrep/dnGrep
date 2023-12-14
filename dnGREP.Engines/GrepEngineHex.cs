@@ -10,7 +10,7 @@ namespace dnGREP.Engines
 {
     public class GrepEngineHex : GrepEngineBase, IGrepEngine
     {
-        public IList<string> DefaultFileExtensions => Array.Empty<string>();
+        public List<string> DefaultFileExtensions => [];
 
         public bool IsSearchOnly => true;
 
@@ -34,7 +34,7 @@ namespace dnGREP.Engines
         public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            List<GrepSearchResult> searchResults = new();
+            List<GrepSearchResult> searchResults = [];
 
             byte?[] searchArray = ToByteArray(searchPattern);
 
@@ -42,7 +42,7 @@ namespace dnGREP.Engines
             byte[] buffer1, buffer2;
 
             long length = input.Length;
-            List<GrepMatch> matches = new();
+            List<GrepMatch> matches = [];
             using (BinaryReader readStream = new(input))
             {
                 int startIndex = 0;
@@ -72,7 +72,7 @@ namespace dnGREP.Engines
         private static byte?[] ToByteArray(string searchPattern)
         {
             // the expected search pattern is a space separated list of byte values in hexadecimal: 20 68 74
-            List<byte?> list = new();
+            List<byte?> list = [];
             string[] parts = searchPattern.TrimEnd().Split(' ');
             foreach (string num in parts)
             {
@@ -85,13 +85,13 @@ namespace dnGREP.Engines
                     list.Add(result);
                 }
             }
-            return list.ToArray();
+            return [.. list];
         }
 
         private static List<GrepMatch> DoByteArraySearch(byte[] buffer1, byte[]? buffer2,
             byte?[] searchArray, int index, string searchPattern, PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> globalMatches = new();
+            List<GrepMatch> globalMatches = [];
             foreach (var match in ByteArraySearchIterator(buffer1, buffer2, searchArray, index, searchPattern, pauseCancelToken))
             {
                 globalMatches.Add(match);

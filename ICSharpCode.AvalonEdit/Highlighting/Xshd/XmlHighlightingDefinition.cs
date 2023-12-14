@@ -240,9 +240,9 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 					}
 					keyWordRegex.Append(@")\b");
 				} else {
-					keyWordRegex.Append('(');
+					keyWordRegex.Append("(?>");
 					int i = 0;
-					foreach (string keyword in keywords.Words) {
+					foreach (string keyword in keywords.Words.OrderByDescending(w => w.Length)) {
 						if (i++ > 0)
 							keyWordRegex.Append('|');
 						if (char.IsLetterOrDigit(keyword[0]))

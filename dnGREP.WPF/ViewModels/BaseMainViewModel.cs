@@ -44,8 +44,8 @@ namespace dnGREP.WPF
         private XPathNavigator? nav;
 
         // list of properties that affect the search results
-        private static readonly HashSet<string> searchParameters = new()
-        {
+        private static readonly HashSet<string> searchParameters =
+        [
             nameof(BooleanOperators),
             nameof(CaseSensitive),
             nameof(CodePage),
@@ -80,7 +80,7 @@ namespace dnGREP.WPF
             nameof(UseFileSizeFilter),
             nameof(UseGitignore),
             nameof(WholeWord),
-        };
+        ];
 
         protected static GrepSettings Settings => GrepSettings.Instance;
 
@@ -91,17 +91,17 @@ namespace dnGREP.WPF
 
         public GrepSearchResultsViewModel ResultsViewModel { get; } = new();
 
-        public ObservableCollection<MRUViewModel> FastSearchBookmarks { get; } = new ObservableCollection<MRUViewModel>();
+        public ObservableCollection<MRUViewModel> FastSearchBookmarks { get; } = [];
 
-        public ObservableCollection<MRUViewModel> FastReplaceBookmarks { get; } = new ObservableCollection<MRUViewModel>();
+        public ObservableCollection<MRUViewModel> FastReplaceBookmarks { get; } = [];
 
-        public ObservableCollection<MRUViewModel> FastFileMatchBookmarks { get; } = new ObservableCollection<MRUViewModel>();
+        public ObservableCollection<MRUViewModel> FastFileMatchBookmarks { get; } = [];
 
-        public ObservableCollection<MRUViewModel> FastFileNotMatchBookmarks { get; } = new ObservableCollection<MRUViewModel>();
+        public ObservableCollection<MRUViewModel> FastFileNotMatchBookmarks { get; } = [];
 
-        public ObservableCollection<MRUViewModel> FastPathBookmarks { get; } = new ObservableCollection<MRUViewModel>();
+        public ObservableCollection<MRUViewModel> FastPathBookmarks { get; } = [];
 
-        public ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new();
+        public ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = [];
 
         [ObservableProperty]
         private bool searchParametersChanged;
@@ -501,7 +501,7 @@ namespace dnGREP.WPF
                 name == nameof(IncludeBinary) || name == nameof(UseFileSizeFilter) || name == nameof(UseFileDateFilter) ||
                 name == nameof(FollowSymlinks))
             {
-                var tempList = new List<string>();
+                List<string> tempList = [];
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
                     tempList.Add(Resources.Main_FilterSummary_NoSubfolders);
                 if (IncludeSubfolder && MaxSubfolderDepth > 0)
@@ -525,7 +525,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    FileFiltersSummary = string.Join(", ", tempList.ToArray());
+                    FileFiltersSummary = string.Join(", ", [.. tempList]);
                 }
             }
 
@@ -896,7 +896,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.SearchFolder, saveSearchFolder);
         }
 
-        private static void LoadMRUList(MRUType valueType, IList<MRUViewModel> list, string itemKey)
+        private static void LoadMRUList(MRUType valueType, ObservableCollection<MRUViewModel> list, string itemKey)
         {
             var mruItems = Settings.Get<List<MostRecentlyUsed>>(itemKey);
             if (mruItems != null && mruItems.Count > 0)
@@ -976,8 +976,8 @@ namespace dnGREP.WPF
                     break;
 
                 case SearchType.Regex:
-                    SearchToolTip = string.Join(Environment.NewLine, new string[]
-                    {
+                    SearchToolTip = string.Join(Environment.NewLine,
+                    [
                         Resources.TTA1_MatchesAllCharacters,
                         Resources.TTA2_MatchesAlphaNumerics,
                         Resources.TTA3_MatchesDigits,
@@ -985,16 +985,15 @@ namespace dnGREP.WPF
                         Resources.TTA5_MatchesAnyNumberOfCharacters,
                         Resources.TTA6_Matches1To3Characters,
                         Resources.TTA7_ForMoreRegexPatternsHitF1,
+                    ]);
 
-                    });
-
-                    ReplaceToolTip = string.Join(Environment.NewLine, new string[]
-                        {
-                            Resources.TTB0_InsertsTabNewline,
-                            Resources.TTB1_ReplacesEntireRegex,
-                            Resources.TTB2_InsertsTheTextMatchedIntoTheReplacementText,
-                            Resources.TTB3_InsertsASingleDollarSignIntoTheReplacementText,
-                        });
+                    ReplaceToolTip = string.Join(Environment.NewLine,
+                    [
+                        Resources.TTB0_InsertsTabNewline,
+                        Resources.TTB1_ReplacesEntireRegex,
+                        Resources.TTB2_InsertsTheTextMatchedIntoTheReplacementText,
+                        Resources.TTB3_InsertsASingleDollarSignIntoTheReplacementText,
+                    ]);
                     break;
                 default:
                     SearchToolTip = string.Empty;

@@ -69,7 +69,7 @@ namespace dnGREP.Common
             }
         }
 
-        public List<GrepCaptureGroup> Groups { get; } = new List<GrepCaptureGroup>();
+        public List<GrepCaptureGroup> Groups { get; } = [];
 
         public string SearchPattern { get; private set; }
 

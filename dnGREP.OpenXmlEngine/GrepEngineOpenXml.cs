@@ -17,10 +17,7 @@ namespace dnGREP.Engines.OpenXml
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        public IList<string> DefaultFileExtensions
-        {
-            get { return new string[] { "docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm" }; }
-        }
+        public List<string> DefaultFileExtensions => ["docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm"];
 
         public override bool Initialize(GrepEngineInitParams param, FileFilter filter)
         {
@@ -68,7 +65,7 @@ namespace dnGREP.Engines.OpenXml
             GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepSearchResult> searchResults = new();
+            List<GrepSearchResult> searchResults = [];
 
             string ext = Path.GetExtension(file);
 

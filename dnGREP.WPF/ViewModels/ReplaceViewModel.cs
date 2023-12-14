@@ -226,11 +226,11 @@ namespace dnGREP.WPF
         public IHighlightingDefinition? HighlightingDefinition =>
             ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
 
-        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new();
+        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = [];
 
         public Encoding Encoding { get; private set; } = Encoding.UTF8;
 
-        public IList<int> LineNumbers { get; } = new List<int>();
+        public List<int> LineNumbers { get; } = [];
 
         public string FileText { get; private set; } = string.Empty;
 

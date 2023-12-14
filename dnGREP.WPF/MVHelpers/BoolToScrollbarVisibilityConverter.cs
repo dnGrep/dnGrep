@@ -6,12 +6,12 @@ using System.Windows.Data;
 namespace dnGREP.WPF
 {
     [ValueConversion(typeof(bool), typeof(ScrollBarVisibility))]
-    public class BoolToScollBarVisibilityConverter : IValueConverter
+    public class BoolToScrollBarVisibilityConverter : IValueConverter
     {
         public ScrollBarVisibility TrueValue { get; set; }
         public ScrollBarVisibility FalseValue { get; set; }
 
-        public BoolToScollBarVisibilityConverter()
+        public BoolToScrollBarVisibilityConverter()
         {
             // set defaults
             FalseValue = ScrollBarVisibility.Auto;

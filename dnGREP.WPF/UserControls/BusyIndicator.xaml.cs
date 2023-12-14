@@ -10,7 +10,7 @@ namespace dnGREP.WPF.UserControls
     /// </summary>
     public partial class BusyIndicator : UserControl
     {
-        private delegate void VoidDelegete();
+        private delegate void VoidDelegate();
         private readonly DispatcherTimer timer = new();
 
         public BusyIndicator()
@@ -33,7 +33,7 @@ namespace dnGREP.WPF.UserControls
 
             rotationCanvas.Dispatcher.Invoke
             (
-                new VoidDelegete(
+                new VoidDelegate(
                     delegate
                     {
                         SpinnerRotate.Angle += 30;

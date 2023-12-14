@@ -107,7 +107,7 @@ namespace dnGREP.WPF.MVHelpers
                 Application.Current?.Dispatcher.Invoke(new Action(Clear));
             }
 
-            List<FormattedGrepLine> tempList = new();
+            List<FormattedGrepLine> tempList = [];
             for (int i = 0; i < linesWithContext.Count; i++)
             {
                 GrepLine line = linesWithContext[i];

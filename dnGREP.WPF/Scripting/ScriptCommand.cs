@@ -9,15 +9,8 @@ namespace dnGREP.WPF
     }
 
 
-    public class ScriptCommand<TParameter> : IScriptCommand
+    public class ScriptCommand<TParameter>(Action<TParameter> execute) : IScriptCommand
     {
-        private readonly Action<TParameter> execute;
-
-        public ScriptCommand(Action<TParameter> execute)
-        {
-            this.execute = execute;
-        }
-
         public void Execute(string value)
         {
             TParameter parameter = GetValue<TParameter>(value);

@@ -26,7 +26,7 @@ namespace dnGREP.Common
 
             if (!string.IsNullOrEmpty(fileInfo.ErrorMsg))
             {
-                searchResults = new List<GrepLine> { new GrepLine(-1, fileInfo.ErrorMsg, false, null) };
+                searchResults = [new GrepLine(-1, fileInfo.ErrorMsg, false, null)];
             }
 
             int pos = fileInfo.FullName.IndexOf(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
@@ -77,7 +77,7 @@ namespace dnGREP.Common
             Id = Guid.NewGuid().ToString();
 
             FileNameDisplayed = file;
-            searchResults = new List<GrepLine> { new GrepLine(-1, errorMessage, false, null) };
+            searchResults = [new GrepLine(-1, errorMessage, false, null)];
             Pattern = pattern;
             IsSuccess = success;
             FileInfo = new(file);
@@ -206,13 +206,13 @@ namespace dnGREP.Common
                 }
                 else
                 {
-                    searchResults = new List<GrepLine>();
+                    searchResults = [];
                 }
             }
             return searchResults;
         }
 
-        public List<GrepMatch> Matches { get; } = new List<GrepMatch>();
+        public List<GrepMatch> Matches { get; } = [];
 
         public bool IsSuccess { get; }
 

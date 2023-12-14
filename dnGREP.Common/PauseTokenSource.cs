@@ -38,10 +38,7 @@ namespace dnGREP.Common
         /// <summary>Throws an exception if the source has been disposed.</summary>
         private void ThrowIfDisposed()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(PauseTokenSource));
-            }
+            ObjectDisposedException.ThrowIf(_disposed, nameof(PauseTokenSource));
         }
 
         #region Dispose

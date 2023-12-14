@@ -57,8 +57,13 @@ namespace dnGREP.Engines
     /// <summary>
     /// needlemanwunch implements an edit distance function
     /// </summary>
+    /// <remarks>
+    /// constructor
+    /// </remarks>
+    /// <param name="costG">the cost of a gap</param>
+    /// <param name="costFunction">the cost function to use</param>
     [Serializable]
-    sealed public class NeedlemanWunch : AbstractStringMetric
+    sealed public class NeedlemanWunch(double costG, AbstractSubstitutionCost costFunction) : AbstractStringMetric
     {
         const double defaultGapCost = 2.0;
         const double defaultMismatchScore = 0.0;
@@ -78,33 +83,13 @@ namespace dnGREP.Engines
         /// <summary>
         /// constructor
         /// </summary>
-        /// <param name="costG">the cost of a gap</param>
-        /// <param name="costFunction">the cost function to use</param>
-        public NeedlemanWunch(double costG, AbstractSubstitutionCost costFunction)
-        {
-            gapCost = costG;
-            dCostFunction = costFunction;
-        }
-
-        /// <summary>
-        /// constructor
-        /// </summary>
         /// <param name="costFunction">the cost function to use</param>
         public NeedlemanWunch(AbstractSubstitutionCost costFunction) : this(defaultGapCost, costFunction) { }
-
-        /// <summary>
-        /// the private cost function used in the levenstein distance.
-        /// </summary>
-        AbstractSubstitutionCost dCostFunction;
 
         /// <summary>
         /// a constant for calculating the estimated timing cost.
         /// </summary>
         readonly double estimatedTimingConstant = 0.0001842F;
-        /// <summary>
-        /// the cost of a gap.
-        /// </summary>
-        double gapCost;
 
         /// <summary>
         /// gets the similarity of the two strings using Needleman Wunch distance.
@@ -119,21 +104,21 @@ namespace dnGREP.Engines
                 double needlemanWunch = GetUnnormalisedSimilarity(firstWord, secondWord);
                 double maxValue = Math.Max(firstWord.Length, secondWord.Length);
                 double minValue = maxValue;
-                if (dCostFunction.MaxCost > gapCost)
+                if (costFunction.MaxCost > costG)
                 {
-                    maxValue *= dCostFunction.MaxCost;
+                    maxValue *= costFunction.MaxCost;
                 }
                 else
                 {
-                    maxValue *= gapCost;
+                    maxValue *= costG;
                 }
-                if (dCostFunction.MinCost < gapCost)
+                if (costFunction.MinCost < costG)
                 {
-                    minValue *= dCostFunction.MinCost;
+                    minValue *= costFunction.MinCost;
                 }
                 else
                 {
-                    minValue *= gapCost;
+                    minValue *= costG;
                 }
                 if (minValue < defaultMismatchScore)
                 {
@@ -216,8 +201,8 @@ namespace dnGREP.Engines
                 {
                     for (int j = 1; j <= m; j++)
                     {
-                        double cost = dCostFunction.GetCost(firstWord, i - 1, secondWord, j - 1);
-                        d[i][j] = MathFunctions.MinOf3(d[i - 1][j] + gapCost, d[i][j - 1] + gapCost, d[i - 1][j - 1] + cost);
+                        double cost = costFunction.GetCost(firstWord, i - 1, secondWord, j - 1);
+                        d[i][j] = MathFunctions.MinOf3(d[i - 1][j] + costG, d[i][j - 1] + costG, d[i - 1][j - 1] + cost);
                     }
                 }
 
@@ -229,12 +214,12 @@ namespace dnGREP.Engines
         /// <summary>
         /// set/get the d(i,j) cost function.
         /// </summary>
-        public AbstractSubstitutionCost DCostFunction { get { return dCostFunction; } set { dCostFunction = value; } }
+        public AbstractSubstitutionCost DCostFunction { get { return costFunction; } set { costFunction = value; } }
 
         /// <summary>
         /// sets/gets the gap cost for the distance function.
         /// </summary>
-        public double GapCost { get { return gapCost; } set { gapCost = value; } }
+        public double GapCost { get { return costG; } set { costG = value; } }
 
         /// <summary>
         /// returns the long string identifier for the metric.

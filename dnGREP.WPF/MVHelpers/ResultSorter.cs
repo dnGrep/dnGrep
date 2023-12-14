@@ -7,16 +7,9 @@ using Windows.Win32;
 namespace dnGREP.WPF.MVHelpers
 {
 #pragma warning disable CA1309
-    public class FileNameOnlyComparer : IComparer<FormattedGrepResult>
+    public class FileNameOnlyComparer(ListSortDirection direction, bool naturalSort)
+        : IComparer<FormattedGrepResult>
     {
-        private readonly ListSortDirection direction;
-        private readonly bool naturalSort;
-        public FileNameOnlyComparer(ListSortDirection direction, bool naturalSort)
-        {
-            this.direction = direction;
-            this.naturalSort = naturalSort;
-        }
-
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
         {
             var left = direction == ListSortDirection.Ascending ? x : y;
@@ -36,16 +29,9 @@ namespace dnGREP.WPF.MVHelpers
         }
     }
 
-    public class FileTypeAndNameComparer : IComparer<FormattedGrepResult>
+    public class FileTypeAndNameComparer(ListSortDirection direction, bool naturalSort)
+        : IComparer<FormattedGrepResult>
     {
-        private readonly ListSortDirection direction;
-        private readonly bool naturalSort;
-        public FileTypeAndNameComparer(ListSortDirection direction, bool naturalSort)
-        {
-            this.direction = direction;
-            this.naturalSort = naturalSort;
-        }
-
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
         {
             var left = direction == ListSortDirection.Ascending ? x : y;
@@ -72,16 +58,9 @@ namespace dnGREP.WPF.MVHelpers
         }
     }
 
-    public class FileNameDepthFirstComparer : IComparer<FormattedGrepResult>
+    public class FileNameDepthFirstComparer(ListSortDirection direction, bool naturalSort)
+        : IComparer<FormattedGrepResult>
     {
-        private readonly ListSortDirection direction;
-        private readonly bool naturalSort;
-        public FileNameDepthFirstComparer(ListSortDirection direction, bool naturalSort)
-        {
-            this.direction = direction;
-            this.naturalSort = naturalSort;
-        }
-
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
         {
             var left = direction == ListSortDirection.Ascending ? x : y;
@@ -110,16 +89,9 @@ namespace dnGREP.WPF.MVHelpers
         }
     }
 
-    public class FileNameBreadthFirstComparer : IComparer<FormattedGrepResult>
+    public class FileNameBreadthFirstComparer(ListSortDirection direction, bool naturalSort)
+        : IComparer<FormattedGrepResult>
     {
-        private readonly ListSortDirection direction;
-        private readonly bool naturalSort;
-        public FileNameBreadthFirstComparer(ListSortDirection direction, bool naturalSort)
-        {
-            this.direction = direction;
-            this.naturalSort = naturalSort;
-        }
-
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
         {
             var left = direction == ListSortDirection.Ascending ? x : y;
@@ -181,14 +153,9 @@ namespace dnGREP.WPF.MVHelpers
         }
     }
 
-    public class FileSizeComparer : IComparer<FormattedGrepResult>
+    public class FileSizeComparer(ListSortDirection direction)
+        : IComparer<FormattedGrepResult>
     {
-        private readonly ListSortDirection direction;
-        public FileSizeComparer(ListSortDirection direction)
-        {
-            this.direction = direction;
-        }
-
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
         {
             var left = direction == ListSortDirection.Ascending ? x : y;
@@ -202,14 +169,9 @@ namespace dnGREP.WPF.MVHelpers
         }
     }
 
-    public class FileDateComparer : IComparer<FormattedGrepResult>
+    public class FileDateComparer(ListSortDirection direction)
+        : IComparer<FormattedGrepResult>
     {
-        private readonly ListSortDirection direction;
-        public FileDateComparer(ListSortDirection direction)
-        {
-            this.direction = direction;
-        }
-
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
         {
             var left = direction == ListSortDirection.Ascending ? x : y;
@@ -223,14 +185,9 @@ namespace dnGREP.WPF.MVHelpers
         }
     }
 
-    public class MatchCountComparer : IComparer<FormattedGrepResult>
+    public class MatchCountComparer(ListSortDirection direction)
+        : IComparer<FormattedGrepResult>
     {
-        private readonly ListSortDirection direction;
-        public MatchCountComparer(ListSortDirection direction)
-        {
-            this.direction = direction;
-        }
-
         public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
         {
             var left = direction == ListSortDirection.Ascending ? x : y;

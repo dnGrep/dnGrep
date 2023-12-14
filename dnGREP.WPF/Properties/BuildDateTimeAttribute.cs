@@ -3,13 +3,8 @@
 namespace dnGREP.WPF.Properties
 {
     [AttributeUsage(AttributeTargets.Assembly)]
-    public class BuildDateTimeAttribute : Attribute
+    public class BuildDateTimeAttribute(string date) : Attribute
     {
-        public string Date { get; set; }
-
-        public BuildDateTimeAttribute(string date)
-        {
-            Date = date;
-        }
+        public string Date { get; set; } = date;
     }
 }

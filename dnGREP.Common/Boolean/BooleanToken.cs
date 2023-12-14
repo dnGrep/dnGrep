@@ -2,20 +2,13 @@
 
 namespace dnGREP.Common
 {
-    public class BooleanToken
+    public class BooleanToken(TokenType tokenType, string value, int precedence)
     {
-        public BooleanToken(TokenType tokenType, string value, int precedence)
-        {
-            TokenType = tokenType;
-            Precedence = precedence;
-            Value = value;
-        }
+        public TokenType TokenType { get; private set; } = tokenType;
 
-        public TokenType TokenType { get; private set; }
+        public int Precedence { get; private set; } = precedence;
 
-        public int Precedence { get; private set; }
-
-        public string Value { get; private set; }
+        public string Value { get; private set; } = value;
 
         public bool IsOperator => TokenType.Operator.HasFlag(TokenType);
         public bool IsLowerPrecedence(BooleanToken other)

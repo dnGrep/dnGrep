@@ -60,7 +60,7 @@ namespace dnGREP.Everything
             if (!IsDbLoaded)
                 yield break;
 
-            List<string> invalidDrives = new();
+            List<string> invalidDrives = [];
             CountMissingFiles = 0;
 
             NativeMethods.Everything_SetSort((uint)SortType.NameAscending);

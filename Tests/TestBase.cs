@@ -4,7 +4,7 @@ namespace Tests
 {
     public class TestBase
     {
-        public string GetDllPath()
+        public static string GetDllPath()
         {
             //Assembly thisAssembly = Assembly.GetAssembly(typeof(TestBase));
             //return Path.GetDirectoryName(thisAssembly.Location);

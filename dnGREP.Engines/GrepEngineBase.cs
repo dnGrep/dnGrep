@@ -40,6 +40,8 @@ namespace dnGREP.Engines
         public int LinesAfter => initParams.LinesAfter;
         public int LinesBefore => initParams.LinesBefore;
 
+        private static readonly char[] lineChars = ['\r', '\n'];
+
         public virtual void OpenFile(OpenFileArgs args)
         {
             Utils.OpenFile(args);
@@ -47,7 +49,7 @@ namespace dnGREP.Engines
 
         private static List<int> GetLineEndIndexes(string text, PauseCancelToken pauseCancelToken)
         {
-            List<int> list = new();
+            List<int> list = [];
 
             if (!string.IsNullOrWhiteSpace(text))
             {
@@ -56,7 +58,7 @@ namespace dnGREP.Engines
                 {
                     pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                    idx = text.IndexOfAny(new char[] { '\r', '\n' }, idx);
+                    idx = text.IndexOfAny(lineChars, idx);
                     if (idx == -1)
                     {
                         list.Add(text.Length);
@@ -135,7 +137,7 @@ namespace dnGREP.Engines
             // Note: in Singleline mode, need to capture the new line chars
 
             bool searchPatternEndsWithDot =
-                (searchPattern.EndsWith(".", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.", StringComparison.Ordinal)) ||
+                (searchPattern.EndsWith('.') && !searchPattern.EndsWith(@"\.", StringComparison.Ordinal)) ||
                 (searchPattern.EndsWith(".*", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.*", StringComparison.Ordinal)) ||
                 (searchPattern.EndsWith(".?", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.?", StringComparison.Ordinal)) ||
                 (searchPattern.EndsWith(".+", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.+", StringComparison.Ordinal));
@@ -163,7 +165,7 @@ namespace dnGREP.Engines
 
             var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? textToSearch : string.Empty, pauseCancelToken);
 
-            List<GrepMatch> globalMatches = new();
+            List<GrepMatch> globalMatches = [];
 
             Regex regex = new(searchPattern, regexOptions, GrepCore.MatchTimeout);
             var matches = regex.Matches(textToSearch);
@@ -198,7 +200,7 @@ namespace dnGREP.Engines
                         if (group.Success)
                         {
                             length = group.Length;
-                            if (!regexOptions.HasFlag(RegexOptions.Singleline) && group.Value.EndsWith("\r", StringComparison.Ordinal))
+                            if (!regexOptions.HasFlag(RegexOptions.Singleline) && group.Value.EndsWith('\r'))
                                 length -= 1;
 
                             grepMatch.Groups.Add(
@@ -237,7 +239,7 @@ namespace dnGREP.Engines
         /// <returns>output text with Unix newlines</returns>
         private static string ConvertNewLines(string text, out List<int> newlineIndexes, PauseCancelToken pauseCancelToken)
         {
-            newlineIndexes = new List<int>();
+            newlineIndexes = [];
             string output = string.Empty;
             int start = 0, pos;
             while (start < text.Length)
@@ -260,10 +262,10 @@ namespace dnGREP.Engines
             return output.Replace('\r', '\n'); // for that rare case
         }
 
-        private IEnumerable<GrepMatch> RegexSearchIteratorBoolean(int lineNumber, int filePosition, string text,
+        private List<GrepMatch> RegexSearchIteratorBoolean(int lineNumber, int filePosition, string text,
             BooleanExpression expression, bool isWholeWord, RegexOptions regexOptions, PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> results = new();
+            List<GrepMatch> results = [];
             foreach (var operand in expression.Operands)
             {
                 var matches = RegexSearchIterator(lineNumber, filePosition, text,
@@ -308,7 +310,7 @@ namespace dnGREP.Engines
         protected List<GrepMatch> DoRegexSearch(int lineNumber, int filePosition, string text, string searchPattern,
             GrepSearchOption searchOptions, bool includeContext, PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> globalMatches = new();
+            List<GrepMatch> globalMatches = [];
 
             foreach (var match in RegexSearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken))
             {
@@ -397,7 +399,7 @@ namespace dnGREP.Engines
             string searchText, GrepSearchOption searchOptions, bool includeContext,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> globalMatches = new();
+            List<GrepMatch> globalMatches = [];
 
             foreach (var match in TextSearchIterator(lineNumber, filePosition, text, searchText, searchOptions, pauseCancelToken))
             {
@@ -486,11 +488,11 @@ namespace dnGREP.Engines
             }
         }
 
-        private IEnumerable<GrepMatch> TextSearchIteratorBoolean(int lineNumber, int filePosition, string text,
+        private List<GrepMatch> TextSearchIteratorBoolean(int lineNumber, int filePosition, string text,
             BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> results = new();
+            List<GrepMatch> results = [];
             foreach (var operand in expression.Operands)
             {
                 var matches = TextSearchIterator(lineNumber, filePosition, text, operand.Value,
@@ -541,14 +543,14 @@ namespace dnGREP.Engines
             string searchXPath, GrepSearchOption searchOptions, bool includeContext,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> results = new();
+            List<GrepMatch> results = [];
 
             // skip files that are obviously not xml files, but report errors on badly formed xml
             int firstElemIdx = text.IndexOf('<', StringComparison.Ordinal);
             int firstCharIdx = text.TakeWhile(char.IsWhiteSpace).Count();
             if (firstElemIdx > -1 && firstElemIdx <= firstCharIdx)
             {
-                List<XPathPosition> positions = new();
+                List<XPathPosition> positions = [];
                 using (StringReader reader = new(text))
                 {
                     // Code from http://stackoverflow.com/questions/10606534/how-to-search-xml-files-with-xpath-returning-line-and-column-numbers-of-found
@@ -575,7 +577,7 @@ namespace dnGREP.Engines
                             xpathPositions.EndsOnAttribute = true;
                             xpathPositions.AttributeName = xn.Name;
                         }
-                        List<int> currentPositions = new();
+                        List<int> currentPositions = [];
                         GetXpathPositions(xn, ref currentPositions, pauseCancelToken);
                         if (xpathPositions.EndsOnAttribute)
                             currentPositions.RemoveAt(currentPositions.Count - 1);
@@ -593,7 +595,7 @@ namespace dnGREP.Engines
             IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken)
         {
             // shouldn't get here, but skip non-xml files:
-            if (text.StartsWith("<", StringComparison.Ordinal))
+            if (text.StartsWith('<'))
             {
                 XmlDocument xmlDoc = new();
                 xmlDoc.LoadXml(text);
@@ -635,7 +637,7 @@ namespace dnGREP.Engines
         #region XPath helper functions
         public class XPathPosition
         {
-            public List<int> Path { get; set; } = new();
+            public List<int> Path { get; set; } = [];
             public bool EndsOnAttribute { get; set; }
             public string AttributeName { get; set; } = string.Empty;
         }
@@ -645,7 +647,7 @@ namespace dnGREP.Engines
         /// </summary>
         /// <param name="node"></param>
         /// <param name="positions">Lists the number of node in the according level, including root, that is first element. Positions start at 1.</param>
-        private void GetXpathPositions(XPathNavigator? node, ref List<int> positions,
+        private static void GetXpathPositions(XPathNavigator? node, ref List<int> positions,
             PauseCancelToken pauseCancelToken)
         {
             int pos = 1;
@@ -690,7 +692,7 @@ namespace dnGREP.Engines
         {
             bool[] endFound = new bool[positions.Count];
             // Getting line lengths
-            List<int> lineLengths = new();
+            List<int> lineLengths = [];
             using (StringReader baseReader = new(text))
             {
                 using EolReader reader = new(baseReader);
@@ -713,7 +715,7 @@ namespace dnGREP.Engines
             using (StringReader textReader = new(text))
             using (XmlReader reader = XmlReader.Create(textReader, settings))
             {
-                List<int> currPos = new();
+                List<int> currPos = [];
 
                 try
                 {
@@ -850,7 +852,7 @@ namespace dnGREP.Engines
             string searchPattern, GrepSearchOption searchOptions, bool includeContext,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> globalMatches = new();
+            List<GrepMatch> globalMatches = [];
 
             foreach (var match in FuzzySearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken))
             {

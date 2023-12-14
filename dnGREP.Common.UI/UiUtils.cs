@@ -31,7 +31,7 @@ namespace dnGREP.Common.UI
             if (string.IsNullOrWhiteSpace(path))
                 return string.Empty;
 
-            if (path.StartsWith("\"", StringComparison.Ordinal) && path.EndsWith("\"", StringComparison.Ordinal))
+            if (path.StartsWith('"') && path.EndsWith('"'))
             {
                 return path;
             }
@@ -57,7 +57,7 @@ namespace dnGREP.Common.UI
             }
 
             // check if it is already quoted
-            if (path.StartsWith("\"", StringComparison.Ordinal) || path.EndsWith("\"", StringComparison.Ordinal))
+            if (path.StartsWith('"') || path.EndsWith('"'))
             {
                 return path;
             }
@@ -101,8 +101,8 @@ namespace dnGREP.Common.UI
                     {
                         cleaned = EverythingSearch.RemovePrefixes(cleaned);
 
-                        if (cleaned.StartsWith("\"", StringComparison.Ordinal) || cleaned.EndsWith("\"", StringComparison.Ordinal) ||
-                            cleaned.StartsWith("(", StringComparison.Ordinal) || cleaned.EndsWith(")", StringComparison.Ordinal))
+                        if (cleaned.StartsWith('"') || cleaned.EndsWith('"') ||
+                            cleaned.StartsWith('(') || cleaned.EndsWith(')'))
                         {
                             cleaned = cleaned.Trim('\"', '(', ')', ' ').Trim();
                         }
@@ -204,10 +204,12 @@ namespace dnGREP.Common.UI
                 return string.Empty;
 
             string commonPath = string.Empty;
-            List<string> separatedPath = paths
+            List<string> separatedPath =
+            [
+                .. paths
                 .First(str => str.Length == paths.Max(st2 => st2.Length))
                 .Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
+            ];
 
             foreach (string pathSegment in separatedPath)
             {
@@ -228,6 +230,8 @@ namespace dnGREP.Common.UI
             return commonPath;
         }
 
+        private static readonly char[] separators = [';', ','];
+
         /// <summary>
         /// Splits a list of patterns separated by ; or ,
         /// </summary>
@@ -236,12 +240,12 @@ namespace dnGREP.Common.UI
         public static string[] SplitPattern(string pattern)
         {
             if (string.IsNullOrWhiteSpace(pattern))
-                return Array.Empty<string>();
+                return [];
 
             // remove quotes
             pattern = pattern.Replace("\"", string.Empty, StringComparison.Ordinal);
 
-            string[] parts = pattern.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = pattern.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
             return parts.Select(p => p.Trim()).ToArray();
         }
@@ -255,11 +259,11 @@ namespace dnGREP.Common.UI
         public static string[] SplitPath(string? path, bool preserveWildcards)
         {
             if (string.IsNullOrWhiteSpace(path))
-                return Array.Empty<string>();
+                return [];
 
-            List<string> output = new();
+            List<string> output = [];
 
-            string[]? paths = new string[] { path };
+            string[]? paths = [path];
 
             // if path contains separators, parse it
             if (path.Contains(';', StringComparison.Ordinal) || path.Contains(',', StringComparison.Ordinal) || path.Contains('|', StringComparison.Ordinal) || path.Contains('\\', StringComparison.Ordinal))
@@ -289,7 +293,7 @@ namespace dnGREP.Common.UI
                 else
                 {
                     bool found = false;
-                    IList<string> subPaths = GetPathsByWildcard(testPathTrimmed);
+                    List<string> subPaths = GetPathsByWildcard(testPathTrimmed);
                     if (subPaths.Count > 0)
                     {
                         if (preserveWildcards)
@@ -343,7 +347,7 @@ namespace dnGREP.Common.UI
                     }
                 }
             }
-            return output.ToArray();
+            return [.. output];
         }
 
 
@@ -352,9 +356,9 @@ namespace dnGREP.Common.UI
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private static IList<string> GetPathsByWildcard(string path)
+        private static List<string> GetPathsByWildcard(string path)
         {
-            List<string> output = new();
+            List<string> output = [];
             if (!string.IsNullOrWhiteSpace(path))
             {
                 string? parent = Path.GetDirectoryName(path);

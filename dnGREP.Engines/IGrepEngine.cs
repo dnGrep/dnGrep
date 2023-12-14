@@ -13,7 +13,7 @@ namespace dnGREP.Engines
         /// <summary>
         /// Returns a list of file extensions handled by this engine.
         /// </summary>
-        IList<string> DefaultFileExtensions { get; }
+        List<string> DefaultFileExtensions { get; }
 
         /// <summary>
         /// Return true if engine supports search only. Return false is engine supports replace as well.

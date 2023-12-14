@@ -3,19 +3,10 @@ using System.IO;
 
 namespace dnGREP.Everything
 {
-    public class EverythingFileInfo
+    public class EverythingFileInfo(string fullName, FileAttributes attributes, long length,
+        DateTime createTimeUtc, DateTime lastWriteTimeUtc)
     {
-        public EverythingFileInfo(string fullName, FileAttributes attributes, long length, 
-            DateTime createTimeUtc, DateTime lastWriteTimeUtc)
-        {
-            FullName = fullName;
-            Attributes = attributes;
-            Length = length;
-            CreationTimeUtc = createTimeUtc;
-            LastWriteTimeUtc = lastWriteTimeUtc;
-        }
-
-        public string FullName { get; private set; }
+        public string FullName { get; private set; } = fullName;
 
         public string Name { get { return Path.GetFileName(FullName); } }
 
@@ -25,17 +16,17 @@ namespace dnGREP.Everything
 
         public bool Exists { get { return File.Exists(FullName); } }
 
-        public FileAttributes Attributes { get; private set; }
+        public FileAttributes Attributes { get; private set; } = attributes;
 
-        public bool IsReadOnly {  get { return Attributes.HasFlag(FileAttributes.ReadOnly); } }
+        public bool IsReadOnly { get { return Attributes.HasFlag(FileAttributes.ReadOnly); } }
 
-        public long Length { get; private set; }
+        public long Length { get; private set; } = length;
 
-        public DateTime CreationTimeUtc { get; private set; }
+        public DateTime CreationTimeUtc { get; private set; } = createTimeUtc;
 
         public DateTime CreationTime { get { return CreationTimeUtc.ToLocalTime(); } }
 
-        public DateTime LastWriteTimeUtc { get; private set; }
+        public DateTime LastWriteTimeUtc { get; private set; } = lastWriteTimeUtc;
 
         public DateTime LastWriteTime { get { return LastWriteTimeUtc.ToLocalTime(); } }
 

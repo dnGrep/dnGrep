@@ -52,7 +52,7 @@ namespace dnGREP.Common
 
         public static Gitignore GetGitignore(string path)
         {
-            List<string> list = new();
+            List<string> list = [];
 
             if (IsGitInstalled)
             {
@@ -86,7 +86,7 @@ namespace dnGREP.Common
             return new Gitignore(path, list);
         }
 
-        public static Gitignore GetGitignore(IList<string> paths)
+        public static Gitignore GetGitignore(List<string> paths)
         {
             Gitignore results = new();
 
@@ -103,22 +103,21 @@ namespace dnGREP.Common
     {
         private const char gitSeparatorChar = '/';
         private const string gitSeparator = "/";
-        private readonly HashSet<string> directories = new();
-        private readonly HashSet<string> files = new();
+        private readonly HashSet<string> directories = [];
+        private readonly HashSet<string> files = [];
 
         public Gitignore()
         {
         }
 
-        public Gitignore(string path, IList<string> list)
+        public Gitignore(string path, List<string> list)
         {
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
                     s.EndsWith(gitSeparator, StringComparison.CurrentCulture))
                 .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
                     .TrimEnd(Path.DirectorySeparatorChar))))
             {
-                if (!directories.Contains(item))
-                    directories.Add(item);
+                directories.Add(item);
             }
 
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
@@ -126,8 +125,7 @@ namespace dnGREP.Common
                 .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
                     .TrimEnd(Path.DirectorySeparatorChar))))
             {
-                if (!files.Contains(item))
-                    files.Add(item);
+                files.Add(item);
             }
         }
 
@@ -135,14 +133,12 @@ namespace dnGREP.Common
         {
             foreach(var item in other.Directories)
             {
-                if (!directories.Contains(item))
-                    directories.Add(item);
+                directories.Add(item);
             }
 
             foreach (var item in other.Files)
             {
-                if (!files.Contains(item))
-                    files.Add(item);
+                files.Add(item);
             }
         }
 

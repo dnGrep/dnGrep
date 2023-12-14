@@ -22,7 +22,7 @@ namespace dnGREP.WPF
 
         private static string[] SplitCommandLine(string commandLine)
         {
-            List<string> result = new();
+            List<string> result = [];
             foreach (string arg in CommandLineArgs.ParseLine(commandLine))
             {
                 string s = arg.Trim();
@@ -31,7 +31,7 @@ namespace dnGREP.WPF
                     result.Add(s);
                 }
             }
-            return result.ToArray();
+            return [.. result];
         }
 
         private void EvaluateArgs(string[] args)
@@ -124,15 +124,15 @@ namespace dnGREP.WPF
             }
         }
 
-        private static readonly HashSet<string> arguments = new()
-        {
+        private static readonly HashSet<string> arguments = 
+        [
             "-match", "/match",
             "-rename", "/rename",
             "-overwrite", "/overwrite",
             "-out", "/out",
-        };
+        ];
 
-        private bool IsNotAnArgument(string value)
+        private static bool IsNotAnArgument(string value)
         {
             return !arguments.Contains(value);
         }
@@ -150,8 +150,8 @@ namespace dnGREP.WPF
             return (true, string.Empty);
         }
 
-        public List<string> Errors { get; } = new();
-        public List<string> Messages { get; } = new();
+        public List<string> Errors { get; } = [];
+        public List<string> Messages { get; } = [];
         public string? MatchPattern { get; private set; }
         public string? RenamePattern { get; private set; }
         public bool Overwrite { get; private set; } = false;
@@ -161,7 +161,7 @@ namespace dnGREP.WPF
         {
             Errors.Clear();
             Messages.Clear();
-            HashSet<string> files = new();
+            HashSet<string> files = [];
 
             foreach (GrepSearchResult result in source)
             {

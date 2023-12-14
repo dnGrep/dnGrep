@@ -30,9 +30,6 @@ namespace dnGREP.WPF
         /// <summary>The unique mutex name.</summary>
         private const string UniqueMutexName = "{EB56AF15-5E08-4EEF-B8C4-18749C927C78}";
 
-        /// <summary>The mutex.</summary>
-        private Mutex? mutex;
-
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -45,7 +42,7 @@ namespace dnGREP.WPF
                 AppArgs = new CommandLineArgs(commandLine ?? string.Empty);
 
                 if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.IsSingletonInstance) &&
-                    !ConfigureSingetonInstance(AppArgs))
+                    !ConfigureSingletonInstance(AppArgs))
                 {
                     // Terminate this instance.
                     Shutdown();
@@ -114,9 +111,9 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool ConfigureSingetonInstance(CommandLineArgs args)
+        private static bool ConfigureSingletonInstance(CommandLineArgs args)
         {
-            mutex = new Mutex(true, UniqueMutexName, out bool isOwned);
+            var mutex = new Mutex(true, UniqueMutexName, out bool isOwned);
 
             if (isOwned)
             {
@@ -128,71 +125,66 @@ namespace dnGREP.WPF
                         {
                             try
                             {
-                                using (NamedPipeServerStream namedPipeServer = new NamedPipeServerStream(
+                                using NamedPipeServerStream namedPipeServer = new(
                                    UniquePipeName, PipeDirection.In, NamedPipeServerStream.MaxAllowedServerInstances,
-                                   PipeTransmissionMode.Message, PipeOptions.CurrentUserOnly))
+                                   PipeTransmissionMode.Message, PipeOptions.CurrentUserOnly);
+                                // Wait until the pipe is available.
+                                namedPipeServer.WaitForConnection();
+
+                                string path = string.Empty;
+                                using (StreamReader sr = new(namedPipeServer))
                                 {
-                                    // Wait until the pipe is available.
-                                    namedPipeServer.WaitForConnection();
-
-                                    string path = string.Empty;
-                                    using (StreamReader sr = new(namedPipeServer))
+                                    string? temp;
+                                    while ((temp = sr.ReadLine()) != null)
                                     {
-                                        string? temp;
-                                        while ((temp = sr.ReadLine()) != null)
-                                        {
-                                            path += temp;
-                                        }
+                                        path += temp;
                                     }
-
-                                    Current.Dispatcher.BeginInvoke(
-                                        () =>
-                                        {
-                                            if (Current.MainWindow is MainForm wnd)
-                                            {
-                                                wnd.BringToForeground(path);
-                                            }
-                                        });
                                 }
+
+                                Current.Dispatcher.BeginInvoke(
+                                    () =>
+                                    {
+                                        if (Current.MainWindow is MainForm wnd)
+                                        {
+                                            wnd.BringToForeground(path);
+                                        }
+                                    });
                             }
                             catch (IOException ex)
                             {
                                 logger.Error(ex, "Exception on NamedPipeServer");
                             }
                         }
-                    });
-
-                // It is important mark it as background otherwise it will prevent app from exiting.
-                thread.IsBackground = true;
+                    })
+                {
+                    // It is important mark it as background otherwise it will prevent app from exiting.
+                    IsBackground = true
+                };
                 thread.Start();
                 return true;
             }
 
-            using (NamedPipeClientStream pipeClientStream = new(".",
-                UniquePipeName, PipeDirection.Out, PipeOptions.CurrentUserOnly))
+            using NamedPipeClientStream pipeClientStream = new(".",
+                UniquePipeName, PipeDirection.Out, PipeOptions.CurrentUserOnly);
+            pipeClientStream.Connect();
+            try
             {
-                pipeClientStream.Connect();
-                try
+                string path = string.Empty;
+                if (!string.IsNullOrEmpty(args.SearchPath))
                 {
-                    string path = string.Empty;
-                    if (!string.IsNullOrEmpty(args.SearchPath))
-                    {
-                        path = args.SearchPath;
-                    }
+                    path = args.SearchPath;
+                }
 
-                    // Read user input and send that to the server process.
-                    using (StreamWriter sw = new(pipeClientStream))
-                    {
-                        sw.AutoFlush = true;
-                        sw.Write(path);
-                    }
-                }
-                // Catch the IOException that is raised if the pipe is broken
-                // or disconnected.
-                catch (IOException ex)
-                {
-                    logger.Error(ex, "Exception on NamedPipeClient");
-                }
+                // Read user input and send that to the server process.
+                using StreamWriter sw = new(pipeClientStream);
+                sw.AutoFlush = true;
+                sw.Write(path);
+            }
+            // Catch the IOException that is raised if the pipe is broken
+            // or disconnected.
+            catch (IOException ex)
+            {
+                logger.Error(ex, "Exception on NamedPipeClient");
             }
 
             return false;

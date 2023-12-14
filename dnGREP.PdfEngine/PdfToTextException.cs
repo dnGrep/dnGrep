@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace dnGREP.Engines.Pdf
 {
@@ -24,13 +23,6 @@ namespace dnGREP.Engines.Pdf
         /// Creates a new PdfToTextException.
         /// </summary>
         public PdfToTextException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        /// <summary>
-        /// Deserializes a PdfToTextException.
-        /// </summary>
-        protected PdfToTextException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

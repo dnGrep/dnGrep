@@ -33,15 +33,6 @@ namespace SevenZip
         /// <param name="message">Additional detailed message</param>
         /// <param name="inner">Inner exception occurred</param>
         public SevenZipLibraryException(string message, Exception inner) : base(DEFAULT_MESSAGE, message, inner) { }
-
-        /// <summary>
-        /// Initializes a new instance of the SevenZipLibraryException class
-        /// </summary>
-        /// <param name="info">All data needed for serialization or deserialization</param>
-        /// <param name="context">Serialized stream descriptor</param>
-        protected SevenZipLibraryException(
-            SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
     }
 }
 

@@ -5,7 +5,7 @@ namespace dnGREP.Common.UI
 {
     public static class Native
     {
-        public static readonly IntPtr HTMAXBUTTON = new IntPtr(9);
+        public static readonly IntPtr HTMAXBUTTON = new(9);
         public static readonly int WM_NCHITTEST = 0x0084;
 
         public static Point GetPoint(IntPtr lParam)

@@ -50,12 +50,5 @@ namespace ICSharpCode.AvalonEdit.Editing
 		public DragDropException(string message, Exception innerException) : base(message, innerException)
 		{
 		}
-
-		/// <summary>
-		/// Deserializes a DragDropException.
-		/// </summary>
-		protected DragDropException(SerializationInfo info, StreamingContext context) : base(info, context)
-		{
-		}
 	}
 }

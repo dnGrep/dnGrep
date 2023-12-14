@@ -48,7 +48,7 @@ namespace dnGREP.Engines.OpenXml
                 var sectionMap = GetSectionMap(body);
                 SectionProperties sectionProperties = sectionMap.Peek().Item2 ?? new();
                 SectionProperties lastSectionProps = sectionMap.Last().Item2;
-                HashSet<string> completedReferences = new();
+                HashSet<string> completedReferences = [];
 
                 WordListManager wlm = WordListManager.Empty;
                 if (doc.MainDocumentPart?.NumberingDefinitionsPart != null && doc.MainDocumentPart.NumberingDefinitionsPart.Numbering != null)
@@ -426,7 +426,7 @@ namespace dnGREP.Engines.OpenXml
                 if (mainDoc.WordprocessingCommentsPart.Comments.Any())
                 {
                     sb.AppendLine(@"────────────");
-                    foreach (Comment comment in mainDoc.WordprocessingCommentsPart.Comments)
+                    foreach (Comment comment in mainDoc.WordprocessingCommentsPart.Comments.Cast<Comment>())
                     {
                         sb.AppendLine($"({comment.Id}) {comment.Author}:");
                         foreach (Paragraph para in comment.Elements<Paragraph>())

@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Hidden" FalseValue="Visible" />
-        <my:BoolToScollBarVisibilityConverter x:Key="BoolToScollBarVisibilityConverter"/>
+        <my:BoolToScrollBarVisibilityConverter x:Key="BoolToScollBarVisibilityConverter"/>
         <my:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
         <my:BooleanAndConverter x:Key="BooleanAndConverter"/>
         <my:GridLengthConverter x:Key="GridLengthConverter" />

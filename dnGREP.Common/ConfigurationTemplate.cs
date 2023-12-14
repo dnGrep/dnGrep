@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace dnGREP.Common
 {
-    public class ConfigurationTemplate
+    public class ConfigurationTemplate(string exeFileName, string arguments, params string[] hintPath)
     {
         public static Dictionary<string, ConfigurationTemplate?> EditorConfigurationTemplates =>
             new()
@@ -52,7 +52,7 @@ namespace dnGREP.Common
 
         private static IEnumerable<string> GetSearchPaths(string[] hintPaths)
         {
-            List<string> triedPaths = new();
+            List<string> triedPaths = [];
             foreach (string hint in hintPaths)
             {
                 if (SearchPaths.TryGetValue(hint, out string? path))
@@ -76,7 +76,7 @@ namespace dnGREP.Common
                 {
                     FileFilter fileParams = new(path, template.ExeFileName, string.Empty, false, false, false, true, -1, true, true, false, false, 0, 0, FileDateFilter.None, null, null, true);
 
-                    var exePath = SafeDirectory.EnumerateFiles(path, new string[] { template.ExeFileName },
+                    var exePath = SafeDirectory.EnumerateFiles(path, [template.ExeFileName],
                         null, null, fileParams, default).FirstOrDefault();
 
                     if (!string.IsNullOrEmpty(exePath))
@@ -89,18 +89,11 @@ namespace dnGREP.Common
             return string.Empty;
         }
 
-        public ConfigurationTemplate(string exeFileName, string arguments, params string[] hintPath)
-        {
-            ExeFileName = exeFileName;
-            HintPath = hintPath;
-            Arguments = arguments;
-        }
+        public string ExeFileName { get; private set; } = exeFileName;
 
-        public string ExeFileName { get; private set; }
+        public string[] HintPath { get; private set; } = hintPath;
 
-        public string[] HintPath { get; private set; }
-
-        public string Arguments { get; private set; }
+        public string Arguments { get; private set; } = arguments;
     }
 
 

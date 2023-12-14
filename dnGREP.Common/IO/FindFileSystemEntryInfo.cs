@@ -210,20 +210,20 @@ namespace dnGREP.Common.IO
 
         #region Methods
 
-        unsafe private FindCloseSafeHandle? FindFirstFile(string pathLp, out WIN32_FIND_DATAW win32FindData, out uint lastError, bool suppressException = false)
+        unsafe private FindCloseSafeHandle? FindFirstFile(string path, out WIN32_FIND_DATAW win32FindData, out uint lastError, bool suppressException = false)
         {
-
             lastError = (uint)WIN32_ERROR.NO_ERROR;
 
             string searchFilter = "*";
             var searchOption = null != FileSystemObjectType && (bool)FileSystemObjectType ? FINDEX_SEARCH_OPS.FindExSearchLimitToDirectories : FINDEX_SEARCH_OPS.FindExSearchNameMatch;
-            FindCloseSafeHandle? handle = null;
+            HANDLE? handle = null;
 
             win32FindData = new();
 
+            fixed (char* lpFileName = path)
             fixed (void* lpFindFileData = &win32FindData, lpSearchFilter = searchFilter)
             {
-                handle = PInvoke.FindFirstFileEx(pathLp, FindExInfoLevel, lpFindFileData, searchOption, lpSearchFilter, LargeCache);
+                handle = PInvoke.FindFirstFileEx(lpFileName, FindExInfoLevel, lpFindFileData, searchOption, lpSearchFilter, LargeCache);
                 lastError = (uint)Marshal.GetLastWin32Error();
             }
 
@@ -237,16 +237,20 @@ namespace dnGREP.Common.IO
                         case (uint)WIN32_ERROR.ERROR_PATH_NOT_FOUND: // DirectoryNotFoundException.
                         case (uint)WIN32_ERROR.ERROR_NOT_READY:      // DeviceNotReadyException: Floppy device or network drive not ready.
 
-                            ExistsDriveOrFolderOrFile(pathLp, IsDirectory, lastError, true, true);
+                            ExistsDriveOrFolderOrFile(path, IsDirectory, lastError, true, true);
                             break;
                     }
 
 
-                    ThrowPossibleException(lastError, pathLp);
+                    ThrowPossibleException(lastError, path);
                 }
             }
 
-            return handle;
+            if (handle != null)
+            {
+                return new(new nint(handle.Value), true);
+            }
+            return null;
         }
 
 

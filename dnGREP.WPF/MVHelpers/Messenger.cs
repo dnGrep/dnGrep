@@ -161,7 +161,7 @@ namespace dnGREP.WPF.MVHelpers
                 lock (_map)
                 {
                     if (!_map.ContainsKey(message))
-                        _map[message] = new List<WeakAction>();
+                        _map[message] = [];
 
                     _map[message].Add(new WeakAction(target, method, actionType));
                 }
@@ -181,10 +181,10 @@ namespace dnGREP.WPF.MVHelpers
                 List<Delegate> actions;
                 lock (_map)
                 {
-                    if (!_map.ContainsKey(message))
+                    if (!_map.TryGetValue(message, out List<WeakAction>? value))
                         return null;
 
-                    List<WeakAction> weakActions = _map[message];
+                    List<WeakAction> weakActions = value;
                     actions = new List<Delegate>(weakActions.Count);
                     for (int i = weakActions.Count - 1; i > -1; --i)
                     {
@@ -248,7 +248,7 @@ namespace dnGREP.WPF.MVHelpers
             #region Fields
 
             // Stores a hash where the key is the message and the value is the list of callbacks to invoke.
-            private readonly Dictionary<string, List<WeakAction>> _map = new();
+            private readonly Dictionary<string, List<WeakAction>> _map = [];
 
             #endregion // Fields
         }
