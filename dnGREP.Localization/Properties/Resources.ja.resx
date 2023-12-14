@@ -1771,7 +1771,7 @@
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>アプリケーションデータと_ログ</value>
+    <value>アプリケーションデータとログ</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
@@ -2267,7 +2267,7 @@
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>'Search for' フィールドが空の場合、ファイル名のパターンを使用してファイルをリスト表示する</value>
+    <value>'検索対象' フィールドが空の場合、ファイル名のパターンを使用してファイルをリスト表示する</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
