@@ -151,7 +151,7 @@
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Test_SearchType_XPath" xml:space="preserve">
-    <value>XPath</value>
+    <value>(_X)XPath</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>改行をドットとして扱う</value>
+    <value>(_D)改行をドットとして扱う</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Options dialog, compare application group header label</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value>ブール演算子</value>
+    <value>論理演算子</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
@@ -331,7 +331,7 @@
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
-    <value>XPath</value>
+    <value>(_X)XPath</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="Bookmarks_Title" xml:space="preserve">
@@ -411,7 +411,7 @@
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>単語全体</value>
+    <value>(_W)単語全体</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
@@ -435,7 +435,7 @@
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="Bookmarks_Edit" xml:space="preserve">
-    <value>編集</value>
+    <value>(_E)編集</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
@@ -447,7 +447,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>正規表現</value>
+    <value>(_R)正規表現</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="Options_ShowNavigationButtons" xml:space="preserve">
@@ -535,7 +535,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>コンテキスト行の変更は次の検索で適用されます</value>
+    <value>該当箇所前後の表示設定の変更結果は次の検索から適用されます。</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
@@ -579,7 +579,7 @@
     <comment>Script validation error message</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>アーカイブ内を検索</value>
+    <value>(_C)アーカイブ内を検索</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
@@ -595,7 +595,7 @@
     <comment>Test window, error text</comment>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
-    <value>ヘルプ</value>
+    <value>(_H)ヘルプ</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
@@ -699,7 +699,7 @@
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
-    <value>複数行</value>
+    <value>(_M)複数行</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
@@ -751,7 +751,7 @@
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>詳細</value>
+    <value>(_M)詳細</value>
     <comment>Main window, More button label (accel)</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
@@ -775,7 +775,7 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>ブックマーク…</value>
+    <value>(_B)ブックマーク…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="ScriptHint_resetfilters" xml:space="preserve">
@@ -795,7 +795,7 @@
     <comment>Main window, ignore filter file selector label (accel)</comment>
   </data>
   <data name="Script_Editor_Tools" xml:space="preserve">
-    <value>ツール</value>
+    <value>(_T)ツール</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
@@ -1023,7 +1023,7 @@
     <comment>Options dialog, custom editor arguments input box label</comment>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
-    <value>追加</value>
+    <value>(_A)追加</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -1043,7 +1043,7 @@
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Bookmarks_Use" xml:space="preserve">
-    <value>適用</value>
+    <value>(_U)適用</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
@@ -1283,7 +1283,7 @@
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value>フォルダ：</value>
+    <value>(_O)フォルダ：</value>
     <comment>Main window, folder input caption (accel)</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
@@ -1331,7 +1331,7 @@
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value>検索対象:</value>
+    <value>(_F)検索対象:</value>
     <comment>Main window, search pattern text input box label (accel)</comment>
   </data>
   <data name="Options_Ask" xml:space="preserve">
@@ -1339,7 +1339,7 @@
     <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value>ファイルをプレビュー</value>
+    <value>(_V)ファイルをプレビュー</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Options_Personalize_Features" xml:space="preserve">
@@ -1379,7 +1379,7 @@
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
-    <value>テキスト</value>
+    <value>(_T)テキスト</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
@@ -1479,7 +1479,7 @@
     <comment>Script copy command error message. {0} is the error message and {1} is the source path and file name.</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>正規表現</value>
+    <value>(_R)正規表現</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
@@ -1643,7 +1643,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>正規表現</value>
+    <value>(_R)正規表現</value>
     <comment>Main window, Regular expression search type radio button label (accel)</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
@@ -1743,7 +1743,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
-    <value>閉じる</value>
+    <value>(_C)閉じる</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
@@ -1791,7 +1791,7 @@
     <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
-    <value>ブール演算子</value>
+    <value>論理演算子</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
@@ -1803,7 +1803,7 @@
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
-    <value>編集</value>
+    <value>(_E)編集</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_Personalize_FileFilter" xml:space="preserve">
@@ -1963,7 +1963,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value>検索</value>
+    <value>(_S)検索</value>
     <comment>Main window, search button label (accel)</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
@@ -1971,7 +1971,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
-    <value>置換</value>
+    <value>(_R)置換</value>
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="ScriptHint_copy" xml:space="preserve">
@@ -2003,7 +2003,7 @@
     <comment>Script validation error message</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>アーカイブ内を検索</value>
+    <value>(_C)アーカイブ内を検索</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_fileinformation" xml:space="preserve">
@@ -2099,7 +2099,7 @@
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
-    <value>テキスト</value>
+    <value>(_T)テキスト</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
@@ -2195,7 +2195,7 @@
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value>大文字小文字を区別する</value>
+    <value>(_A)大文字小文字を区別する</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
@@ -2271,7 +2271,7 @@
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>大文字小文字を区別</value>
+    <value>(_A)大文字小文字を区別</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
@@ -2295,7 +2295,7 @@
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Script_Editor_File" xml:space="preserve">
-    <value>ファイル</value>
+    <value>(_F)ファイル</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
@@ -2399,7 +2399,7 @@
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_Menu_Settings" xml:space="preserve">
-    <value>設定</value>
+    <value>(_G)設定</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
@@ -2415,7 +2415,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
-    <value>複数行</value>
+    <value>(_M)複数行</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
@@ -2667,7 +2667,7 @@
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value>ブール演算子</value>
+    <value>論理演算子</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
@@ -2679,7 +2679,7 @@
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>大文字と小文字を区別する</value>
+    <value>(_A)大文字と小文字を区別する</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Script_Editor_New" xml:space="preserve">
@@ -2715,7 +2715,7 @@
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>詳細…</value>
+    <value>(_E)詳細…</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Options_Superscipt" xml:space="preserve">
@@ -2731,7 +2731,7 @@
     <comment>Script Messages dialog title</comment>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
-    <value>削除</value>
+    <value>(_D)削除</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Options_PageNumbers" xml:space="preserve">
@@ -2755,7 +2755,7 @@
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
-    <value>テキスト</value>
+    <value>(_T)テキスト</value>
     <comment>Main window, Text search type radio button label (accel)</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
@@ -2779,7 +2779,7 @@
     <comment>Rename file dialog error message</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>全単語</value>
+    <value>(_W)全単語</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
@@ -2967,7 +2967,7 @@
     <comment>Replace window, Keep modified date checkbox tooltip</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>並列検索</value>
+    <value>(_L)並列検索</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
@@ -2991,7 +2991,7 @@
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>改行をドットとして扱う</value>
+    <value>(_D)改行をドットとして扱う</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
@@ -3111,7 +3111,7 @@
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
-    <value>ブール演算子を使用してテキスト検索のみで置換</value>
+    <value>論理演算子を使用してテキスト検索のみで置換</value>
     <comment>Main window replace button tooltip</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
@@ -3131,11 +3131,11 @@
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
-    <value>複数行</value>
+    <value>(_M)複数行</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
-    <value>このアプリについて</value>
+    <value>(_A)このアプリについて</value>
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
@@ -3223,7 +3223,7 @@
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
-    <value>複製</value>
+    <value>(_P)複製</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
@@ -3391,7 +3391,7 @@
     <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>改行をドットとして扱う</value>
+    <value>(_D)改行をドットとして扱う</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
@@ -3571,11 +3571,11 @@
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>全単語</value>
+    <value>(_W)全単語</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
-    <value>XPath</value>
+    <value>(_X)XPath</value>
     <comment>Main window, XPath search type radio button label (accel)</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
@@ -3599,7 +3599,7 @@
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>置換対象:</value>
+    <value>(_P)置換対象:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
@@ -3607,7 +3607,7 @@
     <comment>Main window, Patterns to exclude label tooltip</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Everything インデックス サービス</value>
+    <value>(_Y)Everything インデックス サービス</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
