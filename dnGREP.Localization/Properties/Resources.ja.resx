@@ -535,7 +535,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>該当箇所前後の表示設定の変更結果は次の検索から適用されます。</value>
+    <value>該当箇所前後の表示設定の変更結果は次の検索から適用されます</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
