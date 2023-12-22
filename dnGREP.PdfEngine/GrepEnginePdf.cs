@@ -73,8 +73,11 @@ namespace dnGREP.Engines.Pdf
                 if (encoding == Encoding.Default)
                     encoding = Utils.GetFileEncoding(tempFile);
 
-                using StreamReader sr = new(tempFile, encoding, detectEncodingFromByteOrderMarks: false);
-                string text = sr.ReadToEnd();
+                string text;
+                using (StreamReader sr = new(tempFile, encoding, detectEncodingFromByteOrderMarks: false))
+                {
+                    text = sr.ReadToEnd();
+                }
 
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
@@ -93,14 +96,24 @@ namespace dnGREP.Engines.Pdf
                 engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter, searchType);
                 if (engine != null)
                 {
-                    using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
+                    bool join = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PdfJoinLines);
+
+                    if (join)
+                    {
+                        text = TrimAllLines(text);
+                        File.WriteAllText(tempFile, text);
+                    }
+
+                    string joinedText = join ? JoinLines(text) : text;
+
+                    using Stream inputStream = new MemoryStream(encoding.GetBytes(joinedText));
                     List<GrepSearchResult> results = engine.Search(inputStream, tempFile, searchPattern,
                         searchType, searchOptions, encoding, pauseCancelToken);
 
                     if (results.Count > 0)
                     {
-                        inputStream.Seek(0, SeekOrigin.Begin);
-                        using (StreamReader streamReader = new(inputStream, encoding, false, 4096, true))
+                        using Stream inputStream2 = new MemoryStream(encoding.GetBytes(text));
+                        using (StreamReader streamReader = new(inputStream2, encoding, false, 4096, true))
                         {
                             foreach (var result in results)
                             {
@@ -196,6 +209,15 @@ namespace dnGREP.Engines.Pdf
 
             string longPdfFilePath = PathEx.GetLongPath(pdfFilePath);
             string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions) ?? "-layout -enc UTF-8 -bom -cfg xpdfrc";
+            if (options.Contains("-eol", StringComparison.OrdinalIgnoreCase))
+            {
+                options = options.Replace("dos", "unix", StringComparison.OrdinalIgnoreCase);
+                options = options.Replace("mac", "unix", StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                options = "-eol unix " + options;
+            }
 
             using Process process = new();
             // use command prompt
@@ -234,6 +256,35 @@ namespace dnGREP.Engines.Pdf
                 }
             }
             return false;
+        }
+
+        private static string TrimAllLines(string text)
+        {
+            StringBuilder sb = new(text.Length);
+            string[] lines = text.Split('\n');
+
+            foreach (string line in lines)
+            {
+                sb.Append(line.Trim(' ')).Append('\n');
+            }
+
+            string result = sb.ToString();
+            return result;
+        }
+
+        private static string JoinLines(string text)
+        {
+            char[] chars = text.ToCharArray();
+            for (int idx = 1; idx < chars.Length - 1; idx++)
+            {
+                if (chars[idx] == '\n' && chars[idx + 1] != '\n' && chars[idx - 1] != '\n')
+                {
+                    chars[idx] = ' ';
+                }
+            }
+
+            string result = new(chars);
+            return result;
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,

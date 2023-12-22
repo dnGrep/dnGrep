@@ -9,7 +9,7 @@
                  Title="{l:Loc Key='Options_OptionsTitle'}"
                  Height="600"
                  MinWidth="500"
-                 d:DesignHeight="2800"
+                 d:DesignHeight="3400"
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
@@ -942,6 +942,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -957,7 +958,10 @@
                                 Content="{l:Loc Key='Options_PdfToTextReset'}" Command="{Binding ResetPdfToTextOptionCommand}"
                                 Padding="12,3" Margin="20,3" 
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,6,0,0">
+                        <CheckBox Grid.Row="2" Grid.Column="0" 
+                                  Content="{l:Loc Key='Options_MultilineSearch'}"
+                                  IsChecked="{Binding PdfJoinLines}"/>
+                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,6,0,0">
                             <TextBlock Text="{l:Loc Key='Options_PDFNumberStyle'}" />
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_PageNumbers'}" GroupName="pdfNumber"
                                          IsChecked="{Binding PdfNumberStyle, Converter={StaticResource ebc}, ConverterParameter=PageNumber}" />

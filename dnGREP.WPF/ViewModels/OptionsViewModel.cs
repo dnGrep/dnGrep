@@ -211,6 +211,7 @@ namespace dnGREP.WPF
                 EditResultsFontSize != Settings.Get<double>(GrepSettings.Key.ResultsFontSize) ||
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
+                PdfJoinLines != Settings.Get<bool>(GrepSettings.Key.PdfJoinLines) ||
                 PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
                 WordExtractFootnotes != Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes) ||
                 WordFootnoteReference != Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference) ||
@@ -537,6 +538,9 @@ namespace dnGREP.WPF
         private string pdfToTextOptions = string.Empty;
 
         [ObservableProperty]
+        private bool pdfJoinLines = true;
+
+        [ObservableProperty]
         private PdfNumberType pdfNumberStyle = PdfNumberType.PageNumber;
 
         [ObservableProperty]
@@ -833,6 +837,7 @@ namespace dnGREP.WPF
 
             HexResultByteLength = Settings.Get<int>(GrepSettings.Key.HexResultByteLength);
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
+            PdfJoinLines = Settings.Get<bool>(GrepSettings.Key.PdfJoinLines);
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
             WordExtractFootnotes = Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes);
@@ -987,6 +992,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ResultsFontSize, ResultsFontSize);
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
+            Settings.Set(GrepSettings.Key.PdfJoinLines, PdfJoinLines);
             Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
             Settings.Set(GrepSettings.Key.WordExtractFootnotes, WordExtractFootnotes);
             Settings.Set(GrepSettings.Key.WordFootnoteReference, WordFootnoteReference);
