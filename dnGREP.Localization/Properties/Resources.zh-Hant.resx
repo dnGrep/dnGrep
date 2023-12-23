@@ -3855,4 +3855,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>位於結果樹狀圖上方</value>
     <comment>Options dialog, layout radio button label</comment>
   </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>多行搜尋</value>
+    <comment>Options dialog, checkbox label for PDF options</comment>
+  </data>
 </root>
