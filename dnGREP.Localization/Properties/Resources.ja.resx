@@ -3864,4 +3864,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     検索が完了したら、結果をテキスト形式のファイルとして作成します。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>複数行検索</value>
+    <comment>Options dialog, checkbox label for PDF options</comment>
+  </data>
 </root>
