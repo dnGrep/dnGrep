@@ -339,10 +339,8 @@ namespace dnGREP.Engines
 
             if (isWholeWord)
             {
-                if (!searchPattern.Trim().StartsWith("\\b", StringComparison.Ordinal))
-                    searchPattern = "\\b" + searchPattern.Trim();
-                if (!searchPattern.Trim().EndsWith("\\b", StringComparison.Ordinal))
-                    searchPattern = searchPattern.Trim() + "\\b";
+                // issue 813 && 1014
+                searchPattern = $@"(?<=\W|\b|^)({searchPattern})(?=\W|\b|$)";
             }
 
             // check this block of text for any matches that are marked for replace

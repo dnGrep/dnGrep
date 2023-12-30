@@ -165,6 +165,8 @@ namespace dnGREP.Common
             [DefaultValue("-layout -enc UTF-8 -bom")]
             public const string PdfToTextOptions = "PdfToTextOptions";
             [DefaultValue(false)]
+            public const string PdfJoinLines = "PdfJoinLines";
+            [DefaultValue(false)]
             public const string FollowSymlinks = "FollowSymlinks";
             public const string MainWindowState = "MainWindowState";
             public const string MainWindowBounds = "MainWindowBounds";

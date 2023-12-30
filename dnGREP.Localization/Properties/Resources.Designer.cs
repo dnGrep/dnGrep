@@ -5112,6 +5112,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiline search.
+        /// </summary>
+        public static string Options_MultilineSearch {
+            get {
+                return ResourceManager.GetString("Options_MultilineSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string Options_No {
