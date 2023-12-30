@@ -7,6 +7,7 @@ namespace dnGREP.WPF.MVHelpers
     {
         public FormattedGrepLine? FormattedGrepLine { get; set; }
         public bool UseCustomEditor { get; set; }
+        public string CustomEditorName { get; set; } = string.Empty;
         public RectangleF ParentWindowSize { get; set; }
     }
 
@@ -14,6 +15,7 @@ namespace dnGREP.WPF.MVHelpers
     {
         public FormattedGrepResult? FormattedGrepResult { get; set; }
         public bool UseCustomEditor { get; set; }
+        public string CustomEditorName { get; set; } = string.Empty;
         public RectangleF ParentWindowSize { get; set; }
     }
 

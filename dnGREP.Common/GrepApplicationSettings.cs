@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -83,10 +84,6 @@ namespace dnGREP.Common
             public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
             [DefaultValue(true)]
             public const string DetectEncodingForFileNamePattern = "DetectEncodingForFileNamePattern";
-            [DefaultValue("")]
-            public const string CustomEditor = "CustomEditor";
-            [DefaultValue("")]
-            public const string CustomEditorArgs = "CustomEditorArgs";
             [DefaultValue("")]
             public const string CompareApplication = "CompareApplication";
             [DefaultValue("")]
@@ -332,9 +329,19 @@ namespace dnGREP.Common
             public const string BookmarkColumnWidths = "BookmarkColumnWidths";
             public const string BookmarkWindowBounds = "BookmarkWindowBounds";
             public const string BookmarkWindowState = "BookmarkWindowState";
+            public const string CustomEditors = "CustomEditors";
+        }
+
+        public static class ObsoleteKey
+        {
+            [DefaultValue("")]
+            public const string CustomEditor = "CustomEditor";
+            [DefaultValue("")]
+            public const string CustomEditorArgs = "CustomEditorArgs";
             [DefaultValue(true)]
             public const string EscapeQuotesInMatchArgument = "EscapeQuotesInMatchArgument";
         }
+
 
         private static GrepSettings? instance;
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -392,10 +399,16 @@ namespace dnGREP.Common
             if (Version == 1)
             {
                 LoadV1(path);
+                ConvertToV3();
             }
             else if (Version == 2)
             {
                 LoadV2(path);
+                ConvertToV3();
+            }
+            else if (Version == 3)
+            {
+                LoadV3(path);
             }
 
             InitializeFonts();
@@ -418,7 +431,7 @@ namespace dnGREP.Common
                 }
                 return 1;
             }
-            return 2;
+            return 3;
         }
 
         private void LoadV1(string path)
@@ -494,6 +507,103 @@ namespace dnGREP.Common
             {
                 logger.Error(ex, "Failed to load settings: " + ex.Message);
             }
+        }
+
+        private void LoadV3(string path)
+        {
+            try
+            {
+                if (File.Exists(path))
+                {
+                    using FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    if (stream != null)
+                    {
+                        XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
+                        if (doc != null && doc.Root != null && doc.Root.Name.LocalName.Equals("dictionary", StringComparison.Ordinal))
+                        {
+                            settings.Clear();
+
+                            XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+
+                            foreach (XElement elem in doc.Root.Descendants("item"))
+                            {
+                                if (elem.Attribute("key") is XAttribute key &&
+                                    !string.IsNullOrEmpty(key.Value))
+                                {
+                                    var nil = elem.Attribute(xsi + "nil");
+                                    if (nil != null && nil.Value == "true")
+                                    {
+                                        settings[key.Value] = "xsi:nil";
+                                    }
+                                    else if (elem.HasElements)
+                                    {
+                                        var elem2 = elem.Element("stringArray");
+                                        if (elem2 != null)
+                                        {
+                                            settings[key.Value] = elem2.ToString();
+                                        }
+                                        else
+                                        {
+                                            elem2 = elem.Element("customEditorArray");
+                                            if (elem2 != null)
+                                            {
+                                                settings[key.Value] = elem2.ToString();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        settings[key.Value] = elem.Value;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to load settings: " + ex.Message);
+            }
+        }
+
+
+        private void ConvertToV3()
+        {
+            if (ContainsKey(ObsoleteKey.CustomEditor))
+            {
+                string path = Get<string>(ObsoleteKey.CustomEditor);
+                if (!string.IsNullOrEmpty(path))
+                {
+                    string label = LookupTemplate(path);
+                    string args = Get<string>(ObsoleteKey.CustomEditorArgs);
+                    bool escQuotes = Get<bool>(ObsoleteKey.EscapeQuotesInMatchArgument);
+
+                    CustomEditor customEditor = new(label, path, args, escQuotes, string.Empty);
+                    Set(Key.CustomEditors, new List<CustomEditor> { customEditor });
+
+                    settings.Remove(ObsoleteKey.CustomEditor);
+                    settings.Remove(ObsoleteKey.CustomEditorArgs);
+                    settings.Remove(ObsoleteKey.EscapeQuotesInMatchArgument);
+                }
+            }
+
+            Version = 3;
+        }
+
+        private static string LookupTemplate(string path)
+        {
+            string file = Path.GetFileName(path);
+            var template = ConfigurationTemplate.EditorConfigurationTemplates.Values
+                .FirstOrDefault(t => t != null && t.ExeFileName.Equals(file, StringComparison.OrdinalIgnoreCase));
+            if (template != null)
+            {
+                return template.Label;
+            }
+
+            string label = Path.GetFileNameWithoutExtension(path);
+            label = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(label);
+            return label;
         }
 
         private void InitializeFonts()
@@ -576,7 +686,7 @@ namespace dnGREP.Common
                     Directory.CreateDirectory(dirName);
                 }
 
-                SaveV2(path);
+                SaveV3(path);
             }
             catch (Exception ex)
             {
@@ -589,7 +699,7 @@ namespace dnGREP.Common
             }
         }
 
-        private void SaveV2(string path)
+        private void SaveV3(string path)
         {
             // Create temp file in case save crashes
             using (FileStream stream = File.OpenWrite(path + "~"))
@@ -603,7 +713,7 @@ namespace dnGREP.Common
 
                 XDocument doc = new();
                 doc.Add(new XElement("dictionary"));
-                doc.Root?.SetAttributeValue("version", "2");
+                doc.Root?.SetAttributeValue("version", "3");
                 doc.Root?.SetAttributeValue(XNamespace.Xmlns + "xml", xml);
                 doc.Root?.SetAttributeValue(XNamespace.Xmlns + "xsi", xsi);
                 foreach (string key in settings.Keys)
@@ -617,6 +727,11 @@ namespace dnGREP.Common
                         elem.SetAttributeValue(xsi + "nil", "true");
                     }
                     else if (value.StartsWith("<stringArray", StringComparison.Ordinal))
+                    {
+                        elem = new XElement("item", XElement.Parse(value));
+                        elem.SetAttributeValue("key", key);
+                    }
+                    else if (value.StartsWith("<customEditorArray", StringComparison.Ordinal))
                     {
                         elem = new XElement("item", XElement.Parse(value));
                         elem.SetAttributeValue("key", key);
@@ -855,6 +970,20 @@ namespace dnGREP.Common
                         return (T)Convert.ChangeType(list, typeof(List<MostRecentlyUsed>));
                     }
 
+                    if (typeof(T) == typeof(List<CustomEditor>))
+                    {
+                        List<CustomEditor> list;
+                        if (!string.IsNullOrEmpty(value) && value.StartsWith("<customEditorArray", StringComparison.Ordinal))
+                        {
+                            list = CustomEditor.Deserialize(value);
+                        }
+                        else
+                        {
+                            list = [];
+                        }
+                        return (T)Convert.ChangeType(list, typeof(List<CustomEditor>));
+                    }
+
                     if (typeof(T) == typeof(DateTime) || typeof(T) == typeof(DateTime?))
                     {
                         if (!string.IsNullOrEmpty(value))
@@ -1010,6 +1139,10 @@ namespace dnGREP.Common
             else if (value is List<MostRecentlyUsed> items)
             {
                 settings[key] = SerializeMRU(items);
+            }
+            else if (value is List<CustomEditor> ceList)
+            {
+                settings[key] = CustomEditor.Serialize(ceList);
             }
             else
             {
@@ -1168,6 +1301,10 @@ namespace dnGREP.Common
             var cleaned = split.Select(s => s.TrimStart('.').Trim());
             return string.Join(",", cleaned);
         }
+
+        public bool HasCustomEditor => ContainsKey(Key.CustomEditors) &&
+            Get<List<CustomEditor>>(Key.CustomEditors).Count > 0;
+
     }
 
 

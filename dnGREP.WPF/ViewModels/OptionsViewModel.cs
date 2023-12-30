@@ -26,6 +26,8 @@ namespace dnGREP.WPF
     {
         public event EventHandler? RequestClose;
 
+        public static readonly Messenger OptionsMessenger = new();
+
         public enum PanelSelection { MainPanel = 0, OptionsExpander }
 
         public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
@@ -39,6 +41,12 @@ namespace dnGREP.WPF
         {
             TaskLimit = Environment.ProcessorCount * 4;
 
+            OptionsMessenger.Register("DeleteCustomEditor",
+                (Action<CustomEditorViewModel>)(vm => DeleteCustomEditor(vm)));
+
+            OptionsMessenger.Register("SetAsDefault",
+                (Action<CustomEditorViewModel>)(vm => SetAsDefault(vm)));
+
             LoadSettings();
 
             foreach (string name in AppTheme.Instance.ThemeNames)
@@ -49,7 +57,6 @@ namespace dnGREP.WPF
                 .. TranslationSource.AppCultures.OrderBy(kv => kv.Value, StringComparer.CurrentCulture),
             ];
 
-            CustomEditorTemplates = [.. ConfigurationTemplate.EditorConfigurationTemplates];
             CompareApplicationTemplates = [.. ConfigurationTemplate.CompareConfigurationTemplates];
 
             HexLengthOptions = [8, 16, 32, 64, 128];
@@ -62,17 +69,6 @@ namespace dnGREP.WPF
 
             TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
             {
-                int count = TranslationSource.CountPlaceholders(Resources.Options_CustomEditorHelp);
-                if (count == 5)
-                {
-                    CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                        File, Line, Pattern, Match, Column);
-                }
-                else
-                {
-                    CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                        File, Line, Pattern, Match, Column, Page);
-                }
                 PanelTooltip = IsAdministrator ? string.Empty : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
                 WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
 
@@ -137,12 +133,6 @@ namespace dnGREP.WPF
         #region Private Variables and Properties
         private static readonly string SHELL_KEY_NAME = "dnGREP";
         private static readonly string SHELL_MENU_TEXT = "dnGrep...";
-        private const string File = "%file";
-        private const string Page = "%page";
-        private const string Line = "%line";
-        private const string Pattern = "%pattern";
-        private const string Match = "%match";
-        private const string Column = "%column";
         private const string ArchiveNameKey = "Archive";
         private const string CustomNameKey = " Custom";
         private const string EnabledKey = "Enabled";
@@ -167,9 +157,6 @@ namespace dnGREP.WPF
                 ShowLinesInContext != Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
                 ContextLinesBefore != Settings.Get<int>(GrepSettings.Key.ContextLinesBefore) ||
                 ContextLinesAfter != Settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
-                CustomEditorPath != Settings.Get<string>(GrepSettings.Key.CustomEditor) ||
-                CustomEditorArgs != Settings.Get<string>(GrepSettings.Key.CustomEditorArgs) ||
-                EscapeQuotesInMatchArgument != Settings.Get<bool>(GrepSettings.Key.EscapeQuotesInMatchArgument) ||
                 CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
                 CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
@@ -221,6 +208,7 @@ namespace dnGREP.WPF
                 WordHeaderFooterPosition != Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition) ||
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins) ||
+                IsChanged(CustomEditors) ||
                 IsChanged(VisibilityOptions)
                 )
                 {
@@ -238,6 +226,12 @@ namespace dnGREP.WPF
             return plugins.Any(p => p.IsChanged);
         }
 
+        private bool IsChanged(IList<CustomEditorViewModel> customEditors)
+        {
+            return originalCustomEditors.Count != customEditors.Count ||
+                customEditors.Any(v => v.IsChanged);
+        }
+
         private static bool IsChanged(IList<VisibilityOption> visibilityOptions)
         {
             return visibilityOptions.Any(p => p.IsChanged);
@@ -247,11 +241,42 @@ namespace dnGREP.WPF
 
         public KeyValuePair<string, ConfigurationTemplate?>[] CompareApplicationTemplates { get; }
 
-        public KeyValuePair<string, ConfigurationTemplate?>[] CustomEditorTemplates { get; }
-
         public List<int> HexLengthOptions { get; }
 
         public ObservableCollection<PluginOptions> Plugins { get; } = [];
+
+        public ObservableCollection<CustomEditorViewModel> CustomEditors { get; } = [];
+
+        private List<CustomEditor> originalCustomEditors = [];
+
+        private void AddCustomEditor()
+        {
+            CustomEditor ed = new(string.Empty, string.Empty, string.Empty, false, string.Empty);
+            CustomEditorViewModel vm = new(ed, false);
+            if (vm.EditCustomEditor())
+            {
+                CustomEditors.Add(vm);
+            }
+        }
+
+        private void DeleteCustomEditor(CustomEditorViewModel vm)
+        {
+            CustomEditors.Remove(vm);
+        }
+
+        private void SetAsDefault(CustomEditorViewModel vm)
+        {
+            if (CustomEditors.Count > 1 && CustomEditors.First() != vm)
+            {
+                CustomEditors.Remove(vm);
+                CustomEditors.Insert(0, vm);
+
+                for (int idx = 0; idx < CustomEditors.Count; idx++)
+                {
+                    CustomEditors[idx].IsDefault = 0 == idx;
+                }
+            }
+        }
 
         public static IList<FontInfo> FontFamilies
         {
@@ -273,26 +298,6 @@ namespace dnGREP.WPF
                     {
                         CompareApplicationPath = fullPath;
                         CompareApplicationArgs = template.Arguments;
-                    }
-                }, DispatcherPriority.ApplicationIdle);
-            }
-        }
-
-        private void ApplyCustomEditorTemplate(ConfigurationTemplate? template)
-        {
-            if (template != null)
-            {
-                CustomEditorPath = ellipsis + template.ExeFileName;
-                CustomEditorArgs = template.Arguments;
-
-                Dispatcher.CurrentDispatcher.InvokeAsync(() =>
-                {
-                    UIServices.SetBusyState();
-                    string fullPath = ConfigurationTemplate.FindExePath(template);
-                    if (!string.IsNullOrEmpty(fullPath))
-                    {
-                        CustomEditorPath = fullPath;
-                        CustomEditorArgs = template.Arguments;
                     }
                 }, DispatcherPriority.ApplicationIdle);
             }
@@ -371,28 +376,6 @@ namespace dnGREP.WPF
                 TranslationSource.Instance.SetCulture(value);
             }
         }
-
-        [ObservableProperty]
-        private ConfigurationTemplate? customEditorTemplate = null;
-        partial void OnCustomEditorTemplateChanged(ConfigurationTemplate? value)
-        {
-            ApplyCustomEditorTemplate(value);
-        }
-
-        [ObservableProperty]
-        private string customEditorPath = string.Empty;
-
-        [ObservableProperty]
-        private string customEditorArgs = string.Empty;
-
-        [ObservableProperty]
-        private bool escapeQuotesInMatchArgument = true;
-
-        [ObservableProperty]
-        private string escapeQuotesLabel = string.Empty;
-
-        [ObservableProperty]
-        private string customEditorHelp = string.Empty;
 
         [ObservableProperty]
         private ConfigurationTemplate? compareApplicationTemplate = null;
@@ -630,11 +613,8 @@ namespace dnGREP.WPF
             param => Save(),
             param => CanSave);
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseEditorCommand => new RelayCommand(
-            param => BrowseToEditor());
+        public ICommand AddCustomEditorCommand => new RelayCommand(
+            param => AddCustomEditor());
 
         /// <summary>
         /// Returns a command that opens file browse dialog.
@@ -701,16 +681,6 @@ namespace dnGREP.WPF
             }
         }
 
-        public void BrowseToEditor()
-        {
-            var dlg = new OpenFileDialog();
-            var result = dlg.ShowDialog();
-            if (result.HasValue && result.Value)
-            {
-                CustomEditorPath = dlg.FileName;
-            }
-        }
-
         public void BrowseToCompareApp()
         {
             var dlg = new OpenFileDialog();
@@ -762,9 +732,6 @@ namespace dnGREP.WPF
             PassSearchFolderToSingleton = Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton);
             EnableCheckForUpdates = Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
             CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
-            CustomEditorPath = Settings.Get<string>(GrepSettings.Key.CustomEditor);
-            CustomEditorArgs = Settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
-            EscapeQuotesInMatchArgument = Settings.Get<bool>(GrepSettings.Key.EscapeQuotesInMatchArgument);
             CompareApplicationPath = Settings.Get<string>(GrepSettings.Key.CompareApplication);
             CompareApplicationArgs = Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
@@ -811,20 +778,6 @@ namespace dnGREP.WPF
                 ValueOrDefault(GrepSettings.Key.ResultsFontFamily, GrepSettings.DefaultMonospaceFontFamily);
             ResultsFontSize = EditResultsFontSize =
                 ValueOrDefault(GrepSettings.Key.ResultsFontSize, SystemFonts.MessageFontSize);
-
-            escapeQuotesLabel = TranslationSource.Format(Resources.Options_CustomEditorEscapeQuotes, Match);
-
-            int count = TranslationSource.CountPlaceholders(Resources.Options_CustomEditorHelp);
-            if (count == 5)
-            {
-                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                    File, Line, Pattern, Match, Column);
-            }
-            else
-            {
-                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
-                    File, Line, Pattern, Match, Column, Page);
-            }
 
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
@@ -888,6 +841,18 @@ namespace dnGREP.WPF
 
                 Plugins.Add(pluginOptions);
             }
+
+            CustomEditors.Clear();
+            if (Settings.ContainsKey(GrepSettings.Key.CustomEditors))
+            {
+                originalCustomEditors = GrepSettings.Instance.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+
+                for (int idx = 0; idx < originalCustomEditors.Count; idx++)
+                {
+                    var editor = originalCustomEditors[idx];
+                    CustomEditors.Add(new CustomEditorViewModel(editor, idx == 0));
+                }
+            }
         }
 #pragma warning restore MVVMTK0034
 
@@ -943,9 +908,6 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.PassSearchFolderToSingleton, PassSearchFolderToSingleton);
             Settings.Set(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
-            Settings.Set(GrepSettings.Key.CustomEditor, CustomEditorPath);
-            Settings.Set(GrepSettings.Key.CustomEditorArgs, CustomEditorArgs);
-            Settings.Set(GrepSettings.Key.EscapeQuotesInMatchArgument, EscapeQuotesInMatchArgument);
             Settings.Set(GrepSettings.Key.CompareApplication, CompareApplicationPath);
             Settings.Set(GrepSettings.Key.CompareApplicationArgs, CompareApplicationArgs);
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
@@ -1028,10 +990,17 @@ namespace dnGREP.WPF
                 plugin.SetUnchanged();
             }
 
+            List<CustomEditor> editors = CustomEditors.Select(v => v.Save()).ToList();
+            bool editorsChanged = !editors.SequenceEqual(originalCustomEditors);
+            Settings.Set(GrepSettings.Key.CustomEditors, editors);
+
             Settings.Save();
 
             if (pluginsChanged)
                 GrepEngineFactory.ReloadPlugins();
+
+            if (editorsChanged)
+                GrepSearchResultsViewModel.InitializeEditorMenuItems();
         }
 
         private bool IsShellRegistered(string location)
@@ -1358,7 +1327,6 @@ namespace dnGREP.WPF
         private bool isVisible;
         private bool origIsVisible;
     }
-
 
     public class FontInfo(string familyName)
     {

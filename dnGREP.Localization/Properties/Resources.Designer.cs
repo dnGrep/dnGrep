@@ -2826,6 +2826,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open with.
+        /// </summary>
+        public static string Main_Results_OpenWith {
+            get {
+                return ResourceManager.GetString("Main_Results_OpenWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open with custom editor.
         /// </summary>
         public static string Main_Results_OpenWithCustomEditor {
@@ -4563,6 +4572,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Editor.
+        /// </summary>
+        public static string Options_CustomEditor_Title {
+            get {
+                return ResourceManager.GetString("Options_CustomEditor_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Escape quotes in the &apos;{0}&apos; argument.
         /// </summary>
         public static string Options_CustomEditorEscapeQuotes {
@@ -4635,6 +4653,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add….
+        /// </summary>
+        public static string Options_EditorAdd {
+            get {
+                return ResourceManager.GetString("Options_EditorAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arguments.
         /// </summary>
         public static string Options_EditorArguments {
@@ -4644,11 +4671,74 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Options_EditorCancel {
+            get {
+                return ResourceManager.GetString("Options_EditorCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Command.
         /// </summary>
         public static string Options_EditorCommand {
             get {
                 return ResourceManager.GetString("Options_EditorCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Options_EditorDelete {
+            get {
+                return ResourceManager.GetString("Options_EditorDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit….
+        /// </summary>
+        public static string Options_EditorEdit {
+            get {
+                return ResourceManager.GetString("Options_EditorEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extensions.
+        /// </summary>
+        public static string Options_EditorExtensions {
+            get {
+                return ResourceManager.GetString("Options_EditorExtensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label.
+        /// </summary>
+        public static string Options_EditorLabel {
+            get {
+                return ResourceManager.GetString("Options_EditorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Options_EditorOK {
+            get {
+                return ResourceManager.GetString("Options_EditorOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set as default editor for unlisted file types.
+        /// </summary>
+        public static string Options_EditorSetAsDefault {
+            get {
+                return ResourceManager.GetString("Options_EditorSetAsDefault", resourceCulture);
             }
         }
         
@@ -8451,6 +8541,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path must be valid.
+        /// </summary>
+        public static string Validation_PathMustBeValid {
+            get {
+                return ResourceManager.GetString("Validation_PathMustBeValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Illegal characters.
         /// </summary>
         public static string Validation_stringToDouble_IllegalCharacters {
@@ -8474,6 +8573,15 @@ namespace dnGREP.Localization.Properties {
         public static string Validation_stringToDouble_PleaseEnterAValueInTheRange01 {
             get {
                 return ResourceManager.GetString("Validation_stringToDouble_PleaseEnterAValueInTheRange01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value is required.
+        /// </summary>
+        public static string Validation_ValueIsRequired {
+            get {
+                return ResourceManager.GetString("Validation_ValueIsRequired", resourceCulture);
             }
         }
         

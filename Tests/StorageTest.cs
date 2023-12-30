@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using dnGREP.Common;
 using Xunit;
@@ -8,11 +9,17 @@ namespace Tests
 
     public class StorageTest : TestBase, IDisposable
     {
+        private readonly string sourceFolder;
         private readonly string destinationFolder;
 
         public StorageTest()
         {
-            destinationFolder = Path.Combine(Path.GetTempPath(), "dnGrepTest", "TestFiles");
+            sourceFolder = Path.Combine(GetDllPath(), "Files");
+            destinationFolder = Path.Combine(Path.GetTempPath(), "dnGrepTest", Guid.NewGuid().ToString());
+            if (!Directory.Exists(destinationFolder))
+            {
+                Directory.CreateDirectory(destinationFolder);
+            }
         }
 
         public void Dispose()
@@ -24,54 +31,213 @@ namespace Tests
         [Fact]
         public void TestSave()
         {
-            GrepSettings storage = GrepSettings.Instance;
-            storage.Clear();
-            Assert.True(storage.Count == 0);
-            storage.Set("test", "hello");
-            storage.Save(destinationFolder + "\\test.xml");
-            Assert.True(File.Exists(destinationFolder + "\\test.xml"));
-            Assert.True(new FileInfo(destinationFolder + "\\test.xml").Length > 10);
+            if (Activator.CreateInstance(typeof(GrepSettings), true) is GrepSettings storage)
+            {
+                storage.Clear();
+                Assert.Equal(0, storage.Count);
+                storage.Set("test", "hello");
+                storage.Save(destinationFolder + "\\test.xml");
+                Assert.True(File.Exists(destinationFolder + "\\test.xml"));
+                Assert.True(new FileInfo(destinationFolder + "\\test.xml").Length > 10);
+            }
+            else
+            {
+                Assert.Fail("Could not create instance of GrepSettings");
+            }
         }
 
         [Fact]
         public void TestLoad()
         {
-            GrepSettings storage = GrepSettings.Instance;
-            storage.Clear();
-            Assert.True(storage.Count == 0);
-            storage.Set("test", "hello");
-            storage.Save(destinationFolder + "\\test.xml");
-            storage.Clear();
-            Assert.True(storage.Count == 0);
-            storage.Load(destinationFolder + "\\test.xml");
-            Assert.True(storage.Get<string>("test") == "hello");
+            if (Activator.CreateInstance(typeof(GrepSettings), true) is GrepSettings storage)
+            {
+                storage.Clear();
+                Assert.Equal(0, storage.Count);
+                storage.Set("test", "hello");
+                storage.Save(destinationFolder + "\\test.xml");
+                storage.Clear();
+                Assert.Equal(0, storage.Count);
+                storage.Load(destinationFolder + "\\test.xml");
+                Assert.Equal("hello", storage.Get<string>("test"));
+            }
+            else
+            {
+                Assert.Fail("Could not create instance of GrepSettings");
+            }
         }
 
         [Fact]
         public void TestDataTypes()
         {
-            GrepSettings storage = GrepSettings.Instance;
-            storage.Clear();
-            Assert.True(storage.Count == 0);
-            storage.Set("size", 10);
-            storage.Set("isTrue", true);
-            DateTime? start = null;
-            storage.Set("startDate", start);
-            DateTime? end = new(2023, 02, 28, 16, 14, 12, DateTimeKind.Local);
-            storage.Set("endDate", end);
-            bool? indetermnate = null;
-            storage.Set("indetermnate", indetermnate);
+            if (Activator.CreateInstance(typeof(GrepSettings), true) is GrepSettings storage)
+            {
+                storage.Clear();
+                Assert.Equal(0, storage.Count);
+                storage.Set("size", 10);
+                storage.Set("isTrue", true);
+                DateTime? start = null;
+                storage.Set("startDate", start);
+                DateTime? end = new(2023, 02, 28, 16, 14, 12, DateTimeKind.Local);
+                storage.Set("endDate", end);
+                bool? indetermnate = null;
+                storage.Set("indetermnate", indetermnate);
 
-            storage.Save(destinationFolder + "\\test.xml");
-            storage.Clear();
-            Assert.True(storage.Count == 0);
-            storage.Load(destinationFolder + "\\test.xml");
+                storage.Save(destinationFolder + "\\test.xml");
+                storage.Clear();
+                Assert.Equal(0, storage.Count);
+                storage.Load(destinationFolder + "\\test.xml");
 
-            Assert.Equal(10, storage.Get<int>("size"));
-            Assert.True(storage.Get<bool>("isTrue"));
-            Assert.Null(storage.GetNullable<DateTime?>("startDate"));
-            Assert.Equal(end, storage.GetNullable<DateTime?>("endDate"));
-            Assert.Null(storage.GetNullable<bool?>("indetermnate"));
+                Assert.Equal(10, storage.Get<int>("size"));
+                Assert.True(storage.Get<bool>("isTrue"));
+                Assert.Null(storage.GetNullable<DateTime?>("startDate"));
+                Assert.Equal(end, storage.GetNullable<DateTime?>("endDate"));
+                Assert.Null(storage.GetNullable<bool?>("indetermnate"));
+            }
+            else
+            {
+                Assert.Fail("Could not create instance of GrepSettings");
+            }
+        }
+
+        [Fact]
+        public void TestConvertFromV1toV3()
+        {
+            if (Activator.CreateInstance(typeof(GrepSettings), true) is GrepSettings storage)
+            {
+                storage.Clear();
+
+                string file = Path.Combine(sourceFolder, "Settings", "version1", "dnGREP.Settings.dat");
+                storage.Load(file);
+
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditor));
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditorArgs));
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.EscapeQuotesInMatchArgument));
+                Assert.True(storage.ContainsKey(GrepSettings.Key.CustomEditors));
+
+                List<CustomEditor> list = storage.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+
+                Assert.NotNull(list);
+                Assert.NotEmpty(list);
+                Assert.Single(list);
+
+                CustomEditor editor = list[0];
+                Assert.NotNull(editor);
+                Assert.Equal("Notepad++", editor.Label);
+                Assert.Equal(@"C:\Program Files\Notepad++\notepad++.exe", editor.Path);
+                Assert.Equal("-n%line -c%column %file", editor.Args);
+                Assert.False(editor.EscapeQuotes);
+                Assert.True(string.IsNullOrEmpty(editor.Extensions));
+
+                // old binary data stores
+                Assert.True(storage.ContainsKey(GrepSettings.Key.LastCheckedVersion));
+                Assert.Equal(DateTime.MinValue, storage.Get<DateTime>(GrepSettings.Key.LastCheckedVersion));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.StartDate));
+                Assert.Null(storage.GetNullable<DateTime?>(GrepSettings.Key.StartDate));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.EndDate));
+                Assert.Null(storage.GetNullable<DateTime?>(GrepSettings.Key.EndDate));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.PreviewWindowWrap));
+                Assert.False(storage.Get<bool>(GrepSettings.Key.PreviewWindowWrap));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.FastSearchBookmarks));
+                Assert.Empty(storage.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastSearchBookmarks));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.FastReplaceBookmarks));
+                Assert.Empty(storage.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastReplaceBookmarks));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.FastFileMatchBookmarks));
+                Assert.Empty(storage.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileMatchBookmarks));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.FastFileNotMatchBookmarks));
+                Assert.Empty(storage.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileNotMatchBookmarks));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.FastPathBookmarks));
+                Assert.Empty(storage.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastPathBookmarks));
+            }
+            else
+            {
+                Assert.Fail("Could not create instance of GrepSettings");
+            }
+        }
+
+        [Fact]
+        public void TestConvertFromV2toV3()
+        {
+            if (Activator.CreateInstance(typeof(GrepSettings), true) is GrepSettings storage)
+            {
+                storage.Clear();
+
+                string file = Path.Combine(sourceFolder, "Settings", "version2", "dnGREP.Settings.dat");
+                storage.Load(file);
+
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditor));
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditorArgs));
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.EscapeQuotesInMatchArgument));
+                Assert.True(storage.ContainsKey(GrepSettings.Key.CustomEditors));
+
+                List<CustomEditor> list = storage.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+
+                Assert.NotNull(list);
+                Assert.NotEmpty(list);
+                Assert.Single(list);
+
+                CustomEditor editor = list[0];
+                Assert.NotNull(editor);
+                Assert.Equal("Notepad++", editor.Label);
+                Assert.Equal(@"C:\Program Files\Notepad++\notepad++.exe", editor.Path);
+                Assert.Equal("-n%line -c%column %file", editor.Args);
+                Assert.True(editor.EscapeQuotes);
+                Assert.True(string.IsNullOrEmpty(editor.Extensions));
+            }
+            else
+            {
+                Assert.Fail("Could not create instance of GrepSettings");
+            }
+        }
+
+        [Fact]
+        public void TestLoadV3()
+        {
+            if (Activator.CreateInstance(typeof(GrepSettings), true) is GrepSettings storage)
+            {
+                storage.Clear();
+
+                string file = Path.Combine(sourceFolder, "Settings", "version3", "dnGREP.Settings.dat");
+                storage.Load(file);
+
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditor));
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditorArgs));
+                Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.EscapeQuotesInMatchArgument));
+                Assert.True(storage.ContainsKey(GrepSettings.Key.CustomEditors));
+
+                List<CustomEditor> list = storage.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+
+                Assert.NotNull(list);
+                Assert.NotEmpty(list);
+                Assert.Equal(3, list.Count);
+
+                CustomEditor editor = list[0];
+                Assert.NotNull(editor);
+                Assert.Equal("Notepad++", editor.Label);
+                Assert.Equal(@"C:\Program Files\Notepad++\notepad++.exe", editor.Path);
+                Assert.Equal("-n%line -c%column %file", editor.Args);
+                Assert.False(editor.EscapeQuotes);
+                Assert.True(string.IsNullOrEmpty(editor.Extensions));
+
+                editor = list[1];
+                Assert.NotNull(editor);
+                Assert.Equal("VSCode", editor.Label);
+                Assert.Equal(@"C:\Users\user\AppData\Local\Programs\Microsoft VS Code\Code.exe", editor.Path);
+                Assert.Equal("-r -g %file:%line:%column", editor.Args);
+                Assert.False(editor.EscapeQuotes);
+                Assert.Equal("txt", editor.Extensions);
+            }
+            else
+            {
+                Assert.Fail("Could not create instance of GrepSettings");
+            }
         }
     }
 }

@@ -1419,7 +1419,7 @@ namespace dnGREP.Common
 
             if (!string.IsNullOrEmpty(filePath))
             {
-                if (!args.UseCustomEditor || string.IsNullOrWhiteSpace(args.CustomEditor))
+                if (!args.UseCustomEditor || string.IsNullOrWhiteSpace(args.CustomEditorName))
                 {
                     try
                     {
@@ -1443,24 +1443,46 @@ namespace dnGREP.Common
                 }
                 else
                 {
-                    args.CustomEditorArgs ??= string.Empty;
-                    int pageNumber = args.PageNumber > 0 ? args.PageNumber : 1;
-
-                    bool escapeQuotes = GrepSettings.Instance.Get<bool>(GrepSettings.Key.EscapeQuotesInMatchArgument);
-                    string matchValue = escapeQuotes ? EscapeQuotes(args.FirstMatch) : args.FirstMatch;
-
-                    ProcessStartInfo startInfo = new(args.CustomEditor)
+                    var editorList = GrepSettings.Instance.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+                    CustomEditor? editor = null;
+                    if (args.CustomEditorName.Equals(OpenFileArgs.DefaultEditor, StringComparison.Ordinal))
                     {
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        Arguments = args.CustomEditorArgs.Replace("%file", UiUtils.Quote(filePath), StringComparison.Ordinal)
-                            .Replace("%page", pageNumber.ToString(), StringComparison.Ordinal)
-                            .Replace("%line", args.LineNumber.ToString(), StringComparison.Ordinal)
-                            .Replace("%pattern", args.Pattern, StringComparison.Ordinal)
-                            .Replace("%match", matchValue, StringComparison.Ordinal)
-                            .Replace("%column", args.ColumnNumber.ToString(), StringComparison.Ordinal),
-                    };
-                    using var proc = Process.Start(startInfo);
+                        string fileType = Path.GetExtension(filePath).TrimStart('.');
+
+                        editor = editorList.FirstOrDefault(r => r.ExtensionList
+                            .Contains(fileType, StringComparison.OrdinalIgnoreCase));
+
+                        if (editor == null)
+                        {
+                            editor = editorList.FirstOrDefault();
+                        }
+                    }
+                    else
+                    {
+                        editor = editorList.FirstOrDefault(e => e.Label
+                            .Equals(args.CustomEditorName, StringComparison.OrdinalIgnoreCase));
+                    }
+
+                    if (editor != null)
+                    {
+                        int pageNumber = args.PageNumber > 0 ? args.PageNumber : 1;
+
+                        bool escapeQuotes = editor.EscapeQuotes;
+                        string matchValue = escapeQuotes ? EscapeQuotes(args.FirstMatch) : args.FirstMatch;
+
+                        ProcessStartInfo startInfo = new(editor.Path)
+                        {
+                            UseShellExecute = false,
+                            CreateNoWindow = true,
+                            Arguments = editor.Args.Replace("%file", UiUtils.Quote(filePath), StringComparison.Ordinal)
+                                .Replace("%page", pageNumber.ToString(), StringComparison.Ordinal)
+                                .Replace("%line", args.LineNumber.ToString(), StringComparison.Ordinal)
+                                .Replace("%pattern", args.Pattern, StringComparison.Ordinal)
+                                .Replace("%match", matchValue, StringComparison.Ordinal)
+                                .Replace("%column", args.ColumnNumber.ToString(), StringComparison.Ordinal),
+                        };
+                        using var proc = Process.Start(startInfo);
+                    }
                 }
             }
         }

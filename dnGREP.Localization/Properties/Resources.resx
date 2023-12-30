@@ -3923,4 +3923,52 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Docked to side of results tree:</value>
     <comment>Options dialog, layout radio group label</comment>
   </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>Value is required</value>
+    <comment>Validation message for user input in required text fields</comment>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>Path must be valid</value>
+    <comment>Validation message for user input of a path and file name</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>Add…</value>
+    <comment>Options dialog, button label to add custom editor</comment>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>Custom Editor</value>
+    <comment>Options custom editor dialog title</comment>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>Label</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Extensions</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Set as default editor for unlisted file types</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>Edit…</value>
+    <comment>Options dialog, button label to edit custom editor</comment>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Options dialog, button label to delete custom editor</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Open with</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
 </root>

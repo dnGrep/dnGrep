@@ -6,31 +6,31 @@ using System.Reflection;
 
 namespace dnGREP.Common
 {
-    public class ConfigurationTemplate(string exeFileName, string arguments, params string[] hintPath)
+    public class ConfigurationTemplate(string  label, string exeFileName, string arguments, params string[] hintPath)
     {
-        public static Dictionary<string, ConfigurationTemplate?> EditorConfigurationTemplates =>
-            new()
-            {
+        public static Dictionary<string, ConfigurationTemplate?> EditorConfigurationTemplates => new()
+        {
             {string.Empty, null},
-            {"Atom", new ConfigurationTemplate("atom.exe", @"%file:%line:%column", "AppDataLocal") },
-            {"GVim", new ConfigurationTemplate("gvim.exe", @"+/""%match"" +%line %file", "ProgramFilesx86") },
-            {"Notepad++", new ConfigurationTemplate("notepad++.exe", @"-n%line -c%column %file", "ProgramFilesx86") },
-            {"Notepad3", new ConfigurationTemplate("notepad3.exe", @"/m ""%match"" %file", "ProgramFilesx86") },
-            {"Sublime Text", new ConfigurationTemplate("subl.exe", @"%file:%line:%column", "ProgramFiles") },
-            {"VSCode", new ConfigurationTemplate("code.exe", @"-r -g %file:%line:%column", "AppDataLocal", "ProgramFiles") },
+            {"Acrobat", new ConfigurationTemplate("Acrobat", "acrobat.exe", @"/A ""page=%page"" %file", "ProgramFiles") },
+            {"Atom", new ConfigurationTemplate("Atom", "atom.exe", @"%file:%line:%column", "AppDataLocal") },
+            {"GVim", new ConfigurationTemplate("GVim", "gvim.exe", @"+/""%match"" +%line %file", "ProgramFilesx86") },
+            {"Notepad++", new ConfigurationTemplate("Notepad++", "notepad++.exe", @"-n%line -c%column %file", "ProgramFilesx86") },
+            {"Notepad3", new ConfigurationTemplate("Notepad3", "notepad3.exe", @"/m ""%match"" %file", "ProgramFilesx86") },
+            {"Sublime Text", new ConfigurationTemplate("Sublime Text", "subl.exe", @"%file:%line:%column", "ProgramFiles") },
+            {"Sumatra PDF", new ConfigurationTemplate("Sumatra PDF", "sumatrapdf.exe", @"-reuse-instance -page %page %file", "AppDataLocal", "ProgramFiles") },
+            {"VSCode", new ConfigurationTemplate("VSCode", "code.exe", @"-r -g %file:%line:%column", "AppDataLocal", "ProgramFiles") },
         };
 
-        public static Dictionary<string, ConfigurationTemplate?> CompareConfigurationTemplates =>
-            new()
-            {
+        public static Dictionary<string, ConfigurationTemplate?> CompareConfigurationTemplates => new()
+        {
             {string.Empty, null},
-            {"Beyond Compare", new ConfigurationTemplate("BComp.exe", string.Empty, "ProgramFiles") },
-            {"KDiff3", new ConfigurationTemplate("kdiff3.exe", string.Empty, "ProgramFiles") },
-            {"Meld", new ConfigurationTemplate("meld.exe", string.Empty, "ProgramFilesx86") },
-            {"P4Merge", new ConfigurationTemplate("p4merge.exe", string.Empty, "ProgramFiles") },
-            {"WinMerge", new ConfigurationTemplate("WinMergeU.exe", @"/e /u /x", "ProgramFiles") },
-            {"VSCode", new ConfigurationTemplate("code.exe", @"-d", "AppDataLocal", "ProgramFiles") },
-            {"VsDiffMerge", new ConfigurationTemplate("vsDiffMerge.exe", string.Empty, "ProgramFiles", "ProgramFilesx86") },
+            {"Beyond Compare", new ConfigurationTemplate("Beyond Compare", "BComp.exe", string.Empty, "ProgramFiles") },
+            {"KDiff3", new ConfigurationTemplate("KDiff3", "kdiff3.exe", string.Empty, "ProgramFiles") },
+            {"Meld", new ConfigurationTemplate("Meld", "meld.exe", string.Empty, "ProgramFilesx86") },
+            {"P4Merge", new ConfigurationTemplate("P4Merge", "p4merge.exe", string.Empty, "ProgramFiles") },
+            {"WinMerge", new ConfigurationTemplate("WinMerge", "WinMergeU.exe", @"/e /u /x", "ProgramFiles") },
+            {"VSCode", new ConfigurationTemplate("VSCode", "code.exe", @"-d", "AppDataLocal", "ProgramFiles") },
+            {"VsDiffMerge", new ConfigurationTemplate("VsDiffMerge", "vsDiffMerge.exe", string.Empty, "ProgramFiles", "ProgramFilesx86") },
         };
 
         private static readonly Dictionary<string, string> SearchPaths = new()
@@ -88,6 +88,8 @@ namespace dnGREP.Common
             }
             return string.Empty;
         }
+
+        public string Label { get; private set; } = label;
 
         public string ExeFileName { get; private set; } = exeFileName;
 

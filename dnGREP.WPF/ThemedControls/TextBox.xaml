@@ -29,7 +29,7 @@
                                 <AdornedElementPlaceholder x:Name="adorner" Margin="-1" />
                             </Grid>
                         </Border>
-                        <Border x:Name="errorBorder" MinHeight="24" Margin="8,0,0,0"
+                        <Border x:Name="errorBorder" MinHeight="24" Margin="16,0,0,0"
                                 Background="#FFdc000c" Opacity="0" CornerRadius="0"
                                 IsHitTestVisible="False">
                             <TextBlock Margin="8,2,8,3" VerticalAlignment="Center"

@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dictionary version="2" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <item key="ApplicationFontFamily">Segoe UI</item>
+  <item key="MainFormFontSize">14</item>
+  <item key="ReplaceFormFontSize">14</item>
+  <item key="DialogFontSize">14</item>
+  <item key="ResultsFontFamily">Cascadia Code</item>
+  <item key="ResultsFontSize">14</item>
+  <item key="SearchFor">a\s\w+</item>
+  <item key="ReplaceWith"></item>
+  <item key="FilePattern">*.pdf</item>
+  <item key="FilePatternIgnore"></item>
+  <item key="SearchFolder">C:\Repos\testFiles\pdf2</item>
+  <item key="LastCheckedVersion">2023-12-24T14:42:58</item>
+  <item key="FastSearchBookmarks">
+    <stringArray>
+      <string isPinned="false">a\s\w+</string>
+      <string isPinned="false">in everyday</string>
+      <string isPinned="false">to view</string>
+      <string isPinned="false">can help</string>
+      <string isPinned="false">20 vit</string>
+      <string isPinned="false">better prepared</string>
+      <string isPinned="false">times</string>
+      <string isPinned="false">cheese</string>
+    </stringArray>
+  </item>
+  <item key="FastReplaceBookmarks">
+    <stringArray>
+      <string isPinned="false"></string>
+    </stringArray>
+  </item>
+  <item key="FastFileMatchBookmarks">
+    <stringArray>
+      <string isPinned="false">*.pdf</string>
+      <string isPinned="false">*.cs</string>
+      <string isPinned="false">*.txt</string>
+      <string isPinned="false">*.*</string>
+    </stringArray>
+  </item>
+  <item key="FastFileNotMatchBookmarks">
+    <stringArray>
+      <string isPinned="false"></string>
+      <string isPinned="false">*.pdf</string>
+    </stringArray>
+  </item>
+  <item key="FastPathBookmarks">
+    <stringArray>
+      <string isPinned="false">C:\Repos\testFiles\pdf2</string>
+      <string isPinned="false">C:\Repos\testFiles\pdf2\000048.pdf</string>
+      <string isPinned="false">C:\Repos\testFiles\test</string>
+      <string isPinned="false">C:\Repos\testFiles\test\issue998</string>
+    </stringArray>
+  </item>
+  <item key="SortDirection">Ascending</item>
+  <item key="NaturalSort">True</item>
+  <item key="TypeOfSort">FileNameDepthFirst</item>
+  <item key="ShowResultOptions">False</item>
+  <item key="ResultsTreeScale">1</item>
+  <item key="ResultsTreeWrap">False</item>
+  <item key="HighlightMatches">True</item>
+  <item key="ShowLinesInContext">True</item>
+  <item key="ContextLinesBefore">2</item>
+  <item key="ContextLinesAfter">3</item>
+  <item key="PersonalizationOn">True</item>
+  <item key="IgnoreFilter"></item>
+  <item key="PreviewBounds">0,0,0,0</item>
+  <item key="PreviewWindowState">Normal</item>
+  <item key="PreviewDockedWidth">707</item>
+  <item key="PreviewDockedHeight">176.6532489936745</item>
+  <item key="PreviewHidden">False</item>
+  <item key="PreviewDocked">True</item>
+  <item key="PreviewDockSide">Right</item>
+  <item key="PreviewAutoPosition">True</item>
+  <item key="IncludeHidden">True</item>
+  <item key="IncludeBinary">True</item>
+  <item key="IncludeArchive">False</item>
+  <item key="SearchParallel">True</item>
+  <item key="IncludeSubfolder">True</item>
+  <item key="MaxSubfolderDepth">-1</item>
+  <item key="FollowSymlinks">False</item>
+  <item key="SkipRemoteCloudStorageFiles">True</item>
+  <item key="TypeOfSearch">Regex</item>
+  <item key="CodePage">-1</item>
+  <item key="TypeOfFileSearch">Asterisk</item>
+  <item key="UseGitignore">True</item>
+  <item key="UseFileSizeFilter">No</item>
+  <item key="CaseSensitive">False</item>
+  <item key="Multiline">False</item>
+  <item key="Singleline">False</item>
+  <item key="StopAfterFirstMatch">False</item>
+  <item key="WholeWord">False</item>
+  <item key="BooleanOperators">False</item>
+  <item key="CaptureGroupSearch">False</item>
+  <item key="HighlightCaptureGroups">False</item>
+  <item key="SizeFrom">0</item>
+  <item key="SizeTo">100</item>
+  <item key="IsFiltersExpanded">False</item>
+  <item key="PreviewFileContent">True</item>
+  <item key="UseFileDateFilter">None</item>
+  <item key="TypeOfTimeRangeFilter">None</item>
+  <item key="StartDate" xsi:nil="true" />
+  <item key="EndDate" xsi:nil="true" />
+  <item key="HoursFrom">0</item>
+  <item key="HoursTo">8</item>
+  <item key="IsSingletonInstance">False</item>
+  <item key="ConfirmExitScript">False</item>
+  <item key="ConfirmExitSearch">False</item>
+  <item key="ConfirmExitSearchDuration">10</item>
+  <item key="PassSearchFolderToSingleton">True</item>
+  <item key="EnableUpdateChecking">True</item>
+  <item key="UpdateCheckInterval">10</item>
+  <item key="CustomEditor">C:\Program Files\Notepad++\notepad++.exe</item>
+  <item key="CustomEditorArgs">-n%line -c%column %file</item>
+  <item key="EscapeQuotesInMatchArgument">True</item>
+  <item key="CompareApplication">C:\Program Files\WinMerge\WinMergeU.exe</item>
+  <item key="CompareApplicationArgs">/e /u /x</item>
+  <item key="ShowFilePathInResults">True</item>
+  <item key="ShowFileErrorsInResults">True</item>
+  <item key="NavigationButtonsVisible">True</item>
+  <item key="NavToolsPosition">LeftTop</item>
+  <item key="NavToolsSize">Small</item>
+  <item key="AllowSearchingForFileNamePattern">True</item>
+  <item key="DetectEncodingForFileNamePattern">True</item>
+  <item key="ExpandResults">False</item>
+  <item key="ShowVerboseMatchCount">True</item>
+  <item key="ShowFileInfoTooltips">True</item>
+  <item key="MatchTimeout">4</item>
+  <item key="FuzzyMatchThreshold">0.5</item>
+  <item key="MaxSearchBookmarks">20</item>
+  <item key="MaxPathBookmarks">20</item>
+  <item key="MaxExtensionBookmarks">10</item>
+  <item key="OptionsOnMainPanel">True</item>
+  <item key="MaximizeResultsTreeOnSearch">False</item>
+  <item key="MaxDegreeOfParallelism">-1</item>
+  <item key="ShowFullReplaceDialog">True</item>
+  <item key="DeleteToRecycleBin">True</item>
+  <item key="OverwriteFilesOnCopy">Prompt</item>
+  <item key="OverwriteFilesOnMove">Prompt</item>
+  <item key="PreserveFolderLayoutOnCopy">True</item>
+  <item key="PreserveFolderLayoutOnMove">True</item>
+  <item key="FollowWindowsTheme">False</item>
+  <item key="CurrentTheme">Dark</item>
+  <item key="CurrentCulture">en</item>
+  <item key="UseDefaultFont">False</item>
+  <item key="HexResultByteLength">16</item>
+  <item key="PdfToTextOptions">-layout -enc UTF-8 -bom</item>
+  <item key="PdfNumberStyle">PageNumber</item>
+  <item key="WordExtractFootnotes">False</item>
+  <item key="WordFootnoteReference">None</item>
+  <item key="WordExtractComments">False</item>
+  <item key="WordCommentReference">None</item>
+  <item key="WordExtractHeaders">False</item>
+  <item key="WordExtractFooters">False</item>
+  <item key="WordHeaderFooterPosition">SectionStart</item>
+  <item key="OpenxmlEnabled">True</item>
+  <item key="OpenxmlPreviewText">True</item>
+  <item key="OpenxmlExtensions">docx,docm,xls,xlsx,xlsm,pptx,pptm</item>
+  <item key="OpenxmlCustomExtensions"></item>
+  <item key="PdfEnabled">True</item>
+  <item key="PdfPreviewText">True</item>
+  <item key="PdfExtensions">pdf</item>
+  <item key="PdfCustomExtensions"></item>
+  <item key="WordEnabled">True</item>
+  <item key="WordPreviewText">True</item>
+  <item key="WordExtensions">doc</item>
+  <item key="WordCustomExtensions"></item>
+  <item key="MainWindowBounds">65.5,17.5,1200,800</item>
+  <item key="MainWindowState">Maximized</item>
+  <item key="PreviewWindowWrap">False</item>
+  <item key="PreviewWindowFont">12</item>
+  <item key="SearchTypeXPathVisible">False</item>
+  <item key="SearchTypePhoneticVisible">False</item>
+  <item key="SearchTypeByteVisible">False</item>
+  <item key="BooleanOperatorsVisible">False</item>
+  <item key="CaptureGroupSearchVisible">False</item>
+  <item key="SearchInResultsVisible">False</item>
+  <item key="StopAfterFirstMatchVisible">False</item>
+  <item key="PdfJoinLines">True</item>
+</dictionary>

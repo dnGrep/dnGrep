@@ -152,18 +152,16 @@
         <TreeView.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Click="BtnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_OpenWithCustomEditor'}" Click="BtnOpenFileCustomEditor_Click" 
-                          ToolTipService.ShowOnDisabled="True">
-                    <MenuItem.IsEnabled>
-                        <MultiBinding Converter="{StaticResource BooleanAndConverter}">
-                            <Binding Path="HasSelection"/>
-                            <Binding Path="CustomEditorConfigured"/>
-                        </MultiBinding>
-                    </MenuItem.IsEnabled>
-                    <MenuItem.ToolTip>
-                        <ToolTip Content="{l:Loc Key='Main_Results_Tooltip_NotConfigured'}"
-                                 Visibility="{Binding Path=CustomEditorConfigured, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
-                    </MenuItem.ToolTip>
+
+                <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
+                          ItemsSource="{Binding Path=EditorMenuItems, UpdateSourceTrigger=PropertyChanged}" >
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
+                            <Setter Property="Header" Value="{Binding Header}"/>
+                            <Setter Property="Command" Value="{Binding Command}"/>
+                            <Setter Property="IsEnabled" Value="{Binding IsEnabled}"/>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Click="BtnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Click="BtnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />

@@ -45,6 +45,9 @@ namespace dnGREP.WPF.UserControls
 
             viewModel = (GrepSearchResultsViewModel)DataContext;
             viewModel.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
+
+            GrepSearchResultsViewModel.SearchResultsMessenger.Register("OpenFiles",
+                (Action<string>)(label => OpenFiles(true, label)));
         }
 
         private void SelectedNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -82,12 +85,7 @@ namespace dnGREP.WPF.UserControls
 
         private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFiles(false);
-        }
-
-        private void BtnOpenFileCustomEditor_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFiles(true);
+            OpenFiles(false, string.Empty);
         }
 
         private void BtnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
@@ -756,7 +754,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void OpenFiles(bool useCustomEditor)
+        private void OpenFiles(bool useCustomEditor, string customEditorName)
         {
             // get the unique set of file names to open from the selections
             // keep the first record from each file to use when opening the file
@@ -792,10 +790,10 @@ namespace dnGREP.WPF.UserControls
             }
 
             foreach (var item in lines)
-                viewModel.OpenFile(item, useCustomEditor);
+                viewModel.OpenFile(item, useCustomEditor, customEditorName);
 
             foreach (var item in files)
-                viewModel.OpenFile(item, useCustomEditor);
+                viewModel.OpenFile(item, useCustomEditor, customEditorName);
         }
 
         private void OpenFolders()
@@ -1055,11 +1053,13 @@ namespace dnGREP.WPF.UserControls
             {
                 if (treeView.SelectedItem is FormattedGrepResult file)
                 {
-                    viewModel.OpenFile(file, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
+                    viewModel.OpenFile(file, GrepSettings.Instance.HasCustomEditor,
+                        OpenFileArgs.DefaultEditor);
                 }
                 else if (treeView.SelectedItem is FormattedGrepLine line)
                 {
-                    viewModel.OpenFile(line, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
+                    viewModel.OpenFile(line, GrepSettings.Instance.HasCustomEditor,
+                        OpenFileArgs.DefaultEditor);
                 }
                 e.Handled = true;
             }
@@ -1072,11 +1072,11 @@ namespace dnGREP.WPF.UserControls
             {
                 if (treeView.SelectedItem is FormattedGrepResult fileNode)
                 {
-                    viewModel.OpenFile(fileNode, false);
+                    viewModel.OpenFile(fileNode, false, string.Empty);
                 }
                 else if (treeView.SelectedItem is FormattedGrepLine line)
                 {
-                    viewModel.OpenFile(line, false);
+                    viewModel.OpenFile(line, false, string.Empty);
                 }
                 e.Handled = true;
             }
@@ -1089,8 +1089,9 @@ namespace dnGREP.WPF.UserControls
                 (e.OriginalSource is TextBlock || e.OriginalSource is Run))
             {
                 bool useCustomEditor = !Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) &&
-                    GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor);
-                viewModel.OpenFile(line, useCustomEditor);
+                    GrepSettings.Instance.HasCustomEditor;
+                viewModel.OpenFile(line, useCustomEditor,
+                        OpenFileArgs.DefaultEditor);
                 e.Handled = true;
             }
         }

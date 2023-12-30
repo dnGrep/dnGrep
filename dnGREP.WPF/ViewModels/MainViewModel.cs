@@ -154,12 +154,12 @@ namespace dnGREP.WPF
 
         void SearchResults_OpenFileRequest(object? sender, GrepResultEventArgs e)
         {
-            OpenFile(e.FormattedGrepResult, e.UseCustomEditor);
+            OpenFile(e.FormattedGrepResult, e.UseCustomEditor, e.CustomEditorName);
         }
 
         void SearchResults_OpenFileLineRequest(object? sender, GrepLineEventArgs e)
         {
-            OpenFile(e.FormattedGrepLine, e.UseCustomEditor);
+            OpenFile(e.FormattedGrepLine, e.UseCustomEditor, e.CustomEditorName);
         }
 
         void SearchResults_PreviewFileRequest(object? sender, GrepResultEventArgs e)
@@ -795,7 +795,7 @@ namespace dnGREP.WPF
             base.SaveSettings();
         }
 
-        public void OpenFile(FormattedGrepLine? selectedNode, bool useCustomEditor)
+        public void OpenFile(FormattedGrepLine? selectedNode, bool useCustomEditor, string customEditorName)
         {
             if (selectedNode == null)
                 return;
@@ -817,8 +817,7 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
-                    matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
-                    Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                    matchText, columnNumber, useCustomEditor, customEditorName);
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
                     var customExtensions = Settings.GetExtensionList("Archive Custom", []);
@@ -829,8 +828,7 @@ namespace dnGREP.WPF
                             result.GrepResult.Pattern, string.Empty, true);
 
                         Utils.OpenFile(new(grepSearchResult, grepSearchResult.Pattern, pageNumber, lineNumber,
-                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
-                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                            matchText, columnNumber, useCustomEditor, customEditorName));
                     }
                     else
                     {
@@ -847,8 +845,7 @@ namespace dnGREP.WPF
                     }
                     if (fileArg.UseBaseEngine)
                         Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
-                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
-                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                            matchText, columnNumber, useCustomEditor, customEditorName));
                 }
             }
             catch (Exception ex)
@@ -872,7 +869,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public void OpenFile(FormattedGrepResult? result, bool useCustomEditor)
+        public void OpenFile(FormattedGrepResult? result, bool useCustomEditor, string customEditorName)
         {
             if (result == null)
                 return;
@@ -900,8 +897,7 @@ namespace dnGREP.WPF
                 }
 
                 OpenFileArgs fileArg = new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
-                    matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
-                    Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                    matchText, columnNumber, useCustomEditor, customEditorName);
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
                     var customExtensions = Settings.GetExtensionList("Archive Custom", []);
@@ -912,8 +908,7 @@ namespace dnGREP.WPF
                             result.GrepResult.Pattern, string.Empty, true);
 
                         Utils.OpenFile(new(grepSearchResult, grepSearchResult.Pattern, pageNumber, lineNumber,
-                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
-                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                            matchText, columnNumber, useCustomEditor, customEditorName));
                     }
                     else
                     {
@@ -930,8 +925,7 @@ namespace dnGREP.WPF
                     }
                     if (fileArg.UseBaseEngine)
                         Utils.OpenFile(new(result.GrepResult, result.GrepResult.Pattern, pageNumber, lineNumber,
-                            matchText, columnNumber, useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
-                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                            matchText, columnNumber, useCustomEditor, customEditorName));
                 }
             }
             catch (Exception ex)
@@ -1923,7 +1917,7 @@ namespace dnGREP.WPF
             inUpdateBookmarks = false;
         }
 
-        private static string UpdateMRUList(MRUType valueType, ObservableCollection<MRUViewModel> list, 
+        private static string UpdateMRUList(MRUType valueType, ObservableCollection<MRUViewModel> list,
             string value, int maxCount)
         {
             string returnValue = value;

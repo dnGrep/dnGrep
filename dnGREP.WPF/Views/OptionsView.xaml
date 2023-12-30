@@ -9,7 +9,7 @@
                  Title="{l:Loc Key='Options_OptionsTitle'}"
                  Height="600"
                  MinWidth="500"
-                 d:DesignHeight="2800"
+                 d:DesignHeight="3400"
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
@@ -387,56 +387,47 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_CustomEditor'}">
-                    <Grid Margin="0,0,12,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="440" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3"
-                                   Text="{l:Loc Key='Options_EditorCommand'}" />
-                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3"
-                                 Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Content="{l:Loc Key='Options_BrowseFileLocation'}" Margin="3"
-                                Command="{Binding Path=BrowseEditorCommand}">
-                            <Button.Width>
-                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
-                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="ApplicationFontFamily"/>
-                                    <Binding Path="DialogFontSize"/>
-                                </MultiBinding>
-                            </Button.Width>
-                        </Button>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"
-                                   Text="{l:Loc Key='Options_EditorArguments'}" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
-                                 Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="3"
-                                  Content="{Binding EscapeQuotesLabel, FallbackValue='Escape quotes'}"
-                                  IsChecked="{Binding EscapeQuotesInMatchArgument}"/>
-                        <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="3"
-                                  ItemsSource="{Binding Path=CustomEditorTemplates}"
-                                  DisplayMemberPath="Key"
-                                  SelectedValuePath="Value"
-                                  SelectedValue="{Binding Path=CustomEditorTemplate}">
-                            <ComboBox.Width>
-                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="150" FallbackValue="150">
-                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="ApplicationFontFamily"/>
-                                    <Binding Path="DialogFontSize"/>
-                                </MultiBinding>
-                            </ComboBox.Width>
-                        </ComboBox>
-                        <TextBlock Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Margin="3"
-                                   Text="{Binding CustomEditorHelp}"/>
-                    </Grid>
+                    <StackPanel Orientation="Vertical">
+                        <Button Content="{l:Loc Key='Options_EditorAdd'}"
+                                Command="{Binding AddCustomEditorCommand}"
+                                Padding="12,1" Margin="3,0" 
+                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <ItemsControl ItemsSource="{Binding Path=CustomEditors}" Grid.IsSharedSizeScope="True">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="C1"/>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="C2"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                                   FontWeight="Bold" Margin="0,3,6,3"
+                                                   Text="{Binding Label}" 
+                                                   ToolTip="{Binding Path}"/>
+                                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                                            <Button Content="{l:Loc Key='Options_EditorEdit'}"
+                                                    Command="{Binding EditCustomEditorCommand}"
+                                                    Padding="12,1" Margin="3,0" 
+                                                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Button Content="{l:Loc Key='Options_EditorDelete'}"
+                                                    Command="{Binding DeleteCustomEditorCommand}"
+                                                    Padding="12,1" Margin="3,0" 
+                                                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                                   Text="{Binding ExtensionSummary}" Margin="0,3,6,3"/>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_CompareApplication'}">
@@ -586,7 +577,7 @@
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesOnly'}" GroupName="replaceLayout"
                                          IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FilesOnly}" />
                         </StackPanel>
-                        
+
                         <CheckBox Margin="0,9,0,0" Content="{l:Loc Key='Options_ShowNavigationButtons'}"
                                   IsChecked="{Binding Path=NavigationButtonsVisible}" />
                         <TextBlock Text="{l:Loc Key='Options_ButtonSize'}" Margin="24,3,0,0"/>
@@ -652,7 +643,7 @@
                             <RadioButton Grid.Row="6" Grid.Column="3" Content=""
                                          IsChecked="{Binding NavigationToolsPosition, Converter={StaticResource ebc}, ConverterParameter=BottomRight}"/>
                         </Grid>
-                        
+
                         <StackPanel  Margin="0,16,0,0">
                             <TextBlock Text="{l:Loc Key='Options_PersonalizeControlVisibility'}" 
                                        ToolTip="{l:Loc Key='Options_PersonalizeControlVisibility_Tooltip'}" />
