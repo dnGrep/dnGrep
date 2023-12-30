@@ -2602,7 +2602,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>확인</value>
+    <value>OK</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Main_Menu_Personalize" xml:space="preserve">

@@ -1644,7 +1644,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Используйте ключевые слова '{0}' для расположения файла, '{1}' для номера строки, '{2}' для шаблона поиска, '{3}' для первого совпадающего текста в строке и '{4}' для номера столбца первого совпадения в строке.</value>
+    <value>Используйте ключевые слова '{0}' для расположения файла, '{5}' для номера страницы, '{1}' для номера строки, '{2}' для шаблона поиска, '{3}' для первого совпадающего текста в строке и '{4}' для номера столбца первого совпадения в строке.</value>
     <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -3544,7 +3544,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_DeleteFiles" xml:space="preserve">
-    <value>Удаление файлов</value>
+    <value>Удалить файлы</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Filter" xml:space="preserve">
@@ -3554,5 +3554,377 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="BookmarkDetails_Filter" xml:space="preserve">
     <value>Фильтр:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>Недопустимые символы</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>(минут)</value>
+    <comment>Options dialog, confirmation value units label</comment>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>Маленький</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Ошибка: {0} для аргумента {1}</value>
+    <comment>Script copy command validation error message. {0} is the error message and {1} is the command argument name.</comment>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>Размер кнопки:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Показывать файлы с ошибками поиска на панели результатов</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>Показывать кнопки навигации</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>Результаты поиска будут очищены при выходе.</value>
+    <comment>Message box text for: Search results on exit, line 1</comment>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>Полноразмерный символ в скобках</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Variable=строка (строка может быть пустой, чтобы очистить переменную)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>Извлекать комментарии</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Больше не показывать это сообщение</value>
+    <comment>Message box button text for confirmation dialog</comment>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>Неверный введённый тип</value>
+    <comment>Validation message for user input of numeric values</comment>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>Большой</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Ошибка: для аргумента {0} требуется шаблон</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Записывать строку или прошедшее время в файл журнала</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>Целевой файл существует, но перезапись является ложной: '{0}'</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>Не показывать</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>Извлечь нижние колонтитулы</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Ошибка открытия выходного файла</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>Целевой файл такой же, как исходный: {0}</value>
+    <comment>Script copy command error message. {0} is the destination path and file name.</comment>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>Сортировка цифр в числовом порядке</value>
+    <comment>Main window sort options menu item tooltip</comment>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Вставить</value>
+    <comment>Menu item text for text box context menu</comment>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>Может поддерживаться не всеми шрифтами</value>
+    <comment>Options dialog, radio button tooltip</comment>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>Сделать строчными</value>
+    <comment>Menu item text for text box context menu</comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>Замена отменена – заменен текст в {0} файлах.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext вернул '{0}'</value>
+    <comment>Format string for pdftotext error messages: {0} is the error message</comment>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>Возобновить</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Копировать</value>
+    <comment>Menu item text for text box context menu</comment>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>Позиция панели:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Не удалось выполнить поиск внутри архива '{0}'</value>
+    <comment>Error message returned to results list. {0} is the file name</comment>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>Ошибка {0} при обработке файла '{1}'</value>
+    <comment>Script copy command error message. {0} is the error message and {1} is the source path and file name.</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>Запрашивать подтверждение при выходе, если поиск длится дольше, чем</value>
+    <comment>Options dialog, confirmation option check box label</comment>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+    <comment>Options dialog, section heading</comment>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>Введите значение в диапазоне: {0}–{1}.</value>
+    <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext не удалось создать текстовый файл</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>Извлекать сноски</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
+    <value>Если второй экземпляр имеет аргумент папки поиска, изменять папку в существующем окне.</value>
+    <comment>Options dialog, change folder option tooltip</comment>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>Экранирующие кавычки в аргументе '{0}'</value>
+    <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>Вы хотите остановить скрипт и выйти?</value>
+    <comment>Message box text for: Script is running on exit, line 2</comment>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Извлекать заголовки</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Задать переменную среды</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>Страница</value>
+    <comment>Report content - heading for page number</comment>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>Шаблон соответствия не соответствует имени файла '{0}'</value>
+    <comment>Script copy command error message.  {0} is the source file name.</comment>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Повторно использовать существующее окно (один экземпляр) *</value>
+    <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>Не удалось создать целевой каталог: '{0}'</value>
+    <comment>Script copy command error message.  {0} is the directory name.</comment>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Сохранять макет исходной папки</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Ошибка: для аргумента {0} требуется значение True или False</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Копировать и переименовать файлы результатов, используя регулярные выражения</value>
+    <comment>Script editor command tooltip </comment>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>Конец документа</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>Вы хотите выйти?</value>
+    <comment>Message box text for: Search results on exit, line 2</comment>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>Средний</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>Многострочный поиск</value>
+    <comment>Options dialog, checkbox label for PDF options</comment>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>Приостановить</value>
+    <comment>Main window pause/resume button label (accel)</comment>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>Скопировано '{0}' в '{1}'</value>
+    <comment>Script copy command success message. {0} is the source file name and {1} is the destination file name.</comment>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>При открытии файла, открывать целый архив для следующих расширений:</value>
+    <comment>Options dialog, custom archive extension label</comment>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>Да, все равно выйти</value>
+    <comment>Message box button text for exit confirmation</comment>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Ошибка, связанная с PDF-разрешениями</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>Полный размер в скобках</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Поиск отменен в {0} – найдено совпадений {1} в {2} файлах из {3} обнаруженных.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>Ссылочные символы сноски:</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>Сделать заглавными</value>
+    <comment>Menu item text for text box context menu</comment>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>Subscript</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>Текущая строка</value>
+    <comment>Main window, results list, button tooltip</comment>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>Полноразмерный символ</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext вернул '{0}' читая '{1}'</value>
+    <comment>Format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>Запущен скрипт.</value>
+    <comment>Message box text for: Script is running on exit, line 1</comment>
+  </data>
+  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
+    <value>Перенаправить папку поиска в существующее окно</value>
+    <comment>Options dialog, change folder option label</comment>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>Извлеченная позиция верхнего и нижнего колонтитула:</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>Закреплять сбоку от дерева результатов:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>Номера комментариев:</value>
+    <comment>Options dialog, options group label</comment>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>Не удалось прочитать документ</value>
+    <comment>Word plugin error message returned to results list</comment>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Superscript</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>Не удалось выполнить поиск в файлах {0} из-за разрешений, блокировок или ошибок: подробности см. в файле журнала dnGrep</value>
+    <comment>Main window tooltip. {0} is the count of file read errors</comment>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>Запрашивать подтверждение при выходе, когда скрипт запущен</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>Естественный порядок сортировки</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>Выход</value>
+    <comment>Options dialog, Exit group header label</comment>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>Выполняется замена в файлах.</value>
+    <comment>Message box text for: Replace is running on exit, line 1</comment>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>Дерево результатов выше</value>
+    <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>Не настроено</value>
+    <comment>Main window, results list, context menu item tooltip</comment>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Ошибка открытия PDF-файла</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>Другая ошибка</value>
+    <comment>pdftotext error message returned to results list</comment>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Ошибка: для аргумента {0} требуется путь</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>Идет поиск.</value>
+    <comment>Message box text for: Search is running on exit, line 1</comment>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Вырезать</value>
+    <comment>Menu item text for text box context menu</comment>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>Начало секции</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Не удалось извлечь файл '{0}' из архива '{1}'</value>
+    <comment>Error message returned to the results list. {0} is the file name and {1} is the archive file name</comment>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>Строка сообщения, либо 'time' для журналирования прошедшего времени</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>Вы хотите остановить поиск и выйти?</value>
+    <comment>Message box text for: Search is running on exit, line 2</comment>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>Данный PDF-файл не содержит текста</value>
+    <comment>Main window search results message</comment>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* При изменении требуется перезагрузка</value>
+    <comment>Options dialog, footnote text</comment>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>Приостановлено</value>
+    <comment>Main window, status bar label</comment>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Разрешите завершение или отмените его перед выходом.</value>
+    <comment>Message box text for: Replace is running on exit, line 2</comment>
   </data>
 </root>
