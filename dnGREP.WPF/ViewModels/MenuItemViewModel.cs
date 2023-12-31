@@ -25,6 +25,13 @@ namespace dnGREP.WPF
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
         }
 
+        public MenuItemViewModel(string header, bool isEnabled)
+        {
+            Header = (header ?? string.Empty).Replace("_", "__", StringComparison.Ordinal);
+            Command = null;
+            IsEnabled = isEnabled;
+        }
+
         public MenuItemViewModel(string header, bool isCheckable, RelayCommand relayCommand)
             : this(header, relayCommand)
         {

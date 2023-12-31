@@ -26,6 +26,11 @@ namespace dnGREP.WPF
     {
         public static readonly Messenger SearchResultsMessenger = new();
 
+        static GrepSearchResultsViewModel()
+        {
+            InitializeEditorMenuItems();
+        }
+
         public GrepSearchResultsViewModel()
         {
             SelectedNodes = [];
@@ -59,6 +64,35 @@ namespace dnGREP.WPF
         }
 
         private readonly Dictionary<string, BitmapSource> icons = [];
+
+        public static ObservableCollection<MenuItemViewModel> EditorMenuItems { get; } = [];
+
+        public static void InitializeEditorMenuItems()
+        {
+            EditorMenuItems.Clear();
+
+            if (GrepSettings.Instance.ContainsKey(GrepSettings.Key.CustomEditors))
+            {
+                List<CustomEditor> list = GrepSettings.Instance.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+                foreach (var editor in list)
+                {
+                    if (editor != null && !string.IsNullOrEmpty(editor.Label) && !string.IsNullOrEmpty(editor.Path))
+                    {
+                        EditorMenuItems.Add(new MenuItemViewModel(editor.Label, new RelayCommand(p => OpenFiles(editor.Label))));
+                    }
+                }
+            }
+
+            if (EditorMenuItems.Count == 0)
+            {
+                EditorMenuItems.Add(new MenuItemViewModel(Resources.Main_Results_Tooltip_NotConfigured, false));
+            }
+        }
+
+        private static void OpenFiles(string label)
+        {
+            SearchResultsMessenger.NotifyColleagues("OpenFiles", label);
+        }
 
         public ObservableCollection<FormattedGrepResult> SearchResults { get; set; } = [];
 
@@ -279,7 +313,7 @@ namespace dnGREP.WPF
 
         public static bool CustomEditorConfigured
         {
-            get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor); }
+            get { return GrepSettings.Instance.HasCustomEditor; }
         }
 
         public static bool CompareApplicationConfigured
@@ -407,14 +441,14 @@ namespace dnGREP.WPF
         public event EventHandler<GrepResultEventArgs>? PreviewFileRequest;
         public event EventHandler<GrepLineSelectEventArgs>? GrepLineSelected;
 
-        public void OpenFile(FormattedGrepLine line, bool useCustomEditor)
+        public void OpenFile(FormattedGrepLine line, bool useCustomEditor, string customEditorName)
         {
-            OpenFileLineRequest?.Invoke(this, new GrepLineEventArgs { FormattedGrepLine = line, UseCustomEditor = useCustomEditor });
+            OpenFileLineRequest?.Invoke(this, new GrepLineEventArgs { FormattedGrepLine = line, UseCustomEditor = useCustomEditor, CustomEditorName = customEditorName });
         }
 
-        public void OpenFile(FormattedGrepResult line, bool useCustomEditor)
+        public void OpenFile(FormattedGrepResult line, bool useCustomEditor, string customEditorName)
         {
-            OpenFileRequest?.Invoke(this, new GrepResultEventArgs { FormattedGrepResult = line, UseCustomEditor = useCustomEditor });
+            OpenFileRequest?.Invoke(this, new GrepResultEventArgs { FormattedGrepResult = line, UseCustomEditor = useCustomEditor, CustomEditorName = customEditorName });
         }
 
         public void PreviewFile(FormattedGrepLine line, System.Drawing.RectangleF windowSize)

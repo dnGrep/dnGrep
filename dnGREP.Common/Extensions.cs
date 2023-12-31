@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using dnGREP.Localization.Properties;
 
 namespace dnGREP.Common
@@ -207,6 +208,26 @@ namespace dnGREP.Common
                     break;
             }
             return result.Replace("_", string.Empty, StringComparison.Ordinal);
+        }
+
+        public static string GetElementString(this XElement parent, XName name)
+        {
+            var child = parent.Element(name);
+            if (child != null)
+            {
+                return child.Value;
+            }
+            return string.Empty;
+        }
+
+        public static bool GetElementBoolean(this XElement parent, XName name)
+        {
+            var child = parent.Element(name);
+            if (child != null && bool.TryParse(child.Value, out bool value))
+            {
+                return value;
+            }
+            return false;
         }
     }
 }

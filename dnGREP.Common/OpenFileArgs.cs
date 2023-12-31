@@ -2,8 +2,10 @@ using System;
 
 namespace dnGREP.Common
 {
-    public class OpenFileArgs(GrepSearchResult searchResult, string pattern, int page, int line, string firstMatch, int columnNumber, bool useCustomEditor, string customEditor, string customEditorArgs) : EventArgs()
+    public class OpenFileArgs(GrepSearchResult searchResult, string pattern, int page, int line, string firstMatch, int columnNumber, bool useCustomEditor, string customEditorName) : EventArgs()
     {
+        public static readonly string DefaultEditor = "DefaultEditor";
+
         /// <summary>
         /// Search result containing file name
         /// </summary>
@@ -40,14 +42,9 @@ namespace dnGREP.Common
         public bool UseCustomEditor { get; set; } = useCustomEditor;
 
         /// <summary>
-        /// Path to custom editor (if UseCustomEditor is true)
+        /// Name of custom editor (if UseCustomEditor is true)
         /// </summary>
-        public string CustomEditor { get; set; } = customEditor;
-
-        /// <summary>
-        /// Command line arguments for custom editor
-        /// </summary>
-        public string CustomEditorArgs { get; set; } = customEditorArgs;
+        public string CustomEditorName { get; set; } = customEditorName;
 
         /// <summary>
         /// Set to true to have base engine handle the request

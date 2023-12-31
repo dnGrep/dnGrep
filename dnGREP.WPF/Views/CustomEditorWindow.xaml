@@ -1,0 +1,165 @@
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.CustomEditorWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 mc:Ignorable="d"
+                 Title="{l:Loc Key='Options_CustomEditor_Title'}"
+                 FlowDirection="{Binding CultureFlowDirection}"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
+                 SizeToContent="WidthAndHeight"
+                 WindowStartupLocation="CenterOwner"
+                 ResizeMode="NoResize"
+                 MinWidth="500"
+                 ShowInTaskbar="True"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}">
+
+    <Window.Resources>
+        <my:EnumBooleanConverter x:Key="ebc" />
+        <my:InverseBooleanConverter x:Key="not" />
+        <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
+
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelTextBlockStyle}" />
+
+        <Style TargetType="Button" BasedOn="{StaticResource ThemedButton}">
+            <Setter Property="Padding" Value="20,3" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource ThemedTextBox}">
+            <Setter Property="Margin" Value="3,0,0,6" />
+        </Style>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource ThemedCheckbox}">
+            <Setter Property="Margin" Value="6,3" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
+    <DockPanel Margin="8" Grid.IsSharedSizeScope="True">
+
+        <Grid HorizontalAlignment="Right" DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition SharedSizeGroup="A"/>
+                <ColumnDefinition SharedSizeGroup="A"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="{l:Loc Key='Options_EditorOK'}" IsDefault="True" 
+                    Command="{Binding SaveCommand}" Click="OkButton_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ThemedButton}">
+                        <Setter Property="Padding" Value="20,3" />
+                        <Setter Property="Margin" Value="3" />
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <!-- Require the controls to be valid in order to press OK -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=txtLabel, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtPath, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=txtArgs, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Grid.Column="2" Content="{l:Loc Key='Options_EditorCancel'}" IsCancel="True" />
+        </Grid>
+
+        <Grid Margin="0,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="440" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="80" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" HorizontalAlignment="Right"
+                       Text="{l:Loc Key='Options_EditorLabel'}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="3" x:Name="txtLabel">
+                <TextBox.Text>
+                    <Binding Path="Label" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <my:RequiredValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="3" HorizontalAlignment="Right"
+                       Text="{l:Loc Key='Options_EditorCommand'}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="3" x:Name="txtPath">
+                <TextBox.Text>
+                    <Binding Path="Path" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <my:ValidPathValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Row="1"  Grid.Column="2" Content="{l:Loc Key='Options_BrowseFileLocation'}" 
+                    Padding="12,3"
+                    Command="{Binding Path=BrowseEditorCommand}" />
+
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" HorizontalAlignment="Right"
+                       Text="{l:Loc Key='Options_EditorArguments'}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="3" x:Name="txtArgs">
+                <TextBox.Text>
+                    <Binding Path="Args" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <my:RequiredValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="3"
+                      Content="{Binding EscapeQuotesLabel, FallbackValue='Escape quotes'}"
+                      IsChecked="{Binding EscapeQuotes}"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Margin="3"
+                       Text="{Binding CustomEditorHelp}"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="3" HorizontalAlignment="Right"
+                       Text="{l:Loc Key='Options_EditorExtensions'}"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="3"
+                     Text="{Binding Path=Extensions, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="Use this application for these file types (optional)"/>
+
+            <CheckBox Grid.Row="6" Grid.Column="1" Content="{l:Loc Key='Options_EditorSetAsDefault'}"
+                      IsChecked="{Binding IsDefault}"/>
+
+            <ComboBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Margin="3"
+                      ItemsSource="{Binding Path=CustomEditorTemplates}"
+                      DisplayMemberPath="Key"
+                      SelectedValuePath="Value"
+                      SelectedValue="{Binding Path=CustomEditorTemplate}">
+                <ComboBox.Width>
+                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="150" FallbackValue="150">
+                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                        <Binding Path="ApplicationFontFamily"/>
+                        <Binding Path="DialogFontSize"/>
+                    </MultiBinding>
+                </ComboBox.Width>
+            </ComboBox>
+        </Grid>
+
+    </DockPanel>
+</my:ThemedWindow>
