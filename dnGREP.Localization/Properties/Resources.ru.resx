@@ -3748,7 +3748,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="ScriptHint_copy" xml:space="preserve">
-    <value>Копировать и переименовать файлы результатов, используя регулярные выражения</value>
+    <value>Копировать и переименовать файлы результатов, используя регулярные выражения.</value>
     <comment>Script editor command tooltip </comment>
   </data>
   <data name="Options_EndOfDocument" xml:space="preserve">
@@ -3926,5 +3926,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
     <value>Разрешите завершение или отмените его перед выходом.</value>
     <comment>Message box text for: Replace is running on exit, line 2</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>ОК</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Options custom editor dialog, button label</comment>
   </data>
 </root>
