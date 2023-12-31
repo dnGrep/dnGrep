@@ -2512,4 +2512,8 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Omitir archivos en la nube</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>BIEN</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>
