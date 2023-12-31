@@ -3868,4 +3868,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>複数行検索</value>
     <comment>Options dialog, checkbox label for PDF options</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>
