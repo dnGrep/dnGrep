@@ -3933,4 +3933,36 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>路径必须有效</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Options dialog, button label to delete custom editor</comment>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>扩展名</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>标签</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>编辑…</value>
+    <comment>Options dialog, button label to edit custom editor</comment>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>自定义编辑器</value>
+    <comment>Options custom editor dialog title</comment>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>设为未列出文件类型的默认编辑器</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>打开方式</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>添加…</value>
+    <comment>Options dialog, button label to add custom editor</comment>
+  </data>
 </root>
