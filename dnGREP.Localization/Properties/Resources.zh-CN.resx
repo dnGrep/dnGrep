@@ -3925,4 +3925,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>取消</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>值是必需的</value>
+    <comment>Validation message for user input in required text fields</comment>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>路径必须有效</value>
+    <comment>Validation message for user input of a path and file name</comment>
+  </data>
 </root>
