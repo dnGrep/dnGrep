@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -332,6 +331,11 @@ namespace dnGREP.Common
             public const string BookmarkWindowBounds = "BookmarkWindowBounds";
             public const string BookmarkWindowState = "BookmarkWindowState";
             public const string CustomEditors = "CustomEditors";
+            public const string Plugins = "Plugins";
+            [DefaultValue("")]
+            public const string ArchiveExtensions = "ArchiveExtensions";
+            [DefaultValue("")]
+            public const string ArchiveCustomExtensions = "ArchiveCustomExtensions";
         }
 
         public static class ObsoleteKey
@@ -539,18 +543,20 @@ namespace dnGREP.Common
                                     }
                                     else if (elem.HasElements)
                                     {
-                                        var elem2 = elem.Element("stringArray");
-                                        if (elem2 != null)
+                                        var elemStr = elem.Element("stringArray");
+                                        var elemCE = elem.Element("customEditorArray");
+                                        var elemPI = elem.Element("pluginArray");
+                                        if (elemStr != null)
                                         {
-                                            settings[key.Value] = elem2.ToString();
+                                            settings[key.Value] = elemStr.ToString();
                                         }
-                                        else
+                                        else if (elemCE != null)
                                         {
-                                            elem2 = elem.Element("customEditorArray");
-                                            if (elem2 != null)
-                                            {
-                                                settings[key.Value] = elem2.ToString();
-                                            }
+                                            settings[key.Value] = elemCE.ToString();
+                                        }
+                                        else if (elemPI != null)
+                                        {
+                                            settings[key.Value] = elemPI.ToString();
                                         }
                                     }
                                     else
@@ -572,6 +578,16 @@ namespace dnGREP.Common
 
         private void ConvertToV3()
         {
+            if (ContainsKey(Key.LastCheckedVersion))
+            {
+                string dateTime = Get<string>(Key.LastCheckedVersion);
+                DateTime? dt = dateTime.FromIso8601DateTime();
+                if (dt == null)
+                {
+                    Set(Key.LastCheckedVersion, DateTime.Now);
+                }
+            }
+
             if (ContainsKey(ObsoleteKey.CustomEditor))
             {
                 string path = Get<string>(ObsoleteKey.CustomEditor);
@@ -589,6 +605,51 @@ namespace dnGREP.Common
                     settings.Remove(ObsoleteKey.EscapeQuotesInMatchArgument);
                 }
             }
+
+            ConvertExtensionsToV3("Archive", ArchiveDirectory.DefaultExtensions);
+            if (ContainsKey(Key.ArchiveExtensions))
+            {
+                var list = GetExtensionList("Archive");
+                // added new default extension, "lib" - add it to the user's config
+                if (!list.Contains("lib"))
+                {
+                    list.Add("lib");
+                }
+                Set(Key.ArchiveExtensions, CleanExtensions(list));
+            }
+            else
+            {
+                Set(Key.ArchiveExtensions, CleanExtensions(ArchiveDirectory.DefaultExtensions));
+            }
+
+            if (!ContainsKey(Key.ArchiveCustomExtensions))
+            {
+                Set(Key.ArchiveCustomExtensions, string.Empty);
+            }
+
+
+            string[] names = ["Word", "Pdf", "Openxml"];
+
+            List<PluginConfiguration> plugins = [];
+            foreach (string name in names)
+            {
+                if (ContainsKey(name + "Enabled"))
+                {
+                    bool enabled = Get<bool>(name + "Enabled");
+                    bool previewText = Get<bool>(name + "PreviewText");
+                    string extensions = ContainsKey(name + "Extensions") ?
+                            CleanExtensions(Get<string>(name + "Extensions")) :
+                            string.Empty;
+
+                    plugins.Add(new(name, enabled, previewText, extensions));
+
+                    settings.Remove(name + "Enabled");
+                    settings.Remove(name + "PreviewText");
+                    settings.Remove(name + "Extensions");
+                    settings.Remove(name + "CustomExtensions");// never been used
+                }
+            }
+            Set(Key.Plugins, plugins);
 
             Version = 3;
         }
@@ -720,34 +781,47 @@ namespace dnGREP.Common
                 doc.Root?.SetAttributeValue(XNamespace.Xmlns + "xsi", xsi);
                 foreach (string key in settings.Keys)
                 {
-                    XElement elem;
-                    if (!settings.TryGetValue(key, out string? value) ||
-                        value == "xsi:nil")
+                    string? value = null;
+                    try
                     {
-                        elem = new XElement("item");
-                        elem.SetAttributeValue("key", key);
-                        elem.SetAttributeValue(xsi + "nil", "true");
-                    }
-                    else if (value.StartsWith("<stringArray", StringComparison.Ordinal))
-                    {
-                        elem = new XElement("item", XElement.Parse(value));
-                        elem.SetAttributeValue("key", key);
-                    }
-                    else if (value.StartsWith("<customEditorArray", StringComparison.Ordinal))
-                    {
-                        elem = new XElement("item", XElement.Parse(value));
-                        elem.SetAttributeValue("key", key);
-                    }
-                    else
-                    {
-                        elem = new XElement("item", value);
-                        elem.SetAttributeValue("key", key);
-                        if (!string.IsNullOrEmpty(value) && string.IsNullOrWhiteSpace(value))
+                        XElement elem;
+                        if (!settings.TryGetValue(key, out value) ||
+                            value == "xsi:nil")
                         {
-                            elem.SetAttributeValue(xml + "space", "preserve");
+                            elem = new XElement("item");
+                            elem.SetAttributeValue("key", key);
+                            elem.SetAttributeValue(xsi + "nil", "true");
                         }
+                        else if (value.StartsWith("<stringArray", StringComparison.Ordinal))
+                        {
+                            elem = new XElement("item", XElement.Parse(value));
+                            elem.SetAttributeValue("key", key);
+                        }
+                        else if (value.StartsWith("<customEditorArray", StringComparison.Ordinal))
+                        {
+                            elem = new XElement("item", XElement.Parse(value));
+                            elem.SetAttributeValue("key", key);
+                        }
+                        else if (value.StartsWith("<pluginArray", StringComparison.Ordinal))
+                        {
+                            elem = new XElement("item", XElement.Parse(value));
+                            elem.SetAttributeValue("key", key);
+                        }
+                        else
+                        {
+                            elem = new XElement("item", value);
+                            elem.SetAttributeValue("key", key);
+                            if (!string.IsNullOrEmpty(value) && string.IsNullOrWhiteSpace(value))
+                            {
+                                elem.SetAttributeValue(xml + "space", "preserve");
+                            }
+                        }
+                        doc.Root?.Add(elem);
                     }
-                    doc.Root?.Add(elem);
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex, $"Error saving key [{key}] with value [{value}]");
+                    }
                 }
 
                 doc.Save(xmlStream);
@@ -986,6 +1060,20 @@ namespace dnGREP.Common
                         return (T)Convert.ChangeType(list, typeof(List<CustomEditor>));
                     }
 
+                    if (typeof(T) == typeof(List<PluginConfiguration>))
+                    {
+                        List<PluginConfiguration> list;
+                        if (!string.IsNullOrEmpty(value) && value.StartsWith("<pluginArray", StringComparison.Ordinal))
+                        {
+                            list = PluginConfiguration.Deserialize(value);
+                        }
+                        else
+                        {
+                            list = [];
+                        }
+                        return (T)Convert.ChangeType(list, typeof(List<PluginConfiguration>));
+                    }
+
                     if (typeof(T) == typeof(DateTime) || typeof(T) == typeof(DateTime?))
                     {
                         if (!string.IsNullOrEmpty(value))
@@ -1146,6 +1234,10 @@ namespace dnGREP.Common
             {
                 settings[key] = CustomEditor.Serialize(ceList);
             }
+            else if (value is List<PluginConfiguration> piList)
+            {
+                settings[key] = PluginConfiguration.Serialize(piList);
+            }
             else
             {
                 settings[key] = value.ToString() ?? string.Empty;
@@ -1225,30 +1317,16 @@ namespace dnGREP.Common
             return default;
         }
 
-        public List<string> GetExtensionList(string nameKey, List<string> defaultExtensions)
+        public void ConvertExtensionsToV3(string name, List<string> defaultExtensions)
         {
-            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey)
+            string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name)
                  .Replace(" ", "", StringComparison.Ordinal);
             string addKey = "Add" + nameKey + "Extensions";
             string remKey = "Rem" + nameKey + "Extensions";
-            string listKey = nameKey + "Extensions";
 
-            List<string> list = [];
-
-            if (ContainsKey(listKey))
+            if (ContainsKey(addKey) || ContainsKey(remKey))
             {
-                var csv = Get<string>(listKey)?.Trim();
-                if (!string.IsNullOrEmpty(csv))
-                {
-                    string[] split = csv.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                    var items = split.Select(s => s.TrimStart('.').Trim().ToLowerInvariant());
-
-                    list = items.ToList();
-                }
-            }
-            else
-            {
-                list = defaultExtensions;
+                List<string> list = defaultExtensions;
 
                 if (ContainsKey(addKey))
                 {
@@ -1276,32 +1354,99 @@ namespace dnGREP.Common
                         }
                     }
                 }
+
+                var pluginConfigList = Get<List<PluginConfiguration>>(Key.Plugins);
+                PluginConfiguration? cfg = pluginConfigList
+                    .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+                PluginConfiguration newCfg = cfg != null ?
+                    new(cfg.Name, cfg.Enabled, cfg.PreviewText, CleanExtensions(list)) :
+                    new(name, true, false, CleanExtensions(list));
+
+                if (cfg != null)
+                {
+                    pluginConfigList.Remove(cfg);
+                }
+                pluginConfigList.Add(newCfg);
+                Set(Key.Plugins, pluginConfigList);
+
+                settings.Remove(addKey);
+                settings.Remove(remKey);
+            }
+        }
+
+        public List<string> GetExtensionList(string nameKey)
+        {
+            if (nameKey.Equals("Archive", StringComparison.OrdinalIgnoreCase))
+            {
+                string extensions = Get<string>(Key.ArchiveExtensions);
+                if (string.IsNullOrEmpty(extensions))
+                {
+                    return [];
+                }
+
+                return [.. extensions.Split(separators, StringSplitOptions.RemoveEmptyEntries)];
             }
 
-            return list;
+            if (nameKey.Equals("ArchiveCustom", StringComparison.OrdinalIgnoreCase))
+            {
+                string extensions = Get<string>(Key.ArchiveCustomExtensions);
+                if (string.IsNullOrEmpty(extensions))
+                {
+                    return [];
+                }
+
+                return [.. extensions.Split(separators, StringSplitOptions.RemoveEmptyEntries)];
+            }
+
+            var plugins = Get<List<PluginConfiguration>>(Key.Plugins);
+            var pluginCfg = plugins.FirstOrDefault(r => r.Name.Equals(nameKey, StringComparison.OrdinalIgnoreCase));
+            if (pluginCfg != null)
+            {
+                return pluginCfg.ExtensionList;
+            }
+
+            return [];
         }
 
-        public void SetExtensions(string nameKey, string extensions)
+        public static string CleanExtensions(List<string> extensions)
         {
-            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey)
-                .Replace(" ", "", StringComparison.Ordinal);
-            string addKey = "Add" + nameKey + "Extensions";
-            string remKey = "Rem" + nameKey + "Extensions";
-            string listKey = nameKey + "Extensions";
+            if (extensions.Count == 0)
+                return string.Empty;
 
-            Set(listKey, CleanExtensions(extensions));
-            settings.Remove(addKey);
-            settings.Remove(remKey);
+            var cleaned = extensions.Select(s => s.TrimStart('.').Trim());
+            return string.Join(", ", cleaned);
         }
 
-        private static string CleanExtensions(string extensions)
+        public static string CleanExtensions(string extensions)
         {
             if (string.IsNullOrWhiteSpace(extensions))
                 return string.Empty;
 
             string[] split = extensions.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             var cleaned = split.Select(s => s.TrimStart('.').Trim());
-            return string.Join(",", cleaned);
+            return string.Join(", ", cleaned);
+        }
+
+        public PluginConfiguration AddNewPluginConfig(string name, bool enabled = true, bool previewText = true, string extensions = "")
+        {
+            PluginConfiguration cfg = new(name, enabled, previewText, extensions);
+            List<PluginConfiguration> plugins = Get<List<PluginConfiguration>>(Key.Plugins) ?? [];
+            plugins.Add(cfg);
+            Set(Key.Plugins, plugins);
+            return cfg;
+        }
+
+        public void UpdatePluginConfig(PluginConfiguration cfg)
+        {
+            List<PluginConfiguration> plugins = Get<List<PluginConfiguration>>(Key.Plugins) ?? [];
+            var oldCfg = plugins.FirstOrDefault(r => r.Name.Equals(cfg.Name, StringComparison.OrdinalIgnoreCase));
+            if (oldCfg != null)
+            {
+                plugins.Remove(oldCfg);
+            }
+            plugins.Add(cfg);
+            Set(Key.Plugins, plugins);
         }
 
         public bool HasCustomEditor => ContainsKey(Key.CustomEditors) &&

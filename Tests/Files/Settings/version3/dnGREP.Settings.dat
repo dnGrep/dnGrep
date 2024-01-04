@@ -112,6 +112,8 @@
   <item key="PassSearchFolderToSingleton">True</item>
   <item key="EnableUpdateChecking">True</item>
   <item key="UpdateCheckInterval">10</item>
+  <item key="ArchiveCustomExtensions"></item>
+  <item key="ArchiveExtensions">zip, 7z, jar, war, ear, rar, cab, gz, gzip, tar, rpm, iso, isx, bz2, bzip2, tbz2, tbz, tgz, arj, cpio, deb, dmg, hfs, hfsx, lzh, lha, lzma, z, taz, xar, pkg, xz, txz, zipx, epub, wim, chm, lib</item>
   <item key="CompareApplication">C:\Program Files\WinMerge\WinMergeU.exe</item>
   <item key="CompareApplicationArgs">/e /u /x</item>
   <item key="ShowFilePathInResults">True</item>
@@ -152,18 +154,6 @@
   <item key="WordExtractHeaders">False</item>
   <item key="WordExtractFooters">False</item>
   <item key="WordHeaderFooterPosition">SectionStart</item>
-  <item key="OpenxmlEnabled">True</item>
-  <item key="OpenxmlPreviewText">True</item>
-  <item key="OpenxmlExtensions">docx,docm,xls,xlsx,xlsm,pptx,pptm</item>
-  <item key="OpenxmlCustomExtensions"></item>
-  <item key="PdfEnabled">True</item>
-  <item key="PdfPreviewText">True</item>
-  <item key="PdfExtensions">pdf</item>
-  <item key="PdfCustomExtensions"></item>
-  <item key="WordEnabled">True</item>
-  <item key="WordPreviewText">True</item>
-  <item key="WordExtensions">doc</item>
-  <item key="WordCustomExtensions"></item>
   <item key="MainWindowBounds">65.5,17.5,1200,800</item>
   <item key="MainWindowState">Maximized</item>
   <item key="PreviewWindowWrap">False</item>
@@ -176,6 +166,28 @@
   <item key="SearchInResultsVisible">False</item>
   <item key="StopAfterFirstMatchVisible">False</item>
   <item key="PdfJoinLines">True</item>
+  <item key="Plugins">
+    <pluginArray>
+      <plugin>
+        <name>Word</name>
+        <enabled>true</enabled>
+        <previewText>true</previewText>
+        <extensions>doc</extensions>
+      </plugin>
+      <plugin>
+        <name>Pdf</name>
+        <enabled>true</enabled>
+        <previewText>true</previewText>
+        <extensions>pdf</extensions>
+      </plugin>
+      <plugin>
+        <name>Openxml</name>
+        <enabled>true</enabled>
+        <previewText>true</previewText>
+        <extensions>docx, docm, xls, xlsx, xlsm</extensions>
+      </plugin>
+    </pluginArray>
+  </item>
   <item key="CustomEditors">
     <customEditorArray>
       <customEditor>

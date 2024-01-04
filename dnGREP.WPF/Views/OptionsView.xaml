@@ -848,7 +848,7 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_ArchiveOptions'}">
-                    <Grid DataContext="{Binding ArchiveOptions}">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -864,13 +864,13 @@
                                    VerticalAlignment="Center"/>
                         <Button Grid.Row="0" Grid.Column="1"
                                 Content="{l:Loc Key='Options_ArchiveReset'}"
-                                Command="{Binding ResetExtensions}"
+                                Command="{Binding ResetArchiveExtensionsCommand}"
                                 Padding="12,1" Margin="20,0" 
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                  Margin="0,3,12,3" Height="60" Width="540"
                                  HorizontalAlignment="Left"
-                                 Text="{Binding MappedExtensions}" TextWrapping="Wrap"
+                                 Text="{Binding ArchiveExtensions}" TextWrapping="Wrap"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                         <TextBlock Grid.Row="2" Grid.Column="0" 
@@ -879,7 +879,7 @@
                         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                  Margin="0,3,12,3" Width="540"
                                  HorizontalAlignment="Left"
-                                 Text="{Binding CustomExtensions}" TextWrapping="Wrap"
+                                 Text="{Binding ArchiveCustomExtensions}" TextWrapping="Wrap"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                     </Grid>

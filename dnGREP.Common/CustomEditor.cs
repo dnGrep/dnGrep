@@ -7,6 +7,8 @@ namespace dnGREP.Common
     public record CustomEditor(string Label, string Path, string Args,
         bool EscapeQuotes, string Extensions)
     {
+        private static readonly char[] separators = [',', ';', ' '];
+
         public List<string> ExtensionList
         {
             get
@@ -16,7 +18,7 @@ namespace dnGREP.Common
                     return [];
                 }
 
-                return [.. Extensions.Split(',', StringSplitOptions.RemoveEmptyEntries)];
+                return [.. Extensions.Split(separators, StringSplitOptions.RemoveEmptyEntries)];
             }
         }
 

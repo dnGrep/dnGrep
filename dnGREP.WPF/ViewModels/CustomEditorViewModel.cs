@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,8 +19,7 @@ namespace dnGREP.WPF
             Path = editor.Path;
             Args = editor.Args;
             EscapeQuotes = editor.EscapeQuotes;
-            // extensions are displayed comma separated with spaces
-            Extensions = FormatExtensions(editor.Extensions, ", ");
+            Extensions = editor.Extensions;
             IsDefault = originalIsDefault = isDefault;
 
             EscapeQuotesLabel = TranslationSource.Format(Resources.Options_CustomEditorEscapeQuotes, Match);
@@ -63,7 +60,7 @@ namespace dnGREP.WPF
             Path != original.Path ||
             Args != original.Args ||
             EscapeQuotes != original.EscapeQuotes ||
-            FormatExtensions(Extensions, ",") != original.Extensions ||
+            GrepSettings.CleanExtensions(Extensions) != original.Extensions ||
             IsDefault != originalIsDefault;
 
         public string ExtensionSummary => string.IsNullOrEmpty(Extensions) ? "*" : Extensions;
@@ -139,7 +136,7 @@ namespace dnGREP.WPF
         private void CommitChanges()
         {
             // extensions are saved comma separated without spaces
-            changed = new(Label, Path, Args, EscapeQuotes, FormatExtensions(Extensions, ","));
+            changed = new(Label, Path, Args, EscapeQuotes, GrepSettings.CleanExtensions(Extensions));
 
             if (IsDefault != originalIsDefault)
             {
@@ -178,16 +175,5 @@ namespace dnGREP.WPF
                 }, DispatcherPriority.ApplicationIdle);
             }
         }
-
-        private static string FormatExtensions(string extensions, string separator)
-        {
-            if (string.IsNullOrWhiteSpace(extensions))
-                return string.Empty;
-
-            string[] split = extensions.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            var cleaned = split.Select(s => s.TrimStart('.').Trim());
-            return string.Join(separator, cleaned);
-        }
-
     }
 }

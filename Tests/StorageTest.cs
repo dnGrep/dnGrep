@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using dnGREP.Common;
 using Xunit;
 
@@ -108,6 +109,10 @@ namespace Tests
 
                 string file = Path.Combine(sourceFolder, "Settings", "version1", "dnGREP.Settings.dat");
                 storage.Load(file);
+                // these are called when plugins are loaded
+                storage.ConvertExtensionsToV3("Word", ["doc"]);
+                storage.ConvertExtensionsToV3("Pdf", ["pdf"]);
+                storage.ConvertExtensionsToV3("Openxml", ["docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm"]);
 
                 Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditor));
                 Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditorArgs));
@@ -130,7 +135,7 @@ namespace Tests
 
                 // old binary data stores
                 Assert.True(storage.ContainsKey(GrepSettings.Key.LastCheckedVersion));
-                Assert.Equal(DateTime.MinValue, storage.Get<DateTime>(GrepSettings.Key.LastCheckedVersion));
+                Assert.Equal(DateTime.Now, storage.Get<DateTime>(GrepSettings.Key.LastCheckedVersion), TimeSpan.FromSeconds(5));
 
                 Assert.True(storage.ContainsKey(GrepSettings.Key.StartDate));
                 Assert.Null(storage.GetNullable<DateTime?>(GrepSettings.Key.StartDate));
@@ -155,6 +160,21 @@ namespace Tests
 
                 Assert.True(storage.ContainsKey(GrepSettings.Key.FastPathBookmarks));
                 Assert.Empty(storage.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastPathBookmarks));
+
+                var plugins = storage.Get<List<PluginConfiguration>>(GrepSettings.Key.Plugins);
+                Assert.NotNull(plugins);
+                Assert.Equal(3, plugins.Count);
+                var openxml = plugins.FirstOrDefault(r => r.Name.Equals("Openxml", StringComparison.OrdinalIgnoreCase));
+                Assert.NotNull(openxml);
+                Assert.True(openxml.Enabled);
+                Assert.True(openxml.PreviewText);
+                Assert.Equal("docx, docm, xls, xlsx, xlsm", openxml.Extensions);
+                Assert.False(storage.ContainsKey("AddOpenxmlExtensions"));
+                Assert.False(storage.ContainsKey("RemOpenxmlExtensions"));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.ArchiveExtensions));
+                Assert.True(storage.ContainsKey(GrepSettings.Key.ArchiveCustomExtensions));
+                Assert.NotEmpty(storage.GetExtensionList("Archive"));
             }
             else
             {
@@ -171,6 +191,10 @@ namespace Tests
 
                 string file = Path.Combine(sourceFolder, "Settings", "version2", "dnGREP.Settings.dat");
                 storage.Load(file);
+                // these are called when plugins are loaded
+                storage.ConvertExtensionsToV3("Word", ["doc"]);
+                storage.ConvertExtensionsToV3("Pdf", ["pdf"]);
+                storage.ConvertExtensionsToV3("Openxml", ["docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm"]);
 
                 Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditor));
                 Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditorArgs));
@@ -190,6 +214,21 @@ namespace Tests
                 Assert.Equal("-n%line -c%column %file", editor.Args);
                 Assert.True(editor.EscapeQuotes);
                 Assert.True(string.IsNullOrEmpty(editor.Extensions));
+
+                var plugins = storage.Get<List<PluginConfiguration>>(GrepSettings.Key.Plugins);
+                Assert.NotNull(plugins);
+                Assert.Equal(3, plugins.Count);
+                var openxml = plugins.FirstOrDefault(r => r.Name.Equals("Openxml", StringComparison.OrdinalIgnoreCase));
+                Assert.NotNull(openxml);
+                Assert.True(openxml.Enabled);
+                Assert.True(openxml.PreviewText);
+                Assert.Equal("docx, docm, xls, xlsx, xlsm", openxml.Extensions);
+                Assert.False(storage.ContainsKey("AddOpenxmlExtensions"));
+                Assert.False(storage.ContainsKey("RemOpenxmlExtensions"));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.ArchiveExtensions));
+                Assert.True(storage.ContainsKey(GrepSettings.Key.ArchiveCustomExtensions));
+                Assert.NotEmpty(storage.GetExtensionList("Archive"));
             }
             else
             {
@@ -206,6 +245,10 @@ namespace Tests
 
                 string file = Path.Combine(sourceFolder, "Settings", "version3", "dnGREP.Settings.dat");
                 storage.Load(file);
+                // these are called when plugins are loaded
+                storage.ConvertExtensionsToV3("Word", ["doc"]);
+                storage.ConvertExtensionsToV3("Pdf", ["pdf"]);
+                storage.ConvertExtensionsToV3("Openxml", ["docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm"]);
 
                 Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditor));
                 Assert.False(storage.ContainsKey(GrepSettings.ObsoleteKey.CustomEditorArgs));
@@ -233,6 +276,21 @@ namespace Tests
                 Assert.Equal("-r -g %file:%line:%column", editor.Args);
                 Assert.False(editor.EscapeQuotes);
                 Assert.Equal("txt", editor.Extensions);
+
+                var plugins = storage.Get<List<PluginConfiguration>>(GrepSettings.Key.Plugins);
+                Assert.NotNull(plugins);
+                Assert.Equal(3, plugins.Count);
+                var openxml = plugins.FirstOrDefault(r => r.Name.Equals("Openxml", StringComparison.OrdinalIgnoreCase));
+                Assert.NotNull(openxml);
+                Assert.True(openxml.Enabled);
+                Assert.True(openxml.PreviewText);
+                Assert.Equal("docx, docm, xls, xlsx, xlsm", openxml.Extensions);
+                Assert.False(storage.ContainsKey("AddOpenxmlExtensions"));
+                Assert.False(storage.ContainsKey("RemOpenxmlExtensions"));
+
+                Assert.True(storage.ContainsKey(GrepSettings.Key.ArchiveExtensions));
+                Assert.True(storage.ContainsKey(GrepSettings.Key.ArchiveCustomExtensions));
+                Assert.NotEmpty(storage.GetExtensionList("Archive"));
             }
             else
             {

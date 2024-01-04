@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using dnGREP.Common;
+using dnGREP.Engines;
 using dnGREP.Localization;
 using NLog;
 using Windows.Win32;
@@ -79,6 +80,7 @@ namespace dnGREP.WPF
 
                 if (MainWindow == null)
                 {
+                    GrepEngineFactory.InitializePlugins();
                     MainWindow = new MainForm();
                     Utils.DeleteTempFolder();
                     Utils.DeleteUndoFolder();

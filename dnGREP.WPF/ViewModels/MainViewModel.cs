@@ -820,7 +820,7 @@ namespace dnGREP.WPF
                     matchText, columnNumber, useCustomEditor, customEditorName);
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
-                    var customExtensions = Settings.GetExtensionList("Archive Custom", []);
+                    var customExtensions = Settings.GetExtensionList("ArchiveCustom");
                     if (customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
                     {
                         // open the archive, not the inner file
@@ -900,7 +900,7 @@ namespace dnGREP.WPF
                     matchText, columnNumber, useCustomEditor, customEditorName);
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
-                    var customExtensions = Settings.GetExtensionList("Archive Custom", []);
+                    var customExtensions = Settings.GetExtensionList("ArchiveCustom");
                     if (customExtensions.Contains(Path.GetExtension(result.GrepResult.FileNameReal).TrimStart('.').ToLowerInvariant()))
                     {
                         // open the archive, not the inner file

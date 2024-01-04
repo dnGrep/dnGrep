@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -207,7 +206,8 @@ namespace dnGREP.WPF
                 WordExtractHeaders != Settings.Get<bool>(GrepSettings.Key.WordExtractHeaders) ||
                 WordExtractFooters != Settings.Get<bool>(GrepSettings.Key.WordExtractFooters) ||
                 WordHeaderFooterPosition != Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition) ||
-                ArchiveOptions.IsChanged ||
+                GrepSettings.CleanExtensions(ArchiveExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveExtensions) ||
+                GrepSettings.CleanExtensions(ArchiveCustomExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveCustomExtensions) ||
                 IsChanged(Plugins) ||
                 IsChanged(CustomEditors) ||
                 IsChanged(VisibilityOptions)
@@ -222,7 +222,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private static bool IsChanged(IList<PluginOptions> plugins)
+        private static bool IsChanged(IList<PluginViewModel> plugins)
         {
             return plugins.Any(p => p.IsChanged);
         }
@@ -244,7 +244,7 @@ namespace dnGREP.WPF
 
         public List<int> HexLengthOptions { get; }
 
-        public ObservableCollection<PluginOptions> Plugins { get; } = [];
+        public ObservableCollection<PluginViewModel> Plugins { get; } = [];
 
         public ObservableCollection<CustomEditorViewModel> CustomEditors { get; } = [];
 
@@ -548,7 +548,11 @@ namespace dnGREP.WPF
         private HeaderFooterPosition wordHeaderFooterPosition = HeaderFooterPosition.SectionStart;
 
         [ObservableProperty]
-        private PluginOptions archiveOptions;
+        private string archiveExtensions = string.Empty;
+        private string defaultArchiveExtensions = string.Empty;
+
+        [ObservableProperty]
+        private string archiveCustomExtensions = string.Empty;
 
         [ObservableProperty]
         private bool useDefaultFont = true;
@@ -644,6 +648,10 @@ namespace dnGREP.WPF
         public ICommand LoadResxCommand => new RelayCommand(
             param => LoadResxFile());
 
+        public ICommand ResetArchiveExtensionsCommand => new RelayCommand(
+            p => ArchiveExtensions = defaultArchiveExtensions,
+            q => !ArchiveExtensions.Equals(defaultArchiveExtensions, StringComparison.Ordinal));
+
         public ICommand ResetPdfToTextOptionCommand => new RelayCommand(
             p => PdfToTextOptions = defaultPdfToText,
             q => !PdfToTextOptions.Equals(defaultPdfToText, StringComparison.Ordinal));
@@ -715,7 +723,6 @@ namespace dnGREP.WPF
         }
 
 #pragma warning disable MVVMTK0034
-        [MemberNotNull(nameof(archiveOptions))]
         private void LoadSettings()
         {
             CheckIfAdmin();
@@ -800,51 +807,27 @@ namespace dnGREP.WPF
             WordExtractHeaders = Settings.Get<bool>(GrepSettings.Key.WordExtractHeaders);
             WordExtractFooters = Settings.Get<bool>(GrepSettings.Key.WordExtractFooters);
             WordHeaderFooterPosition = Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition);
-
-            {
-                var list = Settings.GetExtensionList(ArchiveNameKey, ArchiveDirectory.DefaultExtensions);
-                string extensionList = string.Join(", ", list);
-
-                // added new default extension, "lib" - add it to the user's config
-                if (!list.Contains("lib"))
-                {
-                    list.Add("lib");
-                    extensionList = string.Join(", ", list);
-                    Settings.SetExtensions(ArchiveNameKey, extensionList);
-                }
-
-                string customExtensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey + CustomNameKey, []));
-
-                ArchiveOptions = new PluginOptions(ArchiveNameKey, true, false,
-                    extensionList, string.Join(", ", ArchiveDirectory.DefaultExtensions),
-                    customExtensionList);
-            }
+            ArchiveExtensions = Settings.Get<string>(GrepSettings.Key.ArchiveExtensions);
+            ArchiveCustomExtensions = Settings.Get<string>(GrepSettings.Key.ArchiveCustomExtensions);
+            defaultArchiveExtensions = GrepSettings.CleanExtensions(ArchiveDirectory.DefaultExtensions);
 
             Plugins.Clear();
+            List<PluginConfiguration> pluginConfigList = [];
+            if (GrepSettings.Instance.ContainsKey(GrepSettings.Key.Plugins))
+            {
+                pluginConfigList = GrepSettings.Instance.Get<List<PluginConfiguration>>(GrepSettings.Key.Plugins);
+            }
+
             foreach (var plugin in GrepEngineFactory.AllPlugins.OrderBy(p => p.Name))
             {
-                string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
-                string enabledKey = nameKey + EnabledKey;
-                string previewTextKey = nameKey + PreviewTextKey;
-                string extensionList = string.Join(", ",
-                    Settings.GetExtensionList(nameKey, plugin.DefaultExtensions));
-                string customExtensionList = string.Join(", ",
-                    Settings.GetExtensionList(nameKey + CustomNameKey, []));
+                string name = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name)
+                    .Replace(" ", "", StringComparison.Ordinal);
 
-                bool isEnabled = true;
-                if (GrepSettings.Instance.ContainsKey(enabledKey))
-                    isEnabled = GrepSettings.Instance.Get<bool>(enabledKey);
+                PluginConfiguration cfg = pluginConfigList
+                    .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase)) ??
+                    GrepSettings.Instance.AddNewPluginConfig(name, extensions: GrepSettings.CleanExtensions(plugin.DefaultExtensions));
 
-                bool previewTextEnabled = true;
-                if (GrepSettings.Instance.ContainsKey(previewTextKey))
-                    previewTextEnabled = GrepSettings.Instance.Get<bool>(previewTextKey);
-
-                var pluginOptions = new PluginOptions(
-                    plugin.Name, isEnabled, previewTextEnabled,
-                    extensionList, string.Join(", ", plugin.DefaultExtensions),
-                    customExtensionList);
-
-                Plugins.Add(pluginOptions);
+                Plugins.Add(new(cfg, plugin.DefaultExtensions));
             }
 
             CustomEditors.Clear();
@@ -972,29 +955,16 @@ namespace dnGREP.WPF
                 }
             }
 
-            if (ArchiveOptions.IsChanged)
+            if (GrepSettings.CleanExtensions(ArchiveExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveExtensions))
             {
-                Settings.SetExtensions(ArchiveNameKey, ArchiveOptions.MappedExtensions);
-                Settings.SetExtensions(ArchiveNameKey + CustomNameKey, ArchiveOptions.CustomExtensions);
-
-                ArchiveOptions.SetUnchanged();
+                Settings.Set(GrepSettings.Key.ArchiveExtensions, GrepSettings.CleanExtensions(ArchiveExtensions));
+                Settings.Set(GrepSettings.Key.ArchiveCustomExtensions, GrepSettings.CleanExtensions(ArchiveCustomExtensions));
                 ArchiveDirectory.Reinitialize();
             }
 
             bool pluginsChanged = Plugins.Any(p => p.IsChanged);
-            foreach (var plugin in Plugins)
-            {
-                string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
-                string enabledkey = nameKey + EnabledKey;
-                string previewTextKey = nameKey + PreviewTextKey;
-
-                Settings.Set(enabledkey, plugin.IsEnabled);
-                Settings.Set(previewTextKey, plugin.PreviewTextEnabled);
-                Settings.SetExtensions(nameKey, plugin.MappedExtensions);
-                Settings.SetExtensions(nameKey + CustomNameKey, plugin.CustomExtensions);
-
-                plugin.SetUnchanged();
-            }
+            List<PluginConfiguration> plugins = Plugins.Select(v => v.Save()).ToList();
+            Settings.Set(GrepSettings.Key.Plugins, plugins);
 
             List<CustomEditor> editors = CustomEditors.Select(v => v.Save()).ToList();
             bool editorsChanged = !editors.SequenceEqual(originalCustomEditors);
@@ -1241,62 +1211,6 @@ namespace dnGREP.WPF
         }
 
         #endregion
-    }
-
-    public partial class PluginOptions : CultureAwareViewModel
-    {
-        public PluginOptions(string name, bool enabled, bool previewTextEnabled,
-            string extensions, string defaultExtensions, string customExtensions)
-        {
-            Name = name;
-            IsEnabled = origIsEnabled = enabled;
-            PreviewTextEnabled = origPreviewTextEnabled = previewTextEnabled;
-            MappedExtensions = origMappedExtensions = extensions;
-            DefaultExtensions = defaultExtensions ?? string.Empty;
-            CustomExtensions = origCustomExtensions = customExtensions ?? string.Empty;
-        }
-
-        public bool IsChanged => IsEnabled != origIsEnabled ||
-            PreviewTextEnabled != origPreviewTextEnabled ||
-            MappedExtensions != origMappedExtensions ||
-            CustomExtensions != origCustomExtensions;
-
-        [ObservableProperty]
-        private string name = string.Empty;
-
-        [ObservableProperty]
-        private bool isEnabled;
-        private bool origIsEnabled;
-
-
-        [ObservableProperty]
-        private bool previewTextEnabled;
-        private bool origPreviewTextEnabled;
-
-        [ObservableProperty]
-        private string mappedExtensions = string.Empty;
-        private string origMappedExtensions = string.Empty;
-
-        public string DefaultExtensions { get; private set; }
-
-
-        [ObservableProperty]
-        private string customExtensions = string.Empty;
-        private string origCustomExtensions = string.Empty;
-
-
-        public ICommand ResetExtensions => new RelayCommand(
-            p => MappedExtensions = DefaultExtensions,
-            q => !MappedExtensions.Equals(DefaultExtensions, StringComparison.Ordinal));
-
-
-        internal void SetUnchanged()
-        {
-            origIsEnabled = IsEnabled;
-            origPreviewTextEnabled = PreviewTextEnabled;
-            origMappedExtensions = MappedExtensions;
-            origCustomExtensions = CustomExtensions;
-        }
     }
 
     public partial class VisibilityOption : CultureAwareViewModel
