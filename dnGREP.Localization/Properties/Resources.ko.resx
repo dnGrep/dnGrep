@@ -2602,7 +2602,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>확인</value>
+    <value>OK</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Main_Menu_Personalize" xml:space="preserve">
@@ -2722,5 +2722,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
     <value>Highlight matches</value>
     <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>확인</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>취소</value>
+    <comment>Options custom editor dialog, button label</comment>
   </data>
 </root>

@@ -3913,4 +3913,56 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>在结果树上方</value>
     <comment>Options dialog, layout radio button label</comment>
   </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>多行搜索</value>
+    <comment>Options dialog, checkbox label for PDF options</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>是</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>值是必需的</value>
+    <comment>Validation message for user input in required text fields</comment>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>路径必须有效</value>
+    <comment>Validation message for user input of a path and file name</comment>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Options dialog, button label to delete custom editor</comment>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>扩展名</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>标签</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>编辑…</value>
+    <comment>Options dialog, button label to edit custom editor</comment>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>自定义编辑器</value>
+    <comment>Options custom editor dialog title</comment>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>设为未列出文件类型的默认编辑器</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>打开方式</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>添加…</value>
+    <comment>Options dialog, button label to add custom editor</comment>
+  </data>
 </root>

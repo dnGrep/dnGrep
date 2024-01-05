@@ -930,4 +930,12 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Filtre:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>D'acord</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Cancel·la</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>
