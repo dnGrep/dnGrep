@@ -82,6 +82,8 @@ namespace Tests
                 storage.Set("endDate", end);
                 bool? indetermnate = null;
                 storage.Set("indetermnate", indetermnate);
+                long num = 35000L;
+                storage.Set("longNum", num);
 
                 storage.Save(destinationFolder + "\\test.xml");
                 storage.Clear();
@@ -93,6 +95,8 @@ namespace Tests
                 Assert.Null(storage.GetNullable<DateTime?>("startDate"));
                 Assert.Equal(end, storage.GetNullable<DateTime?>("endDate"));
                 Assert.Null(storage.GetNullable<bool?>("indetermnate"));
+                Assert.Equal(num, storage.Get<long>("longNum"));
+                Assert.Equal(4000, storage.Get<long>(GrepSettings.Key.PreviewLargeFileLimit));
             }
             else
             {

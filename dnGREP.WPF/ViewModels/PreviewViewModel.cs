@@ -157,6 +157,11 @@ namespace dnGREP.WPF
             }
         }
 
+        public static long LargeFileLimit
+        {
+            get { return 1024 * GrepSettings.Instance.Get<long>(GrepSettings.Key.PreviewLargeFileLimit); }
+        }
+
         private void UpdateState(string name)
         {
             if (name == nameof(GrepResult) && GrepResult != null)
@@ -181,7 +186,7 @@ namespace dnGREP.WPF
                     {
                         // Do not preview files over 4MB or binary
                         IsPdf = Utils.IsPdfFile(FilePath);
-                        IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath) || IsPdf;
+                        IsLargeOrBinary = fileInfo.Length > LargeFileLimit || Utils.IsBinary(FilePath) || IsPdf;
                     }
                     catch (System.IO.IOException ex)
                     {

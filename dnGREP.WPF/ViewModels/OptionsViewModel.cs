@@ -196,6 +196,7 @@ namespace dnGREP.WPF
                 EditResultsFontFamily != Settings.Get<string>(GrepSettings.Key.ResultsFontFamily) ||
                 EditResultsFontSize != Settings.Get<double>(GrepSettings.Key.ResultsFontSize) ||
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
+                PreviewLargeFileLimit != Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit) ||
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 PdfJoinLines != Settings.Get<bool>(GrepSettings.Key.PdfJoinLines) ||
                 PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
@@ -518,6 +519,9 @@ namespace dnGREP.WPF
         private int hexResultByteLength = 16;
 
         [ObservableProperty]
+        private long previewLargeFileLimit = 4000L;
+
+        [ObservableProperty]
         private string pdfToTextOptions = string.Empty;
 
         [ObservableProperty]
@@ -722,7 +726,6 @@ namespace dnGREP.WPF
                 Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastReplaceBookmarks).Where(r => r.IsPinned));
         }
 
-#pragma warning disable MVVMTK0034
         private void LoadSettings()
         {
             CheckIfAdmin();
@@ -796,6 +799,7 @@ namespace dnGREP.WPF
             CurrentCulture = TranslationSource.Instance.CurrentCulture.Name;
 
             HexResultByteLength = Settings.Get<int>(GrepSettings.Key.HexResultByteLength);
+            PreviewLargeFileLimit = Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit);
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
             PdfJoinLines = Settings.Get<bool>(GrepSettings.Key.PdfJoinLines);
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
@@ -842,7 +846,6 @@ namespace dnGREP.WPF
                 }
             }
         }
-#pragma warning restore MVVMTK0034
 
         private string ValueOrDefault(string settingsKey, string defaultValue)
         {
@@ -936,6 +939,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ResultsFontFamily, ResultsFontFamily);
             Settings.Set(GrepSettings.Key.ResultsFontSize, ResultsFontSize);
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
+            Settings.Set(GrepSettings.Key.PreviewLargeFileLimit, PreviewLargeFileLimit);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
             Settings.Set(GrepSettings.Key.PdfJoinLines, PdfJoinLines);
             Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
