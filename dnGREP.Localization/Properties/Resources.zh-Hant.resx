@@ -1449,7 +1449,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>將 dnGrep 增加到檔案總管右鍵功能表時發生錯誤. 日誌查看詳情: </value>
+    <value>將 dnGrep 新增到檔案總管右鍵功能表時發生錯誤. 日誌查看詳情: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
@@ -1601,7 +1601,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep 將把選擇的檔案增加到命令列末尾.</value>
+    <value>dnGrep 將把選擇的檔案新增到命令列末尾.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
@@ -1773,7 +1773,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>將 dnGrep 增加於檔案總管右鍵功能表中</value>
+    <value>將 dnGrep 新增於檔案總管右鍵功能表中</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
@@ -3249,7 +3249,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
-    <value>增加與目前搜尋資料夾關言的新書籤</value>
+    <value>新增與目前搜尋資料夾關聯的新書籤</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_set_reportmode" xml:space="preserve">
@@ -3854,5 +3854,57 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_AboveResultsTree" xml:space="preserve">
     <value>位於結果樹狀圖上方</value>
     <comment>Options dialog, layout radio button label</comment>
+  </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>多行搜尋</value>
+    <comment>Options dialog, checkbox label for PDF options</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>是</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>刪除</value>
+    <comment>Options dialog, button label to delete custom editor</comment>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>副檔名</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>標籤</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>編輯…</value>
+    <comment>Options dialog, button label to edit custom editor</comment>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>自訂編輯器</value>
+    <comment>Options custom editor dialog title</comment>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>設定為未列出檔案類型的預設編輯器</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>值為必填項</value>
+    <comment>Validation message for user input in required text fields</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>開啟於</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>新增…</value>
+    <comment>Options dialog, button label to add custom editor</comment>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>路徑必須有效</value>
+    <comment>Validation message for user input of a path and file name</comment>
   </data>
 </root>

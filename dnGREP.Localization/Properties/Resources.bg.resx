@@ -3913,4 +3913,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Над дървото с резултатите</value>
     <comment>Options dialog, layout radio button label</comment>
   </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>Многоредово търсене</value>
+    <comment>Options dialog, checkbox label for PDF options</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>Добре</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Отказ</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>

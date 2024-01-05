@@ -2681,4 +2681,12 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Vastete esiletõstmine</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>Olgu</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Tühista</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>
