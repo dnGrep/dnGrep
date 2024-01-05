@@ -2811,4 +2811,8 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Abbrechen</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
 </root>
