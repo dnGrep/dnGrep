@@ -2552,4 +2552,12 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Añadir…</value>
     <comment>Options dialog, button label to add custom editor</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
 </root>
