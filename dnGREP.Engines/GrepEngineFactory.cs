@@ -22,6 +22,14 @@ namespace dnGREP.Engines
         private static readonly Dictionary<string, string> failedEngines = [];
         private static readonly object lockObj = new();
 
+        /// <summary>
+        /// Method to load plugins and initialize plugin configuration
+        /// </summary>
+        public static void InitializePlugins()
+        {
+            LoadPlugins();
+        }
+
         public static IEnumerable<GrepPlugin> AllPlugins
         {
             get

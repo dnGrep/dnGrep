@@ -94,7 +94,7 @@
   <item key="OpenxmlEnabled">True</item>
   <item key="OpenxmlPreviewText">True</item>
   <item key="AddOpenxmlExtensions"></item>
-  <item key="RemOpenxmlExtensions"></item>
+  <item key="RemOpenxmlExtensions">pptx,pptm</item>
   <item key="PdfEnabled">True</item>
   <item key="PdfPreviewText">True</item>
   <item key="AddPdfExtensions"></item>

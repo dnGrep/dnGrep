@@ -154,7 +154,7 @@
   <item key="WordHeaderFooterPosition">SectionStart</item>
   <item key="OpenxmlEnabled">True</item>
   <item key="OpenxmlPreviewText">True</item>
-  <item key="OpenxmlExtensions">docx,docm,xls,xlsx,xlsm,pptx,pptm</item>
+  <item key="OpenxmlExtensions">docx,docm,xls,xlsx,xlsm</item>
   <item key="OpenxmlCustomExtensions"></item>
   <item key="PdfEnabled">True</item>
   <item key="PdfPreviewText">True</item>

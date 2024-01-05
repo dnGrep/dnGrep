@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using dnGREP.Common;
 using NLog;
@@ -137,9 +137,16 @@ namespace dnGREP.Engines
                         }
                     }
 
-                    GetEnabledFromSettings(Name);
-                    GetPreviewPlainTextFromSettings(Name);
-                    GetExtensionsFromSettings(Name, defaultExtensions ?? []);
+                    GrepSettings.Instance.ConvertExtensionsToV3(Name, defaultExtensions ?? []);
+
+                    PluginConfiguration? cfg =
+                        GrepSettings.Instance.Get<List<PluginConfiguration>>(GrepSettings.Key.Plugins)
+                        .FirstOrDefault(r => r.Name.Equals(Name, StringComparison.OrdinalIgnoreCase)) ??
+                        GrepSettings.Instance.AddNewPluginConfig(Name);
+
+                    Enabled = cfg.Enabled;
+                    PreviewPlainText = cfg.PreviewText;
+                    GetExtensionsFromSettings(cfg, defaultExtensions ?? []);
 
                     result = pluginType != null;
                 }
@@ -152,37 +159,19 @@ namespace dnGREP.Engines
             return result;
         }
 
-        private void GetEnabledFromSettings(string name)
+        private void GetExtensionsFromSettings(PluginConfiguration cfg, List<string> defaultExtensions)
         {
-            Enabled = true;
-            if (!string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(cfg.Extensions) && defaultExtensions.Count > 0)
             {
-                string key = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Enabled";
-                if (GrepSettings.Instance.ContainsKey(key))
-                    Enabled = GrepSettings.Instance.Get<bool>(key);
+                cfg = new(cfg.Name, cfg.Enabled, cfg.PreviewText, GrepSettings.CleanExtensions(defaultExtensions));
+                GrepSettings.Instance.UpdatePluginConfig(cfg);
             }
-        }
-
-        private void GetPreviewPlainTextFromSettings(string name)
-        {
-            PreviewPlainText = true;
-            if (!string.IsNullOrEmpty(name))
-            {
-                string key = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "PreviewText";
-                if (GrepSettings.Instance.ContainsKey(key))
-                    PreviewPlainText = GrepSettings.Instance.Get<bool>(key);
-            }
-        }
-
-        private void GetExtensionsFromSettings(string name, List<string> defaultExtensions)
-        {
-            var list = GrepSettings.Instance.GetExtensionList(name, defaultExtensions);
 
             DefaultExtensions.Clear();
             Extensions.Clear();
 
             DefaultExtensions.AddRange(defaultExtensions);
-            Extensions.AddRange(list);
+            Extensions.AddRange(cfg.ExtensionList);
         }
 
         private Assembly? CurrentDomain_AssemblyResolve(object? sender, ResolveEventArgs args)

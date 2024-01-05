@@ -18,14 +18,14 @@ namespace dnGREP.Common
 
         static ArchiveDirectory()
         {
-            GetExtensionsFromSettings("Archive");
+            GetExtensionsFromSettings();
         }
 
         public static List<string> DefaultExtensions => ["zip", "7z", "jar", "war", "ear", "rar", "cab", "gz", "gzip", "tar", "rpm", "iso", "isx", "bz2", "bzip2", "tbz2", "tbz", "tgz", "arj", "cpio", "deb", "dmg", "hfs", "hfsx", "lzh", "lha", "lzma", "z", "taz", "xar", "pkg", "xz", "txz", "zipx", "epub", "wim", "chm", "lib"];
 
         public static void Reinitialize()
         {
-            GetExtensionsFromSettings("Archive");
+            GetExtensionsFromSettings();
         }
 
         public static List<string> Extensions { get; private set; } = [];
@@ -33,10 +33,18 @@ namespace dnGREP.Common
         public static List<string> Patterns { get; private set; } = [];
 
         private static readonly char[] separator = ['/'];
+        private static readonly char[] csvSeparators = [',', ';', ' '];
 
-        private static void GetExtensionsFromSettings(string name)
+        private static void GetExtensionsFromSettings()
         {
-            var list = GrepSettings.Instance.GetExtensionList(name, DefaultExtensions);
+            var csv = GrepSettings.Instance.Get<string>(GrepSettings.Key.ArchiveExtensions);
+            var list = (csv ?? string.Empty).Split(csvSeparators, StringSplitOptions.RemoveEmptyEntries)
+                .Select(r => r.Trim()).ToList();
+            if (list.Count == 0)
+            {
+                list = DefaultExtensions;
+                GrepSettings.Instance.Set(GrepSettings.Key.ArchiveExtensions, GrepSettings.CleanExtensions(list));
+            }
 
             Extensions.Clear();
             Extensions.AddRange(list);
