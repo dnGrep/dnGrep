@@ -3920,4 +3920,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>正しいパスを指定してください</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
 </root>
