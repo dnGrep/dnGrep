@@ -3975,4 +3975,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Путь должен быть действительным</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB (Кбайт)</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
 </root>
