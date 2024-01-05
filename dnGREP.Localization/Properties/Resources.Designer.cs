@@ -4977,6 +4977,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to KB.
+        /// </summary>
+        public static string Options_KB {
+            get {
+                return ResourceManager.GetString("Options_KB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Options_Language {
@@ -5765,6 +5774,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_Yes {
             get {
                 return ResourceManager.GetString("Options_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In preview window, ask before loading files larger than.
+        /// </summary>
+        public static string Optionss_AskBeforeLoadingFiles {
+            get {
+                return ResourceManager.GetString("Optionss_AskBeforeLoadingFiles", resourceCulture);
             }
         }
         

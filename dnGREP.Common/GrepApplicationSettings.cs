@@ -177,6 +177,8 @@ namespace dnGREP.Common
             public const string PreviewDockedWidth = "PreviewDockedWidth";
             public const string PreviewDockedHeight = "PreviewDockedHeight";
             public const string PreviewHidden = "PreviewHidden";
+            [DefaultValue(4000L)] // in KB
+            public const string PreviewLargeFileLimit = "PreviewLargeFileLimit";
             [DefaultValue(true)]
             public const string PreviewAutoPosition = "PreviewAutoPosition";
             [DefaultValue(false)]
@@ -1114,6 +1116,18 @@ namespace dnGREP.Common
                         }
                     }
 
+                    if (typeof(T) == typeof(long))
+                    {
+                        if (long.TryParse(value, CultureInfo.InvariantCulture, out long result))
+                        {
+                            return (T)Convert.ChangeType(result, typeof(T));
+                        }
+                        else
+                        {
+                            return (T)Convert.ChangeType(0, typeof(T));
+                        }
+                    }
+
                     if (typeof(T) == typeof(float))
                     {
                         if (float.TryParse(value, CultureInfo.InvariantCulture, out float result))
@@ -1182,6 +1196,11 @@ namespace dnGREP.Common
             else if (typeof(T) == typeof(int))
             {
                 int num = (int)Convert.ChangeType(value, typeof(int));
+                settings[key] = num.ToString(CultureInfo.InvariantCulture);
+            }
+            else if (typeof(T) == typeof(long))
+            {
+                long num = (long)Convert.ChangeType(value, typeof(long));
                 settings[key] = num.ToString(CultureInfo.InvariantCulture);
             }
             else if (typeof(T) == typeof(float))

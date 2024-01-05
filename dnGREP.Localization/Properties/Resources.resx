@@ -3975,4 +3975,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Open with</value>
     <comment>Main window, results list context menu item label</comment>
   </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>In preview window, ask before loading files larger than</value>
+    <comment>Options dialog, label for text box entry</comment>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
 </root>
