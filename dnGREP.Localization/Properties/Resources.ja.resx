@@ -3876,4 +3876,48 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>キャンセル</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>削除</value>
+    <comment>Options dialog, button label to delete custom editor</comment>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>拡張機能</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>説明</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>編集…</value>
+    <comment>Options dialog, button label to edit custom editor</comment>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>カスタムエディター</value>
+    <comment>Options custom editor dialog title</comment>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>ファイルタイプのデフォルトエディターに設定する</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>値は必須です</value>
+    <comment>Validation message for user input in required text fields</comment>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>プレビューウィンドウにて、指定サイズ以上のファイルを読み込む前に確認する</value>
+    <comment>Options dialog, label for text box entry</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>指定して開く</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>追加…</value>
+    <comment>Options dialog, button label to add custom editor</comment>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>正しいパスを指定してください</value>
+    <comment>Validation message for user input of a path and file name</comment>
+  </data>
 </root>
