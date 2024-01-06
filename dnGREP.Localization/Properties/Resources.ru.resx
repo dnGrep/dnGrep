@@ -3979,4 +3979,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>KB (Кбайт)</value>
     <comment>Options dialog, label for file size</comment>
   </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>В окне предпросмотра, спрашивать перед загрузкой файлов размером более</value>
+    <comment>Options dialog, label for text box entry</comment>
+  </data>
 </root>
