@@ -3965,4 +3965,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>添加…</value>
     <comment>Options dialog, button label to add custom editor</comment>
   </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>在预览窗口中，加载文件前先询问，如果文件尺寸大于</value>
+    <comment>Options dialog, label for text box entry</comment>
+  </data>
 </root>
