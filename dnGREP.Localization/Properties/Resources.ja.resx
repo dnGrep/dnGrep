@@ -3869,7 +3869,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, checkbox label for PDF options</comment>
   </data>
   <data name="Options_EditorOK" xml:space="preserve">
-    <value>OK</value>
+    <value>登録</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Options_EditorCancel" xml:space="preserve">
@@ -3921,7 +3921,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>KB</value>
+    <value>Kバイト</value>
     <comment>Options dialog, label for file size</comment>
   </data>
 </root>
