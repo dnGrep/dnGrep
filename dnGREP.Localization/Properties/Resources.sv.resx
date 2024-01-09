@@ -910,4 +910,12 @@
     <value>Markera matchningar</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>

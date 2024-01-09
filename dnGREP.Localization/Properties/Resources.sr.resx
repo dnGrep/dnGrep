@@ -3392,4 +3392,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Филтер:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>У реду</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Поништити</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>КБ</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
 </root>

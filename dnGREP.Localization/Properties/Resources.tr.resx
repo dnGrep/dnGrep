@@ -466,4 +466,12 @@
     <value>Tamam</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>

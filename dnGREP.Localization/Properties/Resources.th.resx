@@ -122,4 +122,8 @@
     <value>ตกลง</value>
     <comment>Message box button text</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>ตกลง</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>

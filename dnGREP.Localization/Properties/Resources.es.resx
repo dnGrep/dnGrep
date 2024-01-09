@@ -2512,4 +2512,52 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Omitir archivos en la nube</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>De acuerdo</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Borrar</value>
+    <comment>Options dialog, button label to delete custom editor</comment>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Extensiones</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>Etiqueta</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>Editar…</value>
+    <comment>Options dialog, button label to edit custom editor</comment>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>Editor personalizado</value>
+    <comment>Options custom editor dialog title</comment>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Establecer como editor predeterminado para los tipos de archivo no incluidos en la lista</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Abrir con</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>Añadir…</value>
+    <comment>Options dialog, button label to add custom editor</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
 </root>

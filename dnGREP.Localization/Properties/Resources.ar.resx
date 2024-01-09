@@ -791,4 +791,12 @@
     <value>تصفيه:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>حسنا</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>إلغاء</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>

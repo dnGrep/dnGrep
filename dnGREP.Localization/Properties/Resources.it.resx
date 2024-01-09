@@ -219,7 +219,7 @@
     <comment>Message box title</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
@@ -1248,5 +1248,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="BookmarkDetails_Filter" xml:space="preserve">
     <value>Filtro:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Annulla</value>
+    <comment>Options custom editor dialog, button label</comment>
   </data>
 </root>

@@ -2630,4 +2630,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>הדגש התאמות</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>אישור</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>_ביטול</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
 </root>
