@@ -1386,20 +1386,27 @@ namespace dnGREP.Common
                     }
                 }
 
-                var pluginConfigList = Get<List<PluginConfiguration>>(Key.Plugins);
-                PluginConfiguration? cfg = pluginConfigList
-                    .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-
-                PluginConfiguration newCfg = cfg != null ?
-                    new(cfg.Name, cfg.Enabled, cfg.PreviewText, CleanExtensions(list)) :
-                    new(name, true, false, CleanExtensions(list));
-
-                if (cfg != null)
+                if (name == "Archive")
                 {
-                    pluginConfigList.Remove(cfg);
+                    Set(Key.ArchiveExtensions, CleanExtensions(list));
                 }
-                pluginConfigList.Add(newCfg);
-                Set(Key.Plugins, pluginConfigList);
+                else
+                {
+                    var pluginConfigList = Get<List<PluginConfiguration>>(Key.Plugins);
+                    PluginConfiguration? cfg = pluginConfigList
+                        .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+                    PluginConfiguration newCfg = cfg != null ?
+                        new(cfg.Name, cfg.Enabled, cfg.PreviewText, CleanExtensions(list)) :
+                        new(name, true, false, CleanExtensions(list));
+
+                    if (cfg != null)
+                    {
+                        pluginConfigList.Remove(cfg);
+                    }
+                    pluginConfigList.Add(newCfg);
+                    Set(Key.Plugins, pluginConfigList);
+                }
 
                 settings.Remove(addKey);
                 settings.Remove(remKey);
