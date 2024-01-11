@@ -404,7 +404,11 @@ namespace dnGREP.Common
         {
             // check file version
             Version = GetFileVersion(path);
-            if (Version == 1)
+            if (Version == 0)// new file
+            {
+                ConvertToV3();
+            }
+            else if (Version == 1)
             {
                 LoadV1(path);
                 ConvertToV3();
@@ -439,7 +443,7 @@ namespace dnGREP.Common
                 }
                 return 1;
             }
-            return 3;
+            return 0;// new file
         }
 
         private void LoadV1(string path)
@@ -1315,6 +1319,14 @@ namespace dnGREP.Common
             {
                 return (T)Convert.ChangeType(new List<MostRecentlyUsed>(), typeof(List<MostRecentlyUsed>));
             }
+            else if (typeof(T) == typeof(List<CustomEditor>))
+            {
+                return (T)Convert.ChangeType(new List<CustomEditor>(), typeof(List<CustomEditor>));
+            }
+            else if (typeof(T) == typeof(List<PluginConfiguration>))
+            {
+                return (T)Convert.ChangeType(new List<PluginConfiguration>(), typeof(List<PluginConfiguration>));
+            }
             else
             {
                 throw new InvalidOperationException($"Null default is not allowed for key {key}");
@@ -1374,20 +1386,27 @@ namespace dnGREP.Common
                     }
                 }
 
-                var pluginConfigList = Get<List<PluginConfiguration>>(Key.Plugins);
-                PluginConfiguration? cfg = pluginConfigList
-                    .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-
-                PluginConfiguration newCfg = cfg != null ?
-                    new(cfg.Name, cfg.Enabled, cfg.PreviewText, CleanExtensions(list)) :
-                    new(name, true, false, CleanExtensions(list));
-
-                if (cfg != null)
+                if (name == "Archive")
                 {
-                    pluginConfigList.Remove(cfg);
+                    Set(Key.ArchiveExtensions, CleanExtensions(list));
                 }
-                pluginConfigList.Add(newCfg);
-                Set(Key.Plugins, pluginConfigList);
+                else
+                {
+                    var pluginConfigList = Get<List<PluginConfiguration>>(Key.Plugins);
+                    PluginConfiguration? cfg = pluginConfigList
+                        .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+                    PluginConfiguration newCfg = cfg != null ?
+                        new(cfg.Name, cfg.Enabled, cfg.PreviewText, CleanExtensions(list)) :
+                        new(name, true, false, CleanExtensions(list));
+
+                    if (cfg != null)
+                    {
+                        pluginConfigList.Remove(cfg);
+                    }
+                    pluginConfigList.Add(newCfg);
+                    Set(Key.Plugins, pluginConfigList);
+                }
 
                 settings.Remove(addKey);
                 settings.Remove(remKey);
