@@ -20,6 +20,9 @@
     <Property Id="ARPNOMODIFY">1</Property>
 
     <!-- Properties -->
+    <Property Id="INSTALLDIR">
+      <RegistrySearch Id='dnGrepRegistry' Type='raw' Root='HKLM' Key='Software\dnGrep' Name='InstallDir' />
+    </Property>
     <Property Id="INSTALLLEVEL" Value="3" />
     <Property Id="REINSTALLMODE" Value="amus" />
     

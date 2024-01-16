@@ -5,5 +5,5 @@ using System.Runtime.InteropServices;
 // AssemblyCompany name is used for AppData\Local\ directory name
 [assembly: AssemblyCompany("dnGrep")]
 [assembly: AssemblyProduct("dnGREP")]
-[assembly: AssemblyCopyright("Copyright 2013, 2023 dnGrep Community Contributors")]
+[assembly: AssemblyCopyright("Copyright 2013, 2024 dnGrep Community Contributors")]
 [assembly: ComVisible(false)]

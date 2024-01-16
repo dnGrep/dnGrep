@@ -59,6 +59,10 @@
       </Component>
       <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{B7C5DBF9-8740-4677-8D55-E9C01BF58028}">
         <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.exe" />
+        <!-- Store the installation dir for future updates -->
+        <RegistryKey Root="HKLM" Key="Software\dnGrep" >
+          <RegistryValue Name="InstallDir" Type="string" Value="[INSTALLDIR]" />
+        </RegistryKey>
       </Component>
       <Component Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" Guid="{ED505551-933C-4B9D-8ECF-3293BE9BA5AA}">
         <File Id="filDB00706A949D4EEA8239FE1F18F446A7" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Localization.dll" />
