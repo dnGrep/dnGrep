@@ -31,6 +31,8 @@ namespace dnGREP.WPF
         /// <summary>The unique mutex name.</summary>
         private const string UniqueMutexName = "{EB56AF15-5E08-4EEF-B8C4-18749C927C78}";
 
+        private static Mutex? singletonMutex;
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -115,7 +117,7 @@ namespace dnGREP.WPF
 
         private static bool ConfigureSingletonInstance(CommandLineArgs args)
         {
-            var mutex = new Mutex(true, UniqueMutexName, out bool isOwned);
+            singletonMutex = new Mutex(true, UniqueMutexName, out bool isOwned);
 
             if (isOwned)
             {
@@ -165,6 +167,11 @@ namespace dnGREP.WPF
                 thread.Start();
                 return true;
             }
+            else
+            {
+                singletonMutex.Dispose();
+                singletonMutex = null;
+            }
 
             using NamedPipeClientStream pipeClientStream = new(".",
                 UniquePipeName, PipeDirection.Out, PipeOptions.CurrentUserOnly);
@@ -203,6 +210,12 @@ namespace dnGREP.WPF
             {
                 Utils.DeleteTempFolder();
                 Utils.DeleteUndoFolder();
+
+                if (singletonMutex != null)
+                {
+                    singletonMutex.ReleaseMutex();
+                    singletonMutex.Dispose();
+                }
             }
             catch (Exception ex)
             {
