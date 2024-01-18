@@ -60,23 +60,39 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        private bool isInRequestBringIntoView;
         private void TreeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
-            // keep tree view from scrolling horizontally when an item is (mouse) selected
-            if (sender is TreeViewItem treeViewItem &&
-                treeView.Template.FindName("_tv_scrollviewer_", treeView) is ScrollViewer scrollViewer)
-            {
-                Point topLeftInTreeViewCoordinates = treeViewItem.TransformToAncestor(treeView).Transform(new Point(0, 0));
-                var treeViewItemTop = topLeftInTreeViewCoordinates.Y;
-                if (treeViewItemTop < 0 ||
-                    treeViewItemTop + treeViewItem.ActualHeight > scrollViewer.ViewportHeight ||
-                    treeViewItem.ActualHeight > scrollViewer.ViewportHeight)
-                {
-                    // if the item is not visible or too "tall", don't do anything; let them scroll it into view
-                    return;
-                }
+            // Ignore re-entrant calls
+            if (isInRequestBringIntoView)
+                return;
 
-                // if the item is already fully within the viewport vertically, disallow horizontal scrolling
+            isInRequestBringIntoView = true;
+
+            // Cancel the current scroll attempt
+            e.Handled = true;
+
+            // Call BringIntoView using a rectangle that extends into "negative space" to the left of our
+            // actual control. This allows the vertical scrolling behavior to operate without adversely
+            // affecting the current horizontal scroll position.
+            if (sender is TreeViewItem tvi)
+            {
+                // +3 is a margin between the selected tvi and the bottom of control
+                // otherwise it will be clipped slightly
+                double height = ((FrameworkElement)e.OriginalSource).ActualHeight + 3;
+                Rect newTargetRect = new(double.NegativeInfinity, 0, double.PositiveInfinity, height);
+                tvi.BringIntoView(newTargetRect);
+            }
+
+            isInRequestBringIntoView = false;
+        }
+
+        private void TreeView_OnSelected(object sender, RoutedEventArgs e)
+        {
+            // Correctly handle programmatically selected items
+            if (sender is TreeViewItem tvi)
+            {
+                tvi.BringIntoView();
                 e.Handled = true;
             }
         }
