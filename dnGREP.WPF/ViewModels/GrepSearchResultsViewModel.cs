@@ -78,7 +78,7 @@ namespace dnGREP.WPF
                 {
                     if (editor != null && !string.IsNullOrEmpty(editor.Label) && !string.IsNullOrEmpty(editor.Path))
                     {
-                        EditorMenuItems.Add(new MenuItemViewModel(editor.Label, new RelayCommand(p => OpenFiles(editor.Label))));
+                        EditorMenuItems.Add(new MenuItemViewModel(editor.Label, new RelayCommand(p => OpenFiles(new(editor.Label, p)))));
                     }
                 }
             }
@@ -89,12 +89,18 @@ namespace dnGREP.WPF
             }
         }
 
-        private static void OpenFiles(string label)
+        private static void OpenFiles(OpenFileContext ctx)
         {
-            SearchResultsMessenger.NotifyColleagues("OpenFiles", label);
+            SearchResultsMessenger.NotifyColleagues("OpenFiles", ctx);
         }
 
         public ObservableCollection<FormattedGrepResult> SearchResults { get; set; } = [];
+
+        [ObservableProperty]
+        private FormattedGrepResult? contextGrepResult;
+
+        [ObservableProperty]
+        private bool contextGrepResultVisible;
 
         /// <summary>
         /// Gets the collection of Selected tree nodes, in the order they were selected
@@ -304,6 +310,7 @@ namespace dnGREP.WPF
         {
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomEditorConfigured)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(CompareApplicationConfigured)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(StickyScrollEnabled)));
 
             foreach (var item in SearchResults)
             {
@@ -319,6 +326,11 @@ namespace dnGREP.WPF
         public static bool CompareApplicationConfigured
         {
             get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CompareApplication); }
+        }
+
+        public static bool StickyScrollEnabled
+        {
+            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.StickyScroll); }
         }
 
         [ObservableProperty]
@@ -638,6 +650,18 @@ namespace dnGREP.WPF
         public int Level => 0;
 
         public IEnumerable<ITreeItem> Children => FormattedLines;
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is FormattedGrepResult other)
+                return GrepResult.Equals(other.GrepResult);
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return GrepResult.GetHashCode();
+        }
     }
 
     public partial class FormattedGrepLine : CultureAwareViewModel, ITreeItem
@@ -1170,4 +1194,9 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private FontWeight fontWeight = FontWeights.Normal;
     }
+
+    public record OpenFileContext(string EditorName, object CommandParameter)
+    {
+    }
+
 }

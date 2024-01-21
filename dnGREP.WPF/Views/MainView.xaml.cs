@@ -493,28 +493,28 @@ namespace dnGREP.WPF
             }
         }
 
-        internal void NextMatch()
+        internal async void NextMatch()
         {
             resultsTree.SetFocus();
-            resultsTree.Next();
+            await resultsTree.Next();
         }
 
-        internal void NextFile()
+        internal async void NextFile()
         {
             resultsTree.SetFocus();
-            resultsTree.NextFile();
+            await resultsTree.NextFile();
         }
 
-        internal void PreviousMatch()
+        internal async void PreviousMatch()
         {
             resultsTree.SetFocus();
-            resultsTree.Previous();
+            await resultsTree.Previous();
         }
 
-        internal void PreviousFile()
+        internal async void PreviousFile()
         {
             resultsTree.SetFocus();
-            resultsTree.PreviousFile();
+            await resultsTree.PreviousFile();
         }
 
         internal void ScrollToCurrent()
@@ -522,12 +522,12 @@ namespace dnGREP.WPF
             resultsTree.SetFocus();
 
             // move the treeViewItem to the middle of the treeView
-            if (resultsTree.treeView.StartTreeViewItem is TreeViewItem treeViewItem &&
-                resultsTree.treeView.Template.FindName("_tv_scrollviewer_", resultsTree.treeView) is ScrollViewer scrollViewer)
+            if (resultsTree.TreeView.StartTreeViewItem is TreeViewItem treeViewItem &&
+                resultsTree.TreeView.Template.FindName("_tv_scrollviewer_", resultsTree.TreeView) is ScrollViewer scrollViewer)
             {
-                var currentTop = treeViewItem.TranslatePoint(new Point(), resultsTree.treeView).Y;
+                var currentTop = treeViewItem.TranslatePoint(new Point(), resultsTree.TreeView).Y;
                 var itemHeight = treeViewItem.ActualHeight;
-                var viewHeight = resultsTree.treeView.ActualHeight;
+                var viewHeight = resultsTree.TreeView.ActualHeight;
                 var desiredTop = (viewHeight - itemHeight) / 2.0;
                 var desiredDelta = currentTop - desiredTop;
 
@@ -538,7 +538,7 @@ namespace dnGREP.WPF
             }
             else
             {
-                resultsTree.treeView.StartTreeViewItem?.BringIntoView();
+                resultsTree.TreeView.StartTreeViewItem?.BringIntoView();
             }
         }
 
@@ -546,7 +546,7 @@ namespace dnGREP.WPF
         {
             resultsTree.SetFocus();
 
-            foreach (FormattedGrepResult result in resultsTree.treeView.Items)
+            foreach (FormattedGrepResult result in resultsTree.TreeView.Items)
             {
                 result.CollapseTreeNode();
             }
@@ -556,7 +556,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (resultsTree.treeView.DataContext is GrepSearchResultsViewModel vm)
+                if (resultsTree.TreeView.DataContext is GrepSearchResultsViewModel vm)
                 {
                     return vm.SearchResults.Count > 0;
                 }
@@ -568,7 +568,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (resultsTree.treeView.DataContext is GrepSearchResultsViewModel vm)
+                if (resultsTree.TreeView.DataContext is GrepSearchResultsViewModel vm)
                 {
                     return vm.SearchResults.Any(n => n.IsExpanded);
                 }
@@ -576,7 +576,7 @@ namespace dnGREP.WPF
             }
         }
 
-        internal bool HasStartItem => resultsTree.treeView.HasStartItem;
+        internal bool HasStartItem => resultsTree.TreeView.HasStartItem;
 
         private DateTime timeOfLastMessage = DateTime.Now;
 

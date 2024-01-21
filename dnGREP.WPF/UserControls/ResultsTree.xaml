@@ -27,7 +27,8 @@
                                   my:FocusExtension.IsFocused="{Binding IsResultsTreeFocused}"
                                   Foreground="{DynamicResource TreeView.Foreground}"
                                   Background="{DynamicResource TreeView.Background}"
-                                  BorderBrush="{DynamicResource TreeView.Border}"
+                                  BorderBrush="Transparent"
+                                  BorderThickness="0"
                                   ItemsSource="{Binding SearchResults}"
                                   SelectedItems="{Binding SelectedNodes}"
                                   MultiSelectRootLevelOnly="False" 
@@ -159,6 +160,7 @@
                         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
                             <Setter Property="Header" Value="{Binding Header}"/>
                             <Setter Property="Command" Value="{Binding Command}"/>
+                            <Setter Property="CommandParameter" Value="ResultsTree"/>
                             <Setter Property="IsEnabled" Value="{Binding IsEnabled}"/>
                         </Style>
                     </MenuItem.ItemContainerStyle>
@@ -204,6 +206,7 @@
                 <EventSetter Event="UIElement.PreviewMouseLeftButtonDown" Handler="TreeView_PreviewMouseLeftButtonDown" />
                 <EventSetter Event="UIElement.PreviewMouseMove" Handler="TreeView_PreviewMouseMove" />
                 <EventSetter Event="RequestBringIntoView" Handler="TreeView_RequestBringIntoView" />
+                <EventSetter Event="Selected" Handler="TreeView_OnSelected" />
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                 <Setter Property="BorderThickness" Value="1.5" />
                 <Setter Property="Padding" Value="1" />

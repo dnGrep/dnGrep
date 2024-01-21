@@ -47,7 +47,7 @@ namespace dnGREP.WPF.UserControls
             viewModel.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
 
             GrepSearchResultsViewModel.SearchResultsMessenger.Register("OpenFiles",
-                (Action<string>)(label => OpenFiles(true, label)));
+                (Action<OpenFileContext>)(ctx => OpenFiles(true, ctx)));
         }
 
         private void SelectedNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -75,12 +75,13 @@ namespace dnGREP.WPF.UserControls
             // Call BringIntoView using a rectangle that extends into "negative space" to the left of our
             // actual control. This allows the vertical scrolling behavior to operate without adversely
             // affecting the current horizontal scroll position.
-            if (sender is TreeViewItem tvi)
+            if (sender is TreeViewItem tvi && e.OriginalSource is FrameworkElement element)
             {
                 // +3 is a margin between the selected tvi and the bottom of control
                 // otherwise it will be clipped slightly
-                double height = ((FrameworkElement)e.OriginalSource).ActualHeight + 3;
-                Rect newTargetRect = new(double.NegativeInfinity, 0, double.PositiveInfinity, height);
+                double height = element.ActualHeight + 3;
+                double width = element.ActualWidth;
+                Rect newTargetRect = new(double.NegativeInfinity, 0, width, height);
                 tvi.BringIntoView(newTargetRect);
             }
 
@@ -114,7 +115,7 @@ namespace dnGREP.WPF.UserControls
             OpenExplorerMenu();
         }
 
-        private void TreeKeyDown(object sender, KeyEventArgs e)
+        private async void TreeKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.C && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
@@ -149,22 +150,22 @@ namespace dnGREP.WPF.UserControls
             }
             else if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
             {
-                Next();
+                await Next();
                 e.Handled = true;
             }
             else if (e.Key == Key.F3 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
-                NextFile();
+                await NextFile();
                 e.Handled = true;
             }
             else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
             {
-                Previous();
+                await Previous();
                 e.Handled = true;
             }
             else if (e.Key == Key.F4 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
-                PreviousFile();
+                await PreviousFile();
                 e.Handled = true;
             }
             else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.None)
@@ -279,7 +280,7 @@ namespace dnGREP.WPF.UserControls
             }), System.Windows.Threading.DispatcherPriority.Normal);
         }
 
-        internal async void Next()
+        internal async Task Next()
         {
             try
             {
@@ -292,7 +293,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        internal async void NextFile()
+        internal async Task NextFile()
         {
             try
             {
@@ -305,7 +306,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        internal async void Previous()
+        internal async Task Previous()
         {
             try
             {
@@ -318,7 +319,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        internal async void PreviousFile()
+        internal async Task PreviousFile()
         {
             try
             {
@@ -734,24 +735,24 @@ namespace dnGREP.WPF.UserControls
             ExcludeLines();
         }
 
-        private void BtnNextMatch_Click(object sender, RoutedEventArgs e)
+        private async void BtnNextMatch_Click(object sender, RoutedEventArgs e)
         {
-            Next();
+            await Next();
         }
 
-        private void BtnNextFile_Click(object sender, RoutedEventArgs e)
+        private async void BtnNextFile_Click(object sender, RoutedEventArgs e)
         {
-            NextFile();
+            await NextFile();
         }
 
-        private void BtnPreviousMatch_Click(object sender, RoutedEventArgs e)
+        private async void BtnPreviousMatch_Click(object sender, RoutedEventArgs e)
         {
-            Previous();
+            await Previous();
         }
 
-        private void BtnPreviousFile_Click(object sender, RoutedEventArgs e)
+        private async void BtnPreviousFile_Click(object sender, RoutedEventArgs e)
         {
-            PreviousFile();
+            await PreviousFile();
         }
 
         private async void BtnExpandAll_Click(object sender, RoutedEventArgs e)
@@ -767,6 +768,15 @@ namespace dnGREP.WPF.UserControls
             foreach (FormattedGrepResult result in treeView.Items)
             {
                 result.CollapseTreeNode();
+            }
+        }
+
+        private void OpenFiles(bool useCustomEditor, OpenFileContext ctx)
+        {
+            if (ctx.CommandParameter is string name &&
+                name.Equals("ResultsTree", StringComparison.OrdinalIgnoreCase))
+            {
+                OpenFiles(useCustomEditor, ctx.EditorName);
             }
         }
 

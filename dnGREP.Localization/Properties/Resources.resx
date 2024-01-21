@@ -3983,4 +3983,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>KB</value>
     <comment>Options dialog, label for file size</comment>
   </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>Enable sticky scroll in results tree</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
 </root>

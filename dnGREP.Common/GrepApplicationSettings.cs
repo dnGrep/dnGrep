@@ -338,6 +338,8 @@ namespace dnGREP.Common
             public const string ArchiveExtensions = "ArchiveExtensions";
             [DefaultValue("")]
             public const string ArchiveCustomExtensions = "ArchiveCustomExtensions";
+            [DefaultValue(true)]
+            public const string StickyScroll = "StickyScroll"; 
         }
 
         public static class ObsoleteKey

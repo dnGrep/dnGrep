@@ -4761,6 +4761,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable sticky scroll in results tree.
+        /// </summary>
+        public static string Options_EnableStickyScrollInResultsTree {
+            get {
+                return ResourceManager.GetString("Options_EnableStickyScrollInResultsTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End of document.
         /// </summary>
         public static string Options_EndOfDocument {

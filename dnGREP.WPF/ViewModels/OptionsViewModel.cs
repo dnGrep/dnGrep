@@ -183,6 +183,7 @@ namespace dnGREP.WPF
                 MoveOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove) ||
                 PreserveFolderLayoutOnCopy != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy) ||
                 PreserveFolderLayoutOnMove != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove) ||
+                StickyScroll != Settings.Get<bool>(GrepSettings.Key.StickyScroll) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
@@ -463,6 +464,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private PanelSelection optionsLocation;
+
+        [ObservableProperty]
+        private bool stickyScroll;
 
         [ObservableProperty]
         private bool maximizeResultsTreeOnSearch;
@@ -776,6 +780,7 @@ namespace dnGREP.WPF
             MoveOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
             PreserveFolderLayoutOnCopy = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy);
             PreserveFolderLayoutOnMove = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove);
+            StickyScroll = Settings.Get<bool>(GrepSettings.Key.StickyScroll);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
 
@@ -920,6 +925,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
             Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
+            Settings.Set(GrepSettings.Key.StickyScroll, StickyScroll);
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
             Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
