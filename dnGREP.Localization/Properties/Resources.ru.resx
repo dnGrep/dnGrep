@@ -3976,7 +3976,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>KB (Кбайт)</value>
+    <value>КБ</value>
     <comment>Options dialog, label for file size</comment>
   </data>
   <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
