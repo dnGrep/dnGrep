@@ -2429,7 +2429,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>BIEN</value>
+    <value>De acuerdo</value>
     <comment>Message box button text</comment>
   </data>
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
