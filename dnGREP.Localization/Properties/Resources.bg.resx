@@ -3965,4 +3965,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Необходима е стойност</value>
     <comment>Validation message for user input in required text fields</comment>
   </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Задаване на подразбиран редактор на неуказаните видове файлове</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>„Лепкава“ лента за плъзгане на дървото с резултати</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>Питане преди зареждане на файлове, в прозореца за преглед, по-големи от</value>
+    <comment>Options dialog, label for text box entry</comment>
+  </data>
 </root>
