@@ -3973,4 +3973,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>在预览窗口中，加载文件前先询问，如果文件尺寸大于</value>
     <comment>Options dialog, label for text box entry</comment>
   </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>在结果树中开启粘滞滚动</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
 </root>
