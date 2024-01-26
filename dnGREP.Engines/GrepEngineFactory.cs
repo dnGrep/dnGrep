@@ -46,10 +46,13 @@ namespace dnGREP.Engines
         {
             lock (lockObj)
             {
+
                 if (plugins == null)
                 {
                     plugins = [];
                     disabledPlugins.Clear();
+                    Utils.AllPluginExtensions.Clear();
+
                     string pluginPath = Path.Combine(Utils.GetCurrentPath(), "Plugins");
                     if (Directory.Exists(pluginPath))
                     {
@@ -73,7 +76,7 @@ namespace dnGREP.Engines
                                                 string fileExtension = ext.TrimStart('.');
                                                 if (!poolKeys.ContainsKey(fileExtension))
                                                 {
-                                                    poolKeys.Add(fileExtension, plugin.PluginName);
+                                                    poolKeys.Add(fileExtension, plugin.PluginTypeName);
                                                 }
                                             }
 
@@ -139,6 +142,7 @@ namespace dnGREP.Engines
                 poolKeys.Clear();
                 fileTypeEngines.Clear();
                 UnloadEngines();
+                Utils.AllPluginExtensions.Clear();
 
                 foreach (var plugin in pluginList)
                 {
@@ -155,7 +159,7 @@ namespace dnGREP.Engines
                                 string fileExtension = ext.TrimStart('.');
                                 if (!poolKeys.ContainsKey(fileExtension))
                                 {
-                                    poolKeys.Add(fileExtension, plugin.PluginName);
+                                    poolKeys.Add(fileExtension, plugin.PluginTypeName);
                                 }
                             }
 
@@ -230,7 +234,7 @@ namespace dnGREP.Engines
                     else
                     {
                         logger.Debug(string.Format("File type engines failed to initialize: {0}, using plainTextEngine", fileExtension));
-                        failedEngines[plugin.PluginName] = "Failed to initialize the plugin. See error log for details.";
+                        failedEngines[plugin.PluginTypeName] = "Failed to initialize the plugin. See error log for details.";
                         return GetPlainTextEngine(fileExtension, param, filter);
                     }
                 }
@@ -260,7 +264,7 @@ namespace dnGREP.Engines
                     }
                     else
                     {
-                        failedEngines[plugin.PluginName] = "Failed to initialize the plugin. See error log for details.";
+                        failedEngines[plugin.PluginTypeName] = "Failed to initialize the plugin. See error log for details.";
                         return GetPlainTextEngine(fileExtension, param, filter);
                     }
                 }

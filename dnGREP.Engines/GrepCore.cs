@@ -66,8 +66,8 @@ namespace dnGREP.Common
                     if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
                     {
                         if (codePage == -1 && !fileInfo.FullName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal) &&
-                            !Utils.IsArchive(fileInfo.FullName) && !Utils.IsBinary(fileInfo.FullName) &&
-                            !Utils.IsPdfFile(fileInfo.FullName))
+                            !Utils.IsArchive(fileInfo.FullName) && !Utils.IsPluginFile(fileInfo.FullName) && 
+                            !Utils.IsBinary(fileInfo.FullName))
                         {
                             encoding = Utils.GetFileEncoding(fileInfo.FullName);
                         }
@@ -272,7 +272,7 @@ namespace dnGREP.Common
                 Encoding encoding = Encoding.Default;
                 if (codePage > -1)
                     encoding = Encoding.GetEncoding(codePage);
-                else if (!isArchive && !Utils.IsBinary(file) && !Utils.IsPdfFile(file))
+                else if (!isArchive && !Utils.IsPluginFile(file) && !Utils.IsBinary(file))
                     encoding = Utils.GetFileEncoding(file);
 
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();

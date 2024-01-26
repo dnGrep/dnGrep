@@ -1177,6 +1177,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file created by the {0} plugin has no searchable text.
+        /// </summary>
+        public static string Error_TheFileCreatedByThePluginHasNoSearchableText {
+            get {
+                return ResourceManager.GetString("Error_TheFileCreatedByThePluginHasNoSearchableText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} plugin command returned error: {1}.
+        /// </summary>
+        public static string Error_ThePluginCommandReturnedError {
+            get {
+                return ResourceManager.GetString("Error_ThePluginCommandReturnedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} plugin failed to extract any text.
+        /// </summary>
+        public static string Error_ThePluginFailedToExtractAnyText {
+            get {
+                return ResourceManager.GetString("Error_ThePluginFailedToExtractAnyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This PDF file contains no text.
         /// </summary>
         public static string Error_ThisPDFFileContainsNoText {
