@@ -599,64 +599,46 @@ namespace dnGREP.Common
             return isRtl;
         }
 
-        /// <summary>
-        /// Returns true if the source file extension is ".pdf"
-        /// </summary>
-        /// <param name="srcFile"></param>
-        /// <returns></returns>
-        public static bool IsPdfFile(string srcFile)
-        {
-            string ext = Path.GetExtension(srcFile);
-            if (!string.IsNullOrWhiteSpace(ext) && ext.Equals(".PDF", StringComparison.OrdinalIgnoreCase))
-                return true;
-            return false;
-        }
 
         /// <summary>
-        /// Returns true if the source file extension is ".doc" or ".docx" or ".docm"
+        /// Gets the set of all extensions (lowercase and including the period) handled by a plugin
         /// </summary>
-        /// <param name="srcFile"></param>
-        /// <returns></returns>
-        public static bool IsWordFile(string srcFile)
-        {
-            string ext = Path.GetExtension(srcFile);
-            if (!string.IsNullOrWhiteSpace(ext) &&
-                (ext.Equals(".DOC", StringComparison.OrdinalIgnoreCase) ||
-                 ext.Equals(".DOCX", StringComparison.OrdinalIgnoreCase) ||
-                 ext.Equals(".DOCM", StringComparison.OrdinalIgnoreCase)))
-                return true;
-            return false;
-        }
+        public static HashSet<string> AllPluginExtensions { get; } = [];
 
         /// <summary>
-        /// Returns true if the source file extension is ".xls" or ".xlsx" or ".xlsm"
-        /// At this time we can't parse ".xlsb" files, so do not include them here 
+        /// Returns true if the file is a file type handled by a plugin - probably binary 
+        /// so no need to test for binary or encoding
         /// </summary>
         /// <param name="srcFile"></param>
         /// <returns></returns>
-        public static bool IsExcelFile(string srcFile)
+        public static bool IsPluginFile(string srcFile)
         {
-            string ext = Path.GetExtension(srcFile);
-            if (!string.IsNullOrWhiteSpace(ext) &&
-                (ext.Equals(".XLS", StringComparison.OrdinalIgnoreCase) ||
-                 ext.Equals(".XLSX", StringComparison.OrdinalIgnoreCase) ||
-                 ext.Equals(".XLSM", StringComparison.OrdinalIgnoreCase)))
-                return true;
-            return false;
+            string ext = Path.GetExtension(srcFile).ToLower();
+            return AllPluginExtensions.Contains(ext);
         }
 
-        /// <summary>
-        /// Returns true if the source file extension is ".pptx" or ".pptm"
-        /// </summary>
-        /// <param name="srcFile"></param>
-        /// <returns></returns>
-        public static bool IsPowerPointFile(string srcFile)
+        public static bool HasPluginExtension(params string[] filters)
         {
-            string ext = Path.GetExtension(srcFile);
-            if (!string.IsNullOrWhiteSpace(ext) &&
-                (ext.Equals(".PPTX", StringComparison.OrdinalIgnoreCase) ||
-                 ext.Equals(".PPTM", StringComparison.OrdinalIgnoreCase)))
+            // first check for 'any file, any file type' filters:
+            if (filters.Length == 1 && string.IsNullOrEmpty(filters[0]))
+            {
                 return true;
+            }
+
+            foreach (string filter in filters)
+            {
+                if (filter == "*" || filter == "*.*" || filter.EndsWith(".*", StringComparison.Ordinal))
+                    return true;
+            }
+
+            foreach (var ext in AllPluginExtensions)
+            {
+                foreach (string filter in filters)
+                {
+                    if (filter.Contains(ext, StringComparison.OrdinalIgnoreCase))
+                        return true;
+                }
+            }
             return false;
         }
 
@@ -1240,15 +1222,17 @@ namespace dnGREP.Common
 
                 if (!filter.IncludeBinary && !IsArchive(filePath) && !IsFileInArchive(filePath))
                 {
-                    bool isExcelMatch = IsExcelFile(filePath) && (includeSearchPatterns?.Contains(".xls", StringComparison.OrdinalIgnoreCase) ?? false);
-                    bool isWordMatch = IsWordFile(filePath) && (includeSearchPatterns?.Contains(".doc", StringComparison.OrdinalIgnoreCase) ?? false);
-                    bool isPowerPointMatch = IsPowerPointFile(filePath) && (includeSearchPatterns?.Contains(".ppt", StringComparison.OrdinalIgnoreCase) ?? false);
-                    bool isPdfMatch = IsPdfFile(filePath) && (includeSearchPatterns?.Contains(".pdf", StringComparison.OrdinalIgnoreCase) ?? false);
+                    //bool isExcelMatch = IsExcelFile(filePath) && (includeSearchPatterns?.Contains(".xls", StringComparison.OrdinalIgnoreCase) ?? false);
+                    //bool isWordMatch = IsWordFile(filePath) && (includeSearchPatterns?.Contains(".doc", StringComparison.OrdinalIgnoreCase) ?? false);
+                    //bool isPowerPointMatch = IsPowerPointFile(filePath) && (includeSearchPatterns?.Contains(".ppt", StringComparison.OrdinalIgnoreCase) ?? false);
+                    //bool isPdfMatch = IsPdfFile(filePath) && (includeSearchPatterns?.Contains(".pdf", StringComparison.OrdinalIgnoreCase) ?? false);
 
-                    // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check:
-                    // If someone is searching for one of these types, don't make them include binary to 
-                    // find their files.
-                    if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) && IsBinary(filePath))
+                    //// When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check:
+                    //// If someone is searching for one of these types, don't make them include binary to 
+                    //// find their files.
+
+                    // do not test files handled by a plugin for binary
+                    if (!IsPluginFile(filePath) && IsBinary(filePath))
                     {
                         return false;
                     }

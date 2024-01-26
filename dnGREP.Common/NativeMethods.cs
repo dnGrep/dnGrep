@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Text;
 using dnGREP.Localization;
 using NLog;
 using Windows.Win32;
@@ -151,6 +153,37 @@ namespace dnGREP.Common
             }
 
             return process;
+        }
+
+        // using this instead of CsWin32 because it defines ppszOtherDirs as ushort** - how do you get one???
+        [DllImport("shlwapi.dll", SetLastError = false, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool PathFindOnPath(StringBuilder pszPath, [AllowNull][In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr)] string?[] ppszOtherDirs);
+
+        private const int MAX_PATH = 260;
+
+        /// <summary>
+        /// Gets the full path of the given executable filename as if the user had entered this
+        /// executable in a shell. If the filename can't be found by Windows, empty string is returned.</summary>
+        /// <param name="exeName"></param>
+        /// <returns>The full path if successful, or empty string otherwise.</returns>
+        public unsafe static string PathFindOnPath(string exeName, string workingDirectory)
+        {
+            if (exeName.Length >= MAX_PATH)
+                throw new ArgumentException($"The executable name '{exeName}' must have less than {MAX_PATH} characters.",
+                    nameof(exeName));
+
+            var sb = new StringBuilder(exeName, MAX_PATH);
+
+            if (!string.IsNullOrEmpty(workingDirectory))
+            {
+                string?[] dirs = [workingDirectory, null];
+                return PathFindOnPath(sb, dirs) ? sb.ToString() : string.Empty;
+            }
+            else
+            {
+                return PathFindOnPath(sb, null) ? sb.ToString() : string.Empty;
+            }
         }
     }
 }

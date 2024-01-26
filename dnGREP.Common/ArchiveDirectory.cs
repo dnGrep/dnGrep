@@ -364,19 +364,12 @@ namespace dnGREP.Common
 
             if (!filter.IncludeBinary || checkEncoding)
             {
-                bool isExcelMatch = Utils.IsExcelFile(fileName) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
-                bool isWordMatch = Utils.IsWordFile(fileName) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
-                bool isPowerPointMatch = Utils.IsPowerPointFile(fileName) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
-                bool isPdfMatch = Utils.IsPdfFile(fileName) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
-
-                // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check
+                // When searching for files handled by plugins, skip the binary file check
                 // and the encoding check.
                 // If someone is searching for one of these types, don't make them include binary to 
                 // find their files.
-                if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch))
-                {
-                    return true;
-                }
+                bool isPluginMatch = Utils.IsPluginFile(fileName) && Utils.HasPluginExtension([.. includeSearchPatterns]);
+                return !isPluginMatch;
             }
 
             return false;
@@ -392,17 +385,14 @@ namespace dnGREP.Common
             {
                 stream.Seek(0, SeekOrigin.Begin);
 
-                bool isExcelMatch = Utils.IsExcelFile(fileData.Name) && filter.NamePatternToInclude.Contains(".xls", StringComparison.OrdinalIgnoreCase);
-                bool isWordMatch = Utils.IsWordFile(fileData.Name) && filter.NamePatternToInclude.Contains(".doc", StringComparison.OrdinalIgnoreCase);
-                bool isPowerPointMatch = Utils.IsPowerPointFile(fileData.Name) && filter.NamePatternToInclude.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
-                bool isPdfMatch = Utils.IsPdfFile(fileData.Name) && filter.NamePatternToInclude.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
+                bool isPluginMatch = Utils.IsPluginFile(fileData.Name) && Utils.HasPluginExtension(filter.NamePatternToInclude);
 
-                // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check:
+                // When searching for files handled by plugins, skip the binary file check:
                 // If someone is searching for one of these types, don't make them include binary to 
                 // find their files.
                 // the isBinary flag is needed for the Encoding check below
                 fileData.IsBinary = Utils.IsBinary(stream);
-                if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) && !filter.IncludeBinary && fileData.IsBinary)
+                if (!isPluginMatch && !filter.IncludeBinary && fileData.IsBinary)
                 {
                     return false;
                 }
@@ -454,9 +444,6 @@ namespace dnGREP.Common
         public static void OpenFile(OpenFileArgs args)
         {
             string filePath = ExtractToTempFile(args.SearchResult);
-
-            if (Utils.IsWordFile(filePath) || Utils.IsExcelFile(filePath) || Utils.IsPowerPointFile(filePath))
-                args.UseCustomEditor = false;
 
             GrepSearchResult newResult = new()
             {

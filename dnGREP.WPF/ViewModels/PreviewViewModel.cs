@@ -104,7 +104,7 @@ namespace dnGREP.WPF
         private bool isLargeOrBinary;
 
         [ObservableProperty]
-        private bool isPdf;
+        private bool isPluginFile;
 
         [ObservableProperty]
         private string currentSyntax = string.Empty;
@@ -185,8 +185,8 @@ namespace dnGREP.WPF
                     try
                     {
                         // Do not preview files over 4MB or binary
-                        IsPdf = Utils.IsPdfFile(FilePath);
-                        IsLargeOrBinary = fileInfo.Length > LargeFileLimit || Utils.IsBinary(FilePath) || IsPdf;
+                        IsPluginFile = Utils.IsPluginFile(FilePath);
+                        IsLargeOrBinary = fileInfo.Length > LargeFileLimit || Utils.IsPluginFile(FilePath) || Utils.IsBinary(FilePath);
                     }
                     catch (System.IO.IOException ex)
                     {

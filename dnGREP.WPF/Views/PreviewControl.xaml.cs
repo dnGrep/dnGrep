@@ -71,7 +71,7 @@ namespace dnGREP.WPF
                         textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
                 }
 
-                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf &&
+                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPluginFile &&
                     ViewModel.GrepResult != null)
                 {
                     textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
@@ -115,7 +115,7 @@ namespace dnGREP.WPF
                     textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
             }
 
-            if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf &&
+            if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPluginFile &&
                 ViewModel.GrepResult != null)
             {
                 textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));

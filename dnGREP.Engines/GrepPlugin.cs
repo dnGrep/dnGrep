@@ -23,6 +23,10 @@ namespace dnGREP.Engines
                 {
                     engine = Activator.CreateInstance(pluginType) as IGrepEngine;
                 }
+                else if (!string.IsNullOrEmpty(Application))
+                {
+                    engine = new GenericPluginEngine(Name, Application, Arguments, WorkingDirectory);
+                }
             }
             catch (Exception ex)
             {
@@ -31,6 +35,9 @@ namespace dnGREP.Engines
             return engine;
         }
 
+        /// <summary>
+        /// Gets the name of the plugin
+        /// </summary>
         public string Name { get; private set; } = string.Empty;
 
         public List<string> DefaultExtensions { get; private set; }
@@ -40,12 +47,27 @@ namespace dnGREP.Engines
         /// <summary>
         /// Gets the name of the IGrepEngine type
         /// </summary>
-        public string PluginName { get; private set; } = string.Empty;
+        public string PluginTypeName { get; private set; } = string.Empty;
 
         /// <summary>
         /// Absolute path to DLL file
         /// </summary>
         public string DllFilePath { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Gets the name of the application to call in the GenericPlugin
+        /// </summary>
+        public string Application { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Gets the command arguments for the GenericPlugin
+        /// </summary>
+        public string Arguments { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Gets the working directory for the GenericPlugin
+        /// </summary>
+        public string WorkingDirectory { get; private set; } = string.Empty;
 
         /// <summary>
         /// Absolute path to plugin file
@@ -67,7 +89,9 @@ namespace dnGREP.Engines
         /// </summary>
         public bool IsSearchOnly { get; private set; }
 
-        public Version? FrameworkVersion => pluginType != null ? Assembly.GetAssembly(pluginType)?.GetName()?.Version : null;
+        public Version? FrameworkVersion => pluginType != null ?
+            Assembly.GetAssembly(pluginType)?.GetName()?.Version :
+            Assembly.GetAssembly(typeof(GenericPluginEngine))?.GetName()?.Version;
 
         public GrepPlugin(string pluginFilePath)
         {
@@ -77,6 +101,8 @@ namespace dnGREP.Engines
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
+        private static readonly char[] csvSeparators = [',', ';', ' '];
+
         public bool LoadPluginSettings()
         {
             bool result = false;
@@ -84,6 +110,8 @@ namespace dnGREP.Engines
             {
                 try
                 {
+                    List<string>? defaultExtensions = null;
+
                     foreach (string line in File.ReadAllLines(PluginFilePath))
                     {
                         string[] tokens = line.Split('=');
@@ -98,7 +126,53 @@ namespace dnGREP.Engines
                             case "File":
                                 DllFilePath = tokens[1].Trim();
                                 break;
+                            case "Application":
+                                Application = tokens[1].Trim();
+                                break;
+                            case "Arguments":
+                                Arguments = tokens[1].Trim();
+                                break;
+                            case "WorkingDirectory":
+                                WorkingDirectory = tokens[1].Trim();
+                                break;
+                            case "Extensions":
+                                defaultExtensions = [.. tokens[1].Split(csvSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)];
+                                break;
+                            default:
+                                break;
                         }
+                    }
+
+                    if (string.IsNullOrEmpty(Name))
+                    {
+                        logger.Error($"The plugin {PluginFilePath} must have a Name property");
+                        return false;
+                    }
+
+                    if (!string.IsNullOrEmpty(Application))
+                    {
+                        if (string.IsNullOrEmpty(WorkingDirectory))
+                        {
+                            WorkingDirectory = Path.GetDirectoryName(PluginFilePath) ?? string.Empty;
+                        }
+
+                        if (!File.Exists(Application))
+                        {
+                            string fullPath = NativeMethods.PathFindOnPath(Application, WorkingDirectory);
+                            if (!string.IsNullOrEmpty(fullPath))
+                            {
+                                Application = fullPath;
+                            }
+                        }
+
+                        if (!File.Exists(Application))
+                        {
+                            logger.Error($"The {Name} plugin application [{Application}] could not be found");
+                            return false;
+                        }
+
+                        PluginTypeName = $"GenericPluginEngine{Name}";
+                        IsSearchOnly = true;
                     }
 
                     string tempDllFilePath = DllFilePath;
@@ -122,10 +196,9 @@ namespace dnGREP.Engines
                         }
                     }
 
-                    List<string>? defaultExtensions = null;
                     if (pluginType != null)
                     {
-                        PluginName = pluginType.Name;
+                        PluginTypeName = pluginType.Name;
                         var engine = CreateEngine();
                         if (engine != null)
                         {
@@ -148,7 +221,16 @@ namespace dnGREP.Engines
                     PreviewPlainText = cfg.PreviewText;
                     GetExtensionsFromSettings(cfg, defaultExtensions ?? []);
 
-                    result = pluginType != null;
+                    result = pluginType != null || !string.IsNullOrEmpty(Application);
+
+                    if (result && cfg.Enabled)
+                    {
+                        // keep a list of all extensions handled by a plugin
+                        foreach (var ext in cfg.ExtensionList)
+                        {
+                            Utils.AllPluginExtensions.Add('.' + ext.ToLower());
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {

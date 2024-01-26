@@ -3987,4 +3987,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Enable sticky scroll in results tree</value>
     <comment>Options dialog, check box label</comment>
   </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>The {0} plugin failed to extract any text</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>The file created by the {0} plugin has no searchable text</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>The {0} plugin command returned error: {1}</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name and {1} is the error message</comment>
+  </data>
 </root>
