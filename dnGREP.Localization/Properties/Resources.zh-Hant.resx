@@ -3911,4 +3911,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>KB</value>
     <comment>Options dialog, label for file size</comment>
   </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>在結果樹狀圖中啟用自黏捲動</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>在預覽視窗中, 載入檔案前先詢問, 若檔案大於</value>
+    <comment>Options dialog, label for text box entry</comment>
+  </data>
 </root>
