@@ -54,14 +54,40 @@
         </Setter>
     </Style>
 
-    <Image x:Key="pinImage" Width="24" Source="{DynamicResource pinBitmap}"/>
-    <Image x:Key="unpinImage" Width="24" Source="{DynamicResource unpinBitmap}"/>
+    <Image x:Key="pinImage">
+        <Image.Style>
+            <Style TargetType="{x:Type Image}">
+                <Setter Property="Source" Value="/dnGrep;component/Images/pin.png"/>
+                <Setter Property="Width" Value="24"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ToggleButton}}}" Value="True">
+                        <Setter Property="Source" Value="/dnGrep;component/Images/pinDark.png"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Image.Style>
+    </Image>
+    
+    <Image x:Key="unpinImage">
+        <Image.Style>
+            <Style TargetType="{x:Type Image}">
+                <Setter Property="Source" Value="/dnGrep;component/Images/unpin.png"/>
+                <Setter Property="Width" Value="24"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ToggleButton}}}" Value="True">
+                        <Setter Property="Source" Value="/dnGrep;component/Images/unpinDark.png"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Image.Style>
+    </Image>
 
     <Style x:Key="ThemedPinButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ButtonFocusVisual}" />
         <Setter Property="Background" Value="{DynamicResource Button.Static.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Button.Static.Border}" />
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
+        <Setter Property="Tag" Value="{DynamicResource ToggleButton.DarkImages}"/>
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
