@@ -3977,4 +3977,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Питане преди зареждане на файлове, в прозореца за преглед, по-големи от</value>
     <comment>Options dialog, label for text box entry</comment>
   </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>Добавката {0} не е извлякла текст</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>Създаденият от добавката {0} файл не съдържа текст, годен за търсене</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>Командата на добавката {0} върна грешка: {1}</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name and {1} is the error message</comment>
+  </data>
 </root>
