@@ -68,6 +68,7 @@ namespace dnGREP.WPF
 
                 CheckVersion();
                 ControlsInit();
+                PopulateTimeIntervals();
                 PopulateEncodings();
                 PopulateScripts();
                 PopulateIgnoreFilters(true);
@@ -104,6 +105,8 @@ namespace dnGREP.WPF
         {
             PreviewModel.FilePath = string.Empty;
             PreviewTitle = string.Empty;
+
+            PopulateTimeIntervals();
 
             // reload the Encodings list, the "Auto" encoding name (at least) has changed languages
             int value = CodePage;
@@ -192,8 +195,8 @@ namespace dnGREP.WPF
 
                 if (totalMatchCount > 0)
                 {
-                    int preceedingMatchCount = GetPreceedingMatchCount(e.FormattedGrepLine.Parent);
-                    StatusMessage4 = $"{e.MatchOrdinal + preceedingMatchCount}/{totalMatchCount}";
+                    int precedingMatchCount = GetPrecedingMatchCount(e.FormattedGrepLine.Parent);
+                    StatusMessage4 = $"{e.MatchOrdinal + precedingMatchCount}/{totalMatchCount}";
                     StatusMessage4Tooltip = Resources.Main_StatusTooltip_MatchNumberMatchCountOverall;
                 }
                 else
@@ -205,7 +208,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private int GetPreceedingMatchCount(FormattedGrepResult formattedGrepResult)
+        private int GetPrecedingMatchCount(FormattedGrepResult formattedGrepResult)
         {
             if (formattedGrepResult == null || formattedGrepResult.GrepResult == null)
             {
@@ -287,6 +290,8 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private double mainFormFontSize;
+
+        public ObservableCollection<TimeRangeMap> TimeRanges { get; } = [];
 
         public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = [];
 
@@ -1020,12 +1025,12 @@ namespace dnGREP.WPF
                                 if (endTime.HasValue)
                                     endTime = endTime.Value.AddDays(1.0);
                             }
-                            else if (param.TypeOfTimeRangeFilter == FileTimeRange.Hours)
+                            else if (param.TypeOfTimeRangeFilter != FileTimeRange.None)
                             {
-                                int low = Math.Min(param.HoursFrom, param.HoursTo);
-                                int high = Math.Max(param.HoursFrom, param.HoursTo);
-                                startTime = DateTime.Now.AddHours(-1 * high);
-                                endTime = DateTime.Now.AddHours(-1 * low);
+                                var (start, end) = GetStartEndTimesFromRange(
+                                    param.TypeOfTimeRangeFilter, param.TimeRangeFrom, param.TimeRangeTo);
+                                startTime = start;
+                                endTime = end;
                             }
                         }
 
@@ -1223,6 +1228,39 @@ namespace dnGREP.WPF
                         }
                     }
                 }
+            }
+        }
+
+        private static (DateTime startTime, DateTime endTime) GetStartEndTimesFromRange(
+            FileTimeRange typeOfTimeRangeFilter, int timeRangeFrom, int timeRangeTo)
+        {
+            int low = Math.Min(timeRangeFrom, timeRangeTo);
+            int high = Math.Max(timeRangeFrom, timeRangeTo);
+
+            DateTime startTime = GetPastTime(high, typeOfTimeRangeFilter);
+            DateTime endTime = GetPastTime(low, typeOfTimeRangeFilter);
+
+            return (startTime, endTime);
+        }
+
+        private static DateTime GetPastTime(int value, FileTimeRange type)
+        {
+            try
+            {
+                return type switch
+                {
+                    FileTimeRange.Minutes => DateTime.Now.AddMinutes(-1 * value),
+                    FileTimeRange.Hours => DateTime.Now.AddHours(-1 * value),
+                    FileTimeRange.Days => DateTime.Now.AddDays(-1 * value),
+                    FileTimeRange.Weeks => DateTime.Now.AddDays(-7 * value),
+                    FileTimeRange.Months => DateTime.Now.AddMonths(-1 * value),
+                    FileTimeRange.Years => DateTime.Now.AddYears(-1 * value),
+                    _ => DateTime.UnixEpoch,
+                };
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return DateTime.UnixEpoch;
             }
         }
 
@@ -2322,7 +2360,7 @@ namespace dnGREP.WPF
             bookmarkWindow?.ViewModel.SynchToLibrary();
         }
 
-        private void AddBookmark(string bookmarkName, bool assocateWithFolder)
+        private void AddBookmark(string bookmarkName, bool associateWithFolder)
         {
             bool modified = false;
 
@@ -2351,7 +2389,7 @@ namespace dnGREP.WPF
             IsBookmarked = true;
             modified = true;
 
-            if (assocateWithFolder && !string.IsNullOrWhiteSpace(FileOrFolderPath))
+            if (associateWithFolder && !string.IsNullOrWhiteSpace(FileOrFolderPath))
             {
                 BookmarkLibrary.Instance.AddFolderReference(current, FileOrFolderPath);
                 IsFolderBookmarked = true;
@@ -2365,7 +2403,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void RemoveBookmark(string bookmarkName, bool disassocateWithFolder)
+        private void RemoveBookmark(string bookmarkName, bool disassociateWithFolder)
         {
             bool modified = false;
 
@@ -2376,7 +2414,7 @@ namespace dnGREP.WPF
 
                 if (bmk != null)
                 {
-                    if (disassocateWithFolder)
+                    if (disassociateWithFolder)
                     {
                         if (bmk.FolderReferences.Contains(FileOrFolderPath))
                         {
@@ -2398,7 +2436,7 @@ namespace dnGREP.WPF
                 Bookmark? bmk = BookmarkLibrary.Instance.Find(current);
                 if (bmk != null)
                 {
-                    if (disassocateWithFolder && IsFolderBookmarked && bmk.FolderReferences.Contains(FileOrFolderPath))
+                    if (disassociateWithFolder && IsFolderBookmarked && bmk.FolderReferences.Contains(FileOrFolderPath))
                     {
                         bmk.FolderReferences.Remove(FileOrFolderPath);
                         modified = true;
@@ -2860,13 +2898,21 @@ namespace dnGREP.WPF
                 sb.AppendFormat(Resources.ReportSummary_SizeFrom0To1KB, SizeFrom, SizeTo).AppendLine();
 
             if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Dates)
+            {
                 sb.AppendFormat(Resources.ReportSummary_Type0DateFrom1To2, UseFileDateFilter.ToLocalizedString(),
                     StartDate.HasValue ? StartDate.Value.ToShortDateString() : "*",
                     EndDate.HasValue ? EndDate.Value.ToShortDateString() : "*").AppendLine();
+            }
 
-            if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Hours)
-                sb.AppendFormat(Resources.ReportSummary_Type0DateInPast1To2Hours, UseFileDateFilter.ToLocalizedString(), HoursFrom, HoursTo)
+            if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter != FileTimeRange.Dates &&
+                TypeOfTimeRangeFilter != FileTimeRange.None)
+            {
+                sb.AppendFormat(Resources.ReportSummary_Type0DateInThePast1To23,
+                    UseFileDateFilter.ToLocalizedString(),
+                    TimeRangeFrom, TimeRangeTo,
+                    TypeOfTimeRangeFilter.ToLocalizedString())
                   .AppendLine();
+            }
 
             if (CodePage != -1)
             {
@@ -2962,6 +3008,17 @@ namespace dnGREP.WPF
 
             DiginesisHelpProvider.HelpNamespace = @"https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
+        }
+
+        private void PopulateTimeIntervals()
+        {
+            TimeRanges.Clear();
+            TimeRanges.Add(new(FileTimeRange.Minutes, Resources.Main_DatePastMinutes));
+            TimeRanges.Add(new(FileTimeRange.Hours, Resources.Main_DatePastHours));
+            TimeRanges.Add(new(FileTimeRange.Days, Resources.Main_DatePastDays));
+            TimeRanges.Add(new(FileTimeRange.Weeks, Resources.Main_DatePastWeeks));
+            TimeRanges.Add(new(FileTimeRange.Months, Resources.Main_DatePastMonths));
+            TimeRanges.Add(new(FileTimeRange.Years, Resources.Main_DatePastYears));
         }
 
         private void PopulateEncodings()
@@ -3197,7 +3254,7 @@ namespace dnGREP.WPF
         {
             if (PreviewFileContent)
             {
-                string displayfileName = filePath;
+                string displayFileName = filePath;
 
                 if (Utils.IsArchive(filePath))
                 {
@@ -3220,7 +3277,7 @@ namespace dnGREP.WPF
                     }
                     else
                     {
-                        displayfileName = result.FileNameDisplayed;
+                        displayFileName = result.FileNameDisplayed;
                         filePath = tempFile;
                     }
                 }
@@ -3228,17 +3285,17 @@ namespace dnGREP.WPF
                 if (!string.IsNullOrEmpty(result.FileInfo.TempFile))
                 {
                     filePath = result.FileInfo.TempFile;
-                    displayfileName = result.FileNameDisplayed + " " + Resources.Preview_Title_AsText;
+                    displayFileName = result.FileNameDisplayed + " " + Resources.Preview_Title_AsText;
                 }
 
                 string basePath = PathSearchText.BaseFolder;
                 if (!string.IsNullOrWhiteSpace(basePath) &&
-                    displayfileName.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
+                    displayFileName.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    displayfileName = displayfileName[basePath.Length..].TrimStart('\\');
+                    displayFileName = displayFileName[basePath.Length..].TrimStart('\\');
                 }
 
-                PreviewTitle = displayfileName;
+                PreviewTitle = displayFileName;
 
                 // order of property setting matters here:
                 PreviewModel.GrepResult = result;
@@ -3334,5 +3391,9 @@ namespace dnGREP.WPF
             }
         }
         #endregion
+    }
+
+    public record TimeRangeMap(FileTimeRange Range, string Label)
+    {
     }
 }

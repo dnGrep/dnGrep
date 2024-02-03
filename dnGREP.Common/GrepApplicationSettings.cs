@@ -113,12 +113,14 @@ namespace dnGREP.Common
             public const string UseFileDateFilter = "UseFileDateFilter";
             [DefaultValue(FileTimeRange.None)]
             public const string TypeOfTimeRangeFilter = "TypeOfTimeRangeFilter";
+            [DefaultValue(FileTimeRange.Hours)]
+            public const string PastTimeRangeFilter = "PastTimeRangeFilter";
             public const string StartDate = "StartDate";
             public const string EndDate = "EndDate";
             [DefaultValue(0)]
-            public const string HoursFrom = "HoursFrom";
+            public const string TimeRangeFrom = "TimeRangeFrom"; //read/write with the old key
             [DefaultValue(8)]
-            public const string HoursTo = "HoursTo";
+            public const string TimeRangeTo = "TimeRangeTo"; //read/write with the old key
             [DefaultValue(true)]
             public const string SearchParallel = "SearchParallel";
             [DefaultValue(4.0)]
@@ -350,6 +352,8 @@ namespace dnGREP.Common
             public const string CustomEditorArgs = "CustomEditorArgs";
             [DefaultValue(true)]
             public const string EscapeQuotesInMatchArgument = "EscapeQuotesInMatchArgument";
+            public const string HoursFrom = "HoursFrom";
+            public const string HoursTo = "HoursTo";
         }
 
 
@@ -414,15 +418,18 @@ namespace dnGREP.Common
             {
                 LoadV1(path);
                 ConvertToV3();
+                ConvertToV3a();
             }
             else if (Version == 2)
             {
                 LoadV2(path);
                 ConvertToV3();
+                ConvertToV3a();
             }
             else if (Version == 3)
             {
                 LoadV3(path);
+                ConvertToV3a();
             }
 
             InitializeFonts();
@@ -660,6 +667,20 @@ namespace dnGREP.Common
             Set(Key.Plugins, plugins);
 
             Version = 3;
+        }
+
+        private void ConvertToV3a()
+        {
+            if (ContainsKey(ObsoleteKey.HoursFrom))
+            {
+                Set(Key.TimeRangeFrom, Get<int>(ObsoleteKey.HoursFrom));
+                settings.Remove(ObsoleteKey.HoursFrom);
+            }
+            if (ContainsKey(ObsoleteKey.HoursTo))
+            {
+                Set(Key.TimeRangeTo, Get<int>(ObsoleteKey.HoursTo));
+                settings.Remove(ObsoleteKey.HoursTo);
+            }
         }
 
         private static string LookupTemplate(string path)

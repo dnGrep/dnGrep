@@ -210,6 +210,38 @@ namespace dnGREP.Common
             return result.Replace("_", string.Empty, StringComparison.Ordinal);
         }
 
+        public static string ToLocalizedString(this FileTimeRange timeRangeFilter)
+        {
+            string result;
+            switch (timeRangeFilter)
+            {
+                default:
+                case FileTimeRange.None:
+                case FileTimeRange.Dates:
+                    result = string.Empty;
+                    break;
+                case FileTimeRange.Minutes:
+                    result = Resources.Main_DatePastMinutes;
+                    break;
+                case FileTimeRange.Hours:
+                    result = Resources.Main_DatePastHours;
+                    break;
+                case FileTimeRange.Days:
+                    result = Resources.Main_DatePastDays;
+                    break;
+                case FileTimeRange.Weeks:
+                    result = Resources.Main_DatePastWeeks;
+                    break;
+                case FileTimeRange.Months:
+                    result = Resources.Main_DatePastMonths;
+                    break;
+                case FileTimeRange.Years:
+                    result = Resources.Main_DatePastYears;
+                    break;
+            }
+            return result.Replace("_", string.Empty, StringComparison.Ordinal);
+        }
+
         public static string GetElementString(this XElement parent, XName name)
         {
             var child = parent.Element(name);

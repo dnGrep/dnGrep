@@ -712,15 +712,15 @@
                                             <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
                                                 <RadioButton Margin="3,0,3,3" GroupName="TimeRange" 
                                                              Content="{l:Loc Key='Main_DatePast'}"
-                                                             IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Hours}"
+                                                             IsChecked="{Binding Path=IsPastTimeRangeSet}"
                                                              IsEnabled="{Binding Path=IsDateFilterSet}"
                                                              TabIndex="36" />
                                                 <TextBox Margin="12,0,3,3"
                                                          HorizontalAlignment="Center"
-                                                         IsEnabled="{Binding IsHoursRangeSet}"
+                                                         IsEnabled="{Binding IsPastTimeRangeSet}"
                                                          TabIndex="37" GotFocus="TextBoxFocus"
                                                          PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"
-                                                         Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}">
+                                                         Text="{Binding TimeRangeFrom, UpdateSourceTrigger=PropertyChanged}">
                                                     <TextBox.Width>
                                                         <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="45" FallbackValue="45">
                                                             <Binding RelativeSource="{RelativeSource Mode=Self}"/>
@@ -734,7 +734,7 @@
                                                        Style="{StaticResource ThemedLabel}" />
                                                 <TextBox Margin="3,0,3,3"
                                                          HorizontalAlignment="Center"
-                                                         IsEnabled="{Binding IsHoursRangeSet}"
+                                                         IsEnabled="{Binding IsPastTimeRangeSet}"
                                                          TabIndex="38" GotFocus="TextBoxFocus"
                                                          PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
                                                     <TextBox.Width>
@@ -745,15 +745,27 @@
                                                         </MultiBinding>
                                                     </TextBox.Width>
                                                     <TextBox.Text>
-                                                        <Binding Path="HoursTo" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding Path="TimeRangeTo" UpdateSourceTrigger="PropertyChanged">
                                                             <Binding.ValidationRules>
                                                                 <ExceptionValidationRule />
                                                             </Binding.ValidationRules>
                                                         </Binding>
                                                     </TextBox.Text>
                                                 </TextBox>
-                                                <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_DatePastHours'}"
-                                                       Style="{StaticResource ThemedLabel}" />
+                                                <ComboBox Margin="3,0,3,3"
+                                                          ItemsSource="{Binding TimeRanges}"
+                                                          DisplayMemberPath="Label" SelectedValuePath="Range"
+                                                          SelectedValue="{Binding PastTimeRangeFilter, Mode=TwoWay}"
+                                                          IsEnabled="{Binding IsPastTimeRangeSet}"
+                                                          Style="{StaticResource ComboBoxBaseStyle}">
+                                                    <ComboBox.Width>
+                                                        <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="80" FallbackValue="80">
+                                                            <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                                            <Binding Path="ApplicationFontFamily"/>
+                                                            <Binding Path="MainFormFontSize"/>
+                                                        </MultiBinding>
+                                                    </ComboBox.Width>
+                                                </ComboBox>
                                             </StackPanel>
                                         </StackPanel>
                                     </WrapPanel>

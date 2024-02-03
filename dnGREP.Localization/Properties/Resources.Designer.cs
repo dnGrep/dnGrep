@@ -1809,11 +1809,56 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to days.
+        /// </summary>
+        public static string Main_DatePastDays {
+            get {
+                return ResourceManager.GetString("Main_DatePastDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to hours.
         /// </summary>
         public static string Main_DatePastHours {
             get {
                 return ResourceManager.GetString("Main_DatePastHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutes.
+        /// </summary>
+        public static string Main_DatePastMinutes {
+            get {
+                return ResourceManager.GetString("Main_DatePastMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to months.
+        /// </summary>
+        public static string Main_DatePastMonths {
+            get {
+                return ResourceManager.GetString("Main_DatePastMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to weeks.
+        /// </summary>
+        public static string Main_DatePastWeeks {
+            get {
+                return ResourceManager.GetString("Main_DatePastWeeks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to years.
+        /// </summary>
+        public static string Main_DatePastYears {
+            get {
+                return ResourceManager.GetString("Main_DatePastYears", resourceCulture);
             }
         }
         
@@ -6791,6 +6836,15 @@ namespace dnGREP.Localization.Properties {
         public static string ReportSummary_Type0DateInPast1To2Hours {
             get {
                 return ResourceManager.GetString("ReportSummary_Type0DateInPast1To2Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} date in the past {1} to {2} {3}.
+        /// </summary>
+        public static string ReportSummary_Type0DateInThePast1To23 {
+            get {
+                return ResourceManager.GetString("ReportSummary_Type0DateInThePast1To23", resourceCulture);
             }
         }
         

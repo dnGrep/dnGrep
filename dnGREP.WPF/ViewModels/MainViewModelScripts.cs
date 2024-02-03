@@ -71,8 +71,11 @@ namespace dnGREP.WPF
                 SetCommandMap.Add("filetimerange", new ScriptCommand<FileTimeRange>(p => TypeOfTimeRangeFilter = p));
                 SetCommandMap.Add("startdate", new ScriptCommand<DateTime>(p => StartDate = p));
                 SetCommandMap.Add("enddate", new ScriptCommand<DateTime>(p => EndDate = p));
-                SetCommandMap.Add("hoursfrom", new ScriptCommand<int>(p => HoursFrom = p));
-                SetCommandMap.Add("hoursto", new ScriptCommand<int>(p => HoursTo = p));
+                SetCommandMap.Add("timerangefrom", new ScriptCommand<int>(p => TimeRangeFrom = p));
+                SetCommandMap.Add("timerangeto", new ScriptCommand<int>(p => TimeRangeTo = p));
+                // keep the old commands for backward compatibility
+                SetCommandMap.Add("hoursfrom", new ScriptCommand<int>(p => TimeRangeFrom = p));
+                SetCommandMap.Add("hoursto", new ScriptCommand<int>(p => TimeRangeTo = p));
 
                 SetCommandMap.Add("searchtype", new ScriptCommand<SearchType>(p => TypeOfSearch = p));
                 SetCommandMap.Add("searchfor", new ScriptCommand<string>(p => SearchFor = p));
