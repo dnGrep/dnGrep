@@ -25,8 +25,8 @@ namespace dnGREP.WPF
         public FileTimeRange TypeOfTimeRangeFilter { get; private set; } = vm.TypeOfTimeRangeFilter;
         public DateTime? StartDate { get; private set; } = vm.StartDate;
         public DateTime? EndDate { get; private set; } = vm.EndDate;
-        public int HoursFrom { get; private set; } = vm.HoursFrom;
-        public int HoursTo { get; private set; } = vm.HoursTo;
+        public int TimeRangeFrom { get; private set; } = vm.TimeRangeFrom;
+        public int TimeRangeTo { get; private set; } = vm.TimeRangeTo;
         public FileSearchType TypeOfFileSearch { get; private set; } = vm.TypeOfFileSearch;
         public string FilePattern { get; private set; } = vm.FilePattern;
         public string FilePatternIgnore { get; private set; } = vm.FilePatternIgnore;

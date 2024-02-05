@@ -248,6 +248,25 @@ namespace dnGREP.WPF
 
             cmd.Targets.Add(new ScriptTargetDefinition()
             {
+                Target = "timerangefrom",
+                Priority = targPriority--,
+                ValueType = typeof(int),
+                Description = Resources.ScriptHint_set_hoursfrom,
+                ValueHint = Resources.ScriptHint_set_hoursfrom_value,
+            });
+
+            cmd.Targets.Add(new ScriptTargetDefinition()
+            {
+                Target = "timerangeto",
+                Priority = targPriority--,
+                ValueType = typeof(int),
+                Description = Resources.ScriptHint_set_hoursto,
+                ValueHint = Resources.ScriptHint_set_hoursto_value,
+            });
+
+            // keep the old hoursfrom for backward compatibility
+            cmd.Targets.Add(new ScriptTargetDefinition()
+            {
                 Target = "hoursfrom",
                 Priority = targPriority--,
                 ValueType = typeof(int),
@@ -255,6 +274,7 @@ namespace dnGREP.WPF
                 ValueHint = Resources.ScriptHint_set_hoursfrom_value,
             });
 
+            // keep the old hoursto for backward compatibility
             cmd.Targets.Add(new ScriptTargetDefinition()
             {
                 Target = "hoursto",
@@ -549,7 +569,7 @@ namespace dnGREP.WPF
                 ValueHint = Resources.ScriptHint_run_cmd_value
             });
 
-            
+
             cmd = new ScriptCommandDefinition()
             {
                 Command = "env",
@@ -560,7 +580,7 @@ namespace dnGREP.WPF
             };
             scriptCommands.Add(cmd);
 
-            
+
             cmd = new ScriptCommandDefinition()
             {
                 Command = "log",
@@ -571,8 +591,8 @@ namespace dnGREP.WPF
             };
             scriptCommands.Add(cmd);
 
-            scriptCommands.Add(new ScriptCommandDefinition() 
-            { 
+            scriptCommands.Add(new ScriptCommandDefinition()
+            {
                 Command = "copy",
                 Priority = cmdPriority--,
                 ValueType = typeof(string),

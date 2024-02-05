@@ -61,7 +61,12 @@ namespace dnGREP.Common
         None = 0,
         All = 0,
         Dates,
-        Hours
+        Minutes,
+        Hours,
+        Days,
+        Weeks,
+        Months,
+        Years
     }
 #pragma warning restore CA1069
 

@@ -51,9 +51,14 @@ namespace dnGREP.WPF
             }
             else if (ValueType == typeof(FileTimeRange))
             {
-                Values.Add(new ScriptValueDefinition { Priority = 2, Value = FileTimeRange.All.ToString() });
-                Values.Add(new ScriptValueDefinition { Priority = 1, Value = FileTimeRange.Dates.ToString() });
-                Values.Add(new ScriptValueDefinition { Priority = 0, Value = FileTimeRange.Hours.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 7, Value = FileTimeRange.All.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 6, Value = FileTimeRange.Dates.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 0, Value = FileTimeRange.Minutes.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 1, Value = FileTimeRange.Hours.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 2, Value = FileTimeRange.Days.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 3, Value = FileTimeRange.Weeks.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 4, Value = FileTimeRange.Months.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 5, Value = FileTimeRange.Years.ToString() });
             }
             else if (ValueType == typeof(SearchType))
             {

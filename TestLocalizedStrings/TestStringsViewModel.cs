@@ -99,7 +99,7 @@ namespace dnGREP.TestLocalizedStrings
             list.Add(new ResourceString("ReportSummary_MaxFolderDepth", TranslationSource.Format(Resources.ReportSummary_MaxFolderDepth, 2)));
             list.Add(new ResourceString("ReportSummary_SizeFrom0To1KB", TranslationSource.Format(Resources.ReportSummary_SizeFrom0To1KB, 25, 1000)));
             list.Add(new ResourceString("ReportSummary_Type0DateFrom1To2", TranslationSource.Format(Resources.ReportSummary_Type0DateFrom1To2, "Modified", "*", "*")));
-            list.Add(new ResourceString("ReportSummary_Type0DateInPast1To2Hours", TranslationSource.Format(Resources.ReportSummary_Type0DateInPast1To2Hours, "Created", 0, 8)));
+            list.Add(new ResourceString("ReportSummary_Type0DateInThePast1To23", TranslationSource.Format(Resources.ReportSummary_Type0DateInThePast1To23, "Created", 0, 8, "days")));
             list.Add(new ResourceString("ReportSummary_UsingTypeOfSeach", TranslationSource.Format(Resources.ReportSummary_UsingTypeOfSeach, "Regex")));
             list.Add(new ResourceString("Help_CmdLineVersion", TranslationSource.Format(Resources.Help_CmdLineVersion, "2.9.454.0", DateTime.Now.ToString())));
         }

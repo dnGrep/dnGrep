@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -53,8 +54,8 @@ namespace dnGREP.WPF
             nameof(FileOrFolderPath),
             nameof(FilePattern),
             nameof(FilePatternIgnore),
-            nameof(HoursFrom),
-            nameof(HoursTo),
+            nameof(TimeRangeFrom),
+            nameof(TimeRangeTo),
             nameof(IncludeArchive),
             nameof(IncludeBinary),
             nameof(IncludeHidden),
@@ -63,7 +64,7 @@ namespace dnGREP.WPF
             nameof(IsDateFilterSet),
             nameof(IsDatesRangeSet),
             nameof(IsEverythingSearchMode),
-            nameof(IsHoursRangeSet),
+            nameof(IsPastTimeRangeSet),
             nameof(IsSizeFilterSet),
             nameof(MaxSubfolderDepth),
             nameof(Multiline),
@@ -76,6 +77,7 @@ namespace dnGREP.WPF
             nameof(TypeOfFileSearch),
             nameof(TypeOfSearch),
             nameof(TypeOfTimeRangeFilter),
+            nameof(PastTimeRangeFilter),
             nameof(UseFileDateFilter),
             nameof(UseFileSizeFilter),
             nameof(UseGitignore),
@@ -217,6 +219,26 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private FileTimeRange typeOfTimeRangeFilter;
+        partial void OnTypeOfTimeRangeFilterChanged(FileTimeRange value)
+        {
+            if (value != FileTimeRange.None && value != FileTimeRange.Dates)
+            {
+                PastTimeRangeFilter = value;
+            }
+        }
+
+        [ObservableProperty]
+        private FileTimeRange pastTimeRangeFilter;
+        partial void OnPastTimeRangeFilterChanged(FileTimeRange value)
+        {
+            TypeOfTimeRangeFilter = value;
+        }
+
+        [ObservableProperty]
+        private int timeRangeFrom;
+
+        [ObservableProperty]
+        private int timeRangeTo;
 
         [ObservableProperty]
         private DateTime minStartDate = minDate;
@@ -244,19 +266,17 @@ namespace dnGREP.WPF
         private DateTime? endDate;
 
         [ObservableProperty]
-        private int hoursFrom;
-
-        [ObservableProperty]
-        private int hoursTo;
-
-        [ObservableProperty]
         private bool isDateFilterSet;
 
         [ObservableProperty]
         private bool isDatesRangeSet;
 
         [ObservableProperty]
-        private bool isHoursRangeSet;
+        private bool isPastTimeRangeSet;
+        partial void OnIsPastTimeRangeSetChanged(bool value)
+        {
+            TypeOfTimeRangeFilter = value ? PastTimeRangeFilter : FileTimeRange.Dates;
+        }
 
         [ObservableProperty]
         private bool caseSensitive;
@@ -460,7 +480,7 @@ namespace dnGREP.WPF
                 case nameof(UseFileDateFilter):
                     IsDateFilterSet = UseFileDateFilter != FileDateFilter.None;
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
-                    IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
+                    IsPastTimeRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter != FileTimeRange.Dates && TypeOfTimeRangeFilter != FileTimeRange.None;
                     if (!IsDateFilterSet)
                         TypeOfTimeRangeFilter = FileTimeRange.None;
                     else if (TypeOfTimeRangeFilter == FileTimeRange.None)
@@ -469,7 +489,7 @@ namespace dnGREP.WPF
 
                 case nameof(TypeOfTimeRangeFilter):
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
-                    IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
+                    IsPastTimeRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter != FileTimeRange.Dates && TypeOfTimeRangeFilter != FileTimeRange.None;
                     break;
 
                 case nameof(TypeOfFileSearch):
@@ -823,6 +843,7 @@ namespace dnGREP.WPF
             SkipRemoteCloudStorageFiles = true;
             UseFileDateFilter = FileDateFilter.None;
             TypeOfTimeRangeFilter = FileTimeRange.None;
+            PastTimeRangeFilter = FileTimeRange.Hours;
             FilePattern = "*";
             FilePatternIgnore = "";
             TypeOfFileSearch = FileSearchType.Asterisk;
@@ -867,10 +888,11 @@ namespace dnGREP.WPF
             OptionsOnMainPanel = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel);
             UseFileDateFilter = Settings.Get<FileDateFilter>(GrepSettings.Key.UseFileDateFilter);
             TypeOfTimeRangeFilter = Settings.Get<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter);
+            PastTimeRangeFilter = Settings.Get<FileTimeRange>(GrepSettings.Key.PastTimeRangeFilter);
             StartDate = Settings.GetNullable<DateTime?>(GrepSettings.Key.StartDate);
             EndDate = Settings.GetNullable<DateTime?>(GrepSettings.Key.EndDate);
-            HoursFrom = Settings.Get<int>(GrepSettings.Key.HoursFrom);
-            HoursTo = Settings.Get<int>(GrepSettings.Key.HoursTo);
+            TimeRangeFrom = Settings.Get<int>(GrepSettings.Key.TimeRangeFrom);
+            TimeRangeTo = Settings.Get<int>(GrepSettings.Key.TimeRangeTo);
         }
 
         protected void LoadMRULists()
@@ -953,10 +975,11 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.PreviewFileContent, PreviewFileContent);
             Settings.Set(GrepSettings.Key.UseFileDateFilter, UseFileDateFilter);
             Settings.Set(GrepSettings.Key.TypeOfTimeRangeFilter, TypeOfTimeRangeFilter);
+            Settings.Set(GrepSettings.Key.PastTimeRangeFilter, PastTimeRangeFilter);
             Settings.Set(GrepSettings.Key.StartDate, StartDate);
             Settings.Set(GrepSettings.Key.EndDate, EndDate);
-            Settings.Set(GrepSettings.Key.HoursFrom, HoursFrom);
-            Settings.Set(GrepSettings.Key.HoursTo, HoursTo);
+            Settings.Set(GrepSettings.Key.TimeRangeFrom, TimeRangeFrom);
+            Settings.Set(GrepSettings.Key.TimeRangeTo, TimeRangeTo);
 
             Settings.Save();
         }

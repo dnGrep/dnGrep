@@ -73,6 +73,8 @@
       <Word>enddate</Word>
       <Word>hoursfrom</Word>
       <Word>hoursto</Word>
+      <Word>timerangefrom</Word>
+      <Word>timerangeto</Word>
       <Word>searchtype</Word>
       <Word>searchfor</Word>
       <Word>replacewith</Word>
@@ -130,7 +132,12 @@
       <Word>Created</Word>
       <Word>Modified</Word>
       <Word>Dates</Word>
+      <Word>Minutes</Word>
       <Word>Hours</Word>
+      <Word>Days</Word>
+      <Word>Weeks</Word>
+      <Word>Months</Word>
+      <Word>Years</Word>
       <Word>PlainText</Word>
       <Word>XPath</Word>
       <Word>Soundex</Word>

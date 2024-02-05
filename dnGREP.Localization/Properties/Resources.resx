@@ -3999,4 +3999,28 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>The {0} plugin command returned error: {1}</value>
     <comment>Plugin error message returned to the results list. {0} is the plugin name and {1} is the error message</comment>
   </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>weeks</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>minutes</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>days</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>months</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>years</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>{0} date in the past {1} to {2} {3}</value>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates; and {3} is the units (hours, days, months...)</comment>
+  </data>
 </root>
