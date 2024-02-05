@@ -3973,4 +3973,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>在预览窗口中，加载文件前先询问，如果文件尺寸大于</value>
     <comment>Options dialog, label for text box entry</comment>
   </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>在结果树中开启粘滞滚动</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>{0} 插件未能提取任何文本</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>{0} 插件创建的文件没有可搜索文本</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>{0} 插件命令返回错误：{1}</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name and {1} is the error message</comment>
+  </data>
 </root>
