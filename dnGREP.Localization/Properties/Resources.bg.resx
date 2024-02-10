@@ -3929,4 +3929,64 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>КБ</value>
     <comment>Options dialog, label for file size</comment>
   </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>Пътят трябва да съществува</value>
+    <comment>Validation message for user input of a path and file name</comment>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>Добавяне…</value>
+    <comment>Options dialog, button label to add custom editor</comment>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>Потребителски редактор</value>
+    <comment>Options custom editor dialog title</comment>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>Етикет</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Разширения</value>
+    <comment>Options custom editor dialog, text box label</comment>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>Променяне…</value>
+    <comment>Options dialog, button label to edit custom editor</comment>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Премахване</value>
+    <comment>Options dialog, button label to delete custom editor</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Отваряне от</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>Необходима е стойност</value>
+    <comment>Validation message for user input in required text fields</comment>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Задаване на подразбиран редактор на неуказаните видове файлове</value>
+    <comment>Options custom editor dialog, checkbox label</comment>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>„Лепкава“ лента за плъзгане на дървото с резултати</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>Питане преди зареждане на файлове, в прозореца за преглед, по-големи от</value>
+    <comment>Options dialog, label for text box entry</comment>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>Добавката {0} не е извлякла текст</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>Създаденият от добавката {0} файл не съдържа текст, годен за търсене</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>Командата на добавката {0} върна грешка: {1}</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name and {1} is the error message</comment>
+  </data>
 </root>

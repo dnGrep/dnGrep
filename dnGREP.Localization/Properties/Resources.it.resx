@@ -1202,7 +1202,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
@@ -1250,7 +1250,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="Options_EditorOK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Options_EditorCancel" xml:space="preserve">
