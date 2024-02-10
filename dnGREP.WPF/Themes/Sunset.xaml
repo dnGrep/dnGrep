@@ -28,7 +28,7 @@
     <SolidColorBrush x:Key="Match.Replace.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Match.Replace.Background" po:Freeze="true" Color="#FF267800" />
 
-    <LinearGradientBrush x:Key="GradientBackground" po:Freeze="true" StartPoint="0,0" EndPoint="0,1">
+    <LinearGradientBrush x:Key="Window.Background" po:Freeze="true" StartPoint="0,0" EndPoint="0,1">
         <GradientStop po:Freeze="true" Color="#FF404040" Offset="0" />
         <GradientStop po:Freeze="true" Color="#FF303030" Offset="0.8" />
     </LinearGradientBrush>
