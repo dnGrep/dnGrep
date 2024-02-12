@@ -2602,7 +2602,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>확인</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Main_Menu_Personalize" xml:space="preserve">
@@ -2730,5 +2730,9 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EditorCancel" xml:space="preserve">
     <value>취소</value>
     <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Options dialog, label for file size</comment>
   </data>
 </root>

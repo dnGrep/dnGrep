@@ -3976,11 +3976,27 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>KB (Кбайт)</value>
+    <value>КБ</value>
     <comment>Options dialog, label for file size</comment>
   </data>
   <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
     <value>В окне предпросмотра, спрашивать перед загрузкой файлов размером более</value>
     <comment>Options dialog, label for text box entry</comment>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>Включить липкую прокрутку в дереве результатов</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>Плагину {0} не удалось извлечь текст</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>Команда плагина {0} вернула ошибку: {1}</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name and {1} is the error message</comment>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>В файле, созданном плагином {0}, нет текста, доступного для поиска</value>
+    <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
   </data>
 </root>
