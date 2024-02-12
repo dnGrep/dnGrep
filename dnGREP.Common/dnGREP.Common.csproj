@@ -53,7 +53,7 @@
       <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>5.2.7</Version>
+      <Version>5.2.8</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
     <PackageReference Include="UTF.Unknown">
