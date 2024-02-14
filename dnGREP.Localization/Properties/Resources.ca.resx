@@ -123,7 +123,7 @@
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
-    <value>Substituir per:</value>
+    <value>Substitueix per:</value>
     <comment>Bookmark details dialog, replace text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>En quant a dnGrep</value>
+    <value>Quant a dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
@@ -559,7 +559,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value>Substituir per:</value>
+    <value>Substitueix per:</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -819,7 +819,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Cerca als ar_xius</value>
+    <value>Cerca als fit_xers</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
@@ -891,7 +891,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>Substituir per:</value>
+    <value>Substitueix per:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
@@ -1122,7 +1122,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Settings" xml:space="preserve">
-    <value>A_justaments</value>
+    <value>Confi_guració</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
@@ -1299,5 +1299,13 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
     <value>Informe</value>
     <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>_Cerca:</value>
+    <comment>Main window, search pattern text input box label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>Subs_titueix per:</value>
+    <comment>Main window, replace text input box label (accel)</comment>
   </data>
 </root>
