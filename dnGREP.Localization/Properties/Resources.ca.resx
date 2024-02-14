@@ -263,11 +263,11 @@
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Inclou propietats de la font del fitxer al marcador</value>
+    <value>Inclou propietats del tipus de lletra del fitxer al marcador</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
-    <value>Font de fitxers</value>
+    <value>Origen dels fitxers</value>
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
@@ -939,7 +939,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Dades d'aplicació i _logs</value>
+    <value>Dades de l'aplicació i _logs</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
@@ -1198,7 +1198,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>Canvia el nivell de zoom a l'arbre de resultats</value>
+    <value>Canvia el nivell de zoom de l'arbre de resultats</value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
@@ -1269,7 +1269,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>/rm [mode]
 -rm [mode]
 -reportMode [mode]
-    Estaablrix la sortida de l'informe per a expressions regulars  - ha de ser una de les següents: "FullLine", "Matches", or "Groups".</value>
+    Estableix la sortida de l'informe per a expressions regulars  - ha de ser una de les següents: "FullLine", "Matches", or "Groups".</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineVersion" xml:space="preserve">
@@ -1307,5 +1307,177 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Main_ReplaceWith" xml:space="preserve">
     <value>Subs_titueix per:</value>
     <comment>Main window, replace text input box label (accel)</comment>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>abans i</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>Ordre</value>
+    <comment>Options dialog, custom editor command input box label</comment>
+  </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>Fitxers i coincidències individuals</value>
+    <comment>Options dialog, Replace window layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>només fitxers</value>
+    <comment>Options dialog, Replace window layout radio button label (accel)</comment>
+  </data>
+  <data name="Options_MainFontSize" xml:space="preserve">
+    <value>Mida del tipus de lletra de la finestra principal</value>
+    <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>després</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [tipus]
+-st [tipus]
+-searchType [tipus]
+    Estableix el tipus de cerca - ha de ser un dels següents: "PlainText", "Regex" (expressió regular), "XPath", o "Soundex" (fonètic).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [Cert/Fals]
+-sl [Cert/Fals]
+-separateLines [Cert/Fals]
+    Estableix indicadors per a mostrar cada coincidència en una línia separada del llistat d'expressions regulars – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    Estableix indicadors per establir l'àmbit de valors únics en el llistat de sortida d'expressions regulars – ha de ser un dels: "Global" o "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [Cert/Fals]
+-ww [Cert/Fals]
+-wholeWord [Cert/Fals]
+    Estableix l'indicador de cerca de paraules senceres – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Detecta la codificació del fitxer quan es llisten fitxers utilitzant el patró del nom dels fitxers</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
+    <value>Comprova automàticament cada</value>
+    <comment>Options dialog, check for updates, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_DialogFontSize" xml:space="preserve">
+    <value>Mida del tipus de lletra per altres finestres</value>
+    <comment>Options dialog, font size selector label</comment>
+  </data>
+  <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
+    <value>Activar arrancar dnGrep des del menú contextual de l'Explorador de Windows.</value>
+    <comment>Options dialog, explorer right-click menu checkbox tooltip</comment>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Família de tipus de lletra</value>
+    <comment>Options dialog, font selector label</comment>
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value>Reemplaça mida del tipus de lletra de la finestra</value>
+    <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Família del tipus de lletra dels resultats</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>Esborra Fitxers</value>
+    <comment>Message box title for: Delete files</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Tipus de lletra utilitzat en els resultats de la cerca, normalment un tipus de lletra de mida fixe</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Mida del tipus de lletra dels resultats</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>Podria ser compatible en tots els tipus de lletra</value>
+    <comment>Options dialog, radio button tooltip</comment>
+  </data>
+  <data name="Options_FollowWindowsTheme" xml:space="preserve">
+    <value>Utilitza el tema de Windows</value>
+    <comment>Options dialog, theme checkbox label (accel)</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Copiar fitxers</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_ApplicationFonts" xml:space="preserve">
+    <value>Tipus de lletra de l'Aplicació</value>
+    <comment>Options dialog, Application fonts group header label</comment>
+  </data>
+  <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>dnGrep afegirà els fitxers seleccionats al final de la línia de comandes.</value>
+    <comment>Options dialog, compare arguments help text</comment>
+  </data>
+  <data name="Options_EditorArguments" xml:space="preserve">
+    <value>Arguments</value>
+    <comment>Options dialog, custom editor arguments input box label</comment>
+  </data>
+  <data name="Options_CustomEditor" xml:space="preserve">
+    <value>Editor personalitzat</value>
+    <comment>Options dialog, custom editor group header label</comment>
+  </data>
+  <data name="Options_CustomEditorHelp" xml:space="preserve">
+    <value>Utilitza paraules clau '{0}' per a la localització de fitxers, '{5}' per el número de pàgina, '{1}' per el número de línia, '{2}' per al patró de cerca, '{3}' per a la primera coincidència del text en la línia, i '{4}' per al número de columna per a la primera coincidència en la línia.</value>
+    <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Esborra fitxers</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Esborra permanentment</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Mou fitxers…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Esborra fitxers</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [Camí del fitxer]
+-txt [Camí del fitxer]
+-text [Camí del fitxer]
+    Crea fitxer de resultats en format textual després que la cerca s'hagi completat.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [Cert/Fals]
+-unique [Cert/Fals]
+-uniqueValues [Cert/Fals]
+    Estableix indicadors per a mostrar coincidències úniques o valors de grup en el llistat de sortida d'expressions regulars – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value>Utilitza el tipus de lletra per defecte</value>
+    <comment>Options dialog, fonts default checkbox label (accel)</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [Cert/Fals]
+-trim [Cert/Fals]
+-trimWhitespace [Cert/Fals]
+    Estableix indicadors per retallar espais en blanc en el llistat de sortida – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [cerca ]
+-s [cerca]
+-searchFor [cercar]
+    Estableix el patró o text a cercar en el conjunt de fitxers. Quan aquest argument s'estableix, la cerca s'executa automàticament.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
 </root>
