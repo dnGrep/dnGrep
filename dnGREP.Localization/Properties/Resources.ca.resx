@@ -1480,4 +1480,192 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     Estableix el patró o text a cercar en el conjunt de fitxers. Quan aquest argument s'estableix, la cerca s'executa automàticament.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Diapositiva {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
+  <data name="Main_Results_CompareFiles" xml:space="preserve">
+    <value>Comparar fitxers</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value>(al final del fitxer)</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value>a la posició {0}</value>
+    <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} coincidències en {2} línies)</value>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value>Coincidència {0}{1}{2}</value>
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
+  </data>
+  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
+    <value>[només lectura]</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Copiar noms dels fitxers</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
+    <value>Copiar camí sencer del fitxer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>Obrir</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Fitxer anterior</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>Coincidència anterior</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>Mostra propietats del fitxer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Cerca fitxers en múltiples fils</value>
+    <comment>Main window, search option parallel tooltip</comment>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>Reinicialitzar zoom</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Cerca</value>
+    <comment>Main window, search group heading</comment>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Cerca _als resultats</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>Cerca parale_la</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Cerca a</value>
+    <comment>Main window Search In group heading</comment>
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, +{0} més coincidències</value>
+    <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Elimina la carpeta de la associació de favorits</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>No hi han coincidències per substituir</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>CSV (separat per comes)</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
+    <value>Format del llistat</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
+    <value>Fitxer de texte</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Restaurar resultats (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} coincidències)</value>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value>Coincidència {0}{1}Grup {2}: {3}</value>
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
+  </data>
+  <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
+    <value>Copiar línies de text</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>Obrir amb editor personalitzat</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>Reanomenar fitxer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Mostra Menú de l'Explorer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SavingResultsToFile" xml:space="preserve">
+    <value>Guarda resultats en un fitxer…</value>
+    <comment>Main window, status message</comment>
+  </data>
+  <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
+    <value>Excloure dels resultats</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ResetOptions" xml:space="preserve">
+    <value>Reinicialitzar filtres</value>
+    <comment>Main window, search options, reset button label (accel)</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Converteix a</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Fitxer següent</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>Coincidències addicionals:</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value>…(+{0:n0} caràcters)</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Moure fitxers a la Paperera</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Els paràmetres de cerca han canviat</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>Següent coincidència</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>Obrir carpeta que el conté</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>_Substitueix</value>
+    <comment>Main window replace button label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>No hi ha fitxers amb permisos d'escriptura als resultats</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Substitució utilitzant operadors booleans només en la cera textual</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_SearchButton" xml:space="preserve">
+    <value>_Cerca</value>
+    <comment>Main window, search button label (accel)</comment>
+  </data>
 </root>
