@@ -71,7 +71,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>No ocult</value>
+    <value>Sense ocultes</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>No ocults</value>
+    <value>Sense ocultes</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
@@ -583,11 +583,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>No binari</value>
+    <value>Sense binari</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>No subcarpetes</value>
+    <value>Sense subcarpetes</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
@@ -655,7 +655,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, XPath search type tooltip</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>Ometre fitxers de l'emmagatzematge al nuvol</value>
+    <value>Omet els fitxers d'emmagatzematge al núvol</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -799,11 +799,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value>No subcarpetes</value>
+    <value>Sense subcarpetes</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>No enllaços simbòlics</value>
+    <value>Sense enllaços simbòlics</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
@@ -863,7 +863,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>No enllaços simbòlics</value>
+    <value>Sense enllaços simbòlics</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
@@ -1621,7 +1621,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, search options, reset button label (accel)</comment>
   </data>
   <data name="Main_Results_MakeWritable" xml:space="preserve">
-    <value>Converteix a</value>
+    <value>Fes que es pugui escriure</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_NextFile" xml:space="preserve">
@@ -1667,5 +1667,185 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Main_SearchButton" xml:space="preserve">
     <value>_Cerca</value>
     <comment>Main window, search button label (accel)</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Nombre de coincidències en la línea</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Número de coincidències/número de coincidències al fitxer</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Número de coincidències/número de coincidències globals</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>L'expressió booleana és correcte</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>La cadena de bytes no és vàlida!</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>Selecciona una data</value>
+    <comment>Main window, filter files by date, date picker watermark</comment>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>Mostra opcions dels resultats</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>Mida</value>
+    <comment>Main window, filter size radio button label (accel)</comment>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>Mida fitxer</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>fins al final del dia</value>
+    <comment>Main window, filter file by date, end date tooltip</comment>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Utilitzar grups de captura de 'Patrons de coincidència' a patró de 'Cerca'</value>
+    <comment>Main window, search option capture group tooltip</comment>
+  </data>
+  <data name="Main_Results_CollapseAll" xml:space="preserve">
+    <value>Col·lapsa-ho tot</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ExpandAll" xml:space="preserve">
+    <value>Expandeix-ho tot</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>a</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>Ordre</value>
+    <comment>Main window, sort button label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>Només nom de fitxer</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>Tipus de fitxer i nom</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>Última data d'escriptura</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>S'ha cancel·lat la substitució</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>S'han exclòs {0} fitxers perduts.</value>
+    <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Substitució completada - text substituït en {0} fitxers.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>Cerca cancel·lada o ha fallat</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Cercant {0} fitxers, trobats {1} fitxers amb coincidències - processant {2}</value>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Cercant .gitignore</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>L'expressió booleana conté un token desconegut</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>Manca un patró de cerca a l'expressió booleana</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>La cadena de bytes es correcte</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>Ascendent</value>
+    <comment>Main window sort button options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Cerca completada en {0} – {1} coincidències trobades a {2} fitxers de {3} cercats.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>Cercant…</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_StopAfterFirstMatch" xml:space="preserve">
+    <value>Atura després de la primera coincidència</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>Número de coincidències</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Carpeta i nom de fitxer, primer la profunditat</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>Substitució ha fallat</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>S'han cercat {0} fitxers, s'han trobat {1} fitxers amb coincidències.</value>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
+  </data>
+  <data name="Main_TestExpression" xml:space="preserve">
+    <value>Proba l'expressió</value>
+    <comment>Main window, test search expression button label (accel)</comment>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>Substituint…</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>Cerca cancel·lada</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>Descendent</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Carpeta i nom de fitxer, primer l'amplitud</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>L'expressió booleana té parèntesis no coincidents</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>L'expressió booleana té un error desconegut</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>Manca un operador booleà a l'expressió booleana</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>L'expressió booleana no és vàlida</value>
+    <comment>Main window, Boolean expression status</comment>
   </data>
 </root>
