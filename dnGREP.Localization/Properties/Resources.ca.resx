@@ -191,7 +191,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>Llibreria .NET per analitza nombres ECMA-376</value>
+    <value>Llibreria .NET per analitzar nombres ECMA-376</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
@@ -1305,7 +1305,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, search pattern text input box label (accel)</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>Subs_titueix per:</value>
+    <value>Substituir per:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
@@ -1381,7 +1381,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>Reemplaça mida del tipus de lletra de la finestra</value>
+    <value>Mida del tipus de lletra de la finestra Substituir</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
@@ -1601,7 +1601,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
-    <value>Reanomenar fitxer</value>
+    <value>Canviar el nom del fitxer</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
@@ -1653,7 +1653,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value>_Substitueix</value>
+    <value>_Substituir</value>
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
@@ -1883,5 +1883,401 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="ScriptHint_expandresultoptions" xml:space="preserve">
     <value>Expandeix o oculta la secció d'opcions de resultats</value>
     <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+    <comment>Main window, results options zoom slider label</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>No s'ha pogut carregar el tema `{0}'. Comproveu el registre d'error per als detalls: </value>
+    <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>No s'ha pogut extreure de l'arxiu. Comprova el registre d'error per als detalls: </value>
+    <comment>Message box text for: Preview window archive error</comment>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>Carregar recursos</value>
+    <comment>Message box title for: Load resources</comment>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>Moure fitxers</value>
+    <comment>Message box title for: Move files</comment>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Errors del connector</value>
+    <comment>Message box title for: Plug-in errors</comment>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>No s'ha pogut substituir el text als fitxers. Comprova el registre d'errors pels detalls: </value>
+    <comment>Message box text for: Replace failed</comment>
+  </data>
+  <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>No s'han pogut carregar els següents connectors:</value>
+    <comment>Message box text for: plug-in load errors</comment>
+  </data>
+  <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>elements que es mostren a les llistes d'historials de cerca i substitució</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Rename_NewName" xml:space="preserve">
+    <value>Nou nom:</value>
+    <comment>Rename file dialog input label</comment>
+  </data>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value>Marca coincidència per substituir [Ctrl+R]</value>
+    <comment>Replace window, Replace button tooltip</comment>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Moure a la següent coincidència en aquest fitxer [Ctrl+Esquerra]</value>
+    <comment>Replace window, Next button tooltip</comment>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>_Següent</value>
+    <comment>Replace window, Next button label (accel)</comment>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>_Anterior</value>
+    <comment>Replace window, Previous button label (accel)</comment>
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value>Mostra el fitxer anterior [Ctrl+PgUp]</value>
+    <comment>Replace window, Previous file button tooltip</comment>
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value>Substituir Text</value>
+    <comment>Replace window, window title</comment>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Desfés</value>
+    <comment>Replace window, Undo button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Substituir el text o cadena buida</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>El text de substitució no és vàlid XML!</value>
+    <comment>Test window, error text</comment>
+  </data>
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+    <value>$$ insereix un sol signe de dòlar en el text de substitució</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Omet la coincidència</value>
+    <comment>Replace window, fourth color and highlight key label</comment>
+  </data>
+  <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Restableix i omet totes les coincidències en aquest fitxer [Ctrl+T]</value>
+    <comment>Replace window, Undo file button tooltip</comment>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value>Mostra el següent fitxer [Ctrl+PgDn]</value>
+    <comment>Replace window, Next file button tooltip</comment>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>Cap</value>
+    <comment>Replace window, syntax coloring option for no syntax coloring</comment>
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>Aquest fitxer conté massa coincidències per a substituir individualment. Feu clic a 'Substitueix al fitxer' per a substituir-los tots.</value>
+    <comment>Replace window, warning message box text</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Quan està marcada, la 'Data de modificació' no es canviarà al substituir</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+    <comment>Replace window, results options zoom slider label</comment>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Canviar el nom del Fitxer</value>
+    <comment>Message box title for: Rename file</comment>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>L'expressió regular no és vàlida!</value>
+    <comment>Main window, regular expression status</comment>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>XPath es correcte</value>
+    <comment>Main window, XPath status</comment>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>{0} a"{1}" – dnGrep</value>
+    <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>Ajusta el text</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+    <comment>Message box text for: Delete files</comment>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Netejar aquest marcador també eliminarà aquests marcadors.</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_CopyFiles" xml:space="preserve">
+    <value>Copia Fitxers</value>
+    <comment>Message box title for: Copy files</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Error: </value>
+    <comment>Message box text for: general error message</comment>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>S'han revertit els fitxers.</value>
+    <comment>Message box text for: Main window undo replace success</comment>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>Nova Versió</value>
+    <comment>Message box title for: New dnGrep version</comment>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>No s'ha pogut canviar el nom del fitxer: </value>
+    <comment>Message box text for: Rename file</comment>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Substituir</value>
+    <comment>Message box text for: Replace message</comment>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Connectors</value>
+    <comment>Options dialog, Plug-ins group header label</comment>
+  </data>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>Fitxers</value>
+    <comment>Replace window, Files group header label</comment>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Moure a la coincidència anterior en aquest fitxer [Ctrl+Dreta]</value>
+    <comment>Replace window, Previous button tooltip</comment>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>Següent Fitxer</value>
+    <comment>Replace window, Next file button label (accel)</comment>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} de {1} coincidències marcades per substutuir</value>
+    <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[només lectura]</value>
+    <comment>Replace window, conditional file name suffix</comment>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>Substituir al fitxer</value>
+    <comment>Replace window, Replace in file button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>text</value>
+    <comment>Replace window, first color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Coincidències seleccionades</value>
+    <comment>Replace window, second color and highlight key label</comment>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Substituir el patró de cerca amb una cadena buida?</value>
+    <comment>Message box text for: Replace text</comment>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>Comprova el camí de l'editor a través de "Opcions...".</value>
+    <comment>Message box text for: Open file failed</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>S'han copiat {0} fitxers.</value>
+    <comment>Message box text for: Copy file: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>En el seu lloc s'ha utilitzat el motor per defecte.</value>
+    <comment>Message box text for: Plug-in failed to load error</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>S'han suprimit {0} fitxers.</value>
+    <comment>Message box text for: Delete files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>S'han mogut {0} fitxers.</value>
+    <comment>Message box text for: Move files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>No s'ha pogut obrir el fitxer amb l'editor personalitzat.</value>
+    <comment>Message box text for: Open file with custom editor</comment>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>No s'ha pogut obrir el fitxer. Comproveu el registre d'error per als detalls: </value>
+    <comment>Message box text for: Open file error</comment>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>No s'ha pogut copiar al porta-retalls. El porta-retalls està bloquejat per</value>
+    <comment>Message box text for: Copy to clipboard error</comment>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>No s'ha pogut completar la cerca o la substitució. Comprova el registre d'errors pels detalls: </value>
+    <comment>Message box text for: Search or Replace failed</comment>
+  </data>
+  <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>Desfés tornarà a revertir els fitxer(s) modificats al seu estat original. Qualsevol canvi fet al(s) fitxer(s) després de la substitució serà sobreescrit. Voleu continuar?</value>
+    <comment>Message box text for: Main window Undo</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>El nom conté caràcters invàlids</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Conserva la data anterior de modificació del fitxer</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Substituir</value>
+    <comment>Replace window, Replace button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>Substituir en tots els fitxers</value>
+    <comment>Replace window, Replace in all files button label (accel)</comment>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Ajusta text</value>
+    <comment>Replace window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
+    <value>$&amp; substitueix tota l'expressió regular</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Netejar aquest marcador també neteja aquest marcador.</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>No s'ha pogut carregar el fitxer de recursos '{0}': </value>
+    <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep està actualitzat.</value>
+    <comment>Message box text for: Check for updates response</comment>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>Patró incorrecte: </value>
+    <comment>Message box text for: Incorrect regular expression</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>No</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>No a tot</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>El nom del fitxer ja existeix en aquest directori</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>Canviar el nom del fitxer</value>
+    <comment>Rename file dialog title</comment>
+  </data>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Canvis als zoom de l'editor de text</value>
+    <comment>Replace window, Zoom slider tooltip</comment>
+  </data>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Error: aquest és un fitxer binari</value>
+    <comment>Replace window, File text when attempt to replace in binary file</comment>
+  </data>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Marca totes les coincidències en aquest fitxer per substituir [Ctrl+A]</value>
+    <comment>Replace window, Replace in file button tooltip</comment>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Fitxer anterior</value>
+    <comment>Replace window, Previous file button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Substituir totes les coincidències en tots els fitxers, i aplica [F10]</value>
+    <comment>Replace window, Replace in all files button tooltip</comment>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value>Desfés fitxer</value>
+    <comment>Replace window, Undo file button label (accel)</comment>
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Desfés la marca de substitució en aquesta coincidència [Ctrl+U]</value>
+    <comment>Replace window, Undo button tooltip</comment>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Desfés l'última operació de substitució</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3, etc... insereix el text coincident entre parèntesis de captura en el text de substitució</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value>Coincidències</value>
+    <comment>Replace window, Matches group header label</comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>S'ha cancel·lat la substitució: el text s'ha substituït a {0} fitxers.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>L'expressió regular és correcte</value>
+    <comment>Main window, regular expression status</comment>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>XPath no és vàlid!</value>
+    <comment>Main window, XPath status</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>No ho tornis a preguntar</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>Una nova versió de dnGrep ({0}) està disponible per baixar-la.</value>
+    <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Seleccioneu un altre directori i torneu-ho a provar.</value>
+    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+  </data>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>Cancel·la totes les substitucions</value>
+    <comment>Replace window, Cancel button tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Substituir coincidència</value>
+    <comment>Replace window, third color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Substituir coincidències marcades per a la substitució</value>
+    <comment>Replace window, OK button tooltip</comment>
+  </data>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value>Fitxer {0} de {1}: {2} ({3} coincidències en {4} línies)</value>
+    <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Substituir les coincidències en els fitxers</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Test_ReplaceResult" xml:space="preserve">
+    <value>Resultat de la substitució:</value>
+    <comment>Test window, output results label</comment>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>S'està executant la substitució als fitxers.</value>
+    <comment>Message box text for: Replace is running on exit, line 1</comment>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Copiar i canviar el nom dels resultat utilitzant expressions regulars</value>
+    <comment>Script editor command tooltip </comment>
   </data>
 </root>
