@@ -1122,7 +1122,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Settings" xml:space="preserve">
-    <value>Confi_guració</value>
+    <value>Configuració</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
@@ -1847,5 +1847,41 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
     <value>L'expressió booleana no és vàlida</value>
     <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Substitueix la disposició de la finestra</value>
+    <comment>Options dialog, Replace window layout options label</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Aplica la configuració de les adreces d'interès</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Manté la disposició de la carpeta d'origen</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_InOptionsExpander" xml:space="preserve">
+    <value>a l'expansor d'opcions</value>
+    <comment>Options dialog, layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_Layout" xml:space="preserve">
+    <value>Disposició</value>
+    <comment>Options dialog, layout group header label</comment>
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Mostra l'arbre de resultats expandit</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_OnMainPanel" xml:space="preserve">
+    <value>al panell de cerca</value>
+    <comment>Options dialog, layout option radio button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Expandeix o amaga la secció de filtres de fitxer</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Expandeix o oculta la secció d'opcions de resultats</value>
+    <comment>Script editor command tooltip</comment>
   </data>
 </root>
