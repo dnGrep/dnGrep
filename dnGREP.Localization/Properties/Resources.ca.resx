@@ -67,7 +67,7 @@
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>No binari</value>
+    <value>Sense binaris</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
@@ -2287,5 +2287,25 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
     <value>Ordena els dígits per ordre numèric</value>
     <comment>Main window sort options menu item tooltip</comment>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Ha fallat la còpia dels fitxers: </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Obre amb</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Copiar els fitxers de resultats a una nova ubicació</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copia fitxers…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>No s'ha pogut copiar els fitxers- Comprova el registre pels detalls: </value>
+    <comment>Message box text for: Copy files</comment>
   </data>
 </root>
