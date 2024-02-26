@@ -2308,4 +2308,44 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>No s'ha pogut copiar els fitxers- Comprova el registre pels detalls: </value>
     <comment>Message box text for: Copy files</comment>
   </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} te c&lt;nvis no desats. Desar ara?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Alguns dels fitxers no es poden modificar. Si continueu, aquests fitxers s'ometran.</value>
+    <comment>Message box text for: Main window replace warning</comment>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Atenció, alguns dels fitxers estan en el directori seleccionat.</value>
+    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Executa dnGrep com a administrador per canviar l'opció d'inici de l'aplicació.</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Executa dnGrep com a Administrador per canviar la visualització de dnGrep al menú del clic dret de l'explorador de Windows</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>La cerca no es pot completar. Comprovar el registre pels detalls: </value>
+    <comment>Message box text for: Search failed</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} te errors de validació. Desar igualment?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Fitxer de recursos '{0}', no es un fitxer resx.</value>
+    <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>El camí de cerca al camp «{0}» no és vàlid, la cerca s'ha cancel·lat.</value>
+    <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
+  </data>
+  <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Alguna cosa es s'ha trencar al dnGrep. Comproveu el registre d'error per als detalls: </value>
+    <comment>Message box text for: Unknown error</comment>
+  </data>
 </root>
