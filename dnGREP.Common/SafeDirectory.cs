@@ -117,7 +117,7 @@ namespace dnGREP.Common
             PauseCancelToken pauseCancelToken)
         {
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
-                return Enumerable.Empty<string>();
+                return [];
 
             bool simpleSearch = filter.IncludeHidden && filter.MaxSubfolderDepth == -1 &&
                 (excludePatterns == null || excludePatterns.Count == 0) &&
@@ -196,7 +196,7 @@ namespace dnGREP.Common
         {
             DirectoryInfo di = new(path);
             // the root of the drive has the hidden attribute set, so don't stop on this hidden directory
-            if (di.Attributes.HasFlag(FileAttributes.Hidden) && (di.Root != di))
+            if (di.Attributes.HasFlag(FileAttributes.Hidden) && (!di.Root.FullName.Equals(di.FullName, StringComparison.OrdinalIgnoreCase)))
                 yield break;
 
             int startDepth = 0;
