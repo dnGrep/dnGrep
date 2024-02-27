@@ -1889,11 +1889,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, results options zoom slider label</comment>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value>No s'ha pogut carregar el tema `{0}'. Comproveu el registre d'error per als detalls: </value>
+    <value>No s'ha pogut carregar el tema `{0}'. Comproveu el registre d'error per a més detalls: </value>
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>No s'ha pogut extreure de l'arxiu. Comprova el registre d'error per als detalls: </value>
+    <value>No s'ha pogut extreure de l'arxiu. Comprova el registre d'error per a més detalls: </value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
@@ -1909,7 +1909,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box title for: Plug-in errors</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>No s'ha pogut substituir el text als fitxers. Comprova el registre d'errors pels detalls: </value>
+    <value>No s'ha pogut substituir el text als fitxers. Comprova el registre d'errors per a més detalls: </value>
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
@@ -2113,7 +2113,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box text for: Open file with custom editor</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>No s'ha pogut obrir el fitxer. Comproveu el registre d'error per als detalls: </value>
+    <value>No s'ha pogut obrir el fitxer. Comproveu el registre d'error per a més detalls: </value>
     <comment>Message box text for: Open file error</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
@@ -2345,7 +2345,99 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>Alguna cosa es s'ha trencar al dnGrep. Comproveu el registre d'error per als detalls: </value>
+    <value>Alguna cosa es s'ha trencar al dnGrep. Comproveu el registre d'error per a més detalls: </value>
     <comment>Message box text for: Unknown error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>No s'ha pogut desar les opcions. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Saving user options</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>No s'ha pogut desregistrar l'inici automàtic. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: unsetting auto start error</comment>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>Aquest favorit està associat amb una altre carpeta.</value>
+    <comment>Message box text for: Main window bookmark delete</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>No s'ha pogut obrir la finestra de prova. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Main window start test dialog error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>No s'ha pogut moure el fitxer. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Move file</comment>
+  </data>
+  <data name="MessageBox_Undo" xml:space="preserve">
+    <value>Desfer</value>
+    <comment>Message box title for: Main window Undo</comment>
+  </data>
+  <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
+    <value>Títol de la finestra: {0}</value>
+    <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
+  </data>
+  <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Voleu baixar-lo ara?</value>
+    <comment>Message box text for: New dnGrep version</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Sí</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Sí a _tot</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>Extensions:</value>
+    <comment>Options dialog, archive options label</comment>
+  </data>
+  <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>El patró'{0}' no és una expressió regular vàlida:{1}{2}</value>
+    <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
+  </data>
+  <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>El fitxer '{0}' ja existeix a {1}. Voleu sobreescriure l'existent?</value>
+    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>No s'ha pogut afegir dnGrep al menú del clic dret de l'explorador de Windows. Comproveu el registre d'error per mes detalls: </value>
+    <comment>Message box text for: set Explorer context menu error</comment>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+    <comment>Message box text for: Replace window warning</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>No s'ha pogut registrar l'inici automàtic. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: set startup option error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>No s'ha pogut suprimir el fitxer. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Delete file</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>No s'ha pogut crear el fitxer. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Create file</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>No s'ha pogut suprimir dnGrep el menú del clic dret de l'explorador de Windows. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: unset Explorer context menu error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>No s'han pogut revertir els fitxers. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Undo replace error</comment>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>Aquest favorit esta associat amb {0} altres carpetes.</value>
+    <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
+  </data>
+  <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>Atenció, esteu a punt d'eliminar els fitxers trobats durant la cerca.</value>
+    <comment>Message box text for: Delete files warning</comment>
+  </data>
+  <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Llista fitxers utilitzant el patró del nom de fitxer quan el camp "Cerca" està buit</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
 </root>
