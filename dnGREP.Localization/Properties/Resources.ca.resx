@@ -75,7 +75,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>Cerca a fitxers</value>
+    <value>Cerca als fitxers comprimits</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
@@ -319,7 +319,7 @@
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>Cerca als ar_xius</value>
+    <value>Cerca als fitxers com_primits</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
@@ -739,7 +739,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
-    <value>Cerca a fitxers</value>
+    <value>Cerca als fitxers com_primits</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
@@ -819,7 +819,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Cerca als fit_xers</value>
+    <value>Cerca als fitxers com_primits</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
@@ -2439,5 +2439,201 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
     <value>Llista fitxers utilitzant el patró del nom de fitxer quan el camp "Cerca" està buit</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ArchiveOptions" xml:space="preserve">
+    <value>Fitxers comprimits</value>
+    <comment>Options dialog, Archive files group header label</comment>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Restableix</value>
+    <comment>Options dialog, Archive extensions button label (accel)</comment>
+  </data>
+  <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>Comprova si hi ha versions noves en iniciar el Windows</value>
+    <comment>Options dialog, check for updates checkbox label (accel)</comment>
+  </data>
+  <data name="Options_CheckingForUpdates" xml:space="preserve">
+    <value>Noves versions</value>
+    <comment>Options dialog, New versions group header label</comment>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Arguments</value>
+    <comment>Options dialog, compare arguments input box label</comment>
+  </data>
+  <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>elements a mostrar a la llista de l'historial de filtres de fitxers</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>elements que es mostren a la llista de l'historial de camins</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>Opcions de la línia d'ordres de PdfToText.exe:</value>
+    <comment>Options dialog, PDF text input label</comment>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Restableix</value>
+    <comment>Options dialog, PDF arguments button label (accel)</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Personalitza la visibilitat dels controls</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Restableix</value>
+    <comment>Options dialog, plug-ins extensions button label (accel)</comment>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Mostra aquest planell en la seva pròpia finestra</value>
+    <comment>Docking window button tooltip</comment>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>Ordre</value>
+    <comment>Options dialog, compare command input box label</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Números de línia</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_LoadFromFile" xml:space="preserve">
+    <value>Carrega des d'un fitxer…</value>
+    <comment>Options dialog, language load button label (accel)</comment>
+  </data>
+  <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
+    <value>0 – coincideix amb tot; 1.0 – coincideix exacta</value>
+    <comment>Options dialog, phonetic help text</comment>
+  </data>
+  <data name="Options_MatchThreshold" xml:space="preserve">
+    <value>Llindar de coincidència (de 0 a 1,0)</value>
+    <comment>Options dialog, phonetic options text input label</comment>
+  </data>
+  <data name="Options_MatchTimeout" xml:space="preserve">
+    <value>Temps d'espera de la coincidència</value>
+    <comment>Options dialog, regular expression options text input label</comment>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Llengua</value>
+    <comment>Options dialog, language group header label</comment>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Mostra el camí del fitxer al panell de resultats</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Filtre de fitxers</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Arbre de resultats</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Opcions de cerca</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Opcions especials</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_OptionsTitle" xml:space="preserve">
+    <value>Opcions</value>
+    <comment>Options dialog, window title</comment>
+  </data>
+  <data name="Options_PDFToText" xml:space="preserve">
+    <value>PDF a text</value>
+    <comment>Options dialog, PDF to text group header label</comment>
+  </data>
+  <data name="Options_CheckDays" xml:space="preserve">
+    <value>dies</value>
+    <comment>Options dialog, check for updates label</comment>
+  </data>
+  <data name="Options_ClearOldSearches" xml:space="preserve">
+    <value>Neteja les cerques antigues</value>
+    <comment>Options dialog, history list button label (accel)</comment>
+  </data>
+  <data name="Options_CompareApplication" xml:space="preserve">
+    <value>Aplicació de comparació</value>
+    <comment>Options dialog, compare application group header label</comment>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>Ajuda a traduir el dnGrep.</value>
+    <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Números de pàgina</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>Estil de número PDF:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Opcions de resultats</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Activat</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Extensions:</value>
+    <comment>Options dialog, plug-in options label</comment>
+  </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Longitud de la línia de resultats de cerca de bytes</value>
+    <comment>Options dialog, results options combo box label</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Pregunta-ho</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_HistoryLists" xml:space="preserve">
+    <value>Llistes d'historial</value>
+    <comment>Options dialog, History group heading label</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Maximitza el panell de resultats a la cerca</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Al moure fitxers</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>No</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Al copiar fitxers, quan existeix el fitxer a la destinació, voleu sobreescriure el fitxer existent?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Característiques</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Previsualitza la finestra</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Mostra o oculta els controls quan s'habilita Personalitza</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Mostra els fitxers amb errors de cerca al panell de resultats</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>Posició del panell:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+    <comment>Options dialog, browse for file button label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>Al moure fitxers, quan existeix el fitxer de destinació, voleu sobreescriure el fitxer existent?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
   </data>
 </root>
