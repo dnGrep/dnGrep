@@ -2636,4 +2636,60 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Al moure fitxers, quan existeix el fitxer de destinació, voleu sobreescriure el fitxer existent?</value>
     <comment>Options dialog, overwrite on move options label</comment>
   </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Mostra text pla en la previsualització</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Premeu F1 per a obtenir ajuda sobre les opcions</value>
+    <comment>Options dialog, help label</comment>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Tema seleccionat</value>
+    <comment>Options dialog, theme selector label</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Envia a la paperera de reciclatge</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>Expressions regulars</value>
+    <comment>Options dialog, regular expressions group heading label</comment>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>Eina de previsualització per als traductors</value>
+    <comment>Options dialog, load language button tooltip</comment>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Torna a carregar</value>
+    <comment>Options dialog, theme reload button label (accel)</comment>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>Mostra tooltips d'informació dels fitxers</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value>Mostra línies de context als resultats</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Resultats de la cerca</value>
+    <comment>Options dialog, Search results group header label</comment>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>Text de mostra</value>
+    <comment>Options dialog, font family and size sample text </comment>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Mostra el dnGrep al menú del clic dret del Windows Explorer</value>
+    <comment>Options dialog, startup options, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Torna a carregar el fitxer de tema actual [Ctrl+F5]</value>
+    <comment>Options dialog, theme reload button tooltip</comment>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Desa</value>
+    <comment>Options dialog, save button label (accel)</comment>
+  </data>
 </root>
