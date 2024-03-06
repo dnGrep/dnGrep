@@ -3321,6 +3321,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read-only.
+        /// </summary>
+        public static string Main_SortMenu_ReadOnly {
+            get {
+                return ResourceManager.GetString("Main_SortMenu_ReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sort digits in numerical order.
         /// </summary>
         public static string Main_SortMenu_SortDigitsInNumericalOrder {

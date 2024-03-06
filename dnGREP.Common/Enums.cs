@@ -86,6 +86,7 @@ namespace dnGREP.Common
         Size,
         Date,
         MatchCount,
+        ReadOnly,
     }
 
     public enum ReportMode
