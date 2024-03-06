@@ -50,6 +50,17 @@
         </Setter>
     </Style>
 
+    <Style x:Key="StatusBarTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource StatusBar.Static.Foreground}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="StatusBarSeparatorStyle" TargetType="Separator">
+        <Setter Property="Background" Value="{DynamicResource StatusBar.Static.Separator.Border}" />
+    </Style>
+
     <Style BasedOn="{StaticResource ThemedStatusBar}" TargetType="StatusBar" />
 
 </ResourceDictionary>

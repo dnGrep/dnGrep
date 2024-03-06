@@ -4,11 +4,11 @@
 
     <Style x:Key="Marker" TargetType="Rectangle">
         <Style.Setters>
-            <Setter Property="Fill" Value="{DynamicResource Match.Group.1.Highlight.Background}"/>
+            <Setter Property="Fill" Value="{DynamicResource PreviewText.Marker.Global.Background}"/>
         </Style.Setters>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=MarkerType}" Value="Local">
-                <Setter Property="Fill" Value="{DynamicResource Match.Group.3.Highlight.Background}" />
+                <Setter Property="Fill" Value="{DynamicResource PreviewText.Marker.Local.Background}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

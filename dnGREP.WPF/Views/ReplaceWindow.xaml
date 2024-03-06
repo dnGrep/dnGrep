@@ -269,8 +269,8 @@
                     Visibility="{Binding IsFullDialog, Converter={StaticResource BoolToVisibilityConverter}}">
                 <ae:TextEditor Name="textEditor" Margin="3" FontFamily="{Binding ResultsFontFamily}"
                                FontSize="{Binding ElementName=zoomSlider, Path=Value}"
-                               Foreground="{DynamicResource AvalonEdit.Foreground}"
-                               Background="{DynamicResource AvalonEdit.Background}"
+                               Foreground="{DynamicResource PreviewText.Foreground}"
+                               Background="{DynamicResource PreviewText.Background}"
                                IsReadOnly="True"
                                WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}"
                                KeyboardNavigation.TabNavigation="Once" TabIndex="6"

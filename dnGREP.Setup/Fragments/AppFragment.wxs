@@ -205,6 +205,15 @@
         <Component Id="cmp9870824B781A4C4094CD594CACFBDE9E" Guid="{1E306AFA-D718-4B0A-93E8-B6242A094BF9}">
           <File Id="fil2766C07E80EC4076B2B54F770E60FF44" KeyPath="yes" Source="$(var.PublishDir)\Themes\Sunset.xaml" />
         </Component>
+        <Component Id="cmp4469B8DF58D74226B56DB49CD1D66E70" Guid="{87C58001-FCDB-42AF-8575-884F069B692B}">
+          <File Id="fil759A411E6B784940B5F04365193CB89F" KeyPath="yes" Source="$(var.PublishDir)\Themes\Dracula Soft.xaml" />
+        </Component>
+        <Component Id="cmp374BFAE102CE47E098ACA0703B025A62" Guid="{EB3F9181-88B6-4216-8F87-25193D99A3FB}">
+          <File Id="filA133A64EEDB34D0B82C5DE33253947B7" KeyPath="yes" Source="$(var.PublishDir)\Themes\Quiet Light.xaml" />
+        </Component>
+        <Component Id="cmpDB6323F819534EE0B570B03B88ED1047" Guid="{92B3FF5C-F6E4-4305-83EE-F9975B4094B5}">
+          <File Id="fil1D532E3AE71342FDAC495DDE561E01B4" KeyPath="yes" Source="$(var.PublishDir)\Themes\Tomorrow Night Blue.xaml" />
+        </Component>
       </Directory>
     </DirectoryRef>
   </Fragment>
@@ -260,6 +269,9 @@
       <ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />
       <ComponentRef Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" />
       <ComponentRef Id="cmp9870824B781A4C4094CD594CACFBDE9E" />
+      <ComponentRef Id="cmp4469B8DF58D74226B56DB49CD1D66E70" />
+      <ComponentRef Id="cmp374BFAE102CE47E098ACA0703B025A62" />
+      <ComponentRef Id="cmpDB6323F819534EE0B570B03B88ED1047" />
     </ComponentGroup>
   </Fragment>
 </Wix>

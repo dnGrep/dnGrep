@@ -67,6 +67,12 @@ namespace dnGREP.WPF
                 textEditor.TextArea.TextView.ElementGenerators.Add(new TruncateLongLines());
                 textEditor.TextArea.TextView.LineTransformers.Add(new BigEllipsisColorizer());
 
+                textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
+                textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
+                Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
+                selectionBorder.Freeze();
+                textEditor.TextArea.SelectionBorder = selectionBorder;
+
                 lineNumberMargin = new ReplaceViewLineNumberMargin();
                 Line line = (Line)DottedLineMargin.Create();
                 textEditor.TextArea.LeftMargins.Insert(0, lineNumberMargin);
@@ -149,7 +155,7 @@ namespace dnGREP.WPF
             else if (e.PropertyName == "CurrentSyntax")
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
-                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
                 textEditor.TextArea.TextView.Redraw();
             }
         }
@@ -173,7 +179,7 @@ namespace dnGREP.WPF
                 textEditor.TextArea.TextView.BackgroundRenderers.Add(highlighter);
                 textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
-                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
             }
 
             lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);

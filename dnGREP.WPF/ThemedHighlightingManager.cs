@@ -61,7 +61,7 @@ namespace dnGREP.WPF
 
                 loadQueue.Add(name);
 
-                bool invertColors = (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
+                bool invertColors = (bool)Application.Current.Resources["PreviewText.SyntaxColor.Invert"];
                 if (invertColors)
                 {
                     if (invertedHighlightingsByName.TryGetValue(name, out Lazy<IHighlightingDefinition?>? definition))

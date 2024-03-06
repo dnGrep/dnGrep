@@ -7,6 +7,9 @@
         <Setter Property="Foreground" Value="{DynamicResource DataGrid.Foreground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.Border}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource DataGrid.GridLine}"/>
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource DataGrid.GridLine}"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />

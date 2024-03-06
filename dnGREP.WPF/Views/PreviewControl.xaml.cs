@@ -51,12 +51,35 @@ namespace dnGREP.WPF
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
             zoomSlider.ValueChanged += ZoomSlider_ValueChanged;
             textEditor.TextArea.TextView.SizeChanged += TextView_SizeChanged;
+
+            textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
+            textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
+            Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
+            selectionBorder.Freeze();
+            textEditor.TextArea.SelectionBorder = selectionBorder;
+
             textEditor.TextArea.TextView.Options.HighlightCurrentLine = true;
+            textEditor.TextArea.TextView.CurrentLineBackground = Application.Current.Resources["PreviewText.CurrentLine.Background"] as Brush;
+            Pen currentLineBorder = new(Application.Current.Resources["PreviewText.CurrentLine.Border"] as Brush, 1.0);
+            currentLineBorder.Freeze();
+            textEditor.TextArea.TextView.CurrentLineBorder = currentLineBorder;
 
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
-                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
+                
+                textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
+                textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
+                Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
+                selectionBorder.Freeze();
+                textEditor.TextArea.SelectionBorder = selectionBorder;
+
+                textEditor.TextArea.TextView.CurrentLineBackground = Application.Current.Resources["PreviewText.CurrentLine.Background"] as Brush;
+                Pen border = new(Application.Current.Resources["PreviewText.CurrentLine.Border"] as Brush, 1.0);
+                border.Freeze();
+                textEditor.TextArea.TextView.CurrentLineBorder = border;
+
                 searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
             };
         }
@@ -108,7 +131,7 @@ namespace dnGREP.WPF
             textEditor.Clear();
             textEditor.Encoding = ViewModel.Encoding;
             textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
-            textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
+            textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
             for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
             {
                 if (textEditor.TextArea.TextView.BackgroundRenderers[i] is PreviewHighlighter)

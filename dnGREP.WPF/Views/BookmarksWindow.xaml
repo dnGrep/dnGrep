@@ -61,7 +61,9 @@
                   Style="{StaticResource ThemedDataGrid}"
                   ColumnHeaderStyle="{StaticResource ThemedDataGridColumnHeader}"
                   CellStyle="{StaticResource ThemedDataGridCell}"
-                  RowHeaderStyle="{StaticResource ThemedDataGridRowHeader}">
+                  RowHeaderStyle="{StaticResource ThemedDataGridRowHeader}"
+                  HorizontalGridLinesBrush="{DynamicResource DataGrid.GridLine}"
+                  VerticalGridLinesBrush="{DynamicResource DataGrid.GridLine}">
 
             <i:Interaction.Behaviors>
                 <my:DataGridColumnOrderBehavior SettingName="BookmarkColumnOrder" />

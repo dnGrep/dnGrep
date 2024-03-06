@@ -31,7 +31,7 @@ namespace dnGREP.WPF
                 CurrentContext.TextView.FlowDirection,
                 CurrentContext.GlobalTextRunProperties.Typeface,
                 CurrentContext.GlobalTextRunProperties.FontRenderingEmSize,
-                Application.Current.Resources["AvalonEdit.BigEllipsis"] as Brush ?? Brushes.DeepSkyBlue,
+                Application.Current.Resources["PreviewText.BigEllipsis"] as Brush ?? Brushes.DeepSkyBlue,
                 CurrentContext.GlobalTextRunProperties.PixelsPerDip);
 
             return new FormattedTextElement(formattedText, CurrentContext.VisualLine.LastDocumentLine.EndOffset - offset - charactersAfterEllipsis);

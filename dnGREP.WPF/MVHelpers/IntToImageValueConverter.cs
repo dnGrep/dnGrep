@@ -27,7 +27,7 @@ namespace dnGREP.WPF
             }
 
             string key = $"checks{intValue}";
-            bool invertColors = (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
+            bool invertColors = (bool)Application.Current.Resources["ToggleButton.DarkImages"];
 
             var cache = invertColors ? darkImageCache : lightImageCache;
 

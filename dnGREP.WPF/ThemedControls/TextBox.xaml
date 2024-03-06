@@ -77,10 +77,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Foreground}" />
                         </Trigger>
                         <Trigger Property="IsReadOnly" Value="{StaticResource BooleanTrue}">
-                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Foreground}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
                             <Setter Property="Background" Value="{DynamicResource Control.Focused.Background}" />

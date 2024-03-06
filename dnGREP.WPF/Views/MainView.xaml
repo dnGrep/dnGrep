@@ -215,14 +215,14 @@
                         <ProgressBar Width="150" Height="18" Margin="3,0"
                                      IsIndeterminate="true" />
                         <TextBlock Margin="3,0,12,0" Text="{l:Loc Key='Main_SavingResultsToFile'}"
-                                   Style="{StaticResource LabelTextBlockStyle}" />
+                                   Style="{StaticResource StatusBarTextBlockStyle}" />
                     </StackPanel>
                 </StatusBarItem>
                 <StatusBarItem DockPanel.Dock="Right">
                     <TextBlock x:Name="status4" 
                                Text="{Binding StatusMessage4}" 
                                ToolTip="{Binding StatusMessage4Tooltip}"
-                               Style="{StaticResource LabelTextBlockStyle}"/>
+                               Style="{StaticResource StatusBarTextBlockStyle}"/>
                 </StatusBarItem>
                 <Separator DockPanel.Dock="Right"  
                            Visibility="{Binding ElementName=status4, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
@@ -230,7 +230,7 @@
                     <TextBlock x:Name="status3" 
                                Text="{Binding StatusMessage3}" 
                                ToolTip="{Binding StatusMessage3Tooltip}"
-                               Style="{StaticResource LabelTextBlockStyle}"/>
+                               Style="{StaticResource StatusBarTextBlockStyle}"/>
                 </StatusBarItem>
                 <Separator DockPanel.Dock="Right"
                            Visibility="{Binding ElementName=status3, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
@@ -239,7 +239,7 @@
                                Margin="3,0"
                                Text="{Binding StatusMessage2}"
                                ToolTip="{Binding StatusMessage2Tooltip}"
-                               Style="{StaticResource LabelTextBlockStyle}"/>
+                               Style="{StaticResource StatusBarTextBlockStyle}"/>
                 </StatusBarItem>
                 <StatusBarItem DockPanel.Dock="Left">
                     <CheckBox Margin="3,0,0,0" Background="{DynamicResource Control.Static.Background}"
@@ -255,9 +255,9 @@
                                      IsIndeterminate="{Binding IsSearchReplacePaused, Converter={StaticResource InverseBooleanConverter}}" />
                         <TextBlock Text="{l:Loc Key='Main_Paused'}" Style="{StaticResource LabelTextBlockStyle}"
                                    Width="120" TextAlignment="Center"
-                                   Foreground="{DynamicResource Match.Skip.Foreground}"
-                                   Background="{DynamicResource Match.Skip.Background}"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource StatusBar.Paused.Foreground}"
+                                   Background="{DynamicResource StatusBar.Paused.Background}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Stretch"
                                    Visibility="{Binding IsSearchReplacePaused, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     </Grid>
                 </StatusBarItem>
@@ -271,7 +271,7 @@
                 <StatusBarItem DockPanel.Dock="Left">
                     <TextBlock Margin="3,0"
                                Text="{Binding StatusMessage}"
-                               Style="{StaticResource LabelTextBlockStyle}" />
+                               Style="{StaticResource StatusBarTextBlockStyle}" />
                 </StatusBarItem>
             </StatusBar>
 
@@ -368,7 +368,7 @@
                                   IsEditable="True"
                                   PreviewDragOver="SearchPath_PreviewDragOver">
                             <ComboBox.ItemContainerStyle>
-                                <Style TargetType="ComboBoxItem">
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                 </Style>
                             </ComboBox.ItemContainerStyle>
@@ -458,7 +458,7 @@
                                                       ItemsSource="{Binding Path=IgnoreFilterList}"
                                                       SelectedValue="{Binding Path=IgnoreFilter}">
                                                 <ComboBox.ItemContainerStyle>
-                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                    <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                                         <Setter Property="HorizontalContentAlignment" Value="Left" />
                                                     </Style>
                                                 </ComboBox.ItemContainerStyle>
@@ -495,7 +495,7 @@
                                                       SelectedValue="{Binding Path=CodePage}"
                                                       Initialized="CbEncoding_Initialized">
                                                 <ComboBox.ItemContainerStyle>
-                                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                                    <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                                         <Setter Property="HorizontalContentAlignment" Value="Left" />
                                                     </Style>
                                                 </ComboBox.ItemContainerStyle>
@@ -794,7 +794,7 @@
                                   Grid.IsSharedSizeScope="True"
                                   Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                             <ComboBox.ItemContainerStyle>
-                                <Style TargetType="ComboBoxItem">
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                 </Style>
                             </ComboBox.ItemContainerStyle>
@@ -826,7 +826,7 @@
                                   Grid.IsSharedSizeScope="True"
                                   Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                             <ComboBox.ItemContainerStyle>
-                                <Style TargetType="ComboBoxItem">
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                 </Style>
                             </ComboBox.ItemContainerStyle>
@@ -958,7 +958,7 @@
                                       FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="60">
                                 <ComboBox.ItemContainerStyle>
-                                    <Style TargetType="ComboBoxItem">
+                                    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                     </Style>
                                 </ComboBox.ItemContainerStyle>
@@ -987,7 +987,7 @@
                                       TabIndex="61"
                                       Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <ComboBox.ItemContainerStyle>
-                                    <Style TargetType="ComboBoxItem">
+                                    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                     </Style>
                                 </ComboBox.ItemContainerStyle>

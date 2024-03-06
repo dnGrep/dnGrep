@@ -137,7 +137,7 @@
                                   ItemsSource="{Binding Path=IgnoreFilterList}"
                                   SelectedValue="{Binding Path=IgnoreFilterName}">
                             <ComboBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ComboBoxItem}">
+                                <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                     <Setter Property="HorizontalContentAlignment" Value="Left" />
                                 </Style>
                             </ComboBox.ItemContainerStyle>
@@ -164,7 +164,7 @@
                                     SelectedIndex="{Binding Path=EncodingIndex, Mode=OneWay}"
                                     SelectedValue="{Binding Path=CodePage, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ComboBoxItem}">
+                                <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ComboBoxItemBaseStyle}">
                                     <Setter Property="HorizontalContentAlignment" Value="Left" />
                                 </Style>
                             </ComboBox.ItemContainerStyle>
