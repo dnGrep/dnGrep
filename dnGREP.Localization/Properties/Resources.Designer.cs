@@ -2358,6 +2358,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy file names with match count.
+        /// </summary>
+        public static string Main_MoreMenu_CopyFileNamesWithMatchCount {
+            get {
+                return ResourceManager.GetString("Main_MoreMenu_CopyFileNamesWithMatchCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy files….
         /// </summary>
         public static string Main_MoreMenu_CopyFiles {

@@ -558,7 +558,13 @@ namespace dnGREP.WPF
         /// Returns a command that copies content to clipboard
         /// </summary>
         public ICommand CopyToClipboardCommand => new RelayCommand(
-            param => CopyToClipboard());
+            param => CopyToClipboard(false));
+
+        /// <summary>
+        /// Returns a command that copies content to clipboard
+        /// </summary>
+        public ICommand CopyFilesWithCountsCommand => new RelayCommand(
+            param => CopyToClipboard(true));
 
         /// <summary>
         /// Returns a command that opens the report options window
@@ -2625,12 +2631,23 @@ namespace dnGREP.WPF
             }
         }
 
-        private void CopyToClipboard()
+        private void CopyToClipboard(bool includeMatchCounts)
         {
             StringBuilder sb = new();
             foreach (GrepSearchResult result in ResultsViewModel.GetList())
             {
-                sb.AppendLine(result.FileNameReal);
+                if (includeMatchCounts)
+                {
+                    int matchCount = result.Matches == null ? 0 : result.Matches.Count;
+                    int lineCount = result.Matches?.Where(r => r.LineNumber > 0)
+                       .Select(r => r.LineNumber).Distinct().Count() ?? 0;
+
+                    sb.AppendLine(TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, result.FileNameReal, matchCount, lineCount));
+                }
+                else
+                {
+                    sb.AppendLine(result.FileNameReal);
+                }
             }
             NativeMethods.SetClipboardText(sb.ToString());
         }
