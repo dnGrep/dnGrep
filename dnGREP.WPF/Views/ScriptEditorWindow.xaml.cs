@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Search;
@@ -31,6 +33,25 @@ namespace dnGREP.WPF
             viewModel.NewScriptFileSaved += (s, e) => NewScriptFileSaved?.Invoke(this, e);
 
             SearchPanel.Install(textEditor);
+
+            textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
+
+            textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
+            textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
+            Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
+            selectionBorder.Freeze();
+            textEditor.TextArea.SelectionBorder = selectionBorder;
+
+            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
+            {
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
+
+                textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
+                textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
+                Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
+                selectionBorder.Freeze();
+                textEditor.TextArea.SelectionBorder = selectionBorder;
+            };
 
             var definition = ThemedHighlightingManager.Instance.GetDefinitionByExtension(ScriptManager.ScriptExt);
             textEditor.SyntaxHighlighting = definition;
@@ -82,7 +103,7 @@ namespace dnGREP.WPF
                         return text.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
                     }
                 }
-                return Enumerable.Empty<string>();
+                return [];
             }
         }
 

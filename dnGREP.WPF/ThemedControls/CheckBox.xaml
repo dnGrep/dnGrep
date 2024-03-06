@@ -81,6 +81,7 @@
                             <Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Foreground}"/>
                             <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Disabled.Background}" />
                             <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Disabled.Border}" />
                             <Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />

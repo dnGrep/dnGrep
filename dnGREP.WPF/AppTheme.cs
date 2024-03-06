@@ -107,40 +107,52 @@ namespace dnGREP.WPF
         {
             if (!Utils.IsPortableMode)
             {
-                // Copy Sunset.xaml from Program Files\Themes to AppData\dnGrep
-                // If the file exists and is different, back up the old file first, then copy
-                string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ".";
-                string src = Path.Combine(dir, "Themes", "Sunset.xaml");
-                string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", "Sunset.xaml");
-                if (File.Exists(dest) && FileChanged(src, dest))
+                List<string> files = 
+                [
+                    "Dracula Soft.xaml",
+                    "Quiet Light.xaml",
+                    "Sunset.xaml",
+                    "Tomorrow Night Blue.xaml",
+                ];
+
+                foreach (string file in files)
                 {
-                    for (int idx = 1; idx < 40; idx++)
+                    // Copy xaml files from Program Files\Themes to AppData\dnGrep
+                    // If the file exists and is different, back up the old file first, then copy
+                    string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ".";
+                    string src = Path.Combine(dir, "Themes", file);
+                    string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", file);
+                    if (File.Exists(dest) && FileChanged(src, dest))
                     {
-                        string temp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", $"Sunset_{idx}.xaml.bak");
-                        if (!File.Exists(temp))
+                        for (int idx = 1; idx < 40; idx++)
                         {
-                            try
+                            string baseName = Path.GetFileNameWithoutExtension(file);
+                            string temp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", $"{baseName}_{idx}.xaml.bak");
+                            if (!File.Exists(temp))
                             {
-                                File.Move(dest, temp);
-                                break;
-                            }
-                            catch (Exception ex)
-                            {
-                                logger.Error(ex, "Failure in initialize themes, backup Sunset.xaml");
+                                try
+                                {
+                                    File.Move(dest, temp);
+                                    break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    logger.Error(ex, $"Failure in initialize themes, backup {file}");
+                                }
                             }
                         }
                     }
-                }
 
-                if (Directory.Exists(Path.GetDirectoryName(dest)) && !File.Exists(dest))
-                {
-                    try
+                    if (Directory.Exists(Path.GetDirectoryName(dest)) && !File.Exists(dest))
                     {
-                        File.Copy(src, dest);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "Failure in initialize themes, copy Sunset.xaml");
+                        try
+                        {
+                            File.Copy(src, dest);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error(ex, $"Failure in initialize themes, copy {file}");
+                        }
                     }
                 }
             }

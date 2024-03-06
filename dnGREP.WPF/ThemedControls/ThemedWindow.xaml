@@ -26,10 +26,30 @@
                                    TextOptions.TextFormattingMode="Display" />
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" Value="True"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
                             <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource Caption.Button.MouseOver.Background}" />
                             <Setter TargetName="txt" Property="Foreground" Value="{DynamicResource Caption.Button.MouseOver.Foreground}" />
-                        </Trigger>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource Caption.Button.MouseOver.Background.Inactive}" />
+                            <Setter TargetName="txt" Property="Foreground" Value="{DynamicResource Caption.Button.MouseOver.Foreground.Inactive}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource Caption.Button.Background.Inactive}" />
+                            <Setter TargetName="txt" Property="Foreground" Value="{DynamicResource Caption.Button.Foreground.Inactive}" />
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                     <ControlTemplate.Resources>
                         <Style TargetType="ToolTip" BasedOn="{StaticResource ToolTipStyle}" />
@@ -58,6 +78,14 @@
                             <Setter TargetName="LayoutRoot" Property="Background" Value="#e81123" />
                             <Setter TargetName="txt" Property="Foreground" Value="#ffffff" />
                         </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsActive, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ThemedWindow}}}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource Caption.Button.Background.Inactive}" />
+                            <Setter TargetName="txt" Property="Foreground" Value="{DynamicResource Caption.Button.Foreground.Inactive}" />
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                     <ControlTemplate.Resources>
                         <Style TargetType="ToolTip" BasedOn="{StaticResource ToolTipStyle}" />

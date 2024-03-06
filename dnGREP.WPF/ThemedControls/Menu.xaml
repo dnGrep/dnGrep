@@ -215,7 +215,7 @@
             <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator" BasedOn="{StaticResource ThemedMenuSeparator}"/>
             <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}" />
         </Style.Resources>
-        <Setter Property="Background" Value="{DynamicResource Menu.Normal.Background}" />
+        <Setter Property="Background" Value="{DynamicResource Menu.TopLevel.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Menu.Item.Foreground}" />
     </Style>
 

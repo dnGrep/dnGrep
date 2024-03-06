@@ -95,8 +95,8 @@
             <ae:TextEditor Name="textEditor" Style="{StaticResource ThemedMarkerTextEditor}"
                            FontFamily="{Binding ResultsFontFamily}"
                            FontSize="{Binding ElementName=zoomSlider, Path=Value}"
-                           Foreground="{DynamicResource AvalonEdit.Foreground}"
-                           Background="{DynamicResource AvalonEdit.Background}"
+                           Foreground="{DynamicResource PreviewText.Foreground}"
+                           Background="{DynamicResource PreviewText.Background}"
                            ShowLineNumbers="True" IsReadOnly="True"
                            WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}">
                 <ae:TextEditor.ContextMenu>

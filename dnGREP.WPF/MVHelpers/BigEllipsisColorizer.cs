@@ -12,7 +12,7 @@ namespace dnGREP.WPF
 
         protected override void ColorizeLine(DocumentLine line)
         {
-            Brush foreground = Application.Current.Resources["AvalonEdit.BigEllipsis"] as Brush ?? Brushes.DeepSkyBlue;
+            Brush foreground = Application.Current.Resources["PreviewText.BigEllipsis"] as Brush ?? Brushes.DeepSkyBlue;
             int lineStartOffset = line.Offset;
             string text = CurrentContext.Document.GetText(line);
             int start = 0;
