@@ -3976,7 +3976,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>КБ</value>
+    <value>KB (Кбайт)</value>
     <comment>Options dialog, label for file size</comment>
   </data>
   <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
@@ -3998,5 +3998,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
     <value>В файле, созданном плагином {0}, нет текста, доступного для поиска</value>
     <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
+  </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>(минут)</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>дней</value>
+    <comment>Main window, filter files by date time unit label</comment>
   </data>
 </root>
