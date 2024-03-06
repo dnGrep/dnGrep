@@ -67,15 +67,15 @@
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>No binari</value>
+    <value>Sense binaris</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>No ocult</value>
+    <value>Sense ocultes</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>Cerca a fitxers</value>
+    <value>Cerca als fitxers comprimits</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>No ocult</value>
+    <value>Sense ocultes</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
-    <value>Substituir per:</value>
+    <value>Substitueix per:</value>
     <comment>Bookmark details dialog, replace text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>En quant a dnGrep</value>
+    <value>Quant a dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
@@ -191,7 +191,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>Llibreria .NET per analitza nombres ECMA-376</value>
+    <value>Llibreria .NET per analitzar nombres ECMA-376</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
@@ -263,11 +263,11 @@
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Inclou propietats de la font del fitxer al marcador</value>
+    <value>Inclou propietats del tipus de lletra del fitxer al marcador</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
-    <value>Font de fitxers</value>
+    <value>Origen dels fitxers</value>
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
@@ -319,7 +319,7 @@
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>Cerca als ar_xius</value>
+    <value>Cerca als fitxers com_primits</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
@@ -559,7 +559,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value>Substituir per:</value>
+    <value>Substitueix per:</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -583,11 +583,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>No binari</value>
+    <value>Sense binari</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>No subcarpetes</value>
+    <value>Sense subcarpetes</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
@@ -655,7 +655,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, XPath search type tooltip</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>Ometre fitxers de l'emmagatzematge al nuvol</value>
+    <value>Omet els fitxers d'emmagatzematge al núvol</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -739,7 +739,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
-    <value>Cerca a fitxers</value>
+    <value>Cerca als fitxers com_primits</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
@@ -767,7 +767,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>No binari</value>
+    <value>No binaris</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
@@ -799,11 +799,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value>No subcarpetes</value>
+    <value>Sense subcarpetes</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>No enllaços simbòlics</value>
+    <value>Sense enllaços simbòlics</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
@@ -819,7 +819,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Cerca als ar_xius</value>
+    <value>Cerca als fitxers com_primits</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
@@ -863,7 +863,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>No enllaços simbòlics</value>
+    <value>Sense enllaços simbòlics</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
@@ -891,7 +891,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>Substituir per:</value>
+    <value>Substitueix per:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
@@ -937,5 +937,1759 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Options_EditorCancel" xml:space="preserve">
     <value>Cancel·la</value>
     <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Dades i _registres de l'aplicació</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Mou fitxers…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+    <comment>Main window, open folder button label (accel)</comment>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>fins</value>
+    <comment>Main window, filter files by date, past time label</comment>
+  </data>
+  <data name="Main_PreviewFile" xml:space="preserve">
+    <value>Pre_visualització del fitxer</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    Executa el script identificat per la ScriptKey.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Utilització:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>Ajuda del dnGrep</value>
+    <comment>Help dialog window title</comment>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Un o més arguments no son vàlids.</value>
+    <comment>Help dialog header text</comment>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Afegeix el patró de cerca als favorits</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Totes les dates</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Associar favorits amb carpetes</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Data de modificació:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Fitxer:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Totes les mides</value>
+    <comment>Main window, size filter radio button label (accel)</comment>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Mida:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Tipus:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Auto posicionament</value>
+    <comment>Main window, docking context menu item label (accel)</comment>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Consulta per carpetes o fitxers</value>
+    <comment>Main window, open folder tooltip</comment>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>hores</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>fins</value>
+    <comment>Main window, filter files by date label</comment>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>Ancla a baix</value>
+    <comment>Main window docking context menu item label (accel)</comment>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>Ancla a la dreta</value>
+    <comment>Main window docking context menu label (accel)</comment>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Buit</value>
+    <comment>Main window title prefix when search for is empty</comment>
+  </data>
+  <data name="Main_EncodingAutoDetection" xml:space="preserve">
+    <value>Detecció automàtica (defecte)</value>
+    <comment>Main window encoding auto select text</comment>
+  </data>
+  <data name="Main_EverythingSearch" xml:space="preserve">
+    <value>Cerca-ho tot:</value>
+    <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>Full [{0}]</value>
+    <comment>Main window results list for Excel file data: {0} is a string, the name of the worksheet in the Excel document</comment>
+  </data>
+  <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Exclou fitxers per tipus i carpetes per nom</value>
+    <comment>Main window, Patterns to exclude label tooltip</comment>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>Tots els fitxers</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>Per data de creació</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>Per data de modificació</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>Per mida</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_Folder" xml:space="preserve">
+    <value>C_arpetes:</value>
+    <comment>Main window, folder input caption (accel)</comment>
+  </data>
+  <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
+    <value>des de l'inici del dia</value>
+    <comment>Main window, filter file by date, start date tooltip</comment>
+  </data>
+  <data name="Main_HideResultOptions" xml:space="preserve">
+    <value>Amaga les opcions del resultat</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="Main_HighlightGroups" xml:space="preserve">
+    <value>Destaca grups</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Comprova si hi ha actualitzacions</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_Help" xml:space="preserve">
+    <value>A_juda</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>_Favorits…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Cancel·la script</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Edita script…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Nou script…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>_Opcions…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Personalització</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Scripts</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>_Configuració</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>_Desfés</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>Modificat</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>M_és…</value>
+    <comment>Main window, filters expander label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>Copiar noms de fitxer</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Copia fitxers…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Copiar resultats</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Suprimeix fitxers…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>Resultats CSV</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>Resultats en textual</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>Guarda resultats</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_Cancel·lar</value>
+    <comment>Main window, Cancel button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Nom del marcador:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Fletxa Avall</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Mou fins el final</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Mou al principi</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Nom</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Maj+Alt+Fletxa Avall</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>Capturar grups de cerca</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Canvia el nivell de zoom de l'arbre de resultats</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Netejar favorits</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Combina múltiples patrons de cerca utilitzant 'AND' o 'OR'</value>
+    <comment>Main window, search option Boolean Operators tooltip</comment>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>després</value>
+    <comment>Main window, result options context lines label</comment>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>abans i</value>
+    <comment>Main window, results options context lines label</comment>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Els canvis en la línia de context s'aplicaran en la pròxima cerca</value>
+    <comment>Main window, result options context lines tooltip</comment>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Mostra línies adjacents</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Creat</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>Des de</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>Fa</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_HighlightMatches" xml:space="preserve">
+    <value>Destaca coincidències</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Incloure fitxers per nom o tipus</value>
+    <comment>Main window, Patterns to include label tooltip</comment>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Maximitza resultats (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Mou avall</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Fletxa Amunt</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Mou amunt</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Mays+Alt+Fletxa Amunt</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [mode]
+-rm [mode]
+-reportMode [mode]
+    Estableix la sortida de l'informe per a expressions regulars  - ha de ser una de les següents: "FullLine", "Matches", or "Groups".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Versió {0} compilat el {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+  </data>
+  <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Destaca grups d'expressions regulars. Els canvis s'aplicaran en la pròxima cerca.</value>
+    <comment>Main window, result options highlight groups tooltip</comment>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>En _Quant a</value>
+    <comment>Main window, main menu label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
+    <value>En _Quant a dnGrep…</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>_Més</value>
+    <comment>Main window, More button label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Opcions de l'informe…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value>Informe</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>_Cerca:</value>
+    <comment>Main window, search pattern text input box label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>Substituir per:</value>
+    <comment>Main window, replace text input box label (accel)</comment>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>abans i</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>Ordre</value>
+    <comment>Options dialog, custom editor command input box label</comment>
+  </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>Fitxers i coincidències individuals</value>
+    <comment>Options dialog, Replace window layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>només fitxers</value>
+    <comment>Options dialog, Replace window layout radio button label (accel)</comment>
+  </data>
+  <data name="Options_MainFontSize" xml:space="preserve">
+    <value>Mida del tipus de lletra de la finestra principal</value>
+    <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>després</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [tipus]
+-st [tipus]
+-searchType [tipus]
+    Estableix el tipus de cerca - ha de ser un dels següents: "PlainText", "Regex" (expressió regular), "XPath", o "Soundex" (fonètic).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [Cert/Fals]
+-sl [Cert/Fals]
+-separateLines [Cert/Fals]
+    Estableix indicadors per a mostrar cada coincidència en una línia separada del llistat d'expressions regulars – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    Estableix indicadors per establir l'àmbit de valors únics en el llistat de sortida d'expressions regulars – ha de ser un dels: "Global" o "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [Cert/Fals]
+-ww [Cert/Fals]
+-wholeWord [Cert/Fals]
+    Estableix l'indicador de cerca de paraules senceres – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Detecta la codificació del fitxer quan es llisten fitxers utilitzant el patró del nom dels fitxers</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
+    <value>Comprova automàticament cada</value>
+    <comment>Options dialog, check for updates, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_DialogFontSize" xml:space="preserve">
+    <value>Mida del tipus de lletra per altres finestres</value>
+    <comment>Options dialog, font size selector label</comment>
+  </data>
+  <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
+    <value>Activar arrancar dnGrep des del menú contextual de l'Explorador de Windows.</value>
+    <comment>Options dialog, explorer right-click menu checkbox tooltip</comment>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Família de tipus de lletra</value>
+    <comment>Options dialog, font selector label</comment>
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value>Mida del tipus de lletra de la finestra Substituir</value>
+    <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Família del tipus de lletra dels resultats</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>Esborra Fitxers</value>
+    <comment>Message box title for: Delete files</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Tipus de lletra utilitzat en els resultats de la cerca, normalment un tipus de lletra de mida fixe</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Mida del tipus de lletra dels resultats</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>Podria ser compatible en tots els tipus de lletra</value>
+    <comment>Options dialog, radio button tooltip</comment>
+  </data>
+  <data name="Options_FollowWindowsTheme" xml:space="preserve">
+    <value>Utilitza el tema de Windows</value>
+    <comment>Options dialog, theme checkbox label (accel)</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Copiar fitxers</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_ApplicationFonts" xml:space="preserve">
+    <value>Tipus de lletra de l'Aplicació</value>
+    <comment>Options dialog, Application fonts group header label</comment>
+  </data>
+  <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>dnGrep afegirà els fitxers seleccionats al final de la línia de comandes.</value>
+    <comment>Options dialog, compare arguments help text</comment>
+  </data>
+  <data name="Options_EditorArguments" xml:space="preserve">
+    <value>Arguments</value>
+    <comment>Options dialog, custom editor arguments input box label</comment>
+  </data>
+  <data name="Options_CustomEditor" xml:space="preserve">
+    <value>Editor personalitzat</value>
+    <comment>Options dialog, custom editor group header label</comment>
+  </data>
+  <data name="Options_CustomEditorHelp" xml:space="preserve">
+    <value>Utilitza paraules clau '{0}' per a la localització de fitxers, '{5}' per el número de pàgina, '{1}' per el número de línia, '{2}' per al patró de cerca, '{3}' per a la primera coincidència del text en la línia, i '{4}' per al número de columna per a la primera coincidència en la línia.</value>
+    <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Esborra fitxers</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Esborra permanentment</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Mou fitxers…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Esborra fitxers</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [Camí del fitxer]
+-txt [Camí del fitxer]
+-text [Camí del fitxer]
+    Crea fitxer de resultats en format textual després que la cerca s'hagi completat.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [Cert/Fals]
+-unique [Cert/Fals]
+-uniqueValues [Cert/Fals]
+    Estableix indicadors per a mostrar coincidències úniques o valors de grup en el llistat de sortida d'expressions regulars – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value>Utilitza el tipus de lletra per defecte</value>
+    <comment>Options dialog, fonts default checkbox label (accel)</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [Cert/Fals]
+-trim [Cert/Fals]
+-trimWhitespace [Cert/Fals]
+    Estableix indicadors per retallar espais en blanc en el llistat de sortida – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [cerca ]
+-s [cerca]
+-searchFor [cercar]
+    Estableix el patró o text a cercar en el conjunt de fitxers. Quan aquest argument s'estableix, la cerca s'executa automàticament.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Diapositiva {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
+  <data name="Main_Results_CompareFiles" xml:space="preserve">
+    <value>Comparar fitxers</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value>(al final del fitxer)</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value>a la posició {0}</value>
+    <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} coincidències en {2} línies)</value>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value>Coincidència {0}{1}{2}</value>
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
+  </data>
+  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
+    <value>[només lectura]</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Copiar noms dels fitxers</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
+    <value>Copiar camí sencer del fitxer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>Obrir</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Fitxer anterior</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>Coincidència anterior</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>Mostra propietats del fitxer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Cerca fitxers en múltiples fils</value>
+    <comment>Main window, search option parallel tooltip</comment>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>Reinicialitzar zoom</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Cerca</value>
+    <comment>Main window, search group heading</comment>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Cerca _als resultats</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>Cerca parale_la</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Cerca a</value>
+    <comment>Main window Search In group heading</comment>
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, +{0} més coincidències</value>
+    <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Elimina la carpeta de la associació de favorits</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>No hi han coincidències per substituir</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>CSV (separat per comes)</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
+    <value>Format del llistat</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
+    <value>Fitxer de texte</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Restaurar resultats (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} coincidències)</value>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value>Coincidència {0}{1}Grup {2}: {3}</value>
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
+  </data>
+  <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
+    <value>Copiar línies de text</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>Obrir amb editor personalitzat</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>Canviar el nom del fitxer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Mostra Menú de l'Explorador</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SavingResultsToFile" xml:space="preserve">
+    <value>Guarda resultats en un fitxer…</value>
+    <comment>Main window, status message</comment>
+  </data>
+  <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
+    <value>Excloure dels resultats</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ResetOptions" xml:space="preserve">
+    <value>Reinicialitzar filtres</value>
+    <comment>Main window, search options, reset button label (accel)</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Fes que es pugui escriure</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Fitxer següent</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>Coincidències addicionals:</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value>…(+{0:n0} caràcters)</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Moure fitxers a la Paperera</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Els paràmetres de cerca han canviat</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>Següent coincidència</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>Obrir carpeta que el conté</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>_Substituir</value>
+    <comment>Main window replace button label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>No hi ha fitxers amb permisos d'escriptura als resultats</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Substitució utilitzant operadors booleans només en la cera textual</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_SearchButton" xml:space="preserve">
+    <value>_Cerca</value>
+    <comment>Main window, search button label (accel)</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Nombre de coincidències en la línea</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Número de coincidències/número de coincidències al fitxer</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Número de coincidències/número de coincidències globals</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>L'expressió booleana és correcte</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>La cadena de bytes no és vàlida!</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>Selecciona una data</value>
+    <comment>Main window, filter files by date, date picker watermark</comment>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>Mostra opcions dels resultats</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>Mida</value>
+    <comment>Main window, filter size radio button label (accel)</comment>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>Mida fitxer</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>fins al final del dia</value>
+    <comment>Main window, filter file by date, end date tooltip</comment>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Utilitzar grups de captura de 'Patrons de coincidència' a patró de 'Cerca'</value>
+    <comment>Main window, search option capture group tooltip</comment>
+  </data>
+  <data name="Main_Results_CollapseAll" xml:space="preserve">
+    <value>Col·lapsa-ho tot</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ExpandAll" xml:space="preserve">
+    <value>Expandeix-ho tot</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>a</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>Ordre</value>
+    <comment>Main window, sort button label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>Només nom de fitxer</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>Tipus de fitxer i nom</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>Última data d'escriptura</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>S'ha cancel·lat la substitució</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>S'han exclòs {0} fitxers perduts.</value>
+    <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Substitució completada - text substituït en {0} fitxers.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>Cerca cancel·lada o ha fallat</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Cercant {0} fitxers, trobats {1} fitxers amb coincidències - processant {2}</value>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Cercant .gitignore</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>L'expressió booleana conté un token desconegut</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>Manca un patró de cerca a l'expressió booleana</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>La cadena de bytes es correcte</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>Ascendent</value>
+    <comment>Main window sort button options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Cerca completada en {0} – {1} coincidències trobades a {2} fitxers de {3} cercats.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>Cercant…</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_StopAfterFirstMatch" xml:space="preserve">
+    <value>Atura després de la primera coincidència</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>Número de coincidències</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Carpeta i nom de fitxer, primer la profunditat</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>Substitució ha fallat</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>S'han cercat {0} fitxers, s'han trobat {1} fitxers amb coincidències.</value>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
+  </data>
+  <data name="Main_TestExpression" xml:space="preserve">
+    <value>Proba l'expressió</value>
+    <comment>Main window, test search expression button label (accel)</comment>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>Substituint…</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>Cerca cancel·lada</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>Descendent</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Carpeta i nom de fitxer, primer l'amplitud</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>L'expressió booleana té parèntesis no coincidents</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>L'expressió booleana té un error desconegut</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>Manca un operador booleà a l'expressió booleana</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>L'expressió booleana no és vàlida</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Substitueix la disposició de la finestra</value>
+    <comment>Options dialog, Replace window layout options label</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Aplica la configuració de les adreces d'interès</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Manté la disposició de la carpeta d'origen</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_InOptionsExpander" xml:space="preserve">
+    <value>a l'expansor d'opcions</value>
+    <comment>Options dialog, layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_Layout" xml:space="preserve">
+    <value>Disposició</value>
+    <comment>Options dialog, layout group header label</comment>
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Mostra l'arbre de resultats expandit</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_OnMainPanel" xml:space="preserve">
+    <value>al panell de cerca</value>
+    <comment>Options dialog, layout option radio button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Expandeix o amaga la secció de filtres de fitxer</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Expandeix o oculta la secció d'opcions de resultats</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+    <comment>Main window, results options zoom slider label</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>No s'ha pogut carregar el tema `{0}'. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>No s'ha pogut extreure de l'arxiu. Comprova el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Preview window archive error</comment>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>Carregar recursos</value>
+    <comment>Message box title for: Load resources</comment>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>Moure fitxers</value>
+    <comment>Message box title for: Move files</comment>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Errors del connector</value>
+    <comment>Message box title for: Plug-in errors</comment>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>No s'ha pogut substituir el text als fitxers. Comprova el registre d'errors per a més detalls: </value>
+    <comment>Message box text for: Replace failed</comment>
+  </data>
+  <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>No s'han pogut carregar els següents connectors:</value>
+    <comment>Message box text for: plug-in load errors</comment>
+  </data>
+  <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>elements que es mostren a les llistes d'historials de cerca i substitució</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Rename_NewName" xml:space="preserve">
+    <value>Nou nom:</value>
+    <comment>Rename file dialog input label</comment>
+  </data>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value>Marca coincidència per substituir [Ctrl+R]</value>
+    <comment>Replace window, Replace button tooltip</comment>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Moure a la següent coincidència en aquest fitxer [Ctrl+Esquerra]</value>
+    <comment>Replace window, Next button tooltip</comment>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>_Següent</value>
+    <comment>Replace window, Next button label (accel)</comment>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>_Anterior</value>
+    <comment>Replace window, Previous button label (accel)</comment>
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value>Mostra el fitxer anterior [Ctrl+PgUp]</value>
+    <comment>Replace window, Previous file button tooltip</comment>
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value>Substituir Text</value>
+    <comment>Replace window, window title</comment>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Desfés</value>
+    <comment>Replace window, Undo button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Substituir el text o cadena buida</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>El text de substitució no és vàlid XML!</value>
+    <comment>Test window, error text</comment>
+  </data>
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+    <value>$$ insereix un sol signe de dòlar en el text de substitució</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Omet la coincidència</value>
+    <comment>Replace window, fourth color and highlight key label</comment>
+  </data>
+  <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Restableix i omet totes les coincidències en aquest fitxer [Ctrl+T]</value>
+    <comment>Replace window, Undo file button tooltip</comment>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value>Mostra el següent fitxer [Ctrl+PgDn]</value>
+    <comment>Replace window, Next file button tooltip</comment>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>Cap</value>
+    <comment>Replace window, syntax coloring option for no syntax coloring</comment>
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>Aquest fitxer conté massa coincidències per a substituir individualment. Feu clic a 'Substitueix al fitxer' per a substituir-los tots.</value>
+    <comment>Replace window, warning message box text</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Quan està marcada, la 'Data de modificació' no es canviarà al substituir</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+    <comment>Replace window, results options zoom slider label</comment>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Canviar el nom del Fitxer</value>
+    <comment>Message box title for: Rename file</comment>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>L'expressió regular no és vàlida!</value>
+    <comment>Main window, regular expression status</comment>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>XPath es correcte</value>
+    <comment>Main window, XPath status</comment>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>{0} a"{1}" – dnGrep</value>
+    <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>Ajusta el text</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+    <comment>Message box text for: Delete files</comment>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Netejar aquest marcador també eliminarà aquests marcadors.</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_CopyFiles" xml:space="preserve">
+    <value>Copia Fitxers</value>
+    <comment>Message box title for: Copy files</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Error: </value>
+    <comment>Message box text for: general error message</comment>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>S'han revertit els fitxers.</value>
+    <comment>Message box text for: Main window undo replace success</comment>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>Nova Versió</value>
+    <comment>Message box title for: New dnGrep version</comment>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>No s'ha pogut canviar el nom del fitxer: </value>
+    <comment>Message box text for: Rename file</comment>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Substituir</value>
+    <comment>Message box text for: Replace message</comment>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Connectors</value>
+    <comment>Options dialog, Plug-ins group header label</comment>
+  </data>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>Fitxers</value>
+    <comment>Replace window, Files group header label</comment>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Moure a la coincidència anterior en aquest fitxer [Ctrl+Dreta]</value>
+    <comment>Replace window, Previous button tooltip</comment>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>Següent Fitxer</value>
+    <comment>Replace window, Next file button label (accel)</comment>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} de {1} coincidències marcades per substutuir</value>
+    <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[només lectura]</value>
+    <comment>Replace window, conditional file name suffix</comment>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>Substituir al fitxer</value>
+    <comment>Replace window, Replace in file button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>text</value>
+    <comment>Replace window, first color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Coincidències seleccionades</value>
+    <comment>Replace window, second color and highlight key label</comment>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Substituir el patró de cerca amb una cadena buida?</value>
+    <comment>Message box text for: Replace text</comment>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>Comprova el camí de l'editor a través de "Opcions...".</value>
+    <comment>Message box text for: Open file failed</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>S'han copiat {0} fitxers.</value>
+    <comment>Message box text for: Copy file: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>En el seu lloc s'ha utilitzat el motor per defecte.</value>
+    <comment>Message box text for: Plug-in failed to load error</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>S'han suprimit {0} fitxers.</value>
+    <comment>Message box text for: Delete files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>S'han mogut {0} fitxers.</value>
+    <comment>Message box text for: Move files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>No s'ha pogut obrir el fitxer amb l'editor personalitzat.</value>
+    <comment>Message box text for: Open file with custom editor</comment>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>No s'ha pogut obrir el fitxer. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Open file error</comment>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>No s'ha pogut copiar al porta-retalls. El porta-retalls està bloquejat per</value>
+    <comment>Message box text for: Copy to clipboard error</comment>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>No s'ha pogut completar la cerca o la substitució. Comprova el registre d'errors pels detalls: </value>
+    <comment>Message box text for: Search or Replace failed</comment>
+  </data>
+  <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>Desfés tornarà a revertir els fitxer(s) modificats al seu estat original. Qualsevol canvi fet al(s) fitxer(s) després de la substitució serà sobreescrit. Voleu continuar?</value>
+    <comment>Message box text for: Main window Undo</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>El nom conté caràcters invàlids</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Conserva la data anterior de modificació del fitxer</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Substituir</value>
+    <comment>Replace window, Replace button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>Substituir en tots els fitxers</value>
+    <comment>Replace window, Replace in all files button label (accel)</comment>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Ajusta text</value>
+    <comment>Replace window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
+    <value>$&amp; substitueix tota l'expressió regular</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Netejar aquest marcador també neteja aquest marcador.</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>No s'ha pogut carregar el fitxer de recursos '{0}': </value>
+    <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep està actualitzat.</value>
+    <comment>Message box text for: Check for updates response</comment>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>Patró incorrecte: </value>
+    <comment>Message box text for: Incorrect regular expression</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>No</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>No a tot</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>El nom del fitxer ja existeix en aquest directori</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>Canviar el nom del fitxer</value>
+    <comment>Rename file dialog title</comment>
+  </data>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Canvis als zoom de l'editor de text</value>
+    <comment>Replace window, Zoom slider tooltip</comment>
+  </data>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Error: aquest és un fitxer binari</value>
+    <comment>Replace window, File text when attempt to replace in binary file</comment>
+  </data>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Marca totes les coincidències en aquest fitxer per substituir [Ctrl+A]</value>
+    <comment>Replace window, Replace in file button tooltip</comment>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Fitxer anterior</value>
+    <comment>Replace window, Previous file button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Substituir totes les coincidències en tots els fitxers, i aplica [F10]</value>
+    <comment>Replace window, Replace in all files button tooltip</comment>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value>Desfés fitxer</value>
+    <comment>Replace window, Undo file button label (accel)</comment>
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Desfés la marca de substitució en aquesta coincidència [Ctrl+U]</value>
+    <comment>Replace window, Undo button tooltip</comment>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Desfés l'última operació de substitució</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3, etc... insereix el text coincident entre parèntesis de captura en el text de substitució</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value>Coincidències</value>
+    <comment>Replace window, Matches group header label</comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>S'ha cancel·lat la substitució: el text s'ha substituït a {0} fitxers.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>L'expressió regular és correcte</value>
+    <comment>Main window, regular expression status</comment>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>XPath no és vàlid!</value>
+    <comment>Main window, XPath status</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>No ho tornis a preguntar</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>Una nova versió de dnGrep ({0}) està disponible per baixar-la.</value>
+    <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Seleccioneu un altre directori i torneu-ho a provar.</value>
+    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+  </data>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>Cancel·la totes les substitucions</value>
+    <comment>Replace window, Cancel button tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Substituir coincidència</value>
+    <comment>Replace window, third color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Substituir coincidències marcades per a la substitució</value>
+    <comment>Replace window, OK button tooltip</comment>
+  </data>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value>Fitxer {0} de {1}: {2} ({3} coincidències en {4} línies)</value>
+    <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Substituir les coincidències en els fitxers</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Test_ReplaceResult" xml:space="preserve">
+    <value>Resultat de la substitució:</value>
+    <comment>Test window, output results label</comment>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>S'està executant la substitució als fitxers.</value>
+    <comment>Message box text for: Replace is running on exit, line 1</comment>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Copiar i canviar el nom dels resultat utilitzant expressions regulars</value>
+    <comment>Script editor command tooltip </comment>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>Ordenació natural</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>Ordena els dígits per ordre numèric</value>
+    <comment>Main window sort options menu item tooltip</comment>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Ha fallat la còpia dels fitxers: </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Obre amb</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Copiar els fitxers de resultats a una nova ubicació</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copia fitxers…</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>No s'ha pogut copiar els fitxers- Comprova el registre pels detalls: </value>
+    <comment>Message box text for: Copy files</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} te c&lt;nvis no desats. Desar ara?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Alguns dels fitxers no es poden modificar. Si continueu, aquests fitxers s'ometran.</value>
+    <comment>Message box text for: Main window replace warning</comment>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Atenció, alguns dels fitxers estan en el directori seleccionat.</value>
+    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Executa dnGrep com a administrador per canviar l'opció d'inici de l'aplicació.</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Executa dnGrep com a Administrador per canviar la visualització de dnGrep al menú del clic dret de l'explorador de Windows</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>La cerca no es pot completar. Comprovar el registre pels detalls: </value>
+    <comment>Message box text for: Search failed</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} te errors de validació. Desar igualment?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Fitxer de recursos '{0}', no es un fitxer resx.</value>
+    <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>El camí de cerca al camp «{0}» no és vàlid, la cerca s'ha cancel·lat.</value>
+    <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
+  </data>
+  <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Alguna cosa es s'ha trencar al dnGrep. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Unknown error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>No s'ha pogut desar les opcions. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Saving user options</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>No s'ha pogut desregistrar l'inici automàtic. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: unsetting auto start error</comment>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>Aquest favorit està associat amb una altre carpeta.</value>
+    <comment>Message box text for: Main window bookmark delete</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>No s'ha pogut obrir la finestra de prova. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Main window start test dialog error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>No s'ha pogut moure el fitxer. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Move file</comment>
+  </data>
+  <data name="MessageBox_Undo" xml:space="preserve">
+    <value>Desfer</value>
+    <comment>Message box title for: Main window Undo</comment>
+  </data>
+  <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
+    <value>Títol de la finestra: {0}</value>
+    <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
+  </data>
+  <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Voleu baixar-lo ara?</value>
+    <comment>Message box text for: New dnGrep version</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Sí</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Sí a _tot</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>Extensions:</value>
+    <comment>Options dialog, archive options label</comment>
+  </data>
+  <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>El patró'{0}' no és una expressió regular vàlida:{1}{2}</value>
+    <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
+  </data>
+  <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>El fitxer '{0}' ja existeix a {1}. Voleu sobreescriure l'existent?</value>
+    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>No s'ha pogut afegir dnGrep al menú del clic dret de l'explorador de Windows. Comproveu el registre d'error per mes detalls: </value>
+    <comment>Message box text for: set Explorer context menu error</comment>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+    <comment>Message box text for: Replace window warning</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>No s'ha pogut registrar l'inici automàtic. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: set startup option error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>No s'ha pogut suprimir el fitxer. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Delete file</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>No s'ha pogut crear el fitxer. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Create file</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>No s'ha pogut suprimir dnGrep el menú del clic dret de l'explorador de Windows. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: unset Explorer context menu error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>No s'han pogut revertir els fitxers. Comproveu el registre d'error per a més detalls: </value>
+    <comment>Message box text for: Undo replace error</comment>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>Aquest favorit esta associat amb {0} altres carpetes.</value>
+    <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
+  </data>
+  <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>Atenció, esteu a punt d'eliminar els fitxers trobats durant la cerca.</value>
+    <comment>Message box text for: Delete files warning</comment>
+  </data>
+  <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Llista fitxers utilitzant el patró del nom de fitxer quan el camp "Cerca" està buit</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ArchiveOptions" xml:space="preserve">
+    <value>Fitxers comprimits</value>
+    <comment>Options dialog, Archive files group header label</comment>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Restableix</value>
+    <comment>Options dialog, Archive extensions button label (accel)</comment>
+  </data>
+  <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>Comprova si hi ha versions noves en iniciar el Windows</value>
+    <comment>Options dialog, check for updates checkbox label (accel)</comment>
+  </data>
+  <data name="Options_CheckingForUpdates" xml:space="preserve">
+    <value>Noves versions</value>
+    <comment>Options dialog, New versions group header label</comment>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Arguments</value>
+    <comment>Options dialog, compare arguments input box label</comment>
+  </data>
+  <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>elements a mostrar a la llista de l'historial de filtres de fitxers</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>elements que es mostren a la llista de l'historial de camins</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>Opcions de la línia d'ordres de PdfToText.exe:</value>
+    <comment>Options dialog, PDF text input label</comment>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Restableix</value>
+    <comment>Options dialog, PDF arguments button label (accel)</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Personalitza la visibilitat dels controls</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Restableix</value>
+    <comment>Options dialog, plug-ins extensions button label (accel)</comment>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Mostra aquest planell en la seva pròpia finestra</value>
+    <comment>Docking window button tooltip</comment>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>Ordre</value>
+    <comment>Options dialog, compare command input box label</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Números de línia</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_LoadFromFile" xml:space="preserve">
+    <value>Carrega des d'un fitxer…</value>
+    <comment>Options dialog, language load button label (accel)</comment>
+  </data>
+  <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
+    <value>0 – coincideix amb tot; 1.0 – coincideix exacta</value>
+    <comment>Options dialog, phonetic help text</comment>
+  </data>
+  <data name="Options_MatchThreshold" xml:space="preserve">
+    <value>Llindar de coincidència (de 0 a 1,0)</value>
+    <comment>Options dialog, phonetic options text input label</comment>
+  </data>
+  <data name="Options_MatchTimeout" xml:space="preserve">
+    <value>Temps d'espera de la coincidència</value>
+    <comment>Options dialog, regular expression options text input label</comment>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Llengua</value>
+    <comment>Options dialog, language group header label</comment>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Mostra el camí del fitxer al panell de resultats</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Filtre de fitxers</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Arbre de resultats</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Opcions de cerca</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Opcions especials</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_OptionsTitle" xml:space="preserve">
+    <value>Opcions</value>
+    <comment>Options dialog, window title</comment>
+  </data>
+  <data name="Options_PDFToText" xml:space="preserve">
+    <value>PDF a text</value>
+    <comment>Options dialog, PDF to text group header label</comment>
+  </data>
+  <data name="Options_CheckDays" xml:space="preserve">
+    <value>dies</value>
+    <comment>Options dialog, check for updates label</comment>
+  </data>
+  <data name="Options_ClearOldSearches" xml:space="preserve">
+    <value>Neteja les cerques antigues</value>
+    <comment>Options dialog, history list button label (accel)</comment>
+  </data>
+  <data name="Options_CompareApplication" xml:space="preserve">
+    <value>Aplicació de comparació</value>
+    <comment>Options dialog, compare application group header label</comment>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>Ajuda a traduir el dnGrep.</value>
+    <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Números de pàgina</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>Estil de número PDF:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Opcions de resultats</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Activat</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Extensions:</value>
+    <comment>Options dialog, plug-in options label</comment>
+  </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Longitud de la línia de resultats de cerca de bytes</value>
+    <comment>Options dialog, results options combo box label</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Pregunta-ho</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_HistoryLists" xml:space="preserve">
+    <value>Llistes d'historial</value>
+    <comment>Options dialog, History group heading label</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Maximitza el panell de resultats a la cerca</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Al moure fitxers</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>No</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Al copiar fitxers, quan existeix el fitxer a la destinació, voleu sobreescriure el fitxer existent?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Característiques</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Previsualitza la finestra</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Mostra o oculta els controls quan s'habilita Personalitza</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Mostra els fitxers amb errors de cerca al panell de resultats</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>Posició del panell:</value>
+    <comment>Options dialog, layout radio group label</comment>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+    <comment>Options dialog, browse for file button label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>Al moure fitxers, quan existeix el fitxer de destinació, voleu sobreescriure el fitxer existent?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Mostra text pla en la previsualització</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Premeu F1 per a obtenir ajuda sobre les opcions</value>
+    <comment>Options dialog, help label</comment>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Tema seleccionat</value>
+    <comment>Options dialog, theme selector label</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Envia a la paperera de reciclatge</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>Expressions regulars</value>
+    <comment>Options dialog, regular expressions group heading label</comment>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>Eina de previsualització per als traductors</value>
+    <comment>Options dialog, load language button tooltip</comment>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Torna a carregar</value>
+    <comment>Options dialog, theme reload button label (accel)</comment>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>Mostra tooltips d'informació dels fitxers</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value>Mostra línies de context als resultats</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Resultats de la cerca</value>
+    <comment>Options dialog, Search results group header label</comment>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>Text de mostra</value>
+    <comment>Options dialog, font family and size sample text </comment>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Mostra el dnGrep al menú del clic dret del Windows Explorer</value>
+    <comment>Options dialog, startup options, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Torna a carregar el fitxer de tema actual [Ctrl+F5]</value>
+    <comment>Options dialog, theme reload button tooltip</comment>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Desa</value>
+    <comment>Options dialog, save button label (accel)</comment>
   </data>
 </root>
