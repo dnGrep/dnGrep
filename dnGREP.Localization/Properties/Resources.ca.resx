@@ -71,7 +71,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>Sense ocultes</value>
+    <value>No ocults</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
@@ -743,7 +743,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
-    <value>Ometre fitxers de l'emmagatzematge al nuvol</value>
+    <value>Omet els fitxers d'emmagatzematge al núvol</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
@@ -2691,5 +2691,77 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Options_Save" xml:space="preserve">
     <value>Desa</value>
     <comment>Options dialog, save button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Ajusta text</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Canvis als zoom de l'editor de text</value>
+    <comment>Preview window, zoom slider tooltip</comment>
+  </data>
+  <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
+    <value>Atura després de la primera coincidència</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Capturar grups de cerca</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>dies</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+    <comment>Preview window, results options zoom slider label</comment>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Destaca coincidències</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Options dialog, label for file size</comment>
+  </data>
+  <data name="Preview_SyntaxNone" xml:space="preserve">
+    <value>Cap</value>
+    <comment>Preview window, syntax coloring option for no syntax coloring</comment>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>A_juda</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Mostra línies adjacents</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Desa</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>Opcions de cerca</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>Ajusta text</value>
+    <comment>Preview window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Destaca grups</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Desfés</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Atura després de la primera coincidència</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Cerca</value>
+    <comment>Test window, search group box heading</comment>
   </data>
 </root>
