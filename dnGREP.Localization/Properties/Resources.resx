@@ -4023,4 +4023,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>{0} date in the past {1} to {2} {3}</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates; and {3} is the units (hours, days, months...)</comment>
   </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>Copy file names with match count</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
 </root>

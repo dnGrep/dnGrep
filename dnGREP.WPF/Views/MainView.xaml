@@ -1110,6 +1110,7 @@
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" />
                                     <Separator />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" Command="{Binding CopyToClipboardCommand}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNamesWithMatchCount'}" Command="{Binding CopyFilesWithCountsCommand}" />
                                     <Separator />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_SaveResults'}">
