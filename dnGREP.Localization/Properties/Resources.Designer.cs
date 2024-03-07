@@ -5769,6 +5769,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sort results automatically when search completes.
+        /// </summary>
+        public static string Options_SortResultsAutomaticallyWhenSearchCompletes {
+            get {
+                return ResourceManager.GetString("Options_SortResultsAutomaticallyWhenSearchCompletes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Startup.
         /// </summary>
         public static string Options_StartupOptions {

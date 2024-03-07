@@ -1429,6 +1429,11 @@ namespace dnGREP.WPF
                     CanSearch = true;
                     UpdateReplaceButtonTooltip(false);
 
+                    if (FilesFound && GrepSettings.Instance.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch))
+                    {
+                        SortResults();
+                    }
+
                     if (FilesFound && GrepSettings.Instance.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch))
                     {
                         IsResultTreeMaximized = true;
