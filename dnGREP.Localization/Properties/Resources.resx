@@ -4031,4 +4031,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Read-only</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>Sort results automatically when search completes</value>
+    <comment>Options dialog, result option checkbox label (accel)</comment>
+  </data>
 </root>

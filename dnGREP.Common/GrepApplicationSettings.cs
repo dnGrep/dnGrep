@@ -288,6 +288,8 @@ namespace dnGREP.Common
             public const string RestoreLastModifiedDate = "RestoreLastModifiedDate";
             [DefaultValue(false)]
             public const string MaximizeResultsTreeOnSearch = "MaximizeResultsTreeOnSearch";
+            [DefaultValue(false)]
+            public const string SortAutomaticallyOnSearch = "SortAutomaticallyOnSearch";
             [DefaultValue(PdfNumberType.PageNumber)]
             public const string PdfNumberStyle = "PdfNumberStyle";
             [DefaultValue(false)]

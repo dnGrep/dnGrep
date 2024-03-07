@@ -184,6 +184,7 @@ namespace dnGREP.WPF
                 PreserveFolderLayoutOnCopy != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy) ||
                 PreserveFolderLayoutOnMove != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove) ||
                 StickyScroll != Settings.Get<bool>(GrepSettings.Key.StickyScroll) ||
+                SortAutomaticallyOnSearch != Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
@@ -467,6 +468,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool stickyScroll;
+
+        [ObservableProperty]
+        private bool sortAutomaticallyOnSearch;
 
         [ObservableProperty]
         private bool maximizeResultsTreeOnSearch;
@@ -781,6 +785,7 @@ namespace dnGREP.WPF
             PreserveFolderLayoutOnCopy = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy);
             PreserveFolderLayoutOnMove = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove);
             StickyScroll = Settings.Get<bool>(GrepSettings.Key.StickyScroll);
+            SortAutomaticallyOnSearch = Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
 
@@ -926,6 +931,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.StickyScroll, StickyScroll);
+            Settings.Set(GrepSettings.Key.SortAutomaticallyOnSearch, SortAutomaticallyOnSearch);
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
             Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
