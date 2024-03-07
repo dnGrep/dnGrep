@@ -2850,6 +2850,9 @@ namespace dnGREP.WPF
                     case SortType.MatchCount:
                         list.Sort(new MatchCountComparer(SortDirection));
                         break;
+                    case SortType.ReadOnly:
+                        list.Sort(new ReadOnlyComparer(SortDirection));
+                        break;
                 }
 
                 ResultsViewModel.AddRange(list);

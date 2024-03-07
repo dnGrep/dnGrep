@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using dnGREP.Common;
 using Windows.Win32;
 
 namespace dnGREP.WPF.MVHelpers
@@ -195,6 +196,27 @@ namespace dnGREP.WPF.MVHelpers
 
             if (left != null && right != null && left.Matches != right.Matches)
                 return left.Matches.CompareTo(right.Matches);
+
+            var leftSort = Path.GetFileName(left?.GrepResult.FileNameDisplayed);
+            var rightSort = Path.GetFileName(right?.GrepResult.FileNameDisplayed);
+
+            return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+        }
+    }
+
+    public class ReadOnlyComparer(ListSortDirection direction)
+        : IComparer<FormattedGrepResult>
+    {
+        public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
+        {
+            var left = direction == ListSortDirection.Ascending ? x : y;
+            var right = direction == ListSortDirection.Ascending ? y : x;
+
+            bool isLeftFileReadOnly = left == null || Utils.IsReadOnly(left.GrepResult);
+            bool isRightFileReadOnly = right == null || Utils.IsReadOnly(right.GrepResult);
+
+            if (isLeftFileReadOnly != isRightFileReadOnly)
+                return isRightFileReadOnly.CompareTo(isLeftFileReadOnly);
 
             var leftSort = Path.GetFileName(left?.GrepResult.FileNameDisplayed);
             var rightSort = Path.GetFileName(right?.GrepResult.FileNameDisplayed);

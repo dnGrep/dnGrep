@@ -1072,6 +1072,9 @@
                                     <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_MatchCount'}"
                                                       GroupName="S1" 
                                                       IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=MatchCount}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_ReadOnly'}"
+                                                      GroupName="S1" 
+                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=ReadOnly}"/>
                                     <Separator/>
                                     <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_Ascending'}"
                                                       GroupName="S2" 

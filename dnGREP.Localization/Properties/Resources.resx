@@ -4027,4 +4027,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Copy file names with match count</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>Read-only</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
 </root>
