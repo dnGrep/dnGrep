@@ -161,10 +161,10 @@ namespace Tests
             using (StringReader reader = new(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 0, 2, new[] { new GrepCaptureGroup("1", 1, 1, "1") }));
-                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 3, 2, new[] { new GrepCaptureGroup("2", 4, 1, "2") }));
-                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 6, 2, new[] { new GrepCaptureGroup("3", 7, 1, "3") }));
-                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 9, 2, new[] { new GrepCaptureGroup("4", 10, 1, "4") }));
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 0, 2, new[] { new GrepCaptureGroup("1", 1, 1, "1", "1") }, "1"));
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 3, 2, new[] { new GrepCaptureGroup("2", 4, 1, "2", "2") }, "2"));
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 6, 2, new[] { new GrepCaptureGroup("3", 7, 1, "3", "3") }, "3"));
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 9, 2, new[] { new GrepCaptureGroup("4", 10, 1, "4", "4") }, "4"));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 

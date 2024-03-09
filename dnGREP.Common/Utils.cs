@@ -1817,7 +1817,8 @@ namespace dnGREP.Common
             if (body == null || bodyMatches == null)
                 return [];
 
-            List<GrepMatch> bodyMatchesClone = new(bodyMatches);
+            List<GrepMatch> bodyMatchesClone = CloneAndSplitGroups(bodyMatches);
+
             Dictionary<int, GrepLine> results = [];
             Dictionary<int, int> lineToPageMap = [];
             List<GrepLine> contextLines = [];
@@ -1841,6 +1842,7 @@ namespace dnGREP.Common
             int startIndex = 0;
             int tempLinesTotalLength = 0;
             int startLine = 0;
+            int startOfLineOfStartOfMatch = 0;
             bool startMatched = false;
             Queue<string> lineQueue = new();
 
@@ -1894,6 +1896,7 @@ namespace dnGREP.Common
                                 moreMatches = true;
                                 lineQueue = new Queue<string>();
                                 startLine = lineNumber;
+                                startOfLineOfStartOfMatch = currentIndex;
                                 startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
                                 tempLinesTotalLength = 0;
 
@@ -1925,7 +1928,7 @@ namespace dnGREP.Common
                                 int firstLineLength = lineQueue.Peek().Length;
                                 bool multilineMatch = startLine != lineNumber;
                                 bool multilineGroups = bodyMatchesClone[0].Groups.Any(g => g.StartLocation > firstLineLength);
-                                int startOfLineIndex = 0;
+                                int startOfLineIndex = startOfLineOfStartOfMatch;
                                 // Start creating matches
                                 for (int i = startLine; i <= lineNumber; i++)
                                 {
@@ -1941,14 +1944,14 @@ namespace dnGREP.Common
                                     {
                                         lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= startOfLineIndex &&
                                                 g.StartLocation < startOfLineIndex + tempLine.Length)
-                                            .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value))
+                                            .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value, g.FullValue))
                                             .ToList();
                                     }
                                     else if (multilineGroups)
                                     {
                                         lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= currentIndex &&
                                                 g.StartLocation < currentIndex + tempLine.Length)
-                                            .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - currentIndex, g.Length, g.Value))
+                                            .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - currentIndex, g.Length, g.Value, g.FullValue))
                                             .ToList();
                                     }
                                     else
@@ -1958,16 +1961,16 @@ namespace dnGREP.Common
 
                                     // First and only line
                                     if (i == startLine && i == lineNumber)
-                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, lineGroups));
+                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, lineGroups, bodyMatchesClone[0].RegexMatchValue));
                                     // First but not last line
                                     else if (i == startLine)
-                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, lineGroups));
+                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, lineGroups, bodyMatchesClone[0].RegexMatchValue));
                                     // Middle line
                                     else if (i > startLine && i < lineNumber)
-                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, lineGroups));
+                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, lineGroups, bodyMatchesClone[0].RegexMatchValue));
                                     // Last line
                                     else
-                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, lineGroups));
+                                        matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, lineGroups, bodyMatchesClone[0].RegexMatchValue));
 
                                     startOfLineIndex += tempLine.TrimEndOfLine().Length + 1; //add 1 for the \n character that was used when the regex was run
                                     startRecordingAfterLines = true;
@@ -2015,6 +2018,42 @@ namespace dnGREP.Common
             }
 
             return [.. results.Values.OrderBy(l => l.LineNumber)];
+        }
+
+        private static List<GrepMatch> CloneAndSplitGroups(List<GrepMatch> bodyMatches)
+        {
+            string[] eolList = ["\r\n", "\n"];
+            List<GrepMatch> bodyMatchesClone = new(bodyMatches);
+
+            // split the capture groups by line to makes display formatting easier
+            foreach (GrepMatch grepMatch in bodyMatchesClone)
+            {
+                for (int idx = 0; idx < grepMatch.Groups.Count; idx++)
+                {
+                    GrepCaptureGroup group = grepMatch.Groups[idx];
+
+                    foreach (string eol in eolList)
+                    {
+                        int pos = group.Value.IndexOf(eol, 0, StringComparison.Ordinal);
+                        if (pos > -1)
+                        {
+                            string name = group.Name;
+                            int start = group.StartLocation;
+                            string value = group.Value;
+
+                            string first = value[..pos];
+                            string second = value[(pos + eol.Length)..];
+
+                            grepMatch.Groups.RemoveAt(idx);
+                            grepMatch.Groups.Insert(idx, new(name, start, first.Length, first, group.FullValue));
+                            grepMatch.Groups.Add(new(name, start + first.Length + 1, second.Length, second, group.FullValue));
+
+                            break;
+                        }
+                    }
+                }
+            }
+            return bodyMatchesClone;
         }
 
         public static List<GrepLine> GetLinesHexFormat(BinaryReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines)
@@ -2128,16 +2167,16 @@ namespace dnGREP.Common
                             string fileMatchId = bodyMatchesClone[0].FileMatchId;
                             // First and only line
                             if (i == startLine && i == lineNumber)
-                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups, bodyMatchesClone[0].RegexMatchValue));
                             // First but not last line
                             else if (i == startLine)
-                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups, bodyMatchesClone[0].RegexMatchValue));
                             // Middle line
                             else if (i > startLine && i < lineNumber)
-                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups, bodyMatchesClone[0].RegexMatchValue));
                             // Last line
                             else
-                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups, bodyMatchesClone[0].RegexMatchValue));
 
                             startRecordingAfterLines = true;
                         }
@@ -2190,7 +2229,7 @@ namespace dnGREP.Common
                 int newLines = (match.StartLocation % bufferSize + match.Length - 1) / bufferSize;
                 matchLength -= newLines;
 
-                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength));
+                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength, match.RegexMatchValue));
             }
             return list;
         }

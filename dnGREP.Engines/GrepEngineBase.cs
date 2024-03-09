@@ -189,7 +189,7 @@ namespace dnGREP.Engines
                     length += CountWindowsNewLines(match.Index, match.Index + length, newlineIndexes);
                 }
 
-                var grepMatch = new GrepMatch(searchPattern, lineNumber, matchStart + filePosition, length);
+                var grepMatch = new GrepMatch(searchPattern, lineNumber, matchStart + filePosition, length, match.Groups[0].Value);
 
                 if (match.Groups.Count > 1)
                 {
@@ -199,12 +199,30 @@ namespace dnGREP.Engines
                         var group = match.Groups[idx];
                         if (group.Success)
                         {
+                            int groupStart = group.Index;
                             length = group.Length;
-                            if (!regexOptions.HasFlag(RegexOptions.Singleline) && group.Value.EndsWith('\r'))
+                            string value = group.Value;
+                            if (value.EndsWith('\r'))
+                            {
                                 length -= 1;
+                                value = value.TrimEnd('\r');
+                            }
+
+                            if (convertedFromWindowsNewline && newlineIndexes != null)
+                            {
+                                // since the search text is shorter by one for each converted newline,
+                                // move the match start by one for each converted Windows newline
+                                groupStart += CountWindowsNewLines(0, match.Index, newlineIndexes);
+                                length += CountWindowsNewLines(match.Index, match.Index + length, newlineIndexes);
+                            }
+
+                            //if (lineNumber == -1)
+                            //{
+                            //    groupStart -= matchStart;
+                            //}
 
                             grepMatch.Groups.Add(
-                                new GrepCaptureGroup(regex.GroupNameFromNumber(idx), group.Index, length, group.Value));
+                                new GrepCaptureGroup(regex.GroupNameFromNumber(idx), groupStart, length, value));
                         }
                     }
                 }
