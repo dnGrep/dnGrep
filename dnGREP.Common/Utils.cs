@@ -1943,7 +1943,8 @@ namespace dnGREP.Common
                                     if (multilineMatch)
                                     {
                                         lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= startOfLineIndex &&
-                                                g.StartLocation < startOfLineIndex + tempLine.Length)
+                                                g.StartLocation < startOfLineIndex + tempLine.Length && 
+                                                g.StartLocation + g.Length <= startOfLineIndex + tempLine.Length)
                                             .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value, g.FullValue))
                                             .ToList();
                                     }
@@ -2022,7 +2023,7 @@ namespace dnGREP.Common
 
         private static List<GrepMatch> CloneAndSplitGroups(List<GrepMatch> bodyMatches)
         {
-            string[] eolList = ["\r\n", "\n"];
+            string[] eolList = ["\r\n", "\n", "\r"];
             List<GrepMatch> bodyMatchesClone = new(bodyMatches);
 
             // split the capture groups by line to makes display formatting easier
@@ -2031,23 +2032,25 @@ namespace dnGREP.Common
                 for (int idx = 0; idx < grepMatch.Groups.Count; idx++)
                 {
                     GrepCaptureGroup group = grepMatch.Groups[idx];
+                    string value = group.Value;
 
                     foreach (string eol in eolList)
                     {
-                        int pos = group.Value.IndexOf(eol, 0, StringComparison.Ordinal);
+                        int pos = value.IndexOf(eol, 0, StringComparison.Ordinal);
                         if (pos > -1)
                         {
                             string name = group.Name;
                             int start = group.StartLocation;
-                            string value = group.Value;
 
                             string first = value[..pos];
                             string second = value[(pos + eol.Length)..];
 
                             grepMatch.Groups.RemoveAt(idx);
                             grepMatch.Groups.Insert(idx, new(name, start, first.Length, first, group.FullValue));
-                            grepMatch.Groups.Add(new(name, start + first.Length + 1, second.Length, second, group.FullValue));
-
+                            if (second.Length > 0 && !second.Equals(eol, StringComparison.Ordinal))
+                            {
+                                grepMatch.Groups.Add(new(name, start + first.Length + 1, second.Length, second, group.FullValue));
+                            }
                             break;
                         }
                     }
