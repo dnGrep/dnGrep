@@ -3404,4 +3404,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>КБ</value>
     <comment>Options dialog, label for file size</comment>
   </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>дана</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
 </root>
