@@ -5,22 +5,25 @@ namespace dnGREP.Common
 {
     public class GrepMatch : IComparable<GrepMatch>, IComparable, IEquatable<GrepMatch>
     {
-        public GrepMatch(string searchPattern, int line, int start, int length)
+        public GrepMatch(string searchPattern, int line, int start, int length, string regexMatchValue = "")
         {
             SearchPattern = searchPattern;
             LineNumber = line;
             StartLocation = start;
             Length = length;
+            RegexMatchValue = regexMatchValue;
 
             FileMatchId = Guid.NewGuid().ToString();
         }
 
-        public GrepMatch(string fileMatchId, string searchPattern, int line, int start, int length, IEnumerable<GrepCaptureGroup> toCopy)
+        public GrepMatch(string fileMatchId, string searchPattern, int line, int start, int length, 
+            IEnumerable<GrepCaptureGroup> toCopy, string regexMatchValue)
         {
             LineNumber = line;
             StartLocation = start;
             Length = length;
             SearchPattern = searchPattern;
+            RegexMatchValue = regexMatchValue;
 
             FileMatchId = fileMatchId;
 
@@ -68,6 +71,11 @@ namespace dnGREP.Common
                 displayStartLocation = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the full text of the match from the group[0]
+        /// </summary>
+        public string RegexMatchValue { get; }
 
         public List<GrepCaptureGroup> Groups { get; } = [];
 
@@ -183,7 +191,7 @@ namespace dnGREP.Common
             int end = Math.Max(one.EndPosition, two.EndPosition);
             int line = Math.Min(one.LineNumber, two.LineNumber);
 
-            return new GrepMatch(one.SearchPattern + " & " + two.SearchPattern, line, start, end - start);
+            return new GrepMatch(one.SearchPattern + " & " + two.SearchPattern, line, start, end - start, string.Empty);
         }
     }
 }

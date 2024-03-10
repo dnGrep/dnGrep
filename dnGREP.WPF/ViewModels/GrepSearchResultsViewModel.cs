@@ -493,7 +493,20 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private string label = string.Empty;
 
-        internal int MatchIdx { get; set; }
+        private readonly List<string> matchIdx = [];
+
+        /// <summary>
+        /// Returns an ordinal based on the match id
+        /// </summary>
+        internal int GetMatchNumber(string id)
+        {
+            int index = matchIdx.IndexOf(id);
+            if (index > -1)
+                return index + 1;
+
+            matchIdx.Add(id);
+            return matchIdx.Count;
+        }
 
         internal Dictionary<string, string> GroupColors { get; } = [];
 
@@ -799,7 +812,7 @@ namespace dnGREP.WPF
 
         public int Level => 1;
 
-        public IEnumerable<ITreeItem> Children => Enumerable.Empty<ITreeItem>();
+        public IEnumerable<ITreeItem> Children => [];
 
         private InlineCollection FormatLine(GrepLine line)
         {
@@ -823,7 +836,7 @@ namespace dnGREP.WPF
                 line.Matches.CopyTo(lineMatches);
                 foreach (GrepMatch m in lineMatches)
                 {
-                    Parent.MatchIdx++;
+                    _ = Parent.GetMatchNumber(m.FileMatchId);
                     int matchStartLocation = m.StartLocation;
                     int matchLength = m.Length;
                     if (matchStartLocation < counter)
@@ -972,7 +985,7 @@ namespace dnGREP.WPF
                 {
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1, Parent.MatchIdx, Environment.NewLine, fmtLine);
+                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1, Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, match.RegexMatchValue.TrimEnd('\r', '\n'));
                     paragraph.Inlines.Add(run);
                 }
                 else
@@ -986,7 +999,7 @@ namespace dnGREP.WPF
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, bgColor);
                     run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2,
-                        Parent.MatchIdx, Environment.NewLine, range.Group.Name, range.Group.Value);
+                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, range.Group.Name, range.Group.FullValue.TrimEnd('\r', '\n'));
                     paragraph.Inlines.Add(run);
                 }
             }

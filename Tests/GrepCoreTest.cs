@@ -1720,7 +1720,7 @@ namespace Tests
         public void TestCaptureGroupHighlightMultipleMatches1(string content, bool verboseMatchCount)
         {
             string pattern = @"\w(\d+)";
-            string[] textLines = content.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
+            string[] textLines = ["first line, no match", .. content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
@@ -1750,7 +1750,7 @@ namespace Tests
 
             GrepLine line = lines[0];
             Assert.Equal(1, line.LineNumber);
-            Assert.Equal(textLines[0], line.LineText);
+            Assert.Equal(textLines[1], line.LineText);
             Assert.Equal(2, line.Matches.Count);
 
             GrepMatch match = line.Matches[0];
@@ -1767,7 +1767,7 @@ namespace Tests
 
             line = lines[1];
             Assert.Equal(2, line.LineNumber);
-            Assert.Equal(textLines[1], line.LineText);
+            Assert.Equal(textLines[2], line.LineText);
             Assert.Equal(2, line.Matches.Count);
 
             match = line.Matches[0];
@@ -1801,7 +1801,88 @@ namespace Tests
         public void TestCaptureGroupHighlightMultipleMatches2(string content, bool verboseMatchCount)
         {
             string pattern = @"\w(\d+)";
-            string[] textLines = content.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
+            string[] textLines = ["first line, no match", .. content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
+
+            string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
+            if (Directory.Exists(path))
+                Utils.DeleteFolder(path);
+            Directory.CreateDirectory(path);
+
+            string file = Path.Combine(path, @"test.txt");
+            File.WriteAllText(file, content);
+            var files = Directory.GetFiles(path, "*.txt");
+
+            GrepCore core = new()
+            {
+                SearchParams = new(false, 0, 0, 0, verboseMatchCount, false)
+            };
+            var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.Multiline, -1);
+
+            Assert.Single(results);
+            Assert.Equal(4, results[0].Matches.Count);
+
+            List<GrepLine> lines = [];
+            using (StringReader reader = new(content))
+            {
+                lines = Utils.GetLinesEx(reader, results[0].Matches, 0, 0);
+            }
+
+            Assert.Equal(2, lines.Count);
+
+            GrepLine line = lines[0];
+            Assert.Equal(1, line.LineNumber);
+            Assert.Equal(textLines[1], line.LineText);
+            Assert.Equal(2, line.Matches.Count);
+
+            GrepMatch match = line.Matches[0];
+            Assert.Equal("a1111", line.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            GrepCaptureGroup group = match.Groups[0];
+            Assert.Equal("1111", line.LineText.Substring(group.StartLocation, group.Length));
+
+            match = line.Matches[1];
+            Assert.Equal("b2222", line.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            group = match.Groups[0];
+            Assert.Equal("2222", line.LineText.Substring(group.StartLocation, group.Length));
+
+            line = lines[1];
+            Assert.Equal(2, line.LineNumber);
+            Assert.Equal(textLines[2], line.LineText);
+            Assert.Equal(2, line.Matches.Count);
+
+            match = line.Matches[0];
+            Assert.Equal("c3333", line.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            group = match.Groups[0];
+            Assert.Equal("3333", line.LineText.Substring(group.StartLocation, group.Length));
+
+            match = line.Matches[1];
+            Assert.Equal("d4444", line.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            group = match.Groups[0];
+            Assert.Equal("4444", line.LineText.Substring(group.StartLocation, group.Length));
+        }
+
+        [Theory]
+        [InlineData("a1111 b2222\r\nc3333 d4444", true)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", true)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", true)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", true)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", true)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", true)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", true)]
+        [InlineData("a1111 b2222\r\nc3333 d4444", false)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", false)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", false)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", false)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", false)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", false)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", false)]
+        public void TestCaptureGroupHighlightMultipleMatches3(string content, bool verboseMatchCount)
+        {
+            string pattern = @"\w(\d+)";
+            string[] textLines = ["first line, no match", ..content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
@@ -1831,7 +1912,7 @@ namespace Tests
 
             GrepLine line = lines[0];
             Assert.Equal(1, line.LineNumber);
-            Assert.Equal(textLines[0], line.LineText);
+            Assert.Equal(textLines[1], line.LineText);
             Assert.Equal(2, line.Matches.Count);
 
             GrepMatch match = line.Matches[0];
@@ -1848,7 +1929,7 @@ namespace Tests
 
             line = lines[1];
             Assert.Equal(2, line.LineNumber);
-            Assert.Equal(textLines[1], line.LineText);
+            Assert.Equal(textLines[2], line.LineText);
             Assert.Equal(2, line.Matches.Count);
 
             match = line.Matches[0];
@@ -1882,7 +1963,7 @@ namespace Tests
         public void TestCaptureGroupHighlightSingleMatchesMultipleGroups(string content, bool verboseMatchCount)
         {
             string pattern = @"a(\d+).+b(\d+).+c(\d+).+d(\d+)\s?$";
-            string[] textLines = content.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
+            string[] textLines = ["first line, no match", ..content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
@@ -1912,11 +1993,11 @@ namespace Tests
 
             GrepLine line = lines[0];
             Assert.Equal(1, line.LineNumber);
-            Assert.Equal(textLines[0], line.LineText);
+            Assert.Equal(textLines[1], line.LineText);
             Assert.Single(line.Matches);
 
             GrepMatch match = line.Matches[0];
-            //Assert.Equal(textLines[0], line.LineText.Substring(match.StartLocation, match.Length));
+            //Assert.Equal(textLines[1], line.LineText.Substring(match.StartLocation, match.Length));
             Assert.Equal(2, match.Groups.Count);
             GrepCaptureGroup group = match.Groups[0];
             Assert.Equal("1111", line.LineText.Substring(group.StartLocation, group.Length));
@@ -1925,11 +2006,11 @@ namespace Tests
 
             line = lines[1];
             Assert.Equal(2, line.LineNumber);
-            Assert.Equal(textLines[1], line.LineText);
+            Assert.Equal(textLines[2], line.LineText);
             Assert.Single(line.Matches);
 
             match = line.Matches[0];
-            //Assert.Equal(textLines[1], line.LineText.Substring(match.StartLocation, match.Length));
+            //Assert.Equal(textLines[2], line.LineText.Substring(match.StartLocation, match.Length));
             Assert.Equal(2, match.Groups.Count);
             group = match.Groups[0];
             Assert.Equal("3333", line.LineText.Substring(group.StartLocation, group.Length));
