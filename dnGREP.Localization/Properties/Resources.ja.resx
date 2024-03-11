@@ -3924,4 +3924,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Kバイト</value>
     <comment>Options dialog, label for file size</comment>
   </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>分</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>日</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
 </root>

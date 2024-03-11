@@ -2642,4 +2642,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>KB</value>
     <comment>Options dialog, label for file size</comment>
   </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>ימים</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
 </root>
