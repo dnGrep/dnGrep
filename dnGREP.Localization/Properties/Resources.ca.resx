@@ -199,7 +199,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Llibreria .NET per a camins de longitud estesa</value>
+    <value>Llibreria .NET per a rutes de longitud estesa</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
@@ -502,10 +502,10 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFolder" xml:space="preserve">
-    <value>/f [folderPath]
--f [folderPath]
--folder [folderPath]
-    Estableix el camí a la carpeta de cerca. Pot ser una llista de camins de carpeta separats per coma o punt i coma.</value>
+    <value>/f [Ruta a la carpeta]
+-f [Ruta a la carpeta]
+-folder [Ruta a la carpeta]
+    Estableix la ruta a la carpeta de cerca. Pot ser una llista de rutes de carpeta separades per coma o punt i coma.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFileInformation" xml:space="preserve">
@@ -519,14 +519,14 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>/pi [patró]
 -pi [patró]
 -pathToIgnore [patró]
-    Estableix el patró de nom d'arxiu o carpeta per a excloure fitxers o carpetes en el camí de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
+    Estableix el patró de nom d'arxiu o carpeta per a excloure fitxers o carpetes en la ruta de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePathToMatch" xml:space="preserve">
     <value>/pm [patró]
 -pm [patró]
 -pathToMatch [patró]
-    Estableix el patró de nom de fitxer per a la coincidència amb els arxius del camí de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
+    Estableix el patró de nom de fitxer per a la coincidència amb els arxius de la ruta de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePatternType" xml:space="preserve">
@@ -537,9 +537,9 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReport" xml:space="preserve">
-    <value>/rpt [filePath]
--rpt [filePath]
--report [filePath]
+    <value>/rpt [Ruta al fitxer]
+-rpt [Ruta al fitxer]
+-report [Ruta al fitxer]
     Crea arxiu de resultats en format d'informe quan es finalitza la cerca.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
@@ -691,15 +691,15 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Script_Editor_Close" xml:space="preserve">
-    <value>_Tancar</value>
+    <value>_Tanca</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Delete" xml:space="preserve">
-    <value>Es_borrar</value>
+    <value>_Suprimeix</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
-    <value>_Editar</value>
+    <value>_Edita</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
@@ -1218,7 +1218,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Els canvis en la línia de context s'aplicaran en la pròxima cerca</value>
+    <value>Els canvis en les línies adjacents s'aplicaran en la pròxima cerca</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
@@ -1513,7 +1513,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
-    <value>Copiar camí sencer del fitxer</value>
+    <value>Copiar rutes senceres dels fitxers</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
@@ -1801,7 +1801,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>Carpeta i nom de fitxer, primer la profunditat</value>
+    <value>Ruta i nom de fitxer, primer la profunditat</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
@@ -1829,7 +1829,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value>Carpeta i nom de fitxer, primer l'amplitud</value>
+    <value>Ruta i nom de fitxer, primer l'amplitud</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
@@ -1925,7 +1925,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Rename file dialog input label</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Marca coincidència per substituir [Ctrl+R]</value>
+    <value>Marca la coincidència per a la substitució [Ctrl+R]</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
@@ -1941,7 +1941,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Mostra el fitxer anterior [Ctrl+PgUp]</value>
+    <value>Mostra el fitxer anterior [Ctrl+Av Pàg]</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -1973,7 +1973,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Mostra el següent fitxer [Ctrl+PgDn]</value>
+    <value>Mostra el fitxer següent [Ctrl+PgDn]</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2089,7 +2089,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>Comprova el camí de l'editor a través de "Opcions...".</value>
+    <value>Comprova la ruta a l'editor a través de "Opcions...".</value>
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
@@ -2193,7 +2193,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Marca totes les coincidències en aquest fitxer per substituir [Ctrl+A]</value>
+    <value>Marca totes les coincidències d'aquest fitxer per a la substitució [Ctrl+A]</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
@@ -2217,7 +2217,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... insereix el text coincident entre parèntesis de captura en el text de substitució</value>
+    <value>$1, $2, $3, etc... insereix el text coincident entre parèntesis en el text de substitució</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -2341,7 +2341,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value>El camí de cerca al camp «{0}» no és vàlid, la cerca s'ha cancel·lat.</value>
+    <value>Ruta de cerca al camp '{0}' no és vàlid, la cerca s'ha cancel·lat.</value>
     <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
@@ -2465,7 +2465,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
-    <value>elements que es mostren a la llista de l'historial de camins</value>
+    <value>elements que es mostren a la llista de l'historial de rutes</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
@@ -2517,7 +2517,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, language group header label</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>Mostra el camí del fitxer al panell de resultats</value>
+    <value>Mostra la ruta del fitxer al panell de resultats</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_Personalize_FileFilter" xml:space="preserve">
@@ -2669,7 +2669,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
-    <value>Mostra línies de context als resultats</value>
+    <value>Mostra línies adjacents als resultats</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
@@ -2697,7 +2697,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
-    <value>Canvis als zoom de l'editor de text</value>
+    <value>Canvia el zoom de l'editor de text</value>
     <comment>Preview window, zoom slider tooltip</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
@@ -2717,7 +2717,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
-    <value>Destaca coincidències</value>
+    <value>Ressalta les coincidències</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
@@ -2729,7 +2729,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Preview window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
-    <value>A_juda</value>
+    <value>_Ajuda</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
@@ -2745,11 +2745,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>Ajusta text</value>
+    <value>Ajusta el text</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>Destaca grups</value>
+    <value>Ressalta els grups</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
@@ -2763,5 +2763,237 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Test_SearchGroup" xml:space="preserve">
     <value>Cerca</value>
     <comment>Test window, search group box heading</comment>
+  </data>
+  <data name="Options_TimeoutSeconds" xml:space="preserve">
+    <value>segons</value>
+    <comment>Options dialog, regular expression options timeout input label</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>En suprimir fitxers</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>Coincidència entre majúscules i minúscules</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>Aquest fitxer és binari o massa gran per a mostrar-lo.</value>
+    <comment>Preview window, warning message</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(com a text)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Captura només els grups</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>La ruta ha de ser vàlida</value>
+    <comment>Validation message for user input of a path and file name</comment>
+  </data>
+  <data name="Options_ShowSearchOptions" xml:space="preserve">
+    <value>Mostra opcions de la cerca</value>
+    <comment>Options dialog, layout options label</comment>
+  </data>
+  <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
+    <value>Mostra detalls addicionals sobre les coincidències trobades</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>Executa dnGrep com a Administrador per canviar aquesta opció.</value>
+    <comment>Options dialog, Explorer right-click tooltip</comment>
+  </data>
+  <data name="Options_WantADifferentLanguage" xml:space="preserve">
+    <value>Vols un idioma diferent?</value>
+    <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>Resultats de la cerca dnGrep</value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>té {0} coincidències en {1} línies:</value>
+    <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Inclou informació de fitxer i de línia</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Només coincidències</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>Ruta sencera i nom de fitxer script .ps1</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>Un patró de filtre de fitxer, com *.txt, o llista de filtres</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>Carpeta, ruta del fitxer o llista de carpetes o fitxers separats per comes</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Cerca l'anterior (Maj+F3)</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>No es mostren els ressaltats perquè s'han trobat massa coincidències.</value>
+    <comment>Preview window, warning text</comment>
+  </data>
+  <data name="Preview_PreviewAnyway" xml:space="preserve">
+    <value>Previsualitza igualment</value>
+    <comment>Preview window, warning label</comment>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Utilitza expressions regulars</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Opcions de l'informe</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Ruta a la carpeta de destinació</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Ruta i nom de fitxer per a l'informe</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Ruta i nom de fitxer per a l'informe</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>Ruta sencera i nom de fitxer d'un cmd o fitxer de processament per lots</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value>S'han trobat coincidències per a </value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>No s'ha trobat cap coincidència per a </value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Premeu F1 per a obtenir ajuda</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Text</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Sí</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Cerca el següent (F3)</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>Coincideix paraules senceres</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Sintaxi</value>
+    <comment>Preview window, option label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Suprimeix espais en blanc</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>Ubicació de cerca: carpeta o ruta al fitxer</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
+    <value>El temps d'espera de la coincidència limita el temps que el motor d'expressió regular intenta resoldre una expressió regular abans que es descarti. Evita el processament d'expressions i cadenes d'entrada que requereixen un temps excessiu.</value>
+    <comment>Options dialog, regular expression options help text</comment>
+  </data>
+  <data name="Options_Theme" xml:space="preserve">
+    <value>Tema</value>
+    <comment>Options dialog, theme group header label</comment>
+  </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value>Nom Fitxer, Número de Línia, Cadena</value>
+    <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>Línies adjacents després de (nombre)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Ruta a la carpeta de destinació</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>Filtre per a excloure patrons</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>Patró de filtre de fitxers com prova\\*, o llista de filtres</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Filtra per valors únics</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Línies senceres</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>Per fitxer</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Previsualització:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Error: la ruta es obligatòria per a l'argument {0}</value>
+    <comment>Script copy command validation error message. {0} is the command argument name.</comment>
+  </data>
+  <data name="Options_StartupOptions" xml:space="preserve">
+    <value>Inici</value>
+    <comment>Options dialog, startup group header label</comment>
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[Fitxer no trobat: s'ha suprimit o mogut?]</value>
+    <comment>Report extract lines from file error</comment>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>S'han trobat {0} coincidències a {1} línies en {2} fitxers</value>
+    <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>Línies adjacents abans de (nombre)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>Filtre de patrons de coincidències</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Mostra cada coincidència o grup en línies separades</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Separador per a coincidències o grups en una línia</value>
+    <comment>Report options dialog, text box label</comment>
   </data>
 </root>
