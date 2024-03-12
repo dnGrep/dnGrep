@@ -4013,4 +4013,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>年</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>复制匹配数字和文件名</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>只读</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>搜索完成时自动排序结果</value>
+    <comment>Options dialog, result option checkbox label (accel)</comment>
+  </data>
 </root>
