@@ -2996,4 +2996,36 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Separador per a coincidències o grups en una línia</value>
     <comment>Report options dialog, text box label</comment>
   </data>
+  <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
+    <value>Mida des de {0} a {1} KB</value>
+    <comment>Report search options summary: {0} and {1} are the user input size range</comment>
+  </data>
+  <data name="ReportSummary_ExcludePattern" xml:space="preserve">
+    <value>Excloure patró de fitxers:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_FilePattern" xml:space="preserve">
+    <value>Inclou patró de fitxers:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_NoArchives" xml:space="preserve">
+    <value>Sense fitxers</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_SearchIn" xml:space="preserve">
+    <value>Cerca a:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_DotAsNewline" xml:space="preserve">
+    <value>Punt com a nova línia</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
+    <value>Sense fitxers binaris</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_SearchInResults" xml:space="preserve">
+    <value>Cerca als resultats</value>
+    <comment>Report search options summary</comment>
+  </data>
 </root>
