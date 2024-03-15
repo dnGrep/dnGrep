@@ -112,6 +112,19 @@ namespace dnGREP.Common
 
         public Gitignore(string path, List<string> list)
         {
+            // add .git to the directories to ignore
+            string git = Path.Combine(path, ".git");
+            if (Directory.Exists(git))
+            {
+                directories.Add(git);
+            }
+            // add .gitignore to the files to ignore
+            string gitignore = Path.Combine(path, ".gitignore");
+            if (File.Exists(gitignore))
+            {
+                files.Add(gitignore);
+            }
+
             foreach (var item in list.Where(s => !s.StartsWith("..", StringComparison.OrdinalIgnoreCase) &&
                     s.EndsWith(gitSeparator, StringComparison.CurrentCulture))
                 .Select(s => Path.Combine(path, s.Replace(gitSeparatorChar, Path.DirectorySeparatorChar)
