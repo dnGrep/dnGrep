@@ -875,7 +875,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Close" xml:space="preserve">
-    <value>_Tancar</value>
+    <value>_Tanca</value>
     <comment>Test window, Close button text (accel)</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
@@ -3027,5 +3027,13 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
     <value>Cerca als resultats</value>
     <comment>Report search options summary</comment>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>Cerca als resultats</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Punt com a nova línia</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
 </root>
