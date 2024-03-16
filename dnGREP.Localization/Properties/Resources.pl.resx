@@ -250,4 +250,204 @@
     <value>Anuluj</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Zbudowany na</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep na GitHubie</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>Framework JSON dla .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Biblioteka do odczytu plików archiwalnych</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>Biblioteka .NET do analizowania numerów ECMA-376</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Wersja</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Nazwa zakładki:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Operatory logiczne</value>
+    <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Zawartość</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Opis:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>Kropka jako znak nowej linii</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Kodowanie:</value>
+    <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Typ wzoru pliku</value>
+    <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Na przykład: *.txt;*.xml</value>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Uwzględnij ukryte foldery</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Symbol wieloznaczny</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>O programie dnGrep</value>
+    <comment>About dialog window title</comment>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Podziękowanie</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Konwertuje pliki PDF na zwykły tekst</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Indeksowanie systemu plików, natychmiastowa lokalizacja plików</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>Struktura rejestrowania dla .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>Biblioteka .NET dla 7-Zip</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>Biblioteka .NET do wykrywania zestawu znaków</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>Biblioteka .NET dla dłuższych ścieżek</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>Biblioteka .NET do odczytu plików Microsoft Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>Biblioteka .NET do pracy z dokumentami Word i Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>Komponent edytora tekstu .NET WPF</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>Wielkość liter ma znaczenie</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Powiązane foldery:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Uwzględnij właściwości wyszukiwania treści w zakładce</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Usługa indeksowania wszystkiego</value>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Źródło pliku</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Dołącz właściwości źródła pliku do zakładki</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Filtry plików</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Uwzględnij właściwości filtra plików w zakładce</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Podążaj za linkami symbolicznymi</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>Na przykład: plik[0-9]{1,2}\\.txt</value>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Dołącz pliki binarne</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>Multilinia</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Włączając podfoldery</value>
+    <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>maksymalna głębokość</value>
+    <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Wzorce do wykluczenia:</value>
+    <comment>Bookmark details dialog, Patterns to exclude label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>Wzory pasujące:</value>
+    <comment>Bookmark details dialog, Patterns to match label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Wszystko</value>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>Wyrażenie regularne</value>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Zamienić:</value>
+    <comment>Bookmark details dialog, replace text input box label</comment>
+  </data>
 </root>
