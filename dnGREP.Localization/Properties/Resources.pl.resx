@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,196 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Kodowanie:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>Kropka jako znak nowej linii</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Zamienić:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Operatory logiczne</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Operatory logiczne</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Podążaj za linkami symbolicznymi</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Dołącz pliki binarne</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Uwzględnij ukryte foldery</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Włączając podfoldery</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Operatory logiczne</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>Wielkość liter ma znaczenie</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>Multilinia</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Zamienić:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>Wyrażenie regularne</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>Wyrażenie regularne</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Kodowanie:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Operatory logiczne</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>Wielkość liter ma znaczenie</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>Kropka jako znak nowej linii</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Kodowanie:</value>
+    <comment>Main window, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Usługa indeksowania wszystkiego</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Podążaj za linkami symbolicznymi</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Na przykład: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>Na przykład: plik[0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>Dołącz pliki binarne</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Uwzględnij ukryte foldery</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Włączając podfoldery</value>
+    <comment>Main window, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>maksymalna głębokość</value>
+    <comment>Main window, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>Multilinia</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Wzorce do wykluczenia:</value>
+    <comment>Main window, Patterns to exclude label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>Wzory pasujące:</value>
+    <comment>Main window, Patterns to match label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>Symbol wieloznaczny</value>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Wszystko</value>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>Wyrażenie regularne</value>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>Wyrażenie regularne</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Anuluj</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>
