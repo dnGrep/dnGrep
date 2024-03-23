@@ -918,7 +918,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: unsetting auto start error</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>Transferir agora?</value>
+    <value>Descarregar agora?</value>
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
@@ -1994,7 +1994,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>Está disponível para download uma nova versão de dnGrep ({0}).</value>
+    <value>Está disponível uma nova versão de dnGrep ({0}) para descarregar.</value>
     <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
   </data>
   <data name="Window_Maximize" xml:space="preserve">
