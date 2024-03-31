@@ -495,4 +495,268 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Po dokončení vyhľadávania vytvoriť súbor s výsledkami v textovom formáte.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Typ vyhľadávania</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Preskočiť súbory vzdialeného cloudového úložiska</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Použiť .gitignore</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Kódovanie:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Logické operátory</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>_Bodka ako znak nového riadku</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Kódovanie:</value>
+    <comment>Main window, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Služba indexovania Everything</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Nasledovať symbolické odkazy</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Napríklad: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>Napríklad: súbor[0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>Zahrnúť binárne súbory</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Zahrnúť skryté priečinky</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Zahrnúť podpriečinky</value>
+    <comment>Main window, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>Maximálna hĺbka</value>
+    <comment>Main window, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Vzory na vylúčenie:</value>
+    <comment>Main window, Patterns to exclude label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>Hviezdička (zástupný znak)</value>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>_Regulárny výraz</value>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Hľadať v ar_chívoch</value>
+    <comment>Main window, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Bajt (hexadecimálny)</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetický</value>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetické vyhľadávanie</value>
+    <comment>Main window, Phonetic search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Hľadať v obyčajnom texte</value>
+    <comment>Main window, Text search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>_Regulárny výraz</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Hľadať regulárny výraz</value>
+    <comment>Main window, Regular expression search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Text</value>
+    <comment>Main window, Text search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Vyhľadávanie XPath (iba dokumenty XML)</value>
+    <comment>Main window, XPath search type tooltip</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Preskočiť súbory vzdialeného cloudového úložiska</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Použiť .gitignore</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_Celé slovo</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Fonetické vyhľadávanie</value>
+    <comment>Options dialog, phonetic group header label</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Nahradiť s:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Hľadať obsah:</value>
+    <comment>Replace window, search pattern label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Logické operátory</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Kódovanie:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Hľadať obsah:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Zavrieť</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Logické operátory</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Nasledovať symbolické odkazy</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Zahrnúť binárne súbory</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Zahrnúť skryté priečinky</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Zahrnúť podpriečinky</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Logické operátory</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>_Bodka ako znak nového riadku</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Nahradiť s:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Hľadať obsah:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Bajt (hexadecimálny)</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetický</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>_Regulárny výraz</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_Text</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Zrušiť</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>
