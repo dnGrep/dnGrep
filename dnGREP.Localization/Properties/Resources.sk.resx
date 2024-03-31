@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,288 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Poďakovanie</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Konvertuje súbory PDF na obyčajný text</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep na GitHub</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>Framework JSON pre .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Knižnica na čítanie archívnych súborov</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>Rámec protokolovania pre .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>Knižnica .NET pre 7-Zip</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>Knižnica .NET na detekciu znakovej sady</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>Knižnica .NET pre dlhšie cesty</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>Knižnica .NET na analýzu čísel ECMA-376</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>Knižnica .NET na prácu s dokumentmi Word a Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>Komponent textového editora .NET WPF</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Verzia</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Názov záložky:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Logické operátory</value>
+    <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Obsah</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Popis</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>_Bodka ako znak nového riadku</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Kódovanie:</value>
+    <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Služba indexovania Everything</value>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Typ vzoru súboru</value>
+    <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Zdroj súboru</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Zahrnúť vlastnosti zdroja súboru do záložky</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Filtre súborov</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Zahrnúť vlastnosti filtra súboru do záložky</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Nasledovať symbolické odkazy</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Zahrnúť binárne súbory</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Zahrnúť skryté priečinky</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Maximálna hĺbka</value>
+    <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Hviezdička (zástupný znak)</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Regulárny výraz</value>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Nahradiť s:</value>
+    <comment>Bookmark details dialog, replace text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Hľadať obsah:</value>
+    <comment>Bookmark details dialog, search pattern text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>Hľadať v ar_chívoch</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Bajt (hexadecimálny)</value>
+    <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetický</value>
+    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetické vyhľadávanie</value>
+    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Hľadať v obyčajnom texte</value>
+    <comment>Bookmark details dialog, Text search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Regulárny výraz</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Text</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Vyhľadávanie XPath (iba dokumenty XML)</value>
+    <comment>Bookmark details dialog, search type XPath tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Preskočiť súbory vzdialeného cloudového úložiska</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>Táto záložka už existuje</value>
+    <comment>Bookmark details dialog, error text</comment>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Podrobnosti o záložke</value>
+    <comment>Bookmark details dialog, window title</comment>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Typ vyhľadávania</value>
+    <comment>Bookmark details dialog, search type group header label</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Použiť .gitignore</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Na filtrovanie súborov použiť .gitignore</value>
+    <comment>Bookmark details dialog, search option checkbox tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Celé slovo</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Pridať</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+šípka nadol</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+šípka hore</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Zavrieť</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Odstrániť</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Popis</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Du_plikovať</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Upraviť</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>O programe dnGrep</value>
+    <comment>About dialog window title</comment>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Indexovanie súborového systému, okamžité vyhľadávanie súborov</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>Knižnica .NET na čítanie súborov Microsoft Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Vzory na vylúčenie:</value>
+    <comment>Bookmark details dialog, Patterns to exclude label</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Zahrnúť vlastnosti vyhľadávania obsahu do záložky</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Hľadať regulárny výraz</value>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Napríklad: *.txt;*.xml</value>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>Napríklad: súbor[0-9]{1,2}\\.txt</value>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Zahrnúť podpriečinky</value>
+    <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
+  </data>
 </root>
