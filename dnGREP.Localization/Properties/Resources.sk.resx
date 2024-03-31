@@ -399,11 +399,11 @@
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>Žiadne binárne</value>
+    <value>Bez binárnych</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>Neskryté</value>
+    <value>Bez skrytých</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
@@ -758,5 +758,101 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EditorCancel" xml:space="preserve">
     <value>Zrušiť</value>
     <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Zostava</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Priradené priečinky:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_Viacriadkový</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>Vzory na zhodu:</value>
+    <comment>Bookmark details dialog, Patterns to match label</comment>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Viacriadkové</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Jeden alebo viac argumentov nie je platných.</value>
+    <comment>Help dialog header text</comment>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Pridať vzor vyhľadávania do záložiek</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Akýkoľvek dátum</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Akákoľvek veľkosť</value>
+    <comment>Main window, size filter radio button label (accel)</comment>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Priradiť záložku k priečinku</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Dátum úpravy:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Súbor:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Veľkosť:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Typ:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Automatická poloha</value>
+    <comment>Main window, docking context menu item label (accel)</comment>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Prehľadávanie priečinkov alebo súborov</value>
+    <comment>Main window, open folder tooltip</comment>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_Zrušiť</value>
+    <comment>Main window, Cancel button label (accel)</comment>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Zmení úroveň priblíženia stromu výsledkov</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Odstrániť zo záložiek</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>po</value>
+    <comment>Main window, result options context lines label</comment>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>pred a</value>
+    <comment>Main window, results options context lines label</comment>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Zobraziť riadky blízko výsledku. Zmeny kontextu sa použijú pri ďalšom vyhľadávaní</value>
+    <comment>Main window, result options context lines tooltip</comment>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Zobraziť kontextové riadky:</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>Po dokončení vyhľadávania automaticky zoradiť výsledky</value>
+    <comment>Options dialog, result option checkbox label (accel)</comment>
   </data>
 </root>
