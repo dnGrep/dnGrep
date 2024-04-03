@@ -169,9 +169,7 @@
     <EmbeddedResource Include="Resources\Xtend.xshd" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="nGREP.ico">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="nGREP.ico"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />
@@ -266,6 +264,7 @@
   </ItemGroup>
   <ItemGroup>
     <SparsePackageFiles Include="$(SolutionDir)\dnGREP.ContextMenu\bin\$(Platform)\$(Configuration)\dnGREP.ContextMenu.dll" />
+    <SparsePackageFiles Include="$(SolutionDir)\dnGREP.WPF\nGrep.ico" />
     <SparsePackageFiles Include="$(SolutionDir)\dnGREP.msix" />
   </ItemGroup>
   <Target Name="CopyExtraFiles" AfterTargets="AfterBuild">
@@ -297,7 +296,6 @@
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /y &quot;$(ProjectDir)nGREP.ico&quot; &quot;$(ProjectDir)$(OutDir)&quot;" />
   </Target>
 
 </Project>

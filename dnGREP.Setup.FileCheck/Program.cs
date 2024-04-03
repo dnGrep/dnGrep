@@ -75,7 +75,7 @@ namespace dnGREP.Setup.FileCheck
             }
         }
 
-        private static readonly List<string> includeExtensions = [".exe", ".dll", ".pdb", ".json", ".config", ".plugin", ".txt"];
+        private static readonly List<string> includeExtensions = [".exe", ".dll", ".pdb", ".json", ".config", ".plugin", ".txt", ".ico"];
         private static readonly Dictionary<string, string> x86Map = new()
         {
             {"$(var.App.PlatformShort)",  "32" },

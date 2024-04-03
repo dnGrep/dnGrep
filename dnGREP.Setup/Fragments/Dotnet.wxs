@@ -69,6 +69,9 @@
       <Component Id="cmpE8907D44DDA72649F1D8F0A7CDCD415B" Guid="{0D72EC56-78A4-4C1D-A2E6-BA3A6FB56DA0}">
         <File Id="fil6BEDC0D703C42C49D3A699ADC5004E5A" KeyPath="yes" Source="$(var.PublishDir)\Microsoft.Win32.SystemEvents.dll" />
       </Component>
+      <Component Id="cmpEEAEAC59CB754990AD19EC1122638B45" Guid="{417E4AA1-748E-40BB-83B7-D96C0B1BB340}">
+        <File Id="filCEBA52F3BA864097AB9CEDF519F9EA45" KeyPath="yes" Source="$(var.PublishDir)\Microsoft.Windows.SDK.NET.dll" />
+      </Component>
       <Component Id="cmp1157F66BF4874781BD885C53433420A9" Guid="{37D86F49-C7FB-4E49-8561-4C3C3A51C707}">
         <File Id="fil539732DF7AA64EC6BFABC2CABA635015" KeyPath="yes" Source="$(var.PublishDir)\Microsoft.Xaml.Behaviors.dll" />
       </Component>
@@ -729,6 +732,9 @@
       <Component Id="cmpFE51DBE82E0C1921D93734B26AF404CD" Guid="{3C02B1F6-26DD-43DD-9E5A-58A21C22B65A}">
         <File Id="filFCBED1CEEA91BD43769DFB8EDF61FBC6" KeyPath="yes" Source="$(var.PublishDir)\WindowsFormsIntegration.dll" />
       </Component>
+      <Component Id="cmp497D672568514831B5A3B52DA03407D2" Guid="{DE9092D2-5400-4860-8C60-524B48A5E059}">
+        <File Id="fil8EB11F52FC354AA9A8C26A975BA9720E" KeyPath="yes" Source="$(var.PublishDir)\WinRT.Runtime.dll" />
+      </Component>
       <Component Id="cmpE19CB7EFEEF435CA499E41D5837E75C5" Guid="{FB7AD1DC-791A-459C-912C-6CEB1C1E23C7}">
         <File Id="filF1442DCCE4E293CCE26C89DFFC9AF56B" KeyPath="yes" Source="$(var.PublishDir)\wpfgfx_cor3.dll" />
       </Component>
@@ -767,6 +773,7 @@
       <ComponentRef Id="cmp7A1549714DDEF4B42A09F3C9FB99719F" />
       <ComponentRef Id="cmp293052C2FAAAF2D500988048BA490369" />
       <ComponentRef Id="cmpE8907D44DDA72649F1D8F0A7CDCD415B" />
+      <ComponentRef Id="cmpEEAEAC59CB754990AD19EC1122638B45" />
       <ComponentRef Id="cmp1157F66BF4874781BD885C53433420A9" />
       <ComponentRef Id="cmpDE48D2517B3B78AEAB93EB43BB096236" />
       <ComponentRef Id="cmpE115ABDFD132AD880024EE2939D54BF1" />
@@ -987,6 +994,7 @@
       <ComponentRef Id="cmp52BE999C3FF0B1938C3C4AFD1E632E00" />
       <ComponentRef Id="cmp0DD066B4E78BC8C28C958D31C7982CD9" />
       <ComponentRef Id="cmpFE51DBE82E0C1921D93734B26AF404CD" />
+      <ComponentRef Id="cmp497D672568514831B5A3B52DA03407D2" />
       <ComponentRef Id="cmpE19CB7EFEEF435CA499E41D5837E75C5" />
       <ComponentRef Id="cmp7208E22C36739EF3F83B5C63E03C5D77" />
     </ComponentGroup>
