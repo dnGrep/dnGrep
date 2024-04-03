@@ -231,36 +231,36 @@
     <RuntimeFiles Include="$(SolutionDir)\dnGREP.WPF\bin\$(Platform)\$(Configuration)\$(TargetFramework)\runtimes\win\lib\net8.0\System.Management.dll" />
   </ItemGroup>
   <ItemGroup>
-    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.OpenXml.plugin" />
-    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.OpenXml.dll" />
-    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.OpenXml.pdb" />
-    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\DocumentFormat.OpenXml.dll" />
-    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\DocumentFormat.OpenXml.Framework.dll" />
-    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\ExcelDataReader.dll" />
-    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\ExcelNumberFormat.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.OpenXml.plugin" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.OpenXml.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.OpenXml.pdb" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\DocumentFormat.OpenXml.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\DocumentFormat.OpenXml.Framework.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\ExcelDataReader.dll" />
+    <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\ExcelNumberFormat.dll" />
   </ItemGroup>
   <ItemGroup>
-    <PDFPluginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.Pdf.plugin" />
-    <PDFPluginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.Pdf.dll" />
-    <PDFPluginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.Pdf.pdb" />
+    <PDFPluginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.Pdf.plugin" />
+    <PDFPluginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.Pdf.dll" />
+    <PDFPluginFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.Pdf.pdb" />
   </ItemGroup>
   <ItemGroup>
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\ANNOUNCE" />
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\CHANGES" />
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\COPYING" />
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\COPYING3" />
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\INSTALL" />
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\pdftotext.exe" />
-    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\README" />
-    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\doc\pdftotext.txt" />
-    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\doc\sample-xpdfrc" />
-    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\doc\sample-xpdfrc-chinese-simplified" />
-    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\xpdf\doc\xpdfrc.txt" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\ANNOUNCE" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\CHANGES" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\COPYING" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\COPYING3" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\INSTALL" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\pdftotext.exe" />
+    <XPDFFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\README" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\doc\pdftotext.txt" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\doc\sample-xpdfrc" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\doc\sample-xpdfrc-chinese-simplified" />
+    <XPDFDocFiles Include="$(SolutionDir)\dnGREP.PdfEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\xpdf\doc\xpdfrc.txt" />
   </ItemGroup>
   <ItemGroup>
-    <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.MsWord.plugin" />
-    <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.Word.dll" />
-    <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\net8.0-windows\dnGREP.Engines.Word.pdb" />
+    <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.MsWord.plugin" />
+    <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.Word.dll" />
+    <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.Word.pdb" />
   </ItemGroup>
   <ItemGroup>
     <SparsePackageFiles Include="$(SolutionDir)\dnGREP.ContextMenu\bin\$(Platform)\$(Configuration)\dnGREP.ContextMenu.dll" />
