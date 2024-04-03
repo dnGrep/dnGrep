@@ -4000,11 +4000,39 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Plugin error message returned to the results list. {0} is the plugin name</comment>
   </data>
   <data name="Main_DatePastMinutes" xml:space="preserve">
-    <value>(минут)</value>
+    <value>минут</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
   <data name="Main_DatePastDays" xml:space="preserve">
     <value>дней</value>
     <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>недель</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>месяцев</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>лет</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>{0} за последние {1} – {2} {3}</value>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates; and {3} is the units (hours, days, months...)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>Скопировать имена файлов со счетчиком совпадений</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>Только чтение</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>Автоматическая сортировка результатов после завершения поиска</value>
+    <comment>Options dialog, result option checkbox label (accel)</comment>
   </data>
 </root>
