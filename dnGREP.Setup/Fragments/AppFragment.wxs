@@ -73,6 +73,9 @@
       <Component Id="cmp40521BA90501425EAE4F9E951AF1C60B" Guid="{A7277E90-0EB0-4BC1-9198-2C870E6C816B}">
         <File Id="fil224F258B9ACA413299B5C62A38416E87" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Localization.pdb" />
       </Component>
+      <Component Id="cmp882BA74D47644877B0CE35ADA1A69FC8" Guid="{89239304-4EA2-4855-8254-93B0F04ED6A4}">
+        <File Id="fil4B447204AA244517B6165E688589C76E" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.msix" />
+      </Component>
       <Component Id="cmp7FB095CD79B0456CBE2B08103FC384F3" Guid="{26AADCD2-37DF-41C1-8EED-ED7D375781C8}">
         <File Id="fil5903B951748F47648D6C78498970D642" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.runtimeconfig.json" />
       </Component>
@@ -244,6 +247,7 @@
       <ComponentRef Id="cmpE75E380769873171E1689F576B0BBBD1" />
       <ComponentRef Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" />
       <ComponentRef Id="cmp40521BA90501425EAE4F9E951AF1C60B" />
+      <ComponentRef Id="cmp882BA74D47644877B0CE35ADA1A69FC8" />
       <ComponentRef Id="cmp7FB095CD79B0456CBE2B08103FC384F3" />
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
