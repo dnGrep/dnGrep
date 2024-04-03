@@ -41,7 +41,7 @@ deploy:
   authorization:
      secure: +b4UCV2LUyweG3/0jfhRHXzKYGdSbwb4ZZ2roGLdbuIuu3tGHNZppkiVSCBEHRTtoBnhI7K+j0vuRmRhUcMkrQ==
   on:
-    branch: DraftPrereleaseToGitHub
+    branch: dev
     configuration: Release
 - provider: GitHub
   tag: v$(appveyor_build_version)
