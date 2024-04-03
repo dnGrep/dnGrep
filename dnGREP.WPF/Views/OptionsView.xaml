@@ -86,6 +86,10 @@
 
                 <GroupBox Header="{l:Loc Key='Options_StartupOptions'}">
                     <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Add new context menu" Command="{Binding AddContextMenu}" Margin="3"/>
+                            <Button Content="Remove new context menu" Command="{Binding RemoveContextMenu}" Margin="3"/>
+                        </StackPanel>
                         <Border ToolTip="{Binding Path=PanelTooltip}">
                             <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
                                       IsChecked="{Binding Path=EnableWindowsIntegration}"
