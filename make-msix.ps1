@@ -15,8 +15,10 @@ $doc.Root.Element($xName).Attribute("Version").Value = $version;
 $doc.Save($path)
 Write-Host 'Updated verion in ' $path
 
-$makeappx = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64\makeappx.exe"
+$makeappx = "`"C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x64\makeappx.exe`""
 $packagePath = $workingDirectory + "/dnGREP.ContextMenuPkg"
 $msixPath = $workingDirectory + "/dnGREP.msix"
 $args = "pack /o /d `"$packagePath`" /p `"$msixPath`" /nv"
-Start-Process -NoNewWindow -Wait -FilePath "$makeappx" -ArgumentList "$args"
+Start-Process -NoNewWindow -Wait -FilePath $makeappx -ArgumentList $args
+
+Write-Host 'After Start-Process'
