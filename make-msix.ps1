@@ -2,7 +2,7 @@ param(
 	[string]$workingDirectory = $PSScriptRoot,
 	[string]$version=1.0.0.0
 ) 
-Write-Host 'Executing Powershell script makeMsix.ps1 with working directory set to: ' $workingDirectory
+Write-Host 'Executing Powershell script make-msix.ps1 with working directory set to: ' $workingDirectory
 Set-Location $workingDirectory
 
 [Reflection.Assembly]::LoadWithPartialName("System.Xml.Linq")
