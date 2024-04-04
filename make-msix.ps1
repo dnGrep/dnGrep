@@ -1,6 +1,4 @@
-param(
-	[string]$workingDirectory = $PSScriptRoot,
-) 
+param( [string]$workingDirectory = $PSScriptRoot )
 Write-Host 'Executing Powershell script make-msix.ps1 with working directory set to: ' $workingDirectory
 Set-Location $workingDirectory
 
