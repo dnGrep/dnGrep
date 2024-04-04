@@ -20,7 +20,7 @@ install:
   - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.202
 before_build:
   - cmd: nuget restore
-  - ps: ./make-msix.ps1 -version '{version}'
+  - ps: ./make-msix.ps1 -version {version}
 build:
   project: dnGREP.WPF.sln
   parallel: true
