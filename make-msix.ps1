@@ -1,10 +1,10 @@
 param(
 	[string]$workingDirectory = $PSScriptRoot,
-	[string]$version=1.0.0.0
 ) 
 Write-Host 'Executing Powershell script make-msix.ps1 with working directory set to: ' $workingDirectory
 Set-Location $workingDirectory
 
+$version = $env:APPVEYOR_BUILD_VERSION
 Write-Host 'New version is: ' $version
 
 [Reflection.Assembly]::LoadWithPartialName("System.Xml.Linq")
