@@ -34,7 +34,7 @@ namespace dnGREP.WPF
         public static bool IsRegistered()
         {
             PackageManager packageManager = new();
-            return packageManager.FindPackagesForUser(string.Empty, "dnGrep_h91ms92gdsmmt").Any();
+            return packageManager.FindPackagesForUser(string.Empty, "dnGrep_wbnnev551gwxy").Any();
         }
 
         [DllImport("Shell32.dll")]
@@ -117,7 +117,7 @@ namespace dnGREP.WPF
         public static void RemoveSparsePackage()
         {
             PackageManager packageManager = new();
-            var myPackage = packageManager.FindPackagesForUser(string.Empty, "dnGrep_h91ms92gdsmmt").FirstOrDefault();
+            var myPackage = packageManager.FindPackagesForUser(string.Empty, "dnGrep_wbnnev551gwxy").FirstOrDefault();
 
             if (myPackage != null)
             {
