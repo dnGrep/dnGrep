@@ -8,9 +8,8 @@
 #include <Shlobj.h>
 #include <Strsafe.h>
 #include <pathcch.h>
-#include <winrt/base.h>
-#include <fstream>
 #include "util.hpp"
+#include "resource.h"
 
 using namespace Microsoft::WRL;
 
@@ -172,38 +171,15 @@ private:
 
 	std::wstring ReadTitle()
 	{
-		WCHAR modulePath[MAX_PATH];
-		if (GetModuleFileNameW(g_hModule, modulePath, ARRAYSIZE(modulePath)))
+		// Pointer to the start of the string resource
+		const wchar_t* pchStringBegin = nullptr;
+		int cchStringLength = ::LoadStringW(g_hModule, IDS_MENU_TEXT,
+			reinterpret_cast<PWSTR>(&pchStringBegin), 0);
+		if (cchStringLength > 0)
 		{
-			PathCchRemoveFileSpec(modulePath, ARRAYSIZE(modulePath));
-			StringCchCatW(modulePath, ARRAYSIZE(modulePath), L"\\contextMenu.txt");
-			if (FileExists(modulePath))
-			{
-				std::wstring titleText = LoadUtf8FileToString(modulePath);
-				if (!titleText.empty())
-				{
-					return titleText;
-				}
-			}
+			return std::wstring(pchStringBegin, cchStringLength);
 		}
 
-		std::wstring folderPath;
-		wchar_t* path = nullptr;
-		const auto hr = SHGetKnownFolderPath(FOLDERID_RoamingAppData, KF_FLAG_DEFAULT, nullptr, &path);
-		if (SUCCEEDED(hr)) {
-			folderPath = std::wstring(path);
-		}
-		if (path) { CoTaskMemFree(path); }
-
-		folderPath = folderPath + L"\\dnGREP\\contextMenu.txt";
-		if (FileExists(folderPath.c_str()))
-		{
-			std::wstring titleText = LoadUtf8FileToString(folderPath);
-			if (!titleText.empty())
-			{
-				return titleText;
-			}
-		}
 		return L"Search with dnGrep";
 	}
 

@@ -21,6 +21,7 @@ install:
 before_build:
   - cmd: nuget restore
   - ps: ./make-msix.ps1
+  - cmd: vpatch.exe --stamp-version "%APPVEYOR_BUILD_VERSION%" --target-file ".\dnGREP.ContextMenu\Resource.rc" --resource.file-version --resource.product-version
 build:
   project: dnGREP.WPF.sln
   parallel: true
