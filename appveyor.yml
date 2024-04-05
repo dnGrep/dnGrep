@@ -18,11 +18,11 @@ assembly_info:
   assembly_informational_version: '{version}'
 install: 
   - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.202
-  - ps: Invoke-WebRequest "https://github.com/nefarius/vpatch/releases/latest/download/vpatch.exe" -OutFile vpatch.exe
 before_build:
   - cmd: nuget restore
-  - ps: ./make-msix.ps1
+  - ps: Invoke-WebRequest "https://github.com/nefarius/vpatch/releases/latest/download/vpatch.exe" -OutFile vpatch.exe
   - cmd: vpatch.exe --stamp-version "%APPVEYOR_BUILD_VERSION%" --target-file ".\dnGREP.ContextMenu\Resource.rc" --resource.file-version --resource.product-version
+  - ps: ./make-msix.ps1
 build:
   project: dnGREP.WPF.sln
   parallel: true
