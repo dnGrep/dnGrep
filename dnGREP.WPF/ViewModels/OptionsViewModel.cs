@@ -672,11 +672,11 @@ namespace dnGREP.WPF
 
         public ICommand AddContextMenu => new RelayCommand(
             p => SparsePackage.RegisterSparsePackage(),
-            q => !SparsePackage.IsRegistered());
+            q => SparsePackage.CanRegisterPackage && !SparsePackage.IsRegistered);
 
         public ICommand RemoveContextMenu => new RelayCommand(
             p => SparsePackage.RemoveSparsePackage(),
-            q => SparsePackage.IsRegistered());
+            q => SparsePackage.CanRegisterPackage && SparsePackage.IsRegistered);
 
         #endregion
 

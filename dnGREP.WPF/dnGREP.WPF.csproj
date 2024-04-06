@@ -1,11 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <LangVersion>12</LangVersion>
     <OutputType>WinExe</OutputType>
     <Platforms>x86;x64</Platforms>
     <AssemblyName>dnGREP</AssemblyName>
     <ApplicationIcon>nGREP.ico</ApplicationIcon>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -169,7 +172,7 @@
     <EmbeddedResource Include="Resources\Xtend.xshd" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="nGREP.ico"/>
+    <Resource Include="nGREP.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />
@@ -291,9 +294,6 @@
   <PropertyGroup>
     <Authors>dnGrep Community Contributors</Authors>
     <Description>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</Description>
-    <Nullable>enable</Nullable>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
   </Target>

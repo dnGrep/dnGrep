@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Threading;
 using Windows.Management.Deployment;
 
@@ -10,9 +11,13 @@ namespace dnGREP.WPF
 {
     internal static class SparsePackage
     {
+        public static bool CanRegisterPackage =>
+            OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041, 0);
+
         public static void RegisterSparsePackage()
         {
-            if (!IsRegistered())
+            if (!IsRegistered &&
+                OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041, 0))
             {
                 string exePath = AppDomain.CurrentDomain.BaseDirectory;
                 string externalLocation = Path.Combine(exePath, @"");
@@ -31,11 +36,19 @@ namespace dnGREP.WPF
             }
         }
 
-        public static bool IsRegistered()
+        public static bool IsRegistered
         {
-            PackageManager packageManager = new();
-            return packageManager.FindPackagesForUser(string.Empty, "dnGrep_wbnnev551gwxy").Any();
+            get
+            {
+                if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041, 0))
+                {
+                    PackageManager packageManager = new();
+                    return packageManager.FindPackagesForUser(string.Empty, "dnGrep_wbnnev551gwxy").Any();
+                }
+                return false;
+            }
         }
+
 
         [DllImport("Shell32.dll")]
         private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
@@ -43,6 +56,7 @@ namespace dnGREP.WPF
         private const uint SHCNE_ASSOCCHANGED = 0x8000000;
         private const uint SHCNF_IDLIST = 0x0;
 
+        [SupportedOSPlatform("windows10.0.19041")]
         private static bool RegisterSparsePackage(string externalLocation, string sparsePkgPath)
         {
             bool registration = false;
@@ -116,25 +130,28 @@ namespace dnGREP.WPF
 
         public static void RemoveSparsePackage()
         {
-            PackageManager packageManager = new();
-            var myPackage = packageManager.FindPackagesForUser(string.Empty, "dnGrep_wbnnev551gwxy").FirstOrDefault();
-
-            if (myPackage != null)
+            if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041, 0))
             {
-                Windows.Foundation.IAsyncOperationWithProgress<DeploymentResult, DeploymentProgress>
-                    deploymentOperation = packageManager.RemovePackageAsync(myPackage.Id.FullName);
-                // this event will be signaled when the deployment operation has completed.
-                ManualResetEvent opCompletedEvent = new(false);
+                PackageManager packageManager = new();
+                var myPackage = packageManager.FindPackagesForUser(string.Empty, "dnGrep_wbnnev551gwxy").FirstOrDefault();
 
-                deploymentOperation.Completed = (depProgress, status) => { opCompletedEvent.Set(); };
+                if (myPackage != null)
+                {
+                    Windows.Foundation.IAsyncOperationWithProgress<DeploymentResult, DeploymentProgress>
+                        deploymentOperation = packageManager.RemovePackageAsync(myPackage.Id.FullName);
+                    // this event will be signaled when the deployment operation has completed.
+                    ManualResetEvent opCompletedEvent = new(false);
 
-                Debug.WriteLine("Uninstalling package..");
-                opCompletedEvent.WaitOne();
-                Debug.WriteLine("Uninstall complete!");
-            }
-            else
-            {
-                Debug.WriteLine("Package not found for uninstall");
+                    deploymentOperation.Completed = (depProgress, status) => { opCompletedEvent.Set(); };
+
+                    Debug.WriteLine("Uninstalling package..");
+                    opCompletedEvent.WaitOne();
+                    Debug.WriteLine("Uninstall complete!");
+                }
+                else
+                {
+                    Debug.WriteLine("Package not found for uninstall");
+                }
             }
         }
     }

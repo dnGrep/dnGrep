@@ -1,11 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-     <LangVersion>12</LangVersion>
-   <OutputType>Library</OutputType>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <LangVersion>12</LangVersion>
+    <OutputType>Library</OutputType>
     <Platforms>x86;x64</Platforms>
     <RootNamespace>dnGREP.Engines.Word</RootNamespace>
     <AssemblyName>dnGREP.Engines.Word</AssemblyName>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -67,8 +70,4 @@
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
   </ItemGroup>
-  <PropertyGroup>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
 </Project>
