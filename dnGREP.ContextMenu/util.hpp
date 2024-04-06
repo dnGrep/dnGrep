@@ -23,7 +23,13 @@ public:
 					wil::unique_cotaskmem_string path;
 					if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, path.put())))
 					{
-						return param + std::wstring{ path.get() };
+						std::wstring pathString = std::wstring{ path.get() };
+						if (pathString.find(L" ") >= 0)
+						{
+							pathString = L"\"" + pathString + L"\"";
+						}
+
+						return param + pathString;
 					}
 				}
 			}
@@ -48,9 +54,18 @@ public:
 						wil::unique_cotaskmem_string path;
 						if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, path.put())))
 						{
-							pathStream << L'"';
-							pathStream << path.get();
-							pathStream << L'"';
+							std::wstring pathString = std::wstring{ path.get() };
+							if (pathString.find(L" ") >= 0)
+							{
+								pathStream << L'"';
+								pathStream << pathString;
+								pathStream << L'"';
+							}
+							else
+							{
+								pathStream << pathString;
+							}
+
 							if (i < count)
 							{
 								pathStream << delimiter;
