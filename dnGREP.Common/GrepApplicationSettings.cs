@@ -749,9 +749,14 @@ namespace dnGREP.Common
         /// <param name="path">Path to settings file</param>
         public void Save(string path)
         {
-            // don't save in warmUp mode
-            if (Environment.GetCommandLineArgs().Contains("/warmUp", StringComparison.OrdinalIgnoreCase))
+            // don't save in warmUp, register or remove modes
+            var args = Environment.GetCommandLineArgs();
+            if (args.Contains("/warmUp", StringComparison.OrdinalIgnoreCase) ||
+                args.Contains("/registerContextMenu", StringComparison.OrdinalIgnoreCase) ||
+                args.Contains("/removeContextMenu", StringComparison.OrdinalIgnoreCase))
+            {
                 return;
+            }
 
             using var mutex = new Mutex(false, mutexId);
             bool hasHandle = false;

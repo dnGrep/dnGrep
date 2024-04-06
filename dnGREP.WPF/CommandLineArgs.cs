@@ -171,6 +171,14 @@ namespace dnGREP.WPF
                                 WarmUp = true;
                                 break;
 
+                            case "/registercontextmenu":
+                                RegisterContextMenu = true; 
+                                break;
+
+                            case "/removecontextmenu":
+                                RemoveContextMenu = true;
+                                break;
+
                             case "/sc":
                             case "-sc":
                             case "-script":
@@ -538,13 +546,15 @@ namespace dnGREP.WPF
                         }
                     }
                 }
-                if (ShowHelp || WarmUp)
+                if (ShowHelp || WarmUp || RegisterContextMenu || RemoveContextMenu)
                     break;
             }
         }
 
         public bool InvalidArgument { get; private set; }
         public bool WarmUp { get; private set; }
+        public bool RegisterContextMenu { get; private set; }
+        public bool RemoveContextMenu {  get; private set; }
         public bool ShowHelp { get; private set; }
         public string? SearchFor { get; private set; }
         public string? SearchPath { get; private set; }

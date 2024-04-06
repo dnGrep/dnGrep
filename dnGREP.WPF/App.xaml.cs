@@ -71,6 +71,24 @@ namespace dnGREP.WPF
                     MainWindow = new MainForm(false);
                     MainWindow.Loaded += MainWindow_Loaded;
                 }
+                else if (AppArgs.RegisterContextMenu)
+                {
+                    if (SparsePackage.CanRegisterPackage)
+                    {
+                        SparsePackage.RegisterSparsePackage();
+                    }
+                    Shutdown();
+                    return;
+                }
+                else if (AppArgs.RemoveContextMenu)
+                {
+                    if (SparsePackage.CanRegisterPackage && SparsePackage.IsRegistered)
+                    {
+                        SparsePackage.RemoveSparsePackage();
+                    }
+                    Shutdown();
+                    return;
+                }
                 else if (AppArgs.ShowHelp)
                 {
                     MainWindow = new HelpWindow(CommandLineArgs.GetHelpString(), AppArgs.InvalidArgument);
