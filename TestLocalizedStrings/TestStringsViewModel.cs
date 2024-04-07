@@ -32,14 +32,16 @@ namespace dnGREP.TestLocalizedStrings
                 { "ja", "日本語" },
                 { "ko", "한국어" },
                 { "nb-NO", "norsk (bokmål)" },
+                { "pl", "polski" },
                 { "pt", "Português" },
                 { "ru", "pусский" },
+                { "sk", "slovenčina" },
                 { "sr", "српски" },
                 { "sv", "svenska" },
                 { "th", "ไทย" },
                 { "tr", "Türkçe" },
                 { "zh-CN", "简体中文" },
-                { "zh-Hant", "中文" },
+                { "zh-Hant", "繁體中文" },
             };
 
         public TestStringsViewModel()
@@ -86,7 +88,7 @@ namespace dnGREP.TestLocalizedStrings
             list.Add(new ResourceString("MessageBox_CountFilesHaveBeenSuccessfullyMoved", TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, 5)));
             list.Add(new ResourceString("MessageBox_NewVersionOfDnGREP0IsAvailableForDownload", TranslationSource.Format(Resources.MessageBox_NewVersionOfDnGREP0IsAvailableForDownload, "2.9.454")));
             list.Add(new ResourceString("MessageBox_ResourcesFile0IsNotAResxFile", TranslationSource.Format(Resources.MessageBox_ResourcesFile0IsNotAResxFile, "Resources.yy.resx")));
-            list.Add(new ResourceString("MessageBox_SearchPathInTheFieldIsNotValid", TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, Resources.Main_Folder)));
+            list.Add(new ResourceString("MessageBox_SearchPathInTheFieldIsNotValid", TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, Resources.Main_Folder).Replace("_", "", StringComparison.Ordinal)));
             list.Add(new ResourceString("MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting", TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting, "config.xml", @"C:\test\config")));
             list.Add(new ResourceString("MessageBox_TheFilePattern0IsNotAValidRegularExpression12", TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, "(.*", Environment.NewLine, "Not enough )'s")));
             list.Add(new ResourceString("MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders", TranslationSource.Format(Resources.MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders, 2)));
