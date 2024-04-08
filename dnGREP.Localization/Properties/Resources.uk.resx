@@ -286,4 +286,244 @@
     <value>Пошук у звичайному тексті</value>
     <comment>Bookmark details dialog, Text search type tooltip</comment>
   </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Регулярний вираз</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Кодування:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Логічні оператори</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>_Крапка як новий рядок</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Кодування:</value>
+    <comment>Main window, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Сервіс індексу всього</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Переходьте за символічними посиланнями</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Наприклад: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>Наприклад: файл[0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>Включати двійкові файли</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Включати приховані папки</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Включати вкладені папки</value>
+    <comment>Main window, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>Максимальна глибина</value>
+    <comment>Main window, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_Багаторядковий</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Шаблони для виключення:</value>
+    <comment>Main window, Patterns to exclude label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>Шаблони для відповідності:</value>
+    <comment>Main window, Patterns to match label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>Wildcard</value>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Все</value>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>_Регулярний вираз</value>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Пошук в архівах</value>
+    <comment>Main window, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Байт</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Фонетичний</value>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Фонетичний пошук</value>
+    <comment>Main window, Phonetic search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Пошук у звичайному тексті</value>
+    <comment>Main window, Text search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Пошук у байтах: читати файл у двійковому вигляді та шукати байти у вигляді шістнадцяткових цифр: 68 65 78 20</value>
+    <comment>Main window, Byte search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>_Регулярний вираз</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Фонетичний пошук</value>
+    <comment>Options dialog, phonetic group header label</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Замінити:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Шукати:</value>
+    <comment>Replace window, search pattern label</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Логічні оператори</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Кодування:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Шукати:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Логічні оператори</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Переходьте за символічними посиланнями</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Включати двійкові файли</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Включати приховані папки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Включати вкладені папки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Логічні оператори</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>_Крапка як новий рядок</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Багаторядковий</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Замінити:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Шукати:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Байт</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Фонетичний</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>_Регулярний вираз</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Скасувати</value>
+    <comment>Options custom editor dialog, button label</comment>
+  </data>
 </root>
