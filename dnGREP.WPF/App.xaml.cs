@@ -73,20 +73,22 @@ namespace dnGREP.WPF
                 }
                 else if (AppArgs.RegisterContextMenu)
                 {
+                    logger.Info("RegisterContextMenu");
                     if (SparsePackage.CanRegisterPackage)
                     {
                         SparsePackage.RegisterSparsePackage();
                     }
-                    Shutdown();
+                    Shutdown(0);
                     return;
                 }
                 else if (AppArgs.RemoveContextMenu)
                 {
+                    logger.Info("RemoveContextMenu");
                     if (SparsePackage.CanRegisterPackage && SparsePackage.IsRegistered)
                     {
                         SparsePackage.RemoveSparsePackage();
                     }
-                    Shutdown();
+                    Shutdown(0);
                     return;
                 }
                 else if (AppArgs.ShowHelp)

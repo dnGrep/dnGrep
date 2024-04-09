@@ -7,6 +7,7 @@ using System.Text;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Localization;
+using NLog;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -14,9 +15,16 @@ namespace dnGREP.WPF
     public partial class CommandLineArgs
     {
         private const string appName = "dnGREP.exe";
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public CommandLineArgs(string commandLine)
         {
+            if (!string.IsNullOrEmpty(commandLine) &&
+                !commandLine.TrimEnd(' ', '\"').EndsWith(appName, StringComparison.OrdinalIgnoreCase))
+            {
+                logger.Info("Command line arguments: " + commandLine);
+            }
+
             // Getting the arguments from Environment.GetCommandLineArgs() or StartupEventArgs 
             // does strange things with quoted strings, so parse them here:
             string[] args = SplitCommandLine(commandLine);
@@ -122,7 +130,7 @@ namespace dnGREP.WPF
             return input;
         }
 
-        private static readonly HashSet<string> pathFlags = [ "/f", "-f", "-folder" ];
+        private static readonly HashSet<string> pathFlags = ["/f", "-f", "-folder"];
 
         private void EvaluateArgs(string[] args)
         {
@@ -172,7 +180,7 @@ namespace dnGREP.WPF
                                 break;
 
                             case "/registercontextmenu":
-                                RegisterContextMenu = true; 
+                                RegisterContextMenu = true;
                                 break;
 
                             case "/removecontextmenu":
@@ -554,7 +562,7 @@ namespace dnGREP.WPF
         public bool InvalidArgument { get; private set; }
         public bool WarmUp { get; private set; }
         public bool RegisterContextMenu { get; private set; }
-        public bool RemoveContextMenu {  get; private set; }
+        public bool RemoveContextMenu { get; private set; }
         public bool ShowHelp { get; private set; }
         public string? SearchFor { get; private set; }
         public string? SearchPath { get; private set; }
