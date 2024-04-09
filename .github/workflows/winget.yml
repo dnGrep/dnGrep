@@ -9,4 +9,5 @@ jobs:
       - uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: dnGrep.dnGrep
+          max-versions-to-keep: 5 # keep only latest 5 versions
           token: ${{ secrets.WINGET_TOKEN }}
