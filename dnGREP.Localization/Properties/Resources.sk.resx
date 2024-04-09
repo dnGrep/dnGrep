@@ -855,4 +855,116 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Po dokončení vyhľadávania automaticky zoradiť výsledky</value>
     <comment>Options dialog, result option checkbox label (accel)</comment>
   </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Zavrieť</value>
+    <comment>Options dialog, close button text (accel)</comment>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>po</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>pred a</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Celé slovo</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Odstrániť</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Upraviť</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Hľadať v archívoch</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Zobraziť kontextové riadky:</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Celé slovo</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Main window, ignore filter file selector label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Maximálna hĺbka priečinka 1{0}</value>
+    <comment>Main window, file filters summary: {0} is a number</comment>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>Bez binárnych</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Bez skrytých</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>Bez podpriečinkov</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_Viacriadkový</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>Vzory na zhodu:</value>
+    <comment>Main window, Patterns to match label (accel)</comment>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Na filtrovanie súborov použiť .gitignore</value>
+    <comment>Main window, search option checkbox tooltip</comment>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Maximálna hĺbka priečinka 1{0}</value>
+    <comment>Report search options summary: {0} is the user input folder depth</comment>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Viacriadkové</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Bez binárnych</value>
+    <comment>Main window options summary</comment>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Bez podpriečinkov</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Viacriadkové</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Nahradiť</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Hľadať</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>_Zavrieť</value>
+    <comment>Test window, Close button text (accel)</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Viacriadkový</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>_Celé slovo</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
 </root>
