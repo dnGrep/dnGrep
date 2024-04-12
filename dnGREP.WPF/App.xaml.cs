@@ -76,7 +76,7 @@ namespace dnGREP.WPF
                     logger.Info("RegisterContextMenu");
                     if (SparsePackage.CanRegisterPackage)
                     {
-                        SparsePackage.RegisterSparsePackage();
+                        SparsePackage.RegisterSparsePackage(true);
                     }
                     Shutdown(0);
                     return;

@@ -2,10 +2,11 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Threading;
 using Windows.Management.Deployment;
+using Windows.Win32;
+using Windows.Win32.UI.Shell;
 
 namespace dnGREP.WPF
 {
@@ -14,24 +15,30 @@ namespace dnGREP.WPF
         public static bool CanRegisterPackage =>
             OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041, 0);
 
-        public static void RegisterSparsePackage()
+        public static void RegisterSparsePackage(bool reregister)
         {
-            if (!IsRegistered &&
-                OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041, 0))
+            if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041, 0))
             {
-                string exePath = AppDomain.CurrentDomain.BaseDirectory;
-                string externalLocation = Path.Combine(exePath, @"");
-                string sparsePkgPath = Path.Combine(exePath, @"dnGrep.msix");
-
-                //Attempt registration
-                if (RegisterSparsePackage(externalLocation, sparsePkgPath))
+                if (reregister && IsRegistered)
                 {
-                    //Registration succeeded, restart the app to run with identity
-                    Debug.WriteLine("Package Registration succeeded!");
+                    RemoveSparsePackage();
                 }
-                else //Registration failed, run without identity
+
+                if (!IsRegistered)
                 {
-                    Debug.WriteLine("Package Registration failed.");
+                    string exePath = AppDomain.CurrentDomain.BaseDirectory;
+                    string externalLocation = Path.Combine(exePath, @"");
+                    string sparsePkgPath = Path.Combine(exePath, @"dnGrep.msix");
+
+                    // Attempt registration
+                    if (RegisterSparsePackage(externalLocation, sparsePkgPath))
+                    {
+                        Debug.WriteLine("Package Registration succeeded!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Package Registration failed.");
+                    }
                 }
             }
         }
@@ -49,15 +56,8 @@ namespace dnGREP.WPF
             }
         }
 
-
-        [DllImport("Shell32.dll")]
-        private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
-
-        private const uint SHCNE_ASSOCCHANGED = 0x8000000;
-        private const uint SHCNF_IDLIST = 0x0;
-
         [SupportedOSPlatform("windows10.0.19041")]
-        private static bool RegisterSparsePackage(string externalLocation, string sparsePkgPath)
+        unsafe private static bool RegisterSparsePackage(string externalLocation, string sparsePkgPath)
         {
             bool registration = false;
             try
@@ -73,7 +73,7 @@ namespace dnGREP.WPF
 
                 PackageManager packageManager = new();
 
-                //Declare use of an external location
+                // Declare use of an external location
                 AddPackageOptions options = new()
                 {
                     ExternalLocationUri = externalUri
@@ -110,7 +110,7 @@ namespace dnGREP.WPF
                     Debug.WriteLine("Package Registration succeeded!");
 
                     // Notify the shell about the change
-                    SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
+                    PInvoke.SHChangeNotify(SHCNE_ID.SHCNE_ASSOCCHANGED, SHCNF_FLAGS.SHCNF_IDLIST);
                 }
                 else
                 {

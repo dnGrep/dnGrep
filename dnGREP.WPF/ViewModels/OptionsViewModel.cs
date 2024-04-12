@@ -671,7 +671,7 @@ namespace dnGREP.WPF
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
         public ICommand AddContextMenu => new RelayCommand(
-            p => SparsePackage.RegisterSparsePackage(),
+            p => SparsePackage.RegisterSparsePackage(false),
             q => SparsePackage.CanRegisterPackage && !SparsePackage.IsRegistered);
 
         public ICommand RemoveContextMenu => new RelayCommand(

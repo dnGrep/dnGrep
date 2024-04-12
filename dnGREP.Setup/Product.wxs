@@ -74,7 +74,7 @@
     <Upgrade Id="4CF55558-B642-482E-9FBF-06EA5AEC8276">
       <!-- Will prevent reinstalling the same version IF MSI with the same version but different Product ID has been previously installed -->
       <UpgradeVersion OnlyDetect='yes' Property='SELFFOUND'
-       Minimum='$(var.ProductVersion)' IncludeMinimum='yes'
+        Minimum='$(var.ProductVersion)' IncludeMinimum='yes'
         Maximum='$(var.ProductVersion)' IncludeMaximum='yes' />
       <UpgradeVersion OnlyDetect='yes' Property='NEWERFOUND'
         Minimum='$(var.ProductVersion)' IncludeMinimum='no' />
@@ -167,7 +167,7 @@
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>
       <RemoveExistingProducts After="InstallInitialize"/>
       <Custom Action='RegisterShellContextMenu' Before='InstallFinalize'><![CDATA[&ShellIntegration=3]]></Custom>
-      <Custom Action='RemoveShellContextMenu' Before='RemoveFiles'>(NOT Installed AND NOT REMOVE) OR (REMOVE ~= "ALL")</Custom>
+      <Custom Action='RemoveShellContextMenu' Before='RemoveFiles'><![CDATA[(NOT UPGRADINGPRODUCTCODE) AND (REMOVE ~= "ALL")]]></Custom>
     </InstallExecuteSequence>
 
     <InstallUISequence>
