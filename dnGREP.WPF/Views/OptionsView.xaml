@@ -86,15 +86,31 @@
 
                 <GroupBox Header="{l:Loc Key='Options_StartupOptions'}">
                     <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="Add new context menu" Command="{Binding AddContextMenu}" Margin="3"/>
-                            <Button Content="Remove new context menu" Command="{Binding RemoveContextMenu}" Margin="3"/>
-                        </StackPanel>
-                        <Border ToolTip="{Binding Path=PanelTooltip}">
-                            <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
+                        <Label Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
+                               ToolTip="{l:Loc Key='Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu'}"/>
+                        <Border ToolTip="{l:Loc Key='Options_RequiresWindows11OrWindows10'}" Margin="24,0,0,0">
+                        <CheckBox Margin="0,3"
+                                  IsChecked="{Binding Path=EnableWindows11ShellMenu}" 
+                                  IsEnabled="{Binding Path=CanModifyWindows11ShellMenu}">
+                            <CheckBox.Content>
+                                <TextBlock>
+                                    <Run Text="{l:Loc Key='Options_NewRightClickMenu'}"/><Run>&#160;</Run>
+                                    <Run FontWeight="Bold" Text="{l:Loc Key='ShellMenu_SearchWithDnGrep'}"/>
+                                    </TextBlock>
+                            </CheckBox.Content>
+                        </CheckBox>
+                        </Border>
+                        <Border ToolTip="{Binding Path=PanelTooltip}" Margin="24,0,0,0">
+                            <CheckBox Margin="0,3"
                                       IsChecked="{Binding Path=EnableWindowsIntegration}"
-                                      ToolTip="{Binding Path=WindowsIntegrationTooltip}"
-                                      IsEnabled="{Binding Path=IsAdministrator}" />
+                                      IsEnabled="{Binding Path=IsAdministrator}">
+                                <CheckBox.Content>
+                                    <TextBlock>
+                                        <Run Text="{l:Loc Key='Options_OriginalRightClickMenu'}"/><Run>&#160;</Run>
+                                        <Run FontWeight="Bold">dnGrep...</Run>
+                                    </TextBlock>
+                                </CheckBox.Content>
+                            </CheckBox>
                         </Border>
                         <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ReuseExistingWindow'}"
                                   IsChecked="{Binding Path=IsSingletonInstance}" />

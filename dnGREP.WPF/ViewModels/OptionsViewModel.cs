@@ -145,6 +145,7 @@ namespace dnGREP.WPF
             get
             {
                 if (EnableWindowsIntegration != IsShellRegistered("Directory") ||
+                EnableWindows11ShellMenu != SparsePackage.IsRegistered ||
                 EnableRunAtStartup != IsStartupRegistered() ||
                 IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
                 ConfirmExitScript != Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript) ||
@@ -314,6 +315,12 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool enableWindowsIntegration;
+
+        [ObservableProperty]
+        private bool enableWindows11ShellMenu;
+
+        [ObservableProperty]
+        private bool canModifyWindows11ShellMenu;
 
         [ObservableProperty]
         private bool isSingletonInstance;
@@ -670,14 +677,6 @@ namespace dnGREP.WPF
 
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
-        public ICommand AddContextMenu => new RelayCommand(
-            p => SparsePackage.RegisterSparsePackage(false),
-            q => SparsePackage.CanRegisterPackage && !SparsePackage.IsRegistered);
-
-        public ICommand RemoveContextMenu => new RelayCommand(
-            p => SparsePackage.RemoveSparsePackage(),
-            q => SparsePackage.CanRegisterPackage && SparsePackage.IsRegistered);
-
         #endregion
 
         #region Public Methods
@@ -754,6 +753,8 @@ namespace dnGREP.WPF
                 WindowsIntegrationTooltip = Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu;
             }
             EnableWindowsIntegration = IsShellRegistered("Directory");
+            EnableWindows11ShellMenu = SparsePackage.IsRegistered;
+            CanModifyWindows11ShellMenu = SparsePackage.CanRegisterPackage;
             EnableRunAtStartup = IsStartupRegistered();
             IsSingletonInstance = Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance);
             ConfirmExitScript = Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript);
@@ -892,6 +893,15 @@ namespace dnGREP.WPF
                 ShellUnregister("Drive");
                 ShellUnregister("*");
                 ShellUnregister("here");
+            }
+
+            if (EnableWindows11ShellMenu)
+            {
+                SparsePackage.RegisterSparsePackage(false);
+            }
+            else
+            {
+                SparsePackage.RemoveSparsePackage();
             }
 
             if (EnableRunAtStartup)

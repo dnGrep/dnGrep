@@ -5229,6 +5229,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New right-click menu:.
+        /// </summary>
+        public static string Options_NewRightClickMenu {
+            get {
+                return ResourceManager.GetString("Options_NewRightClickMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string Options_No {
@@ -5297,6 +5306,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_OptionsTitle {
             get {
                 return ResourceManager.GetString("Options_OptionsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original right-click menu:.
+        /// </summary>
+        public static string Options_OriginalRightClickMenu {
+            get {
+                return ResourceManager.GetString("Options_OriginalRightClickMenu", resourceCulture);
             }
         }
         
@@ -5567,6 +5585,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ReplaceFontSize {
             get {
                 return ResourceManager.GetString("Options_ReplaceFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requires Windows 11, or Windows 10 20H1 or later.
+        /// </summary>
+        public static string Options_RequiresWindows11OrWindows10 {
+            get {
+                return ResourceManager.GetString("Options_RequiresWindows11OrWindows10", resourceCulture);
             }
         }
         
@@ -8339,6 +8366,15 @@ namespace dnGREP.Localization.Properties {
         public static string Scripts_ScriptMessages {
             get {
                 return ResourceManager.GetString("Scripts_ScriptMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search with dnGrep.
+        /// </summary>
+        public static string ShellMenu_SearchWithDnGrep {
+            get {
+                return ResourceManager.GetString("ShellMenu_SearchWithDnGrep", resourceCulture);
             }
         }
         
