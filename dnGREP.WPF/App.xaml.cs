@@ -76,8 +76,14 @@ namespace dnGREP.WPF
                     logger.Info("RegisterContextMenu");
                     if (SparsePackage.CanRegisterPackage)
                     {
+                        RegistryOperations.ShellUnregisterContextMenu(true);
                         SparsePackage.RegisterSparsePackage(true);
                     }
+                    else
+                    {
+                        RegistryOperations.ShellRegisterContextMenu(true);
+                    }
+
                     Shutdown(0);
                     return;
                 }
@@ -88,6 +94,7 @@ namespace dnGREP.WPF
                     {
                         SparsePackage.RemoveSparsePackage();
                     }
+
                     Shutdown(0);
                     return;
                 }

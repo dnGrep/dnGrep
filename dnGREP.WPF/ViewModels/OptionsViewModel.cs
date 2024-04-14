@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Security;
-using System.Security.Principal;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -130,8 +127,6 @@ namespace dnGREP.WPF
         }
 
         #region Private Variables and Properties
-        private static readonly string SHELL_KEY_NAME = "dnGREP";
-        private static readonly string SHELL_MENU_TEXT = "dnGrep...";
         private const string ArchiveNameKey = "Archive";
         private const string CustomNameKey = " Custom";
         private const string EnabledKey = "Enabled";
@@ -144,9 +139,9 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (EnableWindowsIntegration != IsShellRegistered("Directory") ||
-                EnableWindows11ShellMenu != SparsePackage.IsRegistered ||
-                EnableRunAtStartup != IsStartupRegistered() ||
+                if (EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
+                EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
+                EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
                 IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
                 ConfirmExitScript != Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript) ||
                 ConfirmExitSearch != Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch) ||
@@ -318,6 +313,7 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool enableWindows11ShellMenu;
+        private bool enableWindows11ShellMenuOriginalValue;
 
         [ObservableProperty]
         private bool canModifyWindows11ShellMenu;
@@ -743,7 +739,8 @@ namespace dnGREP.WPF
 
         private void LoadSettings()
         {
-            CheckIfAdmin();
+            IsAdministrator = RegistryOperations.IsAdministrator;
+
             if (!IsAdministrator)
             {
                 PanelTooltip = Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
@@ -752,10 +749,10 @@ namespace dnGREP.WPF
             {
                 WindowsIntegrationTooltip = Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu;
             }
-            EnableWindowsIntegration = IsShellRegistered("Directory");
-            EnableWindows11ShellMenu = SparsePackage.IsRegistered;
+            EnableWindowsIntegration = RegistryOperations.IsShellRegistered("Directory");
+            EnableWindows11ShellMenu = enableWindows11ShellMenuOriginalValue = SparsePackage.IsRegistered;
             CanModifyWindows11ShellMenu = SparsePackage.CanRegisterPackage;
-            EnableRunAtStartup = IsStartupRegistered();
+            EnableRunAtStartup = RegistryOperations.IsStartupRegistered();
             IsSingletonInstance = Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance);
             ConfirmExitScript = Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript);
             ConfirmExitSearch = Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch);
@@ -882,17 +879,11 @@ namespace dnGREP.WPF
         {
             if (EnableWindowsIntegration)
             {
-                ShellRegister("Directory");
-                ShellRegister("Drive");
-                ShellRegister("*");
-                ShellRegister("here");
+                RegistryOperations.ShellRegisterContextMenu(false);
             }
             else
             {
-                ShellUnregister("Directory");
-                ShellUnregister("Drive");
-                ShellUnregister("*");
-                ShellUnregister("here");
+                RegistryOperations.ShellUnregisterContextMenu(false);
             }
 
             if (EnableWindows11ShellMenu)
@@ -906,11 +897,11 @@ namespace dnGREP.WPF
 
             if (EnableRunAtStartup)
             {
-                StartupRegister();
+                RegistryOperations.StartupRegister();
             }
             else
             {
-                StartupUnregister();
+                RegistryOperations.StartupUnregister();
             }
 
             ApplicationFontFamily = EditApplicationFontFamily;
@@ -1011,237 +1002,6 @@ namespace dnGREP.WPF
 
             if (editorsChanged)
                 GrepSearchResultsViewModel.InitializeEditorMenuItems();
-        }
-
-        private bool IsShellRegistered(string location)
-        {
-            if (location == "here")
-            {
-                string regPath = $@"SOFTWARE\Classes\Directory\Background\shell\{SHELL_KEY_NAME}";
-                try
-                {
-                    return Registry.LocalMachine.OpenSubKey(regPath) != null;
-                }
-                catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-                {
-                    IsAdministrator = false;
-                    return false;
-                }
-            }
-            else
-            {
-                string regPath = $@"{location}\shell\{SHELL_KEY_NAME}";
-                try
-                {
-                    return Registry.ClassesRoot.OpenSubKey(regPath) != null;
-                }
-                catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-                {
-                    IsAdministrator = false;
-                    return false;
-                }
-            }
-        }
-
-        private void ShellRegister(string location)
-        {
-            if (!IsAdministrator)
-                return;
-
-            if (!IsShellRegistered(location))
-            {
-                try
-                {
-                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location
-                        .Replace("dll", "exe", StringComparison.OrdinalIgnoreCase);
-                    if (assemblyPath != null)
-                    {
-                        if (location == "here")
-                        {
-                            string regPath = $@"SOFTWARE\Classes\Directory\Background\shell\{SHELL_KEY_NAME}";
-
-                            // add context menu to the registry
-                            using (RegistryKey key = Registry.LocalMachine.CreateSubKey(regPath))
-                            {
-                                key.SetValue(null, SHELL_MENU_TEXT);
-                                key.SetValue("Icon", assemblyPath);
-                            }
-
-                            // add command that is invoked to the registry
-                            string menuCommand = string.Format("\"{0}\" \"%V\"", assemblyPath);
-                            using (RegistryKey key = Registry.LocalMachine.CreateSubKey($@"{regPath}\command"))
-                            {
-                                key.SetValue(null, menuCommand);
-                            }
-                        }
-                        else
-                        {
-                            string regPath = $@"{location}\shell\{SHELL_KEY_NAME}";
-
-                            // add context menu to the registry
-                            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(regPath))
-                            {
-                                key.SetValue(null, SHELL_MENU_TEXT);
-                                key.SetValue("Icon", assemblyPath);
-                            }
-
-                            // add command that is invoked to the registry
-                            string menuCommand = string.Format("\"{0}\" \"%1\"", assemblyPath);
-                            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey($@"{regPath}\command"))
-                            {
-                                key.SetValue(null, menuCommand);
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-                {
-                    IsAdministrator = false;
-                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
-                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
-            }
-        }
-
-        private void ShellUnregister(string location)
-        {
-            if (!IsAdministrator)
-                return;
-
-            try
-            {
-                if (IsShellRegistered(location))
-                {
-                    if (location == "here")
-                    {
-                        string regPath = $@"SOFTWARE\Classes\Directory\Background\shell\{SHELL_KEY_NAME}";
-                        Registry.LocalMachine.DeleteSubKeyTree(regPath);
-                    }
-                    else
-                    {
-                        string regPath = $@"{location}\shell\{SHELL_KEY_NAME}";
-                        Registry.ClassesRoot.DeleteSubKeyTree(regPath);
-                    }
-                }
-            }
-            catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-            {
-                IsAdministrator = false;
-                MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                    Resources.MessageBox_DnGrep,
-                    MessageBoxButton.OK, MessageBoxImage.Error,
-                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
-                MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
-                    Resources.MessageBox_DnGrep,
-                    MessageBoxButton.OK, MessageBoxImage.Error,
-                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-            }
-        }
-
-        private static bool IsStartupRegistered()
-        {
-            string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-            try
-            {
-                using RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath);
-                return key?.GetValue(SHELL_KEY_NAME) != null;
-            }
-            catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-            {
-                return false;
-            }
-        }
-
-        private static void StartupRegister()
-        {
-            if (!IsStartupRegistered())
-            {
-                try
-                {
-                    string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-
-                    var assemblyPath = Assembly.GetAssembly(typeof(OptionsView))?.Location
-                        .Replace("dll", "exe", StringComparison.OrdinalIgnoreCase);
-                    if (assemblyPath != null)
-                    {
-                        using RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath, true);
-                        key?.SetValue(SHELL_KEY_NAME, string.Format("\"{0}\" /warmUp", assemblyPath), RegistryValueKind.ExpandString);
-                    }
-                }
-                catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-                {
-                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "Failed to register auto startup");
-                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRegisteringAutoStartup + App.LogDir,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
-            }
-        }
-
-        private static void StartupUnregister()
-        {
-            if (IsStartupRegistered())
-            {
-                try
-                {
-                    string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-
-                    using RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath, true);
-                    key?.DeleteValue(SHELL_KEY_NAME);
-                }
-                catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
-                {
-                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "Failed to unregister auto startup");
-                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorUnregisteringAutoStartup + App.LogDir,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
-            }
-        }
-
-        private void CheckIfAdmin()
-        {
-            try
-            {
-                using WindowsIdentity wi = WindowsIdentity.GetCurrent();
-                WindowsPrincipal wp = new(wi);
-
-                IsAdministrator = wp.IsInRole(WindowsBuiltInRole.Administrator);
-            }
-            catch
-            {
-                IsAdministrator = false;
-            }
         }
 
         #endregion

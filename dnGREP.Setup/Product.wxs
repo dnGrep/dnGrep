@@ -97,15 +97,6 @@
     
     <DirectoryRef Id="TARGETDIR">
       <Component Id="RegistryCleanup" Guid="C2E069E5-717B-4523-92B9-65802DD86774" KeyPath="yes" >
-        <RemoveRegistryKey Root="HKCR" Key="Directory\shell\dnGREP" Action="removeOnInstall"/>
-        <RemoveRegistryKey Root="HKCR" Key="Directory\shell\dnGREP\command" Action="removeOnInstall"/>
-        <RemoveRegistryKey Root="HKCR" Key="Drive\shell\dnGREP" Action="removeOnInstall"/>
-        <RemoveRegistryKey Root="HKCR" Key="Drive\shell\dnGREP\command" Action="removeOnInstall"/>
-        <RemoveRegistryKey Root="HKCR" Key="*\shell\dnGREP" Action="removeOnInstall"/>
-        <RemoveRegistryKey Root="HKCR" Key="*\shell\dnGREP\command" Action="removeOnInstall"/>
-        <RemoveRegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP" Action="removeOnInstall"/>
-        <RemoveRegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP\command" Action="removeOnInstall"/>
-        
         <RemoveRegistryKey Root="HKCR" Key="Directory\shell\dnGREP" Action="removeOnUninstall"/>
         <RemoveRegistryKey Root="HKCR" Key="Directory\shell\dnGREP\command" Action="removeOnUninstall"/>
         <RemoveRegistryKey Root="HKCR" Key="Drive\shell\dnGREP" Action="removeOnUninstall"/>
