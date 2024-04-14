@@ -6,6 +6,8 @@
     <Platforms>x86;x64</Platforms>
     <RootNamespace>dnGREP.Engines.OpenXml</RootNamespace>
     <AssemblyName>dnGREP.Engines.OpenXml</AssemblyName>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -65,8 +67,4 @@
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
   </ItemGroup>
-  <PropertyGroup>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
 </Project>

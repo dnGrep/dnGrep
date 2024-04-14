@@ -71,6 +71,37 @@ namespace dnGREP.WPF
                     MainWindow = new MainForm(false);
                     MainWindow.Loaded += MainWindow_Loaded;
                 }
+                else if (AppArgs.RegisterContextMenu)
+                {
+                    logger.Info("RegisterContextMenu");
+                    if (SparsePackage.CanRegisterPackage)
+                    {
+                        bool success = RegistryOperations.ShellUnregisterContextMenu(true);
+                        logger.Info("Unregister shell menu {0}", success ? "succeeded" : "failed");
+                        success = SparsePackage.RegisterSparsePackage(true);
+                        logger.Info("Add dnGREP.msix {0}", success ? "succeeded" : "failed");
+                    }
+                    else
+                    {
+                        bool success = RegistryOperations.ShellRegisterContextMenu(true);
+                        logger.Info("Register shell menu {0}", success ? "succeeded" : "failed");
+                    }
+
+                    Shutdown(0);
+                    return;
+                }
+                else if (AppArgs.RemoveContextMenu)
+                {
+                    logger.Info("RemoveContextMenu");
+                    if (SparsePackage.CanRegisterPackage && SparsePackage.IsRegistered)
+                    {
+                        bool success = SparsePackage.RemoveSparsePackage();
+                        logger.Info("Remove dnGREP.msix {0}", success ? "succeeded" : "failed");
+                    }
+
+                    Shutdown(0);
+                    return;
+                }
                 else if (AppArgs.ShowHelp)
                 {
                     MainWindow = new HelpWindow(CommandLineArgs.GetHelpString(), AppArgs.InvalidArgument);

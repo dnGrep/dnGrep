@@ -20,51 +20,54 @@ install:
   - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.204
 before_build:
   - cmd: nuget restore
+  - ps: ./make-msix.ps1
+  - ps: ./patch-rc-version.ps1
 build:
   project: dnGREP.WPF.sln
   parallel: true
   verbosity: normal
 after_build:
-  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@%APPVEYOR_BUILD_FOLDER%\excludeFiles_win-%PlATFORM%.txt
+  - 7z a %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@%APPVEYOR_BUILD_FOLDER%\excludeFiles_win-%PlATFORM%.txt
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\Bundle.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep*.msi %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep*.zip
 artifacts:
-- path: Release\x86\*.msi
-  name: 32-bit MSI
-- path: Release\x64\*.msi
-  name: 64-bit MSI
+#- path: Release\x86\*.msi
+#  name: 32-bit MSI
+#- path: Release\x64\*.msi
+#  name: 64-bit MSI
 - path: Release\x86\*.zip
-  name: 32-bit Portable ZIP
+  name: 32-bit Bundle ZIP
 - path: Release\x64\*.zip
-  name: 64-bit Portable ZIP
+  name: 64-bit Bundle ZIP
 deploy:
 - provider: Webhook
   url: https://app.signpath.io/API/v1/736ab30b-dc3e-41ee-800d-c5674d702ed8/Integrations/AppVeyor?ProjectSlug=dnGrep&SigningPolicySlug=release-signing
   authorization:
      secure: +b4UCV2LUyweG3/0jfhRHXzKYGdSbwb4ZZ2roGLdbuIuu3tGHNZppkiVSCBEHRTtoBnhI7K+j0vuRmRhUcMkrQ==
   on:
-    branch: DraftPrereleaseToGitHub
+    branch: dev
     configuration: Release
-- provider: GitHub
-  tag: v$(appveyor_build_version)
-  release: v$(appveyor_build_version)
-  auth_token:
-    secure: q0bGZDcjkoPwfHqzHbftJAHUR2q/I0dQIJCP5uAX2wjwzDsZS77IFSc26XFaD1pA
-  draft: true
-  on:
-    branch: DraftPrereleaseToGitHub
-    configuration: Release
-  description: |
-    [![$(APPVEYOR_REPO_TAG_NAME)](https://img.shields.io/github/downloads/$(APPVEYOR_REPO_NAME)/$(APPVEYOR_REPO_TAG_NAME)/total.svg)](https://github.com/$(APPVEYOR_REPO_NAME)/releases/tag/$(APPVEYOR_REPO_TAG_NAME))
-    
-    ## Changes in this release:
-
-
-    ### Checksum information
-
-    Name: 
-    SHA256: 
-
-    Name: 
-    SHA256: 
-
-    This program uses free code signing provided by [SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=dngrep), and a certificate by the [SignPath Foundation](https://signpath.org?utm_source=foundation&utm_medium=github&utm_campaign=dngrep).
+#- provider: GitHub
+#  tag: v$(appveyor_build_version)
+#  release: v$(appveyor_build_version)
+#  auth_token:
+#    secure: q0bGZDcjkoPwfHqzHbftJAHUR2q/I0dQIJCP5uAX2wjwzDsZS77IFSc26XFaD1pA
+#  draft: true
+#  on:
+#    branch: DraftPrereleaseToGitHub
+#    configuration: Release
+#  description: |
+#    [![$(APPVEYOR_REPO_TAG_NAME)](https://img.shields.io/github/downloads/$(APPVEYOR_REPO_NAME)/#$(APPVEYOR_REPO_TAG_NAME)/total.svg)](https://github.com/$(APPVEYOR_REPO_NAME)/releases/tag/#$(APPVEYOR_REPO_TAG_NAME))
+#    
+#    ## Changes in this release:
+#
+#
+#    ### Checksum information
+#
+#    Name: 
+#    SHA256: 
+#
+#    Name: 
+#    SHA256: 
+#
+#    This program uses free code signing provided by [SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=dngrep), and a certificate by the [SignPath Foundation](https://signpath.org?utm_source=foundation&utm_medium=github&utm_campaign=dngrep).
 

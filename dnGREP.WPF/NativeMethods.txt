@@ -3,6 +3,7 @@ SetParent
 ShellExecuteEx
 StrCmpLogicalW
 GetCommandLineW
+SHChangeNotify
 
 HWND_MESSAGE
 SHOW_WINDOW_CMD

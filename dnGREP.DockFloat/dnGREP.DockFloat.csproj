@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
-      <LangVersion>12</LangVersion>
-  <OutputType>Library</OutputType>
+    <LangVersion>12</LangVersion>
+    <OutputType>Library</OutputType>
     <Platforms>x86;x64</Platforms>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -12,6 +12,7 @@
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <WarningsAsErrors>$(WarningsAsErrors);CA1307;CA1309;CA1310</WarningsAsErrors>
   </PropertyGroup>
@@ -52,7 +53,4 @@
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
 </Project>

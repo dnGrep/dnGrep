@@ -3,6 +3,8 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <LangVersion>12</LangVersion>
     <OutputType>Library</OutputType>
+    <AssemblyOriginatorKeyFile>dnGrep.snk</AssemblyOriginatorKeyFile>
+    <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -16,10 +18,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>dnGrep.snk</AssemblyOriginatorKeyFile>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfoCommon.cs">

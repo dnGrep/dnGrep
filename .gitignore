@@ -269,3 +269,6 @@ __pycache__/
 *.sarif
 *.upgrade-assistant
 *.clef
+
+# Generated file
+/dnGrep.msix

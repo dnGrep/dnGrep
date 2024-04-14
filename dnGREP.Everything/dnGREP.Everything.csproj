@@ -4,6 +4,8 @@
     <LangVersion>12</LangVersion>
     <OutputType>Library</OutputType>
     <Platforms>x86;x64</Platforms>
+    <AssemblyOriginatorKeyFile>dnGrep.snk</AssemblyOriginatorKeyFile>
+    <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -21,10 +23,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>dnGrep.snk</AssemblyOriginatorKeyFile>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x86'">
     <DefineConstants>$(DefineConstants);x86</DefineConstants>
