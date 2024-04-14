@@ -5229,7 +5229,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New right-click menu:.
+        ///   Looks up a localized string similar to Windows 11 right-click menu:.
         /// </summary>
         public static string Options_NewRightClickMenu {
             get {
@@ -5589,11 +5589,11 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Requires Windows 11, or Windows 10 20H1 or later.
+        ///   Looks up a localized string similar to Requires Windows 11.
         /// </summary>
-        public static string Options_RequiresWindows11OrWindows10 {
+        public static string Options_RequiresWindows11 {
             get {
-                return ResourceManager.GetString("Options_RequiresWindows11OrWindows10", resourceCulture);
+                return ResourceManager.GetString("Options_RequiresWindows11", resourceCulture);
             }
         }
         

@@ -88,7 +88,7 @@
                     <StackPanel Orientation="Vertical">
                         <Label Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
                                ToolTip="{l:Loc Key='Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu'}"/>
-                        <Border ToolTip="{l:Loc Key='Options_RequiresWindows11OrWindows10'}" Margin="24,0,0,0">
+                        <Border ToolTip="{l:Loc Key='Options_RequiresWindows11'}" Margin="24,0,0,0">
                         <CheckBox Margin="0,3"
                                   IsChecked="{Binding Path=EnableWindows11ShellMenu}" 
                                   IsEnabled="{Binding Path=CanModifyWindows11ShellMenu}">
