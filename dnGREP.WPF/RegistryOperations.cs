@@ -46,19 +46,22 @@ namespace dnGREP.WPF
             }
         }
 
-        public static void ShellRegisterContextMenu(bool silent)
+        public static bool ShellRegisterContextMenu(bool silent)
         {
-            ShellRegister("Directory", silent);
-            ShellRegister("Drive", silent);
-            ShellRegister("*", silent);
-            ShellRegister("here", silent);
+            bool success = false;
+            success |= ShellRegister("Directory", silent);
+            success |= ShellRegister("Drive", silent);
+            success |= ShellRegister("*", silent);
+            success |= ShellRegister("here", silent);
+            return success;
         }
 
-        public static void ShellRegister(string location, bool silent)
+        public static bool ShellRegister(string location, bool silent)
         {
             if (!IsAdministrator)
-                return;
+                return false;
 
+            bool success = false;
             if (!IsShellRegistered(location))
             {
                 try
@@ -103,6 +106,8 @@ namespace dnGREP.WPF
                                 key.SetValue(null, menuCommand);
                             }
                         }
+
+                        success = true;
                     }
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
@@ -130,21 +135,25 @@ namespace dnGREP.WPF
                     }
                 }
             }
+            return success;
         }
 
-        public static void ShellUnregisterContextMenu(bool silent)
+        public static bool ShellUnregisterContextMenu(bool silent)
         {
-            ShellUnregister("Directory", silent);
-            ShellUnregister("Drive", silent);
-            ShellUnregister("*", silent);
-            ShellUnregister("here", silent);
+            bool success = true;
+            success |= ShellUnregister("Directory", silent);
+            success |= ShellUnregister("Drive", silent);
+            success |= ShellUnregister("*", silent);
+            success |= ShellUnregister("here", silent);
+            return success;
         }
 
-        private static void ShellUnregister(string location, bool silent)
+        private static bool ShellUnregister(string location, bool silent)
         {
             if (!IsAdministrator)
-                return;
+                return false;
 
+            bool success = false;
             try
             {
                 if (IsShellRegistered(location))
@@ -159,6 +168,8 @@ namespace dnGREP.WPF
                         string regPath = $@"{location}\shell\{SHELL_KEY_NAME}";
                         Registry.ClassesRoot.DeleteSubKeyTree(regPath);
                     }
+
+                    success = true;
                 }
             }
             catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
@@ -184,6 +195,7 @@ namespace dnGREP.WPF
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
+            return success;
         }
 
         public static bool IsStartupRegistered()

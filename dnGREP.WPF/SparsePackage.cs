@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using NLog;
 using Windows.Win32;
 using Windows.Win32.UI.Shell;
@@ -30,8 +29,9 @@ namespace dnGREP.WPF
             }
         }
 
-        public unsafe static void RegisterSparsePackage(bool reregister)
+        public unsafe static bool RegisterSparsePackage(bool reregister)
         {
+            bool success = false;
             if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000, 0))
             {
                 if (reregister && IsRegistered)
@@ -54,6 +54,8 @@ namespace dnGREP.WPF
 
                         // Notify the shell about the change
                         PInvoke.SHChangeNotify(SHCNE_ID.SHCNE_ASSOCCHANGED, SHCNF_FLAGS.SHCNF_IDLIST);
+
+                        success = true;
                     }
                     else
                     {
@@ -61,10 +63,12 @@ namespace dnGREP.WPF
                     }
                 }
             }
+            return success;
         }
 
-        public unsafe static void RemoveSparsePackage()
+        public unsafe static bool RemoveSparsePackage()
         {
+            bool success = false;
             if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000, 0))
             {
                 if (Powershell("Get-AppxPackage -Name dnGrep | Remove-AppxPackage"))
@@ -73,12 +77,15 @@ namespace dnGREP.WPF
 
                     // Notify the shell about the change
                     PInvoke.SHChangeNotify(SHCNE_ID.SHCNE_ASSOCCHANGED, SHCNF_FLAGS.SHCNF_IDLIST);
+
+                    success = true;
                 }
                 else
                 {
                     Debug.WriteLine("Remove AppxPackage failed.");
                 }
             }
+            return success;
         }
 
         private static bool Powershell(string arguments, bool successIfStdOutIsNotEmpty = false)

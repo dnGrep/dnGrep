@@ -76,12 +76,15 @@ namespace dnGREP.WPF
                     logger.Info("RegisterContextMenu");
                     if (SparsePackage.CanRegisterPackage)
                     {
-                        RegistryOperations.ShellUnregisterContextMenu(true);
-                        SparsePackage.RegisterSparsePackage(true);
+                        bool success = RegistryOperations.ShellUnregisterContextMenu(true);
+                        logger.Info("Unregister shell menu {0}", success ? "succeeded" : "failed");
+                        success = SparsePackage.RegisterSparsePackage(true);
+                        logger.Info("Add dnGREP.msix {0}", success ? "succeeded" : "failed");
                     }
                     else
                     {
-                        RegistryOperations.ShellRegisterContextMenu(true);
+                        bool success = RegistryOperations.ShellRegisterContextMenu(true);
+                        logger.Info("Register shell menu {0}", success ? "succeeded" : "failed");
                     }
 
                     Shutdown(0);
@@ -92,7 +95,8 @@ namespace dnGREP.WPF
                     logger.Info("RemoveContextMenu");
                     if (SparsePackage.CanRegisterPackage && SparsePackage.IsRegistered)
                     {
-                        SparsePackage.RemoveSparsePackage();
+                        bool success = SparsePackage.RemoveSparsePackage();
+                        logger.Info("Remove dnGREP.msix {0}", success ? "succeeded" : "failed");
                     }
 
                     Shutdown(0);
