@@ -526,4 +526,116 @@
     <value>Скасувати</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Додати</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Видалити</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Дублікат</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Редагувати</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Рухатися вниз</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Перемістіть вниз</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Рухатися вгору</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Інші властивості</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Замінити</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Шаблон файлу</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Фільтр:</value>
+    <comment>Bookmarks dialog, filter input box label</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Перейти вгору</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Ім'я</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Пошук за регулярним виразом</value>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Текст</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Деталі закладки</value>
+    <comment>Bookmark details dialog, window title</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Тип пошуку</value>
+    <comment>Bookmark details dialog, search type group header label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Пошук XPath (лише для документів XML)</value>
+    <comment>Bookmark details dialog, search type XPath tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Використовуйте .gitignore</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>Ця закладка вже існує</value>
+    <comment>Bookmark details dialog, error text</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Пропустити файли віддалених хмарних сховищ</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Використовуйте .gitignore для фільтрації файлів</value>
+    <comment>Bookmark details dialog, search option checkbox tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Все слово</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+стрілка вниз</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+стрілка вгору</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Опис</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Закрити</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
 </root>
