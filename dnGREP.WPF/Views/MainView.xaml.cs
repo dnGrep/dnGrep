@@ -80,6 +80,9 @@ namespace dnGREP.WPF
                             {
                                 viewModel.PreviewDockedWidth = LayoutProperties.PreviewDockedWidth;
                                 viewModel.PreviewDockedHeight = LayoutProperties.PreviewDockedHeight;
+
+                                // wait until window layout is complete to run command line script
+                                viewModel.ExecuteScriptQueue();
                             }
                         }, null);
                     }

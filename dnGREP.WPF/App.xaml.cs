@@ -125,14 +125,14 @@ namespace dnGREP.WPF
                 {
                     if (MainWindow is MainForm mainView)
                     {
-                        mainView.ViewModel.RunScriptCommand.Execute(AppArgs.Script);
+                        mainView.ViewModel.QueueScript(AppArgs.Script);
                     }
                 }
                 else if (AppArgs.ExecuteSearch && MainWindow.DataContext != null)
                 {
                     if (MainWindow is MainForm mainView)
                     {
-                        mainView.ViewModel.SearchCommand.Execute(null);
+                        mainView.ViewModel.QueueSearchRequest();
                     }
                 }
             }

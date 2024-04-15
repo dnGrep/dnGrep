@@ -26,6 +26,8 @@ namespace dnGREP.WPF
         private string currentScriptFile = string.Empty;
         private string currentScriptLine = string.Empty;
         private DateTime scriptStartTime = DateTime.MinValue;
+        private string queuedScript = string.Empty;
+        private bool queuedSearchRequest = false;
 
         private void AddScriptMessage(string message)
         {
@@ -135,8 +137,37 @@ namespace dnGREP.WPF
         public IScriptCommand ExpandResultOptionsCommand => new ScriptCommand<bool>(
             param => IsResultOptionsExpanded = param);
 
-        public IScriptCommand RunScriptCommand => new ScriptCommand<string>(
-            param => RunScript(param));
+        /// <summary>
+        /// Queues a script to be run after the main window is fully initialized
+        /// </summary>
+        /// <param name="name"></param>
+        public void QueueScript(string name)
+        {
+            queuedScript = name;
+        }
+
+        /// <summary>
+        /// Queues a search command to be run after the main window is fully initialized
+        /// </summary>
+        public void QueueSearchRequest()
+        {
+            queuedSearchRequest = true;
+        }
+
+        public void ExecuteScriptQueue()
+        {
+            if (!string.IsNullOrEmpty(queuedScript))
+            {
+                var name = queuedScript;
+                queuedScript = string.Empty;
+                RunScript(name);
+            }
+
+            if (queuedSearchRequest)
+            {
+                SearchCommand.Execute(null);
+            }
+        }
 
         private void PopulateScripts()
         {
