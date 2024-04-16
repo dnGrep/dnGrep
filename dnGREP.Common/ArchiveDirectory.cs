@@ -40,11 +40,6 @@ namespace dnGREP.Common
             var csv = GrepSettings.Instance.Get<string>(GrepSettings.Key.ArchiveExtensions);
             var list = (csv ?? string.Empty).Split(csvSeparators, StringSplitOptions.RemoveEmptyEntries)
                 .Select(r => r.Trim()).ToList();
-            if (list.Count == 0)
-            {
-                list = DefaultExtensions;
-                GrepSettings.Instance.Set(GrepSettings.Key.ArchiveExtensions, GrepSettings.CleanExtensions(list));
-            }
 
             Extensions.Clear();
             Extensions.AddRange(list);

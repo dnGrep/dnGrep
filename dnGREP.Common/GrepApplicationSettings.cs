@@ -637,6 +637,7 @@ namespace dnGREP.Common
             else
             {
                 Set(Key.ArchiveExtensions, CleanExtensions(ArchiveDirectory.DefaultExtensions));
+                ArchiveDirectory.Reinitialize();
             }
 
             if (!ContainsKey(Key.ArchiveCustomExtensions))

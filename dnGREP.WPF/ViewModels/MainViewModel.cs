@@ -759,6 +759,13 @@ namespace dnGREP.WPF
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
+            
+            // archive extension count may change after Options dialog closes
+            CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
+            if (!CanSearchArchives)
+            {
+                IncludeArchive = false;
+            }
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
