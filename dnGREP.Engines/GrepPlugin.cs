@@ -215,7 +215,7 @@ namespace dnGREP.Engines
                     PluginConfiguration? cfg =
                         GrepSettings.Instance.Get<List<PluginConfiguration>>(GrepSettings.Key.Plugins)
                         .FirstOrDefault(r => r.Name.Equals(Name, StringComparison.OrdinalIgnoreCase)) ??
-                        GrepSettings.Instance.AddNewPluginConfig(Name);
+                        GrepSettings.Instance.AddNewPluginConfig(Name, true, true, GrepSettings.CleanExtensions(defaultExtensions ?? []));
 
                     Enabled = cfg.Enabled;
                     PreviewPlainText = cfg.PreviewText;
@@ -243,12 +243,6 @@ namespace dnGREP.Engines
 
         private void GetExtensionsFromSettings(PluginConfiguration cfg, List<string> defaultExtensions)
         {
-            if (string.IsNullOrEmpty(cfg.Extensions) && defaultExtensions.Count > 0)
-            {
-                cfg = new(cfg.Name, cfg.Enabled, cfg.PreviewText, GrepSettings.CleanExtensions(defaultExtensions));
-                GrepSettings.Instance.UpdatePluginConfig(cfg);
-            }
-
             DefaultExtensions.Clear();
             Extensions.Clear();
 

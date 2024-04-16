@@ -1497,7 +1497,7 @@ namespace dnGREP.Common
             return string.Join(", ", cleaned);
         }
 
-        public PluginConfiguration AddNewPluginConfig(string name, bool enabled = true, bool previewText = true, string extensions = "")
+        public PluginConfiguration AddNewPluginConfig(string name, bool enabled, bool previewText, string extensions)
         {
             PluginConfiguration cfg = new(name, enabled, previewText, extensions);
             List<PluginConfiguration> plugins = Get<List<PluginConfiguration>>(Key.Plugins) ?? [];
