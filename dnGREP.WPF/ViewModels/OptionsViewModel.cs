@@ -845,7 +845,7 @@ namespace dnGREP.WPF
 
                 PluginConfiguration cfg = pluginConfigList
                     .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase)) ??
-                    GrepSettings.Instance.AddNewPluginConfig(name, extensions: GrepSettings.CleanExtensions(plugin.DefaultExtensions));
+                    GrepSettings.Instance.AddNewPluginConfig(name, true, true, extensions: GrepSettings.CleanExtensions(plugin.DefaultExtensions));
 
                 Plugins.Add(new(cfg, plugin.DefaultExtensions));
             }
