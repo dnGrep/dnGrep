@@ -48,6 +48,12 @@ namespace dnGREP.WPF
 
         public static bool ShellRegisterContextMenu(bool silent)
         {
+            if (!IsAdministrator)
+            {
+                logger.Error("Called ShellRegisterContextMenu, but not Administrator");
+                return false;
+            }
+
             bool success = false;
             success |= ShellRegister("Directory", silent);
             success |= ShellRegister("Drive", silent);
@@ -140,6 +146,12 @@ namespace dnGREP.WPF
 
         public static bool ShellUnregisterContextMenu(bool silent)
         {
+            if (!IsAdministrator)
+            {
+                logger.Error("Called ShellUnregisterContextMenu, but not Administrator");
+                return false;
+            }
+
             bool success = true;
             success |= ShellUnregister("Directory", silent);
             success |= ShellUnregister("Drive", silent);
