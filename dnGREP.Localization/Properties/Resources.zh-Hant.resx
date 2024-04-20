@@ -3967,4 +3967,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜尋完成後自動排序結果</value>
     <comment>Options dialog, result option checkbox label (accel)</comment>
   </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Windows 11 右鍵功能表:</value>
+    <comment>Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>使用 dnGrep 搜尋</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>需要 Windows 11</value>
+    <comment>Options dialog, startup options checkbox tooltip</comment>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>原始右鍵功能表:</value>
+    <comment>Options dialog, startup options checkbox label</comment>
+  </data>
 </root>
