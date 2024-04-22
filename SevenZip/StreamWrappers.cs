@@ -42,7 +42,7 @@ namespace SevenZip
         /// <param name="fileName">File name associated with the stream (for attributes fix)</param>
         /// <param name="time">File last write time (for attributes fix)</param>
         /// <param name="disposeStream">Indicates whether to dispose the baseStream</param>
-        protected StreamWrapper(Stream baseStream, string fileName, DateTime time, bool disposeStream) 
+        protected StreamWrapper(Stream baseStream, string fileName, DateTime time, bool disposeStream)
             : base(disposeStream)
         {
             _baseStream = baseStream;
@@ -58,7 +58,7 @@ namespace SevenZip
         protected StreamWrapper(Stream baseStream, bool disposeStream)
             : base(disposeStream)
         {
-            _baseStream = baseStream;            
+            _baseStream = baseStream;
         }
 
         /// <summary>
@@ -74,15 +74,15 @@ namespace SevenZip
         public void Dispose()
         {
             if (_baseStream != null && DisposeStream)
-            {               
+            {
                 try
                 {
                     _baseStream.Dispose();
                 }
                 catch (ObjectDisposedException) { }
-                _baseStream = null;                                
-            }    
-            
+                _baseStream = null;
+            }
+
             if (!string.IsNullOrEmpty(_fileName) && File.Exists(_fileName))
             {
                 try
@@ -91,7 +91,7 @@ namespace SevenZip
                     File.SetLastAccessTime(_fileName, _fileTime);
                     File.SetCreationTime(_fileName, _fileTime);
                 }
-                catch (ArgumentOutOfRangeException) {}
+                catch (ArgumentOutOfRangeException) { }
             }
 
             GC.SuppressFinalize(this);
@@ -108,7 +108,7 @@ namespace SevenZip
                 {
                     Marshal.WriteInt64(newPosition, position);
                 }
-            }            
+            }
         }
     }
 
@@ -137,7 +137,7 @@ namespace SevenZip
             int readCount = 0;
             if (BaseStream != null)
             {
-                readCount = BaseStream.Read(data, 0, (int) size);
+                readCount = BaseStream.Read(data, 0, (int)size);
                 if (readCount > 0)
                 {
                     OnBytesRead(new IntEventArgs(readCount));
@@ -172,7 +172,8 @@ namespace SevenZip
         /// <param name="time">Time of the file creation (for attributes fix)</param>
         /// <param name="disposeStream">Indicates whether to dispose the baseStream</param>
         public OutStreamWrapper(Stream baseStream, string fileName, DateTime time, bool disposeStream) :
-            base(baseStream, fileName, time, disposeStream) {}
+            base(baseStream, fileName, time, disposeStream)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the OutStreamWrapper class
@@ -180,7 +181,8 @@ namespace SevenZip
         /// <param name="baseStream">Stream for writing data</param>
         /// <param name="disposeStream">Indicates whether to dispose the baseStream</param>
         public OutStreamWrapper(Stream baseStream, bool disposeStream) :
-            base(baseStream, disposeStream) {}
+            base(baseStream, disposeStream)
+        { }
 
         #region IOutStream Members
 
@@ -203,12 +205,12 @@ namespace SevenZip
         /// <returns>Zero if Ok</returns>
         public int Write(byte[] data, uint size, IntPtr processedSize)
         {
-            BaseStream.Write(data, 0, (int) size);
+            BaseStream.Write(data, 0, (int)size);
             if (processedSize != IntPtr.Zero)
             {
-                Marshal.WriteInt32(processedSize, (int) size);
+                Marshal.WriteInt32(processedSize, (int)size);
             }
-            OnBytesWritten(new IntEventArgs((int) size));
+            OnBytesWritten(new IntEventArgs((int)size));
             return 0;
         }
 
@@ -241,7 +243,7 @@ namespace SevenZip
         /// Initializes a new instance of the MultiStreamWrapper class.
         /// </summary>
         /// <param name="dispose">Perform Dispose() if requested to.</param>
-        protected MultiStreamWrapper(bool dispose) : base(dispose) {}
+        protected MultiStreamWrapper(bool dispose) : base(dispose) { }
 
         /// <summary>
         /// Gets the total length of input data.
@@ -263,7 +265,7 @@ namespace SevenZip
                     {
                         stream.Dispose();
                     }
-                    catch (ObjectDisposedException) {}
+                    catch (ObjectDisposedException) { }
                 }
                 Streams.Clear();
             }
@@ -306,7 +308,8 @@ namespace SevenZip
         public void Seek(long offset, SeekOrigin seekOrigin, IntPtr newPosition)
         {
             long absolutePosition;
-            switch (seekOrigin) {
+            switch (seekOrigin)
+            {
                 case SeekOrigin.Begin:
                     absolutePosition = offset;
                     break;
@@ -365,11 +368,11 @@ namespace SevenZip
         /// <returns>The read bytes count.</returns>
         public int Read(byte[] data, uint size)
         {
-            var readSize = (int) size;
+            var readSize = (int)size;
             int readCount = Streams[CurrentStream].Read(data, 0, readSize);
             readSize -= readCount;
             Position += readCount;
-            while (readCount < (int) size)
+            while (readCount < (int)size)
             {
                 if (CurrentStream == Streams.Count - 1)
                 {
@@ -425,18 +428,18 @@ namespace SevenZip
         public int Write(byte[] data, uint size, IntPtr processedSize)
         {
             int offset = 0;
-            var originalSize = (int) size;
+            var originalSize = (int)size;
             Position += size;
-            _overallLength = Math.Max(Position + 1, _overallLength);
+            _overallLength = Math.Max(Position, _overallLength);
             while (size > _volumeSize - Streams[CurrentStream].Position)
             {
-                var count = (int) (_volumeSize - Streams[CurrentStream].Position);
+                var count = (int)(_volumeSize - Streams[CurrentStream].Position);
                 Streams[CurrentStream].Write(data, offset, count);
-                size -= (uint) count;
+                size -= (uint)count;
                 offset += count;
                 NewVolumeStream();
             }
-            Streams[CurrentStream].Write(data, offset, (int) size);
+            Streams[CurrentStream].Write(data, offset, (int)size);
             if (processedSize != IntPtr.Zero)
             {
                 Marshal.WriteInt32(processedSize, originalSize);
@@ -449,7 +452,7 @@ namespace SevenZip
         public override void Dispose()
         {
             int lastIndex = Streams.Count - 1;
-            Streams[lastIndex].SetLength(lastIndex > 0? Streams[lastIndex].Position : _overallLength);
+            Streams[lastIndex].SetLength(lastIndex > 0 ? Streams[lastIndex].Position : _overallLength);
             base.Dispose();
         }
 
@@ -484,10 +487,10 @@ namespace SevenZip
         /// <returns>Zero if Ok</returns>
         public int Write(byte[] data, uint size, IntPtr processedSize)
         {
-            OnBytesWritten(new IntEventArgs((int) size));
+            OnBytesWritten(new IntEventArgs((int)size));
             if (processedSize != IntPtr.Zero)
             {
-                Marshal.WriteInt32(processedSize, (int) size);
+                Marshal.WriteInt32(processedSize, (int)size);
             }
             return 0;
         }
