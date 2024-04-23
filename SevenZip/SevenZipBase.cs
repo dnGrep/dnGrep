@@ -215,8 +215,7 @@ namespace SevenZip
                                 break;
                             default:
                                 exception = new SevenZipException(
-                                    $"Execution has failed due to an internal SevenZipSharp issue (0x{hresult:x} / {hresult}).\n" +
-                                    "Please report it to https://github.com/squid-box/SevenZipSharp/issues/, include the release number, 7z version used, and attach the archive.");
+                                    $"Execution has failed due to an internal SevenZipSharp issue (0x{hresult:x} / {hresult}).");
                                 break;
                         }
 
@@ -224,9 +223,7 @@ namespace SevenZip
                     }
                     else
                     {
-                        ThrowException(handler,
-                                       new SevenZipException(message + hresult.ToString(CultureInfo.InvariantCulture) +
-                                                             '.'));
+                        ThrowException(handler, new SevenZipException(message + hresult.ToString(CultureInfo.InvariantCulture) + '.'));
                     }
                 }
                 else

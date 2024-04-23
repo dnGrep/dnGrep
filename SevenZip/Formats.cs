@@ -246,7 +246,12 @@
         /// Mach-O file format.
         /// </summary>
         /// <remarks><a href="https://en.wikipedia.org/wiki/Mach-O">Wikipedia information</a></remarks>
-        MachO
+        MachO,
+        /// <summary>
+        /// Apple File System Format.
+        /// </summary>
+        /// <remarks><a href="https://en.wikipedia.org/wiki/Apple_File_System">Wikipedia information</a></remarks>
+        Apfs,
     }
 
     /// <summary>
@@ -275,6 +280,11 @@
         /// <remarks><a href="http://en.wikipedia.org/wiki/Bzip2">Wikipedia information</a></remarks>
         BZip2,
         /// <summary>
+        /// Microsoft Windows Imaging disk image format.
+        /// </summary>
+        /// <remarks><a href="http://en.wikipedia.org/wiki/Windows_Imaging_Format">Wikipedia information</a></remarks>
+        Wim,
+        /// <summary>
         /// Open Tar archive format.
         /// </summary>
         /// <remarks><a href="http://en.wikipedia.org/wiki/Tar_(file_format)">Wikipedia information</a></remarks>
@@ -283,7 +293,7 @@
         /// Open Xz archive format.
         /// </summary>
         /// <remarks><a href="http://en.wikipedia.org/wiki/Xz">Wikipedia information</a></remarks>        
-        XZ
+        XZ,
     }
 
     /// <summary>
@@ -431,10 +441,11 @@
                 {InArchiveFormat.Ntfs,      new Guid("23170f69-40c1-278a-1000-000110D90000")},
                 {InArchiveFormat.Fat,       new Guid("23170f69-40c1-278a-1000-000110DA0000")},
                 {InArchiveFormat.Mbr,       new Guid("23170f69-40c1-278a-1000-000110DB0000")},
-                {InArchiveFormat.MachO,     new Guid("23170f69-40c1-278a-1000-000110DF0000")}
+                {InArchiveFormat.MachO,     new Guid("23170f69-40c1-278a-1000-000110DF0000")},
+                {InArchiveFormat.Apfs,      new Guid("23170f69-40c1-278a-1000-000110C30000")},
             };
 
-            #endregion
+        #endregion
 
         /// <summary>
         /// List of writable archive format interface guids for 7-zip COM interop.
@@ -447,12 +458,13 @@
                 {OutArchiveFormat.SevenZip,     new Guid("23170f69-40c1-278a-1000-000110070000")},
                 {OutArchiveFormat.Zip,          new Guid("23170f69-40c1-278a-1000-000110010000")},
                 {OutArchiveFormat.BZip2,        new Guid("23170f69-40c1-278a-1000-000110020000")},
+                {OutArchiveFormat.Wim,          new Guid("23170f69-40c1-278a-1000-000110E60000")},
                 {OutArchiveFormat.GZip,         new Guid("23170f69-40c1-278a-1000-000110ef0000")},
                 {OutArchiveFormat.Tar,          new Guid("23170f69-40c1-278a-1000-000110ee0000")},
-                {OutArchiveFormat.XZ,           new Guid("23170f69-40c1-278a-1000-0001100C0000")},                
+                {OutArchiveFormat.XZ,           new Guid("23170f69-40c1-278a-1000-0001100C0000")}
             };
 
-            #endregion
+        #endregion
 
         internal static readonly Dictionary<CompressionMethod, string> MethodNames =
             new Dictionary<CompressionMethod, string>
@@ -468,7 +480,7 @@
                 {CompressionMethod.BZip2, "BZip2"}
             };
 
-            #endregion
+        #endregion
 
         internal static readonly Dictionary<OutArchiveFormat, InArchiveFormat> InForOutFormats =
             new Dictionary<OutArchiveFormat, InArchiveFormat>
@@ -478,12 +490,13 @@
                 {OutArchiveFormat.SevenZip, InArchiveFormat.SevenZip},
                 {OutArchiveFormat.GZip, InArchiveFormat.GZip},
                 {OutArchiveFormat.BZip2, InArchiveFormat.BZip2},
+                {OutArchiveFormat.Wim, InArchiveFormat.Wim},
                 {OutArchiveFormat.Tar, InArchiveFormat.Tar},
                 {OutArchiveFormat.XZ, InArchiveFormat.XZ},
                 {OutArchiveFormat.Zip, InArchiveFormat.Zip}
             };
 
-            #endregion
+        #endregion
 
         /// <summary>
         /// List of archive formats corresponding to specific extensions
@@ -540,36 +553,36 @@
             //257 byte offset
             {"52-61-72-21-1A-07-00",                                            InArchiveFormat.Rar4},
             {"52-61-72-21-1A-07-01-00",                                         InArchiveFormat.Rar},
-            {"50-4B-03-04",								                        InArchiveFormat.Zip},
-            {"5D-00-00-40-00",							                        InArchiveFormat.Lzma},
-            {"2D-6C-68",								                        InArchiveFormat.Lzh},
+            {"50-4B-03-04",                                                     InArchiveFormat.Zip},
+            {"5D-00-00-40-00",                                                  InArchiveFormat.Lzma},
+            {"2D-6C-68",                                                        InArchiveFormat.Lzh},
             //^ 2 byte offset
-            {"1F-9D-90",								                        InArchiveFormat.Lzw},
-            {"60-EA",								                            InArchiveFormat.Arj},
-            {"42-5A-68",								                        InArchiveFormat.BZip2},
-            {"4D-53-43-46",								                        InArchiveFormat.Cab},
-            {"49-54-53-46",								                        InArchiveFormat.Chm},
-            {"21-3C-61-72-63-68-3E-0A-64-65-62-69-61-6E-2D-62-69-6E-61-72-79",	InArchiveFormat.Deb},
+            {"1F-9D-90",                                                        InArchiveFormat.Lzw},
+            {"60-EA",                                                           InArchiveFormat.Arj},
+            {"42-5A-68",                                                        InArchiveFormat.BZip2},
+            {"4D-53-43-46",                                                     InArchiveFormat.Cab},
+            {"49-54-53-46",                                                     InArchiveFormat.Chm},
+            {"21-3C-61-72-63-68-3E-0A-64-65-62-69-61-6E-2D-62-69-6E-61-72-79",  InArchiveFormat.Deb},
             {"21-3C-61-72-63-68-3E-0A",                                         InArchiveFormat.Ar},
             {"30-37-30-37-30",                                                  InArchiveFormat.Cpio},
-            {"43-44-30-30-31",							                        InArchiveFormat.Iso},
+            {"43-44-30-30-31",                                                  InArchiveFormat.Iso},
             //^ 0x8001, 0x8801 or 0x9001 byte offset
-            {"ED-AB-EE-DB",								                        InArchiveFormat.Rpm},
-            {"4D-53-57-49-4D-00-00-00",						                    InArchiveFormat.Wim},
-            {"udf",									                            InArchiveFormat.Udf},
-            {"mub",									                            InArchiveFormat.Mub},
-            {"78-61-72-21",								                        InArchiveFormat.Xar},
+            {"ED-AB-EE-DB",                                                     InArchiveFormat.Rpm},
+            {"4D-53-57-49-4D-00-00-00",                                         InArchiveFormat.Wim},
+            {"udf",                                                             InArchiveFormat.Udf},
+            {"mub",                                                             InArchiveFormat.Mub},
+            {"78-61-72-21",                                                     InArchiveFormat.Xar},
             //0x400 byte offset
-            {"48-2B",								                            InArchiveFormat.Hfs},
-            {"FD-37-7A-58-5A",							                        InArchiveFormat.XZ},
-            {"46-4C-56",							                            InArchiveFormat.Flv},
-            {"46-57-53",							                            InArchiveFormat.Swf},
-            {"4D-5A",							                                InArchiveFormat.PE},
-            {"7F-45-4C-46",							                            InArchiveFormat.Elf},
+            {"48-2B",                                                           InArchiveFormat.Hfs},
+            {"FD-37-7A-58-5A",                                                  InArchiveFormat.XZ},
+            {"46-4C-56",                                                        InArchiveFormat.Flv},
+            {"46-57-53",                                                        InArchiveFormat.Swf},
+            {"4D-5A",                                                           InArchiveFormat.PE},
+            {"7F-45-4C-46",                                                     InArchiveFormat.Elf},
             {"78",                                                              InArchiveFormat.Dmg},
             {"63-6F-6E-65-63-74-69-78",                                         InArchiveFormat.Vhd},
             {"45-46-49-20-50-41-52-54-00-00-01-00",                             InArchiveFormat.Gpt}};
-            #endregion
+        #endregion
 
         internal static Dictionary<InArchiveFormat, string> InSignatureFormatsReversed;
 
