@@ -2560,4 +2560,8 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Cancelar</value>
     <comment>Report options dialog, close button</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Buscar con dnGrep</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>
