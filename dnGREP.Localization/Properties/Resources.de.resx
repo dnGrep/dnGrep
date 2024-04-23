@@ -2819,4 +2819,8 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Tage</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Suche mit dnGrep</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>
