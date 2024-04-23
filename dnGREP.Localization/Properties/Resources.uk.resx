@@ -726,4 +726,8 @@
     <value>_Все слово</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Пошук за допомогою dnGrep</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>
