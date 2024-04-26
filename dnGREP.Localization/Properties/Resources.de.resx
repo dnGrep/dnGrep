@@ -178,7 +178,7 @@
     <value>dazugehörige Verzeichnisse:</value>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value>Boolische Operatoren</value>
+    <value>Boolsche Operatoren</value>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -229,7 +229,7 @@
     <value>OK</value>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value>Suchmuster ausschliessen:</value>
+    <value>Suchmuster ausschlißen:</value>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
     <value>Suchmuster:</value>
@@ -241,7 +241,7 @@
     <value>Everything</value>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Regulären Ausdruck</value>
+    <value>_Regulärer Ausdruck</value>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Ersetze mit:</value>
@@ -298,13 +298,13 @@
     <value>benutze .gitignore Dateien zu filtern</value>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>_Ganze Wörter</value>
+    <value>_Ganzes Wort</value>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
     <value>_Hinzufügen</value>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
-    <value>_Schliesse</value>
+    <value>_Schließen</value>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
     <value>_Löschen</value>
@@ -655,13 +655,13 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>keine Unterverzeichnisse</value>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>keine Symboliklinks</value>
+    <value>keine symbolischen Links</value>
   </data>
   <data name="Main_Folder" xml:space="preserve">
     <value>Verzeichnis:</value>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
-    <value>Folge Symbolischen Links</value>
+    <value>Folge symbolischen Links</value>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
     <value>z.B. Datei??.*</value>
@@ -685,16 +685,16 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Gruppen von Regulären Ausdrücken hervorheben - Änderungen werden bei der nächsten Suche übernommen.</value>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value>Binärdateien einschliessen</value>
+    <value>Binärdateien einschließen</value>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
-    <value>Dateinamen oder -typ einschliessen</value>
+    <value>Dateinamen oder -typ einschließen</value>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
-    <value>versteckte Verzeichnisse einschliessen</value>
+    <value>versteckte Verzeichnisse einschließen</value>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
-    <value>Unterverzeichnisse einschliessen</value>
+    <value>Unterverzeichnisse einschließen</value>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
     <value>Maximale Tiefe</value>
@@ -763,7 +763,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>zu</value>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value>Muster ausschliessen:</value>
+    <value>Muster ausschließen:</value>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
     <value>Suchmuster:</value>
@@ -784,7 +784,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Entferne Verzeihniss aus der Lesezeichenzuordnung</value>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value>_Ersetze</value>
+    <value>_Ersetzen</value>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
     <value>Er_setze mit:</value>
@@ -847,7 +847,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Textzeilen kopieren</value>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value>vom Ergebnis ausschliessen</value>
+    <value>vom Ergebnis ausschließen</value>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
     <value>Alles anzeigen</value>
@@ -880,7 +880,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>sichere Ergebnis in eine Datei…</value>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value>_Suche</value>
+    <value>_Suchen</value>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
     <value>Dateien in mehreren Stränge suchen</value>
@@ -949,7 +949,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>zu</value>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value>sortiere</value>
+    <value>Sortieren</value>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
     <value>aussteigend</value>
@@ -1048,7 +1048,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>XPath ist OK</value>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>_Ganze Wörter</value>
+    <value>_Ganzes Wort</value>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
     <value>{0} in "{1}" - dnGrep</value>
@@ -1276,7 +1276,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Alte Suchvorgänge löschen</value>
   </data>
   <data name="Options_Close" xml:space="preserve">
-    <value>_Schliessen</value>
+    <value>_Schließen</value>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
     <value>Dateivergleich</value>
@@ -1417,7 +1417,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Text-Beispiel</value>
   </data>
   <data name="Options_Save" xml:space="preserve">
-    <value>Sichern</value>
+    <value>Speichern</value>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
     <value>Theme wählen</value>
@@ -1732,7 +1732,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>_Groß-/Kleinschreibung</value>
   </data>
   <data name="Test_Close" xml:space="preserve">
-    <value>_Schliessen</value>
+    <value>_Schließen</value>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
     <value>In die Zwischenablage übernehmen</value>
@@ -1819,7 +1819,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>$$ fügt ein einzelnes Dollarzeichen in den Ersetzungstext ein</value>
   </data>
   <data name="Window_Close" xml:space="preserve">
-    <value>Schliessen</value>
+    <value>Schließen</value>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
     <value>Verankere das Pop-Up zurück im Hauptfenster</value>
@@ -1933,7 +1933,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_prüfe auf Update</value>
+    <value>_Auf Updates prüfen</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
@@ -2270,15 +2270,15 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
-    <value>Binärdateien einschliessen</value>
+    <value>Binärdateien einschließen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
-    <value>Versteckte Verzeichnisse einschliessen</value>
+    <value>Versteckte Verzeichnisse einschließen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
-    <value>Unterverzeichnisse einschliessen</value>
+    <value>Unterverzeichnisse einschließen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_multiline" xml:space="preserve">
@@ -2822,5 +2822,13 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
     <value>Suche mit dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Programmfenster wiederverwenden (einzelne Instanz) *</value>
+    <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* Neustart der Anwendung zum Übernehmen notwendig</value>
+    <comment>Options dialog, footnote text</comment>
   </data>
 </root>
