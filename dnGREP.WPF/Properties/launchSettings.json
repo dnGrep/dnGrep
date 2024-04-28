@@ -1,8 +1,7 @@
 {
   "profiles": {
     "dnGREP.WPF": {
-      "commandName": "Project",
-      "commandLineArgs": "/s brown /e \"C:\\Repos\\testFiles\\test\\issue1096\\folder 1\" | \"C:\\Repos\\testFiles\\test\\issue1096\\folder 1 - Copy\" *.txt"
+      "commandName": "Project"
     }
   }
 }

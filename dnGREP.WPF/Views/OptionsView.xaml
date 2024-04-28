@@ -81,7 +81,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0">
+        <ScrollViewer Grid.Row="0" PanningMode="VerticalOnly">
             <StackPanel HorizontalAlignment="Stretch">
 
                 <GroupBox Header="{l:Loc Key='Options_StartupOptions'}">
