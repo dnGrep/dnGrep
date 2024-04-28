@@ -44,7 +44,7 @@ namespace dnGREP.WPF
                 string value = string.Empty;
                 if (idx + 1 < args.Length && !string.IsNullOrEmpty(args[idx + 1]))
                 {
-                    value = CommandLineArgs.StripQuotes(args[idx + 1]);
+                    value = args[idx + 1].StripQuotes();
                 }
 
                 if (!string.IsNullOrEmpty(arg))

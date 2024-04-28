@@ -98,6 +98,7 @@
                            Foreground="{DynamicResource PreviewText.Foreground}"
                            Background="{DynamicResource PreviewText.Background}"
                            ShowLineNumbers="True" IsReadOnly="True"
+                           ScrollViewer.PanningMode="Both"
                            WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}">
                 <ae:TextEditor.ContextMenu>
                     <ContextMenu>

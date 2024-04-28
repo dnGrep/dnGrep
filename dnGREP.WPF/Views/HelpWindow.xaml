@@ -8,33 +8,51 @@
         mc:Ignorable="d"
         Title="{l:Loc Key='Help_DnGrepHelp'}" 
         Height="600" 
-        Width="450"
+        Width="600"
         FlowDirection="{Binding CultureFlowDirection}"
         FontFamily="{Binding ApplicationFontFamily}"
         FontSize="{Binding DialogFontSize}"
         Icon="/dnGREP;component/nGREP.ico"
-        ResizeMode="NoResize"
+        ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource Dialog.Background}"
         CaptionBackground="{DynamicResource Caption.Dialog.Background}">
 
-    <DockPanel Margin="8" LastChildFill="True"
-               Grid.IsSharedSizeScope="True">
+    <Window.Resources>
+        <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
+    </Window.Resources>
+
+    <DockPanel Margin="8" LastChildFill="True">
 
         <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
                 Height="28" HorizontalAlignment="Right" Content="{l:Loc Key='Help_OK'}"
                 IsDefault="True" IsCancel="True" Click="OkButton_Click"/>
 
-        <TextBlock DockPanel.Dock="Top" x:Name="WarningMsg"
+        <TextBlock DockPanel.Dock="Top"
                    Text="{l:Loc Key='Help_OneOrMoreArgumentsAreInvalid'}"
                    Margin="3" HorizontalAlignment="Center"
                    Style="{StaticResource ThemedTextBlock}"
                    FontWeight="SemiBold"
-                   Foreground="Red"/>
+                   Foreground="Red"
+                   Visibility="{Binding ShowWarning, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" 
-                      HorizontalScrollBarVisibility="Disabled">
-            <TextBlock x:Name="HelpText" TextWrapping="Wrap"
+        <TextBox DockPanel.Dock="Top" Margin="3,12" 
+                 Text="{Binding CommandLine}"
+                 IsReadOnly="True"
+                 TextWrapping="NoWrap"
+                 HorizontalScrollBarVisibility="Auto"
+                 Padding="2,3,1,1"
+                 Style="{StaticResource ThemedTextBox}"
+                 Visibility="{Binding HasCommandLine, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+        <ScrollViewer x:Name="scrollViewer"
+                      VerticalScrollBarVisibility="Visible" 
+                      HorizontalScrollBarVisibility="Disabled"
+                      Stylus.IsPressAndHoldEnabled="False"
+                      CanContentScroll="False"
+                      PanningMode="VerticalOnly">
+            <TextBlock x:Name="helpText" Text="{Binding HelpText}"
+                       TextWrapping="Wrap"
                        Style="{StaticResource ThemedTextBlock}"/>
         </ScrollViewer>
     </DockPanel>

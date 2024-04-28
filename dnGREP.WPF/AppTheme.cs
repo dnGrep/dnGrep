@@ -7,6 +7,7 @@ using System.Management;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -107,7 +108,7 @@ namespace dnGREP.WPF
         {
             if (!Utils.IsPortableMode)
             {
-                List<string> files = 
+                List<string> files =
                 [
                     "Dracula Soft.xaml",
                     "Quiet Light.xaml",
@@ -172,7 +173,7 @@ namespace dnGREP.WPF
             if (HasWindowsThemes)
             {
                 WindowsTheme = GetWindowsTheme();
-                WatchTheme();
+                Task.Run(() => WatchTheme());
             }
 
             FollowWindowsTheme = HasWindowsThemes && GrepSettings.Instance.Get<bool>(GrepSettings.Key.FollowWindowsTheme);
@@ -257,12 +258,15 @@ namespace dnGREP.WPF
 
         private void AppThemeChanged()
         {
-            WindowsTheme = GetWindowsTheme();
-
-            if (FollowWindowsTheme)
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                CurrentThemeName = WindowsTheme == WindowsTheme.Dark ? "Dark" : "Light";
-            }
+                WindowsTheme = GetWindowsTheme();
+
+                if (FollowWindowsTheme)
+                {
+                    CurrentThemeName = WindowsTheme == WindowsTheme.Dark ? "Dark" : "Light";
+                }
+            }));
         }
 
         private void LoadExternalThemes()

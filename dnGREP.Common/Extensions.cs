@@ -261,5 +261,27 @@ namespace dnGREP.Common
             }
             return false;
         }
+
+        public static int CountChar(this string source, char toCount)
+        {
+            int count = 0;
+            foreach (var c in source.AsSpan())
+            {
+                if (c == toCount)
+                    count++;
+            }
+            return count;
+        }
+
+
+        public static string StripQuotes(this string input)
+        {
+            if (input.Length > 2 && input.StartsWith('"') && input.EndsWith('"'))
+            {
+                input = input[1..^1];
+            }
+            return input;
+        }
+
     }
 }
