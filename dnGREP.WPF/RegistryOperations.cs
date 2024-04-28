@@ -46,28 +46,29 @@ namespace dnGREP.WPF
             }
         }
 
-        public static bool ShellRegisterContextMenu(bool silent)
+        public static void ShellRegisterContextMenu()
         {
+            if (IsShellRegistered("Directory"))
+                return;
+
             if (!IsAdministrator)
             {
                 logger.Error("Called ShellRegisterContextMenu, but not Administrator");
-                return false;
+                return;
             }
 
-            bool success = false;
-            success |= ShellRegister("Directory", silent);
-            success |= ShellRegister("Drive", silent);
-            success |= ShellRegister("*", silent);
-            success |= ShellRegister("here", silent);
-            return success;
+            ShellRegister("Directory");
+            ShellRegister("Drive");
+            ShellRegister("*");
+            ShellRegister("here");
+            return;
         }
 
-        public static bool ShellRegister(string location, bool silent)
+        public static void ShellRegister(string location)
         {
             if (!IsAdministrator)
-                return false;
+                return;
 
-            bool success = false;
             if (!IsShellRegistered(location))
             {
                 try
@@ -112,60 +113,51 @@ namespace dnGREP.WPF
                                 key.SetValue(null, menuCommand);
                             }
                         }
-
-                        success = true;
                     }
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     isAdministrator = false;
 
-                    if (!silent)
-                    {
-                        MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                    }
+                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
+                        Resources.MessageBox_DnGrep,
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
 
-                    if (!silent)
-                    {
-                        MessageBox.Show(Resources.MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                    }
+                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
+                        Resources.MessageBox_DnGrep,
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
-            return success;
         }
 
-        public static bool ShellUnregisterContextMenu(bool silent)
+        public static void ShellUnregisterContextMenu()
         {
+            if (!IsShellRegistered("Directory"))
+                return;
+
             if (!IsAdministrator)
             {
                 logger.Error("Called ShellUnregisterContextMenu, but not Administrator");
-                return false;
+                return;
             }
 
-            bool success = true;
-            success |= ShellUnregister("Directory", silent);
-            success |= ShellUnregister("Drive", silent);
-            success |= ShellUnregister("*", silent);
-            success |= ShellUnregister("here", silent);
-            return success;
+            ShellUnregister("Directory");
+            ShellUnregister("Drive");
+            ShellUnregister("*");
+            ShellUnregister("here");
         }
 
-        private static bool ShellUnregister(string location, bool silent)
+        private static void ShellUnregister(string location)
         {
             if (!IsAdministrator)
-                return false;
+                return;
 
-            bool success = false;
             try
             {
                 if (IsShellRegistered(location))
@@ -180,34 +172,26 @@ namespace dnGREP.WPF
                         string regPath = $@"{location}\shell\{SHELL_KEY_NAME}";
                         Registry.ClassesRoot.DeleteSubKeyTree(regPath);
                     }
-
-                    success = true;
                 }
             }
             catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
             {
                 isAdministrator = false;
 
-                if (!silent)
-                {
-                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
+                MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
+                    Resources.MessageBox_DnGrep,
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
-                if (!silent)
-                {
-                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
+
+                MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
+                    Resources.MessageBox_DnGrep,
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
-            return success;
         }
 
         public static bool IsStartupRegistered()

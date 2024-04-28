@@ -65,7 +65,7 @@ namespace dnGREP.WPF
 
             TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
             {
-                PanelTooltip = IsAdministrator ? string.Empty : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
+                PanelTooltip = IsAdministrator ? null : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
                 WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
 
                 foreach (var item in VisibilityOptions)
@@ -319,6 +319,9 @@ namespace dnGREP.WPF
         private bool canModifyWindows11ShellMenu;
 
         [ObservableProperty]
+        private string? enableWindows11ShellMenuTooltip;
+
+        [ObservableProperty]
         private bool isSingletonInstance;
 
         [ObservableProperty]
@@ -343,6 +346,7 @@ namespace dnGREP.WPF
         private bool isAdministrator;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(CanChangeRunAtStartup))]
         private bool enableCheckForUpdates;
         partial void OnEnableCheckForUpdatesChanged(bool value)
         {
@@ -355,6 +359,8 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool enableRunAtStartup;
+
+        public bool CanChangeRunAtStartup => EnableCheckForUpdates && IsAdministrator;
 
         [ObservableProperty]
         private bool followWindowsTheme = true;
@@ -751,7 +757,8 @@ namespace dnGREP.WPF
             }
             EnableWindowsIntegration = RegistryOperations.IsShellRegistered("Directory");
             EnableWindows11ShellMenu = enableWindows11ShellMenuOriginalValue = SparsePackage.IsRegistered;
-            CanModifyWindows11ShellMenu = SparsePackage.CanRegisterPackage;
+            CanModifyWindows11ShellMenu = SparsePackage.CanRegisterPackage && !IsAdministrator;
+            EnableWindows11ShellMenuTooltip = SparsePackage.CanRegisterPackage ? null : Resources.Options_RequiresWindows11;
             EnableRunAtStartup = RegistryOperations.IsStartupRegistered();
             IsSingletonInstance = Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance);
             ConfirmExitScript = Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript);
@@ -877,31 +884,36 @@ namespace dnGREP.WPF
 
         private void SaveSettings()
         {
-            if (EnableWindowsIntegration)
+            if (IsAdministrator)
             {
-                RegistryOperations.ShellRegisterContextMenu(false);
-            }
-            else
-            {
-                RegistryOperations.ShellUnregisterContextMenu(false);
-            }
+                if (EnableWindowsIntegration)
+                {
+                    RegistryOperations.ShellRegisterContextMenu();
+                }
+                else
+                {
+                    RegistryOperations.ShellUnregisterContextMenu();
+                }
 
-            if (EnableWindows11ShellMenu)
-            {
-                SparsePackage.RegisterSparsePackage(false);
+                if (EnableRunAtStartup)
+                {
+                    RegistryOperations.StartupRegister();
+                }
+                else
+                {
+                    RegistryOperations.StartupUnregister();
+                }
             }
             else
             {
-                SparsePackage.RemoveSparsePackage();
-            }
-
-            if (EnableRunAtStartup)
-            {
-                RegistryOperations.StartupRegister();
-            }
-            else
-            {
-                RegistryOperations.StartupUnregister();
+                if (EnableWindows11ShellMenu)
+                {
+                    SparsePackage.RegisterSparsePackage(false);
+                }
+                else
+                {
+                    SparsePackage.RemoveSparsePackage();
+                }
             }
 
             ApplicationFontFamily = EditApplicationFontFamily;
