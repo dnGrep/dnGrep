@@ -1278,6 +1278,18 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /e [search commands]
+        ///-e [search commands]
+        ///-everything [search commands]
+        ///    Sets the Everything search text. Must be the last option on the command line and will copy the remainder of the command line verbatim..
+        /// </summary>
+        public static string Help_CmdLineEverything {
+            get {
+                return ResourceManager.GetString("Help_CmdLineEverything", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dnGrep [arguments]
         ///Using any combination of arguments from the list below.
         ///Example:

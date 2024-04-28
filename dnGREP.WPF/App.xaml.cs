@@ -95,7 +95,8 @@ namespace dnGREP.WPF
                 }
                 else if (AppArgs.ShowHelp)
                 {
-                    MainWindow = new HelpWindow(CommandLineArgs.GetHelpString(), AppArgs.InvalidArgument);
+                    MainWindow = new HelpWindow(CommandLineArgs.GetHelpString(), 
+                        AppArgs.InvalidArgument, AppArgs.CommandLine);
                 }
                 else
                 {

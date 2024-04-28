@@ -4051,4 +4051,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Original right-click menu:</value>
     <comment>Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [search commands]
+-e [search commands]
+-everything [search commands]
+    Sets the Everything search text. Must be the last option on the command line and will copy the remainder of the command line verbatim.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>

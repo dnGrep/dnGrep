@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
-using dnGREP.Common.UI;
 using dnGREP.Localization;
 using NLog;
 using Resources = dnGREP.Localization.Properties.Resources;
@@ -19,6 +19,8 @@ namespace dnGREP.WPF
 
         public CommandLineArgs(string commandLine)
         {
+            CommandLine = commandLine;
+
             if (!string.IsNullOrEmpty(commandLine) &&
                 !commandLine.TrimEnd(' ', '\"').EndsWith(appName, StringComparison.OrdinalIgnoreCase))
             {
@@ -34,6 +36,8 @@ namespace dnGREP.WPF
                 EvaluateArgs(args);
             }
         }
+
+        public string CommandLine { get; private set; }
 
         public int Count { get; private set; }
 
@@ -85,49 +89,144 @@ namespace dnGREP.WPF
             }
         }
 
-        private static readonly List<char> separators = [',', ';'];
+        private static readonly List<char> separators = [',', ';', '|'];
 
-        private static string FormatPathArgs(string input)
+        public static string FormatPathArgs(string input)
         {
             if (input.IndexOfAny([.. separators]) > -1)
             {
-                List<string> parts = [];
-                string[] split = input.Split([.. separators]);
-
-                foreach (string part in split)
+                var parts = PathParser(input);
+                for (int idx = 0; idx < parts.Count; idx++)
                 {
-                    string token = part.Replace("\"\"", "\"", StringComparison.Ordinal);
-                    if (token.StartsWith('\"') && !token.EndsWith('\"'))
-                    {
-                        token = token.TrimStart('\"');
-                    }
-                    if (token.EndsWith('\"') && !token.StartsWith('\"'))
-                    {
-                        token = token.TrimEnd('\"');
-                    }
-                    if (!string.IsNullOrWhiteSpace(token))
-                    {
-                        parts.Add(token);
-                    }
+                    var token = parts[idx];
+                    string path = token.Path.StripQuotes();
+                    path = QuoteIfNeeded(path);
+                    parts[idx] = new(path, token.Separator);
                 }
 
-                return string.Join(";", parts);
+                StringBuilder sb = new();
+                foreach (var part in parts)
+                {
+                    sb.Append(part.Path);
+                    if (part.Separator != null)
+                    {
+                        if (part.Separator == '|')
+                            sb.Append(' ').Append(part.Separator).Append(' ');
+                        else
+                            sb.Append(part.Separator);
+                    }
+                }
+                return sb.ToString();
             }
             else
             {
-                string path = StripQuotes(input);
-                path = UiUtils.QuoteIfNeeded(path);
+                string path = input.StripQuotes();
+                path = QuoteIfNeeded(path);
                 return path;
             }
         }
 
-        internal static string StripQuotes(string input)
+        private static string QuoteIfNeeded(string path)
         {
-            if (input.Length > 2 && input.StartsWith('"') && input.EndsWith('"'))
+            if (string.IsNullOrWhiteSpace(path))
+                return string.Empty;
+
+            if (path.StartsWith('"') && path.EndsWith('"'))
             {
-                input = input[1..^1];
+                return path;
             }
-            return input;
+
+            if (path.Contains(' ', StringComparison.Ordinal) ||
+                path.Contains(',', StringComparison.Ordinal) ||
+                path.Contains(';', StringComparison.Ordinal))
+            {
+                return "\"" + path + "\"";
+            }
+
+            return path;
+        }
+
+        private static List<PathToken> PathParser(string csvText)
+        {
+            List<PathToken> tokens = [];
+
+            if (csvText.StartsWith('"') && csvText.EndsWith('"') && csvText.CountChar('"') == 2)
+            {
+                csvText = csvText.StripQuotes();
+            }
+
+            int last = -1;
+            int current = 0;
+            bool inText = false;
+
+            while (current < csvText.Length)
+            {
+                switch (csvText[current])
+                {
+                    case '"':
+                        inText = !inText; break;
+                    case ',':
+                    case ';':
+                        char separator = csvText[current];
+                        if (!inText && IsPathBreak(csvText, current + 1))
+                        {
+                            tokens.Add(new(csvText.Substring(last + 1, current - last).Trim(' ', ',', ';', '|'), separator));
+                            last = current;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                current++;
+            }
+
+            if (last != csvText.Length - 1)
+            {
+                tokens.Add(new(csvText.Substring(last + 1).Trim(), null));
+            }
+
+            return tokens;
+        }
+
+        private record PathToken(string Path, char? Separator) { }
+
+        private static bool IsPathBreak(string csvText, int index)
+        {
+            if (index < csvText.Length)
+            {
+                string next = csvText[index..];
+                next = next.TrimStart();
+
+                // is the next non-whitespace character a quote?
+                if (next.StartsWith('"'))
+                {
+                    return true;
+                }
+
+                // does the next string start with a path root?
+                string? root = Path.GetPathRoot(next);
+                if (!string.IsNullOrEmpty(root))
+                {
+                    // case for C: or C:\
+                    if (root.Length > 1 && IsDriveLetter(root[0]) && root[1] == ':')
+                    {
+                        return true;
+                    }
+
+                    // case for \\ComputerName\SharedFolder or \\?\C:
+                    if (root.StartsWith("\\\\", StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return false;
+        }
+
+        private static bool IsDriveLetter(char c)
+        {
+            return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
         }
 
         private static readonly HashSet<string> pathFlags = ["/f", "-f", "-folder"];
@@ -151,7 +250,7 @@ namespace dnGREP.WPF
                         }
                         else if (idx == 1)
                         {
-                            SearchFor = StripQuotes(arg);
+                            SearchFor = arg.StripQuotes();
                             TypeOfSearch = SearchType.Regex;
                             ExecuteSearch = true;
                         }
@@ -169,7 +268,7 @@ namespace dnGREP.WPF
                             }
                             else
                             {
-                                value = StripQuotes(value);
+                                value = value.StripQuotes();
                             }
                         }
 
@@ -202,6 +301,37 @@ namespace dnGREP.WPF
                                 }
 
                                 break;
+
+                            case "/e":
+                            case "-e":
+                            case "-everything":
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
+                                    // must be the last option on the command line, will copy the remainder of the line
+                                    int pos = CommandLine.IndexOf(arg, StringComparison.OrdinalIgnoreCase);
+                                    if (pos > -1)
+                                    {
+                                        pos += arg.Length + 1;
+                                        if (pos < CommandLine.Length)
+                                        {
+                                            Everything = CommandLine.Substring(pos);
+                                            idx = args.Length;
+                                        }
+                                        else
+                                        {
+                                            InvalidArgument = true;
+                                            ShowHelp = true;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+
+                                break;
+
 
                             case "/f":
                             case "-f":
@@ -566,6 +696,7 @@ namespace dnGREP.WPF
         public bool ShowHelp { get; private set; }
         public string? SearchFor { get; private set; }
         public string? SearchPath { get; private set; }
+        public string? Everything { get; private set; }
         public SearchType? TypeOfSearch { get; private set; }
         public string? NamePatternToInclude { get; private set; }
         public string? NamePatternToExclude { get; private set; }
@@ -595,6 +726,12 @@ namespace dnGREP.WPF
             if (!string.IsNullOrWhiteSpace(SearchPath))
             {
                 GrepSettings.Instance.Set(GrepSettings.Key.SearchFolder, SearchPath);
+            }
+
+            if (!string.IsNullOrWhiteSpace(Everything))
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.TypeOfFileSearch, FileSearchType.Everything);
+                GrepSettings.Instance.Set(GrepSettings.Key.SearchFolder, Everything);
             }
 
             if (!string.IsNullOrWhiteSpace(SearchFor))
@@ -699,6 +836,7 @@ namespace dnGREP.WPF
             sb.AppendLine(Resources.Help_CmdLineArguments).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineScript).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineFolder).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineEverything).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePathToMatch).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePathToIgnore).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePatternType).AppendLine();
