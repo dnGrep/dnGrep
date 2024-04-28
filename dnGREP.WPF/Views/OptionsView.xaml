@@ -88,17 +88,17 @@
                     <StackPanel Orientation="Vertical">
                         <Label Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
                                ToolTip="{l:Loc Key='Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu'}"/>
-                        <Border ToolTip="{l:Loc Key='Options_RequiresWindows11'}" Margin="24,0,0,0">
-                        <CheckBox Margin="0,3"
-                                  IsChecked="{Binding Path=EnableWindows11ShellMenu}" 
-                                  IsEnabled="{Binding Path=CanModifyWindows11ShellMenu}">
-                            <CheckBox.Content>
-                                <TextBlock>
-                                    <Run Text="{l:Loc Key='Options_NewRightClickMenu'}"/><Run>&#160;</Run>
-                                    <Run FontWeight="Bold" Text="{l:Loc Key='ShellMenu_SearchWithDnGrep'}"/>
+                        <Border ToolTip="{Binding EnableWindows11ShellMenuTooltip}" Margin="24,0,0,0">
+                            <CheckBox Margin="0,3"
+                                      IsChecked="{Binding Path=EnableWindows11ShellMenu}" 
+                                      IsEnabled="{Binding Path=CanModifyWindows11ShellMenu}">
+                                <CheckBox.Content>
+                                    <TextBlock>
+                                        <Run Text="{l:Loc Key='Options_NewRightClickMenu'}"/><Run>&#160;</Run>
+                                        <Run FontWeight="Bold" Text="{l:Loc Key='ShellMenu_SearchWithDnGrep'}"/>
                                     </TextBlock>
-                            </CheckBox.Content>
-                        </CheckBox>
+                                </CheckBox.Content>
+                            </CheckBox>
                         </Border>
                         <Border ToolTip="{Binding Path=PanelTooltip}" Margin="24,0,0,0">
                             <CheckBox Margin="0,3"
@@ -172,9 +172,11 @@
                             </TextBox>
                             <Label Margin="3,0" Content="{l:Loc Key='Options_CheckDays'}" />
                         </StackPanel>
-                        <CheckBox Margin="0,3" Content="{l:Loc Key='Options_CheckForUpdatesWhenWindowsStarts'}"
-                                  IsChecked="{Binding Path=EnableRunAtStartup}"
-                                  IsEnabled="{Binding Path=EnableCheckForUpdates }"/>
+                        <Border ToolTip="{Binding Path=PanelTooltip}" Margin="24,3">
+                            <CheckBox Content="{l:Loc Key='Options_CheckForUpdatesWhenWindowsStarts'}"
+                                      IsChecked="{Binding Path=EnableRunAtStartup}"
+                                      IsEnabled="{Binding Path=CanChangeRunAtStartup }"/>
+                        </Border>
                     </StackPanel>
                 </GroupBox>
 
