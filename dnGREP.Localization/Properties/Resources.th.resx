@@ -126,4 +126,8 @@
     <value>ตกลง</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>ค้นหาด้วย dnGrep</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>
