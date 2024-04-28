@@ -474,4 +474,8 @@
     <value>İptal</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>dnGrep ile arama yapın</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>

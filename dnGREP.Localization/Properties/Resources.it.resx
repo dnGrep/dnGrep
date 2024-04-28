@@ -1257,4 +1257,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Annulla</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Cerca con dnGrep</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>
