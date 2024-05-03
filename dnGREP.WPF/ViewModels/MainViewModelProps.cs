@@ -63,7 +63,6 @@ namespace dnGREP.WPF
             CaptureGroupSearchVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.CaptureGroupSearchVisible);
             SearchInResultsVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchInResultsVisible);
             PreviewFileVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewFileVisible);
-            StopAfterFirstMatchVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.StopAfterFirstMatchVisible);
 
             HighlightMatchesVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatchesVisible);
             HighlightGroupsVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightGroupsVisible);
@@ -170,9 +169,6 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool previewFileVisible = true;
-
-        [ObservableProperty]
-        private bool stopAfterFirstMatchVisible = true;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(ResultsTreeOptionsExpanderVisible))]

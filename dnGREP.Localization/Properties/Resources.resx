@@ -1497,7 +1497,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>Stop after first match</value>
-    <comment>Main window, search options checkbox label (accel)</comment>
+    <comment>Main window, search option label</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
     <value>Test expression</value>
@@ -4057,5 +4057,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -everything [search commands]
     Sets the Everything search text. Must be the last option on the command line and will copy the remainder of the command line verbatim.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>Stop after {0} matches</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>Pause after first match</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>Pause after {0} matches</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>Number of matches to auto stop search</value>
+    <comment>Options dialog, search options label</comment>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>Number of matches to auto pause search</value>
+    <comment>Options dialog, search options label</comment>
   </data>
 </root>

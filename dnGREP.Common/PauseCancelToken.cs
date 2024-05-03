@@ -43,6 +43,15 @@ namespace dnGREP.Common
         public CancellationToken CancellationToken => _cancelToken ?? default;
         public bool IsCancellationRequested => _source != null && _source.IsCancellationRequested;
         public bool IsPaused => _source != null && _source.IsPaused;
+        public void Pause()
+        {
+            _source?.Pause();
+        }
+
+        public void Cancel()
+        {
+            _source?.Cancel();
+        }
 
         public void WaitWhilePaused()
         {

@@ -124,6 +124,20 @@
                             <Setter TargetName="Border" Property="MinHeight" Value="22" />
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Menu.SubMenu.Item.Background}" />
                         </Trigger>
+                        <!--  Menu item in a submenu that can invoke commands -  using the style of a top level item -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Role" Value="SubmenuItem"/>
+                                <Condition Property="Tag" Value="Simple"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Padding" Value="6,0,6,2" />
+                            <Setter TargetName="Col0" Property="MinWidth" Value="0" />
+                            <Setter TargetName="Col3" Property="Width" Value="Auto" />
+                            <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="IGTHost" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ArrowPanel" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="VericalSeparator" Property="BorderThickness" Value="0" />
+                        </MultiTrigger>
                         <!--  Menu item in a submenu that can invoke commands  -->
                         <Trigger Property="Role" Value="SubmenuItem">
                             <Setter Property="DockPanel.Dock" Value="Top" />
