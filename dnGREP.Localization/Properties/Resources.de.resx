@@ -2831,4 +2831,8 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>* Neustart der Anwendung zum Übernehmen notwendig</value>
     <comment>Options dialog, footnote text</comment>
   </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>natürliche Sortierung</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
 </root>
