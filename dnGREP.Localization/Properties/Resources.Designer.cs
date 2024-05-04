@@ -5304,6 +5304,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of matches to auto pause search.
+        /// </summary>
+        public static string Options_NumberOfMatchesToAutoPauseSearch {
+            get {
+                return ResourceManager.GetString("Options_NumberOfMatchesToAutoPauseSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of matches to auto stop search.
+        /// </summary>
+        public static string Options_NumberOfMatchesToAutoStopSearch {
+            get {
+                return ResourceManager.GetString("Options_NumberOfMatchesToAutoStopSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to On file copy, when destination file exists, overwrite existing file?.
         /// </summary>
         public static string Options_OnFileCopyOverwrite {
