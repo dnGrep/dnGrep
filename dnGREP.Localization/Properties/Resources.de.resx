@@ -892,7 +892,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Suche</value>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Suche in Ar_chiven</value>
+    <value>Ar_chive durchsuchen</value>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
     <value>Suche in</value>
@@ -967,10 +967,10 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Dateityp und -name</value>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value>letze Änderungszeit</value>
+    <value>Änderungszeit</value>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>Trefferzähler</value>
+    <value>Trefferanzahl</value>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
     <value>Pfad und Dateiname, Größe-zuerst</value>
@@ -2294,7 +2294,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
-    <value>Suche in Archiven</value>
+    <value>Archive durchsuchen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinresults" xml:space="preserve">
@@ -2830,5 +2830,9 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
     <value>* Neustart der Anwendung zum Übernehmen notwendig</value>
     <comment>Options dialog, footnote text</comment>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>natürliche Sortierung</value>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
 </root>

@@ -4029,4 +4029,23 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Търсене с dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>Обикновено контекстуално меню:</value>
+    <comment>Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>Изисква Windows 11</value>
+    <comment>Options dialog, startup options checkbox tooltip</comment>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Контекстуално меню на Windows 11:</value>
+    <comment>Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [команди за търсене]
+-e [команди за търсене]
+-everything [команди за търсене]
+    Задава текст за търсене с Everything. Трябва да бъде последната команда на командния ред и ще използва дословно всичко след нея.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
