@@ -1024,14 +1024,21 @@
                                   IsChecked="{Binding PreviewFileContent}"
                                   TabIndex="81" 
                                   Visibility="{Binding PreviewFileVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                        <CheckBox Margin="3,0" Content="{l:Loc Key='Main_StopAfterFirstMatch'}"
-                                  IsChecked="{Binding StopAfterFirstMatch}"
-                                  TabIndex="82" 
-                                  Visibility="{Binding StopAfterFirstMatchVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                        <Button Margin="3" Padding="8,3"
+                        <my:SplitButton Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_SearchButton'}" IsDefault="True"
                                 Command="{Binding SearchCommand}"
-                                TabIndex="83" />
+                                TabIndex="83">
+                            <my:SplitButton.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Tag="Simple" 
+                                              Header="{Binding StopAfterNumMatchesText}"
+                                              Command="{Binding SearchAndStopCommand}"/>
+                                    <MenuItem Tag="Simple" 
+                                              Header="{Binding PauseAfterNumMatchesText}"
+                                              Command="{Binding SearchAndPauseCommand}"/>
+                                </ContextMenu>
+                            </my:SplitButton.ContextMenu>
+                        </my:SplitButton>
                         <Button Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_ReplaceButton'}"
                                 ToolTipService.ShowOnDisabled="True"

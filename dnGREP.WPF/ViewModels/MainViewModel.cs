@@ -461,6 +461,12 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private string? statusMessage4Tooltip;
 
+        [ObservableProperty]
+        private string stopAfterNumMatchesText = string.Empty;
+
+        [ObservableProperty]
+        private string pauseAfterNumMatchesText = string.Empty;
+
         private void ClearMatchCountStatus()
         {
             StatusMessage2 = string.Empty;
@@ -519,8 +525,38 @@ namespace dnGREP.WPF
         /// Returns a command that starts a search.
         /// </summary>
         public ICommand SearchCommand => new RelayCommand(
-            param => Search(),
+            param =>
+            {
+                StopAfterNumMatches = false;
+                PauseAfterNumMatches = false;
+                Search();
+            },
             param => CanSearch);
+
+        /// <summary>
+        /// Returns a command that starts a search, and stops after the first match
+        /// </summary>
+        public ICommand SearchAndStopCommand => new RelayCommand(
+            param =>
+            {
+                StopAfterNumMatches = true;
+                PauseAfterNumMatches = false;
+                Search();
+            },
+            param => CanSearch);
+
+        /// <summary>
+        /// Returns a command that starts a search, and stops after the first match
+        /// </summary>
+        public ICommand SearchAndPauseCommand => new RelayCommand(
+            param =>
+            {
+                StopAfterNumMatches = false;
+                PauseAfterNumMatches = true;
+                Search();
+            },
+            param => CanSearch);
+
 
         /// <summary>
         /// Returns a command that starts a search in results.
@@ -759,7 +795,13 @@ namespace dnGREP.WPF
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
-            
+
+            StopAfterNumMatchesText = SearchAutoStopCount == 1 ? Resources.Main_StopAfterFirstMatch :
+                TranslationSource.Format(Resources.Main_StopAfter0Matches, SearchAutoStopCount);
+
+            PauseAfterNumMatchesText = SearchAutoPauseCount == 1 ? Resources.Main_PauseAfterFirstMatch :
+                TranslationSource.Format(Resources.Main_PauseAfter0Matches, SearchAutoPauseCount);
+
             // archive extension count may change after Options dialog closes
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             if (!CanSearchArchives)
@@ -1124,7 +1166,12 @@ namespace dnGREP.WPF
                                 param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                                 param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                                 param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
-                                param.SkipRemoteCloudStorageFiles, param.IgnoreFilterFile)
+                                param.SkipRemoteCloudStorageFiles, param.IgnoreFilterFile),
+
+                            // copy current values from the view model to GrepCore
+                            // may be different from GrepSettings when running a script
+                            SearchAutoStopCount = SearchAutoStopCount,
+                            SearchAutoPauseCount = SearchAutoPauseCount,
                         };
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -1138,8 +1185,10 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.WholeWord;
                         if (BooleanOperators)
                             searchOptions |= GrepSearchOption.BooleanOperators;
-                        if (StopAfterFirstMatch)
-                            searchOptions |= GrepSearchOption.StopAfterFirstMatch;
+                        if (StopAfterNumMatches)
+                            searchOptions |= GrepSearchOption.StopAfterNumMatches;
+                        if (PauseAfterNumMatches)
+                            searchOptions |= GrepSearchOption.PauseAfterNumMatches;
 
                         if (UseGitignore)
                         {
@@ -1189,8 +1238,10 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.WholeWord;
                         if (BooleanOperators)
                             searchOptions |= GrepSearchOption.BooleanOperators;
-                        if (StopAfterFirstMatch)
-                            searchOptions |= GrepSearchOption.StopAfterFirstMatch;
+                        if (StopAfterNumMatches)
+                            searchOptions |= GrepSearchOption.StopAfterNumMatches;
+                        if (PauseAfterNumMatches)
+                            searchOptions |= GrepSearchOption.PauseAfterNumMatches;
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
                         e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage, param.PauseCancelToken);
@@ -1284,9 +1335,16 @@ namespace dnGREP.WPF
             {
                 if (e.UserState is ProgressStatus progress)
                 {
-                    if (StopAfterFirstMatch && progress.SearchResults?.Count > 0)
+                    if (StopAfterNumMatches && progress.SuccessfulFiles > SearchAutoStopCount)
                     {
                         pauseCancelTokenSource?.Cancel();
+                    }
+
+                    if (PauseAfterNumMatches && progress.SuccessfulFiles >= SearchAutoPauseCount)
+                    {
+                        pauseCancelTokenSource?.Pause();
+                        IsSearchReplacePaused = true;
+                        PauseAfterNumMatches = false;
                     }
 
                     if (!progress.BeginSearch && progress.SearchResults != null && progress.SearchResults.Count > 0)
@@ -2882,7 +2940,8 @@ namespace dnGREP.WPF
                 TypeOfFileSearch == FileSearchType.Regex, IgnoreFilter.FilePath);
 
             sb.Append(Resources.ReportSummary_SearchFor).Append(" '").Append(SearchFor).AppendLine("'")
-              .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToLocalizedString());
+              .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToLocalizedString())
+              .AppendLine();
 
             if (CaseSensitive) options.Add(Resources.ReportSummary_CaseSensitive);
             if (WholeWord) options.Add(Resources.ReportSummary_WholeWord);
@@ -2890,24 +2949,36 @@ namespace dnGREP.WPF
             if (Singleline) options.Add(Resources.ReportSummary_DotAsNewline);
             if (BooleanOperators) options.Add(Resources.ReportSummary_BooleanOperators);
             if (SearchInResultsContent) options.Add(Resources.ReportSummary_SearchInResults);
-            if (StopAfterFirstMatch) options.Add(Resources.ReportSummary_StopAfterFirstMatch);
+            if (StopAfterNumMatches)
+            {
+                if (SearchAutoStopCount == 1)
+                    options.Add(Resources.ReportSummary_StopAfterFirstMatch);
+                else
+                    options.Add(TranslationSource.Format(Resources.Main_StopAfter0Matches, SearchAutoStopCount));
+            }
             if (options.Count > 0)
-                sb.AppendLine(string.Join(", ", [.. options]));
+                sb.AppendLine(string.Join(", ", options));
             sb.AppendLine();
 
             sb.Append(Resources.ReportSummary_SearchIn).Append(' ').AppendLine(FileOrFolderPath)
               .Append(Resources.ReportSummary_FilePattern).Append(' ').AppendLine(FilePattern);
 
-            if (excludePatterns.Count == 1 && !string.IsNullOrEmpty(excludePatterns[0].pattern))
+            if (excludePatterns.Count == 1)
             {
-                sb.Append(Resources.ReportSummary_ExcludePattern).Append(' ').AppendLine(excludePatterns[0].pattern);
+                if (!string.IsNullOrEmpty(excludePatterns[0].pattern))
+                {
+                    sb.Append(Resources.ReportSummary_ExcludePattern).Append(' ').AppendLine(excludePatterns[0].pattern);
+                }
             }
             else
             {
                 sb.AppendLine(Resources.ReportSummary_ExcludePattern);
                 foreach (var (path, pattern) in excludePatterns)
                 {
-                    sb.Append("  ").Append(path).Append(": ").AppendLine(pattern);
+                    if (!string.IsNullOrEmpty(pattern))
+                    {
+                        sb.Append("  ").Append(path).Append(": ").AppendLine(pattern);
+                    }
                 }
             }
 

@@ -2532,6 +2532,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pause after {0} matches.
+        /// </summary>
+        public static string Main_PauseAfter0Matches {
+            get {
+                return ResourceManager.GetString("Main_PauseAfter0Matches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause after first match.
+        /// </summary>
+        public static string Main_PauseAfterFirstMatch {
+            get {
+                return ResourceManager.GetString("Main_PauseAfterFirstMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pause.
         /// </summary>
         public static string Main_PauseButton {
@@ -3500,6 +3518,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_StatusTooltip_MatchNumberMatchCountOverall {
             get {
                 return ResourceManager.GetString("Main_StatusTooltip_MatchNumberMatchCountOverall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop after {0} matches.
+        /// </summary>
+        public static string Main_StopAfter0Matches {
+            get {
+                return ResourceManager.GetString("Main_StopAfter0Matches", resourceCulture);
             }
         }
         

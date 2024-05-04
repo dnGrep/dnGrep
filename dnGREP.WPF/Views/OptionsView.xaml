@@ -504,6 +504,57 @@
 
                 <GroupBox Header="{l:Loc Key='Options_SearchOptions'}">
                     <StackPanel Margin="0,3,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Content="{l:Loc Key='Options_NumberOfMatchesToAutoStopSearch'}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="3,0"
+                                     HorizontalContentAlignment="Right">
+                                <TextBox.Text>
+                                    <Binding Path="SearchAutoStopCount" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                        <Binding.ValidationRules>
+                                            <my:ValueRangeRule Min="1" Max="100000"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
+
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Content="{l:Loc Key='Options_NumberOfMatchesToAutoPauseSearch'}"/>
+                            <TextBox Grid.Row="1" Grid.Column="01" Margin="3,0"
+                                     HorizontalContentAlignment="Right">
+                                <TextBox.Text>
+                                    <Binding Path="SearchAutoPauseCount" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                        <Binding.ValidationRules>
+                                            <my:ValueRangeRule Min="1" Max="100000"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
+                        </Grid>
                         <Label Content="{l:Loc Key='Options_MaximumNumberOfParallelSearches'}"/>
                         <StackPanel Orientation="Horizontal">
                             <Slider Width="250" HorizontalAlignment="Left"

@@ -25,12 +25,15 @@ namespace dnGREP.Common
 
         public GrepEngineInitParams SearchParams { get; set; } = GrepEngineInitParams.Default;
         public FileFilter FileFilter { get; set; } = FileFilter.Default;
+        public int SearchAutoStopCount { get; set; } = 1;
+        public int SearchAutoPauseCount { get; set; } = 5;
 
 
         private readonly List<GrepSearchResult> searchResults = [];
         private readonly object lockObj = new();
         private int processedFilesCount;
-        private int foundfilesCount;
+        private int foundFilesCount;
+        private bool autoPauseExecuted;
 
         public static TimeSpan MatchTimeout { get; private set; } = TimeSpan.FromSeconds(4);
 
@@ -53,6 +56,7 @@ namespace dnGREP.Common
                 return searchResults;
 
             int successful = 0;
+            processedFilesCount = 0;
             foreach (FileData fileInfo in files)
             {
                 ProcessedFile?.Invoke(this, new ProgressStatus(true, searchResults.Count, successful, null, fileInfo.FullName));
@@ -66,19 +70,36 @@ namespace dnGREP.Common
                     if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
                     {
                         if (codePage == -1 && !fileInfo.FullName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal) &&
-                            !Utils.IsArchive(fileInfo.FullName) && !Utils.IsPluginFile(fileInfo.FullName) && 
+                            !Utils.IsArchive(fileInfo.FullName) && !Utils.IsPluginFile(fileInfo.FullName) &&
                             !Utils.IsBinary(fileInfo.FullName))
                         {
                             encoding = Utils.GetFileEncoding(fileInfo.FullName);
                         }
                     }
 
-                    searchResults.Add(new GrepSearchResult(fileInfo, encoding));
+                    GrepSearchResult grepSearchResult = new(fileInfo, encoding);
+                    searchResults.Add(grepSearchResult);
                     successful++;
+                    Interlocked.Increment(ref processedFilesCount);
+
+                    if (searchOptions.HasFlag(GrepSearchOption.StopAfterNumMatches) && successful >= SearchAutoStopCount)
+                    {
+                        pauseCancelToken.Cancel();
+                    }
+                    if (searchOptions.HasFlag(GrepSearchOption.PauseAfterNumMatches) && successful >= SearchAutoPauseCount && !autoPauseExecuted)
+                    {
+                        autoPauseExecuted = true;
+                        pauseCancelToken.Pause();
+                    }
+
+                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, successful, [grepSearchResult], fileInfo.FullName));
+
+                    pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
                 }
                 catch (OperationCanceledException)
                 {
                     // expected for stop after first match or user cancel
+                    break;
                 }
                 catch (Exception ex)
                 {
@@ -87,14 +108,7 @@ namespace dnGREP.Common
                     fileInfo.ErrorMsg = ex.Message;
                     AddSearchResult(new GrepSearchResult(fileInfo, encoding));
                 }
-
-                if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch))
-                    break;
-
-                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
             }
-
-            ProcessedFile?.Invoke(this, new ProgressStatus(false, searchResults.Count, successful, searchResults, string.Empty));
 
             return [.. searchResults];
         }
@@ -120,7 +134,7 @@ namespace dnGREP.Common
             Initialize();
 
             processedFilesCount = 0;
-            foundfilesCount = 0;
+            foundFilesCount = 0;
 
             int maxParallel = GrepSettings.Instance.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
             int counter = 0, highWater = 0;
@@ -143,9 +157,6 @@ namespace dnGREP.Common
                     {
                         Search(file, searchType, searchPattern, searchOptions,
                             codePage, ref counter, ref highWater, pauseCancelToken);
-
-                        if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
-                            break;
 
                         pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
                     }
@@ -218,9 +229,6 @@ namespace dnGREP.Common
                     Search(filePath, searchType, modSearchPattern, searchOptions, codePage,
                         ref counter, ref highWater, pauseCancelToken);
 
-                    if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
-                        break;
-
                     pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
                 }
             }
@@ -265,7 +273,7 @@ namespace dnGREP.Common
             {
                 InterlockedMax(ref highWater, Interlocked.Increment(ref counter));
 
-                ProcessedFile?.Invoke(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, file));
+                ProcessedFile?.Invoke(this, new ProgressStatus(true, processedFilesCount, foundFilesCount, null, file));
 
                 bool isArchive = Utils.IsArchive(file);
 
@@ -292,9 +300,19 @@ namespace dnGREP.Common
                             AddSearchResults(fileSearchResults);
                         }
                         int hits = fileSearchResults.Where(r => r.IsSuccess).Count();
-                        Interlocked.Add(ref foundfilesCount, hits);
+                        Interlocked.Add(ref foundFilesCount, hits);
 
-                        ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, fileSearchResults, file));
+                        if (searchOptions.HasFlag(GrepSearchOption.StopAfterNumMatches) && foundFilesCount >= SearchAutoStopCount)
+                        {
+                            pauseCancelToken.Cancel();
+                        }
+                        if (searchOptions.HasFlag(GrepSearchOption.PauseAfterNumMatches) && foundFilesCount >= SearchAutoPauseCount && !autoPauseExecuted)
+                        {
+                            autoPauseExecuted = true;
+                            pauseCancelToken.Pause();
+                        }
+
+                        ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundFilesCount, fileSearchResults, file));
                     }
                     archiveEngine.StartingFileSearch -= ArchiveEngine_StartingFileSearch;
                 }
@@ -309,9 +327,18 @@ namespace dnGREP.Common
                         AddSearchResults(fileSearchResults);
                     }
                     int hits = fileSearchResults.Where(r => r.IsSuccess).Count();
-                    Interlocked.Add(ref foundfilesCount, hits);
+                    Interlocked.Add(ref foundFilesCount, hits);
 
-                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, fileSearchResults, file));
+                    if (searchOptions.HasFlag(GrepSearchOption.StopAfterNumMatches) && foundFilesCount >= SearchAutoStopCount)
+                    {
+                        pauseCancelToken.Cancel();
+                    }
+                    if (searchOptions.HasFlag(GrepSearchOption.PauseAfterNumMatches) && foundFilesCount >= SearchAutoPauseCount && !autoPauseExecuted)
+                    {
+                        autoPauseExecuted = true;
+                        pauseCancelToken.Pause();
+                    }
+                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundFilesCount, fileSearchResults, file));
                 }
 
                 GrepEngineFactory.ReturnToPool(file, engine);
@@ -330,7 +357,7 @@ namespace dnGREP.Common
                     [
                         new GrepSearchResult(file, searchPattern, ex.Message, false)
                     ];
-                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, _results, file));
+                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundFilesCount, _results, file));
                 }
             }
             finally
@@ -358,7 +385,7 @@ namespace dnGREP.Common
         private void ArchiveEngine_StartingFileSearch(object? sender, DataEventArgs<string> e)
         {
             Interlocked.Increment(ref processedFilesCount);
-            ProcessedFile?.Invoke(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, e.Data));
+            ProcessedFile?.Invoke(this, new ProgressStatus(true, processedFilesCount, foundFilesCount, null, e.Data));
         }
 
         public int Replace(IEnumerable<ReplaceDef> files, SearchType searchType, string searchPattern,

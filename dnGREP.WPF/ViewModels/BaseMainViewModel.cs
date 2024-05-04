@@ -313,7 +313,16 @@ namespace dnGREP.WPF
         private bool isHighlightGroupsEnabled;
 
         [ObservableProperty]
-        private bool stopAfterFirstMatch;
+        private bool stopAfterNumMatches;
+
+        [ObservableProperty]
+        private bool pauseAfterNumMatches;
+
+        [ObservableProperty]
+        public int searchAutoStopCount  = 1;
+
+        [ObservableProperty]
+        public int searchAutoPauseCount = 5;
 
         [ObservableProperty]
         private bool wholeWord;
@@ -463,10 +472,6 @@ namespace dnGREP.WPF
             switch (name)
             {
                 case nameof(Multiline):
-                case nameof(Singleline):
-                case nameof(WholeWord):
-                case nameof(CaseSensitive):
-                case nameof(StopAfterFirstMatch):
                     if (Multiline)
                         TextBoxStyle = "{StaticResource ExpandedTextbox}";
                     else
@@ -876,7 +881,6 @@ namespace dnGREP.WPF
             CaseSensitive = Settings.Get<bool>(GrepSettings.Key.CaseSensitive);
             Multiline = Settings.Get<bool>(GrepSettings.Key.Multiline);
             Singleline = Settings.Get<bool>(GrepSettings.Key.Singleline);
-            StopAfterFirstMatch = Settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
             WholeWord = Settings.Get<bool>(GrepSettings.Key.WholeWord);
             BooleanOperators = Settings.Get<bool>(GrepSettings.Key.BooleanOperators);
             CaptureGroupSearch = GrepSettings.Instance.Get<bool>(GrepSettings.Key.CaptureGroupSearch);
@@ -893,6 +897,8 @@ namespace dnGREP.WPF
             EndDate = Settings.GetNullable<DateTime?>(GrepSettings.Key.EndDate);
             TimeRangeFrom = Settings.Get<int>(GrepSettings.Key.TimeRangeFrom);
             TimeRangeTo = Settings.Get<int>(GrepSettings.Key.TimeRangeTo);
+            SearchAutoStopCount = Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount);
+            SearchAutoPauseCount = Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount);
         }
 
         protected void LoadMRULists()
@@ -964,7 +970,6 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.CaseSensitive, CaseSensitive);
             Settings.Set(GrepSettings.Key.Multiline, Multiline);
             Settings.Set(GrepSettings.Key.Singleline, Singleline);
-            Settings.Set(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
             Settings.Set(GrepSettings.Key.WholeWord, WholeWord);
             Settings.Set(GrepSettings.Key.BooleanOperators, BooleanOperators);
             Settings.Set(GrepSettings.Key.CaptureGroupSearch, CaptureGroupSearch);

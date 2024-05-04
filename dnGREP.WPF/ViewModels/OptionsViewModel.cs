@@ -113,7 +113,6 @@ namespace dnGREP.WPF
 
             VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultOptions, nameof(Resources.Main_SearchInResults), GrepSettings.Key.SearchInResultsVisible));
             VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultOptions, nameof(Resources.Main_PreviewFile), GrepSettings.Key.PreviewFileVisible));
-            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultOptions, nameof(Resources.Main_StopAfterFirstMatch), GrepSettings.Key.StopAfterFirstMatchVisible));
 
             VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultsTree, nameof(Resources.Main_HighlightMatches), GrepSettings.Key.HighlightMatchesVisible));
             VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultsTree, nameof(Resources.Main_HighlightGroups), GrepSettings.Key.HighlightGroupsVisible));
@@ -183,6 +182,8 @@ namespace dnGREP.WPF
                 SortAutomaticallyOnSearch != Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
+                SearchAutoStopCount != Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount) ||
+                SearchAutoPauseCount != Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
                 CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
@@ -515,6 +516,12 @@ namespace dnGREP.WPF
         private bool parallelismUnlimited = true;
 
         [ObservableProperty]
+        private int searchAutoStopCount = 1;
+
+        [ObservableProperty]
+        private int searchAutoPauseCount = 5;
+
+        [ObservableProperty]
         private ReplaceDialogConfiguration replaceDialogLayout;
 
         [ObservableProperty]
@@ -801,6 +808,8 @@ namespace dnGREP.WPF
             SortAutomaticallyOnSearch = Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
+            SearchAutoStopCount = Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount);
+            SearchAutoPauseCount = Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount);
 
             UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
             ApplicationFontFamily = EditApplicationFontFamily =
@@ -955,6 +964,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.SortAutomaticallyOnSearch, SortAutomaticallyOnSearch);
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
             Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
+            Settings.Set(GrepSettings.Key.SearchAutoStopCount, SearchAutoStopCount);
+            Settings.Set(GrepSettings.Key.SearchAutoPauseCount, SearchAutoPauseCount);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
             Settings.Set(GrepSettings.Key.DeleteToRecycleBin, DeleteOption == DeleteFilesDestination.Recycle);
             Settings.Set(GrepSettings.Key.OverwriteFilesOnCopy, CopyOverwriteFileOption);

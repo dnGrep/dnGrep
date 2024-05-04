@@ -28,7 +28,7 @@ namespace dnGREP.WPF
         private DateTime scriptStartTime = DateTime.MinValue;
         private string queuedScript = string.Empty;
         private bool queuedSearchRequest = false;
-
+        private bool scriptStopAfterFirstMatch = false;
         private void AddScriptMessage(string message)
         {
             if (ScriptMessages.Count == 0 && !string.IsNullOrEmpty(currentScriptFile))
@@ -92,7 +92,7 @@ namespace dnGREP.WPF
 
                 SetCommandMap.Add("searchinresults", new ScriptCommand<bool>(p => SearchInResultsContent = p));
                 SetCommandMap.Add("previewfile", new ScriptCommand<bool>(p => PreviewFileContent = p));
-                SetCommandMap.Add("stopafterfirstmatch", new ScriptCommand<bool>(p => StopAfterFirstMatch = p));
+                SetCommandMap.Add("stopafterfirstmatch", new ScriptCommand<bool>(p => scriptStopAfterFirstMatch = p));
 
                 SetCommandMap.Add("highlightmatches", new ScriptCommand<bool>(p => HighlightsOn = p));
                 SetCommandMap.Add("highlightgroups", new ScriptCommand<bool>(p => HighlightCaptureGroups = p));
@@ -463,7 +463,16 @@ namespace dnGREP.WPF
                         break;
 
                     case "search":
-                        SearchCommand.Execute(null);
+                        if (scriptStopAfterFirstMatch)
+                        {
+                            SearchAutoStopCount = 1;
+                            SearchAndStopCommand.Execute(null);
+                        }
+                        else
+                        {
+                            SearchCommand.Execute(null);
+                        }
+
                         if (pauseCancelToken.IsCancellationRequested)
                         {
                             break;

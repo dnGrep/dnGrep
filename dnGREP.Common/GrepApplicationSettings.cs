@@ -56,7 +56,6 @@ namespace dnGREP.Common
             public const string PreviewFileContent = "PreviewFileContent";
             public const string Multiline = "Multiline";
             public const string Singleline = "Singleline";
-            public const string StopAfterFirstMatch = "StopAfterFirstMatch";
             public const string WholeWord = "WholeWord";
             public const string BooleanOperators = "BooleanOperators";
             public const string SizeFrom = "SizeFrom";
@@ -247,8 +246,6 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string PreviewFileVisible = "PreviewFileVisible";
             [DefaultValue(true)]
-            public const string StopAfterFirstMatchVisible = "StopAfterFirstMatchVisible";
-            [DefaultValue(true)]
             public const string HighlightMatchesVisible = "HighlightMatchesVisible";
             [DefaultValue(true)]
             public const string HighlightGroupsVisible = "HighlightGroupsVisible";
@@ -343,7 +340,11 @@ namespace dnGREP.Common
             [DefaultValue("")]
             public const string ArchiveCustomExtensions = "ArchiveCustomExtensions";
             [DefaultValue(true)]
-            public const string StickyScroll = "StickyScroll"; 
+            public const string StickyScroll = "StickyScroll";
+            [DefaultValue(1)]
+            public const string SearchAutoStopCount = "SearchAutoStopCount";
+            [DefaultValue(5)]
+            public const string SearchAutoPauseCount = "SearchAutoPauseCount";
         }
 
         public static class ObsoleteKey

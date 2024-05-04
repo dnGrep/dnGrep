@@ -309,20 +309,32 @@ namespace Tests
         public void TestSearchWithStopAfterFirstMatch(bool useLongPath)
         {
             string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
-
             Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase3"), Path.Combine(destFolder, "TestCase3"), null, null);
+
             GrepCore core = new();
-            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "public", GrepSearchOption.CaseSensitive, -1);
-            Assert.True(results.Count > 1);
-            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "public", GrepSearchOption.StopAfterFirstMatch, -1);
-            Assert.Single(results);
+
+            using (PauseCancelTokenSource source = new())
+            {
+                List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "public", GrepSearchOption.CaseSensitive, -1);
+                Assert.True(results.Count > 1);
+                results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "public", GrepSearchOption.StopAfterNumMatches, -1, source.Token);
+                Assert.Single(results);
+            }
 
             var fileData = Utils.GetFileListIncludingArchives(new FileFilter(destFolder, "*.*", string.Empty, false, false,
                 false, true, -1, true, true, true, false, 0, 0, FileDateFilter.None, null, null));
-            results = core.ListFiles(fileData, GrepSearchOption.CaseSensitive, -1);
-            Assert.True(results.Count > 1);
-            results = core.ListFiles(fileData, GrepSearchOption.StopAfterFirstMatch, -1);
-            Assert.Single(results);
+            
+            using (PauseCancelTokenSource source = new())
+            {
+                var results = core.ListFiles(fileData, GrepSearchOption.CaseSensitive, -1, source.Token);
+                Assert.True(results.Count > 1);
+            }
+
+            using (PauseCancelTokenSource source = new())
+            {
+                var results = core.ListFiles(fileData, GrepSearchOption.StopAfterNumMatches, -1, source.Token);
+                Assert.Single(results);
+            }
         }
 
         [Theory]
@@ -1882,7 +1894,7 @@ namespace Tests
         public void TestCaptureGroupHighlightMultipleMatches3(string content, bool verboseMatchCount)
         {
             string pattern = @"\w(\d+)";
-            string[] textLines = ["first line, no match", ..content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
+            string[] textLines = ["first line, no match", .. content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
@@ -1963,7 +1975,7 @@ namespace Tests
         public void TestCaptureGroupHighlightSingleMatchesMultipleGroups(string content, bool verboseMatchCount)
         {
             string pattern = @"a(\d+).+b(\d+).+c(\d+).+d(\d+)\s?$";
-            string[] textLines = ["first line, no match", ..content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
+            string[] textLines = ["first line, no match", .. content.Split(newlines, StringSplitOptions.RemoveEmptyEntries)];
 
             string path = Path.Combine(destinationFolder, @"TestCaptureGroupHighlight");
             if (Directory.Exists(path))
