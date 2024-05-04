@@ -3408,4 +3408,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>дана</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Претражи помоћу днГреп-а</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>

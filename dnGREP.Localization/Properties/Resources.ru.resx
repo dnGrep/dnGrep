@@ -4035,4 +4035,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Автоматическая сортировка результатов после завершения поиска</value>
     <comment>Options dialog, result option checkbox label (accel)</comment>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Поиск с помощью dnGrep</value>
+    <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
 </root>
