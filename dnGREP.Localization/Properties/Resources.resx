@@ -4078,4 +4078,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Number of matches to auto pause search</value>
     <comment>Options dialog, search options label</comment>
   </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>Enable autocomplete in text input boxes</value>
+    <comment>Options dialog, search option checkbox label</comment>
+  </data>
 </root>

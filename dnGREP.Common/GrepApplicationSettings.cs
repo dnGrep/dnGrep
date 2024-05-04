@@ -345,6 +345,8 @@ namespace dnGREP.Common
             public const string SearchAutoStopCount = "SearchAutoStopCount";
             [DefaultValue(5)]
             public const string SearchAutoPauseCount = "SearchAutoPauseCount";
+            [DefaultValue(true)]
+            public const string AutoCompleteEnabled = "AutoCompleteEnabled";
         }
 
         public static class ObsoleteKey

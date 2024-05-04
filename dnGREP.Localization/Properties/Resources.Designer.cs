@@ -4872,6 +4872,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable autocomplete in text input boxes.
+        /// </summary>
+        public static string Options_EnableAutocompleteInTextInputBoxes {
+            get {
+                return ResourceManager.GetString("Options_EnableAutocompleteInTextInputBoxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check automatically every.
         /// </summary>
         public static string Options_EnableAutomaticCheckingEvery {

@@ -467,6 +467,9 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private string pauseAfterNumMatchesText = string.Empty;
 
+        [ObservableProperty]
+        private bool autoCompleteEnabled = false;
+
         private void ClearMatchCountStatus()
         {
             StatusMessage2 = string.Empty;
@@ -795,6 +798,7 @@ namespace dnGREP.WPF
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
+            AutoCompleteEnabled = GrepSettings.Instance.Get<bool>(GrepSettings.Key.AutoCompleteEnabled);
 
             StopAfterNumMatchesText = SearchAutoStopCount == 1 ? Resources.Main_StopAfterFirstMatch :
                 TranslationSource.Format(Resources.Main_StopAfter0Matches, SearchAutoStopCount);
