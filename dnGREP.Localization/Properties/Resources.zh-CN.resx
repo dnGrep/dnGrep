@@ -4041,4 +4041,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Windows 11 右键菜单：</value>
     <comment>Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [search commands]
+-e [search commands]
+-everything [search commands]
+    设置 Everything 搜索文本。 必须是命令行最后一个选项，会一字不差地复制命令行剩余部分。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
