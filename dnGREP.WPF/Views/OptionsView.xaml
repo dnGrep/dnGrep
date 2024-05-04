@@ -504,6 +504,8 @@
 
                 <GroupBox Header="{l:Loc Key='Options_SearchOptions'}">
                     <StackPanel Margin="0,3,0,0">
+                        <CheckBox Content="{l:Loc Key='Options_EnableAutocompleteInTextInputBoxes'}" Margin="3"
+                                  IsChecked="{Binding AutoCompleteEnabled}"/>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>

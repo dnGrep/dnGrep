@@ -181,6 +181,7 @@ namespace dnGREP.WPF
                 StickyScroll != Settings.Get<bool>(GrepSettings.Key.StickyScroll) ||
                 SortAutomaticallyOnSearch != Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
+                AutoCompleteEnabled != Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled) ||
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
                 SearchAutoStopCount != Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount) ||
                 SearchAutoPauseCount != Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount) ||
@@ -484,6 +485,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool maximizeResultsTreeOnSearch;
+
+        [ObservableProperty]
+        private bool autoCompleteEnabled;
 
         public int MaxDegreeOfParallelism
         {
@@ -807,6 +811,7 @@ namespace dnGREP.WPF
             StickyScroll = Settings.Get<bool>(GrepSettings.Key.StickyScroll);
             SortAutomaticallyOnSearch = Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
+            AutoCompleteEnabled = Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled);
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
             SearchAutoStopCount = Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount);
             SearchAutoPauseCount = Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount);
@@ -963,6 +968,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.StickyScroll, StickyScroll);
             Settings.Set(GrepSettings.Key.SortAutomaticallyOnSearch, SortAutomaticallyOnSearch);
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
+            Settings.Set(GrepSettings.Key.AutoCompleteEnabled, AutoCompleteEnabled);
             Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
             Settings.Set(GrepSettings.Key.SearchAutoStopCount, SearchAutoStopCount);
             Settings.Set(GrepSettings.Key.SearchAutoPauseCount, SearchAutoPauseCount);
