@@ -229,7 +229,7 @@
     <value>OK</value>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value>Suchmuster ausschlißen:</value>
+    <value>Ausschlussmuster:</value>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
     <value>Suchmuster:</value>
@@ -250,7 +250,7 @@
     <value>Suche nach:</value>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>Suche in Archiven</value>
+    <value>Ar_chive durchsuchen</value>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
@@ -355,7 +355,7 @@
     <value>keine Symbolichen Links</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>Suche in Archiven</value>
+    <value>Archive durchsuchen</value>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
     <value>Ganzes Wort</value>
@@ -763,7 +763,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>zu</value>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value>Muster ausschließen:</value>
+    <value>Ausschlussmuster:</value>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
     <value>Suchmuster:</value>
@@ -952,7 +952,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Sortieren</value>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value>aussteigend</value>
+    <value>aufsteigend</value>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
     <value>absteigend</value>
