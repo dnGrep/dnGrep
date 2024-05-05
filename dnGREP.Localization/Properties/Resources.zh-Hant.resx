@@ -67,7 +67,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value>編譯於</value>
+    <value>建構於</value>
     <comment>About dialog label</comment>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value>dnGrep on GitHub</value>
+    <value>dnGrep 於 GitHub</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>用於讀取存檔案的程式庫</value>
+    <value>用於讀取壓縮檔案的程式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
@@ -447,7 +447,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/x
 -x
 -exit
-    退出 dnGrep.</value>
+    命令列操作完成後退出 dnGrep.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFolder" xml:space="preserve">
@@ -2790,19 +2790,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Menu_CancelScript" xml:space="preserve">
-    <value>取消腳本</value>
+    <value>取消指令碼</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_EditScript" xml:space="preserve">
-    <value>編輯腳本…</value>
+    <value>編輯指令碼…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_NewScript" xml:space="preserve">
-    <value>新建腳本…</value>
+    <value>新建指令碼…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Scripts" xml:space="preserve">
-    <value>腳本</value>
+    <value>指令碼</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Script_Editor_File" xml:space="preserve">
@@ -2826,7 +2826,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_RunScript" xml:space="preserve">
-    <value>執行腳本</value>
+    <value>執行指令碼</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_SaveAs" xml:space="preserve">
@@ -2878,11 +2878,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, delete option label</comment>
   </data>
   <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
-    <value>腳本命令</value>
+    <value>指令碼命令</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Title" xml:space="preserve">
-    <value>腳本編輯器</value>
+    <value>指令碼編輯器</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
@@ -2930,7 +2930,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
   </data>
   <data name="Scripts_ScriptMessages" xml:space="preserve">
-    <value>腳本訊息</value>
+    <value>指令碼訊息</value>
     <comment>Script Messages dialog title</comment>
   </data>
   <data name="Scripts_RunCommandInvalid" xml:space="preserve">
@@ -3002,7 +3002,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_run_powershell_value" xml:space="preserve">
-    <value>.ps1 腳本檔案的完整路徑和檔案名稱</value>
+    <value>.ps1 指令碼檔案的完整路徑和檔案名稱</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_run_cmd_value" xml:space="preserve">
@@ -3010,7 +3010,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_run_powershell" xml:space="preserve">
-    <value>執行 PowerShell 腳本</value>
+    <value>執行 PowerShell 指令碼</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_folder" xml:space="preserve">
@@ -3022,11 +3022,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_ScriptFiles" xml:space="preserve">
-    <value>腳本檔案</value>
+    <value>指令碼檔案</value>
     <comment>Scripts: Open and Save file dialog label for script files</comment>
   </data>
   <data name="Scripts_ScriptComplete" xml:space="preserve">
-    <value>腳本完成</value>
+    <value>指令碼完成</value>
     <comment>Script message for script completed</comment>
   </data>
   <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
@@ -3150,7 +3150,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_messages" xml:space="preserve">
-    <value>當腳本完成時, 總是顯示腳本訊息視窗</value>
+    <value>當指令碼完成時, 總是顯示指令碼訊息視窗</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_movefiles" xml:space="preserve">
@@ -3205,11 +3205,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/sc [scriptKey]
 -sc [scriptKey]
 -script [scriptKey]
-    執行腳本鍵識別的腳本.</value>
+    執行指令碼鍵識別的指令碼.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
-    <value>未找到腳本鍵</value>
+    <value>未找到指令碼鍵</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
@@ -3281,7 +3281,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_run_cmd" xml:space="preserve">
-    <value>執行命令腳本</value>
+    <value>執行命令指令碼</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchtype" xml:space="preserve">
@@ -3301,11 +3301,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_ScriptCanceled" xml:space="preserve">
-    <value>腳本已取消</value>
+    <value>指令碼已取消</value>
     <comment>Script message for script canceled</comment>
   </data>
   <data name="Scripts_NewScript" xml:space="preserve">
-    <value>新腳本</value>
+    <value>新指令碼</value>
     <comment>Scripts: name for unnamed script file</comment>
   </data>
   <data name="Scripts_InvalidFileExtension" xml:space="preserve">
@@ -3369,11 +3369,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_include_script" xml:space="preserve">
-    <value>當前腳本中包含來自另一個腳本的命令</value>
+    <value>當前指令碼中包含來自另一個指令碼的命令</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_include_script_value" xml:space="preserve">
-    <value>腳本的鍵/檔案名稱</value>
+    <value>指令碼鍵/檔案名稱</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_copyresults" xml:space="preserve">
@@ -3596,7 +3596,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, change folder option tooltip</comment>
   </data>
   <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
-    <value>您想停止此腳本並退出嗎?</value>
+    <value>您想停止此指令碼並退出嗎?</value>
     <comment>Message box text for: Script is running on exit, line 2</comment>
   </data>
   <data name="Options_ReuseExistingWindow" xml:space="preserve">
@@ -3620,7 +3620,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
   </data>
   <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
-    <value>一個腳本正在執行.</value>
+    <value>指令碼正在執行中.</value>
     <comment>Message box text for: Script is running on exit, line 1</comment>
   </data>
   <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
@@ -3632,7 +3632,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Error message returned to results list</comment>
   </data>
   <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
-    <value>腳本執行時需確認才可退出</value>
+    <value>指令碼執行時需確認才可退出</value>
     <comment>Options dialog, check box label</comment>
   </data>
   <data name="Options_Exit" xml:space="preserve">
@@ -3982,5 +3982,36 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_OriginalRightClickMenu" xml:space="preserve">
     <value>原始右鍵功能表:</value>
     <comment>Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>符合 {0} 項後停止</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>符合 {0} 項後暫停</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>自動停止搜尋的符合項數量</value>
+    <comment>Options dialog, search options label</comment>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>首個符合項後即暫停</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>在文字輸入框中啟用自動完成</value>
+    <comment>Options dialog, search option checkbox label</comment>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>自動暫停搜尋的符合項數量</value>
+    <comment>Options dialog, search options label</comment>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [search commands]
+-e [search commands]
+-everything [search commands]
+    設定 Everything 搜尋文字. 必須是命令列上的最後一個選項, 並將逐字複製命令列的其餘部分.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
 </root>
