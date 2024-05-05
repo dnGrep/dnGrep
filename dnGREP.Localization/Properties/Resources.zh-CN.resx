@@ -4048,4 +4048,28 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     设置 Everything 搜索文本。 必须是命令行最后一个选项，会一字不差地复制命令行剩余部分。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>第一个匹配后暂停</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>在文本搜索框中启用自动完成</value>
+    <comment>Options dialog, search option checkbox label</comment>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>{0} 个匹配后停止</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>多少个匹配后自动暂停搜索</value>
+    <comment>Options dialog, search options label</comment>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>{0} 个匹配后暂停</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>多少个匹配后自动停止搜索</value>
+    <comment>Options dialog, search options label</comment>
+  </data>
 </root>
