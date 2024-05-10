@@ -170,7 +170,7 @@ namespace dnGREP.Engines
         {
             string textOut = string.Empty;
             string errorOut = string.Empty;
-            Encoding tempFileEncoding = encoding == Encoding.Default ? Encoding.UTF8 : encoding;
+            Encoding fileEncoding = encoding == Encoding.Default ? Encoding.UTF8 : encoding;
             string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-{Name}");
             if (!Directory.Exists(tempFolder))
                 Directory.CreateDirectory(tempFolder);
@@ -201,13 +201,18 @@ namespace dnGREP.Engines
 
             if (readStandardOutput)
             {
-                textOut = process.StandardOutput
-                    .ReadToEndAsync(pauseCancelToken.CancellationToken)
-                    .GetAwaiter().GetResult();
+                using var ms = new MemoryStream();
+                process.StandardOutput.BaseStream.CopyTo(ms);
+                ms.Position = 0;
+
+                fileEncoding = Utils.GetFileEncoding(ms);
+
+                using var streamReader = new StreamReader(ms, fileEncoding, detectEncodingFromByteOrderMarks: false);
+                textOut = streamReader.ReadToEnd();
 
                 if (!string.IsNullOrEmpty(textOut))
                 {
-                    File.WriteAllText(tempFileName, textOut, tempFileEncoding);
+                    File.WriteAllText(tempFileName, textOut, fileEncoding);
                 }
             }
 
@@ -220,17 +225,17 @@ namespace dnGREP.Engines
                 // encoding parameter *is* the default, then it most likely not been set, so get
                 // the encoding of the extracted text file:
                 if (encoding == Encoding.Default)
-                    tempFileEncoding = Utils.GetFileEncoding(tempFileName);
+                    fileEncoding = Utils.GetFileEncoding(tempFileName);
                 else
-                    tempFileEncoding = encoding;
+                    fileEncoding = encoding;
 
-                using StreamReader sr = new(tempFileName, tempFileEncoding, detectEncodingFromByteOrderMarks: false);
+                using StreamReader sr = new(tempFileName, fileEncoding, detectEncodingFromByteOrderMarks: false);
                 textOut = sr.ReadToEnd();
             }
 
             if (process.ExitCode == 0 && !string.IsNullOrEmpty(textOut))
             {
-                return new ExtractTextResults(textOut, tempFileName, tempFileEncoding);
+                return new ExtractTextResults(textOut, tempFileName, fileEncoding);
             }
             else
             {
@@ -243,7 +248,7 @@ namespace dnGREP.Engines
 
                 logger.Error($"The {Name} plugin command returned exit code {process.ExitCode}");
 
-                return new(string.Empty, string.Empty, tempFileEncoding);
+                return new(string.Empty, string.Empty, fileEncoding);
             }
         }
 
