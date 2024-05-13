@@ -287,35 +287,35 @@
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_ReadOnly" xml:space="preserve">
-    <value>[read-only]</value>
+    <value>[읽기 전용]</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
-    <value>Collapse all</value>
+    <value>모두 접기</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value>Copy lines of text</value>
+    <value>해당 줄 복사</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value>Exclude from results</value>
+    <value>결과에서 제외</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
-    <value>Open with custom editor</value>
+    <value>커스텀 편집기로 열기</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
-    <value>Open containing folder</value>
+    <value>경로 열기</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
-    <value>Show file properties</value>
+    <value>파일 속성 보이기</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>Saving results to file…</value>
+    <value>파일에 저장 중…</value>
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
@@ -323,11 +323,11 @@
     <comment>Main window, search button label (accel)</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
-    <value>Search files in multiple threads</value>
+    <value>다중 스레드로 파일 검색</value>
     <comment>Main window, search option parallel tooltip</comment>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
-    <value>Search</value>
+    <value>검색</value>
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
@@ -1203,7 +1203,7 @@
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} matches on {2} lines)</value>
+    <value>{0} ({1} 개의 결과가 {2} 개의 줄에서 발견되었습니다.)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
@@ -1219,39 +1219,39 @@
     <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
-    <value>Compare files</value>
+    <value>파일 비교</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFileNames" xml:space="preserve">
-    <value>Copy file names</value>
+    <value>파일 이름 복사</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
-    <value>Copy full file paths</value>
+    <value>파일 경로 복사</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
-    <value>Expand all</value>
+    <value>모두 펼치기</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>Next match</value>
+    <value>다음 결과</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
-    <value>Open</value>
+    <value>열기</value>
     <comment>Main window, results list context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>Previous match</value>
+    <value>이전 결과</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
-    <value>Rename file</value>
+    <value>파일 이름 바꾸기</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ResetZoom" xml:space="preserve">
-    <value>Reset zoom</value>
+    <value>확대/축소 초기화</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
@@ -2263,7 +2263,7 @@
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Main_Results_PreviousFile" xml:space="preserve">
-    <value>Previous file</value>
+    <value>이전 파일</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
@@ -2742,5 +2742,181 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
     <value>dnGrep으로 검색</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>줄에서 검색된 결과의 수</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>영구히 삭제</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>페이지 번호</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>PDF 번호 스타일:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>결과 설정</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>쓰기 상태로 변환</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>파일 휴지통으로 이동</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>탐색기 메뉴 보이기</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>{0} 만에 검색 완료 – {3}개의 파일 중 {2}개의 파일에서 {1}개의 결과를 찾았습니다.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>복사(_C)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>파일</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>다시 묻지 않기</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>아니오</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>기능</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>파일 필터</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>미리보기 창</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>결과 트리</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>미리보기에서 일반 텍스트 표시</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>잘라내기(_T)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>줄 번호</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>다음 파일</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>모두 아니오</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>휴지통으로 이동</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>이전 파일의 수정한 날짜 유지</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>체크되었을 때, '수정한 날짜'는 바꾸기 시 변경되지 않습니다</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>해당 파일명을 가진 파일이 이미 경로에 존재합니다</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0}에 저장되지 않은 변경 사항이 있습니다. 지금 저장하시겠습니까?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0}에 유효성 검사 오류가 있습니다. 그래도 저장하시겠습니까?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>묻기</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>파일 삭제</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>파일 이동</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>예</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>모두 예</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>파일 복사</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>아니오</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>파일 복사 시, 대상 파일이 존재하면 기존 파일을 덮어쓰시겠습니까?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>파일 이동 시, 대상 파일이 존재하면 기존 파일을 덮어쓰시겠습니까?</value>
+    <comment>Options dialog, overwrite on move options label</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>파일 삭제 시</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>예</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>파일 이름에 유효하지 않은 문자가 포함되어 있습니다</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>검색 시 결과 패널 최대화</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>검색 설정</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>특별 설정</value>
+    <comment>Options dialog, Personalization group</comment>
   </data>
 </root>
