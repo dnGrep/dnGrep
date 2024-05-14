@@ -338,7 +338,10 @@ namespace dnGREP.WPF
                             case "-folder":
                                 if (!string.IsNullOrWhiteSpace(value))
                                 {
-                                    SearchPath = value;
+                                    if (!string.IsNullOrEmpty(SearchPath))
+                                        SearchPath += ";" + value;
+                                    else
+                                        SearchPath = value;
                                     idx++;
                                 }
                                 else
