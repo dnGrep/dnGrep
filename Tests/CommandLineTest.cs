@@ -80,6 +80,9 @@ namespace Tests
         [InlineData(@" -folder ""D:\folder 1\"";""D:\folder 2\""", 2, false, false, @"""D:\folder 1\"";""D:\folder 2\""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -folder """"D:\folder 1\"";""D:\folder 2\""""", 2, false, false, @"""D:\folder 1\"";""D:\folder 2\""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(@" -folder ""D:\folder-version 1"";""D:\folder 2""", 2, false, false, @"""D:\folder-version 1"";""D:\folder 2""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -f ""c:\temp\test files""", 4, false, false, @"c:\temp\testData;""c:\temp\test files""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\test files"" -f ""c:\temp\testData""", 4, false, false, @"""c:\temp\test files"";c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\test files"" -f c:\temp\testData", 4, false, false, @"""c:\temp\test files"";c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         public void SplitCommandLineTest(string commandLine, int argCount,
             bool? expInvalidArgument, bool? expIsWarmUp, string? expSearchPath, string? expSearchFor,
             SearchType? expSearchType, string? expPatternToInclude, string? expPatternToExclude,
