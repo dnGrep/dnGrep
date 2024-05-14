@@ -1,7 +1,6 @@
 version: 4.2.{build}.0
 branches:
   only:
-  - dev
   - master
   - DraftPrereleaseToGitHub
 skip_tags: true
@@ -44,7 +43,7 @@ deploy:
   authorization:
      secure: +b4UCV2LUyweG3/0jfhRHXzKYGdSbwb4ZZ2roGLdbuIuu3tGHNZppkiVSCBEHRTtoBnhI7K+j0vuRmRhUcMkrQ==
   on:
-    branch: dev
+    branch: DraftPrereleaseToGitHub
     configuration: Release
 #- provider: GitHub
 #  tag: v$(appveyor_build_version)
