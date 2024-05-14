@@ -45,28 +45,20 @@ deploy:
   on:
     branch: DraftPrereleaseToGitHub
     configuration: Release
-#- provider: GitHub
-#  tag: v$(appveyor_build_version)
-#  release: v$(appveyor_build_version)
-#  auth_token:
-#    secure: q0bGZDcjkoPwfHqzHbftJAHUR2q/I0dQIJCP5uAX2wjwzDsZS77IFSc26XFaD1pA
-#  draft: true
-#  on:
-#    branch: DraftPrereleaseToGitHub
-#    configuration: Release
-#  description: |
-#    [![$(APPVEYOR_REPO_TAG_NAME)](https://img.shields.io/github/downloads/$(APPVEYOR_REPO_NAME)/#$(APPVEYOR_REPO_TAG_NAME)/total.svg)](https://github.com/$(APPVEYOR_REPO_NAME)/releases/tag/#$(APPVEYOR_REPO_TAG_NAME))
-#    
-#    ## Changes in this release:
-#
-#
-#    ### Checksum information
-#
-#    Name: 
-#    SHA256: 
-#
-#    Name: 
-#    SHA256: 
-#
-#    This program uses free code signing provided by [SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=dngrep), and a certificate by the [SignPath Foundation](https://signpath.org?utm_source=foundation&utm_medium=github&utm_campaign=dngrep).
+- provider: GitHub
+  tag: v$(appveyor_build_version)
+  release: v$(appveyor_build_version)
+  auth_token:
+    secure: q0bGZDcjkoPwfHqzHbftJAHUR2q/I0dQIJCP5uAX2wjwzDsZS77IFSc26XFaD1pA
+  draft: true
+  on:
+    branch: DraftPrereleaseToGitHub
+    configuration: Release
+  description: |
+    [![v$(APPVEYOR_BUILD_VERSION)](https://img.shields.io/github/downloads/$(APPVEYOR_REPO_NAME)/v$(APPVEYOR_BUILD_VERSION)/total.svg)](https://github.com/$(APPVEYOR_REPO_NAME)/releases/tag/v$(APPVEYOR_BUILD_VERSION))
+    
+    ## Changes in this release:
+
+
+    This program uses free code signing provided by [SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=dngrep), and a certificate by the [SignPath Foundation](https://signpath.org?utm_source=foundation&utm_medium=github&utm_campaign=dngrep).
 
