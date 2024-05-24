@@ -1025,7 +1025,7 @@ namespace dnGREP.WPF
 
         public void PreviewFile(FormattedGrepResult formattedGrepResult)
         {
-            if (PreviewFileContent)
+            if (PreviewFileContent && !formattedGrepResult.GrepResult.IsHexFile)
             {
                 int lineNumber = 0;
                 if (formattedGrepResult.GrepResult.Matches.Count > 0)
