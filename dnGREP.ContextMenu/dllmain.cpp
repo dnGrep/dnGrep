@@ -4,9 +4,12 @@
 #include <wrl/implements.h>
 #include <wil/resource.h>
 #include <Shellapi.h>
-#include <Shlwapi.h>
-#include <Shlobj.h>
 #include <Strsafe.h>
+#include <shldisp.h>
+#include <shlobj.h>
+#include <exdisp.h>
+#include <atlbase.h>
+#include <Shlwapi.h>
 #include <pathcch.h>
 #include "util.hpp"
 #include "resource.h"
@@ -36,6 +39,11 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 class SearchWithDnGrepCommand : public RuntimeClass<RuntimeClassFlags<ClassicCom>, IExplorerCommand, IObjectWithSite>
 {
 public:
+	SearchWithDnGrepCommand()
+		: m_pSite(nullptr)
+	{
+	}
+
 	// IExplorerCommand methods
 	IFACEMETHODIMP GetTitle(_In_opt_ IShellItemArray* items, _Outptr_result_nullonfailure_ PWSTR* name)
 	{
@@ -85,8 +93,8 @@ public:
 	IFACEMETHODIMP Invoke(_In_opt_ IShellItemArray* selection, _In_opt_ IBindCtx*) noexcept try
 	{
 		HWND parent = nullptr;
-		if (m_site) {
-			RETURN_IF_FAILED(IUnknown_GetWindow(m_site.Get(), &parent));
+		if (m_pSite) {
+			RETURN_IF_FAILED(IUnknown_GetWindow(m_pSite, &parent));
 		}
 
 		if (selection) {
@@ -121,6 +129,7 @@ public:
 	// IObjectWithSite methods
 	IFACEMETHODIMP SetSite(_In_ IUnknown* site) noexcept
 	{
+		m_pSite = site;
 		m_site = site;
 		return S_OK;
 	}
@@ -131,6 +140,7 @@ public:
 	}
 
 protected:
+	IUnknown* m_pSite;
 	ComPtr<IUnknown> m_site;
 
 private:
@@ -149,6 +159,12 @@ private:
 				if (exePathStr)
 				{
 					LPCWSTR exePath = exePathStr.release();
+
+					if (m_pSite)
+					{
+						if (SUCCEEDED(ShellExecuteFromExplorer(m_pSite, exePath, param.c_str())))
+							return TRUE;
+					}
 
 					SHELLEXECUTEINFO sei = { 0 };
 					sei.cbSize = sizeof(SHELLEXECUTEINFO);
@@ -225,6 +241,103 @@ private:
 		fclose(f);
 
 		return buffer;
+	}
+
+	// FindDesktopFolderView, GetFolderView, GetFolderAutomationObject, and ShellExecuteFromExplorer
+	// were copied from WinMerge https://github.com/WinMerge/winmerge/commit/e3946d5d474e61cc683df81a74b46bca0238cb54
+
+	// https://devblogs.microsoft.com/oldnewthing/20130318-00/?p=4933
+	static HRESULT FindDesktopFolderView(REFIID riid, void** ppv)
+	{
+		HRESULT hr;
+		CComPtr<IShellWindows> spShellWindows;
+		if (FAILED(hr = spShellWindows.CoCreateInstance(CLSID_ShellWindows)))
+			return hr;
+
+		CComVariant vtLoc(CSIDL_DESKTOP);
+		CComVariant vtEmpty;
+		long lhwnd;
+		CComPtr<IDispatch> spdisp;
+		if (FAILED(hr = spShellWindows->FindWindowSW(
+			&vtLoc, &vtEmpty,
+			SWC_DESKTOP, &lhwnd, SWFO_NEEDDISPATCH, &spdisp)))
+			return hr;
+
+		CComPtr<IShellBrowser> spBrowser;
+		if (FAILED(hr = CComQIPtr<IServiceProvider>(spdisp)->
+			QueryService(SID_STopLevelBrowser,
+				IID_PPV_ARGS(&spBrowser))))
+			return hr;
+
+		CComPtr<IShellView> spView;
+		if (FAILED(hr = spBrowser->QueryActiveShellView(&spView)))
+			return hr;
+
+		return spView->QueryInterface(riid, ppv);
+	}
+
+	// https://gitlab.com/tortoisegit/tortoisegit/-/merge_requests/187
+	static HRESULT GetFolderView(IUnknown* pSite, IShellView** psv)
+	{
+		CComPtr<IUnknown> site(pSite);
+		CComPtr<IServiceProvider> serviceProvider;
+		HRESULT hr;
+		if (FAILED(hr = site.QueryInterface(&serviceProvider)))
+			return hr;
+
+		CComPtr<IShellBrowser> shellBrowser;
+		if (FAILED(hr = serviceProvider->QueryService(SID_SShellBrowser, IID_PPV_ARGS(&shellBrowser))))
+			return hr;
+
+		return shellBrowser->QueryActiveShellView(psv);
+	}
+
+	// https://devblogs.microsoft.com/oldnewthing/20131118-00/?p=2643
+	// https://gitlab.com/tortoisegit/tortoisegit/-/merge_requests/187
+	static HRESULT GetFolderAutomationObject(IUnknown* pSite, REFIID riid, void** ppv)
+	{
+		HRESULT hr;
+		CComPtr<IShellView> spsv;
+		if (FAILED(hr = GetFolderView(pSite, &spsv)))
+		{
+			if (FAILED(hr = FindDesktopFolderView(IID_PPV_ARGS(&spsv))))
+				return hr;
+		}
+
+		CComPtr<IDispatch> spdispView;
+		if (FAILED(hr = spsv->GetItemObject(SVGIO_BACKGROUND, IID_PPV_ARGS(&spdispView))))
+			return hr;
+		return spdispView->QueryInterface(riid, ppv);
+	}
+
+	// https://devblogs.microsoft.com/oldnewthing/20131118-00/?p=2643
+	// https://gitlab.com/tortoisegit/tortoisegit/-/merge_requests/187
+	static HRESULT ShellExecuteFromExplorer(
+		IUnknown* pSite,
+		PCWSTR pszFile,
+		PCWSTR pszParameters = nullptr,
+		PCWSTR pszDirectory = nullptr,
+		PCWSTR pszOperation = nullptr,
+		int nShowCmd = SW_SHOWNORMAL)
+	{
+		HRESULT hr;
+		CComPtr<IShellFolderViewDual> spFolderView;
+		if (FAILED(hr = GetFolderAutomationObject(pSite, IID_PPV_ARGS(&spFolderView))))
+			return hr;
+
+		CComPtr<IDispatch> spdispShell;
+		if (FAILED(hr = spFolderView->get_Application(&spdispShell)))
+			return hr;
+
+		// without this, the launched app is not moved to the foreground
+		AllowSetForegroundWindow(ASFW_ANY);
+
+		return CComQIPtr<IShellDispatch2>(spdispShell)
+			->ShellExecute(CComBSTR(pszFile),
+				CComVariant(pszParameters ? pszParameters : L""),
+				CComVariant(pszDirectory ? pszDirectory : L""),
+				CComVariant(pszOperation ? pszOperation : L""),
+				CComVariant(nShowCmd));
 	}
 };
 
