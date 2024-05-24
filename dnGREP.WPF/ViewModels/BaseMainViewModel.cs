@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -319,7 +318,7 @@ namespace dnGREP.WPF
         private bool pauseAfterNumMatches;
 
         [ObservableProperty]
-        public int searchAutoStopCount  = 1;
+        public int searchAutoStopCount = 1;
 
         [ObservableProperty]
         public int searchAutoPauseCount = 5;
@@ -439,27 +438,6 @@ namespace dnGREP.WPF
             }
             else
             {
-                if (TypeOfFileSearch == FileSearchType.Everything)
-                {
-                    // Is this a list of paths?  A path may contain a comma or semi-colon
-                    // so check that it isn't a valid directory or file first
-                    string trimmedPath = path.Trim('\"', ' ');
-                    if (!(Directory.Exists(trimmedPath) || File.Exists(trimmedPath)) &&
-                        (path.Contains(',', StringComparison.Ordinal) || path.Contains(';', StringComparison.Ordinal)))
-                    {
-                        try
-                        {
-                            var parts = UiUtils.SplitPath(path, true).Select(p => UiUtils.QuoteIfIncludesSpaces(p));
-                            path = string.Join(" | ", parts);
-                        }
-                        catch { }
-                    }
-                    else
-                    {
-                        path = UiUtils.QuoteIfIncludesSpaces(path);
-                    }
-                }
-
                 FileOrFolderPath = path;
             }
         }
@@ -500,7 +478,7 @@ namespace dnGREP.WPF
                 case nameof(TypeOfFileSearch):
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
-                        SetFileOrFolderPath(FileOrFolderPath);
+                        SetFileOrFolderPath(ConvertToEverythingPath(FileOrFolderPath));
                         FilePattern = string.Empty;
                         FilePatternIgnore = string.Empty;
                         UseGitignore = false;
@@ -765,6 +743,28 @@ namespace dnGREP.WPF
                     HighlightCaptureGroups = false;
                 }
             }
+        }
+
+        private string ConvertToEverythingPath(string path)
+        {
+            if (TypeOfFileSearch == FileSearchType.Everything)
+            {
+                // Is this a list of paths?  A path may contain a comma or semi-colon
+                // so check that it isn't a valid directory or file first
+                string trimmedPath = path.Trim('\"', ' ');
+                if (!(Directory.Exists(trimmedPath) || File.Exists(trimmedPath)) &&
+                    (path.Contains(',', StringComparison.Ordinal) || path.Contains(';', StringComparison.Ordinal)))
+                {
+                    try
+                    {
+                        var parts = UiUtils.SplitPath(path, true).Select(p => UiUtils.QuoteIfIncludesSpaces(p));
+                        path = string.Join(" | ", parts);
+                    }
+                    catch { }
+                }
+                // do not check Everything search strings for spaces - if they are there, they should be there
+            }
+            return path;
         }
 
         protected bool ValidateBooleanExpression()
