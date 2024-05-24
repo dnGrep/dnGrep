@@ -2889,4 +2889,184 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Rechercher avec dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Envoyer à la corbeille</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Editeur de script</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Validation</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Ligne</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Cette commande ne requiert pas de valeur de paramètre</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Marque-page</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Supprimer un marque-page</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} à des erreurs de validation. Sauver quand même?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Le nom de fichier contient des caractères invalides</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Déplacer les lignes sélectionnées vers le bas</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_Commandes de script</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Suggérer</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Outils</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Message</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>la valeur ne peut être convertie depuis la chaine de caractère</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Cette commande requiert une chaîne de caractères</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Supprimer les fichiers</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>La commande n'est pas valide</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Supprimer pour toujours</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Déplacer les fichiers</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>Le nom de fichier existe déjà dans le dossier</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Ajouter un nouveau marque-page</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Copier les fichiers</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Ne pas redemander</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Demander</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Numéros de ligne</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Non</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Durant la copie du fichier, lorsque le fichier existe deja, écraser le fichier existant?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Numéros de page</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>Pendant la suppression des fichiers</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Oui</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_Fichier</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Déplacer les lignes sélectionnées vers le haut</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_Nouveau…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>_Coller</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>_Répéter</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_Exécuter le script</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Sauvegarder</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Sauvegarder _comme…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>La clé de script n'a pas été trouvée</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Le nom voulu n'est pas valide</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>La valeur n'a pas pu être convertie dans le type voulu</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Cette commande n'autorise pas une valeur nulle</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Cette commande requiert une valeur Booléenne</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Appliquer les paramètres du marque-page</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
 </root>
