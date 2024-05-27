@@ -89,15 +89,20 @@ namespace Tests
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, "dngr\\wp", GrepSearchOption.Global, -1);
             Assert.Single(results);
 
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, "string", GrepSearchOption.None, -1);
+            Assert.Equal(2, results.Count);
+            Assert.Single(results[0].Matches);
+            Assert.Single(results[1].Matches);
+
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, "string", GrepSearchOption.Global, -1);
             Assert.Equal(2, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
             Assert.Equal(282, results[1].Matches.Count);
 
-            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, "string", GrepSearchOption.Global | GrepSearchOption.Multiline, -1);
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, "string", GrepSearchOption.Multiline, -1);
             Assert.Equal(2, results.Count);
-            Assert.Equal(3, results[0].Matches.Count);
-            Assert.Equal(282, results[1].Matches.Count);
+            Assert.Single(results[0].Matches);
+            Assert.Single(results[1].Matches);
 
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, "string", GrepSearchOption.Global | GrepSearchOption.Multiline, -1);
             Assert.Equal(2, results.Count);
@@ -131,10 +136,20 @@ namespace Tests
             Assert.Single(results);
             Assert.Equal(3, results[0].Matches.Count);
 
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
+            Assert.Equal(2, results.Count);
+            Assert.Single(results[0].Matches);
+            Assert.Single(results[1].Matches);
+
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "string", GrepSearchOption.Global, -1);
             Assert.Equal(2, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
             Assert.Equal(282, results[1].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "string", GrepSearchOption.Multiline, -1);
+            Assert.Equal(2, results.Count);
+            Assert.Single(results[0].Matches);
+            Assert.Single(results[1].Matches);
 
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "string", GrepSearchOption.Global | GrepSearchOption.Multiline, -1);
             Assert.Equal(2, results.Count);
