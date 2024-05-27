@@ -902,6 +902,11 @@
                                     Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
                             <WrapPanel Margin="0,0,0,0" Orientation="Horizontal">
                                 <CheckBox Margin="3,1"
+                                          IsChecked="{Binding Global}"
+                                          IsEnabled="{Binding IsGlobalEnabled}"
+                                          TabIndex="70" Content="{l:Loc Key='Main_Global'}" 
+                                          ToolTip="{Binding GlobalFlagTooltip}"/>
+                                <CheckBox Margin="3,1"
                                           IsChecked="{Binding CaseSensitive}"
                                           IsEnabled="{Binding IsCaseSensitiveEnabled}"
                                           TabIndex="70" Content="{l:Loc Key='Main_CaseSensitive'}" />

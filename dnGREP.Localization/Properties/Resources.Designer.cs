@@ -412,6 +412,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Global.
+        /// </summary>
+        public static string BookmarkDetails_Global {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Global", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include binary files.
         /// </summary>
         public static string BookmarkDetails_IncludeBinaryFiles {
@@ -939,6 +948,15 @@ namespace dnGREP.Localization.Properties {
         public static string Bookmarks_Summary_NoSymlinks {
             get {
                 return ResourceManager.GetString("Bookmarks_Summary_NoSymlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not global.
+        /// </summary>
+        public static string Bookmarks_Summary_NotGlobal {
+            get {
+                return ResourceManager.GetString("Bookmarks_Summary_NotGlobal", resourceCulture);
             }
         }
         
@@ -2114,6 +2132,33 @@ namespace dnGREP.Localization.Properties {
         public static string Main_FromTheStartOfTheDay {
             get {
                 return ResourceManager.GetString("Main_FromTheStartOfTheDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global.
+        /// </summary>
+        public static string Main_Global {
+            get {
+                return ResourceManager.GetString("Main_Global", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First match in each file.
+        /// </summary>
+        public static string Main_GlobalTooltip_False {
+            get {
+                return ResourceManager.GetString("Main_GlobalTooltip_False", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All matches in each file.
+        /// </summary>
+        public static string Main_GlobalTooltip_True {
+            get {
+                return ResourceManager.GetString("Main_GlobalTooltip_True", resourceCulture);
             }
         }
         
@@ -6893,6 +6938,15 @@ namespace dnGREP.Localization.Properties {
         public static string ReportSummary_NoSymlinks {
             get {
                 return ResourceManager.GetString("ReportSummary_NoSymlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not global.
+        /// </summary>
+        public static string ReportSummary_NotGlobal {
+            get {
+                return ResourceManager.GetString("ReportSummary_NotGlobal", resourceCulture);
             }
         }
         

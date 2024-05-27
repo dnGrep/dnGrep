@@ -54,6 +54,8 @@ namespace dnGREP.Common
             public const string CaseSensitive = "CaseSensitive";
             [DefaultValue(true)]
             public const string PreviewFileContent = "PreviewFileContent";
+            [DefaultValue(true)]
+            public const string Global = "Global";
             public const string Multiline = "Multiline";
             public const string Singleline = "Singleline";
             public const string WholeWord = "WholeWord";

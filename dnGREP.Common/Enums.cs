@@ -29,13 +29,14 @@ namespace dnGREP.Common
     public enum GrepSearchOption
     {
         None = 0,
-        CaseSensitive = 1,
-        Multiline = 2,
-        SingleLine = 4,
-        WholeWord = 8,
-        BooleanOperators = 16,
-        StopAfterNumMatches = 32,
-        PauseAfterNumMatches = 64,
+        Global = 1,
+        CaseSensitive = 2,
+        Multiline = 4,
+        SingleLine = 8,
+        WholeWord = 16,
+        BooleanOperators = 32,
+        StopAfterNumMatches = 64,
+        PauseAfterNumMatches = 128,
     }
 
     public enum GrepOperation

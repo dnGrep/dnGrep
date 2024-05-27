@@ -272,13 +272,14 @@
                     <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='BookmarkDetails_ReplaceWith'}" />
                     <TextBox DockPanel.Dock="Top" Text="{Binding ReplaceWith}" />
 
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Global}" IsEnabled="{Binding IsGlobalEnabled}" Content="{l:Loc Key='BookmarkDetails_Global'}" />
                         <CheckBox IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" Content="{l:Loc Key='BookmarkDetails_CaseSensitive'}" />
                         <CheckBox IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" Content="{l:Loc Key='BookmarkDetails_WholeWord'}" />
                         <CheckBox IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" Content="{l:Loc Key='BookmarkDetails_Multiline'}" />
                         <CheckBox IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" Content="{l:Loc Key='BookmarkDetails_DotAsNewline'}" />
                         <CheckBox IsChecked="{Binding BooleanOperators}" IsEnabled="{Binding IsBooleanOperatorsEnabled}" Content="{l:Loc Key='BookmarkDetails_BooleanOperators'}" />
-                    </StackPanel>
+                    </WrapPanel>
                 </DockPanel>
             </GroupBox>
 
