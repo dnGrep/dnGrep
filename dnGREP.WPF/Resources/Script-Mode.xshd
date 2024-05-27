@@ -78,6 +78,7 @@
       <Word>searchtype</Word>
       <Word>searchfor</Word>
       <Word>replacewith</Word>
+      <Word>global</Word>
       <Word>casesensitive</Word>
       <Word>wholeword</Word>
       <Word>multiline</Word>

@@ -73,6 +73,14 @@ namespace dnGREP.WPF
 
             cmd.Targets.Add(new ScriptTargetDefinition()
             {
+                Target = "global",
+                Priority = targPriority--,
+                ValueType = typeof(bool),
+                Description = Resources.ScriptHint_set_global,
+            });
+
+            cmd.Targets.Add(new ScriptTargetDefinition()
+            {
                 Target = "casesensitive",
                 Priority = targPriority--,
                 ValueType = typeof(bool),

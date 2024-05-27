@@ -7914,6 +7914,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Global.
+        /// </summary>
+        public static string ScriptHint_set_global {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_global", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Highlight groups.
         /// </summary>
         public static string ScriptHint_set_highlightgroups {
