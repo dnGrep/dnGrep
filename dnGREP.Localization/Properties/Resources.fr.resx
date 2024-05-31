@@ -3069,4 +3069,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Appliquer les paramètres du marque-page</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Supprimer les fichiers</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
 </root>
