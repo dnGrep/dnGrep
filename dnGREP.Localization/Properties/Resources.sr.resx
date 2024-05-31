@@ -3412,4 +3412,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Претражи помоћу днГреп-а</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>Глобално</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>Глобално</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>Глобално</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
