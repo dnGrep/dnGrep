@@ -29,6 +29,7 @@ namespace dnGREP.WPF
             PropertyChanged += MainViewModel_PropertyChanged;
 
             CurrentGrepOperation = GrepOperation.None;
+            IsGlobalEnabled = TypeOfSearch == SearchType.PlainText || TypeOfSearch == SearchType.Regex;
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
@@ -55,6 +56,7 @@ namespace dnGREP.WPF
             nameof(FilePatternIgnore),
             nameof(TimeRangeFrom),
             nameof(TimeRangeTo),
+            nameof(Global),
             nameof(IncludeArchive),
             nameof(IncludeBinary),
             nameof(IncludeHidden),
@@ -278,13 +280,26 @@ namespace dnGREP.WPF
         }
 
         [ObservableProperty]
+        private bool global;
+        partial void OnGlobalChanged(bool value)
+        {
+            GlobalFlagTooltip = value ? Resources.Main_GlobalTooltip_True : Resources.Main_GlobalTooltip_False;
+        }
+
+        [ObservableProperty]
+        private bool isGlobalEnabled;
+
+        [ObservableProperty]
+        private string globalFlagTooltip = Resources.Main_GlobalTooltip_True;
+
+        [ObservableProperty]
         private bool caseSensitive;
 
         [ObservableProperty]
-        private bool previewFileContent;
+        private bool isCaseSensitiveEnabled;
 
         [ObservableProperty]
-        private bool isCaseSensitiveEnabled;
+        private bool previewFileContent;
 
         [ObservableProperty]
         private bool multiline;
@@ -684,12 +699,14 @@ namespace dnGREP.WPF
             {
                 if (TypeOfSearch == SearchType.XPath)
                 {
+                    IsGlobalEnabled = false;
                     IsCaseSensitiveEnabled = false;
                     IsMultilineEnabled = false;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = false;
                     IsBooleanOperatorsEnabled = false;
                     IsHighlightGroupsEnabled = false;
+                    Global = true;
                     CaseSensitive = false;
                     Multiline = false;
                     Singleline = false;
@@ -698,43 +715,51 @@ namespace dnGREP.WPF
                 }
                 else if (TypeOfSearch == SearchType.PlainText)
                 {
+                    IsGlobalEnabled = true;
                     IsCaseSensitiveEnabled = true;
                     IsMultilineEnabled = true;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = true;
                     IsHighlightGroupsEnabled = false;
+                    Global = true;
                     Singleline = false;
                 }
                 else if (TypeOfSearch == SearchType.Soundex)
                 {
+                    IsGlobalEnabled = false;
                     IsMultilineEnabled = true;
                     IsCaseSensitiveEnabled = false;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = false;
                     IsHighlightGroupsEnabled = false;
+                    Global = true;
                     CaseSensitive = false;
                     Singleline = false;
                     BooleanOperators = false;
                 }
                 else if (TypeOfSearch == SearchType.Regex)
                 {
+                    IsGlobalEnabled = true;
                     IsCaseSensitiveEnabled = true;
                     IsMultilineEnabled = true;
                     IsSinglelineEnabled = true;
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = true;
                     IsHighlightGroupsEnabled = true;
+                    Global = true;
                 }
                 else if (TypeOfSearch == SearchType.Hex)
                 {
+                    IsGlobalEnabled = false;
                     IsCaseSensitiveEnabled = false;
                     IsMultilineEnabled = false;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = false;
                     IsBooleanOperatorsEnabled = false;
                     IsHighlightGroupsEnabled = false;
+                    Global = true;
                     CaseSensitive = false;
                     Multiline = false;
                     Singleline = false;
@@ -878,6 +903,7 @@ namespace dnGREP.WPF
             FilePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
             UseGitignore = Settings.Get<bool>(GrepSettings.Key.UseGitignore) && Utils.IsGitInstalled;
             UseFileSizeFilter = Settings.Get<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter);
+            Global = Settings.Get<bool>(GrepSettings.Key.Global);
             CaseSensitive = Settings.Get<bool>(GrepSettings.Key.CaseSensitive);
             Multiline = Settings.Get<bool>(GrepSettings.Key.Multiline);
             Singleline = Settings.Get<bool>(GrepSettings.Key.Singleline);
@@ -967,6 +993,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.FilePatternIgnore, FilePatternIgnore);
             Settings.Set(GrepSettings.Key.UseGitignore, UseGitignore);
             Settings.Set(GrepSettings.Key.UseFileSizeFilter, UseFileSizeFilter);
+            Settings.Set(GrepSettings.Key.Global, Global);
             Settings.Set(GrepSettings.Key.CaseSensitive, CaseSensitive);
             Settings.Set(GrepSettings.Key.Multiline, Multiline);
             Settings.Set(GrepSettings.Key.Singleline, Singleline);

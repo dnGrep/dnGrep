@@ -314,6 +314,7 @@ namespace dnGREP.WPF
                         TypeOfSearch = editBmk.TypeOfSearch,
                         SearchPattern = editBmk.SearchFor,
                         ReplacePattern = editBmk.ReplaceWith,
+                        Global = editBmk.Global,
                         CaseSensitive = editBmk.CaseSensitive,
                         WholeWord = editBmk.WholeWord,
                         Multiline = editBmk.Multiline,
@@ -379,6 +380,7 @@ namespace dnGREP.WPF
                         TypeOfSearch = duplicateBmk.TypeOfSearch,
                         SearchPattern = duplicateBmk.SearchFor,
                         ReplacePattern = duplicateBmk.ReplaceWith,
+                        Global = duplicateBmk.Global,
                         CaseSensitive = duplicateBmk.CaseSensitive,
                         WholeWord = duplicateBmk.WholeWord,
                         Multiline = duplicateBmk.Multiline,
@@ -440,6 +442,7 @@ namespace dnGREP.WPF
                     TypeOfSearch = editBmk.TypeOfSearch,
                     SearchPattern = editBmk.SearchFor,
                     ReplacePattern = editBmk.ReplaceWith,
+                    Global = editBmk.Global,
                     CaseSensitive = editBmk.CaseSensitive,
                     WholeWord = editBmk.WholeWord,
                     Multiline = editBmk.Multiline,
@@ -497,6 +500,7 @@ namespace dnGREP.WPF
             ReplaceWith = bk.ReplacePattern;
 
             TypeOfSearch = bk.TypeOfSearch;
+            Global = bk.Global;
             CaseSensitive = bk.CaseSensitive;
             WholeWord = bk.WholeWord;
             Multiline = bk.Multiline;
@@ -563,6 +567,9 @@ namespace dnGREP.WPF
             CodePage = toCopy.CodePage;
             PathReferences = string.Join(Environment.NewLine, toCopy.PathReferences);
 
+            Global = toCopy.Global;
+            IsGlobalEnabled = toCopy.IsGlobalEnabled;
+
             CaseSensitive = toCopy.CaseSensitive;
             IsCaseSensitiveEnabled = toCopy.IsCaseSensitiveEnabled;
 
@@ -626,6 +633,8 @@ namespace dnGREP.WPF
 
             if (ApplyContentSearchFilters)
             {
+                if (!Global)
+                    tempList.Add(Resources.Bookmarks_Summary_NotGlobal);
                 if (CaseSensitive)
                     tempList.Add(Resources.Bookmarks_Summary_CaseSensitive);
                 if (WholeWord)
@@ -659,6 +668,7 @@ namespace dnGREP.WPF
                 TypeOfSearch = TypeOfSearch,
                 SearchPattern = SearchFor,
                 ReplacePattern = ReplaceWith,
+                Global = Global,
                 CaseSensitive = CaseSensitive,
                 WholeWord = WholeWord,
                 Multiline = Multiline,
@@ -683,6 +693,7 @@ namespace dnGREP.WPF
 
         private void UpdateTypeOfSearchState()
         {
+            IsGlobalEnabled = true;
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsSinglelineEnabled = true;
@@ -691,11 +702,13 @@ namespace dnGREP.WPF
 
             if (TypeOfSearch == SearchType.XPath)
             {
+                IsGlobalEnabled = false;
                 IsCaseSensitiveEnabled = false;
                 IsMultilineEnabled = false;
                 IsSinglelineEnabled = false;
                 IsWholeWordEnabled = false;
                 IsBooleanOperatorsEnabled = false;
+                Global = true;
                 CaseSensitive = false;
                 Multiline = false;
                 Singleline = false;
@@ -709,9 +722,22 @@ namespace dnGREP.WPF
             }
             else if (TypeOfSearch == SearchType.Soundex)
             {
+                IsGlobalEnabled = false;
                 IsCaseSensitiveEnabled = false;
                 IsSinglelineEnabled = false;
                 IsBooleanOperatorsEnabled = false;
+                Global = true;
+                CaseSensitive = false;
+                Singleline = false;
+                BooleanOperators = false;
+            }
+            else if (TypeOfSearch == SearchType.Hex)
+            {
+                IsGlobalEnabled = false;
+                IsCaseSensitiveEnabled = false;
+                IsSinglelineEnabled = false;
+                IsBooleanOperatorsEnabled = false;
+                Global = true;
                 CaseSensitive = false;
                 Singleline = false;
                 BooleanOperators = false;
@@ -802,10 +828,16 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private SearchType typeOfSearch = SearchType.PlainText;
-        partial void OnTypeOfFileSearchChanged(FileSearchType value)
+        partial void OnTypeOfSearchChanged(SearchType value)
         {
             UpdateTypeOfSearchState();
         }
+
+        [ObservableProperty]
+        private bool global = false;
+
+        [ObservableProperty]
+        private bool isGlobalEnabled = false;
 
         [ObservableProperty]
         private bool caseSensitive = false;

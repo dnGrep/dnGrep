@@ -105,6 +105,7 @@ namespace dnGREP.Engines
             if (searchOptions.HasFlag(GrepSearchOption.SingleLine))
                 regexOptions |= RegexOptions.Singleline;
 
+            bool isGlobal = searchOptions.HasFlag(GrepSearchOption.Global);
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
 
             if (searchOptions.HasFlag(GrepSearchOption.BooleanOperators))
@@ -113,15 +114,16 @@ namespace dnGREP.Engines
                 if (exp.TryParse(searchPattern))
                 {
                     return RegexSearchIteratorBoolean(lineNumber, filePosition,
-                        text, exp, isWholeWord, regexOptions, pauseCancelToken);
+                        text, exp, isWholeWord, isGlobal, regexOptions, pauseCancelToken);
                 }
             }
 
-            return RegexSearchIterator(lineNumber, filePosition, text, searchPattern, isWholeWord, regexOptions, pauseCancelToken);
+            return RegexSearchIterator(lineNumber, filePosition, text, searchPattern, isWholeWord, isGlobal, regexOptions, pauseCancelToken);
         }
 
         private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text,
-            string searchPattern, bool isWholeWord, RegexOptions regexOptions, PauseCancelToken pauseCancelToken)
+            string searchPattern, bool isWholeWord, bool isGlobal, RegexOptions regexOptions, 
+            PauseCancelToken pauseCancelToken)
         {
             if (isWholeWord)
             {
@@ -228,6 +230,11 @@ namespace dnGREP.Engines
                 }
 
                 yield return grepMatch;
+
+                if (!isGlobal)
+                {
+                    break;
+                }
             }
         }
 
@@ -281,13 +288,14 @@ namespace dnGREP.Engines
         }
 
         private List<GrepMatch> RegexSearchIteratorBoolean(int lineNumber, int filePosition, string text,
-            BooleanExpression expression, bool isWholeWord, RegexOptions regexOptions, PauseCancelToken pauseCancelToken)
+            BooleanExpression expression, bool isWholeWord, bool isGlobal, RegexOptions regexOptions, 
+            PauseCancelToken pauseCancelToken)
         {
             List<GrepMatch> results = [];
             foreach (var operand in expression.Operands)
             {
                 var matches = RegexSearchIterator(lineNumber, filePosition, text,
-                    operand.Value, isWholeWord, regexOptions, pauseCancelToken);
+                    operand.Value, isWholeWord, isGlobal, regexOptions, pauseCancelToken);
 
                 operand.EvaluatedResult = matches.Any();
                 operand.Matches = matches.ToList();
@@ -335,6 +343,11 @@ namespace dnGREP.Engines
                 globalMatches.Add(match);
 
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
+                if (!searchOptions.HasFlag(GrepSearchOption.Global))
+                {
+                    break;
+                }
             }
 
             return globalMatches;
@@ -458,6 +471,7 @@ namespace dnGREP.Engines
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : string.Empty, pauseCancelToken);
 
+            bool isGlobal = searchOptions.HasFlag(GrepSearchOption.Global);
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
             StringComparison comparisonType = searchOptions.HasFlag(GrepSearchOption.CaseSensitive) ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
@@ -467,16 +481,16 @@ namespace dnGREP.Engines
                 if (exp.TryParse(searchText))
                 {
                     return TextSearchIteratorBoolean(lineNumber, filePosition,
-                        text, exp, lineEndIndexes, isWholeWord, comparisonType, pauseCancelToken);
+                        text, exp, lineEndIndexes, isWholeWord, isGlobal, comparisonType, pauseCancelToken);
                 }
             }
 
-            return TextSearchIterator(lineNumber, filePosition, text, searchText, lineEndIndexes, isWholeWord, comparisonType, pauseCancelToken);
+            return TextSearchIterator(lineNumber, filePosition, text, searchText, lineEndIndexes, isWholeWord, isGlobal, comparisonType, pauseCancelToken);
         }
 
         private IEnumerable<GrepMatch> TextSearchIterator(int lineNumber, int filePosition, string text,
-            string searchText, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType,
-            PauseCancelToken pauseCancelToken)
+            string searchText, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal, 
+            StringComparison comparisonType, PauseCancelToken pauseCancelToken)
         {
             int index = 0;
             while (index >= 0)
@@ -499,20 +513,26 @@ namespace dnGREP.Engines
                     }
 
                     yield return new GrepMatch(searchText, lineNumber, index + filePosition, searchText.Length);
+
+                    if (!isGlobal)
+                    {
+                        break;
+                    }
+
                     index += searchText.Length;
                 }
             }
         }
 
         private List<GrepMatch> TextSearchIteratorBoolean(int lineNumber, int filePosition, string text,
-            BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType,
-            PauseCancelToken pauseCancelToken)
+            BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal, 
+            StringComparison comparisonType, PauseCancelToken pauseCancelToken)
         {
             List<GrepMatch> results = [];
             foreach (var operand in expression.Operands)
             {
                 var matches = TextSearchIterator(lineNumber, filePosition, text, operand.Value,
-                    lineEndIndexes, isWholeWord, comparisonType, pauseCancelToken);
+                    lineEndIndexes, isWholeWord, isGlobal, comparisonType, pauseCancelToken);
 
                 operand.EvaluatedResult = matches.Any();
                 operand.Matches = matches.ToList();

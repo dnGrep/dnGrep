@@ -1179,10 +1179,12 @@ namespace dnGREP.WPF
                         };
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
-                        if (Multiline)
-                            searchOptions |= GrepSearchOption.Multiline;
+                        if (Global)
+                            searchOptions |= GrepSearchOption.Global;
                         if (CaseSensitive)
                             searchOptions |= GrepSearchOption.CaseSensitive;
+                        if (Multiline)
+                            searchOptions |= GrepSearchOption.Multiline;
                         if (Singleline)
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
@@ -1232,10 +1234,12 @@ namespace dnGREP.WPF
                         };
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
-                        if (Multiline)
-                            searchOptions |= GrepSearchOption.Multiline;
+                        if (Global)
+                            searchOptions |= GrepSearchOption.Global;
                         if (CaseSensitive)
                             searchOptions |= GrepSearchOption.CaseSensitive;
+                        if (Multiline)
+                            searchOptions |= GrepSearchOption.Multiline;
                         if (Singleline)
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
@@ -2305,6 +2309,7 @@ namespace dnGREP.WPF
             nameof(FilePatternIgnore),
             nameof(TypeOfFileSearch),
             nameof(TypeOfSearch),
+            nameof(Global),
             nameof(CaseSensitive),
             nameof(WholeWord),
             nameof(Multiline),
@@ -2333,6 +2338,7 @@ namespace dnGREP.WPF
                 TypeOfSearch = TypeOfSearch,
                 SearchPattern = SearchFor,
                 ReplacePattern = ReplaceWith,
+                Global = Global,
                 CaseSensitive = CaseSensitive,
                 WholeWord = WholeWord,
                 Multiline = Multiline,
@@ -2582,6 +2588,7 @@ namespace dnGREP.WPF
                     SearchFor = bmk.SearchPattern;
                     ReplaceWith = bmk.ReplacePattern;
 
+                    Global = bmk.Global;
                     CaseSensitive = bmk.CaseSensitive;
                     WholeWord = bmk.WholeWord;
                     Multiline = bmk.Multiline;
@@ -2947,6 +2954,7 @@ namespace dnGREP.WPF
               .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToLocalizedString())
               .AppendLine();
 
+            if (!Global) options.Add(Resources.ReportSummary_NotGlobal);
             if (CaseSensitive) options.Add(Resources.ReportSummary_CaseSensitive);
             if (WholeWord) options.Add(Resources.ReportSummary_WholeWord);
             if (Multiline) options.Add(Resources.ReportSummary_Multiline);
@@ -3253,6 +3261,7 @@ namespace dnGREP.WPF
                     SearchFor = bmk.SearchFor;
                     ReplaceWith = bmk.ReplaceWith;
 
+                    Global = bmk.Global;
                     CaseSensitive = bmk.CaseSensitive;
                     WholeWord = bmk.WholeWord;
                     Multiline = bmk.Multiline;
@@ -3306,6 +3315,7 @@ namespace dnGREP.WPF
                     SearchFor = bmk.SearchPattern;
                     ReplaceWith = bmk.ReplacePattern;
 
+                    Global = bmk.Global;
                     CaseSensitive = bmk.CaseSensitive;
                     WholeWord = bmk.WholeWord;
                     Multiline = bmk.Multiline;

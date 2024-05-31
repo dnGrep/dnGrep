@@ -4082,4 +4082,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Enable autocomplete in text input boxes</value>
     <comment>Options dialog, search option checkbox label</comment>
   </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>Not global</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>Not global</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>All matches in each file</value>
+    <comment>Main window, tooltip for the Global checkbox, when checked</comment>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>First match in each file</value>
+    <comment>Main window, tooltip for the Global checkbox, when not checked</comment>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>

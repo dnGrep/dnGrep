@@ -83,6 +83,7 @@ namespace dnGREP.WPF
                 SetCommandMap.Add("searchfor", new ScriptCommand<string>(p => SearchFor = p));
                 SetCommandMap.Add("replacewith", new ScriptCommand<string>(p => ReplaceWith = p));
 
+                SetCommandMap.Add("global", new ScriptCommand<bool>(p => Global = p));
                 SetCommandMap.Add("casesensitive", new ScriptCommand<bool>(p => CaseSensitive = p));
                 SetCommandMap.Add("wholeword", new ScriptCommand<bool>(p => WholeWord = p));
                 SetCommandMap.Add("multiline", new ScriptCommand<bool>(p => Multiline = p));

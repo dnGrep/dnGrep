@@ -647,7 +647,7 @@ namespace Tests
             Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);
             File.WriteAllText(destinationFolder + "\\test.csv", "hello");
             GrepCore core = new();
-            var results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
+            var results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.Global, -1);
             Assert.Equal(2, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
             Assert.Equal(282, results[1].Matches.Count);
@@ -666,7 +666,7 @@ namespace Tests
             Utils.CopyFiles(sourceFolder + "\\TestCase3", longDestinationFolder + "\\TestCase3", null, null);
             File.WriteAllText(longDestinationFolder + "\\test.csv", "hello");
             GrepCore core = new();
-            var results = core.Search(Directory.GetFiles(longDestinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
+            var results = core.Search(Directory.GetFiles(longDestinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.Global, -1);
             Assert.Equal(2, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
             Assert.Equal(282, results[1].Matches.Count);
