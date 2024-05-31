@@ -4014,4 +4014,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     設定 Everything 搜尋文字. 必須是命令列上的最後一個選項, 並將逐字複製命令列的其餘部分.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>全局</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>全局</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>全局</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
