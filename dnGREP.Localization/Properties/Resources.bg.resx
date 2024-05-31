@@ -4072,4 +4072,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Пауза при първо съвпадение</value>
     <comment>Main window, search option label</comment>
   </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>Общо</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>Общо</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>Общо</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
