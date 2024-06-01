@@ -4084,4 +4084,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>全局</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>非全局</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>非全局</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
 </root>
