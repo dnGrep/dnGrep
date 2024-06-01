@@ -4092,4 +4092,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>非全局</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>每个文件中的所有匹配</value>
+    <comment>Main window, tooltip for the Global checkbox, when checked</comment>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>每个文件中的首个匹配</value>
+    <comment>Main window, tooltip for the Global checkbox, when not checked</comment>
+  </data>
 </root>
