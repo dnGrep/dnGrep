@@ -2043,7 +2043,7 @@
     <comment>Report search options summary label</comment>
   </data>
   <data name="Test_SearchGroup" xml:space="preserve">
-    <value>Search</value>
+    <value>검색</value>
     <comment>Test window, search group box heading</comment>
   </data>
   <data name="Test_SearchType_Phonetic" xml:space="preserve">
@@ -2918,5 +2918,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
     <value>특별 설정</value>
     <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>검색 설정</value>
+    <comment>Options dialog, search options group header label</comment>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>파일 삭제</value>
+    <comment>Main window, results list, context menu item label</comment>
   </data>
 </root>
