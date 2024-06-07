@@ -1046,6 +1046,7 @@ namespace dnGREP.WPF
             base.ResetOptions();
 
             IgnoreFilter = IgnoreFilterFile.None;
+            Global = true;
         }
 
         internal void CancelSearch()
