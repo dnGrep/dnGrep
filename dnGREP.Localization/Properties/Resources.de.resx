@@ -2835,4 +2835,16 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>natürliche Sortierung</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
 </root>
