@@ -393,6 +393,10 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool showLinesInContext;
+        partial void OnShowLinesInContextChanged(bool value)
+        {
+            Settings.Set(GrepSettings.Key.ShowLinesInContext, value);
+        }
 
         [ObservableProperty]
         private int contextLinesBefore;
@@ -1160,7 +1164,6 @@ namespace dnGREP.WPF
                         GrepCore grep = new()
                         {
                             SearchParams = new(
-                                Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
                                 Settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                                 Settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                                 Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
@@ -1226,7 +1229,6 @@ namespace dnGREP.WPF
                         GrepCore grep = new()
                         {
                             SearchParams = new(
-                                Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
                                 Settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                                 Settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                                 Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),

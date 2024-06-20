@@ -1052,7 +1052,7 @@ namespace Tests
             Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase14"), Path.Combine(destinationFolder, "TestCase14"), null, null);
             GrepCore core = new()
             {
-                SearchParams = new(false, 0, 0, 0.5, verbose, false)
+                SearchParams = new(0, 0, 0.5, verbose, false)
             };
             Stopwatch sw = new();
             sw.Start();
@@ -1760,7 +1760,7 @@ namespace Tests
 
             GrepCore core = new()
             {
-                SearchParams = new(false, 0, 0, 0, verboseMatchCount, false)
+                SearchParams = new(0, 0, 0, verboseMatchCount, false)
             };
             var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.Global, -1);
 
@@ -1841,7 +1841,7 @@ namespace Tests
 
             GrepCore core = new()
             {
-                SearchParams = new(false, 0, 0, 0, verboseMatchCount, false)
+                SearchParams = new(0, 0, 0, verboseMatchCount, false)
             };
             var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.Global | GrepSearchOption.Multiline, -1);
 
@@ -1922,7 +1922,7 @@ namespace Tests
 
             GrepCore core = new()
             {
-                SearchParams = new(false, 0, 0, 0, verboseMatchCount, false)
+                SearchParams = new(0, 0, 0, verboseMatchCount, false)
             };
             var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
 
@@ -2003,7 +2003,7 @@ namespace Tests
 
             GrepCore core = new()
             {
-                SearchParams = new(false, 0, 0, 0, verboseMatchCount, false)
+                SearchParams = new(0, 0, 0, verboseMatchCount, false)
             };
             var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
 

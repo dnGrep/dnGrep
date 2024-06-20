@@ -291,12 +291,11 @@
                 <StackPanel Orientation="Horizontal"
                             Visibility="{Binding ShowContextLinesVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                     <CheckBox Content="{l:Loc Key='Main_ContextShowLines'}" Name="cbShowContext" Margin="6,3,3,3" HorizontalAlignment="Center"
-                              ToolTip="{l:Loc Key='Main_ContextChangesWillBeAppliedInNextSearch'}"
                               IsChecked="{Binding Path=ShowLinesInContext}"
                               TabIndex="93"/>
                     <TextBox Margin="3,3,0,0"
                              Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
-                             IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                             ToolTip="{l:Loc Key='Main_ContextChangesWillBeAppliedInNextSearch'}"
                              TabIndex="94">
                         <TextBox.Width>
                             <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
@@ -309,7 +308,7 @@
                     <Label Content="{l:Loc Key='Main_ContextBeforeAnd'}" />
                     <TextBox Margin="0,3,0,0"
                              Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
-                             IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                             ToolTip="{l:Loc Key='Main_ContextChangesWillBeAppliedInNextSearch'}"
                              TabIndex="95">
                         <TextBox.Width>
                             <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
