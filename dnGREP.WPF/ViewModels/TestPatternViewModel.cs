@@ -136,7 +136,6 @@ namespace dnGREP.WPF
             get
             {
                 return new GrepEngineInitParams(
-                    GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
                     GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                     GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
                     GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),

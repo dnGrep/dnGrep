@@ -47,16 +47,9 @@ namespace dnGREP.WPF.MVHelpers
 
             IsLoading = true;
 
-            List<GrepLine> linesWithContext;
-            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
-            {
-                linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-            }
-            else
-            {
-                linesWithContext = result.GetLinesWithContext(0, 0);
-            }
+            List<GrepLine> linesWithContext = result.GetLinesWithContext(
+                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
 
             FormatAndLoadLines(linesWithContext);
 
@@ -75,18 +68,9 @@ namespace dnGREP.WPF.MVHelpers
 
             List<GrepLine> linesWithContext = await Task.Run(() =>
             {
-                List<GrepLine> list;
-                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
-                {
-                    list = result.GetLinesWithContext(
-                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-                }
-                else
-                {
-                    list = result.GetLinesWithContext(0, 0);
-                }
-
+                List<GrepLine> list = result.GetLinesWithContext(
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
                 return list;
             });
 
@@ -114,7 +98,7 @@ namespace dnGREP.WPF.MVHelpers
                 bool isSectionBreak = false;
 
                 // Adding separator
-                if (tempList.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
+                if (tempList.Count > 0 &&
                     (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
                 {
                     isSectionBreak = true;

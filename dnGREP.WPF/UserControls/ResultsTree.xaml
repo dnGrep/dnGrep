@@ -294,6 +294,15 @@
                         </MultiTrigger.Conditions>
                         <Setter Property="BorderBrush" Value="{DynamicResource TreeViewItem.InactiveHighlight.Border}" />
                     </MultiTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding GrepLine.IsContext}" Value="True"/>
+                            <Condition Binding="{Binding Path=DataContext.ShowLinesInContext, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger.Setters>
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </MultiDataTrigger.Setters>
+                    </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
         </TreeView.ItemContainerStyle>

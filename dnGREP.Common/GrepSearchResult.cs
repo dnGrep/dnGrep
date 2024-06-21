@@ -159,16 +159,9 @@ namespace dnGREP.Common
         {
             get
             {
-                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
-                {
-                    return GetLinesWithContext(
-                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-                }
-                else
-                {
-                    return GetLinesWithContext(0, 0);
-                }
+                return GetLinesWithContext(
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
             }
             set
             {

@@ -122,7 +122,7 @@ namespace dnGREP.Engines
         }
 
         private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text,
-            string searchPattern, bool isWholeWord, bool isGlobal, RegexOptions regexOptions, 
+            string searchPattern, bool isWholeWord, bool isGlobal, RegexOptions regexOptions,
             PauseCancelToken pauseCancelToken)
         {
             if (isWholeWord)
@@ -288,7 +288,7 @@ namespace dnGREP.Engines
         }
 
         private List<GrepMatch> RegexSearchIteratorBoolean(int lineNumber, int filePosition, string text,
-            BooleanExpression expression, bool isWholeWord, bool isGlobal, RegexOptions regexOptions, 
+            BooleanExpression expression, bool isWholeWord, bool isGlobal, RegexOptions regexOptions,
             PauseCancelToken pauseCancelToken)
         {
             List<GrepMatch> results = [];
@@ -489,7 +489,7 @@ namespace dnGREP.Engines
         }
 
         private IEnumerable<GrepMatch> TextSearchIterator(int lineNumber, int filePosition, string text,
-            string searchText, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal, 
+            string searchText, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal,
             StringComparison comparisonType, PauseCancelToken pauseCancelToken)
         {
             int index = 0;
@@ -525,7 +525,7 @@ namespace dnGREP.Engines
         }
 
         private List<GrepMatch> TextSearchIteratorBoolean(int lineNumber, int filePosition, string text,
-            BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal, 
+            BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal,
             StringComparison comparisonType, PauseCancelToken pauseCancelToken)
         {
             List<GrepMatch> results = [];
@@ -979,7 +979,6 @@ namespace dnGREP.Engines
 
         public GrepEngineInitParams()
         {
-            ShowLinesInContext = false;
             LinesBefore = 0;
             LinesAfter = 0;
             FuzzyMatchThreshold = 0.5f;
@@ -988,25 +987,15 @@ namespace dnGREP.Engines
             SearchParallel = false;
         }
 
-        public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold, bool verboseMatchCount, bool searchParallel)
+        public GrepEngineInitParams(int linesBefore, int linesAfter, double fuzzyMatchThreshold, bool verboseMatchCount, bool searchParallel)
         {
-            ShowLinesInContext = showLinesInContext;
-            if (!showLinesInContext)
-            {
-                LinesBefore = 0;
-                LinesAfter = 0;
-            }
-            else
-            {
-                LinesBefore = linesBefore;
-                LinesAfter = linesAfter;
-            }
+            LinesBefore = linesBefore;
+            LinesAfter = linesAfter;
             FuzzyMatchThreshold = (float)fuzzyMatchThreshold;
             VerboseMatchCount = verboseMatchCount;
             SearchParallel = searchParallel;
         }
 
-        public bool ShowLinesInContext { get; private set; }
         public int LinesBefore { get; private set; }
         public int LinesAfter { get; private set; }
         public float FuzzyMatchThreshold { get; private set; }
