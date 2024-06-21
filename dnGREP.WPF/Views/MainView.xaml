@@ -522,34 +522,40 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
+                                                <RowDefinition/>
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3"
+                                                      IsChecked="{Binding Global}"
+                                                      IsEnabled="{Binding IsGlobalEnabled}"
+                                                      TabIndex="48" Content="{l:Loc Key='Main_Global'}" 
+                                                      ToolTip="{Binding GlobalFlagTooltip}"/>
+                                            <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding CaseSensitive}"
                                                       IsEnabled="{Binding IsCaseSensitiveEnabled}"
-                                                      TabIndex="48" Content="{l:Loc Key='Main_CaseSensitive'}" />
-                                            <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3"
+                                                      TabIndex="49" Content="{l:Loc Key='Main_CaseSensitive'}" />
+                                            <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding WholeWord}"
                                                       IsEnabled="{Binding IsWholeWordEnabled}"
                                                       TabIndex="49" Content="{l:Loc Key='Main_WholeWord'}" />
-                                            <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3"
+                                            <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding Multiline}"
                                                       IsEnabled="{Binding IsMultilineEnabled}"
                                                       TabIndex="49" Content="{l:Loc Key='Main_Multiline'}" />
-                                            <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3"
+                                            <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding Singleline}"
                                                       IsEnabled="{Binding IsSinglelineEnabled}"
                                                       TabIndex="49" Content="{l:Loc Key='Main_DotAsNewline'}" />
-                                            <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,0,3,3"
+                                            <CheckBox Grid.Row="2" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding BooleanOperators}"
                                                       IsEnabled="{Binding IsBooleanOperatorsEnabled}"
                                                       TabIndex="49" Content="{l:Loc Key='Main_BooleanOperators'}" 
                                                       ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"
                                                       Visibility="{Binding BooleanOperatorsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            <CheckBox Grid.Row="2" Grid.Column="1" Margin="3,0,3,3"
+                                            <CheckBox Grid.Row="3" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding CaptureGroupSearch}"
                                                       IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                                       TabIndex="49" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
@@ -904,7 +910,7 @@
                                 <CheckBox Margin="3,1"
                                           IsChecked="{Binding Global}"
                                           IsEnabled="{Binding IsGlobalEnabled}"
-                                          TabIndex="70" Content="{l:Loc Key='Main_Global'}" 
+                                          TabIndex="69" Content="{l:Loc Key='Main_Global'}" 
                                           ToolTip="{Binding GlobalFlagTooltip}"/>
                                 <CheckBox Margin="3,1"
                                           IsChecked="{Binding CaseSensitive}"
