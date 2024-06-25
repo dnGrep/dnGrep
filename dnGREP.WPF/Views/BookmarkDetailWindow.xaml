@@ -10,6 +10,7 @@
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
+                 my:ChromeButtonExtension.ButtonVisibility="MinimizeHidden"
                  SizeToContent="WidthAndHeight"
                  WindowStartupLocation="CenterOwner"
                  ResizeMode="CanResize"

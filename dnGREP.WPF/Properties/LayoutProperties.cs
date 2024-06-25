@@ -24,6 +24,7 @@ namespace dnGREP.WPF.Properties
         private static Rect? bookmarkWindowBounds;
         private static WindowState? bookmarkWindowState;
         private static Rect? replaceBounds;
+        private static Rect? optionsBounds;
         private static Rect? previewBounds;
         private static WindowState? previewWindowState;
         private static bool? previewDocked;
@@ -137,6 +138,31 @@ namespace dnGREP.WPF.Properties
             {
                 bookmarkWindowState = value;
                 GrepSettings.Instance.Set(GrepSettings.Key.BookmarkWindowState, bookmarkWindowState.Value);
+            }
+        }
+
+        public static Rect OptionsBounds
+        {
+            get
+            {
+                if (!optionsBounds.HasValue)
+                {
+                    if (GrepSettings.Instance.IsSet(GrepSettings.Key.OptionsBounds))
+                    {
+                        optionsBounds = GrepSettings.Instance.Get<Rect>(GrepSettings.Key.OptionsBounds);
+                    }
+                    else
+                    {
+                        optionsBounds = new(0, 0, 0, 0);
+                    }
+                    optionsBounds = Validate(optionsBounds.Value);
+                }
+                return optionsBounds.Value;
+            }
+            set
+            {
+                optionsBounds = Validate(value);
+                GrepSettings.Instance.Set(GrepSettings.Key.OptionsBounds, optionsBounds.Value);
             }
         }
 

@@ -117,6 +117,7 @@
     <Style xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework" TargetType="local:ThemedWindow">
         <Style.Resources>
             <local:ResizeModeConverter x:Key="ResizeModeConverter" />
+            <local:ChromeButtonVisibilityConverter x:Key="ButtonVisibilityConverter"/>
         </Style.Resources>
         <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
@@ -144,15 +145,25 @@
 
                                     <Button x:Name="PART_MinimizeButton"
                                             Style="{StaticResource MinimizeButtonStyle}"
-                                            WindowChrome.IsHitTestVisibleInChrome="True"
-                                            Visibility="{TemplateBinding ResizeMode,
-                                                                         Converter={StaticResource ResizeModeConverter}}" />
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                        <Button.Visibility>
+                                            <MultiBinding Converter="{StaticResource ButtonVisibilityConverter}" ConverterParameter="minimize">
+                                                <Binding Path="ResizeMode" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                <Binding Path="(local:ChromeButtonExtension.ButtonVisibility)" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                            </MultiBinding>
+                                        </Button.Visibility>
+                                    </Button>
 
                                     <Button x:Name="PART_RestoreButton"
                                             Style="{StaticResource MaximizeButtonStyle}"
-                                            WindowChrome.IsHitTestVisibleInChrome="True"
-                                            Visibility="{TemplateBinding ResizeMode,
-                                                                         Converter={StaticResource ResizeModeConverter}}" />
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                        <Button.Visibility>
+                                            <MultiBinding Converter="{StaticResource ButtonVisibilityConverter}" ConverterParameter="maximize">
+                                                <Binding Path="ResizeMode" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                <Binding Path="(local:ChromeButtonExtension.ButtonVisibility)" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                            </MultiBinding>
+                                        </Button.Visibility>
+                                    </Button>
 
                                     <Button x:Name="PART_CloseButton"
                                             Style="{StaticResource CloseButtonStyle}"
