@@ -7,8 +7,8 @@
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  mc:Ignorable="d"
                  Title="{l:Loc Key='Options_OptionsTitle'}"
-                 Height="600"
                  MinWidth="500"
+                 MinHeight="300"
                  d:DesignHeight="3400"
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
@@ -16,8 +16,9 @@
                  my:DiginesisHelpProvider.HelpKeyword="Options"
                  my:DiginesisHelpProvider.HelpNavigator="Topic"
                  my:DiginesisHelpProvider.ShowHelp="True"
-                 ResizeMode="NoResize"
+                 ResizeMode="CanResize"
                  SizeToContent="Width"
+                 my:ChromeButtonExtension.ButtonVisibility="MinimizeHidden"
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Icon="/dnGREP;component/nGREP.ico"
@@ -81,7 +82,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" PanningMode="VerticalOnly">
+        <ScrollViewer Grid.Row="0" PanningMode="Both" HorizontalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Stretch">
 
                 <GroupBox Header="{l:Loc Key='Options_StartupOptions'}">

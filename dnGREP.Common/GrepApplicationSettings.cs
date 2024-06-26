@@ -172,6 +172,7 @@ namespace dnGREP.Common
             public const string FollowSymlinks = "FollowSymlinks";
             public const string MainWindowState = "MainWindowState";
             public const string MainWindowBounds = "MainWindowBounds";
+            public const string OptionsBounds = "OptionsBounds";
             public const string ReplaceBounds = "ReplaceBounds";
             public const string PreviewBounds = "PreviewBounds";
             public const string PreviewWindowState = "PreviewWindowState";
