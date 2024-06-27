@@ -599,8 +599,7 @@
                                       IsChecked="{Binding Path=ShowLinesInContext}" 
                                       Content="{l:Loc Key='Options_ShowResultLinesInContext'}"/>
                             <TextBox Margin="3,0,0,0"
-                                     Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
-                                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}">
+                                     Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
@@ -610,8 +609,7 @@
                                 </TextBox.Width>
                             </TextBox>
                             <Label Content="{l:Loc Key='Options_ContextBeforeAnd'}" />
-                            <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
-                                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}">
+                            <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
