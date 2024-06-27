@@ -185,6 +185,7 @@ namespace dnGREP.WPF
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
                 SearchAutoStopCount != Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount) ||
                 SearchAutoPauseCount != Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount) ||
+                FocusElement != Settings.Get<FocusElement>(GrepSettings.Key.SetFocusElement) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
                 CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
@@ -526,6 +527,9 @@ namespace dnGREP.WPF
         private int searchAutoPauseCount = 5;
 
         [ObservableProperty]
+        private FocusElement focusElement;
+
+        [ObservableProperty]
         private ReplaceDialogConfiguration replaceDialogLayout;
 
         [ObservableProperty]
@@ -815,6 +819,7 @@ namespace dnGREP.WPF
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
             SearchAutoStopCount = Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount);
             SearchAutoPauseCount = Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount);
+            FocusElement = Settings.Get<FocusElement>(GrepSettings.Key.SetFocusElement);
 
             UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
             ApplicationFontFamily = EditApplicationFontFamily =
@@ -972,6 +977,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
             Settings.Set(GrepSettings.Key.SearchAutoStopCount, SearchAutoStopCount);
             Settings.Set(GrepSettings.Key.SearchAutoPauseCount, SearchAutoPauseCount);
+            Settings.Set(GrepSettings.Key.SetFocusElement, FocusElement);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
             Settings.Set(GrepSettings.Key.DeleteToRecycleBin, DeleteOption == DeleteFilesDestination.Recycle);
             Settings.Set(GrepSettings.Key.OverwriteFilesOnCopy, CopyOverwriteFileOption);

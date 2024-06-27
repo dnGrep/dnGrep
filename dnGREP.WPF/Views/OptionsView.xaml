@@ -558,6 +558,7 @@
                                 </TextBox.Width>
                             </TextBox>
                         </Grid>
+                        
                         <Label Content="{l:Loc Key='Options_MaximumNumberOfParallelSearches'}"/>
                         <StackPanel Orientation="Horizontal">
                             <Slider Width="250" HorizontalAlignment="Left"
@@ -567,6 +568,16 @@
                                     Value="{Binding ParallelismCount}"/>
                             <CheckBox Margin="12,0" Content="{l:Loc Key='Options_NoFixedLimit'}"
                                       IsChecked="{Binding ParallelismUnlimited}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="{l:Loc Key='Options_SetKeyboardFocusTo'}"/>
+                            <RadioButton Content="{l:Loc Key='Options_FocusResultsTree'}" 
+                                         Margin="18,3" GroupName="FocusElement"
+                                         IsChecked="{Binding FocusElement, Converter={StaticResource ebc}, ConverterParameter=ResultsTree}" />
+                            <RadioButton Content="{l:Loc Key='Options_FocusSearchFor'}" 
+                                         Margin="18,3" GroupName="FocusElement"
+                                         IsChecked="{Binding FocusElement, Converter={StaticResource ebc}, ConverterParameter=SearchFor}" />
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

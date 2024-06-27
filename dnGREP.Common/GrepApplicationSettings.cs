@@ -350,6 +350,8 @@ namespace dnGREP.Common
             public const string SearchAutoPauseCount = "SearchAutoPauseCount";
             [DefaultValue(true)]
             public const string AutoCompleteEnabled = "AutoCompleteEnabled";
+            [DefaultValue(FocusElement.ResultsTree)]
+            public const string SetFocusElement = "SetFocusElement";
         }
 
         public static class ObsoleteKey

@@ -164,4 +164,10 @@ namespace dnGREP.Common
         Large = 2,
     }
 
+    public enum FocusElement
+    { 
+        ResultsTree,
+        SearchFor,
+    }
+
 }

@@ -4110,4 +4110,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Global</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>After searching, set keyboard focus to</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Results tree</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Search for input</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>

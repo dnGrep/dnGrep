@@ -298,6 +298,9 @@ namespace dnGREP.WPF
         public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = [];
 
         [ObservableProperty]
+        private bool isSearchForFocused;
+
+        [ObservableProperty]
         private IgnoreFilterFile ignoreFilter = IgnoreFilterFile.None;
 
         [ObservableProperty]
@@ -1770,9 +1773,21 @@ namespace dnGREP.WPF
                 idleTimer.Start();
                 IsSearchReplacePaused = false;
                 workerSearchReplace.RunWorkerAsync(workerParams);
-                // toggle value to move focus to the results tree, and enable keyboard actions on the tree
-                ResultsViewModel.IsResultsTreeFocused = false;
-                ResultsViewModel.IsResultsTreeFocused = true;
+
+                switch (Settings.Get<FocusElement>(GrepSettings.Key.SetFocusElement))
+                {
+                    case FocusElement.SearchFor:
+                        // reset the keyboard focus back to the SearchFor box
+                        IsSearchForFocused = false;
+                        IsSearchForFocused = true;
+                        break;
+                    case FocusElement.ResultsTree:
+                    default:
+                        // toggle value to move focus to the results tree and enable keyboard actions on the tree
+                        ResultsViewModel.IsResultsTreeFocused = false;
+                        ResultsViewModel.IsResultsTreeFocused = true;
+                        break;
+                }
             }
             else if (IsScriptRunning)
             {
@@ -1953,6 +1968,10 @@ namespace dnGREP.WPF
                         idleTimer.Start();
                         workerSearchReplace.RunWorkerAsync(workerParams);
                         UpdateBookmarks();
+
+                        // reset the keyboard focus back to the SearchFor box
+                        IsSearchForFocused = false;
+                        IsSearchForFocused = true;
                     }
                     else if (IsScriptRunning)
                     {
