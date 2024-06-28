@@ -3052,4 +3052,8 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Global</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Arbre de resultats</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
