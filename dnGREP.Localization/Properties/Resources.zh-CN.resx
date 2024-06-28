@@ -4104,4 +4104,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜索后，设置键盘焦点到</value>
     <comment>Options dialog, radio button group label</comment>
   </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>结果树</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
