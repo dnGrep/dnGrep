@@ -235,7 +235,7 @@
     <comment>Main window, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Rótulo da opção do padrão do ficheiro. "Everything" é uma aplicação (consulte https://www.voidtools.com/) É visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Serviço de indexação Everything</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
@@ -455,7 +455,7 @@
     <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Rótulo da opção do padrão de ficheiro. "Everything" é uma aplicação (consulte https://www.voidtools.com/) É visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Serviço de indexação Everything</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
@@ -1022,7 +1022,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
-    <value>Plug-ins</value>
+    <value>Suplementos</value>
     <comment>Options dialog, Plug-ins group header label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
@@ -1666,7 +1666,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>Ma_is</value>
+    <value>_Mais</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
@@ -2146,7 +2146,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, compare arguments input box label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Utilizar as palavras-chave '{0}' para o local do ficheiro, '{1}' para o número da linha, '{2}' para o padrão da pesquisa, '{3}' para o primeiro texto correspondente na linha e '{4} ' para o número da coluna da primeira correspondência na linha.</value>
+    <value>Utilize as palavras-chave '{0}' para a localização do ficheiro, '{5}' para o número da página, '{1}' para o número da linha, '{2}' para o padrão de pesquisa, '{3}' para o primeiro texto correspondente na linha e '{4}' para o número da coluna da primeira correspondência na linha.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
@@ -2662,7 +2662,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Delete" xml:space="preserve">
-    <value>_Eliminar</value>
+    <value>_Apagar</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
@@ -2674,19 +2674,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
-    <value>_Anular</value>
+    <value>_Desfazer</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
-    <value>Operadores booleanos</value>
+    <value>Operadores lógicos Booleanos</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
-    <value>Capturar pesquisa de grupo</value>
+    <value>Pesquisa de grupos de captura</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
-    <value>Respeitar maiúsculas</value>
+    <value>Diferenciar maiúsculas e minúsculas</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
@@ -2694,11 +2694,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
-    <value>Seguir links simbólicos</value>
+    <value>Seguir as ligações simbólicas</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>Destacar grupos</value>
+    <value>Grupos de destaque</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
@@ -2718,7 +2718,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
-    <value>Procurar</value>
+    <value>Procurar por</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
@@ -2734,7 +2734,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
-    <value>Ignorar ficheiros remotos na nuvem</value>
+    <value>Pular ficheiros remotos de armazenamento na nuvem</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
@@ -2746,11 +2746,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
-    <value>Palavra completa</value>
+    <value>Palavra inteira</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
-    <value>Contornar o texto</value>
+    <value>Quebrar texto</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
@@ -2758,19 +2758,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="Options_PluginReset" xml:space="preserve">
-    <value>Repor</value>
+    <value>Reinicializar</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
-    <value>Repor</value>
+    <value>Reinicializar</value>
     <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
   <data name="Options_CopyFiles" xml:space="preserve">
-    <value>Copiar Ficheiros</value>
+    <value>Copiar ficheiros</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
-    <value>Mover Ficheiros</value>
+    <value>Mover ficheiros</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="MessageBox_Cancel" xml:space="preserve">
@@ -2782,7 +2782,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Options_SearchOptions" xml:space="preserve">
-    <value>Opções de pesquisa</value>
+    <value>Opções de procura</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
@@ -2814,7 +2814,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>KB</value>
+    <value>kB</value>
     <comment>Options dialog, label for file size</comment>
   </data>
   <data name="Main_DatePastDays" xml:space="preserve">
@@ -2836,5 +2836,144 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_set_global" xml:space="preserve">
     <value>Global</value>
     <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Número de correspondências na linha</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Número de correspondências/número de correspondências no ficheiro</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Número de correspondências/número total de correspondências</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Apagar ficheiros</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Apagar permanentemente</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Dados e _registos de aplicação</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Anular o guião</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Editar o guião…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Novo guião…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Guiões</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Mover ficheiros para a Lixeira</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} tem alterações não armazenadas. Gravar agora?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Números de linha</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Mostrar o menu Explorer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Não perguntar novamente</value>
+    <comment>Message box check box label</comment>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Sim</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Perguntar</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Sim a _tudo</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Ao copiar ficheiros, quando o ficheiro de destino já existe, sobregravar-se a ele?</value>
+    <comment>Options dialog, overwrite on copy options label</comment>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Não</value>
+    <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Nome do marcador:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Seta para baixo</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Seta para cima</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Mover para baixo</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Mover para o fim</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Mover para cima</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Seta para baixo</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Seta para cima</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Mover para o topo</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Nome</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [chaveGuião]
+-sc [chaveGuião]
+-script [chaveGuião]
+    Executa o guião identificado pela chave.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} tem erros de validação. Gravar mesmo assim?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Não</value>
+    <comment>Message box button text (accel)</comment>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Não a _tudo</value>
+    <comment>Message box button text (accel)</comment>
   </data>
 </root>
