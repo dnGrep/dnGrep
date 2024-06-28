@@ -4042,4 +4042,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>非全局</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>結果樹狀圖</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
