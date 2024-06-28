@@ -2847,4 +2847,8 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Global</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Ergebnisbaum</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
