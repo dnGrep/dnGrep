@@ -5034,6 +5034,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results tree.
+        /// </summary>
+        public static string Options_FocusResultsTree {
+            get {
+                return ResourceManager.GetString("Options_FocusResultsTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for input.
+        /// </summary>
+        public static string Options_FocusSearchFor {
+            get {
+                return ResourceManager.GetString("Options_FocusSearchFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Follow Windows theme.
         /// </summary>
         public static string Options_FollowWindowsTheme {
@@ -5813,6 +5831,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_SendToRecycleBin {
             get {
                 return ResourceManager.GetString("Options_SendToRecycleBin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After searching, set keyboard focus to.
+        /// </summary>
+        public static string Options_SetKeyboardFocusTo {
+            get {
+                return ResourceManager.GetString("Options_SetKeyboardFocusTo", resourceCulture);
             }
         }
         

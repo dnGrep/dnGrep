@@ -960,6 +960,7 @@
                                       my:DiginesisHelpProvider.HelpKeyword="Regular-Expressions"
                                       my:DiginesisHelpProvider.HelpNavigator="Topic"
                                       my:DiginesisHelpProvider.ShowHelp="True"
+                                      my:FocusExtension.IsFocused="{Binding IsSearchForFocused}"
                                       Text="{Binding SearchFor}"
                                       ItemsSource="{Binding FastSearchBookmarks}"
                                       TextSearch.TextPath="StringValue"
