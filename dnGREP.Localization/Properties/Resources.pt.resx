@@ -2976,4 +2976,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Não a _tudo</value>
     <comment>Message box button text (accel)</comment>
   </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Apagar ficheiros</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Árvore de resultados</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
