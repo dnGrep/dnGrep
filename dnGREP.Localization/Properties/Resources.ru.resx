@@ -4051,4 +4051,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Глобальный</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Дерево результатов поиска</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
