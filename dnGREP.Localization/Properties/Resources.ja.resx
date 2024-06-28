@@ -3948,4 +3948,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>グローバル</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>結果ツリー</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
