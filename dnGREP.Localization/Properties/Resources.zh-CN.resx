@@ -4100,4 +4100,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>每个文件中的首个匹配</value>
     <comment>Main window, tooltip for the Global checkbox, when not checked</comment>
   </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>搜索后，设置键盘焦点到</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
 </root>
