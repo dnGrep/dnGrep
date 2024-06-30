@@ -4085,7 +4085,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_FocusResultsTree" xml:space="preserve">
-    <value>Дърво с резултатите</value>
+    <value>Дървото с резултатите</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Първо съвпадение във всеки файл</value>
+    <comment>Main window, tooltip for the Global checkbox, when not checked</comment>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Полето за търсене</value>
     <comment>Options dialog, radio button label</comment>
   </data>
 </root>
