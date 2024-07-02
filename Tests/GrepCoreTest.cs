@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using dnGREP.Engines;
@@ -338,7 +340,7 @@ namespace Tests
 
             var fileData = Utils.GetFileListIncludingArchives(new FileFilter(destFolder, "*.*", string.Empty, false, false,
                 false, true, -1, true, true, true, false, 0, 0, FileDateFilter.None, null, null));
-            
+
             using (PauseCancelTokenSource source = new())
             {
                 var results = core.ListFiles(fileData, GrepSearchOption.Global | GrepSearchOption.CaseSensitive, -1, source.Token);
@@ -2047,6 +2049,58 @@ namespace Tests
 
         [GeneratedRegex("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")]
         private static partial Regex GuidRegex();
+
+
+        [Fact]
+        public void TestSearchMultiplePatterns()
+        {
+            string testCase20 = Path.Combine(sourceFolder, @"TestCase20");
+            string destFolder = Path.Combine(destinationFolder, @"TestCase20");
+            DirectoryInfo di = new(destFolder);
+            if (!di.Exists)
+            {
+                di.Create();
+                DirectoryEx.Copy(testCase20, destFolder);
+            }
+
+            string searchFilePath = Path.Combine(destFolder, @"searchfor.txt");
+            string[] searchPatterns = File.ReadAllLines(searchFilePath)
+                                    .Where(l => !string.IsNullOrEmpty(l)).ToArray();
+
+            GrepCore core = new()
+            {
+                // all ts files
+                FileFilter = new(destFolder, "*.ts", string.Empty, false, false,
+                    false, true, -1, true,
+                    true, false, false, 0, 0,
+                    FileDateFilter.None, null, null)
+            };
+            var results = core.SearchMultiple(Directory.GetFiles(destFolder, "*.ts"),
+                SearchType.PlainText, searchPatterns, GrepSearchOption.Global, -1);
+            Assert.Single(results);
+            Assert.Equal(12, results[0].Matches.Count);
+
+            // all css files (in archive)
+            core.FileFilter = new(destFolder, "*.css", string.Empty, false, false,
+                    false, true, -1, true,
+                    true, true, false, 0, 0,
+                    FileDateFilter.None, null, null);
+            results = core.SearchMultiple(Directory.GetFiles(destFolder, "*.zip"),
+                SearchType.PlainText, searchPatterns, GrepSearchOption.Global, -1);
+            Assert.Equal(3, results.Count);
+
+            var button = results.FirstOrDefault(r => r.FileNameDisplayed.Contains("button", StringComparison.OrdinalIgnoreCase));
+            Assert.NotNull(button);
+            Assert.Equal(7, button.Matches.Count);
+
+            var dropdown = results.FirstOrDefault(r => r.FileNameDisplayed.Contains("dropdown", StringComparison.OrdinalIgnoreCase));
+            Assert.NotNull(dropdown);
+            Assert.Single(dropdown.Matches);
+
+            var list = results.FirstOrDefault(r => r.FileNameDisplayed.Contains("list", StringComparison.OrdinalIgnoreCase));
+            Assert.NotNull(list);
+            Assert.Equal(6, list.Matches.Count);
+        }
 
 #pragma warning restore SYSLIB1045
 

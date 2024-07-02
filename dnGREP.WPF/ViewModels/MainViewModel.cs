@@ -1137,28 +1137,23 @@ namespace dnGREP.WPF
                             files = Utils.GetFileListEx(fileParams, param.PauseCancelToken);
                         }
 
+                        string[] searchPatterns = [];
+                        if (param.SearchFor.StartsWith("file://", StringComparison.Ordinal))
+                        {
+                            Uri uri = new(SearchFor);
+                            if (File.Exists(uri.LocalPath))
+                            {
+                                searchPatterns = File.ReadAllLines(uri.LocalPath)
+                                    .Where(l => !string.IsNullOrEmpty(l)).ToArray();
+                            }
+                        }
+
                         param.PauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                         if (param.TypeOfSearch == SearchType.Regex)
                         {
-                            try
+                            if (!ValidateRegex(IsScriptRunning, searchPatterns.Length > 0 ? searchPatterns : [param.SearchFor]))
                             {
-                                Regex pattern = new(param.SearchFor);
-                            }
-                            catch (ArgumentException regException)
-                            {
-                                if (IsScriptRunning)
-                                {
-                                    logger.Error(Resources.MessageBox_IncorrectPattern + regException.Message);
-                                    AddScriptMessage(Resources.MessageBox_IncorrectPattern + regException.Message);
-                                }
-                                else
-                                {
-                                    MessageBox.Show(Resources.MessageBox_IncorrectPattern + regException.Message,
-                                        Resources.MessageBox_DnGrep,
-                                        MessageBoxButton.OK, MessageBoxImage.Warning,
-                                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                                }
                                 e.Result = null;
                                 return;
                             }
@@ -1219,7 +1214,14 @@ namespace dnGREP.WPF
                         }
                         else if (files != null)
                         {
-                            e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage, param.PauseCancelToken);
+                            if (searchPatterns.Length > 0)
+                            {
+                                e.Result = grep.SearchMultiple(files, param.TypeOfSearch, searchPatterns, searchOptions, param.CodePage, param.PauseCancelToken);
+                            }
+                            else
+                            {
+                                e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage, param.PauseCancelToken);
+                            }
                         }
                         else if (fileInfos != null)
                         {
@@ -1307,6 +1309,35 @@ namespace dnGREP.WPF
                     }
                 }
             }
+        }
+
+        private bool ValidateRegex(bool isScriptRunning, string[] patterns)
+        {
+            bool result = true;
+            foreach (string pattern in patterns)
+            {
+                try
+                {
+                    Regex regex = new(pattern);
+                }
+                catch (ArgumentException regException)
+                {
+                    result = false;
+                    if (IsScriptRunning)
+                    {
+                        logger.Error(Resources.MessageBox_IncorrectPattern + regException.Message);
+                        AddScriptMessage(Resources.MessageBox_IncorrectPattern + regException.Message);
+                    }
+                    else
+                    {
+                        MessageBox.Show(Resources.MessageBox_IncorrectPattern + regException.Message,
+                            Resources.MessageBox_DnGrep,
+                            MessageBoxButton.OK, MessageBoxImage.Warning,
+                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    }
+                }
+            }
+            return result;
         }
 
         private static (DateTime startTime, DateTime endTime) GetStartEndTimesFromRange(

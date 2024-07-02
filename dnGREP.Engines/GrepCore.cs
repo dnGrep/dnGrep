@@ -196,6 +196,89 @@ namespace dnGREP.Common
             return [.. searchResults];
         }
 
+        /// <summary>
+        /// Searches folder for files whose content matches regex
+        /// </summary>
+        /// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
+        /// <param name="searchRegex">Regex pattern</param>
+        /// <returns>List of results. If nothing is found returns empty list</returns>
+        public List<GrepSearchResult> SearchMultiple(IEnumerable<string>? files, SearchType searchType,
+            string[] searchPatterns, GrepSearchOption searchOptions, int codePage,
+            PauseCancelToken pauseCancelToken = default)
+        {
+            searchResults.Clear();
+
+            if (files == null)
+                return searchResults;
+
+            if (searchPatterns.Length == 0)
+                return searchResults;
+
+            Initialize();
+
+            processedFilesCount = 0;
+            foundFilesCount = 0;
+
+            int maxParallel = GrepSettings.Instance.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
+            int counter = 0, highWater = 0;
+
+            try
+            {
+                if (SearchParams.SearchParallel)
+                {
+                    ParallelOptions po = new()
+                    {
+                        MaxDegreeOfParallelism = maxParallel == -1 ? -1 : Math.Max(1, maxParallel),
+                        CancellationToken = pauseCancelToken.CancellationToken
+                    };
+                    Parallel.ForEach(files, po, f => SearchMultiple(f, searchType, searchPatterns, searchOptions,
+                        codePage, ref counter, ref highWater, pauseCancelToken));
+                }
+                else
+                {
+                    foreach (var file in files)
+                    {
+                        SearchMultiple(file, searchType, searchPatterns, searchOptions,
+                            codePage, ref counter, ref highWater, pauseCancelToken);
+
+                        pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+                    }
+                }
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle(ex =>
+                {
+                    if (ex is OperationCanceledException)
+                    {
+                        // expected for stop after first match or user cancel
+                        return true;
+                    }
+                    else
+                    {
+                        logger.Error(ex, "Failed in search in files");
+                        return true;
+                    }
+                });
+            }
+            catch (OperationCanceledException)
+            {
+                // expected for stop after first match or user cancel
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed in search in files");
+            }
+            finally
+            {
+                logger.Info($"Maximum concurrent tasks used in search: {highWater}");
+
+                GrepEngineFactory.UnloadEngines();
+            }
+
+            return [.. searchResults];
+        }
+
         public List<GrepSearchResult> CaptureGroupSearch(IEnumerable<string> files, string filePatternInclude,
             GrepSearchOption searchOptions, SearchType searchType, string searchPattern, int codePage,
             PauseCancelToken pauseCancelToken = default)
@@ -364,6 +447,166 @@ namespace dnGREP.Common
             {
                 Interlocked.Decrement(ref counter);
             }
+        }
+
+        private void SearchMultiple(string file, SearchType searchType, string[] searchPatterns, GrepSearchOption searchOptions, int codePage,
+            ref int counter, ref int highWater, PauseCancelToken pauseCancelToken = default)
+        {
+            string searchPattern = string.Empty;
+            try
+            {
+                InterlockedMax(ref highWater, Interlocked.Increment(ref counter));
+
+                ProcessedFile?.Invoke(this, new ProgressStatus(true, processedFilesCount, foundFilesCount, null, file));
+
+                bool isArchive = Utils.IsArchive(file);
+
+                Encoding encoding = Encoding.Default;
+                if (codePage > -1)
+                    encoding = Encoding.GetEncoding(codePage);
+                else if (!isArchive && !Utils.IsPluginFile(file) && !Utils.IsBinary(file))
+                    encoding = Utils.GetFileEncoding(file);
+
+
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams, FileFilter, searchType);
+
+                List<GrepSearchResult> intermediateResults = [];
+
+                if (isArchive && engine is ArchiveEngine archiveEngine)
+                {
+                    archiveEngine.SetSearchOptions(FileFilter, SearchParams);
+                    archiveEngine.StartingFileSearch += ArchiveEngine_StartingFileSearch;
+
+                    for (int idx = 0; idx < searchPatterns.Length; idx++)
+                    {
+                        searchPattern = searchPatterns[idx];
+                        pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
+                        foreach (var fileSearchResults in archiveEngine.Search(file, searchPattern, searchType,
+                            searchOptions, encoding, pauseCancelToken))
+                        {
+                            if (fileSearchResults.Count > 0)
+                            {
+                                intermediateResults.AddRange(fileSearchResults);
+                            }
+                            int count = fileSearchResults.Where(r => r.IsSuccess).Count();
+
+                            if (searchOptions.HasFlag(GrepSearchOption.StopAfterNumMatches) && count + foundFilesCount >= SearchAutoStopCount)
+                            {
+                                pauseCancelToken.Cancel();
+                            }
+                            if (searchOptions.HasFlag(GrepSearchOption.PauseAfterNumMatches) && count + foundFilesCount >= SearchAutoPauseCount && !autoPauseExecuted)
+                            {
+                                autoPauseExecuted = true;
+                                pauseCancelToken.Pause();
+                            }
+                        }
+                    }
+
+                    List<GrepSearchResult> mergedResults = [];
+                    if (intermediateResults.Count > 0)
+                    {
+                        mergedResults = Merge(intermediateResults);
+
+                        AddSearchResults(mergedResults);
+
+                        int hits = mergedResults.Where(r => r.IsSuccess).Count();
+                        Interlocked.Add(ref foundFilesCount, hits);
+                    }
+
+                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundFilesCount, mergedResults, file));
+                   
+                    archiveEngine.StartingFileSearch -= ArchiveEngine_StartingFileSearch;
+                }
+                else
+                {
+                    Interlocked.Increment(ref processedFilesCount);
+
+                    for (int idx = 0; idx < searchPatterns.Length; idx++)
+                    {
+                        searchPattern = searchPatterns[idx];
+                        pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
+                        var fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding, pauseCancelToken).ToList();
+
+                        if (fileSearchResults.Count > 0)
+                        {
+                            intermediateResults.AddRange(fileSearchResults);
+                        }
+                        int count = fileSearchResults.Where(r => r.IsSuccess).Count();
+
+                        if (searchOptions.HasFlag(GrepSearchOption.StopAfterNumMatches) && count + foundFilesCount >= SearchAutoStopCount)
+                        {
+                            pauseCancelToken.Cancel();
+                        }
+                        if (searchOptions.HasFlag(GrepSearchOption.PauseAfterNumMatches) && count + foundFilesCount >= SearchAutoPauseCount && !autoPauseExecuted)
+                        {
+                            autoPauseExecuted = true;
+                            pauseCancelToken.Pause();
+                        }
+                    }
+
+                    List<GrepSearchResult> mergedResults = [];
+                    if (intermediateResults.Count > 0)
+                    {
+                        mergedResults = Merge(intermediateResults);
+
+                        AddSearchResults(mergedResults);
+
+                        int hits = mergedResults.Where(r => r.IsSuccess).Count();
+                        Interlocked.Add(ref foundFilesCount, hits);
+                    }
+
+                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundFilesCount, mergedResults, file));
+                }
+
+                GrepEngineFactory.ReturnToPool(file, engine);
+            }
+            catch (OperationCanceledException)
+            {
+                // expected for stop after first match or user cancel
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error searching file: '{0}'", file);
+                AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                if (ProcessedFile != null)
+                {
+                    List<GrepSearchResult> _results =
+                    [
+                        new GrepSearchResult(file, searchPattern, ex.Message, false)
+                    ];
+                    ProcessedFile?.Invoke(this, new ProgressStatus(false, processedFilesCount, foundFilesCount, _results, file));
+                }
+            }
+            finally
+            {
+                Interlocked.Decrement(ref counter);
+            }
+        }
+
+        private static List<GrepSearchResult> Merge(List<GrepSearchResult> intermediateResults)
+        {
+            if (intermediateResults.Count < 2)
+            {
+                return intermediateResults;
+            }
+
+            List<GrepSearchResult> merged = [];
+
+            var fileGroups = intermediateResults.GroupBy(r => r.FileNameDisplayed);
+            foreach (var group in fileGroups)
+            {
+                GrepSearchResult first = group.First();
+                foreach (GrepSearchResult item in group.Skip(1))
+                {
+                    first.Matches.AddRange(item.Matches);
+                }
+                GrepMatch.Normalize(first.Matches);
+                merged.Add(first);
+            }
+
+            return merged;
         }
 
         // from Raymond Chen:
