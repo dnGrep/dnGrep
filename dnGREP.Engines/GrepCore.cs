@@ -491,6 +491,10 @@ namespace dnGREP.Common
                             }
                             int count = fileSearchResults.Where(r => r.IsSuccess).Count();
 
+                            if (count > 0 && !searchOptions.HasFlag(GrepSearchOption.Global))
+                            {
+                                break;
+                            }
                             if (searchOptions.HasFlag(GrepSearchOption.StopAfterNumMatches) && count + foundFilesCount >= SearchAutoStopCount)
                             {
                                 pauseCancelToken.Cancel();
@@ -535,6 +539,10 @@ namespace dnGREP.Common
                         }
                         int count = fileSearchResults.Where(r => r.IsSuccess).Count();
 
+                        if (count > 0 && !searchOptions.HasFlag(GrepSearchOption.Global))
+                        {
+                            break;
+                        }
                         if (searchOptions.HasFlag(GrepSearchOption.StopAfterNumMatches) && count + foundFilesCount >= SearchAutoStopCount)
                         {
                             pauseCancelToken.Cancel();

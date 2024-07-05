@@ -1705,6 +1705,9 @@ namespace Tests
         [InlineData("(a or b) and c", false, true, null, null)]
         [InlineData("(a or b) and c", false, true, true, null)]
         [InlineData("(a or b) and c", false, true, false, null)]
+        [InlineData("a and b and (c or d)", true, true, false, null, null)]
+        [InlineData("a or b or c or d or e or f or g", false, false, null, null, null, null, null, null)]
+        [InlineData("a and (b or c) and (d or e) or (f and g)", false, false, null, null, null, null, null, null)] // too many operands to check
         public void TestShortCircuitResult(string input, bool expectedResult, params bool?[] values)
         {
             BooleanExpression exp = new();
