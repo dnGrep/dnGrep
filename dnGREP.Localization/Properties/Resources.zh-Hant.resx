@@ -4046,4 +4046,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>結果樹狀圖</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>搜尋後, 將鍵盤焦點設定為</value>
+    <comment>Options dialog, radio button group label</comment>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>搜尋輸入</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
