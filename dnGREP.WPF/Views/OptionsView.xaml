@@ -809,6 +809,13 @@
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Ask'}" GroupName="copyOverwrite"
                                          IsChecked="{Binding CopyOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Prompt}"/>
                         </StackPanel>
+                        <Label Content="{l:Loc Key='Options_WithFilesInArchives'}"/>
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_CopyTheWholeArchive'}" GroupName="copyArchive"
+                                         IsChecked="{Binding ArchiveCopyOption, Converter={StaticResource ebc}, ConverterParameter=WholeArchive}"/>
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_ExtractAndCopyFiles'}" GroupName="copyArchive"
+                                         IsChecked="{Binding ArchiveCopyOption, Converter={StaticResource ebc}, ConverterParameter=CopyFile}"/>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
@@ -825,6 +832,13 @@
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Ask'}" GroupName="moveOverwrite"
                                          IsChecked="{Binding MoveOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Prompt}"/>
                         </StackPanel>
+                        <Label Content="{l:Loc Key='Options_WithFilesInArchives'}"/>
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_MoveTheWholeArchive'}" GroupName="moveArchive"
+                                         IsChecked="{Binding ArchiveMoveOption, Converter={StaticResource ebc}, ConverterParameter=WholeArchive}"/>
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_ExtractAndMoveFiles'}" GroupName="moveArchive"
+                                         IsChecked="{Binding ArchiveMoveOption, Converter={StaticResource ebc}, ConverterParameter=CopyFile}"/>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
@@ -836,6 +850,13 @@
                                          IsChecked="{Binding DeleteOption, Converter={StaticResource ebc}, ConverterParameter=Recycle}" />
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_DeletePermanently'}" GroupName="deleteFiles"
                                          IsChecked="{Binding DeleteOption, Converter={StaticResource ebc}, ConverterParameter=Permanent}" />
+                        </StackPanel>
+                        <Label Content="{l:Loc Key='Options_WithFilesInArchives'}"/>
+                        <StackPanel Orientation="Horizontal" Margin="12,0">
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_DeleteTheWholeArchive'}" GroupName="deleteArchive"
+                                         IsChecked="{Binding ArchiveDeleteOption, Converter={StaticResource ebc}, ConverterParameter=WholeArchive}"/>
+                            <RadioButton Margin="6,3" Content="{l:Loc Key='Options_DoNothing'}" GroupName="deleteArchive"
+                                         IsChecked="{Binding ArchiveDeleteOption, Converter={StaticResource ebc}, ConverterParameter=DoNothing}"/>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

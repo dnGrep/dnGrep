@@ -77,6 +77,38 @@ namespace dnGREP.Common
         /// </remarks>
         public bool IsShortCircuitFalse()
         {
+            // initial checks
+            List<BooleanToken> operators = PostfixTokens.Where(t => t.IsOperator).ToList();
+            if (operators.Last().TokenType.HasFlag(TokenType.OR))
+            {
+                return false;  // must collect and evaluate all operands
+            }
+
+            int count = 0;
+            foreach (BooleanToken token in operators)
+            {
+                if (token.TokenType.HasFlag(TokenType.AND))
+                    count++;
+                else
+                    break;
+            }
+            for (int idx = 0; idx < count; idx++)
+            {
+                var op = Operands[idx];
+                if (op.EvaluatedResult.HasValue && !op.EvaluatedResult.Value)
+                {
+                    return true; // the first operand of an AND is false, the full statement cannot be true
+                }
+            }
+
+            // do not build a truth table larger than 2^^5, it's too slow
+            if (Operands.Count > 5)
+            {
+                return false;
+            }
+
+            // now build a truth table and try all the possible outcomes
+            // no doubt there is some clever way of doing this
             var savedState = Operands.Select(o => o.EvaluatedResult).ToList();
 
             List<List<bool>> values = [];
@@ -402,15 +434,14 @@ namespace dnGREP.Common
         private bool BuildExpression(IEnumerable<BooleanToken> tokens)
         {
             StringBuilder sb = new();
-            char key = 'a';
+            int idx = 0;
             foreach (BooleanToken token in tokens)
             {
                 if (token.TokenType == TokenType.StringValue)
                 {
                     if (!string.IsNullOrWhiteSpace(token.Value))
                     {
-                        sb.Append(key);
-                        key++;
+                        sb.Append(GetId(idx++));
                     }
                 }
                 else if (token.TokenType == TokenType.OpenParens)
@@ -438,6 +469,21 @@ namespace dnGREP.Common
             Expression = sb.ToString().Replace("  ", " ", StringComparison.Ordinal).Trim();
 
             return true;
+        }
+
+        private static string GetId(int idx)
+        {
+            const char a = 'a';
+            int n = idx % 26;
+            if (idx < 26)
+            {
+                return char.ToString((char)(a + n));
+            }
+            else
+            {
+                int m = (idx / 26) - 1;
+                return char.ToString((char)(a + m)) + char.ToString((char)(a + n));
+            }
         }
     }
 

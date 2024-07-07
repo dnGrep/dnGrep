@@ -4737,6 +4737,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy the whole archive.
+        /// </summary>
+        public static string Options_CopyTheWholeArchive {
+            get {
+                return ResourceManager.GetString("Options_CopyTheWholeArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom editor.
         /// </summary>
         public static string Options_CustomEditor {
@@ -4791,6 +4800,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete the whole archive.
+        /// </summary>
+        public static string Options_DeleteTheWholeArchive {
+            get {
+                return ResourceManager.GetString("Options_DeleteTheWholeArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detect file encoding when listing files using the file name pattern.
         /// </summary>
         public static string Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly {
@@ -4823,6 +4841,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_DockedToSideOfResultsTree {
             get {
                 return ResourceManager.GetString("Options_DockedToSideOfResultsTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do nothing.
+        /// </summary>
+        public static string Options_DoNothing {
+            get {
+                return ResourceManager.GetString("Options_DoNothing", resourceCulture);
             }
         }
         
@@ -4967,6 +4994,24 @@ namespace dnGREP.Localization.Properties {
         public static string Options_Exit {
             get {
                 return ResourceManager.GetString("Options_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract and copy files.
+        /// </summary>
+        public static string Options_ExtractAndCopyFiles {
+            get {
+                return ResourceManager.GetString("Options_ExtractAndCopyFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract and move files.
+        /// </summary>
+        public static string Options_ExtractAndMoveFiles {
+            get {
+                return ResourceManager.GetString("Options_ExtractAndMoveFiles", resourceCulture);
             }
         }
         
@@ -5327,6 +5372,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_MoveFiles {
             get {
                 return ResourceManager.GetString("Options_MoveFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the whole archive.
+        /// </summary>
+        public static string Options_MoveTheWholeArchive {
+            get {
+                return ResourceManager.GetString("Options_MoveTheWholeArchive", resourceCulture);
             }
         }
         
@@ -6029,6 +6083,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_WhenDeletingFiles {
             get {
                 return ResourceManager.GetString("Options_WhenDeletingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With files in archives.
+        /// </summary>
+        public static string Options_WithFilesInArchives {
+            get {
+                return ResourceManager.GetString("Options_WithFilesInArchives", resourceCulture);
             }
         }
         
