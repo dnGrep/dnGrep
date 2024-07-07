@@ -170,4 +170,11 @@ namespace dnGREP.Common
         SearchFor,
     }
 
+    public enum ArchiveCopyMoveDelete
+    { 
+        WholeArchive,
+        CopyFile,
+        DoNothing,
+    }
+
 }

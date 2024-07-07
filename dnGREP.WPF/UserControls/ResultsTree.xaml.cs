@@ -579,7 +579,7 @@ namespace dnGREP.WPF.UserControls
             if (files.Count > 0)
             {
                 var fileList = files.Select(f => f.GrepResult).ToList();
-                var (success, message) = FileOperations.MoveFiles(
+                var (success, filesMoved, message) = FileOperations.MoveFiles(
                     fileList, viewModel.PathSearchText, null, false);
 
                 if (success)
@@ -587,7 +587,10 @@ namespace dnGREP.WPF.UserControls
                     viewModel.DeselectAllItems();
                     foreach (var gr in files)
                     {
-                        viewModel.SearchResults.Remove(gr);
+                        if (filesMoved.Contains(gr.GrepResult.FileNameReal, StringComparison.Ordinal))
+                        {
+                            viewModel.SearchResults.Remove(gr);
+                        }
                     }
 
                     if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
@@ -614,7 +617,7 @@ namespace dnGREP.WPF.UserControls
             if (files.Count > 0)
             {
                 var fileList = files.Select(f => f.GrepResult).ToList();
-                var (success, message) = FileOperations.DeleteFiles(
+                var (success, filesDeleted, message) = FileOperations.DeleteFiles(
                     fileList, false, false);
 
                 if (success)
@@ -622,7 +625,10 @@ namespace dnGREP.WPF.UserControls
                     viewModel.DeselectAllItems();
                     foreach (var gr in files)
                     {
-                        viewModel.SearchResults.Remove(gr);
+                        if (filesDeleted.Contains(gr.GrepResult.FileNameReal))
+                        {
+                            viewModel.SearchResults.Remove(gr);
+                        }
                     }
 
                     if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)

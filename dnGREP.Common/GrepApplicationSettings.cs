@@ -352,6 +352,12 @@ namespace dnGREP.Common
             public const string AutoCompleteEnabled = "AutoCompleteEnabled";
             [DefaultValue(FocusElement.ResultsTree)]
             public const string SetFocusElement = "SetFocusElement";
+            [DefaultValue(ArchiveCopyMoveDelete.CopyFile)]
+            public const string ArchiveCopy = "ArchiveCopy";
+            [DefaultValue(ArchiveCopyMoveDelete.CopyFile)]
+            public const string ArchiveMove = "ArchiveMove";
+            [DefaultValue(ArchiveCopyMoveDelete.DoNothing)]
+            public const string ArchiveDelete = "ArchiveDelete";
         }
 
         public static class ObsoleteKey

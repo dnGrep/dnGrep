@@ -123,11 +123,12 @@ namespace dnGREP.WPF
             return (success, message);
         }
 
-        public static (bool success, string? message) MoveFiles(
+        public static (bool success, List<string> realFilesMoved, string? message) MoveFiles(
             List<GrepSearchResult> fileList, PathSearchText pathSearchText,
             string? path, bool isScriptRunning)
         {
             bool success = false;
+            List<string> realFilesMoved = [];
             string? message = null;
 
             if (fileList.Count > 0)
@@ -173,7 +174,7 @@ namespace dnGREP.WPF
                                     MessageBoxButton.OK, MessageBoxImage.Warning,
                                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                             }
-                            return (success, message);
+                            return (success, realFilesMoved, message);
                         }
 
                         var overwritePref = GrepSettings.Instance.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
@@ -182,30 +183,30 @@ namespace dnGREP.WPF
                             overwritePref = OverwriteFile.No;
                         }
 
-                        int filesMoved = 0;
+                        int count = 0;
                         if (preserveFolderLayout && hasSingleBaseFolder &&
                             !string.IsNullOrEmpty(destinationFolder) && !string.IsNullOrWhiteSpace(baseFolder))
                         {
-                            filesMoved = Utils.MoveFiles(fileList, baseFolder, destinationFolder, overwritePref);
+                            (count, realFilesMoved) = Utils.MoveFiles(fileList, baseFolder, destinationFolder, overwritePref);
                             success = true;
                         }
                         else if (!string.IsNullOrEmpty(destinationFolder))
                         {
                             // without a common base path, move all files to a single directory 
-                            filesMoved = Utils.MoveFiles(fileList, destinationFolder, overwritePref);
+                            (count, realFilesMoved) = Utils.MoveFiles(fileList, destinationFolder, overwritePref);
                             success = true;
                         }
 
                         if (isScriptRunning)
                         {
-                            logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, filesMoved) +
+                            logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count) +
                                 " " + selectedPath);
-                            message = TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, filesMoved) +
+                            message = TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count) +
                                 " " + selectedPath;
                         }
                         else
                         {
-                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, filesMoved),
+                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count),
                                 Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
                                 MessageBoxButton.OK, MessageBoxImage.Information,
                                 MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
@@ -229,13 +230,14 @@ namespace dnGREP.WPF
                     }
                 }
             }
-            return (success, message);
+            return (success, realFilesMoved, message);
         }
 
-        public static (bool success, string? message) DeleteFiles(
+        public static (bool success, List<string> filesDeleted, string? message) DeleteFiles(
             List<GrepSearchResult> fileList, bool isScriptRunning, bool checkForRecycleSetting)
         {
             bool success = false;
+            List<string> filesDeleted = [];
             string? message = null;
 
             if (fileList.Count > 0)
@@ -250,30 +252,29 @@ namespace dnGREP.WPF
                                 MessageBoxButton.YesNo, MessageBoxImage.Warning,
                                 MessageBoxResult.No, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
                         {
-                            return (success, message);
+                            return (success, [], message);
                         }
                     }
 
-                    int filesDeleted = 0;
                     if (checkForRecycleSetting && GrepSettings.Instance.Get<bool>(GrepSettings.Key.DeleteToRecycleBin))
                     {
                         filesDeleted = Utils.SendToRecycleBin(fileList);
-                        success = true;
+                        success = filesDeleted.Count > 0;
                     }
                     else
                     {
                         filesDeleted = Utils.DeleteFiles(fileList);
-                        success = true;
+                        success = filesDeleted.Count > 0;
                     }
 
                     if (isScriptRunning)
                     {
-                        logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, filesDeleted));
-                        message = TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, filesDeleted);
+                        logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, filesDeleted.Count));
+                        message = TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, filesDeleted.Count);
                     }
                     else
                     {
-                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, filesDeleted),
+                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, filesDeleted.Count),
                             Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
                             MessageBoxButton.OK, MessageBoxImage.Information,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
@@ -296,7 +297,7 @@ namespace dnGREP.WPF
                     }
                 }
             }
-            return (success, message);
+            return (success, filesDeleted, message);
         }
 
 

@@ -4122,4 +4122,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Search for input</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>With files in archives</value>
+    <comment>Options dialog, radio group label</comment>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>Copy the whole archive</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Extract and copy files</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Move the whole archive</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Extract and move files</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Delete the whole archive</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>Do nothing</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>

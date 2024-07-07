@@ -178,6 +178,9 @@ namespace dnGREP.WPF
                 MoveOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove) ||
                 PreserveFolderLayoutOnCopy != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy) ||
                 PreserveFolderLayoutOnMove != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove) ||
+                ArchiveCopyOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveCopy) ||
+                ArchiveMoveOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveMove) ||
+                ArchiveDeleteOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveDelete) ||
                 StickyScroll != Settings.Get<bool>(GrepSettings.Key.StickyScroll) ||
                 SortAutomaticallyOnSearch != Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
@@ -548,6 +551,15 @@ namespace dnGREP.WPF
         private bool preserveFolderLayoutOnMove = true;
 
         [ObservableProperty]
+        private ArchiveCopyMoveDelete archiveCopyOption = ArchiveCopyMoveDelete.CopyFile;
+
+        [ObservableProperty]
+        private ArchiveCopyMoveDelete archiveMoveOption = ArchiveCopyMoveDelete.CopyFile;
+
+        [ObservableProperty]
+        private ArchiveCopyMoveDelete archiveDeleteOption = ArchiveCopyMoveDelete.DoNothing;
+
+        [ObservableProperty]
         private int hexResultByteLength = 16;
 
         [ObservableProperty]
@@ -812,6 +824,9 @@ namespace dnGREP.WPF
             MoveOverwriteFileOption = Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove);
             PreserveFolderLayoutOnCopy = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy);
             PreserveFolderLayoutOnMove = Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove);
+            ArchiveCopyOption = Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveCopy);
+            ArchiveMoveOption = Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveMove);
+            ArchiveDeleteOption = Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveDelete);
             StickyScroll = Settings.Get<bool>(GrepSettings.Key.StickyScroll);
             SortAutomaticallyOnSearch = Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
@@ -984,6 +999,9 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OverwriteFilesOnMove, MoveOverwriteFileOption);
             Settings.Set(GrepSettings.Key.PreserveFolderLayoutOnCopy, PreserveFolderLayoutOnCopy);
             Settings.Set(GrepSettings.Key.PreserveFolderLayoutOnMove, PreserveFolderLayoutOnMove);
+            Settings.Set(GrepSettings.Key.ArchiveCopy, ArchiveCopyOption);
+            Settings.Set(GrepSettings.Key.ArchiveMove, ArchiveMoveOption);
+            Settings.Set(GrepSettings.Key.ArchiveDelete, ArchiveDeleteOption);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
             Settings.Set(GrepSettings.Key.CurrentCulture, CurrentCulture);

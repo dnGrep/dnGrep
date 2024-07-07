@@ -2717,7 +2717,7 @@ namespace dnGREP.WPF
                     selectedPath = path;
                 }
 
-                var (success, message) = FileOperations.MoveFiles(
+                var (success, filesMoved, message) = FileOperations.MoveFiles(
                     ResultsViewModel.GetList(), PathSearchText, selectedPath, IsScriptRunning);
 
                 if (!string.IsNullOrEmpty(message))
@@ -2733,7 +2733,20 @@ namespace dnGREP.WPF
                 if (success)
                 {
                     ClearMatchCountStatus();
-                    ResultsViewModel.Clear();
+                    ResultsViewModel.DeselectAllItems();
+                    List<FormattedGrepResult> toRemove = [];
+                    foreach (var gr in ResultsViewModel.SearchResults)
+                    {
+                        if (filesMoved.Contains(gr.GrepResult.FileNameReal))
+                        {
+                            toRemove.Add(gr);
+                        }
+                    }
+                    foreach (var gr in toRemove)
+                    {
+                        ResultsViewModel.SearchResults.Remove(gr);
+                    }
+
                     FilesFound = false;
                 }
             }
@@ -2743,7 +2756,7 @@ namespace dnGREP.WPF
         {
             if (FilesFound)
             {
-                var (success, message) = FileOperations.DeleteFiles(
+                var (success, filesDeleted, message) = FileOperations.DeleteFiles(
                     ResultsViewModel.GetList(), IsScriptRunning, true);
 
                 if (!string.IsNullOrEmpty(message))
@@ -2759,7 +2772,19 @@ namespace dnGREP.WPF
                 if (success)
                 {
                     ClearMatchCountStatus();
-                    ResultsViewModel.Clear();
+                    ResultsViewModel.DeselectAllItems();
+                    List<FormattedGrepResult> toRemove = [];
+                    foreach (var gr in ResultsViewModel.SearchResults)
+                    {
+                        if (filesDeleted.Contains(gr.GrepResult.FileNameReal))
+                        {
+                            toRemove.Add(gr);
+                        }
+                    }
+                    foreach (var gr in toRemove)
+                    {
+                        ResultsViewModel.SearchResults.Remove(gr);
+                    }
                     FilesFound = false;
                 }
             }

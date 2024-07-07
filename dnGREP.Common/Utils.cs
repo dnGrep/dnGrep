@@ -79,7 +79,7 @@ namespace dnGREP.Common
         /// <returns>number of files copied</returns>
         public static int CopyFiles(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, OverwriteFile action)
         {
-            return CopyMoveFilesImpl(source, sourceDirectory, destinationDirectory, action, false);
+            return CopyMoveFilesImpl(source, sourceDirectory, destinationDirectory, action, false).count;
         }
 
         /// <summary>
@@ -89,13 +89,30 @@ namespace dnGREP.Common
         /// <param name="sourceDirectory"></param>
         /// <param name="destinationDirectory"></param>
         /// <param name="action"></param>
-        /// <returns>number of files copied</returns>
-        public static int MoveFiles(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, OverwriteFile action)
+        /// <returns>count of copied/moved files and List of real files moved</returns>
+        /// <remarks>
+        /// The list contains only real files that were moved, and the count also includes files copied from archives
+        /// </remarks>
+        public static (int count, List<string> realFilesMoved) MoveFiles(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, OverwriteFile action)
         {
             return CopyMoveFilesImpl(source, sourceDirectory, destinationDirectory, action, true);
         }
 
-        private static int CopyMoveFilesImpl(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, OverwriteFile action, bool deleteAfterCopy)
+        /// <summary>
+        /// Moves files with directory structure based on search results. If destination folder does not exist, creates it.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="sourceDirectory"></param>
+        /// <param name="destinationDirectory"></param>
+        /// <param name="action"></param>
+        /// <param name="deleteAfterCopy">true to move files, false to copy</param>
+        /// <returns>count of copied/moved files and List of real files moved</returns>
+        /// <remarks>
+        /// The list contains only real files that were moved, and the count also includes files copied from archives
+        /// </remarks>
+        private static (int count, List<string> realFilesMoved) CopyMoveFilesImpl(
+            List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory,
+            OverwriteFile action, bool deleteAfterCopy)
         {
             sourceDirectory = FixFolderName(sourceDirectory);
             destinationDirectory = FixFolderName(destinationDirectory);
@@ -104,10 +121,55 @@ namespace dnGREP.Common
 
             int count = 0;
             HashSet<string> files = [];
+            List<string> realFilesMoved = [];
+
+            bool copyFilesFromArchive = deleteAfterCopy ?
+               GrepSettings.Instance.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveMove) == ArchiveCopyMoveDelete.CopyFile :
+               GrepSettings.Instance.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveCopy) == ArchiveCopyMoveDelete.CopyFile;
 
             foreach (GrepSearchResult result in source)
             {
-                if (!files.Contains(result.FileNameReal) && result.FileNameReal.Contains(sourceDirectory, StringComparison.OrdinalIgnoreCase))
+                if (copyFilesFromArchive && IsArchive(result.FileNameReal) && !files.Contains(result.FileNameDisplayed) &&
+                    result.FileNameReal.Contains(sourceDirectory, StringComparison.OrdinalIgnoreCase))
+                {
+                    files.Add(result.FileNameDisplayed);
+                    string tempFile = ArchiveDirectory.ExtractToTempFile(result);
+
+                    FileInfo sourceFileInfo = new(tempFile);
+                    string destinationPath = string.Concat(destinationDirectory, result.FileNameReal.AsSpan(sourceDirectory.Length));
+                    destinationPath = Path.ChangeExtension(destinationPath, null);
+
+                    int pos = result.FileNameDisplayed.IndexOf(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
+                    if (pos == -1) continue; // should never happen
+                    pos += ArchiveDirectory.ArchiveSeparator.Length;
+                    string subPath = result.FileNameDisplayed[pos..];
+                    destinationPath = Path.Combine(destinationPath, subPath);
+                    FileInfo destinationFileInfo = new(destinationPath);
+                    if (sourceFileInfo.FullName != destinationFileInfo.FullName)
+                    {
+                        bool overwrite = action == OverwriteFile.Yes;
+                        if (destinationFileInfo.Exists && !string.IsNullOrEmpty(destinationFileInfo.DirectoryName))
+                        {
+                            if (action == OverwriteFile.Prompt &&
+                                !AskUserOverwrite(destinationFileInfo.Name, destinationFileInfo.DirectoryName,
+                                false, ref overwrite, ref action))
+                            {
+                                return (count, realFilesMoved);
+                            }
+
+                            if (!overwrite)
+                            {
+                                continue;
+                            }
+                        }
+
+                        // Move is the same as Copy from an archive; the archive does not get modified
+                        CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
+                        DeleteFile(tempFile);
+                        count++;
+                    }
+                }
+                else if (!files.Contains(result.FileNameReal) && result.FileNameReal.Contains(sourceDirectory, StringComparison.OrdinalIgnoreCase))
                 {
                     files.Add(result.FileNameReal);
                     FileInfo sourceFileInfo = new(result.FileNameReal);
@@ -121,7 +183,7 @@ namespace dnGREP.Common
                                 !AskUserOverwrite(destinationFileInfo.Name, destinationFileInfo.DirectoryName,
                                 deleteAfterCopy, ref overwrite, ref action))
                             {
-                                return count;
+                                return (count, realFilesMoved);
                             }
 
                             if (!overwrite)
@@ -133,13 +195,14 @@ namespace dnGREP.Common
                         CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
                         if (deleteAfterCopy)
                         {
+                            realFilesMoved.Add(sourceFileInfo.FullName);
                             DeleteFile(sourceFileInfo.FullName);
                         }
                         count++;
                     }
                 }
             }
-            return count;
+            return (count, realFilesMoved);
         }
 
         /// <summary>
@@ -152,7 +215,7 @@ namespace dnGREP.Common
         /// <returns>number of files copied</returns>
         public static int CopyFiles(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action)
         {
-            return CopyMoveImpl(source, destinationDirectory, action, false);
+            return CopyMoveImpl(source, destinationDirectory, action, false).count;
         }
 
         /// <summary>
@@ -163,21 +226,57 @@ namespace dnGREP.Common
         /// <param name="destinationDirectory"></param>
         /// <param name="action"></param>
         /// <returns>number of files moved</returns>
-        public static int MoveFiles(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action)
+        public static (int count, List<string> realFilesMoved) MoveFiles(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action)
         {
             return CopyMoveImpl(source, destinationDirectory, action, true);
         }
 
-        private static int CopyMoveImpl(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action, bool deleteAfterCopy)
+        private static (int count, List<string> realFilesMoved) CopyMoveImpl(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action, bool deleteAfterCopy)
         {
             if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
             int count = 0;
             HashSet<string> files = [];
+            List<string> realFilesMoved = [];
+
+            bool copyFilesFromArchive = deleteAfterCopy ?
+                GrepSettings.Instance.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveMove) == ArchiveCopyMoveDelete.CopyFile :
+                GrepSettings.Instance.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveCopy) == ArchiveCopyMoveDelete.CopyFile;
 
             foreach (GrepSearchResult result in source)
             {
-                if (!files.Contains(result.FileNameReal))
+                if (copyFilesFromArchive && IsArchive(result.FileNameReal) && !files.Contains(result.FileNameDisplayed))
+                {
+                    files.Add(result.FileNameDisplayed);
+                    string tempFile = ArchiveDirectory.ExtractToTempFile(result);
+                    FileInfo sourceFileInfo = new(tempFile);
+                    FileInfo destinationFileInfo = new(Path.Combine(destinationDirectory, Path.GetFileName(tempFile)));
+                    if (sourceFileInfo.FullName != destinationFileInfo.FullName)
+                    {
+                        bool overwrite = action == OverwriteFile.Yes;
+                        if (destinationFileInfo.Exists)
+                        {
+                            if (action == OverwriteFile.Prompt && !string.IsNullOrEmpty(destinationFileInfo.DirectoryName) &&
+                                !AskUserOverwrite(destinationFileInfo.Name, destinationFileInfo.DirectoryName,
+                                    deleteAfterCopy, ref overwrite, ref action))
+                            {
+                                return (count, realFilesMoved);
+                            }
+
+                            if (!overwrite)
+                            {
+                                continue;
+                            }
+                        }
+
+                        // Move is the same as Copy from an archive; the archive does not get modified
+                        CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
+                        DeleteFile(tempFile);
+                        count++;
+                    }
+
+                }
+                else if (!files.Contains(result.FileNameReal))
                 {
                     files.Add(result.FileNameReal);
                     FileInfo sourceFileInfo = new(result.FileNameReal);
@@ -191,7 +290,7 @@ namespace dnGREP.Common
                                 !AskUserOverwrite(destinationFileInfo.Name, destinationFileInfo.DirectoryName,
                                     deleteAfterCopy, ref overwrite, ref action))
                             {
-                                return count;
+                                return (count, realFilesMoved);
                             }
 
                             if (!overwrite)
@@ -203,13 +302,14 @@ namespace dnGREP.Common
                         CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
                         if (deleteAfterCopy)
                         {
+                            realFilesMoved.Add(sourceFileInfo.FullName);
                             DeleteFile(sourceFileInfo.FullName);
                         }
                         count++;
                     }
                 }
             }
-            return count;
+            return (count, realFilesMoved);
         }
 
         /// <summary>
@@ -317,32 +417,44 @@ namespace dnGREP.Common
         /// Deletes file based on search results. 
         /// </summary>
         /// <param name="source"></param>
-        public static int DeleteFiles(List<GrepSearchResult> source)
+        public static List<string> DeleteFiles(List<GrepSearchResult> source)
         {
+            bool deleteArchive = GrepSettings.Instance.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveDelete)
+                == ArchiveCopyMoveDelete.WholeArchive;
+
             HashSet<string> files = [];
-            int count = 0;
             foreach (GrepSearchResult result in source)
             {
+                // based on option, do not delete archives
+                if (IsArchive(result.FileNameReal) && !deleteArchive)
+                    continue;
+
                 if (!files.Contains(result.FileNameReal))
                 {
                     files.Add(result.FileNameReal);
+
                     DeleteFile(result.FileNameReal);
-                    count++;
                 }
             }
-            return count;
+            return [.. files];
         }
 
         /// <summary>
         /// Deletes files to the recycle bin based on search results. 
         /// </summary>
         /// <param name="source"></param>
-        public static int SendToRecycleBin(List<GrepSearchResult> source)
+        public static List<string> SendToRecycleBin(List<GrepSearchResult> source)
         {
+            bool deleteArchive = GrepSettings.Instance.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveDelete)
+                == ArchiveCopyMoveDelete.WholeArchive;
+
             HashSet<string> files = [];
-            int count = 0;
             foreach (GrepSearchResult result in source)
             {
+                // based on option, do not delete archives
+                if (IsArchive(result.FileNameReal) && !deleteArchive)
+                    continue;
+
                 if (!files.Contains(result.FileNameReal))
                 {
                     files.Add(result.FileNameReal);
@@ -350,10 +462,9 @@ namespace dnGREP.Common
                     Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(result.FileNameReal,
                         Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
                         Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
-                    count++;
                 }
             }
-            return count;
+            return [.. files];
         }
 
         /// <summary>
@@ -1943,7 +2054,7 @@ namespace dnGREP.Common
                                     if (multilineMatch)
                                     {
                                         lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= startOfLineIndex &&
-                                                g.StartLocation < startOfLineIndex + tempLine.Length && 
+                                                g.StartLocation < startOfLineIndex + tempLine.Length &&
                                                 g.StartLocation + g.Length <= startOfLineIndex + tempLine.Length)
                                             .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value, g.FullValue))
                                             .ToList();
