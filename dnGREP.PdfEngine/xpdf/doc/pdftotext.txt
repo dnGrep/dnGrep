@@ -4,7 +4,7 @@ pdftotext(1)                General Commands Manual               pdftotext(1)
 
 NAME
        pdftotext  -  Portable Document Format (PDF) to text converter (version
-       4.04)
+       4.05)
 
 SYNOPSIS
        pdftotext [options] [PDF-file [text-file]]
@@ -55,8 +55,8 @@ OPTIONS
        -table Table mode is similar to physical layout mode, but optimized for
               tabular data, with the goal of keeping rows and columns  aligned
               (at  the  expense of inserting extra whitespace).  If the -fixed
-              option is given, character spacing  within  each  line  will  be
-              determined by the specified character pitch.
+              option is given, character spacing within each line will be  de-
+              termined by the specified character pitch.
 
        -lineprinter
               Line  printer  mode  uses  a  strict  fixed-character-pitch  and
@@ -168,10 +168,12 @@ EXIT CODES
 
        3      Error related to PDF permissions.
 
+       98     Out of memory.
+
        99     Other error.
 
 AUTHOR
-       The  pdftotext software and documentation are copyright 1996-2022 Glyph
+       The  pdftotext software and documentation are copyright 1996-2024 Glyph
        & Cog, LLC.
 
 SEE ALSO
@@ -181,4 +183,4 @@ SEE ALSO
 
 
 
-                                  18 Apr 2022                     pdftotext(1)
+                                  08 Feb 2024                     pdftotext(1)

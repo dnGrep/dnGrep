@@ -2810,3 +2810,83 @@ Added an integer overflow check in JPXStream.  (JPXStream issue)
 The DCT (JPEG) decoder was allowing the 'interleaved' flag to be
   changed after the first scan of the image.  (CVE-2022-24106) [Thanks
   to Shin Ando @ Ricera Security for the bug report.]
+
+4.05 (2024-feb-08)
+------------------
+Added the '-overwrite' option to pdftohtml.
+Added the 'ignoreWrongSizeToUnicode' xpdfrc setting.
+Added the loadSession and saveSession commands, and the 'Load last
+  session' menu item.
+Added code to automatically save and restore the xpdf session under
+  control of a session manager.  This has not been thoroughly tested
+  yet.
+Added the zoomScaleFactor xpdfrc setting.
+Added the zoomValues xpdfrc setting.
+Added a 'smart case' option for search in xpdf.
+Added the '-custom' flag to pdfinfo.
+Added a color/gray/mono switch to the 'save image' dialog.
+Added the separateRotatedText xpdfrc setting.
+Added the '-meta' flag to pdftohtml.
+Added the allowLinksToChangeZoom xpdfrc setting.
+Added the 'uses JavaScript' output to pdfinfo.
+Implemented pattern stroking of text.  Also fixed the various
+  combinations of filling/stroking with color/pattern + clipping, some
+  of which weren't being handled correctly.
+Pdftops now (re)compresses any uncompressed or RLE-compressed images.
+On an out-of-memory error, the command line tools now exit with an
+  "out of memory" message, rather than an exception message.
+Add code to pdfimages to extract images from tiling patterns.
+Pdftops can now embed external 8-bit OpenType CFF fonts.
+Fixed a corner case in the text extractor related to characters drawn
+  at extremely large coordinates.  [Thanks to elvadisas for the bug
+  report.]
+Fixed an integer overflow in the transparency group code.  [Thanks to
+  elvadisas for the bug report.]
+Modify Annots::Annots() to skip annotations that have been turned into
+  AcroFormFields -- invalid Widget-type annots will now be rendered as
+  annots.
+Added a missing integer overflow check in the JBIG2 decoder.  [Thanks
+  to sangjun for the bug report.]
+Added some sanity checks to the JBIG2 decoder.  [Thanks to sangjun and
+  ycdxsb for the bug reports.]
+Tiling patterns that use non-Normal blend modes can't be cached.
+Fixed a bitmap size sanity check in the JBIG2 decoder.  [Thanks to Han
+  Zheng (NCNIPC of China, Hexhive), for the bug report.]
+Fixed a missing bounds check in FoFiType1C::convertToOpenType (used in
+  pdftohtml).  [Thanks to cyth for the bug report.]
+Fixed a use-after-free bug in pdftohtml.  [Thanks to FeRDNYC for the
+  bug report.]
+Merged aconf2.h into aconf.h; corrected the cmake config settings for
+  paths; added the BASE14_FONT_DIR config option.  [Thanks to FeRDNYC
+  for the suggestions.]
+Fixed a missing check for a zero-length index in the CFF (Type1C) font
+  parser.  [Thanks to Yuhang Huang (NCNIPC of China), Han Zheng
+  (NCNIPC of China, Hexhive), Wanying Cao, Jiayu Zhao (NCNIPC of
+  China) for the bug report.]
+Add an object loop check to Catalog::countPageTree().
+The DCT decoder wasn't checking for an SOF before the first SOS.
+  [Thanks to cyth for the bug report.]
+The inline image decoder was skipping to end-of-stream in the wrong
+  stream object.  [Thanks to cyth for the bug report.]
+Fixed a bug in the JPEG 2000 decoder when nLayers > 1 and the
+  'termination on each coding pass' flag is set.
+Removed the #pragma interface/implementation stuff (which is outdated
+  and useless at this point).
+Fixed a bug in the ICCBased color space parser that was allowing the
+  number of components to be zero.  (CVE-2023-2662)  [Thanks to
+  huckleberry for the bug report.]
+Added checks for PDF object loops in AcroForm::scanField()
+  (CVE-2018-7453, CVE-2018-16369, CVE-2022-36561, CVE-2022-41844),
+  Catalog::readPageLabelTree2() (CVE-2023-2663), and
+  Catalog::readEmbeddedFileTree() (CVE-2023-2664).
+The zero-width character problem can also happen if the page size is
+  very large -- that needs to be limited too, the same way as
+  character position coordinates.  (CVE-2023-3044) [Thanks to jlinliu
+  for the bug report.]
+Add some missing bounds check code in DCTStream.  [Thanks to Jiahao
+  Liu for the bug report.]
+Fix a deadlock when an object stream's length field is contained in
+  another object stream.  (CVE-2023-3436) [Thanks to Jiahao Liu for
+  the bug report.]
+Correctly handle tiling patterns with negative step values.
+Ignore overprint in soft masks (to match Adobe's behavior).
