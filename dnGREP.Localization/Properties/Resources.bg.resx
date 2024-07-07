@@ -2586,7 +2586,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_Global" xml:space="preserve">
-    <value>Общо</value>
+    <value>Глобално</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
@@ -4073,15 +4073,43 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="BookmarkDetails_Global" xml:space="preserve">
-    <value>Общо</value>
+    <value>Глобално</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Global" xml:space="preserve">
-    <value>Общо</value>
+    <value>Глобално</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_global" xml:space="preserve">
-    <value>Общо</value>
+    <value>Глобално</value>
     <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Дървото с резултатите</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Първо съвпадение във всеки файл</value>
+    <comment>Main window, tooltip for the Global checkbox, when not checked</comment>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Полето за търсене</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>Не глобално</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>Не глобално</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>Всички съвпадения във всеки вайл</value>
+    <comment>Main window, tooltip for the Global checkbox, when checked</comment>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>След търсене, фокусът на клавиатурата се прехвърля към</value>
+    <comment>Options dialog, radio button group label</comment>
   </data>
 </root>
