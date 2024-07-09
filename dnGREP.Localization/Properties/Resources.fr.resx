@@ -3085,4 +3085,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Supprimer les fichiers</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Arbre de résultats</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
