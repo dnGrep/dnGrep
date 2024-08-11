@@ -178,7 +178,7 @@ namespace dnGREP.Common
                 {
                     if (Utils.IsArchive(FileNameReal))
                     {
-                        searchResults = ArchiveDirectory.GetLinesWithContext(this, linesBefore, linesAfter);
+                        searchResults = ArchiveDirectory.GetLinesWithContext(this, linesBefore, linesAfter, IsHexFile);
                     }
                     else
                     {

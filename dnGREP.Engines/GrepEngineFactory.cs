@@ -202,7 +202,14 @@ namespace dnGREP.Engines
             {
                 if (searchType == SearchType.Hex)
                 {
-                    return GetHexEngine(param, filter);
+                    if (ArchiveDirectory.Extensions.Contains(fileExtension))
+                    {
+                        return GetArchiveEngine(fileExtension, param, filter);
+                    }
+                    else
+                    {
+                        return GetHexEngine(param, filter);
+                    }
                 }
 
                 IGrepEngine? poolEngine = FetchFromPool(fileExtension);

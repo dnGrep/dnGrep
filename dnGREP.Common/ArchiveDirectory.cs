@@ -450,7 +450,7 @@ namespace dnGREP.Common
             Utils.OpenFile(newArgs);
         }
 
-        public static List<GrepLine> GetLinesWithContext(GrepSearchResult searchResult, int linesBefore, int linesAfter)
+        public static List<GrepLine> GetLinesWithContext(GrepSearchResult searchResult, int linesBefore, int linesAfter, bool inHexFormat)
         {
             string[] parts = searchResult.FileNameDisplayed.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator, StringComparison.Ordinal) || parts.Length < 2)
@@ -468,10 +468,11 @@ namespace dnGREP.Common
             }
 
             using FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            return GetLinesWithContext(input, searchResult, linesBefore, linesAfter, innerFileName, intermediateFiles);
+            return GetLinesWithContext(input, searchResult, linesBefore, linesAfter, innerFileName, intermediateFiles, inHexFormat);
         }
 
-        private static List<GrepLine> GetLinesWithContext(Stream input, GrepSearchResult searchResult, int linesBefore, int linesAfter, string innerFileName, string[] intermediateFiles)
+        private static List<GrepLine> GetLinesWithContext(Stream input, GrepSearchResult searchResult, int linesBefore, int linesAfter,
+            string innerFileName, string[] intermediateFiles, bool inHexFormat)
         {
             List<GrepLine> results = [];
 
@@ -500,7 +501,7 @@ namespace dnGREP.Common
                         extractor.ExtractFile(index, stream);
                         string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 
-                        results = GetLinesWithContext(stream, searchResult, linesBefore, linesAfter, innerFileName, newIntermediateFiles);
+                        results = GetLinesWithContext(stream, searchResult, linesBefore, linesAfter, innerFileName, newIntermediateFiles, inHexFormat);
                     }
                 }
                 else
@@ -526,8 +527,16 @@ namespace dnGREP.Common
                         {
                             extractor.ExtractFile(index, stream);
                             stream.Seek(0, SeekOrigin.Begin);
-                            using StreamReader reader = new(stream);
-                            results = Utils.GetLinesEx(reader, searchResult.Matches, linesBefore, linesAfter);
+                            if (inHexFormat)
+                            {
+                                using BinaryReader readStream = new(stream);
+                                results = Utils.GetLinesHexFormat(readStream, searchResult.Matches, linesBefore, linesAfter);
+                            }
+                            else
+                            {
+                                using StreamReader reader = new(stream);
+                                results = Utils.GetLinesEx(reader, searchResult.Matches, linesBefore, linesAfter);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -537,6 +546,28 @@ namespace dnGREP.Common
                 }
             }
             return results;
+        }
+
+        public static List<GrepLine> GetLinesHexFormat(GrepSearchResult searchResult, int linesBefore, int linesAfter)
+        {
+            string[] parts = searchResult.FileNameDisplayed.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator, StringComparison.Ordinal) || parts.Length < 2)
+            {
+                return [];
+            }
+
+            string innerFileName = parts.Last();
+            string[] intermediateFiles = parts.Skip(1).Take(parts.Length - 2).ToArray();
+
+            string zipFile = searchResult.FileNameReal;
+            if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\", StringComparison.Ordinal))
+            {
+                zipFile = @"\\?\" + zipFile;
+            }
+
+            using FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using BinaryReader readStream = new(input);
+            return Utils.GetLinesHexFormat(readStream, searchResult.Matches, linesBefore, linesAfter);
         }
 
         public static string ExtractToTempFile(GrepSearchResult searchResult)
