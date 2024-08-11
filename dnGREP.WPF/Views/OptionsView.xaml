@@ -9,7 +9,7 @@
                  Title="{l:Loc Key='Options_OptionsTitle'}"
                  MinWidth="500"
                  MinHeight="300"
-                 d:DesignHeight="3400"
+                 d:DesignHeight="4000"
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
@@ -1096,6 +1096,56 @@
                                          IsChecked="{Binding PdfNumberStyle, Converter={StaticResource ebc}, ConverterParameter=LineNumber}" />
                         </StackPanel>
                     </Grid>
+                </GroupBox>
+
+                <GroupBox Header="{l:Loc Key='Options_PlugInCache'}">
+                    <StackPanel Orientation="Vertical" Margin="0,6,0,0">
+                        <CheckBox Content="{l:Loc Key='Options_CacheExtractedFiles'}"
+                                  Margin="0,3"
+                                  IsChecked="{Binding CacheExtractedFiles}"/>
+                        <RadioButton Content="{l:Loc Key='Options_CacheFilesInTempFolder'}"
+                                     Margin="0,3"
+                                     IsChecked="{Binding CacheFilesInTempFolder}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton Content="{l:Loc Key='Options_CacheFilesIn'}"
+                                         Margin="0,3,3,3"
+                                         IsChecked="{Binding CacheFilesInTempFolder, Converter={StaticResource not}}"/>
+                            <TextBox Margin="3"  
+                                     Text="{Binding CacheFilePath, UpdateSourceTrigger=PropertyChanged}" 
+                                     IsEnabled="{Binding CacheFilesInTempFolder, Converter={StaticResource not}}"
+                                     Width="350"
+                                     HorizontalAlignment="Left" />
+                            <Button Grid.Column="2" Content="{l:Loc Key='Options_BrowseFileLocation'}" Margin="3"
+                                    Command="{Binding Path=BrowseCacheCommand}">
+                                <Button.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </Button.Width>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{l:Loc Key='Options_DeleteFilesFromCacheIfNotUsedIn'}"
+                                      Margin="0,3,3,3"
+                                      IsChecked="{Binding CacheFilesClean}"/>
+                            <TextBox Margin="3,0"
+                                     Text="{Binding CacheFilesCleanDays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     TextAlignment="Right" PreviewTextInput="TextBox_PreviewTextInput"
+                                     DataObject.Pasting="TextBox_Pasting"
+                                     IsEnabled="{Binding CacheFilesClean}">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
+                            <Label Content="{l:Loc Key='Options_CheckDays'}"/>
+                        </StackPanel>
+                    </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_PluginOptions'}">

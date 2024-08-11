@@ -4323,6 +4323,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The plug-in cache settings have changed. Delete the old cache folder?.
+        /// </summary>
+        public static string MessageBox_ThePlugInCacheSettingsHaveChanged {
+            get {
+                return ResourceManager.GetString("MessageBox_ThePlugInCacheSettingsHaveChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not add dnGrep to the Windows Explorer right-click menu. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu {
@@ -4629,6 +4638,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cache extracted files.
+        /// </summary>
+        public static string Options_CacheExtractedFiles {
+            get {
+                return ResourceManager.GetString("Options_CacheExtractedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cache files in.
+        /// </summary>
+        public static string Options_CacheFilesIn {
+            get {
+                return ResourceManager.GetString("Options_CacheFilesIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cache files in Temp folder.
+        /// </summary>
+        public static string Options_CacheFilesInTempFolder {
+            get {
+                return ResourceManager.GetString("Options_CacheFilesInTempFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to days.
         /// </summary>
         public static string Options_CheckDays {
@@ -4787,6 +4823,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_DeleteFiles {
             get {
                 return ResourceManager.GetString("Options_DeleteFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete files from cache if not used in.
+        /// </summary>
+        public static string Options_DeleteFilesFromCacheIfNotUsedIn {
+            get {
+                return ResourceManager.GetString("Options_DeleteFilesFromCacheIfNotUsedIn", resourceCulture);
             }
         }
         
@@ -5651,6 +5696,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_PhoneticSearch {
             get {
                 return ResourceManager.GetString("Options_PhoneticSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plug-in cache.
+        /// </summary>
+        public static string Options_PlugInCache {
+            get {
+                return ResourceManager.GetString("Options_PlugInCache", resourceCulture);
             }
         }
         

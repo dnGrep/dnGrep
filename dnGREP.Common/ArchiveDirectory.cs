@@ -392,7 +392,7 @@ namespace dnGREP.Common
                     return false;
                 }
 
-                if (checkEncoding && !fileData.IsBinary)
+                if (!isPluginMatch && checkEncoding && !fileData.IsBinary)
                 {
                     fileData.Encoding = Utils.GetFileEncoding(stream);
                 }

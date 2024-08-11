@@ -17,9 +17,11 @@ namespace dnGREP.Engines.OpenXml
     {
         private static readonly string bar = char.ConvertFromUtf32(0x2016) + " ";
 
-        public static IEnumerable<Tuple<int, string>> ExtractPowerPointText(Stream stream,
+        public static List<Sheet> ExtractPowerPointText(Stream stream,
             PauseCancelToken pauseCancelToken)
         {
+            List<Sheet> slides = [];
+
             // Open a given PointPoint document as readonly
             using PresentationDocument ppt = PresentationDocument.Open(stream, false);
             int numberOfSlides = CountSlides(ppt);
@@ -30,8 +32,10 @@ namespace dnGREP.Engines.OpenXml
 
                 string text = GetSlideText(ppt, idx, pauseCancelToken);
 
-                yield return new Tuple<int, string>(idx + 1, text);
+                slides.Add(new((idx + 1).ToString(), text));
             }
+
+            return slides;
         }
 
         private static int CountSlides(PresentationDocument presentationDocument)

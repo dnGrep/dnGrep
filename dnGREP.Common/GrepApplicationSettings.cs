@@ -358,6 +358,14 @@ namespace dnGREP.Common
             public const string ArchiveMove = "ArchiveMove";
             [DefaultValue(ArchiveCopyMoveDelete.DoNothing)]
             public const string ArchiveDelete = "ArchiveDelete";
+            [DefaultValue(true)]
+            public const string CacheExtractedFiles = "CacheExtractedFiles";
+            [DefaultValue(true)]
+            public const string CacheFilesInTempFolder = "CacheFilesInTempFolder";
+            [DefaultValue("")]
+            public const string CacheFilePath = "CacheFilePath";
+            [DefaultValue(0)]
+            public const string CacheFilesCleanDays = "CacheFilesCleanDays";
         }
 
         public static class ObsoleteKey

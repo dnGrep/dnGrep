@@ -48,71 +48,169 @@ namespace dnGREP.Engines.Pdf
 
         public bool PreviewPlainText { get; set; }
 
-        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
+        public List<GrepSearchResult> Search(string pdfFile, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            string tempFile = string.Empty;
-            IGrepEngine? engine = null;
+            string cacheFolder = Path.Combine(Utils.GetCacheFolder(), "dnGREP-PDF");
+            if (!Directory.Exists(cacheFolder))
+                Directory.CreateDirectory(cacheFolder);
+
+            // get the unique filename for this file using SHA256
+            // if the same file exists multiple places in the search tree, all will use the same temp file
+            string cacheFileName = Utils.GetTempTextFileName(pdfFile);
+            string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
+            ExtractTextResults extracted;
             try
             {
                 // Extract text
-                tempFile = ExtractText(file);
-                if (!File.Exists(tempFile))
+                extracted = ExtractText(pdfFile, cacheFilePath, encoding, pauseCancelToken);
+                if (string.IsNullOrEmpty(extracted.Text) || !File.Exists(cacheFilePath))
                 {
                     string message = Resources.Error_PdftotextFailedToCreateTextFile;
-                    logger.Error(message + $": '{file}'");
+                    logger.Error(message + $": '{pdfFile}'");
                     return
                     [
-                        new(file, searchPattern, message, false)
+                        new(pdfFile, searchPattern, message, false)
                     ];
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                // expected exception
+                return [];
+            }
+            catch (PdfToTextException ex)
+            {
+                logger.Error(ex.Message); // message is sufficient, no need for stack trace
+                return
+                [
+                    new(pdfFile, searchPattern, ex.Message, false)
+                ];
+            }
 
-                // GrepCore cannot check encoding of the original pdf file. If the encoding parameter is not default
-                // then it is the user-specified code page.  If the encoding parameter *is* the default,
-                // then it most likely not been set, so get the encoding of the extracted text file:
-                if (encoding == Encoding.Default)
-                    encoding = Utils.GetFileEncoding(tempFile);
+            return SearchPlainTextFile(pdfFile, cacheFilePath, extracted.Text, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+        }
 
-                string text;
-                using (StreamReader sr = new(tempFile, encoding, detectEncodingFromByteOrderMarks: false))
+        // the stream version will get called if the file is in an archive
+        public List<GrepSearchResult> Search(Stream input, string pdfFilePath, string searchPattern,
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
+        {
+            string cacheFolder = Path.Combine(Utils.GetCacheFolder(), "dnGREP-PDF");
+            if (!Directory.Exists(cacheFolder))
+                Directory.CreateDirectory(cacheFolder);
+
+            // the filePath may contain the partial path of the directory structure in the archive
+            string fileName = Path.GetFileName(pdfFilePath);
+
+            // get the unique filename for this file using SHA256
+            // if the same file exists multiple places in the search tree, all will use the same temp file
+            string cacheFileName = Utils.GetTempTextFileName(input, fileName);
+            string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
+
+            List<GrepSearchResult> results = [];
+            ExtractTextResults extracted;
+            if (File.Exists(cacheFilePath))
+            {
+                extracted = ReadCacheFile(cacheFilePath, encoding);
+            }
+            else
+            {
+                // write the stream to a temp folder, and run the file version of the search
+                string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
+                if (!Directory.Exists(tempFolder))
+                    Directory.CreateDirectory(tempFolder);
+
+                // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+                string extractFileName = Path.GetFileNameWithoutExtension(fileName) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".pdf";
+                string tempPdfFilePath = Path.Combine(tempFolder, extractFileName);
+
+                using (var fileStream = File.Create(tempPdfFilePath))
                 {
-                    text = sr.ReadToEnd();
+                    input.Seek(0, SeekOrigin.Begin);
+                    input.CopyTo(fileStream);
                 }
 
+                try
+                {
+                    extracted = ExtractText(tempPdfFilePath, cacheFilePath, encoding, pauseCancelToken);
+                    if (string.IsNullOrEmpty(extracted.Text) || !File.Exists(cacheFilePath))
+                    {
+                        string message = Resources.Error_PdftotextFailedToCreateTextFile;
+                        logger.Error(message + $": '{pdfFilePath}'");
+                        return
+                        [
+                            new(pdfFilePath, searchPattern, message, false)
+                        ];
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    // expected exception
+                    return [];
+                }
+                catch (PdfToTextException ex)
+                {
+                    logger.Error(ex.Message); // message is sufficient, no need for stack trace
+                    return
+                    [
+                        new(pdfFilePath, searchPattern, ex.Message, false)
+                    ];
+                }
+            }
+
+            results = SearchPlainTextFile(pdfFilePath, cacheFilePath, extracted.Text, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+
+            bool isInArchive = pdfFilePath.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
+            if (isInArchive && results.Count > 0)
+            {
+                foreach (GrepSearchResult gsr in results)
+                {
+                    gsr.FileNameDisplayed = pdfFilePath;
+                }
+            }
+            return results;
+        }
+
+        private List<GrepSearchResult> SearchPlainTextFile(string pdfFilePath, string textFilePath, string plainText, string searchPattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
+        {
+            IGrepEngine? engine = null;
+            try
+            {
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                if (!HasSearchableText(text))
+                if (!HasSearchableText(plainText))
                 {
                     string message = Resources.Error_ThisPDFFileContainsNoText;
-                    logger.Error(message + $": '{file}'");
+                    logger.Error(message + $": '{pdfFilePath}'");
                     return
                     [
-                        new(file, searchPattern, message, false)
+                        new(pdfFilePath, searchPattern, message, false)
                     ];
                 }
 
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter, searchType);
+                engine = GrepEngineFactory.GetSearchEngine(textFilePath, initParams, FileFilter, searchType);
                 if (engine != null)
                 {
                     bool join = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PdfJoinLines);
 
                     if (join)
                     {
-                        text = TrimAllLines(text);
-                        File.WriteAllText(tempFile, text);
+                        plainText = TrimAllLines(plainText);
+                        File.WriteAllText(textFilePath, plainText);
                     }
 
-                    string joinedText = join ? JoinLines(text) : text;
+                    string joinedText = join ? JoinLines(plainText) : plainText;
 
                     using Stream inputStream = new MemoryStream(encoding.GetBytes(joinedText));
-                    List<GrepSearchResult> results = engine.Search(inputStream, tempFile, searchPattern,
+                    List<GrepSearchResult> results = engine.Search(inputStream, textFilePath, searchPattern,
                         searchType, searchOptions, encoding, pauseCancelToken);
 
                     if (results.Count > 0)
                     {
-                        using Stream inputStream2 = new MemoryStream(encoding.GetBytes(text));
+                        using Stream inputStream2 = new MemoryStream(encoding.GetBytes(plainText));
                         using (StreamReader streamReader = new(inputStream2, encoding, false, 4096, true))
                         {
                             foreach (var result in results)
@@ -123,13 +221,14 @@ namespace dnGREP.Engines.Pdf
 
                         foreach (GrepSearchResult result in results)
                         {
+                            result.FileInfo = new(pdfFilePath);
                             result.IsReadOnlyFileType = true;
-                            result.FileNameDisplayed = file;
+                            result.FileNameDisplayed = pdfFilePath;
                             if (PreviewPlainText)
                             {
-                                result.FileInfo.TempFile = tempFile;
+                                result.FileInfo.TempFile = textFilePath;
                             }
-                            result.FileNameReal = file;
+                            result.FileNameReal = pdfFilePath;
                         }
                     }
 
@@ -140,72 +239,37 @@ namespace dnGREP.Engines.Pdf
             {
                 // expected exception
             }
-            catch (PdfToTextException ex)
-            {
-                logger.Error(ex.Message); // message is sufficient, no need for stack trace
-                return
-                [
-                    new(file, searchPattern, ex.Message, false)
-                ];
-            }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Failed to search inside PDF file: '{file}'");
+                logger.Error(ex, $"Failed to search inside PDF file: '{pdfFilePath}'");
                 return
                 [
-                    new(file, searchPattern, ex.Message, false)
+                    new(pdfFilePath, searchPattern, ex.Message, false)
                 ];
             }
             finally
             {
                 if (engine != null)
                 {
-                    GrepEngineFactory.ReturnToPool(tempFile, engine);
+                    GrepEngineFactory.ReturnToPool(textFilePath, engine);
                 }
             }
             return [];
         }
 
-        // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
-            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
+        private ExtractTextResults ExtractText(string pdfFilePath, string cacheFilePath,
+            Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            // write the stream to a temp folder, and run the file version of the search
-            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
-            if (!Directory.Exists(tempFolder))
-                Directory.CreateDirectory(tempFolder);
-
-            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
-            string extractFileName = Path.GetFileNameWithoutExtension(fileName) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".pdf";
-            string filePath = Path.Combine(tempFolder, extractFileName);
-
-            using (var fileStream = File.Create(filePath))
+            if (string.IsNullOrEmpty(cacheFilePath))
             {
-                input.Seek(0, SeekOrigin.Begin);
-                input.CopyTo(fileStream);
+                return new(string.Empty, encoding);
             }
 
-            var results = Search(filePath, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
-
-            bool isInArchive = fileName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
-            if (isInArchive && results.Count > 0)
+            if (File.Exists(cacheFilePath))
             {
-                foreach (GrepSearchResult gsr in results)
-                {
-                    gsr.FileNameDisplayed = fileName;
-                }
+                // it is already extracted!
+                return ReadCacheFile(cacheFilePath, encoding);
             }
-            return results;
-        }
-
-        private string ExtractText(string pdfFilePath)
-        {
-            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
-            if (!Directory.Exists(tempFolder))
-                Directory.CreateDirectory(tempFolder);
-            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
-            string fileName = Path.GetFileNameWithoutExtension(pdfFilePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
-            string tempFileName = Path.Combine(tempFolder, fileName);
 
             string longPdfFilePath = PathEx.GetLongPath(pdfFilePath);
             string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions) ?? "-layout -enc UTF-8 -bom -cfg xpdfrc";
@@ -222,7 +286,7 @@ namespace dnGREP.Engines.Pdf
             using Process process = new();
             // use command prompt
             process.StartInfo.FileName = pathToPdfToText;
-            process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, longPdfFilePath, tempFileName);
+            process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, longPdfFilePath, cacheFilePath);
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.WorkingDirectory = Path.Combine(Utils.GetCurrentPath(typeof(GrepEnginePdf)), "xpdf");
             process.StartInfo.CreateNoWindow = true;
@@ -231,7 +295,9 @@ namespace dnGREP.Engines.Pdf
             process.WaitForExit();
 
             if (process.ExitCode == 0)
-                return tempFileName;
+            {
+                return ReadCacheFile(cacheFilePath, encoding);
+            }
             else
             {
                 string errorMessage = string.Empty;
@@ -244,6 +310,23 @@ namespace dnGREP.Engines.Pdf
                 };
                 throw new PdfToTextException(TranslationSource.Format(Resources.Error_PdftotextReturned0, errorMessage));
             }
+        }
+
+        private static ExtractTextResults ReadCacheFile(string cacheFilePath, Encoding encoding)
+        {
+            Encoding fileEncoding = encoding;
+            string textOut;
+            // GrepCore cannot check encoding of the original pdf file. If the encoding parameter is
+            // not default then it is the user-specified code page.  If the encoding parameter *is*
+            // the default, then it most likely not been set, so get the encoding of the extracted
+            // text file:
+            if (encoding == Encoding.Default)
+                fileEncoding = Utils.GetFileEncoding(cacheFilePath);
+
+            using (StreamReader streamReader = new(cacheFilePath, fileEncoding, detectEncodingFromByteOrderMarks: false))
+                textOut = streamReader.ReadToEnd();
+
+            return new ExtractTextResults(textOut, fileEncoding);
         }
 
         private static bool HasSearchableText(string text)

@@ -203,7 +203,7 @@ namespace dnGREP.WPF
         {
             using var stream = File.OpenRead(filename);
             using var sha = SHA256.Create();
-            return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "", StringComparison.Ordinal).ToLowerInvariant();
+            return Convert.ToHexString(sha.ComputeHash(stream));
         }
 
         public void WatchTheme()
