@@ -2097,7 +2097,7 @@ namespace dnGREP.WPF
         {
             string returnValue = value;
             // keep pinned items in order at the top of the list
-            var item = list.FirstOrDefault(b => string.Equals(b.StringValue, value, StringComparison.OrdinalIgnoreCase));
+            var item = list.FirstOrDefault(b => string.Equals(b.StringValue, value, StringComparison.Ordinal));
             int newIndex = IndexOfFirstUnpinned(list);
             if (item != null)
             {
