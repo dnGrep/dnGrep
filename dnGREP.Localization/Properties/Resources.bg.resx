@@ -4112,4 +4112,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>След търсене, фокусът на клавиатурата се прехвърля към</value>
     <comment>Options dialog, radio button group label</comment>
   </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>Файлове в архиви</value>
+    <comment>Options dialog, radio group label</comment>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>Копиране на целия архив</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Извличане и копиране на файловете</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Преместване на целия архив</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Премахване на целия архив</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>Без действие</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Извличане и преместване на файловете</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
 </root>
