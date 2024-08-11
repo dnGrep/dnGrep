@@ -4174,4 +4174,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>The plug-in cache settings have changed. Delete the old cache folder?</value>
     <comment>Message box text for: delete cache files</comment>
   </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>View Whitespace</value>
+    <comment>Preview control, checkbox label</comment>
+  </data>
 </root>

@@ -68,7 +68,7 @@ namespace dnGREP.WPF
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
-                
+
                 textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
                 textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
                 Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
@@ -112,6 +112,12 @@ namespace dnGREP.WPF
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
             }
+            else if (e.PropertyName == nameof(ViewModel.ViewWhitespace))
+            {
+                textEditor.Options.ShowSpaces = ViewModel.ViewWhitespace;
+                textEditor.Options.ShowTabs = ViewModel.ViewWhitespace;
+                textEditor.Options.ShowEndOfLine = ViewModel.ViewWhitespace;
+            }
         }
 
         public PreviewViewModel ViewModel { get; private set; } = new PreviewViewModel();
@@ -129,6 +135,9 @@ namespace dnGREP.WPF
 
             lineNumberMargin.LineToPageMap.Clear();
             textEditor.Clear();
+            textEditor.Options.ShowSpaces = ViewModel.ViewWhitespace;
+            textEditor.Options.ShowTabs = ViewModel.ViewWhitespace;
+            textEditor.Options.ShowEndOfLine = ViewModel.ViewWhitespace;
             textEditor.Encoding = ViewModel.Encoding;
             textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
             textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
@@ -298,8 +307,9 @@ namespace dnGREP.WPF
 
         internal void SaveSettings()
         {
-            GrepSettings.Instance.Set<bool>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked ?? false);
-            GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
+            GrepSettings.Instance.Set(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked ?? false);
+            GrepSettings.Instance.Set(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
+            GrepSettings.Instance.Set(GrepSettings.Key.PreviewViewWhitespace, ViewModel.ViewWhitespace);
         }
 
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs args)
