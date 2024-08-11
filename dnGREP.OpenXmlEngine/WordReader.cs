@@ -35,7 +35,8 @@ namespace dnGREP.Engines.OpenXml
         internal static HeaderFooterPosition WordHeaderFooterPosition { get; private set; }
         internal static FootnoteRefType WordFootnoteNumber => FootnoteRefType.Parenthesis;
 
-        public static string ExtractWordText(Stream stream, PauseCancelToken pauseCancelToken)
+        public static string ExtractWordText(Stream stream,
+            PauseCancelToken pauseCancelToken)
         {
             StringBuilder sb = new();
 

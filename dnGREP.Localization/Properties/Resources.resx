@@ -4150,4 +4150,28 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Do nothing</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Plug-in cache</value>
+    <comment>Options dialog, group label</comment>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Cache extracted files</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Cache files in Temp folder</value>
+    <comment>Options dialog, radiobutton label</comment>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Cache files in</value>
+    <comment>Options dialog, radiobutton label</comment>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Delete files from cache if not used in</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>The plug-in cache settings have changed. Delete the old cache folder?</value>
+    <comment>Message box text for: delete cache files</comment>
+  </data>
 </root>

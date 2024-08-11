@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using dnGREP.Common;
 using dnGREP.Localization;
 using NLog;
@@ -13,7 +15,7 @@ namespace dnGREP.Engines.OpenXml
     /// <summary>
     /// Plug-in for searching OpenXml Word and Excel documents
     /// </summary>
-    public class GrepEngineOpenXml : GrepEngineBase, IGrepPluginEngine
+    public partial class GrepEngineOpenXml : GrepEngineBase, IGrepPluginEngine
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -29,86 +31,256 @@ namespace dnGREP.Engines.OpenXml
 
         public bool PreviewPlainText { get; set; }
 
-        public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType,
+        public List<GrepSearchResult> Search(string documentFilePath, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            using var input = File.Open(fileName, FileMode.Open, FileAccess.Read);
-            return Search(input, fileName, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+            SearchDelegates.DoSearch searchMethod = GetSearchDelegate(searchType);
+
+            string cacheFilePath = string.Empty;
+            if (CreatePlainTextFile)
+            {
+                cacheFilePath = GetCacheFilePath(documentFilePath, null);
+            }
+
+            return SearchMultiline(documentFilePath, cacheFilePath, null, searchPattern,
+                searchOptions, searchMethod, encoding, pauseCancelToken);
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
+        public List<GrepSearchResult> Search(Stream input, string documentFilePath, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
             PauseCancelToken pauseCancelToken)
         {
-            SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
-            switch (searchType)
+            SearchDelegates.DoSearch searchMethodMultiline = GetSearchDelegate(searchType);
+
+            string cacheFilePath = string.Empty;
+            if (CreatePlainTextFile)
             {
-                case SearchType.PlainText:
-                case SearchType.XPath:
-                    searchMethodMultiline = DoTextSearch;
-                    break;
-                case SearchType.Regex:
-                    searchMethodMultiline = DoRegexSearch;
-                    break;
-                case SearchType.Soundex:
-                    searchMethodMultiline = DoFuzzySearch;
-                    break;
+                cacheFilePath = GetCacheFilePath(documentFilePath, input);
             }
 
-            List<GrepSearchResult> result = SearchMultiline(input, fileName, searchPattern, searchOptions,
-                searchMethodMultiline, pauseCancelToken);
+            List<GrepSearchResult> result = SearchMultiline(documentFilePath, cacheFilePath, input, searchPattern,
+                searchOptions, searchMethodMultiline, encoding, pauseCancelToken);
             return result;
         }
 
-        private List<GrepSearchResult> SearchMultiline(Stream input, string file, string searchPattern,
-            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+        private SearchDelegates.DoSearch GetSearchDelegate(SearchType searchType)
+        {
+            return searchType switch
+            {
+                SearchType.Regex => DoRegexSearch,
+                SearchType.Soundex => DoFuzzySearch,
+                _ => DoTextSearch,
+            };
+        }
+
+        private bool CreatePlainTextFile => PreviewPlainText ||
+            GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheExtractedFiles);
+
+        private static string GetCacheFilePath(string documentFilePath, Stream? stream)
+        {
+            string cacheFolder = Path.Combine(Utils.GetCacheFolder(), @"dnGREP-OpenXML");
+            if (!Directory.Exists(cacheFolder))
+                Directory.CreateDirectory(cacheFolder);
+
+
+            // get the unique filename for this file using SHA256
+            // if the same file exists multiple places in the search tree, all will use the same temp file
+            string cacheFileName;
+            if (stream != null)
+            {
+                cacheFileName = Utils.GetTempTextFileName(stream, documentFilePath);
+            }
+            else
+            {
+                cacheFileName = Utils.GetTempTextFileName(documentFilePath);
+            }
+            string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
+            return cacheFilePath;
+        }
+
+        private static string GetCacheSheetFilePath(string cacheFilePath, int number, string sheetName)
+        {
+            string? path = Path.GetDirectoryName(cacheFilePath);
+            string fileName = Path.GetFileName(cacheFilePath);
+            Match match = CacheFileNameRegex().Match(fileName);
+            if (match.Success)
+            {
+                string documentName = match.Groups[1].Value;
+                string sha256 = match.Groups[2].Value;
+
+                // new name must match the SheetNameRegex below
+                fileName = documentName + "_" + number + "_[" + sheetName + "]_" + sha256 + ".txt";
+                return Path.Combine(path ?? string.Empty, fileName);
+            }
+            return cacheFilePath;
+        }
+
+        private static bool CacheFileExists(string cacheFilePath)
+        {
+            if (File.Exists(cacheFilePath))
+                return true;
+
+            return GetCacheFiles(cacheFilePath).Length > 0;
+        }
+
+        private static string[] GetCacheFiles(string cacheFilePath)
+        {
+            string? dir = Path.GetDirectoryName(cacheFilePath);
+            if (dir != null && Directory.Exists(dir))
+            {
+                Match match = CacheFileNameRegex().Match(Path.GetFileName(cacheFilePath));
+                if (match.Success)
+                {
+                    string sha256 = match.Groups[2].Value;
+                    return Directory.GetFiles(dir, "*" + sha256 + ".txt");
+                }
+            }
+            return [];
+        }
+
+        private static string ReadCacheFile(string cacheFilePath, Encoding encoding)
+        {
+            Encoding fileEncoding = encoding;
+            string textOut;
+            // GrepCore cannot check encoding of the original document file. If the encoding parameter is
+            // not default then it is the user-specified code page.  If the encoding parameter *is*
+            // the default, then it most likely not been set, so get the encoding of the extracted
+            // text file:
+            if (encoding == Encoding.Default)
+                fileEncoding = Utils.GetFileEncoding(cacheFilePath);
+
+            using (StreamReader streamReader = new(cacheFilePath, fileEncoding, detectEncodingFromByteOrderMarks: false))
+                textOut = streamReader.ReadToEnd();
+
+            return textOut;
+        }
+
+        private static List<Sheet> ReadCacheFilePages(string[] files, Encoding encoding)
+        {
+            List<Sheet> pages = [];
+
+            if (files.Length == 0)
+                return pages;
+
+            string firstFile = files.First();
+
+            Encoding fileEncoding = encoding;
+            if (encoding == Encoding.Default)
+                fileEncoding = Utils.GetFileEncoding(firstFile);
+
+            foreach (string file in files)
+            {
+                string number = string.Empty;
+                string name = string.Empty;
+                var match = SheetNameRegex().Match(Path.GetFileNameWithoutExtension(file));
+                if (match.Success)
+                {
+                    number = match.Groups[1].Value;
+                    name = match.Groups[2].Value;
+
+                    string textOut;
+                    using (StreamReader streamReader = new(file, fileEncoding, detectEncodingFromByteOrderMarks: false))
+                        textOut = streamReader.ReadToEnd();
+
+                    pages.Add(new(name, textOut));
+                }
+            }
+
+            return pages;
+        }
+
+        private static void WriteCacheText(string cacheFilePath, string content)
+        {
+            try
+            {
+                if (File.Exists(cacheFilePath))
+                {
+                    File.Delete(cacheFilePath);
+                }
+                File.WriteAllText(cacheFilePath, content, Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, string.Format("Failed to write cache text '{0}'", cacheFilePath));
+            }
+        }
+
+
+        private List<GrepSearchResult> SearchMultiline(string documentFilePath, string cacheFilePath, Stream? stream,
+            string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, Encoding encoding,
             PauseCancelToken pauseCancelToken)
         {
             List<GrepSearchResult> searchResults = [];
 
-            string ext = Path.GetExtension(file);
+            string ext = Path.GetExtension(documentFilePath);
 
             if (ext.StartsWith(".doc", StringComparison.OrdinalIgnoreCase))
             {
-                SearchWord(input, file, searchPattern, searchOptions, searchMethod, searchResults, pauseCancelToken);
+                SearchWord(documentFilePath, cacheFilePath, stream, searchPattern, searchOptions, searchMethod, searchResults, encoding, pauseCancelToken);
             }
             else if (ext.StartsWith(".xls", StringComparison.OrdinalIgnoreCase))
             {
-                SearchExcel(input, file, searchPattern, searchOptions, searchMethod, searchResults, pauseCancelToken);
+                SearchExcel(documentFilePath, cacheFilePath, stream, searchPattern, searchOptions, searchMethod, searchResults, encoding, pauseCancelToken);
             }
             else if (ext.StartsWith(".ppt", StringComparison.OrdinalIgnoreCase))
             {
-                SearchPowerPoint(input, file, searchPattern, searchOptions, searchMethod, searchResults, pauseCancelToken);
+                SearchPowerPoint(documentFilePath, cacheFilePath, stream, searchPattern, searchOptions, searchMethod, searchResults, encoding, pauseCancelToken);
             }
 
             return searchResults;
         }
 
-        private void SearchExcel(Stream stream, string file, string searchPattern,
-            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
-            List<GrepSearchResult> searchResults, PauseCancelToken pauseCancelToken)
+        private void SearchExcel(string documentFilePath, string cacheFilePath, Stream? stream,
+            string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+            List<GrepSearchResult> searchResults, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
+            Stream? fileStream = null;
             try
             {
-                var sheets = ExcelReader.ExtractExcelText(stream, pauseCancelToken);
-                foreach (var kvPair in sheets)
+                List<Sheet> sheets;
+                if (CacheFileExists(cacheFilePath))
                 {
-                    var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true, pauseCancelToken);
+                    sheets = ReadCacheFilePages(GetCacheFiles(cacheFilePath), encoding);
+                }
+                else
+                {
+                    if (stream == null)
+                    {
+                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
+                        stream = fileStream;
+                    }
+                    sheets = ExcelReader.ExtractExcelText(stream, pauseCancelToken);
+
+                    int idx = 1;
+                    foreach (Sheet sheet in sheets)
+                    {
+                        string cacheSheetFilePath = GetCacheSheetFilePath(cacheFilePath, idx++, sheet.Name);
+                        WriteCacheText(cacheSheetFilePath, sheet.Content);
+                    }
+                }
+
+                int count = 0;
+
+                foreach (var sheet in sheets)
+                {
+                    var lines = searchMethod(-1, 0, sheet.Content, searchPattern, searchOptions, true, pauseCancelToken);
                     if (lines.Count > 0)
                     {
-                        GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default)
+                        GrepSearchResult result = new(documentFilePath, searchPattern, lines, Encoding.Default)
                         {
-                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_ExcelSheetName, kvPair.Key)
+                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_ExcelSheetName, sheet.Name)
                         };
-                        using (StringReader reader = new(kvPair.Value))
+                        using (StringReader reader = new(sheet.Content))
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
+                        result.FileInfo = new(documentFilePath);
                         result.IsReadOnlyFileType = true;
-                        if (PreviewPlainText)
+
+                        if (PreviewPlainText && !string.IsNullOrEmpty(cacheFilePath))
                         {
-                            result.FileInfo.TempFile = WriteTempFile(kvPair.Value, file, "XLS");
+                            result.FileInfo.TempFile = GetCacheSheetFilePath(cacheFilePath, count, sheet.Name);
                         }
                         searchResults.Add(result);
                     }
@@ -121,33 +293,61 @@ namespace dnGREP.Engines.OpenXml
             }
             catch (Exception ex)
             {
-                logger.Error(ex, string.Format("Failed to search inside Excel file '{0}'", file));
-                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                logger.Error(ex, string.Format("Failed to search inside Excel file '{0}'", documentFilePath));
+                searchResults.Add(new GrepSearchResult(documentFilePath, searchPattern, ex.Message, false));
+            }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
             }
         }
-
-        private void SearchWord(Stream stream, string file, string searchPattern,
-            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
-            List<GrepSearchResult> searchResults, PauseCancelToken pauseCancelToken)
+        private void SearchWord(string documentFilePath, string cacheFilePath, Stream? stream,
+            string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+            List<GrepSearchResult> searchResults, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
+            Stream? fileStream = null;
             try
             {
-                var text = WordReader.ExtractWordText(stream, pauseCancelToken);
+                string text;
+                if (CacheFileExists(cacheFilePath))
+                {
+                    text = ReadCacheFile(cacheFilePath, encoding);
+                }
+                else
+                {
+                    if (stream == null)
+                    {
+                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
+                        stream = fileStream;
+                    }
+                    text = WordReader.ExtractWordText(stream, pauseCancelToken);
+
+                    if (!string.IsNullOrEmpty(cacheFilePath) && !File.Exists(cacheFilePath))
+                    {
+                        WriteCacheText(cacheFilePath, text);
+                    }
+                }
 
                 var lines = searchMethod(-1, 0, text, searchPattern,
                     searchOptions, true, pauseCancelToken);
                 if (lines.Count > 0)
                 {
-                    GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
+                    GrepSearchResult result = new(documentFilePath, searchPattern, lines, Encoding.Default);
                     using (StringReader reader = new(text))
                     {
                         result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                     }
+                    result.FileInfo = new(documentFilePath);
                     result.IsReadOnlyFileType = true;
-                    if (PreviewPlainText)
+
+                    if (PreviewPlainText && !string.IsNullOrEmpty(cacheFilePath))
                     {
-                        result.FileInfo.TempFile = WriteTempFile(text, file, "DOC");
+                        result.FileInfo.TempFile = cacheFilePath;
                     }
+
                     searchResults.Add(result);
                 }
             }
@@ -158,38 +358,74 @@ namespace dnGREP.Engines.OpenXml
             }
             catch (Exception ex)
             {
-                logger.Error(ex, string.Format("Failed to search inside Word file '{0}'", file));
-                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                logger.Error(ex, string.Format("Failed to search inside Word file '{0}'", documentFilePath));
+                searchResults.Add(new GrepSearchResult(documentFilePath, searchPattern, ex.Message, false));
+            }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
             }
         }
 
-        private void SearchPowerPoint(Stream stream, string file, string searchPattern,
-            GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
-            List<GrepSearchResult> searchResults, PauseCancelToken pauseCancelToken)
+        private void SearchPowerPoint(string documentFilePath, string cacheFilePath, Stream? stream,
+            string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod,
+            List<GrepSearchResult> searchResults, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
+            Stream? fileStream = null;
             try
             {
-                var slides = PowerPointReader.ExtractPowerPointText(stream, pauseCancelToken);
+                List<Sheet> slides;
+                if (CacheFileExists(cacheFilePath))
+                {
+                    slides = ReadCacheFilePages(GetCacheFiles(cacheFilePath), encoding);
+                }
+                else
+                {
+                    if (stream == null)
+                    {
+                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
+                        stream = fileStream;
+                    }
+                    slides = PowerPointReader.ExtractPowerPointText(stream, pauseCancelToken);
+
+                    if (!string.IsNullOrEmpty(cacheFilePath))
+                    {
+                        int idx = 1;
+                        foreach (var slide in slides)
+                        {
+                            string cacheSheetFilePath = GetCacheSheetFilePath(cacheFilePath, idx++, slide.Name);
+                            WriteCacheText(cacheSheetFilePath, slide.Content);
+                        }
+                    }
+                }
+
+                int count = 0;
 
                 foreach (var slide in slides)
                 {
-                    var lines = searchMethod(-1, 0, slide.Item2, searchPattern,
+                    count++;
+                    var lines = searchMethod(-1, 0, slide.Content, searchPattern,
                         searchOptions, true, pauseCancelToken);
                     if (lines.Count > 0)
                     {
-                        GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default)
+                        GrepSearchResult result = new(documentFilePath, searchPattern, lines, Encoding.Default)
                         {
-                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_PowerPointSlideNumber, slide.Item1)
+                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_PowerPointSlideNumber, slide.Name)
                         };
 
-                        using (StringReader reader = new(slide.Item2))
+                        using (StringReader reader = new(slide.Content))
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
+                        result.FileInfo = new(documentFilePath);
                         result.IsReadOnlyFileType = true;
-                        if (PreviewPlainText)
+
+                        if (PreviewPlainText && !string.IsNullOrEmpty(cacheFilePath))
                         {
-                            result.FileInfo.TempFile = WriteTempFile(slide.Item2, file, "PPT");
+                            result.FileInfo.TempFile = GetCacheSheetFilePath(cacheFilePath, count, slide.Name);
                         }
                         searchResults.Add(result);
                     }
@@ -202,23 +438,16 @@ namespace dnGREP.Engines.OpenXml
             }
             catch (Exception ex)
             {
-                logger.Error(ex, string.Format("Failed to search inside PowerPoint file '{0}'", file));
-                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                logger.Error(ex, string.Format("Failed to search inside PowerPoint file '{0}'", documentFilePath));
+                searchResults.Add(new GrepSearchResult(documentFilePath, searchPattern, ex.Message, false));
             }
-        }
-
-        private static string WriteTempFile(string text, string filePath, string app)
-        {
-            string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-{app}");
-            if (!Directory.Exists(tempFolder))
-                Directory.CreateDirectory(tempFolder);
-
-            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
-            string fileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
-            string tempFileName = Path.Combine(tempFolder, fileName);
-
-            File.WriteAllText(tempFileName, text);
-            return tempFileName;
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
+            }
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
@@ -239,5 +468,11 @@ namespace dnGREP.Engines.OpenXml
             args.UseCustomEditor = false;
             Utils.OpenFile(args);
         }
+
+        [GeneratedRegex(@"(.+)_([0-9a-fA-F]{64})")]
+        private static partial Regex CacheFileNameRegex();
+
+        [GeneratedRegex(@"_(\d+)_\[(.+)\]_[0-9a-fA-F]{64}")]
+        private static partial Regex SheetNameRegex();
     }
 }

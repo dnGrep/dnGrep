@@ -2311,6 +2311,15 @@ namespace dnGREP.WPF
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
             LoadSettings();
+
+            if (optionsForm.PluginCacheCleared)
+            {
+                StatusMessage = string.Empty;
+                ClearMatchCountStatus();
+                ResultsViewModel.Clear();
+                UpdateReplaceButtonTooltip(true);
+            }
+
             ResultsViewModel.RaiseSettingsPropertiesChanged();
         }
 

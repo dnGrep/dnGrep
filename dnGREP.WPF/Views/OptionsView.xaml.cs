@@ -13,13 +13,14 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class OptionsView : ThemedWindow
     {
+        private readonly OptionsViewModel viewModel = new();
+
         public OptionsView()
         {
             InitializeComponent();
             DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
 
-            OptionsViewModel viewModel = new();
             viewModel.RequestClose += (s, e) => Close();
             DataContext = viewModel;
 
@@ -51,6 +52,9 @@ namespace dnGREP.WPF
             };
             Closing += (s, e) => SaveSettings();
         }
+
+        public bool PluginCacheCleared => viewModel.PluginCacheCleared;
+
 
         private void SaveSettings()
         {

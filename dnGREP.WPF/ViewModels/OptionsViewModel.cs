@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -9,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
+using dnGREP.Common.UI;
 using dnGREP.Engines;
 using dnGREP.Localization;
 using dnGREP.WPF.MVHelpers;
@@ -134,115 +136,6 @@ namespace dnGREP.WPF
         #endregion
 
         #region Properties
-        public bool CanSave
-        {
-            get
-            {
-                if (EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
-                EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
-                EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
-                IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
-                ConfirmExitScript != Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript) ||
-                ConfirmExitSearch != Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch) ||
-                ConfirmExitSearchDuration != Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration) ||
-                PassSearchFolderToSingleton != Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) ||
-                EnableCheckForUpdates != Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
-                CheckForUpdatesInterval != Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
-                ShowLinesInContext != Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
-                ContextLinesBefore != Settings.Get<int>(GrepSettings.Key.ContextLinesBefore) ||
-                ContextLinesAfter != Settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
-                CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
-                CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
-                ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
-                ShowFileErrorsInResults != Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults) ||
-                NavigationButtonsVisible != Settings.Get<bool>(GrepSettings.Key.NavigationButtonsVisible) ||
-                NavigationToolsPosition != Settings.Get<NavigationToolsPosition>(GrepSettings.Key.NavToolsPosition) ||
-                NavigationToolsSize != Settings.Get<ToolSize>(GrepSettings.Key.NavToolsSize) ||
-                AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
-                DetectEncodingForFileNamePattern != Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern) ||
-                AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
-                ShowVerboseMatchCount != Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
-                ShowFileInfoTooltips != Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips) ||
-                MatchTimeout != Settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
-                MatchThreshold != Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
-                MaxSearchBookmarks != Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
-                MaxPathBookmarks != Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
-                MaxExtensionBookmarks != Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
-                OptionsLocation != (Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
-                    PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
-                ReplaceDialogLayout != (Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
-                    ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly) ||
-                DeleteOption != (Settings.Get<bool>(GrepSettings.Key.DeleteToRecycleBin) ?
-                    DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent) ||
-                CopyOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy) ||
-                MoveOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove) ||
-                PreserveFolderLayoutOnCopy != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy) ||
-                PreserveFolderLayoutOnMove != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove) ||
-                ArchiveCopyOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveCopy) ||
-                ArchiveMoveOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveMove) ||
-                ArchiveDeleteOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveDelete) ||
-                StickyScroll != Settings.Get<bool>(GrepSettings.Key.StickyScroll) ||
-                SortAutomaticallyOnSearch != Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch) ||
-                MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
-                AutoCompleteEnabled != Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled) ||
-                MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
-                SearchAutoStopCount != Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount) ||
-                SearchAutoPauseCount != Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount) ||
-                FocusElement != Settings.Get<FocusElement>(GrepSettings.Key.SetFocusElement) ||
-                FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
-                CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
-                CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
-                UseDefaultFont != Settings.Get<bool>(GrepSettings.Key.UseDefaultFont) ||
-                EditApplicationFontFamily != Settings.Get<string>(GrepSettings.Key.ApplicationFontFamily) ||
-                EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
-                EditReplaceFormFontSize != Settings.Get<double>(GrepSettings.Key.ReplaceFormFontSize) ||
-                EditDialogFontSize != Settings.Get<double>(GrepSettings.Key.DialogFontSize) ||
-                EditResultsFontFamily != Settings.Get<string>(GrepSettings.Key.ResultsFontFamily) ||
-                EditResultsFontSize != Settings.Get<double>(GrepSettings.Key.ResultsFontSize) ||
-                HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
-                PreviewLargeFileLimit != Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit) ||
-                PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
-                PdfJoinLines != Settings.Get<bool>(GrepSettings.Key.PdfJoinLines) ||
-                PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
-                WordExtractFootnotes != Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes) ||
-                WordFootnoteReference != Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference) ||
-                WordExtractComments != Settings.Get<bool>(GrepSettings.Key.WordExtractComments) ||
-                WordCommentReference != Settings.Get<CommentRefType>(GrepSettings.Key.WordCommentReference) ||
-                WordExtractHeaders != Settings.Get<bool>(GrepSettings.Key.WordExtractHeaders) ||
-                WordExtractFooters != Settings.Get<bool>(GrepSettings.Key.WordExtractFooters) ||
-                WordHeaderFooterPosition != Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition) ||
-                GrepSettings.CleanExtensions(ArchiveExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveExtensions) ||
-                GrepSettings.CleanExtensions(ArchiveCustomExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveCustomExtensions) ||
-                IsChanged(Plugins) ||
-                IsChanged(CustomEditors) ||
-                IsChanged(VisibilityOptions)
-                )
-                {
-                    return CurrentCulture != null;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        private static bool IsChanged(IList<PluginViewModel> plugins)
-        {
-            return plugins.Any(p => p.IsChanged);
-        }
-
-        private bool IsChanged(IList<CustomEditorViewModel> customEditors)
-        {
-            return originalCustomEditors.Count != customEditors.Count ||
-                customEditors.Any(v => v.IsChanged);
-        }
-
-        private static bool IsChanged(IList<VisibilityOption> visibilityOptions)
-        {
-            return visibilityOptions.Any(p => p.IsChanged);
-        }
-
         public KeyValuePair<string, string>[] CultureNames { get; }
 
         public KeyValuePair<string, ConfigurationTemplate?>[] CompareApplicationTemplates { get; }
@@ -566,6 +459,33 @@ namespace dnGREP.WPF
         private long previewLargeFileLimit = 4000L;
 
         [ObservableProperty]
+        private bool cacheExtractedFiles;
+
+        [ObservableProperty]
+        private bool cacheFilesInTempFolder;
+
+        partial void OnCacheFilesInTempFolderChanged(bool value)
+        {
+            if (value)
+                CacheFilePath = string.Empty;
+        }
+
+        [ObservableProperty]
+        private string cacheFilePath = string.Empty;
+
+        [ObservableProperty]
+        private bool cacheFilesClean;
+
+        partial void OnCacheFilesCleanChanged(bool value)
+        {
+            if (!value)
+                CacheFilesCleanDays = 0;
+        }
+
+        [ObservableProperty]
+        private int cacheFilesCleanDays;
+
+        [ObservableProperty]
         private string pdfToTextOptions = string.Empty;
 
         [ObservableProperty]
@@ -658,6 +578,119 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double editResultsFontSize;
 
+        public bool CanSave
+        {
+            get
+            {
+                if (EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
+                EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
+                EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
+                IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
+                ConfirmExitScript != Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript) ||
+                ConfirmExitSearch != Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch) ||
+                ConfirmExitSearchDuration != Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration) ||
+                PassSearchFolderToSingleton != Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) ||
+                EnableCheckForUpdates != Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
+                CheckForUpdatesInterval != Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
+                ShowLinesInContext != Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
+                ContextLinesBefore != Settings.Get<int>(GrepSettings.Key.ContextLinesBefore) ||
+                ContextLinesAfter != Settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
+                CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
+                CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
+                ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
+                ShowFileErrorsInResults != Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults) ||
+                NavigationButtonsVisible != Settings.Get<bool>(GrepSettings.Key.NavigationButtonsVisible) ||
+                NavigationToolsPosition != Settings.Get<NavigationToolsPosition>(GrepSettings.Key.NavToolsPosition) ||
+                NavigationToolsSize != Settings.Get<ToolSize>(GrepSettings.Key.NavToolsSize) ||
+                AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
+                DetectEncodingForFileNamePattern != Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern) ||
+                AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
+                ShowVerboseMatchCount != Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
+                ShowFileInfoTooltips != Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips) ||
+                MatchTimeout != Settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
+                MatchThreshold != Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
+                MaxSearchBookmarks != Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
+                MaxPathBookmarks != Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
+                MaxExtensionBookmarks != Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
+                OptionsLocation != (Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
+                    PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
+                ReplaceDialogLayout != (Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
+                    ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly) ||
+                DeleteOption != (Settings.Get<bool>(GrepSettings.Key.DeleteToRecycleBin) ?
+                    DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent) ||
+                CopyOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnCopy) ||
+                MoveOverwriteFileOption != Settings.Get<OverwriteFile>(GrepSettings.Key.OverwriteFilesOnMove) ||
+                PreserveFolderLayoutOnCopy != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnCopy) ||
+                PreserveFolderLayoutOnMove != Settings.Get<bool>(GrepSettings.Key.PreserveFolderLayoutOnMove) ||
+                ArchiveCopyOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveCopy) ||
+                ArchiveMoveOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveMove) ||
+                ArchiveDeleteOption != Settings.Get<ArchiveCopyMoveDelete>(GrepSettings.Key.ArchiveDelete) ||
+                StickyScroll != Settings.Get<bool>(GrepSettings.Key.StickyScroll) ||
+                SortAutomaticallyOnSearch != Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch) ||
+                MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
+                AutoCompleteEnabled != Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled) ||
+                MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
+                SearchAutoStopCount != Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount) ||
+                SearchAutoPauseCount != Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount) ||
+                FocusElement != Settings.Get<FocusElement>(GrepSettings.Key.SetFocusElement) ||
+                FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
+                CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
+                UseDefaultFont != Settings.Get<bool>(GrepSettings.Key.UseDefaultFont) ||
+                EditApplicationFontFamily != Settings.Get<string>(GrepSettings.Key.ApplicationFontFamily) ||
+                EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
+                EditReplaceFormFontSize != Settings.Get<double>(GrepSettings.Key.ReplaceFormFontSize) ||
+                EditDialogFontSize != Settings.Get<double>(GrepSettings.Key.DialogFontSize) ||
+                EditResultsFontFamily != Settings.Get<string>(GrepSettings.Key.ResultsFontFamily) ||
+                EditResultsFontSize != Settings.Get<double>(GrepSettings.Key.ResultsFontSize) ||
+                HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
+                PreviewLargeFileLimit != Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit) ||
+                CacheExtractedFiles != Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles) ||
+                CacheFilesInTempFolder != Settings.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ||
+                CacheFilePath != Settings.Get<string>(GrepSettings.Key.CacheFilePath) ||
+                CacheFilesCleanDays != Settings.Get<int>(GrepSettings.Key.CacheFilesCleanDays) ||
+                PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
+                PdfJoinLines != Settings.Get<bool>(GrepSettings.Key.PdfJoinLines) ||
+                PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
+                WordExtractFootnotes != Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes) ||
+                WordFootnoteReference != Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference) ||
+                WordExtractComments != Settings.Get<bool>(GrepSettings.Key.WordExtractComments) ||
+                WordCommentReference != Settings.Get<CommentRefType>(GrepSettings.Key.WordCommentReference) ||
+                WordExtractHeaders != Settings.Get<bool>(GrepSettings.Key.WordExtractHeaders) ||
+                WordExtractFooters != Settings.Get<bool>(GrepSettings.Key.WordExtractFooters) ||
+                WordHeaderFooterPosition != Settings.Get<HeaderFooterPosition>(GrepSettings.Key.WordHeaderFooterPosition) ||
+                GrepSettings.CleanExtensions(ArchiveExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveExtensions) ||
+                GrepSettings.CleanExtensions(ArchiveCustomExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveCustomExtensions) ||
+                IsChanged(Plugins) ||
+                IsChanged(CustomEditors) ||
+                IsChanged(VisibilityOptions)
+                )
+                {
+                    return CurrentCulture != null;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        private static bool IsChanged(IList<PluginViewModel> plugins)
+        {
+            return plugins.Any(p => p.IsChanged);
+        }
+
+        private bool IsChanged(IList<CustomEditorViewModel> customEditors)
+        {
+            return originalCustomEditors.Count != customEditors.Count ||
+                customEditors.Any(v => v.IsChanged);
+        }
+
+        private static bool IsChanged(IList<VisibilityOption> visibilityOptions)
+        {
+            return visibilityOptions.Any(p => p.IsChanged);
+        }
+
         #endregion
 
         #region Commands
@@ -677,6 +710,13 @@ namespace dnGREP.WPF
         /// </summary>
         public ICommand BrowseCompareCommand => new RelayCommand(
             param => BrowseToCompareApp());
+
+        /// <summary>
+        /// Returns a command that opens file browse dialog.
+        /// </summary>
+        public ICommand BrowseCacheCommand => new RelayCommand(
+            param => BrowseToCacheFolder(),
+            param => !CacheFilesInTempFolder);
 
         /// <summary>
         /// Returns a command that clears old searches.
@@ -748,6 +788,15 @@ namespace dnGREP.WPF
             if (result.HasValue && result.Value)
             {
                 CompareApplicationPath = dlg.FileName;
+            }
+        }
+
+        public void BrowseToCacheFolder()
+        {
+            FileFolderDialogWin32 dlg = new();
+            if (dlg.ShowDialog() == true)
+            {
+                CacheFilePath = dlg.SelectedPath;
             }
         }
 
@@ -857,6 +906,11 @@ namespace dnGREP.WPF
 
             HexResultByteLength = Settings.Get<int>(GrepSettings.Key.HexResultByteLength);
             PreviewLargeFileLimit = Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit);
+            CacheExtractedFiles = Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles);
+            CacheFilesInTempFolder = Settings.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder);
+            CacheFilePath = Settings.Get<string>(GrepSettings.Key.CacheFilePath);
+            CacheFilesCleanDays = Settings.Get<int>(GrepSettings.Key.CacheFilesCleanDays);
+            CacheFilesClean = CacheFilesCleanDays > 0;
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
             PdfJoinLines = Settings.Get<bool>(GrepSettings.Key.PdfJoinLines);
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
@@ -950,6 +1004,18 @@ namespace dnGREP.WPF
                 }
             }
 
+            bool isCacheRemoved = !CacheExtractedFiles && CacheExtractedFiles != Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles);
+            string oldUserCachePath = GrepSettings.Instance.Get<string>(GrepSettings.Key.CacheFilePath);
+            string oldCachePath = !Utils.IsValidPath(oldUserCachePath) ||
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ?
+                Path.Combine(Path.GetTempPath(), Utils.defaultCacheFolderName) :
+                oldUserCachePath;
+            string newCachePath = !Utils.IsValidPath(CacheFilePath) ||
+                CacheFilesInTempFolder ?
+                Path.Combine(Path.GetTempPath(), Utils.defaultCacheFolderName) :
+                CacheFilePath;
+            bool isCachePathChanged = oldCachePath != newCachePath;
+
             ApplicationFontFamily = EditApplicationFontFamily;
             MainFormFontSize = EditMainFormFontSize;
             ReplaceFormFontSize = EditReplaceFormFontSize;
@@ -1014,6 +1080,10 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ResultsFontSize, ResultsFontSize);
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PreviewLargeFileLimit, PreviewLargeFileLimit);
+            Settings.Set(GrepSettings.Key.CacheExtractedFiles, CacheExtractedFiles);
+            Settings.Set(GrepSettings.Key.CacheFilesInTempFolder, CacheFilesInTempFolder);
+            Settings.Set(GrepSettings.Key.CacheFilePath, CacheFilePath);
+            Settings.Set(GrepSettings.Key.CacheFilesCleanDays, CacheFilesCleanDays);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
             Settings.Set(GrepSettings.Key.PdfJoinLines, PdfJoinLines);
             Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
@@ -1055,7 +1125,28 @@ namespace dnGREP.WPF
 
             if (editorsChanged)
                 GrepSearchResultsViewModel.InitializeEditorMenuItems();
+
+            if ((isCacheRemoved || isCachePathChanged) && Directory.Exists(oldCachePath))
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show(
+                    Resources.MessageBox_ThePlugInCacheSettingsHaveChanged, Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes,
+                    TranslationSource.Instance.FlowDirection))
+                {
+                    PluginCacheCleared = true;
+                    try
+                    {
+                        Directory.Delete(oldCachePath, true);
+                    }
+                    catch (Exception ex)
+                    { 
+                        logger.Error(ex, $"Failed to delete the plug-in cache folder '{oldCachePath}'");
+                    }
+                }
+            }
         }
+
+        public bool PluginCacheCleared {  get; private set; }
 
         #endregion
     }

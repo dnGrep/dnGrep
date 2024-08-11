@@ -14,10 +14,11 @@ namespace dnGREP.Engines.OpenXml
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        public static List<KeyValuePair<string, string>> ExtractExcelText(Stream stream,
+        public static List<Sheet> ExtractExcelText(Stream stream,
             PauseCancelToken pauseCancelToken)
         {
-            List<KeyValuePair<string, string>> results = [];
+            List<Sheet> sheets = [];
+            int count = 0;
 
             // Auto-detect format, supports:
             //  - Binary Excel files (2.0-2003 format; *.xls)
@@ -41,7 +42,10 @@ namespace dnGREP.Engines.OpenXml
 
                     pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                    results.Add(new KeyValuePair<string, string>(reader.Name, sb.ToString()));
+                    string text = sb.ToString();
+
+                    sheets.Add(new Sheet(reader.Name, text));
+                    count++;
 
                 } while (reader.NextResult());
 
@@ -49,7 +53,7 @@ namespace dnGREP.Engines.OpenXml
 
             pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-            return results;
+            return sheets;
         }
 
         private static string GetFormattedValue(IExcelDataReader reader, int columnIndex, CultureInfo culture)

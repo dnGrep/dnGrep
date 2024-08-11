@@ -80,128 +80,299 @@ namespace dnGREP.Engines.Word
         public bool PreviewPlainText { get; set; }
 
 
-        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType,
+        public List<GrepSearchResult> Search(string wordFilePath, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            Load();
-            if (!isLoaded)
+            string cacheFolder = Path.Combine(Utils.GetCacheFolder(), "dnGREP-Word");
+            if (!Directory.Exists(cacheFolder))
+                Directory.CreateDirectory(cacheFolder);
+
+            // get the unique filename for this file using SHA256
+            // if the same file exists multiple places in the search tree, all will use the same temp file
+            string cacheFileName = Utils.GetTempTextFileName(wordFilePath);
+            string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
+            try
             {
-                logger.Error(Resources.Error_DocumentReadFailed + $": '{file}'");
+                // Extract text
+                if (!ExtractText(wordFilePath, cacheFilePath) || !File.Exists(cacheFilePath))
+                {
+                    logger.Error(Resources.Error_DocumentReadFailed + $": '{wordFilePath}'");
+                    return
+                    [
+                        new(wordFilePath, searchPattern, Resources.Error_DocumentReadFailed, false)
+                    ];
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to search inside Word file '{0}'", wordFilePath);
                 return
                 [
-                    new(file, searchPattern, Resources.Error_DocumentReadFailed, false)
+                    new(wordFilePath, searchPattern, ex.Message, false)
                 ];
             }
-            SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
-            switch (searchType)
-            {
-                case SearchType.PlainText:
-                case SearchType.XPath:
-                    searchMethodMultiline = DoTextSearch;
-                    break;
-                case SearchType.Regex:
-                    searchMethodMultiline = DoRegexSearch;
-                    break;
-                case SearchType.Soundex:
-                    searchMethodMultiline = DoFuzzySearch;
-                    break;
-            }
 
-            List<GrepSearchResult> result = SearchMultiline(file, searchPattern, searchOptions,
-                searchMethodMultiline, pauseCancelToken);
-            return result;
+            return SearchPlainTextFile(wordFilePath, cacheFilePath, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
+        public List<GrepSearchResult> Search(Stream input, string wordFilePath, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            // write the stream to a temp folder, and run the file version of the search
-            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-WORD");
-            // the fileName may contain the partial path of the directory structure in the archive
-            string filePath = Path.Combine(tempFolder, fileName);
+            string cacheFolder = Path.Combine(Utils.GetCacheFolder(), "dnGREP-WORD");
+            if (!Directory.Exists(cacheFolder))
+                Directory.CreateDirectory(cacheFolder);
 
-            // use the directory name to also include folders within the archive
-            string? directory = Path.GetDirectoryName(filePath);
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
+            // the filePath may contain the partial path of the directory structure in the archive
+            string fileName = Path.GetFileName(wordFilePath);
 
-            using (var fileStream = File.Create(filePath))
+            // get the unique filename for this file using SHA256
+            // if the same file exists multiple places in the search tree, all will use the same temp file
+            string cacheFileName = Utils.GetTempTextFileName(input, fileName);
+            string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
+
+            List<GrepSearchResult> results = [];
+            if (!File.Exists(cacheFilePath))
             {
-                input.Seek(0, SeekOrigin.Begin);
-                input.CopyTo(fileStream);
+                // write the stream to a temp folder, and run the file version of the search
+                string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-WORD");
+                if (!Directory.Exists(tempFolder))
+                    Directory.CreateDirectory(tempFolder);
+
+                // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+                string extractFileName = Path.GetFileNameWithoutExtension(fileName) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".pdf";
+                string tempPdfFilePath = Path.Combine(tempFolder, extractFileName);
+
+                using (var fileStream = File.Create(tempPdfFilePath))
+                {
+                    input.Seek(0, SeekOrigin.Begin);
+                    input.CopyTo(fileStream);
+                }
+
+                // Extract text
+                try
+                {
+                    if (!ExtractText(tempPdfFilePath, cacheFilePath) || !File.Exists(cacheFilePath))
+                    {
+                        logger.Error(Resources.Error_DocumentReadFailed + $": '{wordFilePath}'");
+                        return
+                        [
+                            new(wordFilePath, searchPattern, Resources.Error_DocumentReadFailed, false)
+                        ];
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Failed to search inside Word file '{0}'", wordFilePath);
+                    return
+                    [
+                        new(wordFilePath, searchPattern, ex.Message, false)
+                    ];
+                }
             }
 
-            return Search(filePath, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+            results = SearchPlainTextFile(wordFilePath, cacheFilePath, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+
+            bool isInArchive = wordFilePath.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
+            if (isInArchive && results.Count > 0)
+            {
+                foreach (GrepSearchResult gsr in results)
+                {
+                    gsr.FileNameDisplayed = wordFilePath;
+                }
+            }
+            return results;
         }
 
-        private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions,
-            SearchDelegates.DoSearch searchMethod, PauseCancelToken pauseCancelToken)
+        private List<GrepSearchResult> SearchPlainTextFile(string wordFilePath, string textFilePath, string searchPattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            List<GrepSearchResult> searchResults = [];
-
+            IGrepEngine? engine = null;
             try
             {
-                // Open a given Word document as readonly
-                object? wordDocument = OpenDocument(file, true);
-                if (wordDocument != null)
+                // GrepCore cannot check encoding of the original word file. If the encoding parameter is not default
+                // then it is the user-specified code page.  If the encoding parameter *is* the default,
+                // then it most likely not been set, so get the encoding of the extracted text file:
+                if (encoding == Encoding.Default)
+                    encoding = Utils.GetFileEncoding(textFilePath);
+
+                string text;
+                using (StreamReader sr = new(textFilePath, encoding, detectEncodingFromByteOrderMarks: false))
                 {
-                    // create range and find objects
-                    object? range = GetProperty(wordDocument, "Content");
-                    if (range != null)
+                    text = sr.ReadToEnd();
+                }
+
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
+                engine = GrepEngineFactory.GetSearchEngine(textFilePath, initParams, FileFilter, searchType);
+                if (engine != null)
+                {
+                    using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
+                    List<GrepSearchResult> results = engine.Search(inputStream, textFilePath, searchPattern,
+                        searchType, searchOptions, encoding, pauseCancelToken);
+
+                    if (results.Count > 0)
                     {
-                        // create text
-                        object? text = GetProperty(range, "Text");
-                        if (text != null)
+                        inputStream.Seek(0, SeekOrigin.Begin);
+                        using (StreamReader streamReader = new(inputStream, encoding, false, 4096, true))
                         {
-                            string docText = Utils.CleanLineBreaks(text.ToString() ?? string.Empty);
-                            var lines = searchMethod(-1, 0, docText, searchPattern,
-                                searchOptions, true, pauseCancelToken);
-                            if (lines.Count > 0)
+                            foreach (var result in results)
                             {
-                                GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
-                                using (StringReader reader = new(docText))
-                                {
-                                    result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
-                                }
-                                result.IsReadOnlyFileType = true;
-                                if (PreviewPlainText)
-                                {
-                                    result.FileInfo.TempFile = WriteTempFile(docText, file);
-                                }
-                                searchResults.Add(result);
+                                result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, initParams.LinesBefore, initParams.LinesAfter, true);
                             }
                         }
+
+                        foreach (GrepSearchResult result in results)
+                        {
+                            result.FileInfo = new(wordFilePath);
+                            result.IsReadOnlyFileType = true;
+                            result.FileNameDisplayed = wordFilePath;
+                            if (PreviewPlainText)
+                            {
+                                result.FileInfo.TempFile = textFilePath;
+                            }
+                            result.FileNameReal = wordFilePath;
+                        }
                     }
-                    CloseDocument(wordDocument);
+
+                    return results;
                 }
             }
             catch (OperationCanceledException)
             {
                 // expected exception
-                searchResults.Clear();
             }
             catch (Exception ex)
             {
-                logger.Error(ex, "Failed to search inside Word file '{0}'", file);
-                searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                logger.Error(ex, $"Failed to search inside Word file: '{wordFilePath}'");
+                return
+                [
+                    new(wordFilePath, searchPattern, ex.Message, false)
+                ];
             }
-            return searchResults;
+            finally
+            {
+                if (engine != null)
+                {
+                    GrepEngineFactory.ReturnToPool(textFilePath, engine);
+                }
+            }
+            return [];
         }
 
-        private static string WriteTempFile(string text, string filePath)
+        private bool ExtractText(string wordFilePath, string cacheFilePath)
         {
-            string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-WORD");
-            if (!Directory.Exists(tempFolder))
-                Directory.CreateDirectory(tempFolder);
+            if (string.IsNullOrEmpty(cacheFilePath))
+            {
+                return false;
+            }
 
-            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
-            string fileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
-            string tempFileName = Path.Combine(tempFolder, fileName);
+            if (File.Exists(cacheFilePath))
+            {
+                // it is already extracted!
+                return true;
+            }
 
-            File.WriteAllText(tempFileName, text);
-            return tempFileName;
+            Load();
+            if (!isLoaded)
+            {
+                return false;
+            }
+
+            // Open a given Word document as readonly
+            object? wordDocument = OpenDocument(wordFilePath, true);
+            if (wordDocument != null)
+            {
+                // create range and find objects
+                object? range = GetProperty(wordDocument, "Content");
+                if (range != null)
+                {
+                    // create text
+                    object? text = GetProperty(range, "Text");
+                    if (text != null)
+                    {
+                        string docText = Utils.CleanLineBreaks(text.ToString() ?? string.Empty);
+                        File.WriteAllText(cacheFilePath, docText);
+                    }
+                }
+                CloseDocument(wordDocument);
+            }
+
+            return true;
         }
+
+        //private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions,
+        //    SearchDelegates.DoSearch searchMethod, PauseCancelToken pauseCancelToken)
+        //{
+        //    List<GrepSearchResult> searchResults = [];
+
+        //    try
+        //    {
+        //        // Open a given Word document as readonly
+        //        object? wordDocument = OpenDocument(file, true);
+        //        if (wordDocument != null)
+        //        {
+        //            // create range and find objects
+        //            object? range = GetProperty(wordDocument, "Content");
+        //            if (range != null)
+        //            {
+        //                // create text
+        //                object? text = GetProperty(range, "Text");
+        //                if (text != null)
+        //                {
+        //                    string docText = Utils.CleanLineBreaks(text.ToString() ?? string.Empty);
+        //                    var lines = searchMethod(-1, 0, docText, searchPattern,
+        //                        searchOptions, true, pauseCancelToken);
+        //                    if (lines.Count > 0)
+        //                    {
+        //                        GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
+        //                        using (StringReader reader = new(docText))
+        //                        {
+        //                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
+        //                        }
+        //                        result.IsReadOnlyFileType = true;
+        //                        if (PreviewPlainText)
+        //                        {
+        //                            result.FileInfo.TempFile = WriteTempFile(docText, file);
+        //                        }
+        //                        searchResults.Add(result);
+        //                    }
+        //                }
+        //            }
+        //            CloseDocument(wordDocument);
+        //        }
+        //    }
+        //    catch (OperationCanceledException)
+        //    {
+        //        // expected exception
+        //        searchResults.Clear();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Error(ex, "Failed to search inside Word file '{0}'", file);
+        //        searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+        //    }
+        //    return searchResults;
+        //}
+
+        //private static string WriteTempFile(string text, string filePath)
+        //{
+        //    string tempFolder = Path.Combine(Utils.GetCacheFolder(), $"dnGREP-WORD");
+        //    if (!Directory.Exists(tempFolder))
+        //        Directory.CreateDirectory(tempFolder);
+
+        //    //// ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+        //    //string fileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
+        //    //string tempFileName = Path.Combine(tempFolder, fileName);
+
+        //    // get the unique filename for this file using SHA256
+        //    // if the same file exists multiple places in the search tree, all will use the same temp file
+        //    string tempFileName = Utils.GetTempTextFileName(filePath);
+        //    string tempFilePath = Path.Combine(tempFolder, tempFileName);
+
+        //    File.WriteAllText(tempFileName, text);
+        //    return tempFileName;
+        //}
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken)

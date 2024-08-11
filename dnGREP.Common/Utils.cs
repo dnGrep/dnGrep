@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,6 +22,8 @@ namespace dnGREP.Common
 {
     public static partial class Utils
     {
+        public const string defaultCacheFolderName = "dnGrep-files";
+
         private const string metacharacters = "+()^$.{}|\\";
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -1603,6 +1606,33 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Returns a path to a folder used by plugins to extract files to text. The location of this
+        /// folder depends on user settings, and may be the temp folder <see cref="GetTempFolder"/>
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCacheFolder()
+        {
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheExtractedFiles))
+            {
+                string userCachePath = GrepSettings.Instance.Get<string>(GrepSettings.Key.CacheFilePath);
+                string cachePath = !IsValidPath(userCachePath) ||
+                    GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ?
+                    Path.Combine(Path.GetTempPath(), defaultCacheFolderName) :
+                    userCachePath;
+
+                if (!Directory.Exists(cachePath))
+                {
+                    Directory.CreateDirectory(cachePath);
+                }
+                return cachePath + Path.DirectorySeparatorChar;
+            }
+            else
+            {
+                return GetTempFolder();
+            }
+        }
+
+        /// <summary>
         /// Deletes temp folder
         /// </summary>
         public static void DeleteTempFolder()
@@ -1616,6 +1646,45 @@ namespace dnGREP.Common
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to delete temp folder");
+            }
+        }
+
+        public static void CleanCacheFiles()
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            int days = GrepSettings.Instance.Get<int>(GrepSettings.Key.CacheFilesCleanDays);
+            if (days > 0 &&
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheExtractedFiles))
+            {
+                string userCachePath = GrepSettings.Instance.Get<string>(GrepSettings.Key.CacheFilePath);
+                string cachePath = !IsValidPath(userCachePath) ||
+                    GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ?
+                    Path.Combine(Path.GetTempPath(), defaultCacheFolderName) :
+                    userCachePath;
+
+                int count = 0;
+                if (Directory.Exists(cachePath))
+                {
+                    DateTime expiredDate = DateTime.Now.AddDays(-1 * days);
+
+                    foreach (string file in Directory.GetFiles(cachePath, "*.*", SearchOption.AllDirectories))
+                    {
+                        FileInfo fileInfo = new(file);
+                        if (fileInfo.LastAccessTime < expiredDate)
+                        {
+                            try
+                            {
+                                DeleteFile(file);
+                                count++;
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Error(ex, $"Failed to delete file from cache folder '{file}'");
+                            }
+                        }
+                    }
+                }
+                logger.Info($"Deleted {count} files from cache in {sw.ElapsedMilliseconds} ms");
             }
         }
 
@@ -2389,21 +2458,13 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static string GetHash(string input)
         {
-            // step 1, calculate MD5 hash from input
             byte[] inputBytes = Encoding.ASCII.GetBytes(input);
             byte[] hash = MD5.HashData(inputBytes);
-
-            // step 2, convert byte array to hex string
-            StringBuilder sb = new();
-            for (int i = 0; i < hash.Length; i++)
-            {
-                sb.Append(hash[i].ToString("X2", CultureInfo.InvariantCulture));
-            }
-            return sb.ToString();
+            return Convert.ToHexString(hash);
         }
 
         /// <summary>
-        /// Returns true if beginText end with a non-alphanumeric character. Copied from AtroGrep.
+        /// Returns true if beginText end with a non-alphanumeric character. Copied from AstroGrep.
         /// </summary>
         /// <param name="beginText">Text to test</param>
         /// <returns></returns>
@@ -2548,6 +2609,94 @@ namespace dnGREP.Common
             return 0xEF == b1 && 0xBB == b2 && 0xBF == b3;
         }
 
+        public static string GetTempTextFileName(string filePath)
+        {
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                return string.Concat(Path.GetFileName(filePath), "_", HashSHA256(filePath), ".txt");
+            }
+            return string.Empty;
+        }
+
+        public static string GetTempTextFileName(Stream stream, string fileName)
+        {
+            if (stream != null && !string.IsNullOrEmpty(fileName))
+            {
+                return string.Concat(Path.GetFileName(fileName), "_", HashSHA256(stream), ".txt");
+            }
+            return string.Empty;
+        }
+
+        public static string HashSHA256(string file)
+        {
+            using var sha = SHA256.Create();
+            using var stream = File.OpenRead(file);
+            return Convert.ToHexString(sha.ComputeHash(stream));
+        }
+
+        public static string HashSHA256(Stream stream)
+        {
+            using var sha = SHA256.Create();
+            var hash = Convert.ToHexString(sha.ComputeHash(stream));
+            stream.Seek(0, SeekOrigin.Begin);
+            return hash;
+        }
+
+        /// <summary>
+        /// Gets a value that indicates whether <paramref name="path"/>
+        /// is a valid path.
+        /// </summary>
+        /// <returns>Returns <c>true</c> if <paramref name="path"/> is a
+        /// valid path; <c>false</c> otherwise. Also returns <c>false</c> if
+        /// the caller does not have the required permissions to access
+        /// <paramref name="path"/>.
+        /// </returns>
+        /// <seealso cref="Path.GetFullPath"/>
+        /// <seealso cref="TryGetFullPath"/>
+        public static bool IsValidPath(string path)
+        {
+            string result;
+            return TryGetFullPath(path, out result);
+        }
+
+        /// <summary>
+        /// Returns the absolute path for the specified path string. A return
+        /// value indicates whether the conversion succeeded.
+        /// </summary>
+        /// <param name="path">The file or directory for which to obtain absolute
+        /// path information.
+        /// </param>
+        /// <param name="result">When this method returns, contains the absolute
+        /// path representation of <paramref name="path"/>, if the conversion
+        /// succeeded, or <see cref="string.Empty"/> if the conversion failed.
+        /// The conversion fails if <paramref name="path"/> is null or
+        /// <see cref="string.Empty"/>, or is not of the correct format. This
+        /// parameter is passed uninitialized; any value originally supplied
+        /// in <paramref name="result"/> will be overwritten.
+        /// </param>
+        /// <returns><c>true</c> if <paramref name="path"/> was converted
+        /// to an absolute path successfully; otherwise, false.
+        /// </returns>
+        /// <seealso cref="Path.GetFullPath"/>
+        /// <seealso cref="IsValidPath"/>
+        public static bool TryGetFullPath(string path, out string result)
+        {
+            result = string.Empty;
+            if (string.IsNullOrWhiteSpace(path)) { return false; }
+            bool status = false;
+
+            try
+            {
+                result = Path.GetFullPath(path);
+                status = true;
+            }
+            catch (ArgumentException) { }
+            catch (SecurityException) { }
+            catch (NotSupportedException) { }
+            catch (PathTooLongException) { }
+
+            return status;
+        }
         public static bool IsGitInstalled => GitUtil.IsGitInstalled;
 
         public static bool ValidateRegex(string pattern)

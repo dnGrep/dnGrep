@@ -233,6 +233,7 @@ namespace dnGREP.WPF
             {
                 Utils.DeleteTempFolder();
                 Utils.DeleteUndoFolder();
+                Utils.CleanCacheFiles();
 
                 if (singletonMutex != null)
                 {
