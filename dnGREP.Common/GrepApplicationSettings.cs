@@ -186,6 +186,8 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string PreviewAutoPosition = "PreviewAutoPosition";
             [DefaultValue(false)]
+            public const string PreviewViewWhitespace = "PreviewViewWhitespace";
+            [DefaultValue(false)]
             public const string CaptureGroupSearch = "CaptureGroupSearch";
             [DefaultValue(16)]
             public const string HexResultByteLength = "HexResultByteLength";
@@ -262,6 +264,8 @@ namespace dnGREP.Common
             public const string PreviewZoomWndVisible = "PreviewZoomWndVisible";
             [DefaultValue(true)]
             public const string WrapTextPreviewWndVisible = "WrapTextPreviewWndVisible";
+            [DefaultValue(true)]
+            public const string ViewWhitespacePreviewWndVisible = "ViewWhitespacePreviewWndVisible";
             [DefaultValue(true)]
             public const string SyntaxPreviewWndVisible = "SyntaxPreviewWndVisible";
             [DefaultValue(true)]

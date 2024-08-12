@@ -23,6 +23,7 @@ namespace dnGREP.WPF
         {
             InitializeHighlighters();
 
+            ViewWhitespace = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewViewWhitespace);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
@@ -123,6 +124,9 @@ namespace dnGREP.WPF
         private int lineNumber;
 
         [ObservableProperty]
+        private bool viewWhitespace = false;
+
+        [ObservableProperty]
         private bool highlightsOn = true;
 
         [ObservableProperty]
@@ -145,6 +149,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool wrapTextPreviewWndVisible = true;
+
+        [ObservableProperty]
+        private bool viewWhitespacePreviewWndVisible = true;
 
         [ObservableProperty]
         private bool syntaxPreviewWndVisible = true;
@@ -238,6 +245,7 @@ namespace dnGREP.WPF
         {
             PreviewZoomWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewZoomWndVisible);
             WrapTextPreviewWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextPreviewWndVisible);
+            ViewWhitespacePreviewWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.ViewWhitespacePreviewWndVisible);
             SyntaxPreviewWndVisible = !personalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SyntaxPreviewWndVisible);
         }
     }
