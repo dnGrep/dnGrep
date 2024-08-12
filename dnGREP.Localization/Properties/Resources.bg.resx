@@ -4140,4 +4140,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Извличане и преместване на файловете</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Запазване на временните файлове във временна памет</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Временна памет в</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Временна памет за добавки</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Запазване на извлечените файлове във временна памет</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Премахване на файловете от временната памет ако не са ползвани повече от</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>Настройките за добавките са променени. Изпразване на старата папка с временна памет?</value>
+  </data>
 </root>
