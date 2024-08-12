@@ -4082,4 +4082,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>什麼也不做</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>在 Temp 資料夾中快取檔案</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>將檔案快取於</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>外掛程式快取設定已變更. 刪除舊的快取資料夾?</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>外掛程式快取</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>快取提取的檔案</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>從快取中刪除檔案, 若未使用</value>
+  </data>
 </root>
