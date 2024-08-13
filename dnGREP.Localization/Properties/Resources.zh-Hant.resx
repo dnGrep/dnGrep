@@ -4054,4 +4054,50 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜尋輸入</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>如何處理壓縮檔案中的檔案</value>
+    <comment>Options dialog, radio group label</comment>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>複製整個壓縮檔案</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>提取並複製檔案</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>移動整個壓縮檔案</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>提取並移動檔案</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>刪除整個壓縮檔案</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>什麼也不做</value>
+    <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>在 Temp 資料夾中快取檔案</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>將檔案快取於</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>外掛程式快取設定已變更. 刪除舊的快取資料夾?</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>外掛程式快取</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>快取提取的檔案</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>從快取中刪除檔案, 若未使用</value>
+  </data>
 </root>

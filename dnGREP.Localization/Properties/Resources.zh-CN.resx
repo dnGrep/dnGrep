@@ -4140,4 +4140,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>提取并移动文件</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>缓存已提取的文件</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>文件缓存位置</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>多久时间未用后从缓存中删除文件</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>插件缓存设置已更改。删除旧的缓存文件夹吗？</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>插件缓存</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>将文件缓存在 Temp 文件夹中</value>
+  </data>
 </root>
