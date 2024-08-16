@@ -289,7 +289,7 @@ namespace dnGREP.Engines
                 ms.Position = 0;
 
                 if (encoding == Encoding.Default)
-                    fileEncoding = Utils.GetFileEncoding(cacheFilePath);
+                    fileEncoding = Utils.GetFileEncoding(ms);
                 else
                     fileEncoding = encoding;
 
