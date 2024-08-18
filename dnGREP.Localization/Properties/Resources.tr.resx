@@ -83,19 +83,19 @@
     <comment>Bookmark details dialog, cancel button label (accel)</comment>
   </data>
   <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
-    <value>Tanım</value>
+    <value>Açıklama</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
-    <value>Çoğalt</value>
+    <value>_Çoğalt</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Edit" xml:space="preserve">
-    <value>Düzenle</value>
+    <value>_Düzenle</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>şununla değiştir</value>
+    <value>Şununla değiştir</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
@@ -111,15 +111,15 @@
     <comment>About dialog label</comment>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
-    <value>Ekle</value>
+    <value>_Ekle</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
-    <value>Kapat</value>
+    <value>_Kapat</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
-    <value>Sil</value>
+    <value>_Sil</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>Docking window button tooltip</comment>
   </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
-    <value>Dosya uzantısı</value>
+    <value>Dosya deseni</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
@@ -263,7 +263,7 @@
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Sık Kullanılanlara dosya kaynağı özelliklerini dahil et</value>
+    <value>Yer İmlerine dosya kaynağı özelliklerini dahil et</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
@@ -271,7 +271,7 @@
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>Sık Kullanılanlara dosya filtresi özelliklerini dahil et</value>
+    <value>Yer İmlerine dosya filtresi özelliklerini dahil et</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
@@ -279,7 +279,7 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>Mesela: *.txt;*.xml</value>
+    <value>Örneğin: *.txt;*.xml</value>
     <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
@@ -299,7 +299,7 @@
     <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
-    <value>çok satırlı</value>
+    <value>Çok satırlı</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
@@ -335,7 +335,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value>Boolean operatörleri</value>
+    <value>Boolean Operatörleri</value>
     <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
@@ -343,7 +343,7 @@
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
-    <value>çok satırlı</value>
+    <value>_Çok satırlı</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -399,7 +399,7 @@
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>Harfe duyarlı</value>
+    <value>_Harfe duyarlı</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
@@ -407,7 +407,7 @@
     <comment>Main window, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Bir dosya deseni türü seçeneği için etiket. "Her şey" bir uygulamanın adıdır (bkz. https://www.voidtools.com /) Bu denetim, yalnızca uygulama kullanıcının bilgisayarında yüklüyse görülebilir.</value>
+    <value>Everything Dizin Servisi</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
@@ -431,7 +431,7 @@
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>Mesela: *.txt;*.xml</value>
+    <value>Örneğin: *.txt;*.xml</value>
     <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
@@ -439,7 +439,7 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>Örneğin: dosya [0-9]{1,2}\\.txt</value>
+    <value>Örneğin: dosya[0-9]{1,2}\\.txt</value>
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
@@ -477,5 +477,1120 @@
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
     <value>dnGrep ile arama yapın</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Joker Karakter</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>_Arşivlerde ara</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Normal ifade araması</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Metin</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath araması (Yalnızca XML belgeleri için)</value>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Uzak bulut depolama dosyalarını atla</value>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value>(satırın sonunda)</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Yol ve dosya adı, önce derinlik</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Satırdaki eşleşme sayısı</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Dosyadaki eşleşme sayısı/eşleşme sayısı</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Eşleşme numarası/genel eşleşme sayısı</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>Boolean ifadesi bilinmeyen bir belirteç içeriyor</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>Boolean ifadesinde eşleşmeyen parantezler var</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>Boolean ifadesi tamam</value>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>Bayt dizesi geçerli değil!</value>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>XPath geçerli değil!</value>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_Tüm kelime</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Devam et?</value>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>"Seçenekler..." aracılığıyla düzenleyici yolunu kontrol edin.</value>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>Dosyaları Taşı</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Arama düzeni boş bir dizeyle değiştirilsin mi?</value>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>Yeni Sürüm</value>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>DnGrep'in ({0}) yeni sürümü indirilmeye hazır.</value>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Değiştir</value>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>'{0}' kaynak dosyası bir resx dosyası değil.</value>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Uygulama verileri ve _loglar</value>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Güncellemeleri kontrol et</value>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value>…(+{0:n0} karakter)</value>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>Aç</value>
+  </data>
+  <data name="Main_SearchButton" xml:space="preserve">
+    <value>_Ara</value>
+  </data>
+  <data name="MessageBox_CopyFiles" xml:space="preserve">
+    <value>Dosyaları Kopyala</value>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [searchFor]
+-s [searchFor]
+-searchFor [searchFor]
+    Dosya kümesi içinde aranacak deseni veya metni ayarlar.  Bu bağımsız değişken ayarlandığında arama otomatik olarak yürütülür.</value>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Rapor çıktısındaki boşlukları düzeltmek için işareti ayarlar (Doğru veya Yanlış).</value>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    Normal ifade raporu çıktısındaki benzersiz değerlerin kapsamını ayarlamak için bayrağı ayarlar; şunlardan biri olmalıdır: "Global" veya "PerFile".</value>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Kelime arama bayrağının tamamını ayarlar – Doğru veya Yanlış.</value>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>dnGrep Yardımı</value>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Tüm boyutlar</value>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Yer imini klasörle ilişkilendir</value>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Boyut:</value>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Otomatik konum</value>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Klasör veya dosyalara göz at</value>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_İptal</value>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>Grup aramasını yakala</value>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Sonuç ağacının yakınlaştırma düzeyini değiştirir</value>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Yer imini temizle</value>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>'AND' veya 'OR' kullanarak birden fazla arama modelini birleştirin</value>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>sonrası</value>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>öncesi ve</value>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Bağlam satırlarını göster</value>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>Son</value>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>saat</value>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>ile</value>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>Altta</value>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Boş</value>
+  </data>
+  <data name="Main_EncodingAutoDetection" xml:space="preserve">
+    <value>Otomatik algılama (varsayılan)</value>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Gizli değil</value>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>Alt klasörler yok</value>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>_Hakkında</value>
+  </data>
+  <data name="Main_Menu_About_Help" xml:space="preserve">
+    <value>_Yardım</value>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>Yer _imleri…</value>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Komut dosyasını iptal et</value>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Komut dosyasını düzenle…</value>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Yeni komut dosyası…</value>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>_Seçenekler…</value>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Kişiselleştir</value>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Komut dosyaları</value>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>_Ayarlar</value>
+  </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>Değiştirildi</value>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>Daha Fazla…</value>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>_Daha Fazla</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>Dosya adlarını kopyala</value>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Dosyaları sil…</value>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Dosyaları taşı…</value>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Rapor seçenekleri…</value>
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value>Rapor</value>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>Sonuçları kaydet</value>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>CSV (virgülle ayrılmış)</value>
+  </data>
+  <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
+    <value>Rapor formatı</value>
+  </data>
+  <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
+    <value>Metin dosyası</value>
+  </data>
+  <data name="Main_ResetOptions" xml:space="preserve">
+    <value>Filtreleri sıfırla</value>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Sonuçları geri yükle (F7)</value>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>Ek eşleşmeler:</value>
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value>{0} konumunda</value>
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} eşleşme)</value>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1}, {2} satırda eşleşiyor)</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value>{0}{1}Grup {2} ile eşleşir: {3}</value>
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, +{0} eşleşme daha</value>
+  </data>
+  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
+    <value>[salt okunur]</value>
+  </data>
+  <data name="Main_Results_CollapseAll" xml:space="preserve">
+    <value>Tümünü daralt</value>
+  </data>
+  <data name="Main_Results_CompareFiles" xml:space="preserve">
+    <value>Dosyaları karşılaştır</value>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Dosya adlarını kopyala</value>
+  </data>
+  <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
+    <value>Metin satırlarını kopyala</value>
+  </data>
+  <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
+    <value>Sonuçlardan hariç tut</value>
+  </data>
+  <data name="Main_Results_ExpandAll" xml:space="preserve">
+    <value>Tümünü genişlet</value>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Yazılabilir yap</value>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Dosyaları Geri Dönüşüm Kutusu'na taşı</value>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Sonraki dosya</value>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>Özel düzenleyiciyle aç</value>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Önceki dosya</value>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>Önceki eşleşme</value>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>Dosyayı yeniden adlandır</value>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>Yakınlaştırmayı sıfırla</value>
+  </data>
+  <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Birden çok ileti dizisindeki dosyaları ara</value>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Normal ifade araması</value>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Metin</value>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath araması (yalnızca XML belgeleri için)</value>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>Sonuç seçeneklerini göster</value>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>Sırala</value>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>Dosya boyutu</value>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>{0} eksik dosya hariç tutuldu.</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>Değiştirme iptal edildi</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>{0} dosya arandı, eşleşen {1} dosya bulundu.</value>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>Aranıyor…</value>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>.gitignore'u kullan</value>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Dosyaları filtrelemek için .gitignore kullan</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>Boolean ifadesi geçerli değil</value>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>Bayt dizesi tamam</value>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>Normal ifade geçerli değil!</value>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>XPath tamam</value>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>"{1}" içinde {0} – dnGrep</value>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>Metni kaydır</value>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>Yakınlaştır:</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Bu yer imini temizlemek, o yer imini de temizler.</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>{0} dosya taşındı.</value>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Pano metni ayarlanamadı. Pano şu şekilde kilitlendi</value>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>Geçersiz desen: </value>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Eklenti Hataları</value>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>Dosyalardaki metin değiştirilemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>Sonraki eşleşme</value>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>_Şunu ara:</value>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Son_uçlarda ara</value>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>_Paralel arama</value>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>Artan</value>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>Azalan</value>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>Yalnızca dosya adı</value>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>.gitignore aranıyor</value>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>Normal ifade tamam</value>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>Dosya özel düzenleyiciyle açılamadı.</value>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>Dosya arşivden çıkarılamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>Kaynakları Yükle</value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Uygulama başlatma seçeneğini değiştirmek için dnGrep'i Yönetici olarak çalıştırın.</value>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>Arama tamamlanamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="Main_EverythingSearch" xml:space="preserve">
+    <value>Ever_ything araması:</value>
+  </data>
+  <data name="Main_StopAfterFirstMatch" xml:space="preserve">
+    <value>İlk eşleşmeden sonra dur</value>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Explorer Menüsünü Göster</value>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Bayt arama: dosyayı ikili (binary) olarak oku ve baytları onaltılık rakamlarla ara: 68 65 78 20</value>
+  </data>
+  <data name="Main_TestExpression" xml:space="preserve">
+    <value>Test ifadesi</value>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>günün sonuna kadar</value>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>Son yazma zamanı</value>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>Eşleşme sayısı</value>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Tamamlananları değiştir – {0} dosyadaki metin değiştirildi.</value>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>Arama iptal edildi</value>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>Arama iptal edildi veya başarısız oldu</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>{0} dosya arandı, eşleşen {1} dosya bulundu - {2} işleniyor</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>Boolean ifadesinde Boolean operatörü eksik</value>
+  </data>
+  <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>Aşağıdaki eklentiler yüklenemedi:</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>Dosya oluşturulamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>Bir tarih seçin</value>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>ile</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argümanlar:</value>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Boolean işleçlerinin arama işaretini Doğru veya Yanlış olarak ayarlar.</value>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
+-csv [filePath]
+    Arama tamamlandıktan sonra CSV formatında sonuç dosyası oluşturun.</value>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Belirtilmeyen herhangi bir argüman, varsayılan olarak son kaydedilen kullanıcı ayarlarına göre ayarlanacaktır.</value>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    Arama tamamlandıktan sonra rapor formatında sonuç dosyası oluşturun.</value>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Kullanımı:</value>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Oluşturuldu</value>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>_Nokta yeni satır olarak</value>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>İkili (Binary) değil</value>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>Joker Karakter</value>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>_Şununla Değiştir:</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value>Eşleşen {0}{1}{2}</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>{0} dosya kopyalandı.</value>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>'{0}' teması yüklenemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} dosya silindi.</value>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep güncel.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Devam et?</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>Dosyalar silinemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>Dosyalar taşınamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>'{0}' kaynak dosyası yüklenemedi: </value>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>Bunun yerine varsayılan motor kullanıldı.</value>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>Dosyaları Sil</value>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Bir daha sorma</value>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Hayır</value>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>_Tümüne Hayır</value>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Lütfen başka bir dizin seçip tekrar deneyin.</value>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>Dosya yeniden adlandırılamadı: </value>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Dosyayı Yeniden Adlandır</value>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0}'da kaydedilmemiş değişiklikler var. Şimdi kaydedilsin mi?</value>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} doğrulama hataları içeriyor. Yine de kaydedilsin mi?</value>
+  </data>
+  <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>'{0}' alanındaki arama yolu geçerli değil, arama iptal edildi.</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Dikkat, bazı dosyalar seçilen dizinde bulunuyor.</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Bazı dosyalar değiştirilemez. Devam ederseniz bu dosyalar atlanacak.</value>
+  </data>
+  <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>'{0}' dosyası zaten {1} içinde mevcut. Mevcut olanın üzerine yazılsın mı?</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>Windows Gezgini'nin sağ tıklama menüsünden dnGrep kaldırılamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>Dosyalar geri alınamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>.NET Günlük Kaydı Çerçevesi</value>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>7-Zip İçin .NET Kitaplığı</value>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>Karakter Seti Tespiti İçin .NET Kitaplığı</value>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>ECMA-376 Sayılarını Ayrıştırmak İçin .NET Kitaplığı</value>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>Genişletilmiş Uzunluktaki Yollar İçin .NET Kitaplığı</value>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>Microsoft Excel Dosyalarını Okumak İçin .NET Kitaplığı</value>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>Word ve Excel Belgeleriyle Çalışmak İçin .Net Kitaplığı</value>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>.NET WPF Metin Oüzenleyici Bileşeni</value>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Yer İmi Ayrıntıları</value>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filtre:</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Bölümler</value>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Diğer özellikler</value>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Şunu ara</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Harfe duyarlı mı?</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Maksimum klasör derinliği: {0}</value>
+  </data>
+  <data name="Main_Folder" xml:space="preserve">
+    <value>_Klasör:</value>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>Değiştiriliyor…</value>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Yer İmi Adı:</value>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>_Nokta Yeni Satır</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Düzenli ifade</value>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Şunu ara:</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetik arama</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Düz metin araması</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Bayt arama: dosyayı ikili olarak oku ve baytları onaltılık rakamlarla ara: 68 65 78 20</value>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>Bu yer imi zaten mevcut</value>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Arama türü</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>.gitignore'u kullan</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Dosyaları filtrelemek için .gitignore kullan</value>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Tüm kelime</value>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Aşağı taşı</value>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>En alta taşı</value>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Yukarıya taşı</value>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Yukarı taşı</value>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Yer İmi Adı</value>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Aşağı Ok</value>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Yukarı Ok</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Çok satırlı mı?</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>İkili (Binary) değil</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Gizli değil</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Alt klasörler yok</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Sembolik bağlantılar yok</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Arşivlerde ara</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Tüm kelime</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Yer İmleri</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tür</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Kullan</value>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [arguments]
+Aşağıdaki listeden herhangi bir bağımsız değişken kombinasyonunu kullanarak.
+Örnek:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Komut satırı işlemleri tamamlandıktan sonra dnGrep'ten çıkın.</value>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Metin, normal ifade, XPath ve fonetik sorguları kullanarak metin dosyalarında, Word ve Excel belgelerinde, PDF'lerde ve arşivlerde arama yapın.</value>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [ayırıcı karakter veya metin]
+-sep [ayırıcı karakter veya metin]
+-listItemSeparator [ayırıcı karakter veya metin]
+    Rapor çıktısındaki bir satırdaki liste öğelerini ayırmak için karakteri veya dizeyi ayarlar.</value>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Her bir eşleşmenin veya grubun normal ifade rapor çıktısında ayrı bir satırda (Doğru veya Yanlış) çıktısını almak için bayrağı ayarlar.</value>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    Arama tamamlandıktan sonra metin formatında sonuç dosyası oluşturun.</value>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>Boyuta göre</value>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Maksimum klasör derinliği: {0}</value>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>Sembolik bağlantılar yok</value>
+  </data>
+  <data name="Main_HideResultOptions" xml:space="preserve">
+    <value>Sonuç seçeneklerini gizle</value>
+  </data>
+  <data name="Main_HighlightGroups" xml:space="preserve">
+    <value>Grupları vurgula</value>
+  </data>
+  <data name="Main_HighlightMatches" xml:space="preserve">
+    <value>Eşleşenleri vurgula</value>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Sonuçları en üst düzeye çıkar (F7)</value>
+  </data>
+  <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
+    <value>dnGrep _Hakkında…</value>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>Son Tarih</value>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>_Normal ifade</value>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Kaydır {0}</value>
+  </data>
+  <data name="Main_PreviewFile" xml:space="preserve">
+    <value>Dosyayı _önizle</value>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>_Değiştir</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>Sonuçlarda yazılabilir dosya yok</value>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Boolean operatörlerini yalnızca metin aramayla değiştir</value>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Arama parametreleri değişti</value>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Arşi_vde Ara</value>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetik</value>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetik arama</value>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [folderPath] [searchFor]
+Bayraksız bir veya iki bağımsız değişken: ilk argüman aranacak klasör, ikincisi aranacak düzenli ifadedir.
+Örnek:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Aranacak klasör yolunu ayarlar.  Klasör yollarının virgül veya noktalı virgülle ayrılmış listesi olabilir.</value>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Rapor çıktısına dosya ve satır bilgilerini dahil etmek için bayrağı ayarlar (Doğru veya Yanlış).</value>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Arama yolundaki dosyaları veya klasörleri hariç tutmak için dosya veya dizin adı modelini ayarlar. Virgül veya noktalı virgülle ayrılmış bir kalıp listesi olabilir.</value>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    Dosya adı modelini, arama yolundaki dosyalarla eşleşecek şekilde ayarlar. Virgül veya noktalı virgülle ayrılmış bir kalıp listesi olabilir.</value>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Çok satırlı arama bayrağını doğru veya yanlış olarak ayarlar.</value>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [type]
+-pt [type]
+-patternType [type]
+    Eşleştirme ve yok sayma modelinin türünü ayarlar; şunlardan biri olmalıdır: "Yıldız işareti" (joker karakter), "Regex" (normal ifade) veya “Everything” (Everything arama aracı yüklüyse).</value>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [mode]
+-rm [mode]
+-reportMode [mode]
+    Normal ifade raporları için rapor çıktı modunu ayarlar - şunlardan biri olmalıdır: "Tam Satır", "Eşleşmeler" veya "Gruplar".</value>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    Komut dosyası anahtarıyla tanımlanan komut dosyasını çalıştırır.</value>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [type]
+-st [type]
+-searchType [type]
+    Arama türünü ayarlar – şunlardan biri olmalıdır: "PlainText", "Regex" (normal ifade), "XPath" veya "Soundex" (fonetik).</value>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Normal ifade rapor çıktısında benzersiz eşleşme veya grup değerlerinin çıktısını almak için bayrağı ayarlar (Doğru veya Yanlış).</value>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Sürüm {0}, {1} üzerine inşa edilmiştir</value>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Yer imlerine arama modeli ekleme</value>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Tüm tarihler</value>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Dosya:</value>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Değiştirilme tarihi:</value>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Tür:</value>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Bağlam satırı değişiklikleri bir sonraki aramada uygulanacak</value>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>İlk Tarih</value>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>Sağda</value>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>Sayfa [{0}]</value>
+  </data>
+  <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Dosyaları türe ve klasörleri ada göre hariç tutun</value>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>Tüm dosyalar</value>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>Oluşturulma tarihine göre</value>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>Değiştirilme tarihine göre</value>
+  </data>
+  <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
+    <value>günün başından itibaren</value>
+  </data>
+  <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Normal ifade gruplarını vurgulayın. Değişiklikler bir sonraki aramada uygulanacaktır.</value>
+  </data>
+  <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Dosyaları ada veya türe göre dahil et</value>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>_Geri</value>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Şununla değiştir:</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetik</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Normal ifade</value>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Aşağı Ok</value>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Yukarı Ok</value>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Büyük/küçük harfe duyarlı arama işaretini ayarlar (Doğru veya Yanlış).</value>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Bir veya daha fazla argüman geçerli değil.</value>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Noktayı yeni satır arama bayrağı olarak ayarlar – Doğru veya Yanlış.</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Dosyaları kopyala…</value>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Sonuçları kopyala</value>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>CSV sonuçları</value>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>Metin sonuçları</value>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Klasörü yer imi ilişkilendirmesinden kaldır</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Değiştirilecek eşleşme yok</value>
+  </data>
+  <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
+    <value>Tam dosya yollarını kopyala</value>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>İçeren klasörü aç</value>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>Dosya özelliklerini göster</value>
+  </data>
+  <data name="Main_SavingResultsToFile" xml:space="preserve">
+    <value>Sonuçlar dosyaya kaydediliyor…</value>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Şurada ara</value>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>Değiştirme başarısız oldu</value>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Arama {0} tarihinde tamamlandı – aranan {3} dosyasının {2} dosyasında bulunan {1} eşleşme.</value>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>'Eşleşecek kalıplar'daki yakalama gruplarını 'Ara' kalıbında kullan</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>Boolean ifadesinde bilinmeyen bir hata var</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>Boolean ifadesinde arama modeli eksik</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Bu yer imini temizlediğinizde bu yer imleri de kaldırılır.</value>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>Dosyalar geri alındı.</value>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>Dosya açılamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Windows Gezgini'nde sağ tıklama menüsünde dnGrep'in gösterilmesini değiştirmek için dnGrep'i Yönetici olarak çalıştırın</value>
+  </data>
+  <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>DnGrep'te bir şeyler bozuldu. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>'{0}' dosya modeli geçerli bir normal ifade değil:{1}{2}</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Hata: </value>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>Arama tamamlanamadı veya değiştirilemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Düz metin araması</value>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>_Normal ifade</value>
+  </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>Dosya türü ve adı</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Yol ve dosya adı, önce genişlik</value>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Uzak bulut depolama dosyalarını atla</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>Windows Gezgini'nin sağ tıklama menüsüne dnGrep eklenemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>Dosyalar kopyalanamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>Otomatik başlatma kaydedilemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>Test penceresi açılamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>Seçenekler kaydedilemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
   </data>
 </root>
