@@ -713,7 +713,7 @@
     <value>Daha Fazla…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Daha Fazla</value>
+    <value>_Daha</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Dosya adlarını kopyala</value>
@@ -1108,10 +1108,10 @@
     <value>Dosyalar geri alınamadı. Ayrıntılar için hata günlüğünü kontrol edin: </value>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value>.NET Günlük Kaydı Çerçevesi</value>
+    <value>.NET günlük kaydı çerçevesi</value>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>7-Zip İçin .NET Kitaplığı</value>
+    <value>7-Zip için .NET kitaplığı</value>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
     <value>Karakter Seti Tespiti İçin .NET Kitaplığı</value>
@@ -1810,7 +1810,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Dosya filtrelerini varsayılan değerlerine sıfırla</value>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
-    <value>Harfe duyarlı</value>
+    <value>Büyük/küçük harfe duyarlıdır</value>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
     <value>Grup aramasını yakala</value>
