@@ -659,7 +659,7 @@
     <value>saat</value>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>ile</value>
+    <value>Bitiş Tarihi</value>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
     <value>Altta</value>
@@ -671,10 +671,10 @@
     <value>Otomatik algılama (varsayılan)</value>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>Gizli değil</value>
+    <value>Gizli klasörler hariç</value>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value>Alt klasörler yok</value>
+    <value>Alt klasörler hariç</value>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
     <value>_Hakkında</value>
@@ -701,7 +701,7 @@
     <value>Kişiselleştir</value>
   </data>
   <data name="Main_Menu_Scripts" xml:space="preserve">
-    <value>Komut dosyaları</value>
+    <value>Komut Dosyaları</value>
   </data>
   <data name="Main_Menu_Settings" xml:space="preserve">
     <value>_Ayarlar</value>
@@ -1024,7 +1024,7 @@
     <value>_Nokta Yeni Satır</value>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>İkili dosya yok</value>
+    <value>İkili dosyalar hariç</value>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
     <value>Joker Karakter</value>
@@ -1201,7 +1201,7 @@
     <value>En alta taşı</value>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
-    <value>Yukarıya taşı</value>
+    <value>En üste taşı</value>
   </data>
   <data name="Bookmarks_MoveUp" xml:space="preserve">
     <value>Yukarı taşı</value>
@@ -1219,16 +1219,16 @@
     <value>Çoklu satır</value>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>İkili dosya yok</value>
+    <value>İkili dosyalar hariç</value>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>Gizli değil</value>
+    <value>Gizli klasörler hariç</value>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value>Alt klasörler yok</value>
+    <value>Alt klasörler hariç</value>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>Sembolik bağlantılar yok</value>
+    <value>Sembolik bağlantılar hariç</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
     <value>Arşivlerde ara</value>
@@ -1285,7 +1285,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Maksimum klasör derinliği: {0}</value>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>Sembolik bağlantılar yok</value>
+    <value>Sembolik bağlantılar hariç</value>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
     <value>Sonuç seçeneklerini gizle</value>
@@ -1303,7 +1303,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>dnGrep _Hakkında…</value>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>Son Tarih</value>
+    <value>ile</value>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
     <value>_Normal ifade</value>
@@ -1411,7 +1411,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Sürüm {0}, {1} üzerine inşa edilmiştir</value>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>Yer imlerine arama modeli ekleme</value>
+    <value>Yer imlerine arama deseni ekle</value>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
     <value>Tüm tarihler</value>
@@ -1429,7 +1429,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Bağlam satırı değişiklikleri bir sonraki aramada uygulanacak</value>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
-    <value>İlk Tarih</value>
+    <value>Başlangıç Tarihi</value>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
     <value>Sağda</value>
@@ -1732,13 +1732,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Geri</value>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value>Harfe duyarlı</value>
+    <value>Büyük/küçük harfe duyarlıdır</value>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
     <value>Nokta Yeni Satır</value>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>Sembolik bağlantılar yok</value>
+    <value>Sembolik bağlantılar hariç</value>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
     <value>Boyut {0} ile {1} KB arasında</value>
@@ -2125,10 +2125,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Varsayılan yazı tipini kullan</value>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
-    <value>İkili dosya yok</value>
+    <value>İkili dosyalar (Binary) hariç</value>
   </data>
   <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
-    <value>Gizli dosya yok</value>
+    <value>Gizli dosyalar hariç</value>
   </data>
   <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
     <value>Sonuç ağacında yapışkan kaydırmayı etkinleştir</value>
@@ -2650,7 +2650,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Sonuç satırlarını bağlamda göster</value>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>{1}'in {0} dosyası: {2} ({4} satırda {3} eşleşiyor)</value>
+    <value>{1} dosyadan {0} tanesinin şu dizininde: {2} ( {4} satırında {3} eşleşme bulundu)</value>
   </data>
   <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
     <value>Önceki dosya değiştirilme tarihini koru</value>
@@ -2662,7 +2662,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Bu dosyadaki önceki eşleşmeye git [Ctrl+Right]</value>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
-    <value>Sonraki_dosya</value>
+    <value>Sonraki _dosya</value>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
     <value>Önceki dosya</value>
@@ -2671,10 +2671,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Maksimum klasör derinliği: {0}</value>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>İkili dosya yok</value>
+    <value>İkili dosya hariç</value>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>Alt klasör yok</value>
+    <value>Alt klasörler hariç</value>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
     <value>Everything dizini aramasını kullan</value>
