@@ -1648,7 +1648,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>…</value>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
-    <value>gün</value>
+    <value>günde bir</value>
   </data>
   <data name="Options_DeleteFiles" xml:space="preserve">
     <value>Dosyaları sil</value>
