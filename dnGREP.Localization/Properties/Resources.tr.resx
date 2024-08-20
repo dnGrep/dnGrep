@@ -251,7 +251,7 @@
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Bir dosya deseni türü seçeneği için etiket. "Her şey" bir uygulamanın adıdır (bkz. https://www.voidtools.com /) Bu denetim, yalnızca uygulama kullanıcının bilgisayarında yüklüyse görülebilir.</value>
+    <value>Everything Dizin Servisi</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
@@ -584,7 +584,7 @@
     <value>_Ara</value>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value>Dosyaları kopyala</value>
+    <value>Dosyaları Kopyala</value>
   </data>
   <data name="Help_CmdLineSearchFor" xml:space="preserve">
     <value>/s [searchFor]
@@ -1147,7 +1147,7 @@
     <value>Şunu ara</value>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
-    <value>Harfe duyarlı mı?</value>
+    <value>Büyük/küçük harfe duyarlıdır</value>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
     <value>Maksimum klasör derinliği: {0}</value>
@@ -1216,7 +1216,7 @@
     <value>Shift+Alt+Yukarı Ok</value>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
-    <value>Çok satırlı mı?</value>
+    <value>Çoklu satır</value>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
     <value>İkili dosya yok</value>
@@ -2299,7 +2299,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>* herhangi bir sayıda karakterle eşleşir</value>
   </data>
   <data name="Options_CopyFiles" xml:space="preserve">
-    <value>Dosyaları Kopyala</value>
+    <value>Dosyaları kopyala</value>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
     <value>Otomatik başlatmanın kaydı silinemedi. Ayrıntılar için hata günlüğünü kontrol edin: </value>
@@ -3200,5 +3200,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -e [search commands]
 -everything [search commands]
     Everything arama metnini ayarlar. Komut satırındaki son seçenek olmalıdır ve komut satırının geri kalanını kelimesi kelimesine kopyalayacaktır.</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Çıkarılan dosyaları önbelleğe al</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Eklenti önbelleği</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Geçici dosyaları Temp klasörüne kaydet</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Dosyaları önbelleğe al</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Kullanılmadığı takdirde dosyaları önbellekten sil</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>Eklenti önbellek ayarları değişti. Eski önbellek klasörü silinsin mi?</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>Boşlukları Görüntüle</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>Hiçbir şey yapma</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Tüm arşivi sil</value>
   </data>
 </root>
