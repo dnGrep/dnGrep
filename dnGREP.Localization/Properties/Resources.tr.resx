@@ -1528,7 +1528,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Değiştirme başarısız oldu</value>
   </data>
   <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
-    <value>Arama {0} tarihinde tamamlandı – aranan {3} dosyasının {2} dosyasında bulunan {1} eşleşme.</value>
+    <value>Arama {0} içinde tamamlandı: Aranan {3} dosyadan {2} dosyada {1} eşleşme bulundu.</value>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
     <value>'Eşleşecek kalıplar'daki yakalama gruplarını 'Ara' kalıbında kullan</value>
@@ -2323,7 +2323,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Tümüne Evet</value>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>'Ara' alanı boş olduğunda dosya adı desenini kullanarak dosyaları listeleyin</value>
+    <value>'Ara' alanı boş olduğunda dosya adı desenini kullanarak dosyaları listele</value>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
     <value>Arşiv dosyaları</value>
