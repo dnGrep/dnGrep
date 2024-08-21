@@ -113,6 +113,7 @@ namespace dnGREP.WPF
             CodePage = -2;
             PopulateEncodings();
             CodePage = value;
+            PopulateScripts();
 
             // this call will repopulate the FileFiltersSummary
             // IncludeSubfolder didn't really change, but triggers the refresh
@@ -3215,12 +3216,16 @@ namespace dnGREP.WPF
         private void PopulateTimeIntervals()
         {
             TimeRanges.Clear();
+            var selectedRange = PastTimeRangeFilter;
+            PastTimeRangeFilter = FileTimeRange.None;
             TimeRanges.Add(new(FileTimeRange.Minutes, Resources.Main_DatePastMinutes));
             TimeRanges.Add(new(FileTimeRange.Hours, Resources.Main_DatePastHours));
             TimeRanges.Add(new(FileTimeRange.Days, Resources.Main_DatePastDays));
             TimeRanges.Add(new(FileTimeRange.Weeks, Resources.Main_DatePastWeeks));
             TimeRanges.Add(new(FileTimeRange.Months, Resources.Main_DatePastMonths));
             TimeRanges.Add(new(FileTimeRange.Years, Resources.Main_DatePastYears));
+
+            PastTimeRangeFilter = selectedRange;
         }
 
         private void PopulateEncodings()
