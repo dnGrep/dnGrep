@@ -264,6 +264,7 @@ namespace dnGREP.Engines.OpenXml
 
                 foreach (var sheet in sheets)
                 {
+                    count++;
                     var lines = searchMethod(-1, 0, sheet.Content, searchPattern, searchOptions, true, pauseCancelToken);
                     if (lines.Count > 0)
                     {
