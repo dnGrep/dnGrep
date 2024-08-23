@@ -165,16 +165,22 @@ namespace dnGREP.Common
     }
 
     public enum FocusElement
-    { 
+    {
         ResultsTree,
         SearchFor,
     }
 
     public enum ArchiveCopyMoveDelete
-    { 
+    {
         WholeArchive,
         CopyFile,
         DoNothing,
+    }
+
+    public enum HashOption
+    {
+        FullFile = 0,
+        SizeTimestamp,
     }
 
 }

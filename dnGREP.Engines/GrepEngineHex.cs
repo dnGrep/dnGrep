@@ -28,10 +28,10 @@ namespace dnGREP.Engines
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan);
-            return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+            return Search(fileStream, new(file), searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
         }
 
-        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType,
+        public List<GrepSearchResult> Search(Stream input, FileData fileData, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             List<GrepSearchResult> searchResults = [];
@@ -63,7 +63,7 @@ namespace dnGREP.Engines
 
             if (matches.Count > 0)
             {
-                searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches, encoding) { IsHexFile = true });
+                searchResults.Add(new GrepSearchResult(fileData.FullName, searchPattern, matches, encoding) { IsHexFile = true });
             }
 
             return searchResults;

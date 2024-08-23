@@ -57,7 +57,10 @@ namespace dnGREP.Engines.Pdf
 
             // get the unique filename for this file using SHA256
             // if the same file exists multiple places in the search tree, all will use the same temp file
-            string cacheFileName = Utils.GetTempTextFileName(pdfFile);
+            HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
+            string cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                Utils.GetTempTextFileName(new FileData(pdfFile)) :
+                Utils.GetTempTextFileName(pdfFile);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
             ExtractTextResults extracted;
             try
@@ -92,7 +95,7 @@ namespace dnGREP.Engines.Pdf
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string pdfFilePath, string searchPattern,
+        public List<GrepSearchResult> Search(Stream input, FileData fileData, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             string cacheFolder = Path.Combine(Utils.GetCacheFolder(), "dnGREP-PDF");
@@ -100,11 +103,14 @@ namespace dnGREP.Engines.Pdf
                 Directory.CreateDirectory(cacheFolder);
 
             // the filePath may contain the partial path of the directory structure in the archive
-            string fileName = Path.GetFileName(pdfFilePath);
+            string fileName = Path.GetFileName(fileData.FullName);
 
             // get the unique filename for this file using SHA256
             // if the same file exists multiple places in the search tree, all will use the same temp file
-            string cacheFileName = Utils.GetTempTextFileName(input, fileName);
+            HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
+            string cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                Utils.GetTempTextFileName(fileData) :
+                Utils.GetTempTextFileName(input, fileName);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
 
             List<GrepSearchResult> results = [];
@@ -136,10 +142,10 @@ namespace dnGREP.Engines.Pdf
                     if (string.IsNullOrEmpty(extracted.Text) || !File.Exists(cacheFilePath))
                     {
                         string message = Resources.Error_PdftotextFailedToCreateTextFile;
-                        logger.Error(message + $": '{pdfFilePath}'");
+                        logger.Error(message + $": '{fileData.FullName}'");
                         return
                         [
-                            new(pdfFilePath, searchPattern, message, false)
+                            new(fileData.FullName, searchPattern, message, false)
                         ];
                     }
                 }
@@ -153,19 +159,19 @@ namespace dnGREP.Engines.Pdf
                     logger.Error(ex.Message); // message is sufficient, no need for stack trace
                     return
                     [
-                        new(pdfFilePath, searchPattern, ex.Message, false)
+                        new(fileData.FullName, searchPattern, ex.Message, false)
                     ];
                 }
             }
 
-            results = SearchPlainTextFile(pdfFilePath, cacheFilePath, extracted.Text, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+            results = SearchPlainTextFile(fileData.FullName, cacheFilePath, extracted.Text, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
-            bool isInArchive = pdfFilePath.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
+            bool isInArchive = fileData.FullName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
             if (isInArchive && results.Count > 0)
             {
                 foreach (GrepSearchResult gsr in results)
                 {
-                    gsr.FileNameDisplayed = pdfFilePath;
+                    gsr.FileNameDisplayed = fileData.FullName;
                 }
             }
             return results;
@@ -205,7 +211,7 @@ namespace dnGREP.Engines.Pdf
                     string joinedText = join ? JoinLines(plainText) : plainText;
 
                     using Stream inputStream = new MemoryStream(encoding.GetBytes(joinedText));
-                    List<GrepSearchResult> results = engine.Search(inputStream, textFilePath, searchPattern,
+                    List<GrepSearchResult> results = engine.Search(inputStream, new(textFilePath), searchPattern,
                         searchType, searchOptions, encoding, pauseCancelToken);
 
                     if (results.Count > 0)

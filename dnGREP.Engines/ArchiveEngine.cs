@@ -58,7 +58,7 @@ namespace dnGREP.Engines
             return [];
         }
 
-        List<GrepSearchResult> IGrepEngine.Search(Stream input, string fileName, string searchPattern,
+        List<GrepSearchResult> IGrepEngine.Search(Stream input, FileData fileData, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             // not used, just here to implement interface
@@ -280,7 +280,7 @@ namespace dnGREP.Engines
                 StartingFileSearch?.Invoke(this, new DataEventArgs<string>(innerFileName));
 
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(innerFileName, searchParams, fileFilter, searchType);
-                innerFileResults = engine.Search(stream, innerFileName, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+                innerFileResults = engine.Search(stream, fileData, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
                 if (innerFileResults.Count != 0)
                 {

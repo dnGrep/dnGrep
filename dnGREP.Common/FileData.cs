@@ -17,10 +17,14 @@ namespace dnGREP.Common
         private readonly string? archiveFileName;
         private readonly ArchiveFileInfo? sevenZipFileInfo;
         private readonly EverythingFileInfo? everythingFileInfo;
+        private readonly string? dummyFileName;
 
         public FileData(string fileName)
         {
-            systemFileInfo = new FileInfo(fileName);
+            if (File.Exists(fileName))
+                systemFileInfo = new FileInfo(fileName);
+            else
+                dummyFileName = fileName;
         }
 
         public FileData(string srcFileName, ArchiveFileInfo fileInfo)
@@ -57,6 +61,7 @@ namespace dnGREP.Common
                 return systemFileInfo != null ? systemFileInfo.FullName :
                     sevenZipFileInfo != null ? (archiveFileName ?? string.Empty) + ArchiveDirectory.ArchiveSeparator + sevenZipFileInfo.Value.FileName :
                     everythingFileInfo != null ? everythingFileInfo.FullName :
+                    dummyFileName != null ? dummyFileName :
                     string.Empty;
             }
         }
@@ -68,6 +73,7 @@ namespace dnGREP.Common
                 return systemFileInfo != null ? systemFileInfo.Name :
                     sevenZipFileInfo != null ? Path.GetFileName(sevenZipFileInfo.Value.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.Name :
+                    dummyFileName != null ? dummyFileName :
                     string.Empty;
             }
         }
@@ -90,6 +96,7 @@ namespace dnGREP.Common
                 return systemFileInfo != null ? systemFileInfo.Extension :
                     sevenZipFileInfo != null ? Path.GetExtension(sevenZipFileInfo.Value.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.Extension :
+                    dummyFileName != null ? Path.GetExtension(dummyFileName) :
                     string.Empty;
             }
         }

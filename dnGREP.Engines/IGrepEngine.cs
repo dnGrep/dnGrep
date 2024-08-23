@@ -41,13 +41,13 @@ namespace dnGREP.Engines
         /// Searches an input stream for files whose content matches regex
         /// </summary>
         /// <param name="input">the input stream</param>
-        /// <param name="fileName">the file name</param>
+        /// <param name="fileData">the file name and file info</param>
         /// <param name="searchPattern"></param>
         /// <param name="searchType"></param>
         /// <param name="searchOptions"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern,
+        List<GrepSearchResult> Search(Stream input, FileData fileData, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken);
 
         bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,

@@ -676,7 +676,7 @@ namespace Tests
             GrepEnginePlainText engine = new();
             var encoding = Encoding.UTF8;
             using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-            var results = engine.Search(inputStream, "test.txt", pattern, SearchType.Regex, GrepSearchOption.Global | GrepSearchOption.WholeWord, encoding);
+            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, SearchType.Regex, GrepSearchOption.Global | GrepSearchOption.WholeWord, encoding);
 
             Assert.Equal(expectedResultCount, results.Count);
 

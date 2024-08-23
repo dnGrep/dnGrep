@@ -4782,6 +4782,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create cache file key using:.
+        /// </summary>
+        public static string Options_CreateCacheFileKeyUsing {
+            get {
+                return ResourceManager.GetString("Options_CreateCacheFileKeyUsing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom editor.
         /// </summary>
         public static string Options_CustomEditor {
@@ -5201,6 +5210,24 @@ namespace dnGREP.Localization.Properties {
         public static string Options_FullSizeNumberInParenthesis {
             get {
                 return ResourceManager.GetString("Options_FullSizeNumberInParenthesis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hash of file size and modified time.
+        /// </summary>
+        public static string Options_HashOfFileSizeAndModifiedTime {
+            get {
+                return ResourceManager.GetString("Options_HashOfFileSizeAndModifiedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hash of full file.
+        /// </summary>
+        public static string Options_HashOfFullFile {
+            get {
+                return ResourceManager.GetString("Options_HashOfFullFile", resourceCulture);
             }
         }
         
