@@ -1216,7 +1216,7 @@
     <value>Shift+Alt+Yukarı Ok</value>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
-    <value>Çoklu satır</value>
+    <value>Çok Satırlı</value>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
     <value>İkili dosyalar hariç</value>
@@ -2512,7 +2512,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Rapor Seçenekleri</value>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value>Çok satırlı</value>
+    <value>Çok Satırlı</value>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
     <value>Arşiv yok</value>
