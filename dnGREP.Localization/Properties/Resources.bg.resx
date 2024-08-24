@@ -4158,4 +4158,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
     <value>Настройките за добавките са променени. Изпразване на старата папка с временна памет?</value>
   </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Отпечатък от съдържанието</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Отпечатък от размера и датата на промяна</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>Преглед на интервали</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Създаване на идентификатор на временна памет с помощта на:</value>
+  </data>
 </root>
