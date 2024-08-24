@@ -3228,4 +3228,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
     <value>Tüm arşivi sil</value>
   </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Dosyanın tamamının karma değeri</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Aşağıdakileri kullanarak önbellek dosyası anahtarı oluşturun:</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Dosya boyutunun ve değiştirilme zamanının karması</value>
+  </data>
 </root>
