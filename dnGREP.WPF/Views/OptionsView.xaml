@@ -1145,6 +1145,13 @@
                             </TextBox>
                             <Label Content="{l:Loc Key='Options_CheckDays'}"/>
                         </StackPanel>
+                        <TextBlock Text="{l:Loc Key='Options_CreateCacheFileKeyUsing'}"/>
+                        <RadioButton Margin="18,3" Content="{l:Loc Key='Options_HashOfFullFile'}"
+                                     GroupName="CacheHashType"
+                                     IsChecked="{Binding CacheFileHashType, Converter={StaticResource ebc}, ConverterParameter=FullFile}"/>
+                        <RadioButton Margin="18,3" Content="{l:Loc Key='Options_HashOfFileSizeAndModifiedTime'}"
+                                     GroupName="CacheHashType"
+                                     IsChecked="{Binding CacheFileHashType, Converter={StaticResource ebc}, ConverterParameter=SizeTimestamp}"/>
                     </StackPanel>
                 </GroupBox>
 

@@ -4178,4 +4178,17 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>View Whitespace</value>
     <comment>Preview control, checkbox label</comment>
   </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Create cache file key using:</value>
+    <comment>Radio button group label</comment>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Hash of full file</value>
+    <comment>Radio button label</comment>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Hash of file size and modified time</value>
+    <comment>Radio button label
+</comment>
+  </data>
 </root>

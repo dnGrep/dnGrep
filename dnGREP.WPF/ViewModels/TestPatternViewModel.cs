@@ -193,7 +193,7 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    grepResults = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch,
+                    grepResults = engine.Search(inputStream, new("test.txt"), SearchFor, TypeOfSearch,
                         SearchOptions, encoding, default);
 
                     if (TypeOfSearch == SearchType.Hex)

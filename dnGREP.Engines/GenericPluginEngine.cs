@@ -38,7 +38,10 @@ namespace dnGREP.Engines
 
             // get the unique filename for this file using SHA256
             // if the same file exists multiple places in the search tree, all will use the same temp file
-            string cacheFileName = Utils.GetTempTextFileName(filePath);
+            HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
+            string cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                Utils.GetTempTextFileName(new FileData(filePath)) :
+                Utils.GetTempTextFileName(filePath);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
             ExtractTextResults extracted;
             try
@@ -83,7 +86,7 @@ namespace dnGREP.Engines
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string origFilePath, string searchPattern,
+        public List<GrepSearchResult> Search(Stream input, FileData fileData, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             string cacheFolder = Path.Combine(Utils.GetCacheFolder(), $"dnGREP-{Name}");
@@ -91,11 +94,14 @@ namespace dnGREP.Engines
                 Directory.CreateDirectory(cacheFolder);
 
             // the filePath may contain the partial path of the directory structure in the archive
-            string fileName = Path.GetFileName(origFilePath);
+            string fileName = Path.GetFileName(fileData.FullName);
 
             // get the unique filename for this file using SHA256
             // if the same file exists multiple places in the search tree, all will use the same temp file
-            string cacheFileName = Utils.GetTempTextFileName(input, fileName);
+            HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
+            string cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                Utils.GetTempTextFileName(fileData) :
+                Utils.GetTempTextFileName(input, fileName);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
 
             List<GrepSearchResult> results = [];
@@ -129,10 +135,10 @@ namespace dnGREP.Engines
                     if (string.IsNullOrEmpty(extracted.Text))
                     {
                         string message = TranslationSource.Format(Resources.Error_ThePluginFailedToExtractAnyText, Name);
-                        logger.Error(message + $": '{origFilePath}'");
+                        logger.Error(message + $": '{fileData.FullName}'");
                         return
                         [
-                            new(origFilePath, searchPattern, message, false)
+                            new(fileData.FullName, searchPattern, message, false)
                         ];
                     }
 
@@ -143,10 +149,10 @@ namespace dnGREP.Engines
                         string message = TranslationSource.Format(
                             Resources.Error_TheFileCreatedByThePluginHasNoSearchableText, Name);
 
-                        logger.Error(message + $": '{origFilePath}'");
+                        logger.Error(message + $": '{fileData.FullName}'");
                         return
                         [
-                            new(origFilePath, searchPattern, message, false)
+                            new(fileData.FullName, searchPattern, message, false)
                         ];
                     }
 
@@ -159,14 +165,14 @@ namespace dnGREP.Engines
                 }
             }
 
-            results = SearchPlainTextFile(origFilePath, cacheFilePath, extracted.Text, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+            results = SearchPlainTextFile(fileData.FullName, cacheFilePath, extracted.Text, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
-            bool isInArchive = origFilePath.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
+            bool isInArchive = fileData.FullName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
             if (isInArchive && results.Count > 0)
             {
                 foreach (GrepSearchResult gsr in results)
                 {
-                    gsr.FileNameDisplayed = origFilePath;
+                    gsr.FileNameDisplayed = fileData.FullName;
                 }
             }
             return results;
@@ -184,7 +190,7 @@ namespace dnGREP.Engines
                 if (engine != null)
                 {
                     using Stream inputStream = new MemoryStream(encoding.GetBytes(plainText));
-                    List<GrepSearchResult> results = engine.Search(inputStream, textFilePath, searchPattern,
+                    List<GrepSearchResult> results = engine.Search(inputStream, new FileData(textFilePath), searchPattern,
                         searchType, searchOptions, encoding, pauseCancelToken);
 
                     if (results.Count > 0)

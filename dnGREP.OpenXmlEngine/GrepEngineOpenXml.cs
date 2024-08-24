@@ -39,7 +39,7 @@ namespace dnGREP.Engines.OpenXml
             string cacheFilePath = string.Empty;
             if (CreatePlainTextFile)
             {
-                cacheFilePath = GetCacheFilePath(documentFilePath, null);
+                cacheFilePath = GetCacheFilePath(new(documentFilePath), null);
             }
 
             return SearchMultiline(documentFilePath, cacheFilePath, null, searchPattern,
@@ -47,7 +47,7 @@ namespace dnGREP.Engines.OpenXml
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string documentFilePath, string searchPattern,
+        public List<GrepSearchResult> Search(Stream input, FileData fileData, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
             PauseCancelToken pauseCancelToken)
         {
@@ -56,10 +56,10 @@ namespace dnGREP.Engines.OpenXml
             string cacheFilePath = string.Empty;
             if (CreatePlainTextFile)
             {
-                cacheFilePath = GetCacheFilePath(documentFilePath, input);
+                cacheFilePath = GetCacheFilePath(fileData, input);
             }
 
-            List<GrepSearchResult> result = SearchMultiline(documentFilePath, cacheFilePath, input, searchPattern,
+            List<GrepSearchResult> result = SearchMultiline(fileData.FullName, cacheFilePath, input, searchPattern,
                 searchOptions, searchMethodMultiline, encoding, pauseCancelToken);
             return result;
         }
@@ -77,7 +77,7 @@ namespace dnGREP.Engines.OpenXml
         private bool CreatePlainTextFile => PreviewPlainText ||
             GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheExtractedFiles);
 
-        private static string GetCacheFilePath(string documentFilePath, Stream? stream)
+        private static string GetCacheFilePath(FileData fileData, Stream? stream)
         {
             string cacheFolder = Path.Combine(Utils.GetCacheFolder(), @"dnGREP-OpenXML");
             if (!Directory.Exists(cacheFolder))
@@ -87,13 +87,18 @@ namespace dnGREP.Engines.OpenXml
             // get the unique filename for this file using SHA256
             // if the same file exists multiple places in the search tree, all will use the same temp file
             string cacheFileName;
+            HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
             if (stream != null)
             {
-                cacheFileName = Utils.GetTempTextFileName(stream, documentFilePath);
+                cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                    Utils.GetTempTextFileName(fileData) :
+                    Utils.GetTempTextFileName(stream, fileData.FullName);
             }
             else
             {
-                cacheFileName = Utils.GetTempTextFileName(documentFilePath);
+                cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                    Utils.GetTempTextFileName(fileData) :
+                    Utils.GetTempTextFileName(fileData.FullName);
             }
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
             return cacheFilePath;
@@ -264,6 +269,7 @@ namespace dnGREP.Engines.OpenXml
 
                 foreach (var sheet in sheets)
                 {
+                    count++;
                     var lines = searchMethod(-1, 0, sheet.Content, searchPattern, searchOptions, true, pauseCancelToken);
                     if (lines.Count > 0)
                     {
@@ -298,10 +304,7 @@ namespace dnGREP.Engines.OpenXml
             }
             finally
             {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
+                fileStream?.Dispose();
             }
         }
         private void SearchWord(string documentFilePath, string cacheFilePath, Stream? stream,
@@ -363,10 +366,7 @@ namespace dnGREP.Engines.OpenXml
             }
             finally
             {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
+                fileStream?.Dispose();
             }
         }
 
@@ -443,10 +443,7 @@ namespace dnGREP.Engines.OpenXml
             }
             finally
             {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
+                fileStream?.Dispose();
             }
         }
 

@@ -132,10 +132,6 @@ namespace dnGREP.WPF
         }
 
         #region Private Variables and Properties
-        private const string ArchiveNameKey = "Archive";
-        private const string CustomNameKey = " Custom";
-        private const string EnabledKey = "Enabled";
-        private const string PreviewTextKey = "PreviewText";
         private static GrepSettings Settings => GrepSettings.Instance;
         #endregion
 
@@ -466,6 +462,9 @@ namespace dnGREP.WPF
         private bool cacheExtractedFiles;
 
         [ObservableProperty]
+        private HashOption cacheFileHashType = HashOption.FullFile;
+
+        [ObservableProperty]
         private bool cacheFilesInTempFolder;
 
         partial void OnCacheFilesInTempFolderChanged(bool value)
@@ -650,6 +649,7 @@ namespace dnGREP.WPF
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PreviewLargeFileLimit != Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit) ||
                 CacheExtractedFiles != Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles) ||
+                CacheFileHashType != Settings.Get<HashOption>(GrepSettings.Key.CacheFileHashType) ||
                 CacheFilesInTempFolder != Settings.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ||
                 CacheFilePath != Settings.Get<string>(GrepSettings.Key.CacheFilePath) ||
                 CacheFilesCleanDays != Settings.Get<int>(GrepSettings.Key.CacheFilesCleanDays) ||
@@ -911,6 +911,7 @@ namespace dnGREP.WPF
             HexResultByteLength = Settings.Get<int>(GrepSettings.Key.HexResultByteLength);
             PreviewLargeFileLimit = Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit);
             CacheExtractedFiles = Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles);
+            CacheFileHashType = Settings.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
             CacheFilesInTempFolder = Settings.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder);
             CacheFilePath = Settings.Get<string>(GrepSettings.Key.CacheFilePath);
             CacheFilesCleanDays = Settings.Get<int>(GrepSettings.Key.CacheFilesCleanDays);
@@ -1019,6 +1020,8 @@ namespace dnGREP.WPF
                 Path.Combine(Path.GetTempPath(), Utils.defaultCacheFolderName) :
                 CacheFilePath;
             bool isCachePathChanged = oldCachePath != newCachePath;
+            bool isCacheHashTypeChanged = CacheFileHashType !=
+                GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
 
             ApplicationFontFamily = EditApplicationFontFamily;
             MainFormFontSize = EditMainFormFontSize;
@@ -1085,6 +1088,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PreviewLargeFileLimit, PreviewLargeFileLimit);
             Settings.Set(GrepSettings.Key.CacheExtractedFiles, CacheExtractedFiles);
+            Settings.Set(GrepSettings.Key.CacheFileHashType, CacheFileHashType);
             Settings.Set(GrepSettings.Key.CacheFilesInTempFolder, CacheFilesInTempFolder);
             Settings.Set(GrepSettings.Key.CacheFilePath, CacheFilePath);
             Settings.Set(GrepSettings.Key.CacheFilesCleanDays, CacheFilesCleanDays);
@@ -1130,7 +1134,8 @@ namespace dnGREP.WPF
             if (editorsChanged)
                 GrepSearchResultsViewModel.InitializeEditorMenuItems();
 
-            if ((isCacheRemoved || isCachePathChanged) && Directory.Exists(oldCachePath))
+            if ((isCacheRemoved || isCachePathChanged || isCacheHashTypeChanged) && 
+                Directory.Exists(oldCachePath))
             {
                 if (MessageBoxResult.Yes == MessageBox.Show(
                     Resources.MessageBox_ThePlugInCacheSettingsHaveChanged, Resources.MessageBox_DnGrep, 

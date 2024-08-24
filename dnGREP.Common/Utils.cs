@@ -2629,17 +2629,33 @@ namespace dnGREP.Common
 
         public static string HashSHA256(string file)
         {
-            using var sha = SHA256.Create();
             using var stream = File.OpenRead(file);
-            return Convert.ToHexString(sha.ComputeHash(stream));
+            return Convert.ToHexString(SHA256.HashData(stream));
         }
 
         public static string HashSHA256(Stream stream)
         {
-            using var sha = SHA256.Create();
-            var hash = Convert.ToHexString(sha.ComputeHash(stream));
+            var hash = Convert.ToHexString(SHA256.HashData(stream));
             stream.Seek(0, SeekOrigin.Begin);
             return hash;
+        }
+
+        public static string GetTempTextFileName(FileData fileData)
+        {
+            if (fileData != null)
+            {
+                return string.Concat(Path.GetFileName(fileData.Name), "_", HashFileSizeModifiedTime(fileData), ".txt");
+            }
+            return string.Empty;
+        }
+
+        public static string HashFileSizeModifiedTime(FileData fileData)
+        {
+            long size = fileData.Length;
+            long ticks = fileData.LastWriteTimeUtc.Ticks;
+
+            byte[] input = [.. BitConverter.GetBytes(size), .. BitConverter.GetBytes(ticks)];
+            return Convert.ToHexString(SHA256.HashData(input));
         }
 
         /// <summary>
@@ -2655,8 +2671,7 @@ namespace dnGREP.Common
         /// <seealso cref="TryGetFullPath"/>
         public static bool IsValidPath(string path)
         {
-            string result;
-            return TryGetFullPath(path, out result);
+            return TryGetFullPath(path, out _);
         }
 
         /// <summary>

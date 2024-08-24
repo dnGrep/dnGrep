@@ -370,6 +370,8 @@ namespace dnGREP.Common
             public const string CacheFilePath = "CacheFilePath";
             [DefaultValue(0)]
             public const string CacheFilesCleanDays = "CacheFilesCleanDays";
+            [DefaultValue(HashOption.FullFile)]
+            public const string CacheFileHashType = "CacheFileHashType";
         }
 
         public static class ObsoleteKey

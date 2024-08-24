@@ -89,7 +89,10 @@ namespace dnGREP.Engines.Word
 
             // get the unique filename for this file using SHA256
             // if the same file exists multiple places in the search tree, all will use the same temp file
-            string cacheFileName = Utils.GetTempTextFileName(wordFilePath);
+            HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
+            string cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                Utils.GetTempTextFileName(new FileData(wordFilePath)) :
+                Utils.GetTempTextFileName(wordFilePath);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
             try
             {
@@ -116,26 +119,29 @@ namespace dnGREP.Engines.Word
         }
 
         // the stream version will get called if the file is in an archive
-        public List<GrepSearchResult> Search(Stream input, string wordFilePath, string searchPattern,
+        public List<GrepSearchResult> Search(Stream input, FileData fileData, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            string cacheFolder = Path.Combine(Utils.GetCacheFolder(), "dnGREP-WORD");
+            string cacheFolder = Path.Combine(Utils.GetCacheFolder(), "dnGREP-Word");
             if (!Directory.Exists(cacheFolder))
                 Directory.CreateDirectory(cacheFolder);
 
             // the filePath may contain the partial path of the directory structure in the archive
-            string fileName = Path.GetFileName(wordFilePath);
+            string fileName = Path.GetFileName(fileData.FullName);
 
             // get the unique filename for this file using SHA256
             // if the same file exists multiple places in the search tree, all will use the same temp file
-            string cacheFileName = Utils.GetTempTextFileName(input, fileName);
+            HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
+            string cacheFileName = hashOption == HashOption.SizeTimestamp ?
+                Utils.GetTempTextFileName(fileData) :
+                Utils.GetTempTextFileName(input, fileName);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
 
             List<GrepSearchResult> results = [];
             if (!File.Exists(cacheFilePath))
             {
                 // write the stream to a temp folder, and run the file version of the search
-                string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-WORD");
+                string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-Word");
                 if (!Directory.Exists(tempFolder))
                     Directory.CreateDirectory(tempFolder);
 
@@ -154,31 +160,31 @@ namespace dnGREP.Engines.Word
                 {
                     if (!ExtractText(tempPdfFilePath, cacheFilePath) || !File.Exists(cacheFilePath))
                     {
-                        logger.Error(Resources.Error_DocumentReadFailed + $": '{wordFilePath}'");
+                        logger.Error(Resources.Error_DocumentReadFailed + $": '{fileData.FullName}'");
                         return
                         [
-                            new(wordFilePath, searchPattern, Resources.Error_DocumentReadFailed, false)
+                            new(fileData.FullName, searchPattern, Resources.Error_DocumentReadFailed, false)
                         ];
                     }
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, "Failed to search inside Word file '{0}'", wordFilePath);
+                    logger.Error(ex, "Failed to search inside Word file '{0}'", fileData.FullName);
                     return
                     [
-                        new(wordFilePath, searchPattern, ex.Message, false)
+                        new(fileData.FullName, searchPattern, ex.Message, false)
                     ];
                 }
             }
 
-            results = SearchPlainTextFile(wordFilePath, cacheFilePath, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
+            results = SearchPlainTextFile(fileData.FullName, cacheFilePath, searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
-            bool isInArchive = wordFilePath.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
+            bool isInArchive = fileData.FullName.Contains(ArchiveDirectory.ArchiveSeparator, StringComparison.Ordinal);
             if (isInArchive && results.Count > 0)
             {
                 foreach (GrepSearchResult gsr in results)
                 {
-                    gsr.FileNameDisplayed = wordFilePath;
+                    gsr.FileNameDisplayed = fileData.FullName;
                 }
             }
             return results;
@@ -208,7 +214,7 @@ namespace dnGREP.Engines.Word
                 if (engine != null)
                 {
                     using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-                    List<GrepSearchResult> results = engine.Search(inputStream, textFilePath, searchPattern,
+                    List<GrepSearchResult> results = engine.Search(inputStream, new(textFilePath), searchPattern,
                         searchType, searchOptions, encoding, pauseCancelToken);
 
                     if (results.Count > 0)
@@ -300,79 +306,6 @@ namespace dnGREP.Engines.Word
 
             return true;
         }
-
-        //private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions,
-        //    SearchDelegates.DoSearch searchMethod, PauseCancelToken pauseCancelToken)
-        //{
-        //    List<GrepSearchResult> searchResults = [];
-
-        //    try
-        //    {
-        //        // Open a given Word document as readonly
-        //        object? wordDocument = OpenDocument(file, true);
-        //        if (wordDocument != null)
-        //        {
-        //            // create range and find objects
-        //            object? range = GetProperty(wordDocument, "Content");
-        //            if (range != null)
-        //            {
-        //                // create text
-        //                object? text = GetProperty(range, "Text");
-        //                if (text != null)
-        //                {
-        //                    string docText = Utils.CleanLineBreaks(text.ToString() ?? string.Empty);
-        //                    var lines = searchMethod(-1, 0, docText, searchPattern,
-        //                        searchOptions, true, pauseCancelToken);
-        //                    if (lines.Count > 0)
-        //                    {
-        //                        GrepSearchResult result = new(file, searchPattern, lines, Encoding.Default);
-        //                        using (StringReader reader = new(docText))
-        //                        {
-        //                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
-        //                        }
-        //                        result.IsReadOnlyFileType = true;
-        //                        if (PreviewPlainText)
-        //                        {
-        //                            result.FileInfo.TempFile = WriteTempFile(docText, file);
-        //                        }
-        //                        searchResults.Add(result);
-        //                    }
-        //                }
-        //            }
-        //            CloseDocument(wordDocument);
-        //        }
-        //    }
-        //    catch (OperationCanceledException)
-        //    {
-        //        // expected exception
-        //        searchResults.Clear();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        logger.Error(ex, "Failed to search inside Word file '{0}'", file);
-        //        searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
-        //    }
-        //    return searchResults;
-        //}
-
-        //private static string WriteTempFile(string text, string filePath)
-        //{
-        //    string tempFolder = Path.Combine(Utils.GetCacheFolder(), $"dnGREP-WORD");
-        //    if (!Directory.Exists(tempFolder))
-        //        Directory.CreateDirectory(tempFolder);
-
-        //    //// ensure each temp file is unique, even if the file name exists elsewhere in the search tree
-        //    //string fileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
-        //    //string tempFileName = Path.Combine(tempFolder, fileName);
-
-        //    // get the unique filename for this file using SHA256
-        //    // if the same file exists multiple places in the search tree, all will use the same temp file
-        //    string tempFileName = Utils.GetTempTextFileName(filePath);
-        //    string tempFilePath = Path.Combine(tempFolder, tempFileName);
-
-        //    File.WriteAllText(tempFileName, text);
-        //    return tempFileName;
-        //}
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems, PauseCancelToken pauseCancelToken)
