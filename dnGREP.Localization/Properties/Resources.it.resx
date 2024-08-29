@@ -71,7 +71,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
-    <value>Coverte i file PDF in text normale</value>
+    <value>Converte i file PDF in testo normale</value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
@@ -79,11 +79,11 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>Indicizzazione del file system, individua i file immediatamente</value>
+    <value>Indicizzazione del file system, individua i file all'istante</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value>Framework di logging per .NET</value>
+    <value>Framework di accesso per .NET</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Servizio di Indicizzazione di Everything</value>
+    <value>Servizio di indicizzazione di Everything</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="About_AboutDnGREP" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value>Ringraziamenti</value>
+    <value>Riconoscimenti</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>Libreria .NET per il riconoscimento del set di caratteri</value>
+    <value>Libreria .NET per rilevare il set di caratteri</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>Libreria .NET per lavorare con documenti di Word ed Excel</value>
+    <value>Libreria .NET per lavorare con documenti Word ed Excel</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
@@ -511,7 +511,7 @@
     <comment>Bookmark details dialog, error text</comment>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
-    <value>Includi cartelle nascosti</value>
+    <value>Includi cartelle nascoste</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
@@ -1260,5 +1260,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
     <value>Cerca con dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Test_HighlightGroups" xml:space="preserve">
+    <value>Gruppi in evidenza</value>
   </data>
 </root>
