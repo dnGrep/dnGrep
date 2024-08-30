@@ -173,7 +173,7 @@ namespace dnGREP.WPF
         {
             if (name == nameof(GrepResult) && GrepResult != null)
             {
-                MarkerLineNumbers = GrepResult.SearchResults.Where(sr => !sr.IsContext)
+                MarkerLineNumbers = GrepResult.SearchResults.Where(sr => !sr.IsContext && sr.LineNumber > 0)
                     .Select(sr => sr.LineNumber).Distinct().ToList();
 
             }
