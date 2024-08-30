@@ -120,7 +120,7 @@
             {
                 SpecialDetect(stream, 257, InArchiveFormat.Tar);
             }
-            catch (ArgumentException) {}
+            catch (ArgumentException) { }
 
             if (SpecialDetect(stream, 0x8001, InArchiveFormat.Iso))
             {
@@ -147,6 +147,11 @@
                 return InArchiveFormat.Hfs;
             }
 
+            if (HasTarHeader(stream))
+            {
+                return InArchiveFormat.Tar;
+            }
+
             #region Last resort for tar - can mistake
 
             if (stream.Length >= 1024)
@@ -156,7 +161,7 @@
                 stream.Read(buf, 0, 1024);
                 var isTar = true;
 
-                for (var i = 0; i < 1024; i++)
+                for (var i = 0; i < 1024 && isTar; i++)
                 {
                     isTar = isTar && buf[i] == 0;
                 }
@@ -194,9 +199,9 @@
 
                 #endregion
 
-                foreach (var format in new[] 
+                foreach (var format in new[]
                 {
-                    InArchiveFormat.Zip, 
+                    InArchiveFormat.Zip,
                     InArchiveFormat.SevenZip,
                     InArchiveFormat.Rar4,
                     InArchiveFormat.Rar,
@@ -248,6 +253,41 @@
                     return Formats.FormatByFileName(fileName, true);
                 }
             }
+        }
+
+        public static bool HasTarHeader(Stream stream)
+        {
+            // Pre-POSIX.1-1988 (i.e. v7) tar header without the 'ustar' signature
+            // Reference: https://en.wikipedia.org/wiki/Tar_(computing)
+            // Match the header checksum to the given value in the header
+            if (stream.Length > 256)
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+                var buf = new byte[256];
+                stream.Read(buf, 0, buf.Length);
+                uint checksum = 0;
+                string digits = string.Empty;
+                for (int idx = 0; idx < buf.Length; idx++)
+                {
+                    if (idx < 148 || idx >= 156)
+                    {
+                        checksum += buf[idx];
+                    }
+                    else // this is where the checksum bytes should be
+                    {
+                        // the checksum bytes are calculated as space
+                        checksum += 32;
+
+                        if (buf[idx] >= 48 && buf[idx] <= 55) //octal digits
+                        {
+                            digits += (char)buf[idx];
+                        }
+                    }
+                }
+                uint expected = Convert.ToUInt32(digits, 8);
+                return checksum == expected;
+            }
+            return false;
         }
     }
 #endif

@@ -129,10 +129,18 @@ namespace dnGREP.Common
                 string innerFileName = fileInfo.FileName;
 
                 int index = fileInfo.Index;
+                bool isAnonymousArchive = false;
                 if (innerFileName == "[no name]" && extractor.ArchiveFileData.Count == 1)
                 {
+                    // this may be a file or an archive
+
                     index = 0;
                     innerFileName = Path.GetFileNameWithoutExtension(fileName);
+
+                    string innerExtension = Path.GetExtension(innerFileName);
+                    if (string.IsNullOrEmpty(innerExtension)) // no file extension, assume it is an archive
+                        isAnonymousArchive = true;
+
                     ArchiveFileInfo temp = Copy(fileInfo);
                     temp.FileName = innerFileName;
                     fileData = new(fileName, temp);
@@ -172,7 +180,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                if (Utils.IsArchive(innerFileName))
+                if (isAnonymousArchive || Utils.IsArchive(innerFileName))
                 {
                     using Stream stream = new MemoryStream();
                     extractor.ExtractFile(index, stream);
