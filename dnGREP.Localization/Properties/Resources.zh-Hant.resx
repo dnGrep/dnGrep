@@ -4100,4 +4100,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
     <value>從快取中刪除檔案, 若未使用</value>
   </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>檢視 Whitespace</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>建立快取檔案金鑰時, 使用:</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>完整檔案的雜湊值</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>檔案大小和修改時間的雜湊值</value>
+  </data>
 </root>
