@@ -9,7 +9,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
-using dnGREP.Common.UI;
 using dnGREP.Localization.Properties;
 using Microsoft.Win32;
 
@@ -29,6 +28,7 @@ namespace dnGREP.WPF
         private string queuedScript = string.Empty;
         private bool queuedSearchRequest = false;
         private bool scriptStopAfterFirstMatch = false;
+        private bool scriptCanceled = false;
         private void AddScriptMessage(string message)
         {
             if (ScriptMessages.Count == 0 && !string.IsNullOrEmpty(currentScriptFile))
@@ -49,7 +49,7 @@ namespace dnGREP.WPF
         {
             if (SetCommandMap.Count == 0)
             {
-                SetCommandMap.Add("folder", new ScriptCommand<string>(p => FileOrFolderPath = UiUtils.QuoteIfNeeded(p)));
+                SetCommandMap.Add("folder", new ScriptCommand<string>(p => FileOrFolderPath = p));
                 SetCommandMap.Add("pathtomatch", new ScriptCommand<string>(p => FilePattern = p));
                 SetCommandMap.Add("pathtoignore", new ScriptCommand<string>(p => FilePatternIgnore = p));
                 SetCommandMap.Add("searchinarchives", new ScriptCommand<bool>(p => IncludeArchive = p));
@@ -302,6 +302,7 @@ namespace dnGREP.WPF
 
         private void CancelScript()
         {
+            scriptCanceled = true;
             Cancel();
 
             if (!ScriptMessages.Contains(Resources.Scripts_ScriptCanceled))
@@ -475,7 +476,7 @@ namespace dnGREP.WPF
                             SearchCommand.Execute(null);
                         }
 
-                        if (pauseCancelToken.IsCancellationRequested)
+                        if (pauseCancelToken.IsCancellationRequested || scriptCanceled)
                         {
                             break;
                         }
@@ -486,7 +487,7 @@ namespace dnGREP.WPF
 
                     case "replace":
                         ReplaceCommand.Execute(null);
-                        if (pauseCancelToken.IsCancellationRequested)
+                        if (pauseCancelToken.IsCancellationRequested || scriptCanceled)
                         {
                             break;
                         }
