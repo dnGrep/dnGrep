@@ -4158,4 +4158,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
     <value>将文件缓存在 Temp 文件夹中</value>
   </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>选择创建缓存文件密钥的方式：</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>完整文件的哈希值</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>文件大小哈希值和修改时间</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>查看空白处</value>
+  </data>
 </root>
