@@ -2,8 +2,6 @@ param( [string]$workingDirectory = $PSScriptRoot )
 Write-Host 'Executing Powershell script make-msix.ps1 with working directory set to: ' $workingDirectory
 Set-Location $workingDirectory
 
-Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" | Select Name
-
 $version = $env:APPVEYOR_BUILD_VERSION
 Write-Host 'New version is: ' $version
 
