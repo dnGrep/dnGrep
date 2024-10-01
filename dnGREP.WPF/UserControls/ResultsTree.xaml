@@ -208,7 +208,7 @@
                 <EventSetter Event="RequestBringIntoView" Handler="TreeView_RequestBringIntoView" />
                 <EventSetter Event="Selected" Handler="TreeView_OnSelected" />
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                <Setter Property="BorderThickness" Value="1.5" />
+                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="1" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
