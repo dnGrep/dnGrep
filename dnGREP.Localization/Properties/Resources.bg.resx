@@ -4170,4 +4170,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
     <value>Създаване на идентификатор на временна памет с помощта на:</value>
   </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Заменяне в избраните файлове</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Използване на диалога за заменяне</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>Не са избрани файлове, в които да бъде заменяно.</value>
+  </data>
 </root>
