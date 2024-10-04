@@ -46,6 +46,17 @@ namespace dnGREP.WPF
             FailureCount = 0;
         }
 
+        public void Clear(List<GrepSearchResult> list)
+        {
+            foreach (var item in list)
+            {
+                if (SearchResults.FirstOrDefault(r => r.GrepResult == item) is FormattedGrepResult result)
+                {
+                    SearchResults.Remove(result);
+                }
+            }
+        }
+
         public PathSearchText PathSearchText { get; internal set; } = new();
 
         private void OnSelectionChanged(ITreeItem item)
@@ -394,7 +405,7 @@ namespace dnGREP.WPF
             p => CompareFiles(),
             q => CanCompareFiles);
 
-        private List<GrepSearchResult> GetSelectedFiles()
+        public List<GrepSearchResult> GetSelectedFiles()
         {
             List<GrepSearchResult> files = [];
             foreach (var item in SelectedItems)
@@ -408,6 +419,31 @@ namespace dnGREP.WPF
                 {
                     if (!files.Contains(lineNode.Parent.GrepResult))
                         files.Add(lineNode.Parent.GrepResult);
+                }
+            }
+            return files;
+        }
+
+        public List<GrepSearchResult> GetWritableSelectedFiles()
+        {
+            List<GrepSearchResult> files = [];
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    if (!files.Contains(fileNode.GrepResult))
+                    {
+                        if (!Utils.IsReadOnly(fileNode.GrepResult))
+                            files.Add(fileNode.GrepResult);
+                    }
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    if (!files.Contains(lineNode.Parent.GrepResult))
+                    {
+                        if (!Utils.IsReadOnly(lineNode.Parent.GrepResult))
+                            files.Add(lineNode.Parent.GrepResult);
+                    }
                 }
             }
             return files;

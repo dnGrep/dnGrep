@@ -249,6 +249,7 @@ namespace dnGREP.WPF
         private BookmarksWindow? bookmarkWindow;
         private readonly HashSet<string> currentSearchFiles = [];
         private int processedFiles;
+        private bool needsClearUndo;
         private readonly List<ReplaceDef> undoList = [];
         private readonly DispatcherTimer idleTimer = new(DispatcherPriority.ContextIdle);
         private readonly Dictionary<string, int> precedingMatches = [];
@@ -287,7 +288,7 @@ namespace dnGREP.WPF
 
         public static DockViewModel DockVM => DockViewModel.Instance;
 
-        public NavigationToolsViewModel NavTools => NavigationToolsViewModel.Instance;
+        public static NavigationToolsViewModel NavTools => NavigationToolsViewModel.Instance;
 
         [ObservableProperty]
         private double mainFormFontSize;
@@ -370,6 +371,13 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private double previewDockedHeight = 200;
+
+        [ObservableProperty]
+        private ReplaceType replaceType;
+        partial void OnReplaceTypeChanged(ReplaceType value)
+        {
+            ReplaceSwitch();
+        }
 
         [ObservableProperty]
         private SortType sortType;
@@ -573,7 +581,7 @@ namespace dnGREP.WPF
         /// Returns a command that starts a search in results.
         /// </summary>
         public ICommand ReplaceCommand => new RelayCommand(
-            param => Replace(),
+            param => ReplaceSwitch(),
             param => CanReplace);
 
         /// <summary>
@@ -794,10 +802,13 @@ namespace dnGREP.WPF
         {
             base.LoadSettings();
 
-            // changing the private field so as to not trigger sorting the results when
+#pragma warning disable MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
+            // changing the private field so as to not trigger sorting the results or replace when
             // the Options dialog is closed
-            SortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
-            SortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+            sortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
+            sortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+            replaceType = GrepSettings.Instance.Get<ReplaceType>(GrepSettings.Key.TypeOfReplace);
+#pragma warning restore MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
             NaturalSort = GrepSettings.Instance.Get<bool>(GrepSettings.Key.NaturalSort);
             ResultsViewModel.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
             ResultsViewModel.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
@@ -846,6 +857,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.SortDirection, SortDirection);
             Settings.Set(GrepSettings.Key.NaturalSort, NaturalSort);
             Settings.Set(GrepSettings.Key.TypeOfSort, SortType);
+            Settings.Set(GrepSettings.Key.TypeOfReplace, ReplaceType);
             Settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
             Settings.Set(GrepSettings.Key.ResultsTreeScale, ResultsViewModel.ResultsScale);
             Settings.Set(GrepSettings.Key.ResultsTreeWrap, ResultsViewModel.WrapText);
@@ -1153,7 +1165,7 @@ namespace dnGREP.WPF
 
                         if (param.TypeOfSearch == SearchType.Regex)
                         {
-                            if (!ValidateRegex(IsScriptRunning, searchPatterns.Length > 0 ? searchPatterns : [param.SearchFor]))
+                            if (!ValidateRegex(searchPatterns.Length > 0 ? searchPatterns : [param.SearchFor]))
                             {
                                 e.Result = null;
                                 return;
@@ -1312,7 +1324,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool ValidateRegex(bool isScriptRunning, string[] patterns)
+        private bool ValidateRegex(string[] patterns)
         {
             bool result = true;
             foreach (string pattern in patterns)
@@ -1538,6 +1550,7 @@ namespace dnGREP.WPF
                     CurrentGrepOperation = GrepOperation.None;
                     OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
+                    needsClearUndo = true;
                     UpdateReplaceButtonTooltip(false);
 
                     if (FilesFound && GrepSettings.Instance.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch))
@@ -1599,7 +1612,10 @@ namespace dnGREP.WPF
                     OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     ClearMatchCountStatus();
-                    ResultsViewModel.Clear();
+                    if (ReplaceType != ReplaceType.SelectedFiles)
+                    {
+                        ResultsViewModel.Clear();
+                    }
                     UpdateReplaceButtonTooltip(false);
                 }
 
@@ -1895,6 +1911,19 @@ namespace dnGREP.WPF
             }
         }
 
+        private void ReplaceSwitch()
+        {
+            switch (ReplaceType)
+            {
+                case ReplaceType.ReplaceDialog:
+                    Replace();
+                    break;
+                case ReplaceType.SelectedFiles:
+                    ReplaceSelectedFiles();
+                    break;
+            }
+        }
+
         private void Replace()
         {
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
@@ -1934,12 +1963,6 @@ namespace dnGREP.WPF
 
                 List<GrepSearchResult> replaceList = ResultsViewModel.GetWritableList()
                     .Where(sr => sr.Matches.Count != 0).ToList(); // filter out files with errors shown in results tree
-                foreach (var file in roFiles)
-                {
-                    var item = replaceList.FirstOrDefault(r => r.FileNameReal == file);
-                    if (item != null)
-                        replaceList.Remove(item);
-                }
 
                 bool doReplace = false;
                 if (IsScriptRunning)
@@ -1969,47 +1992,7 @@ namespace dnGREP.WPF
 
                 if (doReplace)
                 {
-                    pauseCancelTokenSource ??= new();
-                    CanUndo = false;
-                    Utils.DeleteUndoFolder();
-                    undoList.Clear();
-                    foreach (GrepSearchResult gsr in replaceList)
-                    {
-                        string filePath = gsr.FileNameReal;
-                        if (!gsr.IsReadOnlyFileType && !undoList.Any(r => r.OriginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
-                        {
-                            undoList.Add(new ReplaceDef(filePath, gsr.Matches));
-                        }
-                    }
-
-                    if (undoList.Count > 0)
-                    {
-                        StatusMessage = Resources.Main_Status_Replacing;
-
-                        PreviewModel.FilePath = string.Empty;
-                        PreviewTitle = string.Empty;
-
-                        CurrentGrepOperation = GrepOperation.Replace;
-
-                        SearchReplaceCriteria workerParams = new(this, pauseCancelTokenSource.Token);
-
-                        workerParams.AddReplaceFiles(undoList);
-
-                        ClearMatchCountStatus();
-                        ResultsViewModel.Clear();
-                        idleTimer.Start();
-                        workerSearchReplace.RunWorkerAsync(workerParams);
-                        UpdateBookmarks();
-
-                        // reset the keyboard focus back to the SearchFor box
-                        IsSearchForFocused = false;
-                        IsSearchForFocused = true;
-                    }
-                    else if (IsScriptRunning)
-                    {
-                        AddScriptMessage("Search list is empty, nothing to replace.");
-                        Dispatcher.CurrentDispatcher.Invoke(() => ContinueScript(pauseCancelTokenSource.Token));
-                    }
+                    ExecuteReplace(replaceList, true);
                 }
             }
             else if (IsScriptRunning)
@@ -2017,6 +2000,132 @@ namespace dnGREP.WPF
                 // in a bad state, do not continue
                 CancelScript();
                 AddScriptMessage("Replace busy, script run stopped.");
+            }
+        }
+
+        private void ExecuteReplace(List<GrepSearchResult> replaceList, bool clearAll)
+        {
+            pauseCancelTokenSource ??= new();
+
+            // clear the undo list only on the first replace after search
+            if (needsClearUndo)
+            {
+                CanUndo = false;
+                Utils.DeleteUndoFolder();
+                undoList.Clear();
+                needsClearUndo = false;
+            }
+
+            List<ReplaceDef> toReplace = [];
+            foreach (GrepSearchResult gsr in replaceList)
+            {
+                string filePath = gsr.FileNameReal;
+                if (!gsr.IsReadOnlyFileType && !undoList.Any(r => r.OriginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
+                {
+                    var item = new ReplaceDef(filePath, gsr.Matches);
+                    toReplace.Add(item);
+                    undoList.Add(item);
+                }
+            }
+
+            if (toReplace.Count > 0)
+            {
+                StatusMessage = Resources.Main_Status_Replacing;
+
+                PreviewModel.FilePath = string.Empty;
+                PreviewTitle = string.Empty;
+
+                CurrentGrepOperation = GrepOperation.Replace;
+
+                SearchReplaceCriteria workerParams = new(this, pauseCancelTokenSource.Token);
+
+                workerParams.AddReplaceFiles(toReplace);
+
+                ClearMatchCountStatus();
+                if (clearAll)
+                {
+                    ResultsViewModel.Clear();
+                }
+                else
+                {
+                    ResultsViewModel.Clear(replaceList);
+                }
+                idleTimer.Start();
+                workerSearchReplace.RunWorkerAsync(workerParams);
+                UpdateBookmarks();
+
+                // reset the keyboard focus back to the SearchFor box
+                IsSearchForFocused = false;
+                IsSearchForFocused = true;
+            }
+            else if (IsScriptRunning)
+            {
+                AddScriptMessage("Search list is empty, nothing to replace.");
+                Dispatcher.CurrentDispatcher.Invoke(() => ContinueScript(pauseCancelTokenSource.Token));
+            }
+        }
+
+        private void ReplaceSelectedFiles()
+        {
+            if (!ResultsViewModel.HasSelection)
+            {
+                MessageBox.Show(Resources.MessageBox_ThereAreNoFilesSelectedForReplace,
+                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Replace,
+                    MessageBoxButton.OK, MessageBoxImage.Information,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+
+                return;
+            }
+
+            if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy &&
+                ResultsViewModel.HasSelection)
+            {
+                if (string.IsNullOrEmpty(ReplaceWith))
+                {
+                    if (!IsScriptRunning)
+                    {
+                        if (MessageBox.Show(Resources.MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString,
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Replace,
+                            MessageBoxButton.YesNo, MessageBoxImage.Question,
+                            MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                List<string> roFiles = Utils.GetReadOnlyFiles(ResultsViewModel.GetSelectedFiles());
+                if (!IsScriptRunning && roFiles.Count > 0)
+                {
+                    StringBuilder sb = new(Resources.MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped);
+                    sb.Append(Environment.NewLine)
+                      .Append(Resources.MessageBox_WouldYouLikeToContinue)
+                      .Append(Environment.NewLine).Append(Environment.NewLine);
+                    foreach (string fileName in roFiles)
+                    {
+                        sb.AppendLine(" - " + new FileInfo(fileName).Name);
+                    }
+                    if (MessageBox.Show(sb.ToString(), Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Replace,
+                        MessageBoxButton.YesNo, MessageBoxImage.Question,
+                        MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
+                    {
+                        return;
+                    }
+                }
+
+                List<GrepSearchResult> replaceList = ResultsViewModel.GetWritableSelectedFiles()
+                    .Where(sr => sr.Matches.Count != 0).ToList(); // filter out files with errors shown in results tree
+
+                // mark all matches for replace
+                foreach (GrepSearchResult gsr in replaceList)
+                {
+                    foreach (var match in gsr.Matches)
+                    {
+                        match.ReplaceMatch = true;
+                    }
+                }
+
+                ExecuteReplace(replaceList, false);
             }
         }
 
@@ -2052,8 +2161,10 @@ namespace dnGREP.WPF
                                 MessageBoxButton.OK, MessageBoxImage.Information,
                                 MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                         }
+                        CanUndo = false;
                         Utils.DeleteUndoFolder();
                         undoList.Clear();
+                        needsClearUndo = false;
                     }
                     else
                     {

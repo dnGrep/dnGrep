@@ -2649,6 +2649,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace in selected files.
+        /// </summary>
+        public static string Main_ReplaceMenu_ReplaceInSelectedFiles {
+            get {
+                return ResourceManager.GetString("Main_ReplaceMenu_ReplaceInSelectedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Replace dialog.
+        /// </summary>
+        public static string Main_ReplaceMenu_UseReplaceDialog {
+            get {
+                return ResourceManager.GetString("Main_ReplaceMenu_UseReplaceDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No matches to replace.
         /// </summary>
         public static string Main_ReplaceTooltip_NoMatchesToReplace {
@@ -4328,6 +4346,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_ThePlugInCacheSettingsHaveChanged {
             get {
                 return ResourceManager.GetString("MessageBox_ThePlugInCacheSettingsHaveChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no files selected for replace..
+        /// </summary>
+        public static string MessageBox_ThereAreNoFilesSelectedForReplace {
+            get {
+                return ResourceManager.GetString("MessageBox_ThereAreNoFilesSelectedForReplace", resourceCulture);
             }
         }
         
