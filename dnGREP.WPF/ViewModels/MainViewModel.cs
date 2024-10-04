@@ -742,7 +742,7 @@ namespace dnGREP.WPF
                 if (bmk != null)
                 {
                     IsBookmarked = true;
-                    IsFolderBookmarked = bmk.FolderReferences.Contains(FileOrFolderPath);
+                    IsFolderBookmarked = bmk.FolderReferences.Contains(Path.TrimEndingDirectorySeparator(FileOrFolderPath));
                 }
                 else
                 {
@@ -753,7 +753,7 @@ namespace dnGREP.WPF
 
             if (name == nameof(FileOrFolderPath) && !inUpdateBookmarks)
             {
-                var bmk = BookmarkLibrary.Instance.Bookmarks.FirstOrDefault(b => b.FolderReferences.Contains(FileOrFolderPath));
+                var bmk = BookmarkLibrary.Instance.Bookmarks.FirstOrDefault(b => b.FolderReferences.Contains(Path.TrimEndingDirectorySeparator(FileOrFolderPath)));
                 IsFolderBookmarked = bmk != null;
                 if (bmk != null)
                 {
@@ -2445,9 +2445,10 @@ namespace dnGREP.WPF
                 else
                 {
                     Bookmark? bmk = BookmarkLibrary.Instance.Find(current);
-                    if (bmk != null && bmk.FolderReferences.Contains(FileOrFolderPath))
+                    string folder = Path.TrimEndingDirectorySeparator(FileOrFolderPath);
+                    if (bmk != null && bmk.FolderReferences.Contains(folder))
                     {
-                        bmk.FolderReferences.Remove(FileOrFolderPath);
+                        bmk.FolderReferences.Remove(folder);
                     }
                     IsFolderBookmarked = false;
                 }
@@ -2469,7 +2470,7 @@ namespace dnGREP.WPF
                     Bookmark? bmk = BookmarkLibrary.Instance.Find(current);
                     if (bmk != null)
                     {
-                        int count = bmk.FolderReferences.Count(s => s != FileOrFolderPath);
+                        int count = bmk.FolderReferences.Count(s => s != Path.TrimEndingDirectorySeparator(FileOrFolderPath));
                         if (count > 0)
                         {
                             string message;
@@ -2565,9 +2566,10 @@ namespace dnGREP.WPF
                 {
                     if (disassociateWithFolder)
                     {
-                        if (bmk.FolderReferences.Contains(FileOrFolderPath))
+                        string folder = Path.TrimEndingDirectorySeparator(FileOrFolderPath);
+                        if (bmk.FolderReferences.Contains(folder))
                         {
-                            bmk.FolderReferences.Remove(FileOrFolderPath);
+                            bmk.FolderReferences.Remove(folder);
                             modified = true;
                         }
                     }
@@ -2585,9 +2587,10 @@ namespace dnGREP.WPF
                 Bookmark? bmk = BookmarkLibrary.Instance.Find(current);
                 if (bmk != null)
                 {
-                    if (disassociateWithFolder && IsFolderBookmarked && bmk.FolderReferences.Contains(FileOrFolderPath))
+                    string folder = Path.TrimEndingDirectorySeparator(FileOrFolderPath);
+                    if (disassociateWithFolder && IsFolderBookmarked && bmk.FolderReferences.Contains(folder))
                     {
-                        bmk.FolderReferences.Remove(FileOrFolderPath);
+                        bmk.FolderReferences.Remove(folder);
                         modified = true;
                     }
                     else if (IsBookmarked)

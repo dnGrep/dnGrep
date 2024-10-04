@@ -1,4 +1,5 @@
-﻿using dnGREP.Common;
+﻿using System.IO;
+using dnGREP.Common;
 using Xunit;
 
 namespace Tests
@@ -136,6 +137,15 @@ namespace Tests
 
             bookmarkEntity.AddFolderReference(bmk, @"c:\test\path");
             Assert.Single(bmk.FolderReferences);
+
+            bookmarkEntity.AddFolderReference(bmk, @"c:\test\path\");
+            Assert.Single(bmk.FolderReferences);
+
+            bool isFolderBookmarked = bmk.FolderReferences.Contains(Path.TrimEndingDirectorySeparator(@"c:\test\path"));
+            Assert.True(isFolderBookmarked);
+
+            isFolderBookmarked = bmk.FolderReferences.Contains(Path.TrimEndingDirectorySeparator(@"c:\test\path\"));
+            Assert.True(isFolderBookmarked);
         }
 
         [Fact]
@@ -167,6 +177,7 @@ namespace Tests
 
             bookmarkEntity.AddFolderReference(bmk, @"c:\test\path");
             bookmarkEntity.AddFolderReference(bmk, @"c:\other\path");
+            bookmarkEntity.AddFolderReference(bmk, @"c:\other\path\");
             Assert.Equal(2, bmk.FolderReferences.Count);
         }
 
@@ -208,6 +219,11 @@ namespace Tests
             });
             Assert.NotNull(bmk2);
 
+            bookmarkEntity.AddFolderReference(bmk2, @"c:\test\path");
+            Assert.Single(bmk2.FolderReferences);
+            Assert.Empty(bmk.FolderReferences);
+
+            bookmarkEntity.AddFolderReference(bmk, @"c:\test\path\");
             bookmarkEntity.AddFolderReference(bmk2, @"c:\test\path");
             Assert.Single(bmk2.FolderReferences);
             Assert.Empty(bmk.FolderReferences);

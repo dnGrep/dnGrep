@@ -334,7 +334,8 @@ namespace dnGREP.WPF
                         ApplyFilePropertyFilters = editBmk.ApplyFilePropertyFilters,
                         ApplyContentSearchFilters = editBmk.ApplyContentSearchFilters,
                     };
-                    string[] paths = editBmk.PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
+                    string[] paths = editBmk.PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(Path.TrimEndingDirectorySeparator).ToArray();
                     newBmk.FolderReferences.AddRange(paths);
 
                     BookmarkLibrary.Instance.Bookmarks.Add(newBmk);
@@ -462,7 +463,8 @@ namespace dnGREP.WPF
                     ApplyFilePropertyFilters = editBmk.ApplyFilePropertyFilters,
                     ApplyContentSearchFilters = editBmk.ApplyContentSearchFilters,
                 };
-                string[] paths = editBmk.PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
+                string[] paths = editBmk.PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(Path.TrimEndingDirectorySeparator).ToArray();
                 newBmk.FolderReferences.AddRange(paths);
 
                 editBmk.Id = newBmk.Id;
@@ -687,7 +689,8 @@ namespace dnGREP.WPF
                 ApplyFileSourceFilters = ApplyFileSourceFilters,
                 ApplyFilePropertyFilters = ApplyFilePropertyFilters,
                 ApplyContentSearchFilters = ApplyContentSearchFilters,
-                FolderReferences = [.. PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries)]
+                FolderReferences = [.. PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(Path.TrimEndingDirectorySeparator)]
             };
         }
 

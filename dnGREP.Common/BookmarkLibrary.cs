@@ -102,6 +102,12 @@ namespace dnGREP.Common
                     {
                         bk.Id = Guid.NewGuid().ToString();
                     }
+
+                    for (int idx = 0; idx < bk.FolderReferences.Count; idx++)
+                    {
+                        var folder = bk.FolderReferences[idx];
+                        bk.FolderReferences[idx] = Path.TrimEndingDirectorySeparator(folder);
+                    }
                 }
                 UpdateOrdinals();
             }
@@ -155,6 +161,7 @@ namespace dnGREP.Common
 
         public void AddFolderReference(Bookmark bookmark, string folder)
         {
+            folder = Path.TrimEndingDirectorySeparator(folder);
             var oldRefs = Bookmarks.Where(b => b.FolderReferences.Contains(folder)).ToArray();
             foreach (Bookmark bk in oldRefs)
             {
@@ -272,7 +279,7 @@ namespace dnGREP.Common
         public bool ShouldSerializeApplySearchFilters() { return Version > 2; }
         public bool ShouldSerializeSkipRemoteCloudStorageFiles() { return Version > 3; }
         public bool ShouldSerializeIgnoreFilterName() { return Version > 5; }
-        public bool ShouldSerializeGlobal() {  return Version > 6; }
+        public bool ShouldSerializeGlobal() { return Version > 6; }
 
         public override bool Equals(object? obj)
         {
