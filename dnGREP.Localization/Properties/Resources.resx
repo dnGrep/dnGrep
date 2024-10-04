@@ -4188,7 +4188,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
     <value>Hash of file size and modified time</value>
-    <comment>Radio button label
-</comment>
+    <comment>Radio button label</comment>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Use Replace dialog</value>
+    <comment>Main window replace options menu label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Replace in selected files</value>
+    <comment>Main window replace options menu label (accel)</comment>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>There are no files selected for replace.</value>
+    <comment>Message box text for: replace selected files with no selection</comment>
   </data>
 </root>

@@ -91,6 +91,12 @@ namespace dnGREP.Common
         ReadOnly,
     }
 
+    public enum ReplaceType
+    { 
+        ReplaceDialog,
+        SelectedFiles,
+    }
+
     public enum ReportMode
     {
         FullLine,

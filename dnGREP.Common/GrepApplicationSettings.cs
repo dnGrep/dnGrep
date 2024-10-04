@@ -136,6 +136,8 @@ namespace dnGREP.Common
             public const string CurrentTheme = "CurrentTheme";
             [DefaultValue("en")]
             public const string CurrentCulture = "CurrentCulture";
+            [DefaultValue(ReplaceType.ReplaceDialog)]
+            public const string TypeOfReplace = "TypeOfReplace";
             [DefaultValue(SortType.FileNameDepthFirst)]
             public const string TypeOfSort = "TypeOfSort";
             [DefaultValue(ListSortDirection.Ascending)]

@@ -1055,7 +1055,7 @@
                                 </ContextMenu>
                             </my:SplitButton.ContextMenu>
                         </my:SplitButton>
-                        <Button Margin="3" Padding="8,3"
+                        <my:SplitButton Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_ReplaceButton'}"
                                 ToolTipService.ShowOnDisabled="True"
                                 Command="{Binding ReplaceCommand}"
@@ -1066,7 +1066,17 @@
                                     <TextBlock Text="{Binding ReplaceButtonToolTip}"/>
                                 </ToolTip>
                             </Button.ToolTip>
-                        </Button>
+                            <my:SplitButton.ContextMenu>
+                                <ContextMenu>
+                                    <my:RadioMenuItem Header="{l:Loc Key='Main_ReplaceMenu_UseReplaceDialog'}"
+                                                      GroupName="R1"
+                                                      IsChecked="{Binding Path=ReplaceType, Converter={StaticResource ebc}, ConverterParameter=ReplaceDialog}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key='Main_ReplaceMenu_ReplaceInSelectedFiles'}"
+                                                      GroupName="R1"
+                                                      IsChecked="{Binding Path=ReplaceType, Converter={StaticResource ebc}, ConverterParameter=SelectedFiles}"/>
+                                </ContextMenu>
+                            </my:SplitButton.ContextMenu>
+                        </my:SplitButton>
                         <my:SplitButton Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_SortButton'}"
                                 Command="{Binding SortCommand}"
