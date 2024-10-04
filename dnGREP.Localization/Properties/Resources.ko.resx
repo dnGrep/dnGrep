@@ -331,7 +331,7 @@
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>음역(영어)</value>
+    <value>음성</value>
     <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
@@ -367,7 +367,7 @@
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>Stop after first match</value>
+    <value>첫 번째 일치 후 중지</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -715,7 +715,7 @@
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
-    <value>검색어:</value>
+    <value>검색 대상:</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
@@ -1275,7 +1275,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>이진</value>
+    <value>바이트</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
@@ -1435,7 +1435,7 @@
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>모든 단어(_W)</value>
+    <value>전체 단어(_W)</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
@@ -1443,7 +1443,7 @@
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>텍스트 묶음</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
@@ -1883,7 +1883,7 @@
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>텍스트 묶음</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
@@ -1987,7 +1987,7 @@
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>텍스트 묶음</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
@@ -2027,7 +2027,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>Dot as newline</value>
+    <value>점으로 줄 바꿈</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
@@ -2055,7 +2055,7 @@
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value>여러행</value>
+    <value>여러 행</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
@@ -2079,7 +2079,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value>검색어:</value>
+    <value>검색 대상:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
@@ -2087,7 +2087,7 @@
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
-    <value>Search in results</value>
+    <value>결과 검색</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
@@ -2095,11 +2095,11 @@
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>Stop after first match</value>
+    <value>첫 번째 일치 후 중지</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>단어 전체</value>
+    <value>전체 단어</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
@@ -2451,7 +2451,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>원격 클라우드 파일 넘기기</value>
+    <value>원격 클라우드 저장소 파일 건너뛰기</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
@@ -3425,5 +3425,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
     <value>구성하지 않음</value>
+  </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>전체</value>
   </data>
 </root>
