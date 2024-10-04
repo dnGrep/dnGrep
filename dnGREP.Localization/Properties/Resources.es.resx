@@ -2440,7 +2440,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>/sc [scriptKey]
 -sc [scriptKey]
 -script [scriptKey]
-    Ejecuta un script identificado por una clave (scriptKey).</value>
+    Ejecuta el script identificado por la clave de script.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Bookmarks_AltDownArrow" xml:space="preserve">
@@ -2480,10 +2480,10 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
-    <value>/sep [separator character or text]
--sep [separator character or text]
--listItemSeparator [separator character or text]
-    Establece el caracter o cadena de texto que separará los elementos de la lista en el output.</value>
+    <value>/sep [carácter separador o texto]
+-sep [carácter separador o texto]
+-listItemSeparator [carácter o texto separador]
+    Establece el carácter o cadena para separar los elementos de la lista en una línea de la salida del informe.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFileInformation" xml:space="preserve">
