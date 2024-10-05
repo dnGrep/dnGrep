@@ -4170,4 +4170,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Preview_ViewWhitespace" xml:space="preserve">
     <value>查看空白处</value>
   </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>使用“替换”对话框</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>未选中要进行替换的文件。</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>在选定文件中进行替换</value>
+  </data>
 </root>
