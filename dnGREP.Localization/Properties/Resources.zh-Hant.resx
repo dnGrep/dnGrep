@@ -4112,4 +4112,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
     <value>檔案大小和修改時間的雜湊值</value>
   </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>使用取代對話框</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>沒有選取要取代的檔案.</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>替換取代的檔案</value>
+  </data>
 </root>
