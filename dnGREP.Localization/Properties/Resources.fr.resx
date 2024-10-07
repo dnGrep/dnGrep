@@ -3089,4 +3089,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Arbre de résultats</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Remplacer dans les fichiers sélectionnés</value>
+  </data>
 </root>
