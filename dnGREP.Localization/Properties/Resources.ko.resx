@@ -331,7 +331,7 @@
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>음역(영어)</value>
+    <value>음성</value>
     <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
@@ -367,7 +367,7 @@
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>Stop after first match</value>
+    <value>첫 번째 일치 후 중지</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -499,27 +499,27 @@
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
-    <value>Copy to clipboard</value>
+    <value>클립보드로 복사</value>
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
-    <value>검색어:</value>
+    <value>검색 대상:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
-    <value>Search result:</value>
+    <value>검색 결과:</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
-    <value>이진</value>
+    <value>바이트</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_Title" xml:space="preserve">
-    <value>Test</value>
+    <value>테스트</value>
     <comment>Test window title</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value>\w matches alpha-numerics</value>
+    <value>\w 영숫자와 일치</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
@@ -715,7 +715,7 @@
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
-    <value>검색어:</value>
+    <value>검색 대상:</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
@@ -747,11 +747,11 @@
     <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
-    <value>Replace result:</value>
+    <value>결과 바꾸기:</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>The replace text is not valid XML!</value>
+    <value>대체 텍스트가 유효한 XML이 아닙니다!</value>
     <comment>Test window, error text</comment>
   </data>
   <data name="Test_SearchType_XPath" xml:space="preserve">
@@ -759,15 +759,15 @@
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>모든 단어(_W)</value>
+    <value>전체 단어(_W)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value>. matches all characters</value>
+    <value>. 모든 문자와 일치합니다</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value>\d matches digits</value>
+    <value>\d 숫자 일치</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
@@ -787,19 +787,19 @@
     <comment>Main window, XPath status</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>Hit F1 for more regular expression patterns</value>
+    <value>더 규칙적인 표현 패턴을 보려면 F1을 누릅니다</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; replaces entire regular expression</value>
+    <value>$&amp; 정규식 전체를 대체</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc… inserts the text matched between capturing parentheses into the replacement text</value>
+    <value>$1, $2, $3 등... 캡처 괄호 사이에 일치하는 텍스트를 대체 텍스트에 삽입합니다</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>닫기</value>
     <comment>Window title bar close button tooltip</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
@@ -1275,7 +1275,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>이진</value>
+    <value>바이트</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
@@ -1435,7 +1435,7 @@
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>모든 단어(_W)</value>
+    <value>전체 단어(_W)</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
@@ -1443,7 +1443,7 @@
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>텍스트 묶음</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
@@ -1883,7 +1883,7 @@
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>텍스트 묶음</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
@@ -1987,7 +1987,7 @@
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>텍스트 묶음</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
@@ -2027,7 +2027,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>Dot as newline</value>
+    <value>점으로 줄 바꿈</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
@@ -2047,7 +2047,7 @@
     <comment>Test window, search group box heading</comment>
   </data>
   <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>음역(영어)</value>
+    <value>음성</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
@@ -2055,7 +2055,7 @@
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value>여러행</value>
+    <value>여러 행</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
@@ -2079,7 +2079,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value>검색어:</value>
+    <value>검색 대상:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
@@ -2087,7 +2087,7 @@
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
-    <value>Search in results</value>
+    <value>결과 검색</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
@@ -2095,11 +2095,11 @@
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>Stop after first match</value>
+    <value>첫 번째 일치 후 중지</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>단어 전체</value>
+    <value>전체 단어</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
@@ -2115,19 +2115,19 @@
     <comment>Test window, Close button text (accel)</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>온점에 행문자 포함(_D)</value>
+    <value>점으로 줄 바꿈(_D)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>Highlight Groups</value>
+    <value>그룹 강조 표시</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
-    <value>여러행(_M)</value>
+    <value>여러 행(_M)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
-    <value>No matches found</value>
+    <value>일치하는 항목을 찾을 수 없습니다</value>
     <comment>Test window, results box message text</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
@@ -2135,7 +2135,7 @@
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
-    <value>Sample input text:</value>
+    <value>샘플 입력 텍스트:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
@@ -2147,39 +2147,39 @@
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value>\s matches space</value>
+    <value>\s 공간 일치</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
-    <value>* matches any number of characters</value>
+    <value>* 임의의 수의 문자와 일치</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA6_Matches1To3Characters" xml:space="preserve">
-    <value>{1,3} matches 1 to 3 characters</value>
+    <value>{1,3} 1~3자 일치</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$$ inserts a single dollar sign into the replacement text</value>
+    <value>$$ 대체 텍스트에 단일 달러 기호를 삽입합니다</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
-    <value>Dock this pop-up back into the main window</value>
+    <value>이 팝업을 기본 창에 다시 도킹합니다</value>
     <comment>Docking window docking button tooltip</comment>
   </data>
   <data name="Window_Maximize" xml:space="preserve">
-    <value>Maximize</value>
+    <value>최대화</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Window_Minimize" xml:space="preserve">
-    <value>Minimize</value>
+    <value>최소화</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
-    <value>Pop this panel out into its own window</value>
+    <value>이 패널을 자체 창으로표시</value>
     <comment>Docking window button tooltip</comment>
   </data>
   <data name="Window_RestoreDown" xml:space="preserve">
-    <value>Restore Down</value>
+    <value>다운 복원</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="About_AboutDnGREP" xml:space="preserve">
@@ -2231,7 +2231,7 @@
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_More</value>
+    <value>더 많은(_M)</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
@@ -2279,7 +2279,7 @@
     <comment>Report options dialog, button label</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
-    <value>_Undo</value>
+    <value>실행 취소(_U)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
@@ -2299,7 +2299,7 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
-    <value>_Help</value>
+    <value>도움말(_H)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
@@ -2311,7 +2311,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
-    <value>Dot as newline</value>
+    <value>점으로 줄 바꿈</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
@@ -2319,7 +2319,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>Highlight groups</value>
+    <value>그룹 강조 표시</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
@@ -2327,7 +2327,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
-    <value>숨긴 폴더 포함</value>
+    <value>숨김 폴더 포함</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
@@ -2335,31 +2335,31 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_multiline" xml:space="preserve">
-    <value>여러행</value>
+    <value>여러 행</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
-    <value>대체 내용</value>
+    <value>바꿀 내용</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
-    <value>검색어</value>
+    <value>검색 대상</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
-    <value>압축도 검색</value>
+    <value>압축파일에서 검색</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinresults" xml:space="preserve">
-    <value>Search in results</value>
+    <value>결과 검색</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
-    <value>기준이 되는 줄 표시</value>
+    <value>컨텍스트 줄 표시</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
-    <value>Stop after first match</value>
+    <value>첫 번째 일치 후 중지</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
@@ -2367,11 +2367,11 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
-    <value>단어 전체</value>
+    <value>전체 단어</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>텍스트 묶음</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
@@ -2403,7 +2403,7 @@
   <data name="Help_CmdLineCSVReport" xml:space="preserve">
     <value>/csv [파일경로]
 -csv [파일경로)
-	검색 완료 후 CSV 형식으로 결과 생성</value>
+    검색이 완료된 후 결과 파일을 CSV 형식으로 만듭니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
@@ -2447,11 +2447,11 @@
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
-    <value>원격 클라우드 파일 넘기기</value>
+    <value>원격 클라우드 저장소 파일 건너뛰기</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>원격 클라우드 파일 넘기기</value>
+    <value>원격 클라우드 저장소 파일 건너뛰기</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
@@ -2704,11 +2704,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, Maximize results button tooltip</comment>
   </data>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
-    <value>Copy files…</value>
+    <value>파일 복사…</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_MoveFiles" xml:space="preserve">
-    <value>Move files…</value>
+    <value>파일 이동…</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Filter" xml:space="preserve">
@@ -2720,7 +2720,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
-    <value>Highlight matches</value>
+    <value>일치 강조 표시</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_EditorOK" xml:space="preserve">
@@ -2784,7 +2784,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_File" xml:space="preserve">
-    <value>파일</value>
+    <value>파일(_F)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
@@ -2920,7 +2920,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Options_SearchOptions" xml:space="preserve">
-    <value>검색 설정</value>
+    <value>검색 옵션</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
   <data name="Main_Results_DeleteFiles" xml:space="preserve">
@@ -2930,5 +2930,509 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_FocusResultsTree" xml:space="preserve">
     <value>결과 트리</value>
     <comment>Options dialog, radio button label</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>파일 내 일치 번호/일치 횟수</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>전체 일치 수/일치 수</value>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>줄 삭제(_L)</value>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>선택한 줄 아래로 이동</value>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>다시 실행(_R)</value>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>새 북마크 추가</value>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>보고서 작성</value>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>.ps1 스크립트 파일의 전체 경로 및 파일 이름</value>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>검색 시작</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>다음 컨텍스트 줄 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>검색 위치: 폴더 또는 파일 경로</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>폴더 깊이 제한 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>필터를 제외할 패턴</value>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>검색 패턴 또는 빈 문자열</value>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>병렬 검색</value>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>별도의 줄로 출력 보고</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>크기에서</value>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>보고서의 공백 정리</value>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>결과 정렬</value>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>마지막 교체 작업 실행 취소</value>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>실행 명령이 오류와 함께 종료되었습니다: </value>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>도구(_T)</value>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>검증(_L)</value>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>값은 문자열에서 변환할 수 없습니다</value>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>북마크</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>북마크 제거</value>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>북마크 이름</value>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>결과 텍스트를 클립보드에 복사</value>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>모든 창을 닫고 dnGrep 종료</value>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>스크립트가 완료되면 항상 스크립트 메시지 창 표시</value>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>결과 텍스트 전용 보고서</value>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>날짜 시간 '수신처' 필터</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>필터와 일치하는 패턴</value>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>{0} 파일 확장자는 {1}이어야 합니다</value>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>대상 이름이 유효하지 않습니다</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>명령에는 부울 값이 필요합니다</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>현재 북마크에서 제거하거나 비울 북마크의 이름</value>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>파일 필터를 기본값으로 재설정</value>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>외부 명령 실행</value>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>대상 폴더 경로</value>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>보고서의 경로 및 파일 이름</value>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>명령 스크립트 실행</value>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>cmd 또는 배치 파일의 전체 경로 및 파일 이름</value>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>PowerShell 스크립트 실행</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>이전 컨텍스트 줄 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>코드 페이지 번호로 인코딩</value>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>자동 탐지를 위해 코드 페이지 번호 또는 -1 설정</value>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>폴더, 파일 경로 또는 쉼표로 구분된 폴더 또는 파일 목록</value>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>미리 보기 파일</value>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>검색 패턴 유형</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>크기 필터 하한 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>유형 설정 정렬</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>날짜 시간 '발신자' 필터</value>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>ISO 8601 또는 로컬 날짜 시간 형식 사용</value>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>고유 값으로 보고서 필터링</value>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>줄에서</value>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>메시지 스크립트</value>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>파일 및 줄 정보 포함</value>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>일치만</value>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>한 줄에 있는 여러 개의 일치 또는 그룹을 위한 구분 기호</value>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>텍스트</value>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t 탭 삽입, \\r 리턴 삽입, \\n 새 줄 삽입</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>최대 하위 폴더 깊이</value>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>스크립트 명령(_S)</value>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>각 일치 또는 그룹을 별도의 줄에 표시</value>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>선택한 줄 위로 이동</value>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>명령이 유효하지 않습니다</value>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>값을 올바른 유형으로 변환할 수 없습니다</value>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>결과 파일 이름을 클립보드에 복사</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>이 명령에는 목표 매개 변수가 필요합니다</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>명령에는 문자열 값이 필요합니다</value>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>폴더 북마크 제거</value>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>북마크 설정 적용</value>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>결과 파일 영구 삭제</value>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>파일 필터 섹션 확장 또는 숨기기</value>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>결과 옵션 섹션 확장 또는 숨기기</value>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>검색 결과 트리 최대화 또는 복원</value>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>스크립트의 키/파일 이름</value>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>파일에서 일치 항목 바꾸기</value>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>보고서의 경로 및 파일 이름</value>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>대상 속성에 대한 값 설정</value>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>날짜 필터 선택</value>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>지난 시간 필터 상한 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>같은 줄에 있는 항목 간 구분 보고</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>쉼표 또는 쉼표 공백과 같은 문자 또는 문자</value>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>파일 필터 패턴 유형</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>테스트\\*와 같은 파일 필터 패턴 또는 필터 목록</value>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>대체 텍스트 또는 빈 문자열</value>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>결과 트리의 줌 레벨 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>크기 필터 상한 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>크기로</value>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>정렬 방향</value>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>파일 이동 실패: </value>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>파일 복사 실패: </value>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>파일 삭제 실패: </value>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>{0} 파일 '{1}'을(를) 찾을 수 없습니다</value>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>새 스크립트</value>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>스크립트 취소</value>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>스크립트 완료</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>환경 변수 설정</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>붙여넣기</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>복사</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>대문자 만들기</value>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>일시 중지됨</value>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>잘못된 입력 유형</value>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(텍스트로)</value>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>고유 값 필터링</value>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>원본 폴더 레이아웃 보존</value>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>전체 줄</value>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>파일당</value>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>스크립트 파일</value>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>구문</value>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>그룹만 캡처</value>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>F1 키를 눌러 도움말 보기</value>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>미리보기:</value>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>보고서 옵션</value>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>공백 다듬기</value>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>새로 만들기(_N)…</value>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>스크립트 실행(_R)</value>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>저장(_S)</value>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>제안</value>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>스크립트 편집기</value>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>줄</value>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>메시지</value>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>스크립트 키를 찾을 수 없습니다</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>이 명령은 null 값을 허용하지 않습니다</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>이 명령에는 값 매개 변수가 필요하지 않습니다</value>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>새 븍마크의 이름 또는 비어 있습니다</value>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>현재 검색 폴더와 연결된 새 북마크 추가</value>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>결과 파일을 새 위치로 복사</value>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>대상 폴더 경로</value>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>데이터 가져오기</value>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>결과 보고서를 csv 파일로 작성합니다</value>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>전체 보고서</value>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>보고서에 파일 정보 포함</value>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>시간 범위 필터 선택</value>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>파일 크기 필터링 사용</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>날짜 시간 '지나간' 시간 필터</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>지난 시간 필터 하한 (숫자)</value>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>날짜 시간 '지나간' 시간 필터</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>*.txt와 같은 파일 필터 패턴 또는 필터 목록</value>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>보고서 출력 설정</value>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>고유 값 범위 보고: 파일 또는 모든 파일 기준</value>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>실행 명령이 유효하지 않습니다</value>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>붙여넣기(_P)</value>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>다른 이름으로 저장(_A)…</value>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>현재 스크립트에 다른 스크립트의 명령 포함</value>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>결과 파일을 새 위치로 이동</value>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>최대 병렬 검색 수</value>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>고정 제한 없음</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>제어 가시성 개인화</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>개인 설정이 활성화된 경우 제어 표시 또는 숨기기</value>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>재개</value>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>일시 중지</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>잘라내기</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>소문자 만들기</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>로그 파일에 문자열 또는 경과 시간 쓰기</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>경과된 시간을 기록하는 메시지 문자열 또는 '시간'</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>변수= 문자열 (변수를 지우려면 문자열을 비워둘 수 있습니다)</value>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>잘못된 문자</value>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>범위의 값을 입력하세요: {0}-{1}.</value>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>페이지</value>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>구성하지 않음</value>
+  </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>전체</value>
   </data>
 </root>

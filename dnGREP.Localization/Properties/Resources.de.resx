@@ -2851,4 +2851,37 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Ergebnisbaum</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>Kontextzeilen nach (Nummer)</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>Kontextzeilen vor (Nummer)</value>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>Kodierung als Codeseitennummer</value>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>Berichtsausgabe in separaten Zeilen</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>Größe von</value>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>Sortierrichtung</value>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Externen Befehl ausführen</value>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Befehlsskript ausführen</value>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>Suchmuster oder leere Zeichenkette</value>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>Parallele Suche</value>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>Die Art des Suchmusters</value>
+  </data>
 </root>
