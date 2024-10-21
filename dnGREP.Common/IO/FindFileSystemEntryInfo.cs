@@ -83,7 +83,7 @@ namespace dnGREP.Common.IO
             {
                 IsDirectory = true;
 
-                Recursive = (options & DirectoryEnumerationOptions.Recursive) != 0 || null != RecursionFilter;
+                Recursive = (options & DirectoryEnumerationOptions.Recursive) != 0;
 
                 SkipReparsePoints = (options & DirectoryEnumerationOptions.SkipReparsePoints) != 0;
 
