@@ -16,6 +16,18 @@ namespace dnGREP.Common.IO
         {
             findData = win32FindData;
         }
+
+        public FileSystemEntryInfo(string fullPath)
+        {
+            FullPath = fullPath;
+            LongFullPath = fullPath;
+            findData = new WIN32_FIND_DATAW
+            {
+                cFileName = Path.GetFileName(fullPath),
+                dwFileAttributes = (uint)File.GetAttributes(fullPath)
+            };
+        }
+
         public string FullPath
         {
             get { return _fullPath ?? string.Empty; }

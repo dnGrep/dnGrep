@@ -700,6 +700,12 @@ namespace dnGREP.WPF
 
         public IEnumerable<ITreeItem> Children => FormattedLines;
 
+        /// <summary>
+        /// Dummy property to satisfy tree binding
+        /// </summary>
+        public GrepLine GrepLine { get; private set; } = new(-1, string.Empty, false, null);
+
+
         public override bool Equals(object? obj)
         {
             if (obj is FormattedGrepResult other)

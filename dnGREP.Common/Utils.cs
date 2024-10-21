@@ -797,11 +797,6 @@ namespace dnGREP.Common
         public static List<string> ArchiveExtensions => ArchiveDirectory.Extensions;
 
         /// <summary>
-        /// returns a list of archiveExtensions used to search for files (with leading '*.')
-        /// </summary>
-        public static List<string> ArchivePatterns => ArchiveDirectory.Patterns;
-
-        /// <summary>
         /// Add DirectorySeparatorChar to the end of the folder path if does not exist
         /// </summary>
         /// <param name="name">Folder path</param>

@@ -156,7 +156,7 @@ namespace dnGREP.Common
         }
 
         public bool IsEmpty => directories.Count == 0 && files.Count == 0;
-        public ISet<string> Directories => directories;
-        public ISet<string> Files => files;
+        public HashSet<string> Directories => directories;
+        public HashSet<string> Files => files;
     }
 }
