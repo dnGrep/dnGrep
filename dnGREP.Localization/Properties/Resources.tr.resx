@@ -3237,4 +3237,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
     <value>Dosya boyutunun ve değiştirilme zamanının karması</value>
   </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Değiştir iletişim kutusunu kullan</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Seçilen dosyalarda değiştir</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>Değiştirilmek üzere seçilen dosya yok.</value>
+  </data>
 </root>
