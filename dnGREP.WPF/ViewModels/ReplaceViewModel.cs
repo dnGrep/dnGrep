@@ -348,15 +348,16 @@ namespace dnGREP.WPF
             int contextChars = Math.Min(100,
                 (maxLineLength - matchCharacters - ellipsisCharacters - startContext) / matchCount / 2);
 
+            // position of the last character captured from the lineText
+            int position = 0;
+
             GrepMatch first = grepLine.Matches[0];
             if (first.StartLocation > contextChars)
             {
                 sb.Append(lineText.AsSpan(0, startContext));
                 sb.Append(BigEllipsisColorizer.ellipsis);
+                position = startContext;
             }
-
-            // position of the last character captured from the lineText
-            int position = startContext;
 
             for (int idx = 0; idx < grepLine.Matches.Count; idx++)
             {
