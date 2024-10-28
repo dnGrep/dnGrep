@@ -357,6 +357,7 @@ namespace dnGREP.WPF
                 currentScriptFile = name;
                 showEmptyMessageWindow = false;
                 IsScriptRunning = true;
+                scriptCanceled = false;
                 CommandManager.InvalidateRequerySuggested();
                 scriptStartTime = DateTime.Now;
                 pauseCancelTokenSource = new();
