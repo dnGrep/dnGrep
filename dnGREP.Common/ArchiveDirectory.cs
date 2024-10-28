@@ -30,7 +30,7 @@ namespace dnGREP.Common
 
         public static List<string> Extensions { get; private set; } = [];
 
-        public static List<string> Patterns { get; private set; } = [];
+        public static HashSet<string> ExtensionsSet { get; private set; } = [];
 
         private static readonly char[] separator = ['/'];
         private static readonly char[] csvSeparators = [',', ';', ' '];
@@ -44,8 +44,9 @@ namespace dnGREP.Common
             Extensions.Clear();
             Extensions.AddRange(list);
 
-            Patterns.Clear();
-            Patterns.AddRange(Extensions.Select(s => "*." + s));
+            ExtensionsSet.Clear();
+            foreach (var ext in list)
+                ExtensionsSet.Add('.' + ext);
         }
 
         public static IEnumerable<FileData> EnumerateFiles(string file, FileFilter filter,

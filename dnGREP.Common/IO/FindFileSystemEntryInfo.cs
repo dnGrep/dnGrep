@@ -83,7 +83,7 @@ namespace dnGREP.Common.IO
             {
                 IsDirectory = true;
 
-                Recursive = (options & DirectoryEnumerationOptions.Recursive) != 0 || null != RecursionFilter;
+                Recursive = (options & DirectoryEnumerationOptions.Recursive) != 0;
 
                 SkipReparsePoints = (options & DirectoryEnumerationOptions.SkipReparsePoints) != 0;
 
@@ -214,16 +214,15 @@ namespace dnGREP.Common.IO
         {
             lastError = (uint)WIN32_ERROR.NO_ERROR;
 
-            string searchFilter = "*";
             var searchOption = null != FileSystemObjectType && (bool)FileSystemObjectType ? FINDEX_SEARCH_OPS.FindExSearchLimitToDirectories : FINDEX_SEARCH_OPS.FindExSearchNameMatch;
             HANDLE? handle = null;
 
             win32FindData = new();
 
             fixed (char* lpFileName = path)
-            fixed (void* lpFindFileData = &win32FindData, lpSearchFilter = searchFilter)
+            fixed (void* lpFindFileData = &win32FindData)
             {
-                handle = PInvoke.FindFirstFileEx(lpFileName, FindExInfoLevel, lpFindFileData, searchOption, lpSearchFilter, LargeCache);
+                handle = PInvoke.FindFirstFileEx(lpFileName, FindExInfoLevel, lpFindFileData, searchOption, null, LargeCache);
                 lastError = (uint)Marshal.GetLastWin32Error();
             }
 

@@ -1098,28 +1098,36 @@ namespace Tests
         public void GetFileListTestWithMultiplePaths()
         {
             string path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase2\\excel-file.xls";
-            Assert.Equal(4, Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            string[] files = Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(4, files.Length);
 
             path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs";
-            Assert.Equal(5, Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            files = Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(5, files.Length);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase2";
-            Assert.Equal(5, Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            files = Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(5, files.Length);
 
             path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-            Assert.Equal(6, Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            files = Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(6, files.Length);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-            Assert.Equal(2, Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            files = Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(2, files.Length);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt;";
-            Assert.Equal(2, Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            files = Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(2, files.Length);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs," + sourceFolder + "\\TestCase3\\test-file-plain.txt,";
-            Assert.Equal(2, Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            files = Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(2, files.Length);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs," + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-            Assert.Equal(2, Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
+            files = Utils.GetFileList(path, "*.*", string.Empty, false, false, false, false, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1).ToArray();
+            Assert.Equal(2, files.Length);
         }
 
         [Theory]
