@@ -2564,4 +2564,10 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Buscar con dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Establece el indicador para mostrar cada coincidencia o grupo en una línea separada en la salida del informe de expresión regular: True o False.</value>
+  </data>
 </root>

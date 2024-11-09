@@ -971,4 +971,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Vyhľadávanie pomocou dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>Záleží na veľkosti písmen</value>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Vytvorené</value>
+  </data>
 </root>
