@@ -236,18 +236,36 @@ namespace dnGREP.Common.UI
         /// Splits a list of patterns separated by ; or ,
         /// </summary>
         /// <param name="pattern">Pattern to split</param>
-        /// <returns>Array of strings. If path is null, returns null. If path is empty, returns empty array.</returns>
-        public static string[] SplitPattern(string pattern)
+        /// <returns>Array of strings. If pattern is null or empty, returns empty array.</returns>
+        public static string[] SplitPattern(string pattern, bool isRegex)
         {
             if (string.IsNullOrWhiteSpace(pattern))
                 return [];
 
-            // remove quotes
-            pattern = pattern.Replace("\"", string.Empty, StringComparison.Ordinal);
+            if (isRegex) // there is no way to split a regex
+                return [pattern];
 
-            string[] parts = pattern.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = ParsePattern(pattern).ToArray();
 
             return parts.Select(p => p.Trim()).ToArray();
+        }
+
+        private static string[] ParsePattern(string pattern)
+        {
+            // if pattern contains separators, parse it
+            if (pattern.Contains(';', StringComparison.Ordinal) || pattern.Contains(',', StringComparison.Ordinal))
+            {
+                using TextReader reader = new StringReader(pattern);
+                // using TextFieldParser take quoted strings as-is
+                using TextFieldParser parser = new(reader);
+                parser.HasFieldsEnclosedInQuotes = pattern.Contains('"', StringComparison.Ordinal);
+                parser.TrimWhiteSpace = false;
+                parser.SetDelimiters(",", ";");
+                var result = parser.ReadFields();
+                if (result != null)
+                    return result.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+            }
+            return [pattern];
         }
 
         /// <summary>

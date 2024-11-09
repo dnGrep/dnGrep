@@ -839,7 +839,7 @@ namespace dnGREP.Common
             bool handled = false;
             if (!filter.IsRegex && !filter.NamePatternToInclude.Contains("#!", StringComparison.Ordinal))
             {
-                var includePatterns = UiUtils.SplitPattern(filter.NamePatternToInclude);
+                var includePatterns = UiUtils.SplitPattern(filter.NamePatternToInclude, false);
                 foreach (var pattern in includePatterns)
                 {
                     if (pattern == "*.doc" || pattern == "*.xls" || pattern == "*.ppt")
@@ -859,7 +859,7 @@ namespace dnGREP.Common
             if (includeRegexPatterns == null || excludeRegexPatterns == null || includeShebangPatterns == null)
                 return;
 
-            var includePatterns = UiUtils.SplitPattern(filter.NamePatternToInclude);
+            var includePatterns = UiUtils.SplitPattern(filter.NamePatternToInclude, filter.IsRegex);
             if (HasShebangPattern(includePatterns))
             {
                 foreach (var pattern in includePatterns.Where(p => HasShebangPattern(p)))
@@ -877,7 +877,7 @@ namespace dnGREP.Common
                 }
             }
 
-            var excludePatterns = UiUtils.SplitPattern(filter.NamePatternToExclude);
+            var excludePatterns = UiUtils.SplitPattern(filter.NamePatternToExclude, filter.IsRegex);
             foreach (var pattern in excludePatterns)
             {
                 excludeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
@@ -963,7 +963,7 @@ namespace dnGREP.Common
                 List<string> patterns = [];
                 if (!string.IsNullOrWhiteSpace(filePatternIgnore))
                 {
-                    var excludePatterns = UiUtils.SplitPattern(filePatternIgnore);
+                    var excludePatterns = UiUtils.SplitPattern(filePatternIgnore, isRegex);
                     foreach (var pattern in excludePatterns)
                     {
                         Regex regex = GetRegex(pattern, isRegex);
@@ -996,6 +996,12 @@ namespace dnGREP.Common
                 {
                     if (!isRegex)
                         pattern = WildcardToRegex(pattern);
+
+                    if (pattern.Equals(NoExtensionPattern, StringComparison.Ordinal))
+                        return NoExtensionRegex();
+
+                    if (pattern.Equals(DotFilesPattern, StringComparison.Ordinal))
+                        return DotFilesRegex();
 
                     if (!regexCache.TryGetValue(pattern, out Regex? regex))
                     {
@@ -1468,13 +1474,21 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Converts unix asterisk based file pattern to regex
+        /// Converts windows asterisk based file pattern to regex
         /// </summary>
         /// <param name="wildcard">Asterisk based pattern</param>
         /// <returns>Regular expression of null is empty</returns>
         public static string WildcardToRegex(string wildcard)
         {
             if (string.IsNullOrWhiteSpace(wildcard)) return wildcard;
+
+            // special meaning files with no extension
+            if (wildcard.Equals("*.", StringComparison.OrdinalIgnoreCase)) 
+                return NoExtensionPattern; 
+
+            // special meaning files that start with dot
+            if (wildcard.Equals(".*", StringComparison.OrdinalIgnoreCase)) 
+                return DotFilesPattern; 
 
             StringBuilder sb = new();
 
@@ -2736,6 +2750,14 @@ namespace dnGREP.Common
 
         [GeneratedRegex(@"\[(\w+)\]")]
         private static partial Regex PatternTypeRegex();
+
+        internal const string NoExtensionPattern = @"(?<!\.\w+)$";
+        [GeneratedRegex(NoExtensionPattern)]
+        private static partial Regex NoExtensionRegex();
+
+        internal const string DotFilesPattern = @"\\\.[^\\]+$";
+        [GeneratedRegex(DotFilesPattern)]
+        private static partial Regex DotFilesRegex();
     }
 
     public class KeyValueComparer : IComparer<KeyValuePair<string, int>>

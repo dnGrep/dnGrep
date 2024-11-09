@@ -1849,7 +1849,7 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrWhiteSpace(FilePattern))
             {
-                foreach (string pattern in UiUtils.SplitPattern(FilePattern))
+                foreach (string pattern in UiUtils.SplitPattern(FilePattern, TypeOfFileSearch == FileSearchType.Regex))
                 {
                     string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
@@ -1873,7 +1873,7 @@ namespace dnGREP.WPF
 
             if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
             {
-                foreach (string pattern in UiUtils.SplitPattern(FilePatternIgnore))
+                foreach (string pattern in UiUtils.SplitPattern(FilePatternIgnore, TypeOfFileSearch == FileSearchType.Regex))
                 {
                     string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))

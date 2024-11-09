@@ -256,13 +256,18 @@ namespace dnGREP.Common
 
                         foreach (Regex regex in excludePatterns)
                         {
-                            if (regex.IsMatch(fsei.FullPath + Path.DirectorySeparatorChar))
+                            // do not apply the 'no extension' regex to directory paths
+                            if (!regex.ToString().Equals(Utils.NoExtensionPattern, StringComparison.Ordinal) &&
+                                !regex.ToString().Equals(Utils.DotFilesPattern, StringComparison.Ordinal))
                             {
-                                return false;
-                            }
-                            if (regex.IsMatch(fsei.FullPath))
-                            {
-                                return false;
+                                if (regex.IsMatch(fsei.FullPath + Path.DirectorySeparatorChar))
+                                {
+                                    return false;
+                                }
+                                if (regex.IsMatch(fsei.FullPath))
+                                {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -368,7 +373,7 @@ namespace dnGREP.Common
         /// <remarks>
         /// Not an exact duplicate of the internal Windows implementation, but most common patterns are supported
         /// https://blogs.msdn.microsoft.com/jeremykuhne/2017/06/04/wildcards-in-windows/
-        /// https://blogs.msdn.microsoft.com/oldnewthing/20071217-00/?p=24143/
+        /// https://devblogs.microsoft.com/oldnewthing/20071217-00/?p=24143
         /// </remarks>
         /// <param name="fileName">the file name to test</param>
         /// <param name="pattern">the Windows file patten</param>

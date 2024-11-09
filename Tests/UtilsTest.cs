@@ -1316,18 +1316,26 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("*.*", 1)]
-        [InlineData("*.cpp;*.h", 2)]
-        [InlineData("*.cpp,*.h", 2)]
-        [InlineData("*.cpp ,*.h", 2)]
-        [InlineData("*.cpp, *.h", 2)]
-        [InlineData("**/test/*,**bin/*", 2)]
-        [InlineData(".git\\*;*.resx;*.aip;bin\\*;packages\\*;", 5)]
-        [InlineData(";.git\\*;*.resx;*.aip;bin\\*;packages\\*;", 5)]
-        [InlineData(".git\\*;*.resx;;;*.aip;;bin\\*;packages\\*;", 5)]
-        public void TestSplitPattern(string pattern, int expected)
+        [InlineData(@"*.*", 1)]
+        [InlineData(@"*.cpp;*.h", 2)]
+        [InlineData(@"*.cpp,*.h", 2)]
+        [InlineData(@"*.cpp ,*.h", 2)]
+        [InlineData(@"*.cpp, *.h", 2)]
+        [InlineData(@"**\test\*,**bin\*", 2)]
+        [InlineData(@".git\*;*.resx;*.aip;bin\*;packages\*;", 5)]
+        [InlineData(@";.git\*;*.resx;*.aip;bin\*;packages\*;", 5)]
+        [InlineData(@".git\*;*.resx;;;*.aip;;bin\*;packages\*;", 5)]
+        public void TestSplitWildcardPattern(string pattern, int expected)
         {
-            Assert.Equal(expected, UiUtils.SplitPattern(pattern).Length);
+            Assert.Equal(expected, UiUtils.SplitPattern(pattern, false).Length);
+        }
+
+        [Theory]
+        [InlineData(@".*\..*", 1)]
+        [InlineData(@".*\.\w{1,4}$", 1)]
+        public void TestSplitRegexPattern(string pattern, int expected)
+        {
+            Assert.Equal(expected, UiUtils.SplitPattern(pattern, true).Length);
         }
 
         [Fact]
