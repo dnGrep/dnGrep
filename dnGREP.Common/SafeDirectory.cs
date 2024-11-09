@@ -256,13 +256,18 @@ namespace dnGREP.Common
 
                         foreach (Regex regex in excludePatterns)
                         {
-                            if (regex.IsMatch(fsei.FullPath + Path.DirectorySeparatorChar))
+                            // do not apply the 'no extension' regex to directory paths
+                            if (!regex.ToString().Equals(Utils.NoExtensionPattern, StringComparison.Ordinal) &&
+                                !regex.ToString().Equals(Utils.DotFilesPattern, StringComparison.Ordinal))
                             {
-                                return false;
-                            }
-                            if (regex.IsMatch(fsei.FullPath))
-                            {
-                                return false;
+                                if (regex.IsMatch(fsei.FullPath + Path.DirectorySeparatorChar))
+                                {
+                                    return false;
+                                }
+                                if (regex.IsMatch(fsei.FullPath))
+                                {
+                                    return false;
+                                }
                             }
                         }
                     }
