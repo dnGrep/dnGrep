@@ -18,6 +18,7 @@ namespace dnGREP.Common
             {"Notepad3", new ConfigurationTemplate("Notepad3", "notepad3.exe", @"/m ""%match"" %file", "ProgramFilesx86") },
             {"Sublime Text", new ConfigurationTemplate("Sublime Text", "subl.exe", @"%file:%line:%column", "ProgramFiles") },
             {"Sumatra PDF", new ConfigurationTemplate("Sumatra PDF", "sumatrapdf.exe", @"-reuse-instance -page %page %file", "AppDataLocal", "ProgramFiles") },
+            {"TextPad", new ConfigurationTemplate("TextPad", "TextPad.exe", @"%file(%line,%column)", "ProgramFiles", "AppDataLocal") },
             {"VSCode", new ConfigurationTemplate("VSCode", "code.exe", @"-r -g %file:%line:%column", "AppDataLocal", "ProgramFiles") },
         };
 
