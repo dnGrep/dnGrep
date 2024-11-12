@@ -16,7 +16,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 install: 
-  - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.403
+  - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.404
 before_build:
   - cmd: nuget restore
   - ps: ./make-msix.ps1
