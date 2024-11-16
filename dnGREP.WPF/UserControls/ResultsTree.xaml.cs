@@ -954,7 +954,7 @@ namespace dnGREP.WPF.UserControls
         {
             var list = GetSelectedFileNames(showFullName);
             if (list.Count > 0)
-                NativeMethods.SetClipboardText(string.Join(Environment.NewLine, [.. list]));
+                NativeMethods.SetClipboardText(string.Join(Environment.NewLine, (ReadOnlySpan<string?>)[.. list]));
         }
 
         private string GetSelectedGrepLineText()

@@ -158,7 +158,7 @@
             {
                 stream.Seek(-1024, SeekOrigin.End);
                 var buf = new byte[1024];
-                stream.Read(buf, 0, 1024);
+                stream.ReadExactly(buf, 0, 1024);
                 var isTar = true;
 
                 for (var i = 0; i < 1024 && isTar; i++)
@@ -264,7 +264,7 @@
             {
                 stream.Seek(0, SeekOrigin.Begin);
                 var buf = new byte[256];
-                stream.Read(buf, 0, buf.Length);
+                stream.ReadExactly(buf);
                 uint checksum = 0;
                 string digits = string.Empty;
                 for (int idx = 0; idx < buf.Length; idx++)
