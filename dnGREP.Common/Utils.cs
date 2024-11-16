@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -25,6 +26,9 @@ namespace dnGREP.Common
         public const string defaultCacheFolderName = "dnGrep-files";
 
         private const string metacharacters = "+()^$.{}|\\";
+
+        private const int ErrorRequiresElevation = 740;
+
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private static readonly char[] chars =
@@ -1483,12 +1487,12 @@ namespace dnGREP.Common
             if (string.IsNullOrWhiteSpace(wildcard)) return wildcard;
 
             // special meaning files with no extension
-            if (wildcard.Equals("*.", StringComparison.OrdinalIgnoreCase)) 
-                return NoExtensionPattern; 
+            if (wildcard.Equals("*.", StringComparison.OrdinalIgnoreCase))
+                return NoExtensionPattern;
 
             // special meaning files that start with dot
-            if (wildcard.Equals(".*", StringComparison.OrdinalIgnoreCase)) 
-                return DotFilesPattern; 
+            if (wildcard.Equals(".*", StringComparison.OrdinalIgnoreCase))
+                return DotFilesPattern;
 
             StringBuilder sb = new();
 
@@ -1535,7 +1539,24 @@ namespace dnGREP.Common
                             FileName = UiUtils.Quote(filePath),
                             UseShellExecute = true,
                         };
-                        using var proc = Process.Start(startInfo);
+                        try
+                        {
+                            using var proc = Process.Start(startInfo);
+                        }
+                        catch (Win32Exception ex)
+                        {
+                            if (ex.NativeErrorCode == ErrorRequiresElevation)
+                            {
+                                startInfo.Verb = "runas";
+                                startInfo.UseShellExecute = true;
+
+                                using var proc = Process.Start(startInfo);
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
                     }
                     catch
                     {
@@ -1545,7 +1566,24 @@ namespace dnGREP.Common
                             CreateNoWindow = true,
                             Arguments = filePath
                         };
-                        using var proc = Process.Start(startInfo);
+                        try
+                        {
+                            using var proc = Process.Start(startInfo);
+                        }
+                        catch (Win32Exception ex)
+                        {
+                            if (ex.NativeErrorCode == ErrorRequiresElevation)
+                            {
+                                startInfo.Verb = "runas";
+                                startInfo.UseShellExecute = true;
+
+                                using var proc = Process.Start(startInfo);
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
                     }
                 }
                 else
@@ -1588,7 +1626,24 @@ namespace dnGREP.Common
                                 .Replace("%match", matchValue, StringComparison.Ordinal)
                                 .Replace("%column", args.ColumnNumber.ToString(), StringComparison.Ordinal),
                         };
-                        using var proc = Process.Start(startInfo);
+                        try
+                        {
+                            using var proc = Process.Start(startInfo);
+                        }
+                        catch (Win32Exception ex)
+                        {
+                            if (ex.NativeErrorCode == ErrorRequiresElevation)
+                            {
+                                startInfo.Verb = "runas";
+                                startInfo.UseShellExecute = true;
+
+                                using var proc = Process.Start(startInfo);
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
                     }
                 }
             }
@@ -1752,7 +1807,24 @@ namespace dnGREP.Common
                 fileName = PathEx.GetShort83Path(fileName);
 
             ProcessStartInfo startInfo = new("explorer.exe", "/select,\"" + fileName + "\"");
-            using var proc = Process.Start(startInfo);
+            try
+            {
+                using var proc = Process.Start(startInfo);
+            }
+            catch (Win32Exception ex)
+            {
+                if (ex.NativeErrorCode == ErrorRequiresElevation)
+                {
+                    startInfo.Verb = "runas";
+                    startInfo.UseShellExecute = true;
+
+                    using var proc = Process.Start(startInfo);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
 
         public static void CompareFiles(IList<GrepSearchResult> files)
@@ -1786,7 +1858,24 @@ namespace dnGREP.Common
                     CreateNoWindow = true,
                     Arguments = appArgs + fileArgs
                 };
-                using var proc = Process.Start(startInfo);
+                try
+                {
+                    using var proc = Process.Start(startInfo);
+                }
+                catch (Win32Exception ex)
+                {
+                    if (ex.NativeErrorCode == ErrorRequiresElevation)
+                    {
+                        startInfo.Verb = "runas";
+                        startInfo.UseShellExecute = true;
+
+                        using var proc = Process.Start(startInfo);
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
         }
 
