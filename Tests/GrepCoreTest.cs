@@ -1205,7 +1205,7 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "test-file-code.cs"),
                 SearchType.Regex, @"-(\d)", GrepSearchOption.Global, -1);
             Assert.Single(results);
-            Assert.Single(results[0].SearchResults.Where(r => !r.IsContext));
+            Assert.Single(results[0].SearchResults, r => !r.IsContext);
 
             // mark all matches for replace
             foreach (var match in results[0].Matches)

@@ -81,7 +81,7 @@ namespace dnGREP.Engines
                                             }
 
                                             logger.Debug(string.Format("Loading plugin: {0} for extensions {1}",
-                                                plugin.DllFilePath, string.Join(", ", [.. plugin.Extensions])));
+                                                plugin.DllFilePath, string.Join(", ", (ReadOnlySpan<string?>)[.. plugin.Extensions])));
 
                                         }
                                         else
@@ -164,7 +164,7 @@ namespace dnGREP.Engines
                             }
 
                             logger.Debug(string.Format("Loading plugin: {0} for extensions {1}",
-                                plugin.DllFilePath, string.Join(", ", [.. plugin.Extensions])));
+                                plugin.DllFilePath, string.Join(", ", (ReadOnlySpan<string?>)[.. plugin.Extensions])));
 
                         }
                         else
