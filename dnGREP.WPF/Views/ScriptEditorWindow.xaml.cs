@@ -19,6 +19,7 @@ namespace dnGREP.WPF
         private readonly ScriptViewModel viewModel;
         public event EventHandler? NewScriptFileSaved;
         public event EventHandler? RequestRun;
+        private WindowState storedWindowState = WindowState.Normal;
 
         public ScriptEditorWindow()
         {
@@ -64,6 +65,25 @@ namespace dnGREP.WPF
 
             DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
+
+            StateChanged += (s, e) => storedWindowState = WindowState;
+            Application.Current.MainWindow.IsVisibleChanged += MainWindow_IsVisibleChanged;
+        }
+
+        private void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender is Window mainWindow)
+            {
+                if (mainWindow.IsVisible)
+                {
+                    Show();
+                    WindowState = storedWindowState;
+                }
+                else
+                {
+                    Hide();
+                }
+            }
         }
 
         public bool ConfirmSave()

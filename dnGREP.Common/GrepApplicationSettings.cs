@@ -374,6 +374,10 @@ namespace dnGREP.Common
             public const string CacheFilesCleanDays = "CacheFilesCleanDays";
             [DefaultValue(HashOption.FullFile)]
             public const string CacheFileHashType = "CacheFileHashType";
+            [DefaultValue(true)]
+            public const string MinimizeToSystemTray = "MinimizeToSystemTray";
+            [DefaultValue("")]
+            public const string RestoreWindowHotKeys = "RestoreWindowHotKeys";
         }
 
         public static class ObsoleteKey

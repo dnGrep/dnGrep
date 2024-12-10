@@ -16,6 +16,7 @@
                  my:DiginesisHelpProvider.HelpNavigator="Topic"
                  my:DiginesisHelpProvider.ShowHelp="True"
                  ResizeMode="CanResize"
+                 my:ChromeButtonExtension.ButtonVisibility="MinimizeHidden"
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Icon="/dnGREP;component/nGREP.ico"

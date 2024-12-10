@@ -13,9 +13,11 @@ using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.DockFloat;
 using dnGREP.Localization;
+using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.Properties;
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 namespace dnGREP.WPF
 {
@@ -28,7 +30,8 @@ namespace dnGREP.WPF
         private readonly bool isVisible = true;
         private const double UpperThreshold = 1.4;
         private const double LowerThreshold = 1.0;
-
+        private System.Windows.Forms.NotifyIcon? notifyIcon;
+        private HotKey? restoreKey;
 
         public MainForm()
             : this(true)
@@ -58,6 +61,22 @@ namespace dnGREP.WPF
 
             if (isVisible)
             {
+                notifyIcon = new()
+                {
+                    Text = "dnGrep",
+                    Icon = new System.Drawing.Icon("nGREP.ico")
+                };
+                notifyIcon.Click += NotifyIcon_Click;
+                notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+                notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                    "Open", null, NotifyIcon_Click));
+                notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                    "Exit", null, OnExit_Click));
+                notifyIcon.Visible = true;
+                restoreKey = new HotKey(Key.G, HOT_KEY_MODIFIERS.MOD_SHIFT | HOT_KEY_MODIFIERS.MOD_WIN, OnHotKeyHandler);
+
+                StateChanged += OnStateChanged;
+
                 Loaded += (s, e) =>
                 {
                     if (windowBounds.IsOnScreen())
@@ -104,6 +123,9 @@ namespace dnGREP.WPF
             viewModel.PreviewShow += ViewModel_PreviewShow;
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
             DataContext = viewModel;
+
+            if (notifyIcon != null)
+                notifyIcon.Text = viewModel.WindowTitle;
 
             viewModel.PreviewModel = previewControl.ViewModel;
             DockViewModel.Instance.PropertyChanged += ViewModel_PropertyChanged;
@@ -337,6 +359,11 @@ namespace dnGREP.WPF
             // get the changes to the Bookmarks window closing
             previewControl.SaveSettings();
             viewModel.SaveSettings();
+
+            notifyIcon?.Dispose();
+            notifyIcon = null;
+            restoreKey?.Dispose();
+            restoreKey = null;
         }
 
         private void ViewModel_PreviewShow(object? sender, EventArgs e)
@@ -386,6 +413,10 @@ namespace dnGREP.WPF
                     dvm.PreviewAutoPosition = false;
                     dvm.SaveSettings();
                 }
+            }
+            else if (e.PropertyName == "WindowTitle" && notifyIcon != null)
+            {
+                notifyIcon.Text = viewModel.WindowTitle;
             }
         }
 
@@ -628,6 +659,53 @@ namespace dnGREP.WPF
             Topmost = false;
             Focus();
         }
+
+        #region Notify Icon
+
+        private WindowState storedWindowState = WindowState.Normal;
+
+        void OnStateChanged(object? sender, EventArgs args)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                Hide();
+            }
+            else
+            {
+                storedWindowState = WindowState;
+            }
+        }
+
+        void OnExit_Click(object? sender, EventArgs e)
+        {
+            Close();
+        }
+
+        void NotifyIcon_Click(object? sender, EventArgs e)
+        {
+            RestoreWindow();
+        }
+
+        private void OnHotKeyHandler(HotKey hotKey)
+        {
+            RestoreWindow();
+        }
+
+        internal void RestoreWindow()
+        {
+            Show();
+            WindowState = storedWindowState;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                // According to some sources these steps guarantee that an app will be brought to foreground.
+                Activate();
+                Topmost = true;
+                Topmost = false;
+                Focus();
+            });
+        }
+        #endregion
 
         [GeneratedRegex("\\d+")]
         private static partial Regex AllowedTextRegex();
