@@ -13,11 +13,9 @@ using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.DockFloat;
 using dnGREP.Localization;
-using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.Properties;
 using Windows.Win32;
 using Windows.Win32.Foundation;
-using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 namespace dnGREP.WPF
 {
@@ -61,19 +59,23 @@ namespace dnGREP.WPF
 
             if (isVisible)
             {
-                notifyIcon = new()
+                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.MinimizeToNotificationArea))
                 {
-                    Text = "dnGrep",
-                    Icon = new System.Drawing.Icon("nGREP.ico")
-                };
-                notifyIcon.Click += NotifyIcon_Click;
-                notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-                notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
-                    "Open", null, NotifyIcon_Click));
-                notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
-                    "Exit", null, OnExit_Click));
-                notifyIcon.Visible = true;
-                restoreKey = new HotKey(Key.G, HOT_KEY_MODIFIERS.MOD_SHIFT | HOT_KEY_MODIFIERS.MOD_WIN, OnHotKeyHandler);
+                    notifyIcon = new()
+                    {
+                        Text = Localization.Properties.Resources.Main_DnGREP_Title,
+                        Icon = new System.Drawing.Icon("nGREP.ico")
+                    };
+                    notifyIcon.MouseClick += NotifyIcon_MouseClick;
+                    notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+                    notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                        Localization.Properties.Resources.NotiyIcon_Menu_Open, null, OnOpen_Click));
+                    notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                        Localization.Properties.Resources.NotifyIcon_Menu_Exit, null, OnExit_Click));
+                    notifyIcon.Visible = true;
+                }
+
+                InitializeKeyboardShortcut();
 
                 StateChanged += OnStateChanged;
 
@@ -243,7 +245,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void AutoPosistionPreviewWindow(double ratio)
+        private void AutoPositionPreviewWindow(double ratio)
         {
             var dvm = DockViewModel.Instance;
             if (viewModel.PreviewFileContent && dvm.IsPreviewDocked && dvm.PreviewAutoPosition)
@@ -390,11 +392,11 @@ namespace dnGREP.WPF
         {
             if (e.PropertyName == "IsPreviewDocked")
             {
-                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
+                AutoPositionPreviewWindow(ActualWidth / ActualHeight);
             }
             else if (e.PropertyName == "PreviewAutoPosition")
             {
-                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
+                AutoPositionPreviewWindow(ActualWidth / ActualHeight);
             }
             else if (e.PropertyName == "PreviewDockSide")
             {
@@ -475,7 +477,7 @@ namespace dnGREP.WPF
 
         private void MainForm_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            AutoPosistionPreviewWindow(e.NewSize.Width / e.NewSize.Height);
+            AutoPositionPreviewWindow(e.NewSize.Width / e.NewSize.Height);
         }
 
         private void CbEncoding_Initialized(object sender, EventArgs e)
@@ -660,7 +662,35 @@ namespace dnGREP.WPF
             Focus();
         }
 
-        #region Notify Icon
+        #region Notify Icon and Hot Keys
+
+        public bool InitializeKeyboardShortcut()
+        {
+            if (restoreKey != null)
+            {
+                restoreKey.Dispose();
+                restoreKey = null;
+            }
+
+            string keys = GrepSettings.Instance.Get<string>(GrepSettings.Key.RestoreWindowKeyboardShortcut);
+            if (string.IsNullOrEmpty(keys))
+                return true;
+
+            if (HotKey.TryParse(keys, out KeyAndModifiers? keyAndModifiers))
+            {
+                restoreKey = new HotKey(keyAndModifiers, OnHotKeyHandler);
+                if (restoreKey.Register())
+                {
+                    return true;
+                }
+                else
+                {
+                    restoreKey.Dispose();
+                    restoreKey = null;
+                }
+            }
+            return false;
+        }
 
         private WindowState storedWindowState = WindowState.Normal;
 
@@ -681,7 +711,15 @@ namespace dnGREP.WPF
             Close();
         }
 
-        void NotifyIcon_Click(object? sender, EventArgs e)
+        private void NotifyIcon_MouseClick(object? sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                RestoreWindow();
+            }
+        }
+
+        void OnOpen_Click(object? sender, EventArgs e)
         {
             RestoreWindow();
         }

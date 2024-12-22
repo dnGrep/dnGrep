@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Windows.Win32;
@@ -8,7 +11,7 @@ using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 namespace dnGREP.WPF
 {
-    internal class HotKey : IDisposable
+    internal partial class HotKey : IDisposable
     {
         private static Dictionary<int, HotKey> _dictHotKeyToCalBackProc = [];
         private bool beenDisposed;
@@ -24,10 +27,16 @@ namespace dnGREP.WPF
             Key = k;
             KeyModifiers = keyModifiers;
             Action = action;
-            Register();
         }
 
-        private bool Register()
+        internal HotKey(KeyAndModifiers keyAndModifiers, Action<HotKey> action)
+        {
+            Key = keyAndModifiers.Key;
+            KeyModifiers = keyAndModifiers.KeyModifiers;
+            Action = action;
+        }
+
+        public bool Register()
         {
             int virtualKeyCode = KeyInterop.VirtualKeyFromKey(Key);
             Id = virtualKeyCode + ((int)KeyModifiers * 0x10000);
@@ -35,7 +44,8 @@ namespace dnGREP.WPF
 
             if (_dictHotKeyToCalBackProc.Count == 0)
             {
-                ComponentDispatcher.ThreadFilterMessage += new ThreadMessageEventHandler(ComponentDispatcherThreadFilterMessage);
+                ComponentDispatcher.ThreadFilterMessage -= ComponentDispatcherThreadFilterMessage;
+                ComponentDispatcher.ThreadFilterMessage += ComponentDispatcherThreadFilterMessage;
             }
 
             _dictHotKeyToCalBackProc.Add(Id, this);
@@ -48,6 +58,7 @@ namespace dnGREP.WPF
             if (_dictHotKeyToCalBackProc.TryGetValue(Id, out _))
             {
                 PInvoke.UnregisterHotKey(HWND.Null, Id);
+                _dictHotKeyToCalBackProc.Remove(Id);
             }
         }
 
@@ -86,5 +97,53 @@ namespace dnGREP.WPF
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        public static bool TryParse(string input, [NotNullWhen(true)] out KeyAndModifiers? hotKeyAndModifiers)
+        {
+            var matches = HotKeyRegex().Matches(input);
+
+            if (matches.Count > 1)
+            {
+                HOT_KEY_MODIFIERS modifiers = 0;
+                foreach (Match match in matches.SkipLast(1))
+                {
+                    switch (match.Value)
+                    {
+                        case nameof(ModifierKeys.Alt):
+                            modifiers |= HOT_KEY_MODIFIERS.MOD_ALT;
+                            break;
+                        case nameof(ModifierKeys.Control):
+                            modifiers |= HOT_KEY_MODIFIERS.MOD_CONTROL;
+                            break;
+                        case nameof(ModifierKeys.Shift):
+                            modifiers |= HOT_KEY_MODIFIERS.MOD_SHIFT;
+                            break;
+                        case nameof(ModifierKeys.Windows):
+                            modifiers |= HOT_KEY_MODIFIERS.MOD_WIN;
+                            break;
+                    }
+                }
+                string keyStr = matches.Last().Value;
+                if (!string.IsNullOrEmpty(keyStr) && Enum.TryParse<Key>(keyStr, out Key key) &&
+                    modifiers > 0)
+                {
+                    hotKeyAndModifiers = new(key, modifiers);
+                    return true;
+                }
+            }
+
+            hotKeyAndModifiers = null;
+            return false;
+        }
+
+
+        [GeneratedRegex(@"((\bControl\b)|(\bAlt\b)|(\bShift\b)|(\bWindows\b)|(\b\w+$))")]
+        private static partial Regex HotKeyRegex();
+
     }
+
+    internal record KeyAndModifiers(Key Key, HOT_KEY_MODIFIERS KeyModifiers)
+    {
+    }
+
 }
