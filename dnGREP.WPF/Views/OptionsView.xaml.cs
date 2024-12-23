@@ -145,7 +145,7 @@ namespace dnGREP.WPF
 
                 if (modifiers.Count > 0)
                 {
-                    viewModel.RestoreWindowKeyboardShortcut = string.Format("{0} + {1}", string.Join(" + ", modifiers), actualKey);
+                    viewModel.RestoreWindowKeyboardShortcut = string.Format("{0}+{1}", string.Join("+", modifiers), actualKey);
                 }
 
                 e.Handled = true;

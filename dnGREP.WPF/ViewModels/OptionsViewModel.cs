@@ -255,7 +255,7 @@ namespace dnGREP.WPF
                     modifiers.Add(Resources.Keyboard_ShiftKey);
                 }
 
-                LocalizedRestoreWindowKeyboardShortcut = string.Format("{0} + {1}", string.Join(" + ", modifiers), hotKey.Key);
+                LocalizedRestoreWindowKeyboardShortcut = string.Format("{0}+{1}", string.Join("+", modifiers), hotKey.Key);
             }
         }
 
