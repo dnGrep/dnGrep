@@ -2884,4 +2884,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="ScriptHint_set_searchtype" xml:space="preserve">
     <value>Die Art des Suchmusters</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
 </root>
