@@ -4179,4 +4179,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
     <value>Не са избрани файлове, в които да бъде заменяно.</value>
   </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Новата клавишна комбинация не е регистрирана – използва ли се в момента?</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>Скриване в областта с известията *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>Клавишна комбинация за възстановяване на прозореца dnGrep</value>
+  </data>
 </root>
