@@ -3246,4 +3246,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
     <value>Değiştirilmek üzere seçilen dosya yok.</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Aç</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>Çıkış</value>
+  </data>
 </root>
