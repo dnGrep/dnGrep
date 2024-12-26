@@ -4188,4 +4188,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
     <value>Клавишна комбинация за възстановяване на прозореца dnGrep</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Отваряне</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>Изход</value>
+  </data>
 </root>
