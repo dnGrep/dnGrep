@@ -16,6 +16,7 @@ using dnGREP.Localization;
 using dnGREP.WPF.MVHelpers;
 using Microsoft.Win32;
 using NLog;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -222,6 +223,44 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool isSingletonInstance;
+
+        [ObservableProperty]
+        private bool minimizeToNotificationArea;
+
+        [ObservableProperty]
+        private string restoreWindowKeyboardShortcut;
+
+        partial void OnRestoreWindowKeyboardShortcutChanged(string value)
+        {
+            LocalizedRestoreWindowKeyboardShortcut = string.Empty;
+
+            if (!string.IsNullOrEmpty(value) &&
+                HotKey.TryParse(value, out var hotKey))
+            {
+                List<string> modifiers = [];
+                if (hotKey.KeyModifiers.HasFlag(HOT_KEY_MODIFIERS.MOD_WIN))
+                {
+                    modifiers.Add(Resources.Keyboard_WindowsLogoKey);
+                }
+                if (hotKey.KeyModifiers.HasFlag(HOT_KEY_MODIFIERS.MOD_CONTROL))
+                {
+                    modifiers.Add(Resources.Keyboard_ControlKey);
+                }
+                if (hotKey.KeyModifiers.HasFlag(HOT_KEY_MODIFIERS.MOD_ALT))
+                {
+                    modifiers.Add(Resources.Keyboard_AltKey);
+                }
+                if (hotKey.KeyModifiers.HasFlag(HOT_KEY_MODIFIERS.MOD_SHIFT))
+                {
+                    modifiers.Add(Resources.Keyboard_ShiftKey);
+                }
+
+                LocalizedRestoreWindowKeyboardShortcut = string.Format("{0}+{1}", string.Join("+", modifiers), hotKey.Key);
+            }
+        }
+
+        [ObservableProperty]
+        private string localizedRestoreWindowKeyboardShortcut;
 
         [ObservableProperty]
         private bool confirmExitScript;
@@ -589,6 +628,8 @@ namespace dnGREP.WPF
                 EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
                 EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
                 IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
+                MinimizeToNotificationArea != Settings.Get<bool>(GrepSettings.Key.MinimizeToNotificationArea) ||
+                RestoreWindowKeyboardShortcut != Settings.Get<string>(GrepSettings.Key.RestoreWindowKeyboardShortcut) ||
                 ConfirmExitScript != Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript) ||
                 ConfirmExitSearch != Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch) ||
                 ConfirmExitSearchDuration != Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration) ||
@@ -841,6 +882,8 @@ namespace dnGREP.WPF
             EnableWindows11ShellMenuTooltip = SparsePackage.CanRegisterPackage ? null : Resources.Options_RequiresWindows11;
             EnableRunAtStartup = RegistryOperations.IsStartupRegistered();
             IsSingletonInstance = Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance);
+            MinimizeToNotificationArea = Settings.Get<bool>(GrepSettings.Key.MinimizeToNotificationArea);
+            RestoreWindowKeyboardShortcut = Settings.Get<string>(GrepSettings.Key.RestoreWindowKeyboardShortcut);
             ConfirmExitScript = Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript);
             ConfirmExitSearch = Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch);
             ConfirmExitSearchDuration = Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration);
@@ -1023,6 +1066,8 @@ namespace dnGREP.WPF
             bool isCacheHashTypeChanged = CacheFileHashType !=
                 GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
 
+            string oldKeyboardShortcut = GrepSettings.Instance.Get<string>(GrepSettings.Key.RestoreWindowKeyboardShortcut);
+
             ApplicationFontFamily = EditApplicationFontFamily;
             MainFormFontSize = EditMainFormFontSize;
             ReplaceFormFontSize = EditReplaceFormFontSize;
@@ -1031,6 +1076,8 @@ namespace dnGREP.WPF
             ResultsFontSize = EditResultsFontSize;
 
             Settings.Set(GrepSettings.Key.IsSingletonInstance, IsSingletonInstance);
+            Settings.Set(GrepSettings.Key.MinimizeToNotificationArea, MinimizeToNotificationArea);
+            Settings.Set(GrepSettings.Key.RestoreWindowKeyboardShortcut, RestoreWindowKeyboardShortcut);
             Settings.Set(GrepSettings.Key.ConfirmExitScript, ConfirmExitScript);
             Settings.Set(GrepSettings.Key.ConfirmExitSearch, ConfirmExitSearch);
             Settings.Set(GrepSettings.Key.ConfirmExitSearchDuration, ConfirmExitSearchDuration);
@@ -1103,6 +1150,17 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.WordExtractFooters, WordExtractFooters);
             Settings.Set(GrepSettings.Key.WordHeaderFooterPosition, WordHeaderFooterPosition);
 
+            if (!oldKeyboardShortcut.Equals(RestoreWindowKeyboardShortcut, StringComparison.Ordinal) &&
+                App.Current.MainWindow is MainForm mainWind)
+            {
+                if (!mainWind.InitializeKeyboardShortcut())
+                {
+                    MessageBox.Show(Resources.MessageBox_CouldNotRegisterTheNewKeyboardShortcut, Resources.MessageBox_DnGrep,
+                    MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK,
+                    TranslationSource.Instance.FlowDirection);
+                }
+            }
+
             foreach (var visOpt in VisibilityOptions)
             {
                 if (visOpt.IsChanged)
@@ -1134,11 +1192,11 @@ namespace dnGREP.WPF
             if (editorsChanged)
                 GrepSearchResultsViewModel.InitializeEditorMenuItems();
 
-            if ((isCacheRemoved || isCachePathChanged || isCacheHashTypeChanged) && 
+            if ((isCacheRemoved || isCachePathChanged || isCacheHashTypeChanged) &&
                 Directory.Exists(oldCachePath))
             {
                 if (MessageBoxResult.Yes == MessageBox.Show(
-                    Resources.MessageBox_ThePlugInCacheSettingsHaveChanged, Resources.MessageBox_DnGrep, 
+                    Resources.MessageBox_ThePlugInCacheSettingsHaveChanged, Resources.MessageBox_DnGrep,
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes,
                     TranslationSource.Instance.FlowDirection))
                 {
@@ -1148,14 +1206,14 @@ namespace dnGREP.WPF
                         Directory.Delete(oldCachePath, true);
                     }
                     catch (Exception ex)
-                    { 
+                    {
                         logger.Error(ex, $"Failed to delete the plug-in cache folder '{oldCachePath}'");
                     }
                 }
             }
         }
 
-        public bool PluginCacheCleared {  get; private set; }
+        public bool PluginCacheCleared { get; private set; }
 
         #endregion
     }

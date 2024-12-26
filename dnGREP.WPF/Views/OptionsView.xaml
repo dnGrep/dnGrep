@@ -119,6 +119,12 @@
                                   ToolTip="{l:Loc Key='Options_IfTheSecondInstanceHasASearchFolderArgument'}"
                                   IsChecked="{Binding Path=PassSearchFolderToSingleton}"
                                   IsEnabled="{Binding IsSingletonInstance}"/>
+                        <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_MinimizeToNotificationArea'}"
+                                  IsChecked="{Binding Path=MinimizeToNotificationArea}" />
+                        <Label Content="{l:Loc Key='Options_KeyboardShortcutToRestoreWindow'}"/>
+                        <TextBox Margin="24,0,0,3" Width="300" HorizontalAlignment="Left"
+                                 Text="{Binding LocalizedRestoreWindowKeyboardShortcut}" 
+                                 PreviewKeyDown="TextBox_PreviewKeyDown"/>
                         <Label Margin="0,3" Content="{l:Loc Key='Options_RestartRequiredWhenChanged'}"
                                Style="{StaticResource ThemedLabel}"/>
                     </StackPanel>

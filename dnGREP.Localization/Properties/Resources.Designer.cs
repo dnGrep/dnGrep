@@ -1614,6 +1614,42 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt.
+        /// </summary>
+        public static string Keyboard_AltKey {
+            get {
+                return ResourceManager.GetString("Keyboard_AltKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl.
+        /// </summary>
+        public static string Keyboard_ControlKey {
+            get {
+                return ResourceManager.GetString("Keyboard_ControlKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift.
+        /// </summary>
+        public static string Keyboard_ShiftKey {
+            get {
+                return ResourceManager.GetString("Keyboard_ShiftKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows.
+        /// </summary>
+        public static string Keyboard_WindowsLogoKey {
+            get {
+                return ResourceManager.GetString("Keyboard_WindowsLogoKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add search pattern to bookmarks.
         /// </summary>
         public static string Main_AddSearchPatternToBookmarks {
@@ -3900,6 +3936,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not register the new keyboard shortcut - is it in use?.
+        /// </summary>
+        public static string MessageBox_CouldNotRegisterTheNewKeyboardShortcut {
+            get {
+                return ResourceManager.GetString("MessageBox_CouldNotRegisterTheNewKeyboardShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} files have been copied..
         /// </summary>
         public static string MessageBox_CountFilesHaveBeenSuccessfullyCopied {
@@ -4562,6 +4607,24 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch {
             get {
                 return ResourceManager.GetString("MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        public static string NotifyIcon_Menu_Exit {
+            get {
+                return ResourceManager.GetString("NotifyIcon_Menu_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string NotiyIcon_Menu_Open {
+            get {
+                return ResourceManager.GetString("NotiyIcon_Menu_Open", resourceCulture);
             }
         }
         
@@ -5340,6 +5403,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keyboard shortcut to restore dnGrep window.
+        /// </summary>
+        public static string Options_KeyboardShortcutToRestoreWindow {
+            get {
+                return ResourceManager.GetString("Options_KeyboardShortcutToRestoreWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Options_Language {
@@ -5453,6 +5525,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_Medium {
             get {
                 return ResourceManager.GetString("Options_Medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize to notification area *.
+        /// </summary>
+        public static string Options_MinimizeToNotificationArea {
+            get {
+                return ResourceManager.GetString("Options_MinimizeToNotificationArea", resourceCulture);
             }
         }
         

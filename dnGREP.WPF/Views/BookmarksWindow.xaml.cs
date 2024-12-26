@@ -16,6 +16,7 @@ namespace dnGREP.WPF
     public partial class BookmarksWindow : ThemedWindow
     {
         public event EventHandler? UseBookmark;
+        private WindowState storedWindowState = WindowState.Normal;
 
         public BookmarksWindow(Action<Bookmark> clearStar)
         {
@@ -61,6 +62,24 @@ namespace dnGREP.WPF
                 this.ConstrainToScreen();
             };
 
+            StateChanged += (s, e) => storedWindowState = WindowState;
+            Application.Current.MainWindow.IsVisibleChanged += MainWindow_IsVisibleChanged;
+        }
+
+        private void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender is Window mainWindow)
+            {
+                if (mainWindow.IsVisible)
+                {
+                    Show();
+                    WindowState = storedWindowState;
+                }
+                else
+                {
+                    Hide();
+                }
+            }
         }
 
         private void SaveSettings()

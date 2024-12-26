@@ -4,6 +4,8 @@ ShellExecuteEx
 StrCmpLogicalW
 GetCommandLineW
 SHChangeNotify
+RegisterHotKey
+UnregisterHotKey
 
 HWND_MESSAGE
 SHOW_WINDOW_CMD

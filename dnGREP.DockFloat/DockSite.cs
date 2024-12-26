@@ -28,9 +28,10 @@ namespace dnGREP.DockFloat
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockSite), new FrameworkPropertyMetadata(typeof(DockSite)));
 
-            if (RunninginXamlDesigner) return;
+            if (RunningInXamlDesigner) return;
 
             Application.Current.MainWindow.StateChanged += MinimizeOrRestoreWithMainWindow;
+            Application.Current.MainWindow.IsVisibleChanged += MainWindow_IsVisibleChanged;
             Application.Current.MainWindow.Closing += MainWindow_Closing;
         }
 
@@ -51,7 +52,7 @@ namespace dnGREP.DockFloat
             }
         }
 
-        public static bool RunninginXamlDesigner { get; } =
+        public static bool RunningInXamlDesigner { get; } =
             DesignerProperties.GetIsInDesignMode(new DependencyObject());
 
         static void MinimizeOrRestoreWithMainWindow(object? sender, EventArgs e)
@@ -67,6 +68,25 @@ namespace dnGREP.DockFloat
                         floatWindow.WindowState = WindowState.Normal;
                 }
                 mainWindow.Activate();
+            }
+        }
+
+        private static void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender is Window mainWindow)
+            {
+                var floatWindows = GetAllFloatWindows(mainWindow);
+                foreach (var floatWindow in floatWindows)
+                {
+                    if (mainWindow.IsVisible)
+                    {
+                        floatWindow.Show();
+                    }
+                    else
+                    {
+                        floatWindow.Hide();
+                    }
+                }
             }
         }
 

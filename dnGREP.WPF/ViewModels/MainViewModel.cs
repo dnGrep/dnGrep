@@ -362,7 +362,13 @@ namespace dnGREP.WPF
         {
             if (value)
             {
-                PreviewFileContent = false;
+                // if the option to minimize to system tray is on,
+                // then hiding the preview window does not reset the 
+                // show preview flag
+                if (Application.Current.MainWindow.IsVisible)
+                {
+                    PreviewFileContent = false;
+                }
             }
         }
 

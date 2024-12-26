@@ -28,7 +28,8 @@ namespace dnGREP.WPF
         private readonly bool isVisible = true;
         private const double UpperThreshold = 1.4;
         private const double LowerThreshold = 1.0;
-
+        private System.Windows.Forms.NotifyIcon? notifyIcon;
+        private HotKey? restoreKey;
 
         public MainForm()
             : this(true)
@@ -58,6 +59,26 @@ namespace dnGREP.WPF
 
             if (isVisible)
             {
+                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.MinimizeToNotificationArea))
+                {
+                    notifyIcon = new()
+                    {
+                        Text = Localization.Properties.Resources.Main_DnGREP_Title,
+                        Icon = new System.Drawing.Icon("nGREP.ico")
+                    };
+                    notifyIcon.MouseClick += NotifyIcon_MouseClick;
+                    notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+                    notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                        Localization.Properties.Resources.NotiyIcon_Menu_Open, null, OnOpen_Click));
+                    notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                        Localization.Properties.Resources.NotifyIcon_Menu_Exit, null, OnExit_Click));
+                    notifyIcon.Visible = true;
+                }
+
+                InitializeKeyboardShortcut();
+
+                StateChanged += OnStateChanged;
+
                 Loaded += (s, e) =>
                 {
                     if (windowBounds.IsOnScreen())
@@ -104,6 +125,9 @@ namespace dnGREP.WPF
             viewModel.PreviewShow += ViewModel_PreviewShow;
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
             DataContext = viewModel;
+
+            if (notifyIcon != null)
+                notifyIcon.Text = viewModel.WindowTitle;
 
             viewModel.PreviewModel = previewControl.ViewModel;
             DockViewModel.Instance.PropertyChanged += ViewModel_PropertyChanged;
@@ -221,7 +245,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void AutoPosistionPreviewWindow(double ratio)
+        private void AutoPositionPreviewWindow(double ratio)
         {
             var dvm = DockViewModel.Instance;
             if (viewModel.PreviewFileContent && dvm.IsPreviewDocked && dvm.PreviewAutoPosition)
@@ -337,6 +361,11 @@ namespace dnGREP.WPF
             // get the changes to the Bookmarks window closing
             previewControl.SaveSettings();
             viewModel.SaveSettings();
+
+            notifyIcon?.Dispose();
+            notifyIcon = null;
+            restoreKey?.Dispose();
+            restoreKey = null;
         }
 
         private void ViewModel_PreviewShow(object? sender, EventArgs e)
@@ -363,11 +392,11 @@ namespace dnGREP.WPF
         {
             if (e.PropertyName == "IsPreviewDocked")
             {
-                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
+                AutoPositionPreviewWindow(ActualWidth / ActualHeight);
             }
             else if (e.PropertyName == "PreviewAutoPosition")
             {
-                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
+                AutoPositionPreviewWindow(ActualWidth / ActualHeight);
             }
             else if (e.PropertyName == "PreviewDockSide")
             {
@@ -386,6 +415,10 @@ namespace dnGREP.WPF
                     dvm.PreviewAutoPosition = false;
                     dvm.SaveSettings();
                 }
+            }
+            else if (e.PropertyName == "WindowTitle" && notifyIcon != null)
+            {
+                notifyIcon.Text = viewModel.WindowTitle;
             }
         }
 
@@ -444,7 +477,7 @@ namespace dnGREP.WPF
 
         private void MainForm_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            AutoPosistionPreviewWindow(e.NewSize.Width / e.NewSize.Height);
+            AutoPositionPreviewWindow(e.NewSize.Width / e.NewSize.Height);
         }
 
         private void CbEncoding_Initialized(object sender, EventArgs e)
@@ -628,6 +661,89 @@ namespace dnGREP.WPF
             Topmost = false;
             Focus();
         }
+
+        #region Notify Icon and Hot Keys
+
+        public bool InitializeKeyboardShortcut()
+        {
+            if (restoreKey != null)
+            {
+                restoreKey.Dispose();
+                restoreKey = null;
+            }
+
+            string keys = GrepSettings.Instance.Get<string>(GrepSettings.Key.RestoreWindowKeyboardShortcut);
+            if (string.IsNullOrEmpty(keys))
+                return true;
+
+            if (HotKey.TryParse(keys, out KeyAndModifiers? keyAndModifiers))
+            {
+                restoreKey = new HotKey(keyAndModifiers, OnHotKeyHandler);
+                if (restoreKey.Register())
+                {
+                    return true;
+                }
+                else
+                {
+                    restoreKey.Dispose();
+                    restoreKey = null;
+                }
+            }
+            return false;
+        }
+
+        private WindowState storedWindowState = WindowState.Normal;
+
+        void OnStateChanged(object? sender, EventArgs args)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                Hide();
+            }
+            else
+            {
+                storedWindowState = WindowState;
+            }
+        }
+
+        void OnExit_Click(object? sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void NotifyIcon_MouseClick(object? sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                RestoreWindow();
+            }
+        }
+
+        void OnOpen_Click(object? sender, EventArgs e)
+        {
+            RestoreWindow();
+        }
+
+        private void OnHotKeyHandler(HotKey hotKey)
+        {
+            RestoreWindow();
+        }
+
+        internal void RestoreWindow()
+        {
+            Show();
+            WindowState = storedWindowState;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                // According to some sources these steps guarantee that an app will be brought to foreground.
+                Activate();
+                Topmost = true;
+                Topmost = false;
+                Focus();
+            });
+        }
+        #endregion
 
         [GeneratedRegex("\\d+")]
         private static partial Regex AllowedTextRegex();

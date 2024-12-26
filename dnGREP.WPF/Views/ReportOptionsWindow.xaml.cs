@@ -8,6 +8,8 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class ReportOptionsWindow : ThemedWindow
     {
+        private WindowState storedWindowState = WindowState.Normal;
+
         public ReportOptionsWindow(ReportOptionsViewModel viewModel)
         {
             InitializeComponent();
@@ -17,6 +19,25 @@ namespace dnGREP.WPF
 
             DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
+
+            StateChanged += (s, e) => storedWindowState = WindowState;
+            Application.Current.MainWindow.IsVisibleChanged += MainWindow_IsVisibleChanged;
+        }
+
+        private void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender is Window mainWindow)
+            {
+                if (mainWindow.IsVisible)
+                {
+                    Show();
+                    WindowState = storedWindowState;
+                }
+                else
+                {
+                    Hide();
+                }
+            }
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

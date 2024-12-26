@@ -4184,11 +4184,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_HashOfFullFile" xml:space="preserve">
     <value>Hash of full file</value>
-    <comment>Radio button label</comment>
+    <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
     <value>Hash of file size and modified time</value>
-    <comment>Radio button label</comment>
+    <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
     <value>Use Replace dialog</value>
@@ -4201,5 +4201,41 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
     <value>There are no files selected for replace.</value>
     <comment>Message box text for: replace selected files with no selection</comment>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Could not register the new keyboard shortcut - is it in use?</value>
+    <comment>Message box text for: Could not registre the new keyboard shortcut</comment>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>Minimize to notification area *</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>Keyboard shortcut to restore dnGrep window</value>
+    <comment>Options dialog, keyboard shortcut input label</comment>
+  </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Open</value>
+    <comment>Notify icon context menu item</comment>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>Exit</value>
+    <comment>Notify icon context menu item</comment>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+    <comment>Text for the Windows Logo key</comment>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+    <comment>Text for the control key</comment>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+    <comment>Text for the Alt key</comment>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+    <comment>Text for the Shift key</comment>
   </data>
 </root>
