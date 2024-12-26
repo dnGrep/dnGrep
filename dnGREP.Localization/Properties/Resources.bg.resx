@@ -4194,4 +4194,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
     <value>Изход</value>
   </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
 </root>
