@@ -2650,4 +2650,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>חיפוש באמצעות dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>פתח</value>
+  </data>
 </root>
