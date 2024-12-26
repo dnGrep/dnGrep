@@ -3435,4 +3435,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_set_global" xml:space="preserve">
     <value>전체</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
 </root>
