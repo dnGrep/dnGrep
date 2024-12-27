@@ -4179,4 +4179,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
     <value>在选定文件中进行替换</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
 </root>
