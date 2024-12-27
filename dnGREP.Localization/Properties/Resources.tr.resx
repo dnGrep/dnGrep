@@ -713,7 +713,7 @@
     <value>Daha Fazla…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Daha</value>
+    <value>_Daha Fazla</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Dosya adlarını kopyala</value>
@@ -3251,5 +3251,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
     <value>Çıkış</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Yeni klavye kısayolu kaydedilemedi - Kullanılıyor mu?</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>Bildirim alanına küçültün *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>DnGrep penceresini geri yüklemek için klavye kısayolu</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
   </data>
 </root>
