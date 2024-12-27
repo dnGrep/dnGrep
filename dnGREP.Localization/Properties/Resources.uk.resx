@@ -730,4 +730,93 @@
     <value>Пошук за допомогою dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>шукати</value>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Up Arrow</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Жодних символічних посилань</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Пошук в архівах</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Ціле слово</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Закладки</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Використання</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Аргументи:</value>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [Правда/Невірно]
+-bo [Правда/Невірно]
+-booleanOperators [true/false]
+    Встановлює прапор пошуку логічних операторів – True або False.</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Ніяких прихованих</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Розділи</value>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Down Arrow</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Максимальна глибина папки: {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Багаторядковий</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>Немає двійкового коду</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Немає вкладених папок</value>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [Правда/Неправда]
+-cs [Правда/Неправда]
+-caseSensitive [Правда/Невірно]
+    Встановлює позначку пошуку з урахуванням регістру – True або False.</value>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [шлях до файлу]
+-csv [шлях до файлу]
+    Після завершення пошуку створіть файл результатів у форматі CSV.</value>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Для будь-яких невказаних аргументів за замовчуванням використовуватимуться останні збережені налаштування користувача.</value>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [Правда/Неправда]
+-dn [Правда/Неправда]
+-dotAsNewline [Правда/Неправда]
+    Встановлює крапку як позначку пошуку нового рядка – True або False.</value>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [аргументи]
+Використовуючи будь-яку комбінацію аргументів зі списку нижче.
+приклад:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [шлях до папки] [пошук]
+Один або два аргументи без прапорців: перший аргумент — папка для пошуку, другий — регулярний вираз для пошуку.
+приклад:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+  </data>
 </root>
