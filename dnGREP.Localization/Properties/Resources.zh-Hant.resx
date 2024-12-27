@@ -1653,15 +1653,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>個檔案過濾歷史清單</value>
+    <value>個檔案過濾歷程清單</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
-    <value>個路徑歷史清單</value>
+    <value>個路徑歷程清單</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value>個搜尋和取代歷史清單</value>
+    <value>個搜尋和取代歷程清單</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_Language" xml:space="preserve">
@@ -2585,7 +2585,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window replace button tooltip</comment>
   </data>
   <data name="Main_RestoreResults" xml:space="preserve">
-    <value>回復結果 (F7)</value>
+    <value>還原結果 (F7)</value>
     <comment>Main window, Maximize results button tooltip</comment>
   </data>
   <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
@@ -2615,7 +2615,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/sep [separator character or text]
 -sep [separator character or text]
 -listItemSeparator [separator character or text]
-   設定字元或字串以分隔輸出報表中一行上的列表項目旗標.</value>
+   設定字元或字串以分隔報表輸出中一行中的清單項目.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFileInformation" xml:space="preserve">
@@ -3122,7 +3122,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_folder_value" xml:space="preserve">
-    <value>資料夾, 檔案路徑或以逗號分隔的資料夾/檔案列表</value>
+    <value>資料夾, 檔案路徑或以逗號分隔的資料夾/檔案清單</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_enddate" xml:space="preserve">
@@ -3198,7 +3198,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
-    <value>檔案過濾器樣式, 如 *.txt, 或過濾器列表</value>
+    <value>檔案過濾器樣式, 如 *.txt, 或過濾器清單</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Help_CmdLineScript" xml:space="preserve">
@@ -3261,7 +3261,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
-    <value>檔案過濾器樣式, 如 test\\*, 或過濾器列表</value>
+    <value>檔案過濾器樣式, 如 test\\*, 或過濾器清單</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_paterntype" xml:space="preserve">
@@ -3273,7 +3273,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_maximizeresults" xml:space="preserve">
-    <value>最大化或回復搜尋結果樹狀圖</value>
+    <value>最大化或還原搜尋結果樹狀圖</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set" xml:space="preserve">
@@ -4126,5 +4126,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
     <value>退出</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>無法註冊新的鍵盤快速鍵 - 它正在使用中嗎?</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>用於還原 dnGrep 視窗的鍵盤快速鍵</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>最小化到通知區域 *</value>
   </data>
 </root>
