@@ -4121,4 +4121,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
     <value>替換取代的檔案</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
 </root>
