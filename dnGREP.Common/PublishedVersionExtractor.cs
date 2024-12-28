@@ -15,10 +15,6 @@ namespace dnGREP.Common
             string page = "https://api.github.com/repos/dnGrep/dnGrep/releases";
 
             using var client = new HttpClient();
-            // TLS 1.2 is required for GitHub connection after 2/1/2018
-            // https://githubengineering.com/crypto-deprecation-notice/
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-
             client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "http://developer.github.com/v3/#user-agent-required");
             using HttpResponseMessage response = await client.GetAsync(page);
             using HttpContent content = response.Content;

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <LangVersion>12</LangVersion>
     <OutputType>WinExe</OutputType>
     <Platforms>x86;x64</Platforms>
@@ -230,7 +230,7 @@
     <EverythingFiles Include="$(SolutionDir)\dnGREP.Everything\x86\Everything32.dll" />
   </ItemGroup>
   <ItemGroup>
-    <RuntimeFiles Include="$(SolutionDir)\dnGREP.WPF\bin\$(Platform)\$(Configuration)\$(TargetFramework)\runtimes\win\lib\net8.0\System.Management.dll" />
+    <RuntimeFiles Include="$(SolutionDir)\dnGREP.WPF\bin\$(Platform)\$(Configuration)\$(TargetFramework)\runtimes\win\lib\net9.0\System.Management.dll" />
   </ItemGroup>
   <ItemGroup>
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.OpenXml.plugin" />
@@ -287,7 +287,7 @@
     <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf" />
     <Copy SourceFiles="@(XPDFDocFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf\doc" />
     <Copy SourceFiles="@(WordPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\MsWordSearch" />
-    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net8.0\" />
+    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net9.0\" />
     <Copy SourceFiles="@(SparsePackageFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
   </Target>
   <PropertyGroup>
