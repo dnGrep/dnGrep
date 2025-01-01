@@ -73,11 +73,11 @@ namespace dnGREP.WPF
                     notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
                         Localization.Properties.Resources.NotifyIcon_Menu_Exit, null, OnExit_Click));
                     notifyIcon.Visible = true;
+
+                    StateChanged += OnStateChanged;
                 }
 
                 InitializeKeyboardShortcut();
-
-                StateChanged += OnStateChanged;
 
                 Loaded += (s, e) =>
                 {
