@@ -30,6 +30,16 @@ namespace dnGREP.Common
             Groups.AddRange(toCopy);
         }
 
+        public GrepMatch Copy(bool replaceMatch = true)
+        {
+            GrepMatch copy = new GrepMatch(FileMatchId, SearchPattern, LineNumber, StartLocation, Length, 
+                Groups, RegexMatchValue);
+
+            copy.ReplaceMatch = replaceMatch;
+
+            return copy;
+        }
+
         public string FileMatchId { get; }
 
         public int LineNumber { get; } = 0;

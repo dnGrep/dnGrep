@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,7 +9,9 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using DiffPlex.DiffBuilder.Model;
 using dnGREP.Common;
+using dnGREP.Engines;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -234,6 +237,8 @@ namespace dnGREP.WPF
 
         public string FileText { get; private set; } = string.Empty;
 
+        public DiffPaneModel? DiffModel { get; private set; }
+
         [ObservableProperty]
         private List<GrepSearchResult>? searchResults = null;
         partial void OnSearchResultsChanged(List<GrepSearchResult>? value)
@@ -255,6 +260,7 @@ namespace dnGREP.WPF
                 Encoding = SelectedSearchResult.Encoding;
                 LineNumbers.Clear();
                 FileText = string.Empty;
+                DiffModel = null;
                 IndividualReplaceEnabled = true;
 
                 FileInfo fileInfo = new(SelectedSearchResult.FileNameReal);
@@ -294,6 +300,8 @@ namespace dnGREP.WPF
                             tempLineNum++;
                         }
                         FileText = sb.ToString();
+
+                        // TODO: GenerateDiffPreview();
                     }
                     else
                     {
@@ -325,6 +333,7 @@ namespace dnGREP.WPF
                         }
 
                         FileText = sb.ToString();
+                        GenerateDiffPreview();
                     }
                 }
 
@@ -411,6 +420,10 @@ namespace dnGREP.WPF
 
             return sb.ToString();
         }
+
+        public SearchType TypeOfSearch { get; set; }
+
+        public GrepSearchOption SearchOptions { get; set; }
 
         [ObservableProperty]
         private GrepMatch? selectedGrepMatch = null;
@@ -621,6 +634,75 @@ namespace dnGREP.WPF
         public ICommand UndoMatchCommand => new RelayCommand(
             p => UndoMarkMatchForReplace(),
             q => SelectedGrepMatch != null && SelectedGrepMatch.ReplaceMatch);
+
+        #endregion
+
+        #region Replace Diff 
+
+        private static GrepEngineInitParams InitParameters
+        {
+            get
+            {
+                return new GrepEngineInitParams(
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                    GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
+                    GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                false);
+            }
+        }
+
+        private void GenerateDiffPreview()
+        {
+            if (SelectedSearchResult != null)
+            {
+                Stopwatch sw = Stopwatch.StartNew();
+                GrepEnginePlainText engine = new();
+                engine.Initialize(InitParameters, FileFilter.Default);
+
+                var replaceItems = SelectedSearchResult.Matches.Select(m => m.Copy(replaceMatch: true)).ToList();
+
+                using Stream inputStream = new MemoryStream(Encoding.GetBytes(FileText));
+                using Stream writeStream = new MemoryStream();
+                engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
+                    SearchOptions, Encoding, replaceItems);
+                writeStream.Position = 0;
+                using StreamReader reader = new(writeStream);
+                string replacedString = reader.ReadToEnd();
+
+                DiffModel = FileDifference.Diff(FileText, replacedString);
+
+                bool addEndingNewline = false;
+                if (FileText.EndsWith("\r\n", StringComparison.Ordinal) ||
+                    FileText.EndsWith("\n", StringComparison.Ordinal) ||
+                    FileText.EndsWith("\r", StringComparison.Ordinal))
+                {
+                    addEndingNewline = true;
+                }
+
+                FileText = string.Join("\n", DiffModel.Lines.Select(p => p.Text));
+                if (!addEndingNewline)
+                {
+                    FileText = FileText[..^1];
+                }
+
+                int index = 1;
+                foreach (DiffPiece line in DiffModel.Lines)
+                {
+                    if (line.Type == ChangeType.Inserted)
+                    {
+                        LineNumbers.Add(-1);
+                    }
+                    else
+                    {
+                        LineNumbers.Add(index++);
+                    }
+                }
+
+                sw.Stop();
+                Debug.WriteLine($"Replace and diff in {sw.ElapsedMilliseconds} ms");
+            }
+        }
 
         #endregion
     }

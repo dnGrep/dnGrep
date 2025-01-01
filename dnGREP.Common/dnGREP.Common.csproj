@@ -43,6 +43,7 @@
     <ProjectReference Include="..\SevenZip\SevenZip.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DiffPlex" Version="1.7.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106">

@@ -165,6 +165,8 @@ namespace dnGREP.WPF
             isInitializing = true;
 
             lineNumberMargin?.LineNumbers.Clear();
+            lineNumberMargin?.DiffLines.Clear();
+
             textEditor.Clear();
             for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
             {
@@ -176,13 +178,26 @@ namespace dnGREP.WPF
             {
                 highlighter = new ReplaceViewHighlighter(ViewModel.SelectedSearchResult);
                 highlighter.LineNumbers.AddRange(ViewModel.LineNumbers);
+                if (ViewModel.DiffModel != null && ViewModel.DiffModel.Lines.Count > 0)
+                {
+                    highlighter.DiffLines.AddRange(ViewModel.DiffModel.Lines);
+                }
                 textEditor.TextArea.TextView.BackgroundRenderers.Add(highlighter);
                 textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
             }
 
-            lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);
+            if (ViewModel.DiffModel != null && ViewModel.DiffModel.Lines.Count > 0)
+            {
+                lineNumberMargin?.DiffLines.Clear();
+                lineNumberMargin?.DiffLines.AddRange(ViewModel.DiffModel.Lines);
+                lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);
+            }
+            else
+            {
+                lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);
+            }
 
             try
             {
