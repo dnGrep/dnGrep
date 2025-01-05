@@ -1827,28 +1827,17 @@ namespace dnGREP.Common
             }
         }
 
-        public static void CompareFiles(IList<GrepSearchResult> files)
+        public static void CompareFiles(IList<string> paths)
         {
+            if (paths.Count < 2 || paths.Count > 3)
+                throw new ArgumentException("CompareFiles takes 2 or 3 files");
+
             var settings = GrepSettings.Instance;
             string? application = settings.Get<string>(GrepSettings.Key.CompareApplication);
             string? args = settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
 
             if (!string.IsNullOrWhiteSpace(application))
             {
-                List<string> paths = [];
-                foreach (var item in files)
-                {
-                    string filePath = item.FileNameReal;
-                    if (IsArchive(filePath))
-                        filePath = ArchiveDirectory.ExtractToTempFile(item);
-
-                    if (!paths.Contains(filePath))
-                        paths.Add(filePath);
-
-                    if (paths.Count == 3)
-                        break;
-                }
-
                 string appArgs = string.IsNullOrWhiteSpace(args) ? string.Empty : args + " ";
                 string fileArgs = string.Join(" ", paths.Select(p => UiUtils.Quote(p)));
 
@@ -1877,6 +1866,24 @@ namespace dnGREP.Common
                     }
                 }
             }
+        }
+
+        public static void CompareFiles(IList<GrepSearchResult> files)
+        {
+            List<string> paths = [];
+            foreach (var item in files)
+            {
+                string filePath = item.FileNameReal;
+                if (IsArchive(filePath))
+                    filePath = ArchiveDirectory.ExtractToTempFile(item);
+
+                if (!paths.Contains(filePath))
+                    paths.Add(filePath);
+
+                if (paths.Count == 3)
+                    break;
+            }
+            CompareFiles(paths);
         }
 
         /// <summary>

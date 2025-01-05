@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -60,6 +59,7 @@ namespace dnGREP.WPF
 
             IsFullDialog = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog);
 
+            PreviewShowingReplacements = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewShowingReplacements);
             RestoreLastModifiedDate = GrepSettings.Instance.Get<bool>(GrepSettings.Key.RestoreLastModifiedDate);
         }
 
@@ -183,8 +183,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    matchIndex = 0;
-                    SelectedGrepMatch = SelectedSearchResult.Matches[matchIndex];
+                    SelectNextFile();
                 }
             }
         }
@@ -200,8 +199,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    matchIndex = SelectedSearchResult.Matches.Count - 1;
-                    SelectedGrepMatch = SelectedSearchResult.Matches[matchIndex];
+                    SelectPrevFile();
                 }
             }
         }
@@ -240,6 +238,15 @@ namespace dnGREP.WPF
         public DiffPaneModel? DiffModel { get; private set; }
 
         [ObservableProperty]
+        private bool previewShowingReplacements = false;
+
+        partial void OnPreviewShowingReplacementsChanged(bool value)
+        {
+            GrepSettings.Instance.Set(GrepSettings.Key.PreviewShowingReplacements, PreviewShowingReplacements);
+            OnSelectedSearchResultChanged(SelectedSearchResult);
+        }
+
+        [ObservableProperty]
         private List<GrepSearchResult>? searchResults = null;
         partial void OnSearchResultsChanged(List<GrepSearchResult>? value)
         {
@@ -262,6 +269,7 @@ namespace dnGREP.WPF
                 FileText = string.Empty;
                 DiffModel = null;
                 IndividualReplaceEnabled = true;
+                string newLine = !string.IsNullOrEmpty(SelectedSearchResult.EOL) ? SelectedSearchResult.EOL : "\n";
 
                 FileInfo fileInfo = new(SelectedSearchResult.FileNameReal);
                 if (Utils.IsBinary(SelectedSearchResult.FileNameReal))
@@ -273,6 +281,71 @@ namespace dnGREP.WPF
                 {
                     FileText = Resources.Replace_ThisFileContainsTooManyMatchesForIndividualReplace;
                     IndividualReplaceEnabled = false;
+                }
+                else if (PreviewShowingReplacements)
+                {
+                    StringBuilder sb = new();
+                    using (FileStream inputStream = File.Open(SelectedSearchResult.FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        using StreamReader readStream = new(inputStream, Encoding, false, 4096, true);
+                        using EolReader eolReader = new(readStream);
+
+                        string? lineText;
+                        while (!eolReader.EndOfStream)
+                        {
+                            lineText = eolReader.ReadLine();
+                            if (lineText != null)
+                            {
+                                sb.Append(lineText);
+                            }
+                        }
+                    }
+
+                    GenerateDiffPreview(sb.ToString());
+
+                    if (DiffModel != null)
+                    {
+                        sb.Clear();
+                        int lineNumber = 0;
+                        int lineCount = 0;
+                        for (int idx = 0; idx < DiffModel.Lines.Count; idx++)
+                        {
+                            DiffPiece piece = DiffModel.Lines[idx];
+                            string line = piece.Text;
+                            lineCount++;
+
+                            if (piece.Position == null) // Deleted line
+                                lineNumber++;
+                            else
+                                lineNumber = piece.Position.Value;
+
+                            GrepLine? grepLine = SelectedSearchResult.SearchResults
+                                .FirstOrDefault(sr => sr.LineNumber == lineNumber);
+                            if (grepLine != null)
+                            {
+                                // this adjusts the location of the grep line in the newText 
+                                // and accounting for all the inserted lines above it.
+                                grepLine.DisplayFileLineNumber = lineCount;
+                            }
+
+                            if (line.Length > 7990 && grepLine != null)
+                            {
+                                sb.Append(ChopLongLines(line, grepLine, piece)).Append(newLine);
+                                if (++idx < DiffModel.Lines.Count)
+                                {
+                                    piece = DiffModel.Lines[idx];
+                                    line = piece.Text;
+                                    sb.Append(ChopLongLines(line, grepLine, piece)).Append(newLine);
+                                }
+                            }
+                            else
+                            {
+                                sb.Append(line).Append(newLine);
+                            }
+                        }
+                    }
+
+                    FileText = sb.ToString().TrimEndOfLine();
                 }
                 else
                 {
@@ -286,34 +359,33 @@ namespace dnGREP.WPF
                         int tempLineNum = 1;
                         foreach (var line in SelectedSearchResult.SearchResults)
                         {
-                            line.ClippedFileLineNumber = tempLineNum;
+                            line.DisplayFileLineNumber = tempLineNum;
 
                             string lineText = line.LineText;
                             if (lineText.Length > 7990)
                             {
-                                lineText = ChopLongLines(line.LineText, line);
+                                lineText = ChopLongLines(line.LineText, line, null);
                             }
 
-                            sb.Append(lineText).Append(SelectedSearchResult.EOL);
+                            sb.Append(lineText).Append(newLine);
                             LineNumbers.Add(line.LineNumber);
 
                             tempLineNum++;
                         }
                         FileText = sb.ToString();
-
-                        // TODO: GenerateDiffPreview();
                     }
                     else
                     {
                         StringBuilder sb = new();
-                        using (FileStream stream = File.Open(SelectedSearchResult.FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        using (FileStream inputStream = File.Open(SelectedSearchResult.FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         {
-                            using StreamReader reader = new(stream, Encoding);
+                            using StreamReader readStream = new(inputStream, Encoding, false, 4096, true);
+                            using EolReader eolReader = new(readStream);
                             string? lineText;
                             int lineNum = 1;
-                            while (!reader.EndOfStream)
+                            while (!eolReader.EndOfStream)
                             {
-                                lineText = reader.ReadLine();
+                                lineText = eolReader.ReadLine();
                                 if (lineText != null)
                                 {
                                     if (lineText.Length > 7990)
@@ -323,17 +395,16 @@ namespace dnGREP.WPF
 
                                         if (grepLine != null)
                                         {
-                                            lineText = ChopLongLines(lineText, grepLine);
+                                            lineText = ChopLongLines(lineText, grepLine, null);
                                         }
                                     }
 
-                                    sb.Append(lineText).Append(SelectedSearchResult.EOL);
+                                    sb.Append(lineText);
                                 }
                             }
                         }
 
                         FileText = sb.ToString();
-                        GenerateDiffPreview();
                     }
                 }
 
@@ -341,11 +412,19 @@ namespace dnGREP.WPF
             }
         }
 
-        private string ChopLongLines(string lineText, GrepLine grepLine)
+        private string ChopLongLines(string lineText, GrepLine grepLine, DiffPiece? piece)
         {
             if (grepLine.Matches.Count == 0)
             {
                 return lineText;
+            }
+
+            // initial implementation, remove the sub-piece coloring
+            // past where the line is chopped
+            List<DiffPiece> pieces = [];
+            if (piece != null)
+            {
+                pieces = piece.SubPieces;
             }
 
             StringBuilder sb = new();
@@ -366,6 +445,8 @@ namespace dnGREP.WPF
                 sb.Append(lineText.AsSpan(0, startContext));
                 sb.Append(BigEllipsisColorizer.ellipsis);
                 position = startContext;
+
+                RemoveSubPieces(pieces, position);
             }
 
             for (int idx = 0; idx < grepLine.Matches.Count; idx++)
@@ -404,6 +485,8 @@ namespace dnGREP.WPF
                     sb.Append(lineText.AsSpan(position, contextChars));
                     sb.Append(BigEllipsisColorizer.ellipsis);
                     position += contextChars;
+
+                    RemoveSubPieces(pieces, position);
                 }
                 else // at end of line
                 {
@@ -421,6 +504,25 @@ namespace dnGREP.WPF
             return sb.ToString();
         }
 
+        private void RemoveSubPieces(List<DiffPiece> pieces, int position)
+        {
+            int last = -1;
+            int endOffset = 0;
+            foreach (var piece in pieces)
+            {
+                endOffset += string.IsNullOrEmpty(piece.Text) ? 0 : piece.Text.Length;
+                if (endOffset > position && piece.Position != null)
+                {
+                    last = piece.Position.Value;
+                    break;
+                }
+            }
+            if (last > 0)
+            {
+                pieces.RemoveAll(p => p.Position >= last);
+            }
+        }
+
         public SearchType TypeOfSearch { get; set; }
 
         public GrepSearchOption SearchOptions { get; set; }
@@ -436,7 +538,7 @@ namespace dnGREP.WPF
 
                 if (lineMatch != null)
                 {
-                    LineNumber = lineMatch.ClippedFileLineNumber;
+                    LineNumber = lineMatch.DisplayFileLineNumber;
 
                     ColNumber = lineMatch.Matches
                         .Where(m => m.FileMatchId == SelectedGrepMatch.FileMatchId)
@@ -560,6 +662,8 @@ namespace dnGREP.WPF
                 FormatFileReplaceStatus();
 
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
+
+                SelectNextFile();
             }
         }
 
@@ -635,6 +739,11 @@ namespace dnGREP.WPF
             p => UndoMarkMatchForReplace(),
             q => SelectedGrepMatch != null && SelectedGrepMatch.ReplaceMatch);
 
+        public ICommand ExternalDiffCommand => new RelayCommand(
+            p => ExternalDiff(),
+            q => SelectedSearchResult != null && CompareApplicationConfigured);
+
+        private static bool CompareApplicationConfigured => GrepSettings.Instance.IsSet(GrepSettings.Key.CompareApplication);
         #endregion
 
         #region Replace Diff 
@@ -652,39 +761,24 @@ namespace dnGREP.WPF
             }
         }
 
-        private void GenerateDiffPreview()
+        private void GenerateDiffPreview(string oldText)
         {
             if (SelectedSearchResult != null)
             {
-                Stopwatch sw = Stopwatch.StartNew();
                 GrepEnginePlainText engine = new();
                 engine.Initialize(InitParameters, FileFilter.Default);
 
                 var replaceItems = SelectedSearchResult.Matches.Select(m => m.Copy(replaceMatch: true)).ToList();
 
-                using Stream inputStream = new MemoryStream(Encoding.GetBytes(FileText));
+                using Stream inputStream = new MemoryStream(Encoding.GetBytes(oldText));
                 using Stream writeStream = new MemoryStream();
                 engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
                     SearchOptions, Encoding, replaceItems);
                 writeStream.Position = 0;
                 using StreamReader reader = new(writeStream);
-                string replacedString = reader.ReadToEnd();
+                string newText = reader.ReadToEnd();
 
-                DiffModel = FileDifference.Diff(FileText, replacedString);
-
-                bool addEndingNewline = false;
-                if (FileText.EndsWith("\r\n", StringComparison.Ordinal) ||
-                    FileText.EndsWith("\n", StringComparison.Ordinal) ||
-                    FileText.EndsWith("\r", StringComparison.Ordinal))
-                {
-                    addEndingNewline = true;
-                }
-
-                FileText = string.Join("\n", DiffModel.Lines.Select(p => p.Text));
-                if (!addEndingNewline)
-                {
-                    FileText = FileText[..^1];
-                }
+                DiffModel = FileDifference.Diff(oldText, newText, replaceItems);
 
                 int index = 1;
                 foreach (DiffPiece line in DiffModel.Lines)
@@ -698,9 +792,28 @@ namespace dnGREP.WPF
                         LineNumbers.Add(index++);
                     }
                 }
+            }
+        }
 
-                sw.Stop();
-                Debug.WriteLine($"Replace and diff in {sw.ElapsedMilliseconds} ms");
+        private void ExternalDiff()
+        {
+            if (SelectedSearchResult != null)
+            {
+                string originalFile = SelectedSearchResult.FileNameReal;
+                string newFileName = Path.GetFileNameWithoutExtension(originalFile) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(originalFile);
+                string destinationFile = Path.Combine(Utils.GetTempFolder(), newFileName);
+
+                GrepEnginePlainText engine = new();
+                engine.Initialize(InitParameters, FileFilter.Default);
+
+                var replaceItems = SelectedSearchResult.Matches.Select(m => m.Copy(replaceMatch: true)).ToList();
+
+                using FileStream readStream = File.Open(originalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                using FileStream writeStream = File.OpenWrite(destinationFile);
+                engine.Replace(readStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
+                    SearchOptions, Encoding, replaceItems);
+
+                Utils.CompareFiles([SelectedSearchResult.FileNameReal, destinationFile]);
             }
         }
 
