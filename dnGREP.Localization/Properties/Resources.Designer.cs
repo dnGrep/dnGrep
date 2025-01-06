@@ -187,6 +187,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .NET library to generate textual differences.
+        /// </summary>
+        public static string About_NETLibraryToGenerateTextualDifferences {
+            get {
+                return ResourceManager.GetString("About_NETLibraryToGenerateTextualDifferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .NET library to parse ECMA-376 numbers.
         /// </summary>
         public static string About_NETLibraryToParseECMA376Numbers {
@@ -6641,6 +6650,24 @@ namespace dnGREP.Localization.Properties {
         public static string Replace_OK {
             get {
                 return ResourceManager.GetString("Replace_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open file compare.
+        /// </summary>
+        public static string Replace_OpenFileCompare {
+            get {
+                return ResourceManager.GetString("Replace_OpenFileCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview showing replacements.
+        /// </summary>
+        public static string Replace_PreviewShowingReplacements {
+            get {
+                return ResourceManager.GetString("Replace_PreviewShowingReplacements", resourceCulture);
             }
         }
         

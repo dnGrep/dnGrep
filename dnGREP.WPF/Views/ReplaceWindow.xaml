@@ -259,7 +259,7 @@
             </Grid>
 
             <DockPanel DockPanel.Dock="Bottom"
-                       Margin="3" LastChildFill="False">
+                       Margin="3,12,3,3" LastChildFill="False">
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
                     <CheckBox Margin="3" TabIndex="30"
                               Content="{l:Loc Key='Replace_KeepPreviousFileModifiedDate'}"
@@ -268,7 +268,7 @@
                 </StackPanel>
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                    <Button Content="Open file compare" 
+                    <Button Content="{l:Loc Key='Replace_OpenFileCompare'}" 
                             Margin="0,3,48,3" TabIndex="33"
                             Command="{Binding ExternalDiffCommand}"
                             Style="{StaticResource ReplaceButton}"/>
@@ -308,7 +308,7 @@
             <StackPanel Name="statusBar" DockPanel.Dock="Bottom" ClipToBounds="False" Orientation="Horizontal"
                         Visibility="{Binding IsFullDialog, Converter={StaticResource BoolToVisibilityConverter}}">
                 <CheckBox Margin="12,3" TabIndex="21"
-                          Content="Preview showing replacements"
+                          Content="{l:Loc Key='Replace_PreviewShowingReplacements'}"
                           IsChecked="{Binding Path=PreviewShowingReplacements}" />
                 <TextBlock Margin="12,3,3,3" VerticalAlignment="Center" Text="{l:Loc Key='Replace_Zoom'}" />
                 <Slider Name="zoomSlider" Width="200" Margin="0,0,3,0"

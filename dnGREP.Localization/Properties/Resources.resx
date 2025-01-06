@@ -4238,4 +4238,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Shift</value>
     <comment>Text for the Shift key</comment>
   </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>.NET library to generate textual differences</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Open file compare</value>
+    <comment>Replace window, Diff button text</comment>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Preview showing replacements</value>
+    <comment>Replace window, Preview diffs checkbox label</comment>
+  </data>
 </root>
