@@ -18,6 +18,9 @@
       <Component Id="cmp7A55F9CF84A64DF4968DC208CA225AC8" Guid="{179542A1-0BAC-4E53-995C-43920DF0C5D6}">
         <File Id="fil4918FA3FBA634BEC9F49877949B0F22A" KeyPath="yes" Source="$(var.PublishDir)\CommunityToolkit.Mvvm.dll" />
       </Component>
+      <Component Id="cmpC83D0BC3D48D49938926A3790FC33E0F" Guid="{E57F071D-552B-4D72-B1CD-7453A5A1ED9E}">
+        <File Id="fil11DCCEECFAB7482BB8DF3D7C0E1E5242" KeyPath="yes" Source="$(var.PublishDir)\DiffPlex.dll" />
+      </Component>
       <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{293480D3-64A1-4D5D-A953-4C3F6694BC52}">
         <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.dll" />
       </Component>     
@@ -245,6 +248,7 @@
     <ComponentGroup Id="dnGREPAppFiles">
       <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
       <ComponentRef Id="cmp7A55F9CF84A64DF4968DC208CA225AC8" />
+      <ComponentRef Id="cmpC83D0BC3D48D49938926A3790FC33E0F" />
       <ComponentRef Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" />
       <ComponentRef Id="cmp78E7869DE0E547A9BB91AAD5C21A80CF" />
       <ComponentRef Id="cmpD9FA0B07237DE16A4585D46BED20E933" />
