@@ -19,8 +19,8 @@ namespace dnGREP.WPF
     /// </summary>
     public class ReplaceViewLineNumberMargin : LineNumberMargin
     {
-        private static readonly Brush? InsertedBackground;
-        private static readonly Brush? DeletedBackground;
+        private readonly Brush? InsertedBackground;
+        private readonly Brush? DeletedBackground;
         private static readonly Pen BorderlessPen;
 
         private const double TextHorizontalMargin = 4.0;
@@ -29,9 +29,6 @@ namespace dnGREP.WPF
 
         static ReplaceViewLineNumberMargin()
         {
-            InsertedBackground = Application.Current.Resources["DiffText.Inserted.Line.Background"] as Brush;
-            DeletedBackground = Application.Current.Resources["DiffText.Deleted.Line.Background"] as Brush;
-
             var transparentBrush = new SolidColorBrush(Colors.Transparent);
             transparentBrush.Freeze();
 
@@ -42,6 +39,9 @@ namespace dnGREP.WPF
         public ReplaceViewLineNumberMargin()
             : base()
         {
+            InsertedBackground = Application.Current.Resources["DiffText.Inserted.Line.Background"] as Brush;
+            DeletedBackground = Application.Current.Resources["DiffText.Deleted.Line.Background"] as Brush;
+
             // override Property Value Inheritance, and always render
             // the line number margin left-to-right
             FlowDirection = FlowDirection.LeftToRight;
