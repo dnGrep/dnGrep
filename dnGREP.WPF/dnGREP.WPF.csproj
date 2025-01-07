@@ -202,7 +202,6 @@
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Management" Version="9.0.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +227,6 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x86'">
     <EverythingFiles Include="$(SolutionDir)\dnGREP.Everything\x86\Everything32.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <RuntimeFiles Include="$(SolutionDir)\dnGREP.WPF\bin\$(Platform)\$(Configuration)\$(TargetFramework)\runtimes\win\lib\net9.0\System.Management.dll" />
   </ItemGroup>
   <ItemGroup>
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.OpenXml.plugin" />
