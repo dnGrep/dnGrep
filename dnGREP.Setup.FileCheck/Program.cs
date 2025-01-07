@@ -134,13 +134,17 @@ namespace dnGREP.Setup.FileCheck
                 }
             }
 
-            var runtimes = Directory.GetFiles(Path.Combine(publishDir, "runtimes"), "*", SearchOption.AllDirectories);
-            foreach (var file in runtimes)
+            var runtimesDir = Path.Combine(publishDir, "runtimes");
+            if (Directory.Exists(runtimesDir))
             {
-                var ext = Path.GetExtension(file);
-                if (includeExtensions.Contains(ext))
+                var runtimes = Directory.GetFiles(runtimesDir, "*", SearchOption.AllDirectories);
+                foreach (var file in runtimes)
                 {
-                    files.Add(file);
+                    var ext = Path.GetExtension(file);
+                    if (includeExtensions.Contains(ext))
+                    {
+                        files.Add(file);
+                    }
                 }
             }
 
