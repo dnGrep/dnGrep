@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Management;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
@@ -211,30 +208,18 @@ namespace dnGREP.WPF
             if (!HasWindowsThemes)
                 return;
 
-            var currentUser = WindowsIdentity.GetCurrent();
-            if (currentUser != null && currentUser.User != null)
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            if (e.Category == UserPreferenceCategory.General ||
+                e.Category == UserPreferenceCategory.Color)
             {
-                string query = string.Format(
-                    CultureInfo.InvariantCulture,
-                    @"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{0}\\{1}' AND ValueName = '{2}'",
-                    currentUser.User.Value,
-                    RegistryKeyPath.Replace(@"\", @"\\", StringComparison.Ordinal),
-                    RegistryValueName);
-
-                try
+                WindowsTheme newTheme = GetWindowsTheme();
+                if (newTheme != WindowsTheme)
                 {
-                    var watcher = new ManagementEventWatcher(query);
-                    watcher.EventArrived += (sender, args) =>
-                    {
-                        AppThemeChanged();
-                    };
-
-                    // Start listening for events
-                    watcher.Start();
-                }
-                catch (Exception)
-                {
-                    // This can fail on Windows 7
+                    AppThemeChanged();
                 }
             }
         }

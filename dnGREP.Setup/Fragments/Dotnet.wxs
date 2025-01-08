@@ -348,9 +348,6 @@
       <Component Id="cmp30FC9B24809331DB695A7544E408AADF" Guid="{FC5CBAE6-C69D-471B-804A-47C209744F40}">
         <File Id="fil690D90C3AA66A0B3F9F4189AC97A80CA" KeyPath="yes" Source="$(var.PublishDir)\System.Linq.Queryable.dll" />
       </Component>
-      <Component Id="cmp2E41ABB3FCD3B1BE8A440A4FAE2C7D07" Guid="{560CFDBF-51F4-46F9-B38A-3A487EE70D80}">
-        <File Id="filA2E306D66372E965307130D9BEA937AC" KeyPath="yes" Source="$(var.PublishDir)\System.Management.dll" />
-      </Component>
       <Component Id="cmpAA931085A427DC09AD4D46D96C6693B9" Guid="{C6C9F3BF-328B-430B-9CFC-AA309BCB405E}">
         <File Id="filA4D16EB7AC475E3874DCD8A725D3EA83" KeyPath="yes" Source="$(var.PublishDir)\System.Memory.dll" />
       </Component>
@@ -732,18 +729,6 @@
       <Component Id="cmpE19CB7EFEEF435CA499E41D5837E75C5" Guid="{FB7AD1DC-791A-459C-912C-6CEB1C1E23C7}">
         <File Id="filF1442DCCE4E293CCE26C89DFFC9AF56B" KeyPath="yes" Source="$(var.PublishDir)\wpfgfx_cor3.dll" />
       </Component>
-
-      <Directory Id="dirD7F3F426DE7D827AD1059D22DE8AEC32" Name="runtimes">
-        <Directory Id="dir53ABB208FA32768A6656757E8D4217CE" Name="win">
-          <Directory Id="dir02D3C58AF36540B10FFB3A2B0BB31325" Name="lib">
-            <Directory Id="dir0D502F2AECA07E01BB2D6D7C143AB309" Name="net8.0">
-              <Component Id="cmp7208E22C36739EF3F83B5C63E03C5D77" Guid="{4EFCF9E7-BE14-4E8C-97D3-F4F38B7B6AB8}">
-                <File Id="fil5CBE5C5919F302CCEE4789BB5431AF59" KeyPath="yes" Source="$(var.PublishDir)\runtimes\win\lib\net8.0\System.Management.dll" />
-              </Component>
-            </Directory>
-          </Directory>
-        </Directory>
-      </Directory>
     </DirectoryRef>
   </Fragment>
   <Fragment>
@@ -860,7 +845,6 @@
       <ComponentRef Id="cmp75F169005ADA3DC2A95F4F7257603060" />
       <ComponentRef Id="cmpFA1D888C360F3B61DDBBB2E2B15A0AF7" />
       <ComponentRef Id="cmp30FC9B24809331DB695A7544E408AADF" />
-      <ComponentRef Id="cmp2E41ABB3FCD3B1BE8A440A4FAE2C7D07" />
       <ComponentRef Id="cmpAA931085A427DC09AD4D46D96C6693B9" />
       <ComponentRef Id="cmpA7058F54A377D12E8CC594C0857E7E67" />
       <ComponentRef Id="cmpEE6F3C97F8A13DFF50C82F2086ACD931" />
@@ -988,7 +972,6 @@
       <ComponentRef Id="cmp0DD066B4E78BC8C28C958D31C7982CD9" />
       <ComponentRef Id="cmpFE51DBE82E0C1921D93734B26AF404CD" />
       <ComponentRef Id="cmpE19CB7EFEEF435CA499E41D5837E75C5" />
-      <ComponentRef Id="cmp7208E22C36739EF3F83B5C63E03C5D77" />
     </ComponentGroup>
   </Fragment>
 </Wix>
