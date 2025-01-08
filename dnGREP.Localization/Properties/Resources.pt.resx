@@ -2984,4 +2984,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Árvore de resultados</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
 </root>
