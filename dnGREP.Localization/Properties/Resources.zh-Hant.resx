@@ -103,7 +103,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>用於檢測字元集的 .NET 框架</value>
+    <value>用於檢測字元集的 .NET 程式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>處理 Word 和 Excel 文檔的 .NET 程式庫</value>
+    <value>處理 Word 和 Excel 文件的 .NET 程式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
@@ -4119,7 +4119,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>沒有選取要取代的檔案.</value>
   </data>
   <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
-    <value>替換取代的檔案</value>
+    <value>替換選取的檔案</value>
   </data>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
     <value>開啟</value>
@@ -4147,5 +4147,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
     <value>最小化到通知區域 *</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>開啟檔案比較</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>顯示替換預覽</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>.NET 程式庫產生文字差異</value>
   </data>
 </root>
