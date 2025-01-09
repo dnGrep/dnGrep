@@ -2902,4 +2902,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
     <value>Windows</value>
   </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>Beenden</value>
+  </data>
 </root>
