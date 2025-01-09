@@ -977,4 +977,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Created" xml:space="preserve">
     <value>Vytvorené</value>
   </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>Záleží na veľkosti písmen</value>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>Záleží na veľkosti písmen</value>
+  </data>
 </root>

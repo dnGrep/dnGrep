@@ -4179,4 +4179,31 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
     <value>在选定文件中进行替换</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>无法注册新的键盘快捷键 - 它是否被占用？</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>最小化到通知区域 *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>还原 dnGrep 窗口的键盘快捷键</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>窗口</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
 </root>
