@@ -22,7 +22,7 @@ namespace dnGREP.WPF
         {
             grepSearchResult = result;
 
-            outlinePen = new Pen(penBrush, 1);
+            outlinePen = new Pen(penBrush, 1.5);
             outlinePen.Freeze();
 
             transparentPen = new Pen(Brushes.Transparent, 0.0);
@@ -141,7 +141,7 @@ namespace dnGREP.WPF
                         };
                         foreach (var rect in rects)
                         {
-                            rect.Inflate(0, -1);
+                            rect.Inflate(1, -1);
                             geoBuilder.AddRectangle(textView, rect);
                         }
                         Geometry geometry = geoBuilder.CreateGeometry();

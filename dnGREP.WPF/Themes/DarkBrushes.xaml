@@ -30,10 +30,10 @@
     <SolidColorBrush x:Key="Match.Replace.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Match.Replace.Background" po:Freeze="true" Color="#FF267800" />
 
-    <SolidColorBrush x:Key="DiffText.Inserted.Line.Background" po:Freeze="true" Color="#FF00323D" />
-    <SolidColorBrush x:Key="DiffText.Inserted.Word.Background" po:Freeze="true" Color="#FF004B5C" />
     <SolidColorBrush x:Key="DiffText.Deleted.Line.Background" po:Freeze="true" Color="#FF420000" />
-    <SolidColorBrush x:Key="DiffText.Deleted.Word.Background" po:Freeze="true" Color="#FF420000" />
+    <SolidColorBrush x:Key="DiffText.Deleted.Word.Background" po:Freeze="true" Color="#FF8A0000" />
+    <SolidColorBrush x:Key="DiffText.Inserted.Line.Background" po:Freeze="true" Color="#FF00343D" />
+    <SolidColorBrush x:Key="DiffText.Inserted.Word.Background" po:Freeze="true" Color="#FF006969" />
 
     <LinearGradientBrush x:Key="Window.Background" po:Freeze="true" StartPoint="0,0" EndPoint="0,1">
         <GradientStop po:Freeze="true" Color="#FF404040" Offset="0" />
