@@ -30,6 +30,11 @@
     <SolidColorBrush x:Key="Match.Replace.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Match.Replace.Background" po:Freeze="true" Color="#FF267800" />
 
+    <SolidColorBrush x:Key="DiffText.Deleted.Line.Background" po:Freeze="true" Color="#FF420000" />
+    <SolidColorBrush x:Key="DiffText.Deleted.Word.Background" po:Freeze="true" Color="#FF8A0000" />
+    <SolidColorBrush x:Key="DiffText.Inserted.Line.Background" po:Freeze="true" Color="#FF003057" />
+    <SolidColorBrush x:Key="DiffText.Inserted.Word.Background" po:Freeze="true" Color="#FF006BC2" />
+
     <LinearGradientBrush x:Key="Window.Background" po:Freeze="true" StartPoint="0,0" EndPoint="0,1">
         <GradientStop po:Freeze="true" Color="#FF404040" Offset="0" />
         <GradientStop po:Freeze="true" Color="#FF303030" Offset="0.8" />
@@ -184,17 +189,17 @@
     <SolidColorBrush x:Key="ComboBox.DropDown.Border" po:Freeze="true" Color="#FF808080" />
 
     <!-- ComboBox Item -->
-    <SolidColorBrush x:Key="ComboBoxItem.Hover.Background" po:Freeze="true" Color="#1F26A0DA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.Hover.Border" po:Freeze="true" Color="#A826A0DA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.Selected.Background" po:Freeze="true" Color="#3D26A0DA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.Selected.Border" po:Freeze="true" Color="#FF26A0DA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.SelectedHover.Background" po:Freeze="true" Color="#2E0080FF"/>
-    <SolidColorBrush x:Key="ComboBoxItem.SelectedHover.Border" po:Freeze="true" Color="#99006CD9"/>
-    <SolidColorBrush x:Key="ComboBoxItem.SelectedNoFocus.Background" po:Freeze="true" Color="#3DDADADA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.SelectedNoFocus.Border" po:Freeze="true" Color="#FFDADADA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.Focus.Border" po:Freeze="true" Color="#FF26A0DA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.HoverFocus.Background" po:Freeze="true" Color="#5426A0DA"/>
-    <SolidColorBrush x:Key="ComboBoxItem.HoverFocus.Border" po:Freeze="true" Color="#FF26A0DA"/>
+    <SolidColorBrush x:Key="ComboBoxItem.Hover.Background" po:Freeze="true" Color="#1F26A0DA" />
+    <SolidColorBrush x:Key="ComboBoxItem.Hover.Border" po:Freeze="true" Color="#A826A0DA" />
+    <SolidColorBrush x:Key="ComboBoxItem.Selected.Background" po:Freeze="true" Color="#3D26A0DA" />
+    <SolidColorBrush x:Key="ComboBoxItem.Selected.Border" po:Freeze="true" Color="#FF26A0DA" />
+    <SolidColorBrush x:Key="ComboBoxItem.SelectedHover.Background" po:Freeze="true" Color="#2E0080FF" />
+    <SolidColorBrush x:Key="ComboBoxItem.SelectedHover.Border" po:Freeze="true" Color="#99006CD9" />
+    <SolidColorBrush x:Key="ComboBoxItem.SelectedNoFocus.Background" po:Freeze="true" Color="#3DDADADA" />
+    <SolidColorBrush x:Key="ComboBoxItem.SelectedNoFocus.Border" po:Freeze="true" Color="#FFDADADA" />
+    <SolidColorBrush x:Key="ComboBoxItem.Focus.Border" po:Freeze="true" Color="#FF26A0DA" />
+    <SolidColorBrush x:Key="ComboBoxItem.HoverFocus.Background" po:Freeze="true" Color="#5426A0DA" />
+    <SolidColorBrush x:Key="ComboBoxItem.HoverFocus.Border" po:Freeze="true" Color="#FF26A0DA" />
 
     <!--  Scroll Bar  -->
     <SolidColorBrush x:Key="ScrollBar.Static.Background" po:Freeze="true" Color="#FF333333" />
@@ -281,7 +286,7 @@
     <!--  DataGrid  -->
     <SolidColorBrush x:Key="DataGrid.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="DataGrid.Background" po:Freeze="true" Color="#FF404040" />
-    <SolidColorBrush x:Key="DataGrid.GridLine" po:Freeze="true" Color="#FF545454"/>
+    <SolidColorBrush x:Key="DataGrid.GridLine" po:Freeze="true" Color="#FF545454" />
     <SolidColorBrush x:Key="DataGrid.Border" po:Freeze="true" Color="#FF808080" />
     <SolidColorBrush x:Key="DataGrid.Cell.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="DataGrid.Cell.Background" po:Freeze="true" Color="#FF252525" />

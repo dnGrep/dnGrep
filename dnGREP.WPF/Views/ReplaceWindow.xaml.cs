@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using dnGREP.Common;
 using dnGREP.Common.UI;
@@ -26,6 +26,7 @@ namespace dnGREP.WPF
         private bool isInitializing;
         private bool isInPropertyChanged;
         private bool isInCaretMoved;
+        private bool isStoryboardEnabled;
         private readonly SearchPanel? searchPanel;
 
         public ReplaceWindow()
@@ -86,7 +87,6 @@ namespace dnGREP.WPF
 
                 ViewModel.LoadFile += (s, e) => LoadFile();
                 ViewModel.ReplaceMatch += (s, e) => textEditor.TextArea.TextView.Redraw();
-                ViewModel.PropertyChanged += ViewModel_PropertyChanged;
 
                 textEditor.Loaded += (s, e) =>
                 {
@@ -105,6 +105,7 @@ namespace dnGREP.WPF
                 };
             }
 
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
             ViewModel.CloseTrue += ViewModel_CloseTrue;
 
             DataContext = ViewModel;
@@ -133,7 +134,8 @@ namespace dnGREP.WPF
 
         private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SelectedGrepMatch")
+            if (e.PropertyName == nameof(ViewModel.SelectedGrepMatch) &&
+                ViewModel.IsFullDialog)
             {
                 isInPropertyChanged = true;
 
@@ -152,11 +154,23 @@ namespace dnGREP.WPF
 
                 isInPropertyChanged = false;
             }
-            else if (e.PropertyName == "CurrentSyntax")
+            else if (e.PropertyName == nameof(ViewModel.CurrentSyntax) &&
+                ViewModel.IsFullDialog)
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
                 textEditor.TextArea.TextView.Redraw();
+            }
+            else if (e.PropertyName == nameof(ReplaceViewModel.SelectedSearchResult))
+            {
+                if (isStoryboardEnabled)
+                {
+                    var storyboard = (Storyboard)TryFindResource("FlashBackground");
+                    foreach (var animation in storyboard.Children)
+                        Storyboard.SetTarget(animation, fileBorder);
+                    storyboard.Begin();
+                }
+                isStoryboardEnabled = true;
             }
         }
 
@@ -165,6 +179,8 @@ namespace dnGREP.WPF
             isInitializing = true;
 
             lineNumberMargin?.LineNumbers.Clear();
+            lineNumberMargin?.DiffLines.Clear();
+
             textEditor.Clear();
             for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
             {
@@ -176,13 +192,26 @@ namespace dnGREP.WPF
             {
                 highlighter = new ReplaceViewHighlighter(ViewModel.SelectedSearchResult);
                 highlighter.LineNumbers.AddRange(ViewModel.LineNumbers);
+                if (ViewModel.DiffModel != null && ViewModel.DiffModel.Lines.Count > 0)
+                {
+                    highlighter.DiffLines.AddRange(ViewModel.DiffModel.Lines);
+                }
                 textEditor.TextArea.TextView.BackgroundRenderers.Add(highlighter);
                 textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
             }
 
-            lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);
+            if (ViewModel.DiffModel != null && ViewModel.DiffModel.Lines.Count > 0)
+            {
+                lineNumberMargin?.DiffLines.Clear();
+                lineNumberMargin?.DiffLines.AddRange(ViewModel.DiffModel.Lines);
+                lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);
+            }
+            else
+            {
+                lineNumberMargin?.LineNumbers.AddRange(ViewModel.LineNumbers);
+            }
 
             try
             {

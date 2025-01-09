@@ -378,6 +378,8 @@ namespace dnGREP.Common
             public const string MinimizeToNotificationArea = "MinimizeToNotificationArea";
             [DefaultValue("")]
             public const string RestoreWindowKeyboardShortcut = "RestoreWindowKeyboardShortcut";
+            [DefaultValue(true)]
+            public const string PreviewShowingReplacements = "PreviewShowingReplacements";
         }
 
         public static class ObsoleteKey

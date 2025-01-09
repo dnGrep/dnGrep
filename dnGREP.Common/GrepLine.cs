@@ -29,16 +29,17 @@ namespace dnGREP.Common
 
 
         /// <summary>
-        /// Gets or sets the line number from a clipped view of the file
-        /// that is showing only matched lines and context lines.
+        /// Gets or sets the line number from a display view of the file
+        /// clipped to show only matched lines and context lines, or
+        /// expanded to show lines inserted above in a diff view
         /// Returns the normal line number if not set
         /// </summary>
-        public int ClippedFileLineNumber
+        public int DisplayFileLineNumber
         {
-            get { return _clippedFileLineNumber > -1 ? _clippedFileLineNumber : LineNumber; }
-            set { _clippedFileLineNumber = value; }
+            get { return _displayFileLineNumber > -1 ? _displayFileLineNumber : LineNumber; }
+            set { _displayFileLineNumber = value; }
         }
-        private int _clippedFileLineNumber = -1;
+        private int _displayFileLineNumber = -1;
 
         public override string ToString()
         {

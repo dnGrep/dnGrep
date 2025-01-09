@@ -113,6 +113,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"  SharedSizeGroup="A"/>
@@ -168,24 +169,30 @@
                     <TextBlock Text="{l:Loc Key='About_NETLibraryForCharacterSetDetection'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://github.com/mmanela/diffplex" RequestNavigate="Hyperlink_RequestNavigate">
+                        <TextBlock Text="DiffPlex"/>
+                    </Hyperlink>
+                    <TextBlock Text="{l:Loc Key='About_NETLibraryToGenerateTextualDifferences'}" Style="{StaticResource Decription}"/>
+                </TextBlock>
+                <TextBlock Grid.Row="10" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/OfficeDev/Open-XML-SDK" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Open XML"/>
                     </Hyperlink>
                     <TextBlock Text="{l:Loc Key='About_NETLibraryToWorkWithWordAndExcelDocuments'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
-                <TextBlock Grid.Row="10" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                <TextBlock Grid.Row="11" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/ExcelDataReader/ExcelDataReader" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Excel Data Reader"/>
                     </Hyperlink>
                     <TextBlock Text="{l:Loc Key='About_NETLibraryForReadingMicrosoftExcelFiles'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
-                <TextBlock Grid.Row="11" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                <TextBlock Grid.Row="12" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/andersnm/ExcelNumberFormat" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Excel Number Format"/>
                     </Hyperlink>
                     <TextBlock Text="{l:Loc Key='About_NETLibraryToParseECMA376Numbers'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
-                <TextBlock Grid.Row="12" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                <TextBlock Grid.Row="13" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://www.xpdfreader.com/pdftotext-man.html" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="pdftotext"/>
                     </Hyperlink>

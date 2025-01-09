@@ -1199,24 +1199,6 @@ namespace dnGREP.WPF
                             SearchAutoPauseCount = SearchAutoPauseCount,
                         };
 
-                        GrepSearchOption searchOptions = GrepSearchOption.None;
-                        if (Global)
-                            searchOptions |= GrepSearchOption.Global;
-                        if (CaseSensitive)
-                            searchOptions |= GrepSearchOption.CaseSensitive;
-                        if (Multiline)
-                            searchOptions |= GrepSearchOption.Multiline;
-                        if (Singleline)
-                            searchOptions |= GrepSearchOption.SingleLine;
-                        if (WholeWord)
-                            searchOptions |= GrepSearchOption.WholeWord;
-                        if (BooleanOperators)
-                            searchOptions |= GrepSearchOption.BooleanOperators;
-                        if (StopAfterNumMatches)
-                            searchOptions |= GrepSearchOption.StopAfterNumMatches;
-                        if (PauseAfterNumMatches)
-                            searchOptions |= GrepSearchOption.PauseAfterNumMatches;
-
                         if (UseGitignore)
                         {
                             // this will be the first search performed, and may take a long time
@@ -1229,22 +1211,22 @@ namespace dnGREP.WPF
                         if (CaptureGroupSearch && param.TypeOfFileSearch == FileSearchType.Regex &&
                             !string.IsNullOrEmpty(param.SearchFor) && files != null)
                         {
-                            e.Result = grep.CaptureGroupSearch(files, filePatternInclude, searchOptions, param.TypeOfSearch, param.SearchFor, param.CodePage, param.PauseCancelToken);
+                            e.Result = grep.CaptureGroupSearch(files, filePatternInclude, SearchOptions, param.TypeOfSearch, param.SearchFor, param.CodePage, param.PauseCancelToken);
                         }
                         else if (files != null)
                         {
                             if (searchPatterns.Length > 0)
                             {
-                                e.Result = grep.SearchMultiple(files, param.TypeOfSearch, searchPatterns, searchOptions, param.CodePage, param.PauseCancelToken);
+                                e.Result = grep.SearchMultiple(files, param.TypeOfSearch, searchPatterns, SearchOptions, param.CodePage, param.PauseCancelToken);
                             }
                             else
                             {
-                                e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage, param.PauseCancelToken);
+                                e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, SearchOptions, param.CodePage, param.PauseCancelToken);
                             }
                         }
                         else if (fileInfos != null)
                         {
-                            e.Result = grep.ListFiles(fileInfos, searchOptions, param.CodePage, param.PauseCancelToken);
+                            e.Result = grep.ListFiles(fileInfos, SearchOptions, param.CodePage, param.PauseCancelToken);
                         }
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
@@ -1260,26 +1242,8 @@ namespace dnGREP.WPF
                                 SearchParallel)
                         };
 
-                        GrepSearchOption searchOptions = GrepSearchOption.None;
-                        if (Global)
-                            searchOptions |= GrepSearchOption.Global;
-                        if (CaseSensitive)
-                            searchOptions |= GrepSearchOption.CaseSensitive;
-                        if (Multiline)
-                            searchOptions |= GrepSearchOption.Multiline;
-                        if (Singleline)
-                            searchOptions |= GrepSearchOption.SingleLine;
-                        if (WholeWord)
-                            searchOptions |= GrepSearchOption.WholeWord;
-                        if (BooleanOperators)
-                            searchOptions |= GrepSearchOption.BooleanOperators;
-                        if (StopAfterNumMatches)
-                            searchOptions |= GrepSearchOption.StopAfterNumMatches;
-                        if (PauseAfterNumMatches)
-                            searchOptions |= GrepSearchOption.PauseAfterNumMatches;
-
                         grep.ProcessedFile += GrepCore_ProcessedFile;
-                        e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage, param.PauseCancelToken);
+                        e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, SearchOptions, param.CodePage, param.PauseCancelToken);
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                 }
@@ -1327,6 +1291,32 @@ namespace dnGREP.WPF
                         }
                     }
                 }
+            }
+        }
+
+        private GrepSearchOption SearchOptions
+        {
+            get
+            {
+                GrepSearchOption searchOptions = GrepSearchOption.None;
+                if (Global)
+                    searchOptions |= GrepSearchOption.Global;
+                if (CaseSensitive)
+                    searchOptions |= GrepSearchOption.CaseSensitive;
+                if (Multiline)
+                    searchOptions |= GrepSearchOption.Multiline;
+                if (Singleline)
+                    searchOptions |= GrepSearchOption.SingleLine;
+                if (WholeWord)
+                    searchOptions |= GrepSearchOption.WholeWord;
+                if (BooleanOperators)
+                    searchOptions |= GrepSearchOption.BooleanOperators;
+                if (StopAfterNumMatches)
+                    searchOptions |= GrepSearchOption.StopAfterNumMatches;
+                if (PauseAfterNumMatches)
+                    searchOptions |= GrepSearchOption.PauseAfterNumMatches;
+
+                return searchOptions;
             }
         }
 
@@ -1932,6 +1922,9 @@ namespace dnGREP.WPF
 
         private void Replace()
         {
+            //var model = FileDifference.GetDiffModel(@"C:\Repos\testFiles\test\issue848\ReportWriterOld.cs", @"C:\Repos\testFiles\test\issue848\ReportWriterNew.cs", Encoding.UTF8);
+            //return;
+
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
                 if (string.IsNullOrEmpty(ReplaceWith))
@@ -1986,6 +1979,8 @@ namespace dnGREP.WPF
                 else
                 {
                     ReplaceWindow dlg = new();
+                    dlg.ViewModel.TypeOfSearch = TypeOfSearch;
+                    dlg.ViewModel.SearchOptions = SearchOptions;
                     dlg.ViewModel.SearchFor = SearchFor;
                     dlg.ViewModel.ReplaceWith = ReplaceWith;
                     dlg.ViewModel.SearchResults = replaceList;
