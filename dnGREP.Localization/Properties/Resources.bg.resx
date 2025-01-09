@@ -4206,4 +4206,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_ShiftKey" xml:space="preserve">
     <value>Shift</value>
   </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Преглед на заместванията</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>Библиотека на .NET която отчита разлики в текстове</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Сравняване на файлове</value>
+  </data>
 </root>
