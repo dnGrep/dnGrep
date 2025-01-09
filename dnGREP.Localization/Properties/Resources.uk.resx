@@ -1131,4 +1131,67 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Menu_CancelScript" xml:space="preserve">
     <value>Скасувати сценарій</value>
   </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>після</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>перед і</value>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Без двійкового коду</value>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Немає вкладених папок</value>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Жодних символічних посилань</value>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Ціле слово</value>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>_Допомога</value>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Груповий пошук захоплення</value>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Багаторядковий</value>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>шукати</value>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Пошук в архівах</value>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Показати контекстні рядки</value>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Ціле слово</value>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Максимальна глибина папки: {0}</value>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Багаторядковий</value>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Виділіть групи</value>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Виділіть збіги</value>
+  </data>
 </root>
