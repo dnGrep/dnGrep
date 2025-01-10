@@ -128,7 +128,7 @@ namespace dnGREP.Engines
             if (isWholeWord)
             {
                 // Issue #813
-                searchPattern = $@"(?<=\W|\b|^)({searchPattern})(?=\W|\b|$)";
+                searchPattern = $@"(?<=\W|\b|^)(?:{searchPattern})(?=\W|\b|$)";
             }
 
             // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
