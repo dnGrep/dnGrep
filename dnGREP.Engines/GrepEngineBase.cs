@@ -148,7 +148,8 @@ namespace dnGREP.Engines
             bool convertedFromWindowsNewline = false;
             List<int>? newlineIndexes = null;
 
-            if (searchPattern.ContainsNotEscaped("$") || searchPatternEndsWithDot)
+            if (searchPattern.ContainsNotEscaped("$") || searchPatternEndsWithDot || 
+                regexOptions.HasFlag(RegexOptions.Multiline))
             {
                 if (text.Contains("\r\n", StringComparison.Ordinal))
                 {
