@@ -2905,4 +2905,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Options_Exit" xml:space="preserve">
     <value>Beenden</value>
   </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Dateivergleich öffnen</value>
+  </data>
 </root>
