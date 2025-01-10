@@ -4055,4 +4055,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Дерево результатов поиска</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
 </root>

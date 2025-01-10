@@ -3056,4 +3056,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Arbre de resultats</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Obrir</value>
+  </data>
 </root>
