@@ -1194,4 +1194,253 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
     <value>Виділіть збіги</value>
   </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>Змінено</value>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>_Більше</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>Копіювати імена файлів</value>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Копіювати результати</value>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Видалити файли…</value>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Перемістити файли…</value>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>Текстові результати</value>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>Зберегти результати</value>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Слайд {0}</value>
+  </data>
+  <data name="Main_PreviewFile" xml:space="preserve">
+    <value>Файл попереднього перегляду</value>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Видалити папку з асоціації закладок</value>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>_Замінити</value>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Замінити за допомогою логічних операторів лише текстовим пошуком</value>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Змінено параметри пошуку</value>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>Re_place з:</value>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>CSV (розділені комами)</value>
+  </data>
+  <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
+    <value>Текстовий файл</value>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Відновити результати (F7)</value>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>додаткові збіги:</value>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value>(в кінці рядка)</value>
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value>…(+{0:n0} символів)</value>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} збігається на {2} рядках)</value>
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} збігається)</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value>Матч {0}{1}{2}</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value>Відповідність {0}{1}групі {2}: {3}</value>
+  </data>
+  <data name="Main_Results_CompareFiles" xml:space="preserve">
+    <value>Порівняти файли</value>
+  </data>
+  <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
+    <value>Скопіюйте повні шляхи до файлів</value>
+  </data>
+  <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
+    <value>Скопіюйте рядки тексту</value>
+  </data>
+  <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
+    <value>Виключити з результатів</value>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Зробити доступним для запису</value>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Перемістіть файли в кошик</value>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Наступний файл</value>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>Наступний матч</value>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>Відчинено</value>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Попередній файл</value>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>Перейменувати файл</value>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>Скинути масштаб</value>
+  </data>
+  <data name="Main_SavingResultsToFile" xml:space="preserve">
+    <value>Збереження результатів у файл…</value>
+  </data>
+  <data name="Main_SearchButton" xml:space="preserve">
+    <value>_Пошук</value>
+  </data>
+  <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Пошук файлів у кількох потоках</value>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Пошук в</value>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Пошук _у результатах</value>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>Показати варіанти результатів</value>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>Розмір є</value>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>Сортувати</value>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>Висхідний</value>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>Розмір файлу</value>
+  </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>Тип і назва файлу</value>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>Час останнього запису</value>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>Кількість збігів</value>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>Виключено {0} відсутніх файлів.</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>Заміну скасовано</value>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>_Відмінити</value>
+  </data>
+  <data name="Main_Results_CollapseAll" xml:space="preserve">
+    <value>Згорнути все</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Копіювати файли…</value>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Параметри звіту…</value>
+  </data>
+  <data name="Main_Results_ExpandAll" xml:space="preserve">
+    <value>Розгорнути все</value>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>Попередній матч</value>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Показати меню Explorer</value>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>Показати властивості файлу</value>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>Пошук paralle_l</value>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>Відкрити за допомогою спеціального редактора</value>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>Виберіть дату</value>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>Спускається</value>
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value>Звіт</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>У результатах немає файлів для запису</value>
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, +{0} більше збігів</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Немає збігів для заміни</value>
+  </data>
+  <data name="Main_ResetOptions" xml:space="preserve">
+    <value>Скинути фільтри</value>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Копіювати імена файлів</value>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>Результати CSV</value>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>Відкрити папку, що містить</value>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>Шукати _для:</value>
+  </data>
+  <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
+    <value>Форма звіту</value>
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value>на позиції {0}</value>
+  </data>
+  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
+    <value>[лише для читання]</value>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>Mor_e…</value>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>Тільки ім'я файлу</value>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Шлях і ім'я файлу, вшир</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Шлях і ім'я файлу, спочатку глибина</value>
+  </data>
 </root>
