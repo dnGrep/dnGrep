@@ -2709,4 +2709,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Tulemuste puu</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Ava</value>
+  </data>
 </root>
