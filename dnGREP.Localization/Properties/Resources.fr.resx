@@ -3092,4 +3092,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
     <value>Remplacer dans les fichiers sélectionnés</value>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
 </root>

@@ -311,7 +311,7 @@
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>Чутливий до регістру</value>
+    <value>C_ase чутливий</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -729,5 +729,469 @@
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
     <value>Пошук за допомогою dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>шукати</value>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Up Arrow</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Жодних символічних посилань</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Пошук в архівах</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Ціле слово</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Закладки</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Використання</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Аргументи:</value>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [Правда/Невірно]
+-bo [Правда/Невірно]
+-booleanOperators [true/false]
+    Встановлює прапор пошуку логічних операторів – True або False.</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Ніяких прихованих</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Розділи</value>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Down Arrow</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Максимальна глибина папки: {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Багаторядковий</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>Немає двійкового коду</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Немає вкладених папок</value>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [Правда/Неправда]
+-cs [Правда/Неправда]
+-caseSensitive [Правда/Невірно]
+    Встановлює позначку пошуку з урахуванням регістру – True або False.</value>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [шлях до файлу]
+-csv [шлях до файлу]
+    Після завершення пошуку створіть файл результатів у форматі CSV.</value>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Для будь-яких невказаних аргументів за замовчуванням використовуватимуться останні збережені налаштування користувача.</value>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [Правда/Неправда]
+-dn [Правда/Неправда]
+-dotAsNewline [Правда/Неправда]
+    Встановлює крапку як позначку пошуку нового рядка – True або False.</value>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [аргументи]
+Використовуючи будь-яку комбінацію аргументів зі списку нижче.
+приклад:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [шлях до папки] [пошук]
+Один або два аргументи без прапорців: перший аргумент — папка для пошуку, другий — регулярний вираз для пошуку.
+приклад:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-вихід
+    Вийдіть з dnGrep після завершення операцій командного рядка.</value>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [Правда/Неправда]
+-fi [Правда/Неправда]
+-fileInformation [Правда/Неправда]
+    Встановлює прапорець для включення інформації про файл і рядок у вихідні дані звіту – True або False.</value>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [шлях до папки]
+-f [шлях до папки]
+-folder [шлях до папки]
+    Встановлює шлях до папки для пошуку.  Це може бути список шляхів до папок, розділених комою або крапкою з комою.</value>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/мл [Правда/Неправда]
+-ml [Правда/Неправда]
+-багаторядковий [Правда/Неправда]
+    Встановлює прапорець багаторядкового пошуку – True або False.</value>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    Запускає сценарій, визначений ключем сценарію.</value>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [Правда/Невірно]
+-trim [Правда/Неправда]
+-trimWhitespace [Правда/Неправда]
+    Встановлює прапорець для обрізання пробілів у виводі звіту – True або False.</value>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [Правда/Неправда]
+-unique [Правда/Неправда]
+-uniqueValues [True/False]
+    Встановлює прапор для виведення унікальних значень збігу або групи у вихідних даних звіту про регулярний вираз – True або False.</value>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Використання:</value>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Один або кілька аргументів недійсні.</value>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Додати шаблон пошуку до закладок</value>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Дата зміни:</value>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Файл:</value>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Розмір:</value>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Перегляньте папку або файли</value>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>Груповий пошук захоплення</value>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Зміни рядка контексту буде застосовано під час наступного пошуку</value>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Показати контекстні рядки</value>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Створено</value>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>Від</value>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Порожній</value>
+  </data>
+  <data name="Main_EncodingAutoDetection" xml:space="preserve">
+    <value>Автоматичне визначення (за замовчуванням)</value>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>Всі файли</value>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>За розміром</value>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Максимальна глибина папки: {0}</value>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>Без двійкового коду</value>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Ніяких прихованих</value>
+  </data>
+  <data name="Main_Folder" xml:space="preserve">
+    <value>Папка:</value>
+  </data>
+  <data name="Main_HighlightMatches" xml:space="preserve">
+    <value>Виділіть збіги</value>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Редагувати сценарій…</value>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Новий сценарій…</value>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [символ роздільника або текст]
+-sep [символ роздільника або текст]
+-listItemSeparator [символ роздільника або текст]
+    Встановлює символ або рядок для розділення елементів списку в рядку у звіті o.</value>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [шаблон]
+-pi [шаблон]
+-pathToIgnore [шаблон]
+    Встановлює шаблон імені файлу або каталогу, щоб виключити файли або папки зі шляху пошуку. Може бути списком шаблонів, розділених комою або крапкою з комою.</value>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [шаблон]
+-pm [шаблон]
+-pathToMatch [шаблон]
+    Встановлює шаблон імен файлів для відповідності файлів у шляху пошуку. Може бути списком шаблонів, розділених комою або крапкою з комою.</value>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [Правда/Неправда]
+-sl [Правда/Неправда]
+-separateLines [Правда/Неправда]
+    Встановлює прапорець для виведення кожного збігу або групи в окремому рядку у виводі звіту про регулярний вираз – True або False.</value>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Версія {0} побудована на {1}</value>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Всі розміри</value>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_Скасувати</value>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>минуле</value>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>За датою створення</value>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>перед і</value>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>Док праворуч</value>
+  </data>
+  <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
+    <value>_Про dnGrep…</value>
+  </data>
+  <data name="Main_EverythingSearch" xml:space="preserve">
+    <value>Пошук усе_все:</value>
+  </data>
+  <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Виключайте файли за типом і папки за назвою</value>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>години</value>
+  </data>
+  <data name="Main_HideResultOptions" xml:space="preserve">
+    <value>Приховати параметри результату</value>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Сценарії</value>
+  </data>
+  <data name="Main_HighlightGroups" xml:space="preserve">
+    <value>Виділіть групи</value>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Максимізація результатів (F7)</value>
+  </data>
+  <data name="Main_Menu_About_Help" xml:space="preserve">
+    <value>_Допомога</value>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Персоналізація</value>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Тип:</value>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>Немає вкладених папок</value>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [область]
+-scope [сфера]
+-uniqueScope [область]
+    Встановлює прапорець для встановлення діапазону унікальних значень у вихідних даних звіту про регулярний вираз – має бути одне з: «Глобальний» або «На файл».</value>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>після</value>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>За зміненою датою</value>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>_Опції…</value>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep: пошук у текстових файлах, документах Word і Excel, PDF-файлах і архівах за допомогою тексту, регулярного виразу, XPath і фонетичних запитів.</value>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [тип] 
+-pt [тип] 
+-patternType [тип] 
+    Встановлює тип збігу та шаблон ігнорування – має бути одним із таких: «Зірочка» (знак підстановки), «Регулярний вираз» (регулярний вираз) або «Усе» (якщо встановлено інструмент пошуку «Усе»).</value>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [шлях до файлу]
+-rpt [шлях до файлу]
+-report [шлях до файлу]
+    Після завершення пошуку створіть файл результатів у форматі звіту.</value>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [режим]
+-rm [режим]
+-reportMode [режим]
+    Встановлює режим виведення звіту для звітів регулярних виразів – має бути одним із: «Повний рядок», «Збіги» або «Групи».</value>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [пошук]
+-s [пошук]
+-searchFor [searchFor]
+    Встановлює шаблон або текст для пошуку в наборі файлів.  Коли цей аргумент встановлено, пошук буде запущено автоматично.</value>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [тип]
+-st [тип]
+-searchType [тип]
+    Встановлює тип пошуку – має бути одним із таких: "PlainText", "Regex" (регулярний вираз), "XPath" або "Soundex" (фонетичний).</value>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [Правда/Невірно]
+-ww [Правда/Неправда]
+-wholeWord [Правда/Неправда]
+    Встановлює прапор пошуку всього слова – True або False.</value>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>Довідка dnGrep</value>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Автоматична позиція</value>
+  </data>
+  <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Включайте файли за назвою або типом</value>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Змінює масштаб дерева результатів</value>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>Жодних символічних посилань</value>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Очистити закладку</value>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Поєднайте кілька шаблонів пошуку за допомогою «І» або «АБО»</value>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>Док-дно</value>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>_Про</value>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Всі дати</value>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>Аркуш [{0}]</value>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [шлях до файлу]
+-txt [шлях до файлу]
+-текст [шлях до файлу]
+    Після завершення пошуку створіть файл результатів у текстовому форматі.</value>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Пов’язати закладку з папкою</value>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Дані програми та журнали</value>
+  </data>
+  <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
+    <value>з початку дня</value>
+  </data>
+  <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Виділіть групи регулярних виразів. Зміни будуть застосовані під час наступного пошуку.</value>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Перевірте наявність оновлень</value>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>_Закладки…</value>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Скасувати сценарій</value>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>після</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>перед і</value>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Без двійкового коду</value>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Немає вкладених папок</value>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Жодних символічних посилань</value>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Ціле слово</value>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>_Допомога</value>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Груповий пошук захоплення</value>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Чутливий до регістру</value>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Багаторядковий</value>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>шукати</value>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Пошук в архівах</value>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Показати контекстні рядки</value>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Ціле слово</value>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Максимальна глибина папки: {0}</value>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Багаторядковий</value>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Виділіть групи</value>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Виділіть збіги</value>
   </data>
 </root>

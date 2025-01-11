@@ -3952,4 +3952,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>結果ツリー</value>
     <comment>Options dialog, radio button label</comment>
   </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>終了</value>
+  </data>
 </root>
