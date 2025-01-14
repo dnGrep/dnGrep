@@ -1,4 +1,4 @@
-version: 4.2.{build}.0
+version: 4.3.{build}.0
 branches:
   only:
   - master
@@ -16,7 +16,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 install: 
-  - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.404
+  - ps: ./dotnet-install.ps1 -Channel 8.0 -Version 8.0.405
 before_build:
   - cmd: nuget restore
   - ps: ./make-msix.ps1
@@ -29,10 +29,6 @@ after_build:
   - 7z a %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@%APPVEYOR_BUILD_FOLDER%\excludeFiles_win-%PlATFORM%.txt
   - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\Bundle.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep*.msi %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep*.zip
 artifacts:
-#- path: Release\x86\*.msi
-#  name: 32-bit MSI
-#- path: Release\x64\*.msi
-#  name: 64-bit MSI
 - path: Release\x86\*.zip
   name: 32-bit Bundle ZIP
 - path: Release\x64\*.zip
