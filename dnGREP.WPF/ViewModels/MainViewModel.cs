@@ -3210,7 +3210,7 @@ namespace dnGREP.WPF
             if (!IncludeArchive) options.Add(Resources.ReportSummary_NoArchives);
             if (!FollowSymlinks) options.Add(Resources.ReportSummary_NoSymlinks);
             if (options.Count > 0)
-                sb.AppendLine(string.Join(", ", [.. options]));
+                sb.AppendLine(string.Join(", ", (ReadOnlySpan<string?>)[.. options]));
 
             if (UseFileSizeFilter == FileSizeFilter.Yes)
                 sb.AppendFormat(Resources.ReportSummary_SizeFrom0To1KB, SizeFrom, SizeTo).AppendLine();

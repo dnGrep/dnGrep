@@ -247,7 +247,7 @@ namespace dnGREP.Common.IO
 
             if (handle != null)
             {
-                return new(new nint(handle.Value), true);
+                return new(new nint(handle), true);
             }
             return null;
         }

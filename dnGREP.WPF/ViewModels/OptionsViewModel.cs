@@ -228,7 +228,7 @@ namespace dnGREP.WPF
         private bool minimizeToNotificationArea;
 
         [ObservableProperty]
-        private string restoreWindowKeyboardShortcut;
+        private string restoreWindowKeyboardShortcut = string.Empty;
 
         partial void OnRestoreWindowKeyboardShortcutChanged(string value)
         {
@@ -260,7 +260,7 @@ namespace dnGREP.WPF
         }
 
         [ObservableProperty]
-        private string localizedRestoreWindowKeyboardShortcut;
+        private string localizedRestoreWindowKeyboardShortcut = string.Empty;
 
         [ObservableProperty]
         private bool confirmExitScript;

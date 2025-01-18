@@ -50,7 +50,7 @@ namespace dnGREP.Common.UI
         {
             try
             {
-                Icon clone = (Icon)Icon.FromHandle(hIcon.Value).Clone();
+                Icon clone = (Icon)Icon.FromHandle(hIcon).Clone();
 
                 PInvoke.DestroyIcon(hIcon);
 
