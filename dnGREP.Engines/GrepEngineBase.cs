@@ -148,13 +148,19 @@ namespace dnGREP.Engines
             bool convertedFromWindowsNewline = false;
             List<int>? newlineIndexes = null;
 
-            if (searchPattern.ContainsNotEscaped("$") || searchPatternEndsWithDot || 
+            // issue 1260: regex search should only use \n for newlines
+            searchPattern = searchPattern
+                .Replace("\\r\\n", "\n", StringComparison.Ordinal)
+                .Replace("\r\n", "\n", StringComparison.Ordinal)
+                .Replace("\\n", "\n", StringComparison.Ordinal)
+                .Replace("\\r", "\n", StringComparison.Ordinal);
+
+            if (searchPattern.ContainsNotEscaped("$") || searchPatternEndsWithDot ||
                 regexOptions.HasFlag(RegexOptions.Multiline))
             {
                 if (text.Contains("\r\n", StringComparison.Ordinal))
                 {
                     // the match index will be off by one for each line where the \r was dropped
-                    searchPattern = searchPattern.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
                     textToSearch = ConvertNewLines(text, out newlineIndexes, pauseCancelToken);
                     convertedFromWindowsNewline = true;
                 }
@@ -372,8 +378,26 @@ namespace dnGREP.Engines
             if (isWholeWord)
             {
                 // issue 813 && 1014
-                searchPattern = $@"(?<=\W|\b|^)({searchPattern})(?=\W|\b|$)";
+                searchPattern = $@"(?<=\W|\b|^)(?:{searchPattern})(?=\W|\b|$)";
             }
+
+            bool searchPatternEndsWithDot =
+               (searchPattern.EndsWith('.') && !searchPattern.EndsWith(@"\.", StringComparison.Ordinal)) ||
+               (searchPattern.EndsWith(".*", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.*", StringComparison.Ordinal)) ||
+               (searchPattern.EndsWith(".?", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.?", StringComparison.Ordinal)) ||
+               (searchPattern.EndsWith(".+", StringComparison.Ordinal) && !searchPattern.EndsWith(@"\.+", StringComparison.Ordinal));
+
+            // issue 1260: regex search should only use \n for newlines
+            searchPattern = searchPattern
+                .Replace("\\r\\n", "\n", StringComparison.Ordinal)
+                .Replace("\r\n", "\n", StringComparison.Ordinal)
+                .Replace("\\n", "\n", StringComparison.Ordinal)
+                .Replace("\\r", "\n", StringComparison.Ordinal);
+            replacePattern = replacePattern
+                .Replace("\\r\\n", "\n", StringComparison.Ordinal)
+                .Replace("\r\n", "\n", StringComparison.Ordinal)
+                .Replace("\\n", "\n", StringComparison.Ordinal)
+                .Replace("\\r", "\n", StringComparison.Ordinal);
 
             // check this block of text for any matches that are marked for replace
             // just return the original text if not
@@ -383,13 +407,23 @@ namespace dnGREP.Engines
             {
                 // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
                 bool convertToWindowsNewline = false;
-                string searchPatternForReplace = searchPattern;
-                if (searchPattern.ContainsNotEscaped("$") && text.Contains("\r\n", StringComparison.Ordinal))
+                bool convertToMacNewline = false;
+
+                if (searchPattern.ContainsNotEscaped("$") || searchPatternEndsWithDot ||
+                    regexOptions.HasFlag(RegexOptions.Multiline))
                 {
-                    convertToWindowsNewline = true;
-                    searchPatternForReplace = searchPattern.Replace("\r\n", "\n", StringComparison.Ordinal);
-                    replacePattern = replacePattern.Replace("\r\n", "\n", StringComparison.Ordinal);
-                    text = text.Replace("\r\n", "\n", StringComparison.Ordinal);
+                    if (text.Contains("\r\n", StringComparison.Ordinal))
+                    {
+                        // the match index will be off by one for each line where the \r was dropped
+                        text = text.Replace("\r\n", "\n", StringComparison.Ordinal);
+                        convertToWindowsNewline = true;
+                    }
+                    else if (text.Contains('\r', StringComparison.Ordinal))
+                    {
+                        // this will be the same length, just change the newline char while searching
+                        text = text.Replace('\r', '\n');
+                        convertToMacNewline = true;
+                    }
                 }
 
                 // because we're possibly altering the new line chars, the match.Index in Regex.Replace
@@ -398,7 +432,7 @@ namespace dnGREP.Engines
                 var indexes = toDo.Select((item, index) => new { item, index }).Where(t => t.item.ReplaceMatch).Select(t => t.index).ToList();
 
                 int matchIndex = 0;
-                string replaceText = Regex.Replace(text, searchPatternForReplace, (match) =>
+                string replaceText = Regex.Replace(text, searchPattern, (match) =>
                     {
                         if (indexes.Contains(matchIndex++))
                         {
@@ -414,6 +448,8 @@ namespace dnGREP.Engines
 
                 if (convertToWindowsNewline)
                     replaceText = replaceText.Replace("\n", "\r\n", StringComparison.Ordinal);
+                if (convertToMacNewline)
+                    replaceText = replaceText.Replace("\n", "\r", StringComparison.Ordinal);
 
                 result = replaceText;
             }

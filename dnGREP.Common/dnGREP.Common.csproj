@@ -40,6 +40,7 @@
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />
     <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj" />
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
+    <ProjectReference Include="..\NetDiff\NetDiff.csproj" />
     <ProjectReference Include="..\SevenZip\SevenZip.csproj" />
   </ItemGroup>
   <ItemGroup>

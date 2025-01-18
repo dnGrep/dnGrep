@@ -8,12 +8,12 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using DiffPlex.DiffBuilder.Model;
 using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
+using NetDiff;
 
 namespace dnGREP.WPF
 {
@@ -235,7 +235,7 @@ namespace dnGREP.WPF
 
         public string FileText { get; private set; } = string.Empty;
 
-        public DiffPaneModel? DiffModel { get; private set; }
+        public DiffModel? DiffModel { get; private set; }
 
         [ObservableProperty]
         private bool previewShowingReplacements = false;
@@ -311,7 +311,7 @@ namespace dnGREP.WPF
                         for (int idx = 0; idx < DiffModel.Lines.Count; idx++)
                         {
                             DiffPiece piece = DiffModel.Lines[idx];
-                            string line = piece.Text;
+                            string? line = piece.Text;
                             lineCount++;
 
                             if (piece.Position == null) // Deleted line
@@ -328,14 +328,15 @@ namespace dnGREP.WPF
                                 grepLine.DisplayFileLineNumber = lineCount;
                             }
 
-                            if (line.Length > 7990 && grepLine != null)
+                            if (line != null && line.Length > 7990 && grepLine != null)
                             {
                                 sb.Append(ChopLongLines(line, grepLine, piece)).Append(newLine);
                                 if (++idx < DiffModel.Lines.Count)
                                 {
                                     piece = DiffModel.Lines[idx];
                                     line = piece.Text;
-                                    sb.Append(ChopLongLines(line, grepLine, piece)).Append(newLine);
+                                    if (line != null)
+                                        sb.Append(ChopLongLines(line, grepLine, piece)).Append(newLine);
                                 }
                             }
                             else
@@ -778,12 +779,15 @@ namespace dnGREP.WPF
                 using StreamReader reader = new(writeStream);
                 string newText = reader.ReadToEnd();
 
-                DiffModel = FileDifference.Diff(oldText, newText, replaceItems);
+                bool isMultiline = SearchOptions.HasFlag(GrepSearchOption.Multiline) ||
+                    TypeOfSearch == SearchType.XPath;
+
+                DiffModel = FileDifference.GetFileDifferences(oldText, newText, isMultiline);
 
                 int index = 1;
-                foreach (DiffPiece line in DiffModel.Lines)
+                foreach (var line in DiffModel.Lines)
                 {
-                    if (line.Type == ChangeType.Inserted)
+                    if (line.Operation == DiffStatus.Inserted)
                     {
                         LineNumbers.Add(-1);
                     }

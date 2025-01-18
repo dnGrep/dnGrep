@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnGREP.Setup.FileCheck", "d
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dnGREP.ContextMenu", "dnGREP.ContextMenu\dnGREP.ContextMenu.vcxproj", "{16746B0C-5840-4ED4-AEDF-1ABB617827FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDiff", "NetDiff\NetDiff.csproj", "{DB17D385-14BF-40B5-AD8E-7D482B591E9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -218,7 +220,6 @@ Global
 		{CE51EB4C-0C64-4162-B95E-527AE438CFD8}.Release|x86.ActiveCfg = Release|x86
 		{CE51EB4C-0C64-4162-B95E-527AE438CFD8}.Release|x86.Build.0 = Release|x86
 		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|Any CPU.Build.0 = Debug|x64
 		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|x64.ActiveCfg = Debug|x64
 		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|x86.ActiveCfg = Debug|x86
 		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|Any CPU.ActiveCfg = Release|x64
@@ -263,6 +264,18 @@ Global
 		{16746B0C-5840-4ED4-AEDF-1ABB617827FD}.Release|x64.Build.0 = Release|x64
 		{16746B0C-5840-4ED4-AEDF-1ABB617827FD}.Release|x86.ActiveCfg = Release|Win32
 		{16746B0C-5840-4ED4-AEDF-1ABB617827FD}.Release|x86.Build.0 = Release|Win32
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Debug|x64.Build.0 = Debug|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Debug|x86.Build.0 = Debug|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Release|x64.ActiveCfg = Release|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Release|x64.Build.0 = Release|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Release|x86.ActiveCfg = Release|Any CPU
+		{DB17D385-14BF-40B5-AD8E-7D482B591E9A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

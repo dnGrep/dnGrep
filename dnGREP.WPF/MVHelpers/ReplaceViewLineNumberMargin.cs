@@ -5,9 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using DiffPlex.DiffBuilder.Model;
+using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
+using NetDiff;
 
 namespace dnGREP.WPF
 {
@@ -39,7 +40,7 @@ namespace dnGREP.WPF
         public ReplaceViewLineNumberMargin()
             : base()
         {
-            InsertedBackground = Application.Current.Resources["DiffText.Inserted.Line.Background"] as Brush;
+            InsertedBackground = Application.Current.Resources["DiffText.Insert.Line.Background"] as Brush;
             DeletedBackground = Application.Current.Resources["DiffText.Deleted.Line.Background"] as Brush;
 
             // override Property Value Inheritance, and always render
@@ -126,9 +127,9 @@ namespace dnGREP.WPF
 
                     FormattedText ft;
 
-                    if (diffLine.Type == ChangeType.Inserted || diffLine.Type == ChangeType.Deleted)
+                    if (diffLine.Operation == DiffStatus.Inserted || diffLine.Operation == DiffStatus.Deleted)
                     {
-                        var brush = diffLine.Type == ChangeType.Inserted ? InsertedBackground : DeletedBackground;
+                        var brush = diffLine.Operation == DiffStatus.Inserted ? InsertedBackground : DeletedBackground;
 
                         foreach (var rc in rcs)
                         {
@@ -142,9 +143,9 @@ namespace dnGREP.WPF
 
                     drawingContext.DrawText(ft, new Point(renderSize.Width - ft.Width - plusMinusFtWidth, rcs[0].Top));
 
-                    if (diffLine.Type == ChangeType.Inserted || diffLine.Type == ChangeType.Deleted)
+                    if (diffLine.Operation == DiffStatus.Inserted || diffLine.Operation == DiffStatus.Deleted)
                     {
-                        var prefix = diffLine.Type == ChangeType.Inserted ? "+" : "-";
+                        var prefix = diffLine.Operation == DiffStatus.Inserted ? "+" : "-";
                         ft = new FormattedText(prefix,
                             CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
                             typeface, fontSize, foreground, pixelsPerDip);

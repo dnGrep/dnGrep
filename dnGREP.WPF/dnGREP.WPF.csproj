@@ -181,6 +181,7 @@
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
     <ProjectReference Include="..\dnGREP.DockFloat\dnGREP.DockFloat.csproj" />
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj" />
+    <ProjectReference Include="..\NetDiff\NetDiff.csproj" />
     <ProjectReference Include="..\SevenZip\SevenZip.csproj" />
   </ItemGroup>
   <ItemGroup>
