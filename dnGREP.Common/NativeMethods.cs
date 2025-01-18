@@ -139,7 +139,7 @@ namespace dnGREP.Common
                 {
                     IntPtr handle = proc.MainWindowHandle;
 
-                    if (handle == hwnd.Value)
+                    if (handle == hwnd)
                     {
                         process = proc;
                         break;
