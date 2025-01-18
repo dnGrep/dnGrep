@@ -543,7 +543,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    FileFiltersSummary = string.Join(", ", [.. tempList]);
+                    FileFiltersSummary = string.Join(", ", (ReadOnlySpan<string?>)[.. tempList]);
                 }
             }
 
@@ -1032,7 +1032,7 @@ namespace dnGREP.WPF
 
                 case SearchType.Regex:
                     SearchToolTip = string.Join(Environment.NewLine,
-                    [
+                    (ReadOnlySpan<string?>)[
                         Resources.TTA1_MatchesAllCharacters,
                         Resources.TTA2_MatchesAlphaNumerics,
                         Resources.TTA3_MatchesDigits,
@@ -1043,7 +1043,7 @@ namespace dnGREP.WPF
                     ]);
 
                     ReplaceToolTip = string.Join(Environment.NewLine,
-                    [
+                    (ReadOnlySpan<string?>)[
                         Resources.TTB0_InsertsTabNewline,
                         Resources.TTB1_ReplacesEntireRegex,
                         Resources.TTB2_InsertsTheTextMatchedIntoTheReplacementText,
