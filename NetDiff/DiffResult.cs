@@ -15,8 +15,14 @@
 
         public override string ToString()
         {
-            return string.Format("Obj1:{0} Obj2:{1} Status:{2}", Obj1.ToString() ?? string.Empty, Obj2.ToString() ?? string.Empty, Status)
-                .Replace("\0", "");
+            return Status switch
+            {
+                DiffStatus.Equal => string.Format("= {0}", Obj1?.ToString() ?? string.Empty),
+                DiffStatus.Inserted => string.Format("+ {0}", Obj2?.ToString() ?? string.Empty),
+                DiffStatus.Deleted => string.Format("- {0}", Obj1?.ToString() ?? string.Empty),
+                DiffStatus.Modified => string.Format("m {0} -> {1}", Obj1?.ToString() ?? string.Empty, Obj2?.ToString() ?? string.Empty),
+                _ => string.Empty,
+            };
         }
 
         public string ToFormatString()

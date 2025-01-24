@@ -11,32 +11,23 @@ namespace NetDiff
         Diagonal,
     }
 
-    internal struct Point : IEquatable<Point>
+    internal readonly struct Point(int x, int y) : IEquatable<Point>
     {
-        public int X { get; }
-        public int Y { get; }
-
-        public Point(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
+        public int X { get; } = x;
+        public int Y { get; } = y;
 
         public override bool Equals(object obj)
         {
-            if (!(obj is Point))
-                return false;
-
-            return Equals((Point)obj);
+            if (obj is Point other)
+            {
+                return Equals(other);
+            }
+            return false;
         }
 
         public override int GetHashCode()
         {
-            var hash = 17;
-            hash = hash * 23 + X.GetHashCode();
-            hash = hash * 23 + Y.GetHashCode();
-
-            return hash;
+            return HashCode.Combine(X, Y);
         }
 
         public bool Equals(Point other)
@@ -50,15 +41,10 @@ namespace NetDiff
         }
     }
 
-    internal class Node
+    internal record Node(Point Point)
     {
-        public Point Point { get; set; }
+        public Point Point { get; set; } = Point;
         public Node Parent { get; set; }
-
-        public Node(Point point)
-        {
-            Point = point;
-        }
 
         public override string ToString()
         {
@@ -68,30 +54,30 @@ namespace NetDiff
 
     internal class EditGraph<T>
     {
-        private T[] seq1;
-        private T[] seq2;
+        private readonly T[] seq1;
+        private readonly T[] seq2;
         private DiffOption<T> option;
-        private List<Node> heads;
-        private Point endpoint;
-        private int[] farthestPoints;
-        private int offset;
+        private List<Node> heads = [];
+        private readonly Point endpoint;
+        private readonly int[] farthestPoints;
+        private readonly int offset;
         private bool isEnd;
 
-        public EditGraph(
-            IEnumerable<T> seq1, IEnumerable<T> seq2)
+        public EditGraph(IEnumerable<T> seq1, IEnumerable<T> seq2)
         {
             this.seq1 = seq1.ToArray();
             this.seq2 = seq2.ToArray();
             endpoint = new Point(this.seq1.Length, this.seq2.Length);
             offset = this.seq2.Length;
+            farthestPoints = new int[this.seq1.Length + this.seq2.Length + 1];
         }
 
         public List<Point> CalculatePath(DiffOption<T> option)
         {
-            if (!seq1.Any())
+            if (seq1.Length == 0)
                 return Enumerable.Range(0, seq2.Length + 1).Select(i => new Point(0, i)).ToList();
 
-            if (!seq2.Any())
+            if (seq2.Length == 0)
                 return Enumerable.Range(0, seq1.Length + 1).Select(i => new Point(i, 0)).ToList();
 
             this.option = option;
@@ -103,16 +89,8 @@ namespace NetDiff
             return EndCalculatePath();
         }
 
-        private void Initialize()
-        {
-            farthestPoints = new int[seq1.Length + seq2.Length + 1];
-            heads = new List<Node>();
-        }
-
         private void BeginCalculatePath()
         {
-            Initialize();
-
             heads.Add(new Node(new Point(0, 0)));
 
             Snake();
@@ -120,19 +98,19 @@ namespace NetDiff
 
         private List<Point> EndCalculatePath()
         {
-            var wayponit = new List<Point>();
+            var waypoint = new List<Point>();
 
             var current = heads.Where(h => h.Point.Equals(endpoint)).FirstOrDefault();
             while (current != null)
             {
-                wayponit.Add(current.Point);
+                waypoint.Add(current.Point);
 
                 current = current.Parent;
             }
 
-            wayponit.Reverse();
+            waypoint.Reverse();
 
-            return wayponit;
+            return waypoint;
         }
 
         private bool Next()
@@ -159,14 +137,12 @@ namespace NetDiff
 
             foreach (var head in heads)
             {
-                Node rightHead;
-                if (TryCreateHead(head, Direction.Right, out rightHead))
+                if (TryCreateHead(head, Direction.Right, out Node rightHead) && rightHead != null)
                 {
                     updated.Add(rightHead);
                 }
 
-                Node bottomHead;
-                if (TryCreateHead(head, Direction.Bottom, out bottomHead))
+                if (TryCreateHead(head, Direction.Bottom, out Node bottomHead) && bottomHead != null)
                 {
                     updated.Add(bottomHead);
                 }
@@ -198,8 +174,7 @@ namespace NetDiff
             Node newHead = null;
             while (true)
             {
-                Node tmp;
-                if (TryCreateHead(newHead ?? head, Direction.Diagonal, out tmp))
+                if (TryCreateHead(newHead ?? head, Direction.Diagonal, out Node tmp))
                     newHead = tmp;
                 else
                     break;
@@ -216,8 +191,10 @@ namespace NetDiff
             if (!CanCreateHead(head.Point, direction, newPoint))
                 return false;
 
-            newHead = new Node(newPoint);
-            newHead.Parent = head;
+            newHead = new Node(newPoint)
+            {
+                Parent = head
+            };
 
             isEnd |= newHead.Point.Equals(endpoint);
 
@@ -232,7 +209,7 @@ namespace NetDiff
             if (direction == Direction.Diagonal)
             {
                 var equal = option.EqualityComparer != null
-                    ? option.EqualityComparer.Equals(seq1[nextPoint.X - 1], (seq2[nextPoint.Y - 1]))
+                    ? option.EqualityComparer.Equals(seq1[nextPoint.X - 1], seq2[nextPoint.Y - 1])
                     : seq1[nextPoint.X - 1].Equals(seq2[nextPoint.Y - 1]);
 
                 if (!equal)
@@ -242,19 +219,15 @@ namespace NetDiff
             return UpdateFarthestPoint(nextPoint);
         }
 
-        private Point GetPoint(Point currentPoint, Direction direction)
+        private static Point GetPoint(Point currentPoint, Direction direction)
         {
-            switch (direction)
+            return direction switch
             {
-                case Direction.Right:
-                    return new Point(currentPoint.X + 1, currentPoint.Y);
-                case Direction.Bottom:
-                    return new Point(currentPoint.X, currentPoint.Y + 1);
-                case Direction.Diagonal:
-                    return new Point(currentPoint.X + 1, currentPoint.Y + 1);
-            }
-
-            throw new ArgumentException();
+                Direction.Right => new Point(currentPoint.X + 1, currentPoint.Y),
+                Direction.Bottom => new Point(currentPoint.X, currentPoint.Y + 1),
+                Direction.Diagonal => new Point(currentPoint.X + 1, currentPoint.Y + 1),
+                _ => throw new Exception("Invalid"),
+            };
         }
 
         private bool InRange(Point point)

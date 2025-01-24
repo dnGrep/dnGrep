@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NetDiff
 {
-    public class DiffUtil
+    public static class DiffUtil
     {
         public static IEnumerable<DiffResult<T>> Diff<T>(IEnumerable<T> seq1, IEnumerable<T> seq2)
         {
@@ -14,7 +14,7 @@ namespace NetDiff
         public static IEnumerable<DiffResult<T>> Diff<T>(IEnumerable<T> seq1, IEnumerable<T> seq2, DiffOption<T> option)
         {
             if (seq1 == null || seq2 == null || (!seq1.Any() && !seq2.Any()))
-                return Enumerable.Empty<DiffResult<T>>();
+                return [];
 
             var editGraph = new EditGraph<T>(seq1, seq2);
             var waypoints = editGraph.CalculatePath(option);
@@ -48,12 +48,12 @@ namespace NetDiff
             var nextStatus = deleteFirst ? DiffStatus.Inserted : DiffStatus.Deleted;
 
             var queue = new Queue<DiffResult<T>>(diffResults);
-            while (queue.Any())
+            while (queue.Count != 0)
             {
                 var result = queue.Dequeue();
                 if (result.Status == currentStatus)
                 {
-                    if (queue.Any() && queue.Peek().Status == nextStatus)
+                    if (queue.Count > 0 && queue.Peek().Status == nextStatus)
                     {
                         var obj1 = deleteFirst ? result.Obj1 : queue.Dequeue().Obj1;
                         var obj2 = deleteFirst ? queue.Dequeue().Obj2 : result.Obj2;
@@ -77,8 +77,8 @@ namespace NetDiff
             foreach (var pair in waypoints.MakePairsWithNext())
             {
                 var status = GetStatus(pair.Item1, pair.Item2);
-                T obj1 = default(T);
-                T obj2 = default(T);
+                T obj1 = default;
+                T obj2 = default;
                 switch (status)
                 {
                     case DiffStatus.Equal:
@@ -117,15 +117,31 @@ namespace NetDiff
             {
                 if (resultArray[i].Status == DiffStatus.Deleted)
                 {
+                    // Move any deleted items up in the array if they match the previous unchanged item.
+                    // This ensures that deletions are placed before their matching unchanged items.
                     while (i - 1 >= 0)
                     {
                         if (resultArray[i - 1].Status == DiffStatus.Equal && resultArray[i].Obj1.Equals(resultArray[i - 1].Obj1))
                         {
-                            var tmp = resultArray[i];
-                            resultArray[i] = resultArray[i - 1];
-                            resultArray[i - 1] = tmp;
-
+                            (resultArray[i - 1], resultArray[i]) = (resultArray[i], resultArray[i - 1]);
                             i--;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    // Move inserted lines above any matching unchanged lines
+                    while (i + 2 < resultArray.Length)
+                    {
+                        if (resultArray[i + 1].Status == DiffStatus.Equal &&
+                            resultArray[i + 2].Status == DiffStatus.Inserted &&
+                            resultArray[i + 1].Obj1 != null &&
+                            resultArray[i + 1].Obj1.Equals( resultArray[i + 2].Obj2))
+                        {
+                            (resultArray[i + 2], resultArray[i + 1]) = (resultArray[i + 1], resultArray[i + 2]);
+                            i++;
                         }
                         else
                         {
@@ -139,7 +155,7 @@ namespace NetDiff
             var additionQueue = new Queue<DiffResult<T>>();
             var deletionQueue = new Queue<DiffResult<T>>();
 
-            while (resultQueue.Any())
+            while (resultQueue.Count != 0)
             {
                 if (resultQueue.Peek().Status == DiffStatus.Equal)
                 {
@@ -147,64 +163,64 @@ namespace NetDiff
                     continue;
                 }
 
-                while (resultQueue.Any() && resultQueue.Peek().Status != DiffStatus.Equal)
+                while (resultQueue.Count != 0 && resultQueue.Peek().Status != DiffStatus.Equal)
                 {
-                    while (resultQueue.Any() && resultQueue.Peek().Status == DiffStatus.Inserted)
+                    while (resultQueue.Count != 0 && resultQueue.Peek().Status == DiffStatus.Inserted)
                     {
                         additionQueue.Enqueue(resultQueue.Dequeue());
                     }
 
-                    while (resultQueue.Any() && resultQueue.Peek().Status == DiffStatus.Deleted)
+                    while (resultQueue.Count != 0 && resultQueue.Peek().Status == DiffStatus.Deleted)
                     {
                         deletionQueue.Enqueue(resultQueue.Dequeue());
                     }
                 }
 
-                var latestReturenStatus = DiffStatus.Equal;
+                var latestReturnStatus = DiffStatus.Equal;
                 while (true)
                 {
-                    if (additionQueue.Any() && !deletionQueue.Any())
+                    if (additionQueue.Count != 0 && deletionQueue.Count == 0)
                     {
                         yield return additionQueue.Dequeue();
                     }
-                    else if (!additionQueue.Any() && deletionQueue.Any())
+                    else if (additionQueue.Count == 0 && deletionQueue.Count != 0)
                     {
                         yield return deletionQueue.Dequeue();
                     }
-                    else if (additionQueue.Any() && deletionQueue.Any())
+                    else if (additionQueue.Count != 0 && deletionQueue.Count != 0)
                     {
                         switch (orderType)
                         {
                             case DiffOrderType.GreedyDeleteFirst:
                                 yield return deletionQueue.Dequeue();
-                                latestReturenStatus = DiffStatus.Deleted;
+                                latestReturnStatus = DiffStatus.Deleted;
                                 break;
                             case DiffOrderType.GreedyInsertFirst:
                                 yield return additionQueue.Dequeue();
-                                latestReturenStatus = DiffStatus.Inserted;
+                                latestReturnStatus = DiffStatus.Inserted;
                                 break;
                             case DiffOrderType.LazyDeleteFirst:
-                                if (latestReturenStatus != DiffStatus.Deleted)
+                                if (latestReturnStatus != DiffStatus.Deleted)
                                 {
                                     yield return deletionQueue.Dequeue();
-                                    latestReturenStatus = DiffStatus.Deleted;
+                                    latestReturnStatus = DiffStatus.Deleted;
                                 }
                                 else
                                 {
                                     yield return additionQueue.Dequeue();
-                                    latestReturenStatus = DiffStatus.Inserted;
+                                    latestReturnStatus = DiffStatus.Inserted;
                                 }
                                 break;
                             case DiffOrderType.LazyInsertFirst:
-                                if (latestReturenStatus != DiffStatus.Inserted)
+                                if (latestReturnStatus != DiffStatus.Inserted)
                                 {
                                     yield return additionQueue.Dequeue();
-                                    latestReturenStatus = DiffStatus.Inserted;
+                                    latestReturnStatus = DiffStatus.Inserted;
                                 }
                                 else
                                 {
                                     yield return deletionQueue.Dequeue();
-                                    latestReturenStatus = DiffStatus.Deleted;
+                                    latestReturnStatus = DiffStatus.Deleted;
                                 }
                                 break;
                         }

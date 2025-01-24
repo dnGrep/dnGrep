@@ -34,11 +34,11 @@ namespace dnGREP.Common
                 switch (element.Status)
                 {
                     case DiffStatus.Equal:
-                        model.Lines.Add(new DiffPiece(element.Obj1, DiffStatus.Equal, lineNumber++));
+                        model.Lines.Add(new(element.Obj1, DiffStatus.Equal, lineNumber++));
                         break;
 
                     case DiffStatus.Deleted:
-                        DiffPiece deleted = new DiffPiece(element.Obj1, DiffStatus.Deleted, null);
+                        DiffPiece deleted = new(element.Obj1, DiffStatus.Deleted, null);
                         model.Lines.Add(deleted);
                         if (!multiline)
                         {
@@ -47,7 +47,7 @@ namespace dnGREP.Common
                         break;
 
                     case DiffStatus.Inserted:
-                        DiffPiece inserted = new DiffPiece(element.Obj2, DiffStatus.Inserted, lineNumber++);
+                        DiffPiece inserted = new(element.Obj2, DiffStatus.Inserted, lineNumber++);
                         model.Lines.Add(inserted);
                         if (!multiline &&
                             insertDeletePairs.FirstOrDefault(p => p.InsertedPiece == null) is DiffPair diffPair)
@@ -103,66 +103,38 @@ namespace dnGREP.Common
             }
         }
 
-        private static string[] SplitWords(string str)
+        private static string[] SplitWords(string text)
         {
-            var list = new List<string>();
-            int begin = 0;
-            bool processingDelim = false;
-            int delimBegin = 0;
-            for (int i = 0; i < str.Length; i++)
+            // split text into an array of words, keeping the delimiters
+            List<string> words = [];
+            int start = 0;
+            int end = text.Length;
+            for (int i = 0; i < text.Length; i++)
             {
-                if (Array.IndexOf(wordSeparators, str[i]) != -1)
+                if (Array.IndexOf(wordSeparators, text[i]) != -1)
                 {
-                    if (i >= str.Length - 1)
+                    if (i > start)
                     {
-                        if (processingDelim)
-                        {
-                            list.Add(str.Substring(delimBegin, (i + 1 - delimBegin)));
-                        }
-                        else
-                        {
-                            list.Add(str.Substring(begin, (i - begin)));
-                            list.Add(str.Substring(i, 1));
-                        }
+                        words.Add(text[start..i]);
                     }
-                    else
+                    // collect all the delimiters and add them as a single word
+                    int length = 1;
+                    int j = i + 1;
+                    while (j < text.Length && Array.IndexOf(wordSeparators, text[j]) != -1)
                     {
-                        if (!processingDelim)
-                        {
-                            // Add everything up to this delimiter as the next chunk (if there is anything)
-                            if (i - begin > 0)
-                            {
-                                list.Add(str.Substring(begin, (i - begin)));
-                            }
-
-                            processingDelim = true;
-                            delimBegin = i;
-                        }
+                        length++;
+                        j++;
                     }
-
-                    begin = i + 1;
-                }
-                else
-                {
-                    if (processingDelim)
-                    {
-                        if (i - delimBegin > 0)
-                        {
-                            list.Add(str.Substring(delimBegin, (i - delimBegin)));
-                        }
-
-                        processingDelim = false;
-                    }
-
-                    // If we are at the end, add the remaining as the last chunk
-                    if (i >= str.Length - 1)
-                    {
-                        list.Add(str.Substring(begin, (i + 1 - begin)));
-                    }
+                    words.Add(text.Substring(i, length));
+                    i = j - 1;
+                    start = j;
                 }
             }
-
-            return [.. list];
+            if (start < end)
+            {
+                words.Add(text[start..end]);
+            }
+            return [.. words];
         }
 
         private class DiffPair
@@ -189,7 +161,7 @@ namespace dnGREP.Common
         public string Text { get; private set; }
         public List<DiffPiece> SubPieces { get; set; } = [];
 
-        public DiffPiece(string text, DiffStatus operation, int? position = null)
+        public DiffPiece(string text, DiffStatus operation, int? position)
         {
             Text = text;
             Position = position;
