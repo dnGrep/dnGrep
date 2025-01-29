@@ -713,7 +713,7 @@
     <value>Daha Fazla…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Daha Fazla</value>
+    <value>_Daha</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Dosya adlarını kopyala</value>
@@ -3272,5 +3272,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Keyboard_ShiftKey" xml:space="preserve">
     <value>Shift</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>Metinsel farklılıklar oluşturmak için .NET kütüphanesi</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Dosya karşılaştırmasını aç</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Değiştirmeleri göster ve önizle</value>
   </data>
 </root>
