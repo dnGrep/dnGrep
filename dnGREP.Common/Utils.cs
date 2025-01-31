@@ -2258,7 +2258,7 @@ namespace dnGREP.Common
                                     else
                                         matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, lineGroups, bodyMatchesClone[0].RegexMatchValue));
 
-                                    startOfLineIndex += tempLine.TrimEndOfLine().Length + 1; //add 1 for the \n character that was used when the regex was run
+                                    startOfLineIndex += tempLine.Length;
                                     startRecordingAfterLines = true;
                                 }
                                 bodyMatchesClone.RemoveAt(0);
@@ -2334,7 +2334,7 @@ namespace dnGREP.Common
                             grepMatch.Groups.Insert(idx, new(name, start, first.Length, first, group.FullValue));
                             if (second.Length > 0 && !second.Equals(eol, StringComparison.Ordinal))
                             {
-                                grepMatch.Groups.Add(new(name, start + first.Length + 1, second.Length, second, group.FullValue));
+                                grepMatch.Groups.Add(new(name, start + first.Length + eol.Length, second.Length, second, group.FullValue));
                             }
                             break;
                         }

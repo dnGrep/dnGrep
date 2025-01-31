@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using DiffPlex.DiffBuilder.Model;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
+using NetDiff;
 
 namespace dnGREP.WPF
 {
@@ -67,7 +67,7 @@ namespace dnGREP.WPF
                 if (DiffLines.Count > 0 && lineNum < DiffLines.Count)
                 {
                     var diffLine = DiffLines[lineNum];
-                    if (diffLine.Type == ChangeType.Inserted || diffLine.Type == ChangeType.Deleted)
+                    if (diffLine.Operation == DiffStatus.Inserted || diffLine.Operation == DiffStatus.Deleted)
                     {
                         DrawDiffBackground(diffLine, visLine, textView, drawingContext);
                     }
@@ -157,7 +157,7 @@ namespace dnGREP.WPF
         private void DrawDiffBackground(DiffPiece diffLine, VisualLine visLine,
             TextView textView, DrawingContext drawingContext)
         {
-            var brush = diffLine.Type == ChangeType.Inserted ? insertedLineBackground : deletedLineBackground;
+            var brush = diffLine.Operation == DiffStatus.Inserted ? insertedLineBackground : deletedLineBackground;
 
             foreach (var rc in BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, 0, 1000))
             {
@@ -171,13 +171,13 @@ namespace dnGREP.WPF
             {
                 endOffset += string.IsNullOrEmpty(piece.Text) ? 0 : piece.Text.Length;
 
-                if (piece.Type != ChangeType.Inserted && piece.Type != ChangeType.Deleted)
+                if (piece.Operation != DiffStatus.Inserted && piece.Operation != DiffStatus.Deleted)
                 {
                     startOffset = endOffset;
                     continue;
                 }
 
-                brush = piece.Type == ChangeType.Inserted ? insertedWordBackground : deletedWordBackground;
+                brush = piece.Operation == DiffStatus.Inserted ? insertedWordBackground : deletedWordBackground;
 
                 var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
                 if (rects.Any())

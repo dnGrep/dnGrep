@@ -6,6 +6,7 @@ using System.Text;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using dnGREP.Common.UI;
+using dnGREP.Engines;
 using dnGREP.WPF;
 using Xunit;
 
@@ -178,6 +179,100 @@ namespace Tests
             Assert.Single(match.Groups);
             GrepCaptureGroup group = match.Groups[0];
             Assert.Equal("2", line.LineText.Substring(group.StartLocation, group.Length));
+        }
+
+        [Theory]
+        [InlineData(01, "The quick brown fox\r\njumps over the lazy dog")]
+        [InlineData(01, "The quick brown fox\njumps over the lazy dog")]
+        [InlineData(01, "The quick brown fox\rjumps over the lazy dog")]
+        [InlineData(01, "The quick brown fox\r\njumps over the lazy dog\r\n")]
+        [InlineData(01, "The quick brown fox\njumps over the lazy dog\n")]
+        [InlineData(01, "The quick brown fox\rjumps over the lazy dog\r")]
+        public void TestGetTwoLineCaptureGroups(int index, string text)
+        {
+            // index is used to identify the test case
+            Assert.True(index > 0);
+
+            string pattern = @"quick\s+(.*?)\s+the";
+
+            GrepEnginePlainText engine = new();
+            var encoding = Encoding.UTF8;
+            using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
+            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, 
+                SearchType.Regex, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, encoding);
+
+            Assert.Single(results);
+            using StringReader reader = new(text);
+            List<GrepLine> lines = Utils.GetLinesEx(reader, results[0].Matches, 0, 0);
+            Assert.Equal(2, lines.Count);
+
+            GrepLine line1 = lines[0];
+            Assert.Equal(1, line1.LineNumber);
+            Assert.Single(line1.Matches);
+            GrepMatch match = line1.Matches[0];
+            Assert.Equal("quick brown fox", line1.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            GrepCaptureGroup group = match.Groups[0];
+            Assert.Equal("brown fox", line1.LineText.Substring(group.StartLocation, group.Length));
+
+            GrepLine line2 = lines[1];
+            Assert.Equal(2, line2.LineNumber);
+            Assert.Single(line2.Matches);
+            match = line2.Matches[0];
+            Assert.Equal("jumps over the", line2.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            group = match.Groups[0];
+            Assert.Equal("jumps over", line2.LineText.Substring(group.StartLocation, group.Length));
+        }
+
+        [Theory]
+        [InlineData(01, "The quick brown fox\r\nruns and\r\njumps over the lazy dog")]
+        [InlineData(01, "The quick brown fox\nruns and\njumps over the lazy dog")]
+        [InlineData(01, "The quick brown fox\rruns and\rjumps over the lazy dog")]
+        public void TestGetThreeLineCaptureGroups(int index, string text)
+        {
+            // index is used to identify the test case
+            Assert.True(index > 0);
+
+            string pattern = @"quick\s+(.*?)\s+the";
+
+            GrepEnginePlainText engine = new();
+            var encoding = Encoding.UTF8;
+            using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
+            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, 
+                SearchType.Regex, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, encoding);
+
+            Assert.Single(results);
+            using StringReader reader = new(text);
+            List<GrepLine> lines = Utils.GetLinesEx(reader, results[0].Matches, 0, 0);
+            Assert.Equal(3, lines.Count);
+
+            GrepLine line1 = lines[0];
+            Assert.Equal(1, line1.LineNumber);
+            Assert.Single(line1.Matches);
+            GrepMatch match = line1.Matches[0];
+            Assert.Equal("quick brown fox", line1.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            GrepCaptureGroup group = match.Groups[0];
+            Assert.Equal("brown fox", line1.LineText.Substring(group.StartLocation, group.Length));
+
+            GrepLine line2 = lines[1];
+            Assert.Equal(2, line2.LineNumber);
+            Assert.Single(line2.Matches);
+            match = line2.Matches[0];
+            Assert.Equal("runs and", line2.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            group = match.Groups[0];
+            Assert.Equal("runs and", line2.LineText.Substring(group.StartLocation, group.Length));
+
+            GrepLine line3 = lines[2];
+            Assert.Equal(3, line3.LineNumber);
+            Assert.Single(line3.Matches);
+            match = line3.Matches[0];
+            Assert.Equal("jumps over the", line3.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            group = match.Groups[0];
+            Assert.Equal("jumps over", line3.LineText.Substring(group.StartLocation, group.Length));
         }
 
         [Fact]

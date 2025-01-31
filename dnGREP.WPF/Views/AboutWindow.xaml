@@ -169,8 +169,8 @@
                     <TextBlock Text="{l:Loc Key='About_NETLibraryForCharacterSetDetection'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
-                    <Hyperlink NavigateUri="https://github.com/mmanela/diffplex" RequestNavigate="Hyperlink_RequestNavigate">
-                        <TextBlock Text="DiffPlex"/>
+                    <Hyperlink NavigateUri="https://github.com/skanmera/NetDiff" RequestNavigate="Hyperlink_RequestNavigate">
+                        <TextBlock Text="NetDiff"/>
                     </Hyperlink>
                     <TextBlock Text="{l:Loc Key='About_NETLibraryToGenerateTextualDifferences'}" Style="{StaticResource Decription}"/>
                 </TextBlock>

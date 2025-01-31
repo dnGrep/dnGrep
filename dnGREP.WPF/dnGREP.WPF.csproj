@@ -181,10 +181,10 @@
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
     <ProjectReference Include="..\dnGREP.DockFloat\dnGREP.DockFloat.csproj" />
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj" />
+    <ProjectReference Include="..\NetDiff\NetDiff.csproj" />
     <ProjectReference Include="..\SevenZip\SevenZip.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DiffPlex" Version="1.7.2" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />

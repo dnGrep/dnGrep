@@ -18,9 +18,6 @@
       <Component Id="cmp7A55F9CF84A64DF4968DC208CA225AC8" Guid="{179542A1-0BAC-4E53-995C-43920DF0C5D6}">
         <File Id="fil4918FA3FBA634BEC9F49877949B0F22A" KeyPath="yes" Source="$(var.PublishDir)\CommunityToolkit.Mvvm.dll" />
       </Component>
-      <Component Id="cmpC83D0BC3D48D49938926A3790FC33E0F" Guid="{E57F071D-552B-4D72-B1CD-7453A5A1ED9E}">
-        <File Id="fil11DCCEECFAB7482BB8DF3D7C0E1E5242" KeyPath="yes" Source="$(var.PublishDir)\DiffPlex.dll" />
-      </Component>
       <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{293480D3-64A1-4D5D-A953-4C3F6694BC52}">
         <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.dll" />
       </Component>     
@@ -90,6 +87,9 @@
       </Component>
       <Component Id="cmpC9374D90A25A4EE284CA32161DF04748" Guid="{06549E21-10AE-4E02-9888-AD759A49BDD5}">
         <File Id="fil6DE7936B61104AAD94942241C9F11558" KeyPath="yes" Source="$(var.PublishDir)\ICSharpCode.AvalonEdit.pdb" />
+      </Component>
+      <Component Id="cmp44E877FEA07944F7936BAF12F57254B8" Guid="{87873133-66F8-454D-B78A-4007BAC9B28F}">
+        <File Id="fil9AB31307B6BA40AA9F408155190F314F" KeyPath="yes" Source="$(var.PublishDir)\NetDiff.dll" />
       </Component>
       <Component Id="cmp0459596434A34BA899AD1B009417DEEB" Guid="{6F88374E-BF90-4B91-8F7C-97B5D72E108F}">
         <File Id="fil32F44C517B3F47268E1399A302DA7F90" KeyPath="yes" Source="$(var.PublishDir)\Newtonsoft.Json.dll" />
@@ -248,7 +248,6 @@
     <ComponentGroup Id="dnGREPAppFiles">
       <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
       <ComponentRef Id="cmp7A55F9CF84A64DF4968DC208CA225AC8" />
-      <ComponentRef Id="cmpC83D0BC3D48D49938926A3790FC33E0F" />
       <ComponentRef Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" />
       <ComponentRef Id="cmp78E7869DE0E547A9BB91AAD5C21A80CF" />
       <ComponentRef Id="cmpD9FA0B07237DE16A4585D46BED20E933" />
@@ -271,6 +270,7 @@
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
       <ComponentRef Id="cmpC9374D90A25A4EE284CA32161DF04748" />
+      <ComponentRef Id="cmp44E877FEA07944F7936BAF12F57254B8" />
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />
       <ComponentRef Id="cmp5675AF2D758E4055865D3B2A2EA1E463" />
       <ComponentRef Id="cmpB7F588B270AD4EFBBB04FF288C419407" />

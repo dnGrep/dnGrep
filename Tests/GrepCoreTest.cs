@@ -707,7 +707,7 @@ namespace Tests
         [InlineData(@"\b(\w+[.])\b", "$1 ", "first.second. third", "first. second")]
         [InlineData(@"\b\w+(?=\sis\b)", "Saturday", "Sunday is a weekend day.", "Saturday")]
         [InlineData(@"\b(?!un)\w+\b", "understood", "untie, unite, misunderstood, under, unknown", ", understood, ")]
-        [InlineData(@"(?<=[$])(\d+)", "4", "The price is $1.99 for two.", "$4.99")]
+        [InlineData(@"(?<=[\$])(\d+)", "4", "The price is $1.99 for two.", "$4.99")]
         [InlineData(@"(?<!USD)\d{3}", "200", "JPY100 USD100", "JPY200 USD100")]
         [InlineData(@"(?<=_(?=\d{2}_))\d+", "15", "10 _16_ 20", "10 _15_ 20")]
         public void TestLookAroundReplace(string pattern, string replace, string input, string expected)
@@ -1235,12 +1235,13 @@ namespace Tests
         [InlineData("lorem_win.txt", @"\\r\\n", false)]
         public void TestMultilineSearchAndReplace(string fileName, string newLine, bool useLongPath)
         {
+            string searchPattern = @"\w+?\.$\r?\n^P\w+";
             string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
 
             Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase16"), Path.Combine(destinationFolder, "TestCase16"), null, null);
             GrepCore core = new();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase16"), fileName),
-                SearchType.Regex, @"\w*\.$.P\w*", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
+                SearchType.Regex, searchPattern, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
             Assert.Single(results);
             var hits = results[0].SearchResults.Where(r => !r.IsContext).ToList();
             Assert.Equal(2, hits.Count);
@@ -1263,10 +1264,11 @@ namespace Tests
                 new(testFile, results[0].Matches)
             ];
 
-            core.Replace(files, SearchType.Regex, @"\w*\.$.P\w*", $"end.{newLine}Start", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
+            core.Replace(files, SearchType.Regex, searchPattern, $"end.{newLine}Start", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
 
+            searchPattern = @"\w+?\.$\r?\n^S\w+";
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase16"), fileName),
-                            SearchType.Regex, @"\w*\.$.S\w*", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
+                            SearchType.Regex, searchPattern, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
             Assert.Single(results);
             hits = results[0].SearchResults.Where(r => !r.IsContext).ToList();
             Assert.Equal(2, hits.Count);
@@ -1323,23 +1325,26 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("plum apple\norange\n", "p..", GrepSearchOption.Global, 0, 3, 6, 3)]
-        [InlineData("plum apple\r\norange\r\n", "p..", GrepSearchOption.Global, 0, 3, 6, 3)]
-        [InlineData("plum apple\norange\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline, 0, 3, 6, 3)]
-        [InlineData("plum apple\r\norange\r\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline, 0, 3, 6, 3)]
-        [InlineData("plum apple\norange\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 0, 3, 6, 3)]
-        [InlineData("plum apple\r\norange\r\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 0, 3, 6, 3)]
-        [InlineData("plum apple\norange\n", "l.", GrepSearchOption.Global, 1, 2, 8, 2)]
-        [InlineData("plum apple\r\norange\r\n", "l.", GrepSearchOption.Global, 1, 2, 8, 2)]
-        [InlineData("plum apple\norange\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline, 1, 2, 8, 2)]
-        [InlineData("plum apple\r\norange\r\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline, 1, 2, 8, 2)]
-        public void TestRegexPatternEndingInDot(string content, string pattern, GrepSearchOption regexOption, int start1, int len1, int start2, int len2)
+        [InlineData(01, "plum apple\norange\n", "p..", GrepSearchOption.Global, 0, 3, 6, 3)]
+        [InlineData(02, "plum apple\r\norange\r\n", "p..", GrepSearchOption.Global, 0, 3, 6, 3)]
+        [InlineData(03, "plum apple\norange\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline, 0, 3, 6, 3)]
+        [InlineData(04, "plum apple\r\norange\r\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline, 0, 3, 6, 3)]
+        [InlineData(05, "plum apple\norange\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 0, 3, 6, 3)]
+        [InlineData(06, "plum apple\r\norange\r\n", "p..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 0, 3, 6, 3)]
+        [InlineData(07, "plum apple\norange\n", "l.", GrepSearchOption.Global, 1, 2, 8, 2)]
+        [InlineData(08, "plum apple\r\norange\r\n", "l.", GrepSearchOption.Global, 1, 2, 8, 2)]
+        [InlineData(09, "plum apple\norange\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline, 1, 2, 8, 2)]
+        [InlineData(10, "plum apple\r\norange\r\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline, 1, 2, 8, 2)]
+        public void TestRegexPatternEndingInDot(int index, string content, string pattern, GrepSearchOption regexOption, int start1, int len1, int start2, int len2)
         {
             string path = Path.Combine(destinationFolder, @"TestNewlines");
             if (Directory.Exists(path))
                 Utils.DeleteFolder(path);
             Directory.CreateDirectory(path);
             File.WriteAllText(Path.Combine(path, @"test.txt"), content);
+
+            // index is used to identify the test case
+            Assert.True(index > 0);
 
             GrepCore core = new();
             var results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, pattern, regexOption, -1);
@@ -1352,25 +1357,30 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("plum apple\norange\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
-        [InlineData("plum apple\r\norange\r\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
-        [InlineData("plum apple\norange\n", "l..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 3, "le\n")]
-        [InlineData("plum apple\r\norange\r\n", "l..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 4, "le\r\n")]
-        [InlineData("plum apple\norange\n", "l...", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 4, "lum ", 8, 4, "le\no")]
-        [InlineData("plum apple\r\norange\r\n", "l...", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 4, "lum ", 8, 5, "le\r\no")]
-        [InlineData("plum apple\norange\n", "l.", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
-        [InlineData("plum apple\r\norange\r\n", "l.", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
-        [InlineData("plum apple\norange\n", "l..", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 3, "le\n")]
-        [InlineData("plum apple\r\norange\r\n", "l..", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 4, "le\r\n")]
-        [InlineData("plum apple\norange\n", "l...", GrepSearchOption.Global | GrepSearchOption.SingleLine, 1, 1, 4, "lum ", 0, 0, null)]
-        [InlineData("plum apple\r\norange\r\n", "l...", GrepSearchOption.Global | GrepSearchOption.SingleLine, 1, 1, 4, "lum ", 0, 0, null)]
-        public void TestRegexPatternSinglelineEndingInDot(string content, string pattern, GrepSearchOption regexOption, int matches, int start1, int len1, string text1, int start2, int len2, string? text2)
+        [InlineData(01, "plum apple\norange\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
+        [InlineData(02, "plum apple\r\norange\r\n", "l.", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
+        [InlineData(03, "plum apple\norange\n", "l..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 3, "le\n")]
+        [InlineData(04, "plum apple\r\norange\r\n", "l..", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 3, "le\r")]
+        [InlineData(05, "plum apple\norange\n", "l...", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 4, "lum ", 8, 4, "le\no")]
+        [InlineData(06, "plum apple\r\norange\r\n", "l....", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 5, "lum a", 8, 5, "le\r\no")]
+        [InlineData(07, "plum apple\norange\n", "l.", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
+        [InlineData(08, "plum apple\r\norange\r\n", "l.", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 2, "lu", 8, 2, "le")]
+        [InlineData(09, "plum apple\norange\n", "l..", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 3, "le\n")]
+        [InlineData(10, "plum apple\r\norange\r\n", "l..", GrepSearchOption.Global | GrepSearchOption.SingleLine, 2, 1, 3, "lum", 8, 3, "le\r")]
+        [InlineData(11, "plum apple\norange\n", "l....", GrepSearchOption.Global | GrepSearchOption.SingleLine, 1, 1, 5, "lum a", 0, 0, null)]
+        [InlineData(12, "plum apple\r\norange\r\n", "l....", GrepSearchOption.Global | GrepSearchOption.SingleLine, 1, 1, 5, "lum a", 0, 0, null)]
+        [InlineData(13, "plum orange\napple\n", "l.*?$", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 10, "lum orange", 15, 2, "le")]
+        [InlineData(14, "plum orange\r\napple\r\n", "l.*?$", GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, 2, 1, 10, "lum orange", 16, 2, "le")]
+        public void TestRegexPatternSinglelineEndingInDot(int index, string content, string pattern, GrepSearchOption regexOption, int matches, int start1, int len1, string text1, int start2, int len2, string? text2)
         {
             string path = Path.Combine(destinationFolder, @"TestNewlines");
             if (Directory.Exists(path))
                 Utils.DeleteFolder(path);
             Directory.CreateDirectory(path);
             File.WriteAllText(Path.Combine(path, @"test.txt"), content);
+
+            // index is used to identify the test case
+            Assert.True(index > 0);
 
             GrepCore core = new();
             var results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, pattern, regexOption, -1);
@@ -1388,45 +1398,48 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("abcd", "a.*", 0, 4)]
-        [InlineData("abcd", "a.*$", 0, 4)]
-        [InlineData("abcd\rline2\rline3\r", "a.*", 0, 4)]
-        [InlineData("abcd\nline2\nline3\n", "a.*", 0, 4)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*", 0, 4)]
-        [InlineData("abcd\rline2\rline3\r", "a.*$", 0, 4)]
-        [InlineData("abcd\nline2\nline3\n", "a.*$", 0, 4)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 4)]
-        [InlineData("line1\rabcd\rline3\r", "a.*", 6, 4)]
-        [InlineData("line1\nabcd\n\nline3", "a.*", 6, 4)]
-        [InlineData("line1\r\nabcd\r\nline3\r\n", "a.*", 7, 4)]
-        [InlineData("line1\rabcd\rline3\r", "a.*$", 6, 4)]
-        [InlineData("line1\nabcd\nline3\n", "a.*$", 6, 4)]
-        [InlineData("line1\r\nabcd\r\nline3\r\n", "a.*$", 7, 4)]
-        [InlineData("line1\rline2\rabcd\r", "a.*", 12, 4)]
-        [InlineData("line1\nline2\nabcd\n", "a.*", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*", 14, 4)]
-        [InlineData("line1\rline2\rabcd\r", "a.*$", 12, 4)]
-        [InlineData("line1\nline2\nabcd\n", "a.*$", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 4)]
-        [InlineData("line1\rline2\rabcd", "a.*", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*", 14, 4)]
-        [InlineData("line1\rline2\rabcd", "a.*$", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*$", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
-        [InlineData("line1\r\nline2\r\nline3\r\nabcd", "a.*$", 21, 4)]
-        [InlineData("line1\r\nline2\r\nline3\r\nline4\r\nabcd", "a.*$", 28, 4)]
-        [InlineData("line1\r\nline2\nline3\r\nline4\r\nabcd", "a.*$", 27, 4)] //mixed newlines
-        [InlineData("line1\r\nline2\r\nline3\r\n\r\nabcd\r\n", "a.*$", 23, 4)] // empty line
-        [InlineData("line1\r\nline2\r\nline3\r\n\r\n\r\nabcd\r\n", "a.*$", 25, 4)] // empty line
-        [InlineData("line1\r\nline2\r\nline3\r\n\n\r\nabcd\r\n", "a.*$", 24, 4)] // mixed empty line
-        public void TestRegexShouldNotReturnNewlineChar(string content, string pattern, int start, int length)
+        [InlineData(01, "abcd", "a.*", 0, 4)]
+        [InlineData(02, "abcd", "a.*$", 0, 4)]
+        [InlineData(03, "abcd\rline2\rline3\r", "a.*", 0, 4)]
+        [InlineData(04, "abcd\nline2\nline3\n", "a.*", 0, 4)]
+        [InlineData(05, "abcd\r\nline2\r\nline3\r\n", "a.*", 0, 4)]
+        [InlineData(06, "abcd\rline2\rline3\r", "a.*$", 0, 4)]
+        [InlineData(07, "abcd\nline2\nline3\n", "a.*$", 0, 4)]
+        [InlineData(08, "abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 4)]
+        [InlineData(09, "line1\rabcd\rline3\r", "a.*", 6, 4)]
+        [InlineData(10, "line1\nabcd\n\nline3", "a.*", 6, 4)]
+        [InlineData(11, "line1\r\nabcd\r\nline3\r\n", "a.*", 7, 4)]
+        [InlineData(12, "line1\rabcd\rline3\r", "a.*$", 6, 4)]
+        [InlineData(13, "line1\nabcd\nline3\n", "a.*$", 6, 4)]
+        [InlineData(14, "line1\r\nabcd\r\nline3\r\n", "a.*$", 7, 4)]
+        [InlineData(15, "line1\rline2\rabcd\r", "a.*", 12, 4)]
+        [InlineData(16, "line1\nline2\nabcd\n", "a.*", 12, 4)]
+        [InlineData(17, "line1\r\nline2\r\nabcd\r\n", "a.*", 14, 4)]
+        [InlineData(18, "line1\rline2\rabcd\r", "a.*$", 12, 4)]
+        [InlineData(19, "line1\nline2\nabcd\n", "a.*$", 12, 4)]
+        [InlineData(20, "line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 4)]
+        [InlineData(21, "line1\rline2\rabcd", "a.*", 12, 4)]
+        [InlineData(22, "line1\nline2\nabcd", "a.*", 12, 4)]
+        [InlineData(23, "line1\r\nline2\r\nabcd", "a.*", 14, 4)]
+        [InlineData(24, "line1\rline2\rabcd", "a.*$", 12, 4)]
+        [InlineData(25, "line1\nline2\nabcd", "a.*$", 12, 4)]
+        [InlineData(26, "line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
+        [InlineData(27, "line1\r\nline2\r\nline3\r\nabcd", "a.*$", 21, 4)]
+        [InlineData(28, "line1\r\nline2\r\nline3\r\nline4\r\nabcd", "a.*$", 28, 4)]
+        [InlineData(29, "line1\r\nline2\nline3\r\nline4\r\nabcd", "a.*$", 27, 4)] //mixed newlines
+        [InlineData(30, "line1\r\nline2\r\nline3\r\n\r\nabcd\r\n", "a.*$", 23, 4)] // empty line
+        [InlineData(31, "line1\r\nline2\r\nline3\r\n\r\n\r\nabcd\r\n", "a.*$", 25, 4)] // empty line
+        [InlineData(32, "line1\r\nline2\r\nline3\r\n\n\r\nabcd\r\n", "a.*$", 24, 4)] // mixed empty line
+        public void TestRegexShouldNotReturnNewlineChar(int index, string content, string pattern, int start, int length)
         {
             string path = Path.Combine(destinationFolder, @"TestNewlines");
             if (Directory.Exists(path))
                 Utils.DeleteFolder(path);
             Directory.CreateDirectory(path);
             File.WriteAllText(Path.Combine(path, @"test.txt"), content);
+
+            // index is used to identify the test case
+            Assert.True(index > 0);
 
             GrepCore core = new();
             var results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, pattern, GrepSearchOption.Global, -1);
@@ -1437,39 +1450,42 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("abcd", "a.*", 0, 4)]
-        [InlineData("abcd", "a.*$", 0, 4)]
-        [InlineData("abcd\rline2\rline3\r", "a.*", 0, 5)]
-        [InlineData("abcd\nline2\nline3\n", "a.*", 0, 5)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*", 0, 6)]
-        [InlineData("abcd\rline2\rline3\r", "a.*$", 0, 5)]
-        [InlineData("abcd\nline2\nline3\n", "a.*$", 0, 5)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 6)]
-        [InlineData("line1\rline2\rabcd\r", "a.*", 12, 5)]
-        [InlineData("line1\nline2\nabcd\n", "a.*", 12, 5)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*", 14, 6)]
-        [InlineData("line1\rline2\rabcd\r", "a.*$", 12, 5)]
-        [InlineData("line1\nline2\nabcd\n", "a.*$", 12, 5)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 6)]
-        [InlineData("line1\rline2\rabcd", "a.*", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*", 14, 4)]
-        [InlineData("line1\rline2\rabcd", "a.*$", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*$", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
-        [InlineData("abcd\r\nline2\nline3\r\n", "a.*", 0, 6)]  // mixed newlines
-        [InlineData("abcd\nline2\r\nline3\r\n", "a.*", 0, 5)]  // mixed newlines
-        [InlineData("line1\nline2\r\nabcd\r\n", "a.*", 13, 6)] // mixed newlines
-        [InlineData("line1\nline2\r\nabcd", "a.*", 13, 4)]     // mixed newlines
-        [InlineData("line1\rline2\r\nabcd\r\n", "a.*", 13, 6)] // mixed newlines
-        [InlineData("line1\rline2\r\nabcd", "a.*", 13, 4)]     // mixed newlines
-        public void TestRegexSinglelineShouldReturnNewlineChar(string content, string pattern, int start, int length)
+        [InlineData(01, "abcd", "a.*", 0, 4)]
+        [InlineData(02, "abcd", "a.*$", 0, 4)]
+        [InlineData(03, "abcd\rline2\rline3\r", "a.*", 0, 5)]
+        [InlineData(04, "abcd\nline2\nline3\n", "a.*", 0, 5)]
+        [InlineData(05, "abcd\r\nline2\r\nline3\r\n", "a.*", 0, 6)]
+        [InlineData(06, "abcd\rline2\rline3\r", "a.*$", 0, 5)]
+        [InlineData(07, "abcd\nline2\nline3\n", "a.*$", 0, 5)]
+        [InlineData(08, "abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 6)]
+        [InlineData(09, "line1\rline2\rabcd\r", "a.*", 12, 5)]
+        [InlineData(10, "line1\nline2\nabcd\n", "a.*", 12, 5)]
+        [InlineData(11, "line1\r\nline2\r\nabcd\r\n", "a.*", 14, 6)]
+        [InlineData(12, "line1\rline2\rabcd\r", "a.*$", 12, 5)]
+        [InlineData(13, "line1\nline2\nabcd\n", "a.*$", 12, 5)]
+        [InlineData(14, "line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 6)]
+        [InlineData(15, "line1\rline2\rabcd", "a.*", 12, 4)]
+        [InlineData(16, "line1\nline2\nabcd", "a.*", 12, 4)]
+        [InlineData(17, "line1\r\nline2\r\nabcd", "a.*", 14, 4)]
+        [InlineData(18, "line1\rline2\rabcd", "a.*$", 12, 4)]
+        [InlineData(19, "line1\nline2\nabcd", "a.*$", 12, 4)]
+        [InlineData(20, "line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
+        [InlineData(21, "abcd\r\nline2\nline3\r\n", "a.*", 0, 6)]  // mixed newlines
+        [InlineData(22, "abcd\nline2\r\nline3\r\n", "a.*", 0, 5)]  // mixed newlines
+        [InlineData(23, "line1\nline2\r\nabcd\r\n", "a.*", 13, 6)] // mixed newlines
+        [InlineData(24, "line1\nline2\r\nabcd", "a.*", 13, 4)]     // mixed newlines
+        [InlineData(25, "line1\rline2\r\nabcd\r\n", "a.*", 13, 6)] // mixed newlines
+        [InlineData(26, "line1\rline2\r\nabcd", "a.*", 13, 4)]     // mixed newlines
+        public void TestRegexSinglelineShouldReturnNewlineChar(int index, string content, string pattern, int start, int length)
         {
             string path = Path.Combine(destinationFolder, @"TestNewlines");
             if (Directory.Exists(path))
                 Utils.DeleteFolder(path);
             Directory.CreateDirectory(path);
             File.WriteAllText(Path.Combine(path, @"test.txt"), content);
+
+            // index is used to identify the test case
+            Assert.True(index > 0);
 
             GrepCore core = new();
             var results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, pattern, GrepSearchOption.Global | GrepSearchOption.SingleLine, -1);
@@ -1480,38 +1496,62 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("abcd", "a.*", 0, 4)]
-        [InlineData("abcd", "a.*$", 0, 4)]
-        [InlineData("abcd\rline2\rline3\r", "a.*", 0, 4)]
-        [InlineData("abcd\nline2\nline3\n", "a.*", 0, 4)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*", 0, 4)]
-        [InlineData("abcd\rline2\rline3\r", "a.*$", 0, 4)]
-        [InlineData("abcd\nline2\nline3\n", "a.*$", 0, 4)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 4)]
-        [InlineData("line1\rline2\rabcd\r", "a.*", 12, 4)]
-        [InlineData("line1\nline2\nabcd\n", "a.*", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*", 14, 4)]
-        [InlineData("line1\rline2\rabcd\r", "a.*$", 12, 4)]
-        [InlineData("line1\nline2\nabcd\n", "a.*$", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 4)]
-        [InlineData("line1\rline2\rabcd", "a.*", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*", 14, 4)]
-        [InlineData("line1\rline2\rabcd", "a.*$", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*$", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
-        [InlineData("abcd\r\nline2\nline3\r\n", "a.*", 0, 4)]  // mixed newlines
-        [InlineData("abcd\nline2\r\nline3\r\n", "a.*", 0, 4)]  // mixed newlines
-        [InlineData("line1\nline2\r\nabcd\r\n", "a.*", 13, 4)] // mixed newlines
-        [InlineData("abcd\rline2\r\nline3\r\n", "a.*", 0, 4)]  // mixed newlines
-        [InlineData("line1\rline2\r\nabcd\r\n", "a.*", 13, 4)] // mixed newlines
-        public void TestRegexMultilineShouldNotReturnNewlineChar(string content, string pattern, int start, int length)
+        [InlineData(10, "line1\nline2\nabcd\n", "a.*", 12, 4)]
+        [InlineData(11, "line1\r\nline2\r\nabcd\r\n", "a.*", 14, 5)] // dot matches \r
+        public void TestDefaultDotNetRegexMultilineShouldNotReturnNewlineChar(int index, string content, string pattern, int start, int length)
+        {
+            // index is used to identify the test case
+            Assert.True(index > 0);
+
+            Regex regex = new(pattern, RegexOptions.Multiline);
+            Match match = regex.Match(content);
+            Assert.True(match.Success);
+            Assert.Equal(start, match.Index);
+            Assert.Equal(length, match.Length);
+
+            Regex regex2 = new(pattern, RegexOptions.Multiline | RegexOptions.Singleline);
+            Match match2 = regex.Match(content);
+            Assert.True(match2.Success);
+            Assert.Equal(start, match2.Index);
+            Assert.Equal(length, match2.Length);
+        }
+
+        [Theory]
+        [InlineData(01, "abcd", "a.*", 0, 4)]
+        [InlineData(02, "abcd", "a.*$", 0, 4)]
+        [InlineData(03, "abcd\rline2\rline3\r", "a.*", 0, 16)] // dot matches \r
+        [InlineData(04, "abcd\nline2\nline3\n", "a.*", 0, 4)]
+        [InlineData(05, "abcd\r\nline2\r\nline3\r\n", "a.*", 0, 4)]
+        [InlineData(06, "abcd\rline2\rline3\r", "a.*$", 0, 16)] // dot matches \r, and $ does not match \r
+        [InlineData(07, "abcd\nline2\nline3\n", "a.*$", 0, 4)]
+        [InlineData(08, "abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 4)]
+        [InlineData(09, "line1\rline2\rabcd\r", "a.*", 12, 4)]
+        [InlineData(10, "line1\nline2\nabcd\n", "a.*", 12, 4)]
+        [InlineData(11, "line1\r\nline2\r\nabcd\r\n", "a.*", 14, 4)]
+        [InlineData(12, "line1\rline2\rabcd\r", "a.*$", 12, 4)]
+        [InlineData(13, "line1\nline2\nabcd\n", "a.*$", 12, 4)]
+        [InlineData(14, "line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 4)]
+        [InlineData(15, "line1\rline2\rabcd", "a.*", 12, 4)]
+        [InlineData(16, "line1\nline2\nabcd", "a.*", 12, 4)]
+        [InlineData(17, "line1\r\nline2\r\nabcd", "a.*", 14, 4)]
+        [InlineData(18, "line1\rline2\rabcd", "a.*$", 12, 4)]
+        [InlineData(19, "line1\nline2\nabcd", "a.*$", 12, 4)]
+        [InlineData(20, "line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
+        [InlineData(21, "abcd\r\nline2\nline3\r\n", "a.*", 0, 4)]  // mixed newlines
+        [InlineData(22, "abcd\nline2\r\nline3\r\n", "a.*", 0, 4)]  // mixed newlines
+        [InlineData(23, "line1\nline2\r\nabcd\r\n", "a.*", 13, 4)] // mixed newlines
+        [InlineData(24, "abcd\rline2\r\nline3\r\n", "a.*", 0, 10)] // mixed newlines
+        [InlineData(25, "line1\rline2\r\nabcd\r\n", "a.*", 13, 4)] // mixed newlines
+        public void TestRegexMultilineShouldNotReturnNewlineChar(int index, string content, string pattern, int start, int length)
         {
             string path = Path.Combine(destinationFolder, @"TestNewlines");
             if (Directory.Exists(path))
                 Utils.DeleteFolder(path);
             Directory.CreateDirectory(path);
             File.WriteAllText(Path.Combine(path, @"test.txt"), content);
+
+            // index is used to identify the test case
+            Assert.True(index > 0);
 
             GrepCore core = new();
             var results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, pattern, GrepSearchOption.Global | GrepSearchOption.Multiline, -1);
@@ -1522,33 +1562,36 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("abcd", "a.*", 0, 4)]
-        [InlineData("abcd", "a.*$", 0, 4)]
-        [InlineData("abcd\rline2\rline3\r", "a.*", 0, 17)]
-        [InlineData("abcd\nline2\nline3\n", "a.*", 0, 17)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*", 0, 20)]
-        [InlineData("abcd\rline2\rline3\r", "a.*$", 0, 17)]
-        [InlineData("abcd\nline2\nline3\n", "a.*$", 0, 17)]
-        [InlineData("abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 20)]
-        [InlineData("line1\rline2\rabcd\r", "a.*", 12, 5)]
-        [InlineData("line1\nline2\nabcd\n", "a.*", 12, 5)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*", 14, 6)]
-        [InlineData("line1\rline2\rabcd\r", "a.*$", 12, 5)]
-        [InlineData("line1\nline2\nabcd\n", "a.*$", 12, 5)]
-        [InlineData("line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 6)]
-        [InlineData("line1\rline2\rabcd", "a.*", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*", 14, 4)]
-        [InlineData("line1\rline2\rabcd", "a.*$", 12, 4)]
-        [InlineData("line1\nline2\nabcd", "a.*$", 12, 4)]
-        [InlineData("line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
-        public void TestRegexMultilineAndSinglelineShouldReturnNewlineChars(string content, string pattern, int start, int length)
+        [InlineData(01, "abcd", "a.*", 0, 4)]
+        [InlineData(02, "abcd", "a.*$", 0, 4)]
+        [InlineData(03, "abcd\rline2\rline3\r", "a.*", 0, 17)] // dnGrep has special handling for trailing \r
+        [InlineData(04, "abcd\nline2\nline3\n", "a.*", 0, 17)]
+        [InlineData(05, "abcd\r\nline2\r\nline3\r\n", "a.*", 0, 20)]
+        [InlineData(06, "abcd\rline2\rline3\r", "a.*$", 0, 17)] // dnGrep has special handling for trailing \r
+        [InlineData(07, "abcd\nline2\nline3\n", "a.*$", 0, 17)]
+        [InlineData(08, "abcd\r\nline2\r\nline3\r\n", "a.*$", 0, 20)]
+        [InlineData(09, "line1\rline2\rabcd\r", "a.*", 12, 5)] // dnGrep has special handling for trailing \r
+        [InlineData(10, "line1\nline2\nabcd\n", "a.*", 12, 5)]
+        [InlineData(11, "line1\r\nline2\r\nabcd\r\n", "a.*", 14, 6)]
+        [InlineData(12, "line1\rline2\rabcd\r", "a.*$", 12, 5)]
+        [InlineData(13, "line1\nline2\nabcd\n", "a.*$", 12, 5)]
+        [InlineData(14, "line1\r\nline2\r\nabcd\r\n", "a.*$", 14, 6)]
+        [InlineData(15, "line1\rline2\rabcd", "a.*", 12, 4)]
+        [InlineData(16, "line1\nline2\nabcd", "a.*", 12, 4)]
+        [InlineData(17, "line1\r\nline2\r\nabcd", "a.*", 14, 4)]
+        [InlineData(18, "line1\rline2\rabcd", "a.*$", 12, 4)]
+        [InlineData(19, "line1\nline2\nabcd", "a.*$", 12, 4)]
+        [InlineData(20, "line1\r\nline2\r\nabcd", "a.*$", 14, 4)]
+        public void TestRegexMultilineAndSinglelineShouldReturnNewlineChars(int index, string content, string pattern, int start, int length)
         {
             string path = Path.Combine(destinationFolder, @"TestNewlines");
             if (Directory.Exists(path))
                 Utils.DeleteFolder(path);
             Directory.CreateDirectory(path);
             File.WriteAllText(Path.Combine(path, @"test.txt"), content);
+
+            // index is used to identify the test case
+            Assert.True(index > 0);
 
             GrepCore core = new();
             var results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, pattern, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);

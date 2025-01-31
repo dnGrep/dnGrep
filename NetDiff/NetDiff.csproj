@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
+    <LangVersion>12</LangVersion>
+    <OutputType>Library</OutputType>
+    <Description>This is the NetDiff package built for .NET 8 rather than .NET Framework</Description>
+    <Authors>doug24, David Pruitt and skanmera</Authors>
+    <Version>1.5.0</Version>
+    <SignAssembly>false</SignAssembly>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+</Project>
