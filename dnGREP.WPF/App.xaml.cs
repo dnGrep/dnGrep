@@ -45,7 +45,7 @@ namespace dnGREP.WPF
                 AppArgs = new CommandLineArgs(commandLine ?? string.Empty);
 
                 if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.IsSingletonInstance) &&
-                    !ConfigureSingletonInstance(AppArgs))
+                    !ConfigureSingletonInstance(commandLine))
                 {
                     // Terminate this instance.
                     Shutdown();
@@ -138,7 +138,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private static bool ConfigureSingletonInstance(CommandLineArgs args)
+        private static bool ConfigureSingletonInstance(string? writeCommandLine)
         {
             singletonMutex = new Mutex(true, UniqueMutexName, out bool isOwned);
 
@@ -158,13 +158,13 @@ namespace dnGREP.WPF
                                 // Wait until the pipe is available.
                                 namedPipeServer.WaitForConnection();
 
-                                string path = string.Empty;
+                                string readCommandLine = string.Empty;
                                 using (StreamReader sr = new(namedPipeServer))
                                 {
                                     string? temp;
                                     while ((temp = sr.ReadLine()) != null)
                                     {
-                                        path += temp;
+                                        readCommandLine += temp;
                                     }
                                 }
 
@@ -173,7 +173,7 @@ namespace dnGREP.WPF
                                     {
                                         if (Current.MainWindow is MainForm wnd)
                                         {
-                                            wnd.BringToForeground(path);
+                                            wnd.BringToForeground(readCommandLine);
                                         }
                                     });
                             }
@@ -201,16 +201,10 @@ namespace dnGREP.WPF
             pipeClientStream.Connect();
             try
             {
-                string path = string.Empty;
-                if (!string.IsNullOrEmpty(args.SearchPath))
-                {
-                    path = args.SearchPath;
-                }
-
                 // Read user input and send that to the server process.
                 using StreamWriter sw = new(pipeClientStream);
                 sw.AutoFlush = true;
-                sw.Write(path);
+                sw.Write(writeCommandLine ?? string.Empty);
             }
             // Catch the IOException that is raised if the pipe is broken
             // or disconnected.

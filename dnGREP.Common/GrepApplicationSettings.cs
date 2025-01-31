@@ -315,7 +315,7 @@ namespace dnGREP.Common
             [DefaultValue(false)]
             public const string IsSingletonInstance = "IsSingletonInstance";
             [DefaultValue(true)]
-            public const string PassSearchFolderToSingleton = "PassSearchFolderToSingleton";
+            public const string PassCommandLineToSingleton = "PassCommandLineToSingleton";
             [DefaultValue(false)]
             public const string ConfirmExitScript = "ConfirmExitScript";
             [DefaultValue(false)]
@@ -392,6 +392,7 @@ namespace dnGREP.Common
             public const string EscapeQuotesInMatchArgument = "EscapeQuotesInMatchArgument";
             public const string HoursFrom = "HoursFrom";
             public const string HoursTo = "HoursTo";
+            public const string PassSearchFolderToSingleton = "PassSearchFolderToSingleton";
         }
 
 
@@ -719,6 +720,11 @@ namespace dnGREP.Common
             {
                 Set(Key.TimeRangeTo, Get<int>(ObsoleteKey.HoursTo));
                 settings.Remove(ObsoleteKey.HoursTo);
+            }
+            if (ContainsKey(ObsoleteKey.PassSearchFolderToSingleton))
+            {
+                Set(Key.PassCommandLineToSingleton, Get<bool>(ObsoleteKey.PassSearchFolderToSingleton));
+                settings.Remove(ObsoleteKey.PassSearchFolderToSingleton);
             }
         }
 
