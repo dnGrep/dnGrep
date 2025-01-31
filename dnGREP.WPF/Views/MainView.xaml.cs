@@ -617,35 +617,25 @@ namespace dnGREP.WPF
         private DateTime timeOfLastMessage = DateTime.Now;
 
         /// <summary>Brings main window to foreground.</summary>
-        public void BringToForeground(string searchPath)
+        public void BringToForeground(string commandLine)
         {
-            TimeSpan fromLastMessage = DateTime.Now - timeOfLastMessage;
-            timeOfLastMessage = DateTime.Now;
-
-            bool replace = fromLastMessage > TimeSpan.FromMilliseconds(500);
-
-            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) &&
-                !string.IsNullOrEmpty(searchPath))
+            HelpWindow? help = null;
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.PassCommandLineToSingleton))
             {
-                if (replace || string.IsNullOrEmpty(viewModel.FileOrFolderPath))
+                TimeSpan fromLastMessage = DateTime.Now - timeOfLastMessage;
+                timeOfLastMessage = DateTime.Now;
+
+                bool replace = fromLastMessage > TimeSpan.FromMilliseconds(500);
+
+                CommandLineArgs args = new(commandLine);
+                if (args.InvalidArgument || args.ShowHelp)
                 {
-                    viewModel.FileOrFolderPath = searchPath;
+                    help = new(CommandLineArgs.GetHelpString(),
+                        args.InvalidArgument, args.CommandLine);
                 }
                 else
                 {
-                    bool found = false;
-                    foreach (var subPath in UiUtils.SplitPath(viewModel.FileOrFolderPath, true))
-                    {
-                        if (subPath.Equals(searchPath, StringComparison.OrdinalIgnoreCase))
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found)
-                    {
-                        viewModel.FileOrFolderPath += ";" + searchPath;
-                    }
+                    ApplyArgsToMainWindow(args, replace);
                 }
             }
 
@@ -660,6 +650,142 @@ namespace dnGREP.WPF
             Topmost = true;
             Topmost = false;
             Focus();
+
+            if (help != null)
+            {
+                help.ShowDialog();
+                help.Topmost = true;
+                help.Topmost = false;
+                help.Focus();
+            }
+        }
+
+        private void ApplyArgsToMainWindow(CommandLineArgs args, bool replace)
+        {
+            if (!string.IsNullOrEmpty(args.SearchPath))
+            {
+                if (replace || string.IsNullOrEmpty(viewModel.FileOrFolderPath))
+                {
+                    viewModel.FileOrFolderPath = args.SearchPath;
+                }
+                else
+                {
+                    bool found = false;
+                    foreach (var subPath in UiUtils.SplitPath(viewModel.FileOrFolderPath, true))
+                    {
+                        if (subPath.Equals(args.SearchPath, StringComparison.OrdinalIgnoreCase))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        viewModel.FileOrFolderPath += ";" + searchPath;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(args.SearchFor))
+            {
+                viewModel.SearchFor = args.SearchFor;
+            }
+
+            if (!string.IsNullOrWhiteSpace(args.NamePatternToInclude))
+            {
+                viewModel.FilePattern = args.NamePatternToInclude;
+            }
+
+            if (!string.IsNullOrWhiteSpace(args.NamePatternToExclude))
+            {
+                viewModel.FilePatternIgnore = args.NamePatternToExclude;
+            }
+
+            if (args.TypeOfSearch.HasValue)
+            {
+                viewModel.TypeOfSearch = args.TypeOfSearch.Value;
+            }
+
+            if (args.TypeOfFileSearch.HasValue)
+            {
+                viewModel.TypeOfFileSearch = args.TypeOfFileSearch.Value;
+            }
+
+            if (!string.IsNullOrWhiteSpace(args.Everything))
+            {
+                viewModel.TypeOfFileSearch = FileSearchType.Everything;
+                viewModel.FileOrFolderPath = args.Everything;
+            }
+
+            if (args.CaseSensitive.HasValue)
+            {
+                viewModel.CaseSensitive = args.CaseSensitive.Value;
+            }
+
+            if (args.WholeWord.HasValue)
+            {
+                viewModel.WholeWord = args.WholeWord.Value;
+            }
+
+            if (args.Multiline.HasValue)
+            {
+                viewModel.Multiline = args.Multiline.Value;
+            }
+
+            if (args.DotAsNewline.HasValue)
+            {
+                viewModel.Singleline = args.DotAsNewline.Value;
+            }
+
+            if (args.BooleanOperators.HasValue)
+            {
+                viewModel.BooleanOperators = args.BooleanOperators.Value;
+            }
+
+            if (args.ReportMode.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.ReportMode, args.ReportMode.Value);
+            }
+
+            if (args.IncludeFileInformation.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.IncludeFileInformation, args.IncludeFileInformation.Value);
+            }
+
+            if (args.TrimWhitespace.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.TrimWhitespace, args.TrimWhitespace.Value);
+            }
+
+            if (args.FilterUniqueValues.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.FilterUniqueValues, args.FilterUniqueValues.Value);
+            }
+
+            if (args.UniqueScope.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.UniqueScope, args.UniqueScope.Value);
+            }
+
+            if (args.OutputOnSeparateLines.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.OutputOnSeparateLines, args.OutputOnSeparateLines.Value);
+            }
+
+            if (!string.IsNullOrEmpty(args.ListItemSeparator))
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.ListItemSeparator, args.ListItemSeparator);
+            }
+
+            if (!string.IsNullOrEmpty(args.Script))
+            {
+                viewModel.QueueScript(args.Script);
+                viewModel.ExecuteScriptQueue();
+            }
+            else if (viewModel.CanSearch)
+            {
+                viewModel.SearchCommand.Execute(null);
+            }
         }
 
         #region Notify Icon and Hot Keys

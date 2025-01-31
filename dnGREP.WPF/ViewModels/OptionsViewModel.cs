@@ -272,7 +272,7 @@ namespace dnGREP.WPF
         private double confirmExitSearchDuration;
 
         [ObservableProperty]
-        private bool passSearchFolderToSingleton;
+        private bool passCommandLineToSingleton;
 
         [ObservableProperty]
         private string? windowsIntegrationTooltip;
@@ -633,7 +633,7 @@ namespace dnGREP.WPF
                 ConfirmExitScript != Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript) ||
                 ConfirmExitSearch != Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch) ||
                 ConfirmExitSearchDuration != Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration) ||
-                PassSearchFolderToSingleton != Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton) ||
+                PassCommandLineToSingleton != Settings.Get<bool>(GrepSettings.Key.PassCommandLineToSingleton) ||
                 EnableCheckForUpdates != Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
                 CheckForUpdatesInterval != Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
                 ShowLinesInContext != Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
@@ -887,7 +887,7 @@ namespace dnGREP.WPF
             ConfirmExitScript = Settings.Get<bool>(GrepSettings.Key.ConfirmExitScript);
             ConfirmExitSearch = Settings.Get<bool>(GrepSettings.Key.ConfirmExitSearch);
             ConfirmExitSearchDuration = Settings.Get<double>(GrepSettings.Key.ConfirmExitSearchDuration);
-            PassSearchFolderToSingleton = Settings.Get<bool>(GrepSettings.Key.PassSearchFolderToSingleton);
+            PassCommandLineToSingleton = Settings.Get<bool>(GrepSettings.Key.PassCommandLineToSingleton);
             EnableCheckForUpdates = Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
             CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
             CompareApplicationPath = Settings.Get<string>(GrepSettings.Key.CompareApplication);
@@ -1081,7 +1081,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ConfirmExitScript, ConfirmExitScript);
             Settings.Set(GrepSettings.Key.ConfirmExitSearch, ConfirmExitSearch);
             Settings.Set(GrepSettings.Key.ConfirmExitSearchDuration, ConfirmExitSearchDuration);
-            Settings.Set(GrepSettings.Key.PassSearchFolderToSingleton, PassSearchFolderToSingleton);
+            Settings.Set(GrepSettings.Key.PassCommandLineToSingleton, PassCommandLineToSingleton);
             Settings.Set(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
             Settings.Set(GrepSettings.Key.CompareApplication, CompareApplicationPath);

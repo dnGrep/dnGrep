@@ -1922,9 +1922,6 @@ namespace dnGREP.WPF
 
         private void Replace()
         {
-            //var model = FileDifference.GetDiffModel(@"C:\Repos\testFiles\test\issue848\ReportWriterOld.cs", @"C:\Repos\testFiles\test\issue848\ReportWriterNew.cs", Encoding.UTF8);
-            //return;
-
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
                 if (string.IsNullOrEmpty(ReplaceWith))

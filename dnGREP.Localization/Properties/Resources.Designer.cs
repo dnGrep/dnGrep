@@ -5277,11 +5277,11 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forward search folder to existing window.
+        ///   Looks up a localized string similar to Forward command line arguments to the existing window.
         /// </summary>
-        public static string Options_ForwardSearchFolderToExistingWindow {
+        public static string Options_ForwardCommandLineArgumentsToTheExistingWindow {
             get {
-                return ResourceManager.GetString("Options_ForwardSearchFolderToExistingWindow", resourceCulture);
+                return ResourceManager.GetString("Options_ForwardCommandLineArgumentsToTheExistingWindow", resourceCulture);
             }
         }
         
@@ -5354,15 +5354,6 @@ namespace dnGREP.Localization.Properties {
         public static string Options_HistoryLists {
             get {
                 return ResourceManager.GetString("Options_HistoryLists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If the second instance has a search folder argument, change the folder in the existing window..
-        /// </summary>
-        public static string Options_IfTheSecondInstanceHasASearchFolderArgument {
-            get {
-                return ResourceManager.GetString("Options_IfTheSecondInstanceHasASearchFolderArgument", resourceCulture);
             }
         }
         
