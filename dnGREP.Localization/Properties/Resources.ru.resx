@@ -3703,10 +3703,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Извлекать сноски</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
-  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
-    <value>Если второй экземпляр имеет аргумент папки поиска, изменять папку в существующем окне.</value>
-    <comment>Options dialog, change folder option tooltip</comment>
-  </data>
   <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
     <value>Экранирующие кавычки в аргументе '{0}'</value>
     <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
@@ -3822,10 +3818,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
     <value>Запущен скрипт.</value>
     <comment>Message box text for: Script is running on exit, line 1</comment>
-  </data>
-  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
-    <value>Перенаправить папку поиска в существующее окно</value>
-    <comment>Options dialog, change folder option label</comment>
   </data>
   <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
     <value>Извлеченная позиция верхнего и нижнего колонтитула:</value>

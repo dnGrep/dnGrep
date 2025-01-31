@@ -3591,10 +3591,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>請輸入範圍內的值: {0}-{1}.</value>
     <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
   </data>
-  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
-    <value>若第二個實例有搜尋資料夾參數, 則變更現有視窗中的資料夾.</value>
-    <comment>Options dialog, change folder option tooltip</comment>
-  </data>
   <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
     <value>您想停止此指令碼並退出嗎?</value>
     <comment>Message box text for: Script is running on exit, line 2</comment>
@@ -3622,10 +3618,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
     <value>指令碼正在執行中.</value>
     <comment>Message box text for: Script is running on exit, line 1</comment>
-  </data>
-  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
-    <value>將搜尋資料夾轉送到現有視窗</value>
-    <comment>Options dialog, change folder option label</comment>
   </data>
   <data name="Error_DocumentReadFailed" xml:space="preserve">
     <value>文件讀取失敗</value>
