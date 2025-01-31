@@ -676,7 +676,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>после </value>
+    <value>после</value>
     <comment>Main window, result options context lines label</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
@@ -684,11 +684,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Показывать строчки близь результата. Изменения контекста будут применены при следующем поиске</value>
+    <value>Изменения контекста будут применены при следующем поиске</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>Отображать контекстные строчки:</value>
+    <value>Показать строки контекста</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
@@ -904,7 +904,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value>CSV Результаты</value>
+    <value>CSV результаты</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
@@ -940,7 +940,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value>Asterisk (Символ подстановки)</value>
+    <value>* (символ подстановки)</value>
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
@@ -948,11 +948,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Regex (Регулярное выражение)</value>
+    <value>_Regex (регулярное выражение)</value>
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value>Пре_дпросмотр файла (Dock-панель) </value>
+    <value>Пре_дпросмотр файла (Dock-панель)</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">

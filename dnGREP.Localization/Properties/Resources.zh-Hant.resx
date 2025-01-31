@@ -91,7 +91,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>用於讀取壓縮檔案的程式庫</value>
+    <value>用於讀取壓縮檔案的函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
@@ -99,27 +99,27 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>7-Zip 的 .NET 程式庫</value>
+    <value>7-Zip 的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>用於檢測字元集的 .NET 程式庫</value>
+    <value>用於檢測字元集的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>用於擴展長度路徑的 .NET 程式庫</value>
+    <value>用於擴展長度路徑的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value>讀取 Microsoft Excel 檔案的 .NET 程式庫</value>
+    <value>用於讀取 Microsoft Excel 檔案的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>解析 ECMA-376 數字的 .NET 程式庫</value>
+    <value>用於解析 ECMA-376 數字的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>處理 Word 和 Excel 文件的 .NET 程式庫</value>
+    <value>用於處理 Word 和 Excel 文件的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
