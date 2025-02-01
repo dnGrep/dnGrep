@@ -3339,4 +3339,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
     <value>Розташування верхнього та нижнього колонтитулів:</value>
   </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>Пересилання аргументів командного рядка до наявного вікна</value>
+  </data>
 </root>
