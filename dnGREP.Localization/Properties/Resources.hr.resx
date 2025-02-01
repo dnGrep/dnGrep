@@ -151,4 +151,103 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Bajt</value>
   </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Zamjeni s:</value>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Pronađi:</value>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_Višelinijski</value>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Pretraži u ar_hivama</value>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Bajt</value>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetski</value>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetsko pretraživanje</value>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Pretraživanje običnog teksta</value>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Pronađi:</value>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Višelinijski</value>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Zamjeni s:</value>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Pronađi:</value>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Bajt</value>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetski</value>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Obrasci za isključiti:</value>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Fonetsko pretraživanje</value>
+  </data>
 </root>
