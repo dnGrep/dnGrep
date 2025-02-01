@@ -4149,4 +4149,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
     <value>.NET 程式庫產生文字差異</value>
   </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>將命令列參數轉送到現有視窗</value>
+  </data>
 </root>
