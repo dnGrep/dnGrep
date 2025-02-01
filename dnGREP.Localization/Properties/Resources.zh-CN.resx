@@ -4207,4 +4207,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
     <value>预览替换</value>
   </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>转发命令行参数到现有窗口</value>
+  </data>
 </root>
