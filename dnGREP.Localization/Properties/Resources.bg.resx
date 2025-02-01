@@ -4207,4 +4207,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Replace_OpenFileCompare" xml:space="preserve">
     <value>Сравняване на файлове</value>
   </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>Предаване на аргументите от команднен ред към съществуващия прозорец</value>
+  </data>
 </root>
