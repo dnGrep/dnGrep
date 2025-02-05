@@ -250,4 +250,115 @@
   <data name="Options_PhoneticSearch" xml:space="preserve">
     <value>Fonetsko pretraživanje</value>
   </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Strelica prema dolje</value>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Strelica prema gore</value>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Nastavak datoteke</value>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Ostala svojstva</value>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Zamijeni s</value>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Pretraži</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sekcije</value>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Strelica prema dolje</value>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Strelica prema gore</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Višelinijski</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>Bez binarnih</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Bez simboličkih veza</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Pretraži arhive</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Cijela riječ</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Knjižne oznake</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Koristi</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argumenti:</value>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Pomakni dolje</value>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Dodaj</value>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Obriši</value>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Cijela riječ</value>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Pomakni na vrh</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Maks. dubina mapa: {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Bez podmapa</value>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Du_pliciraj</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Koristi .gitignore za filtriranje datoteka</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Osjetljivo na velika i mala slova</value>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Uredi</value>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Pomakni na dno</value>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Pomakni gore</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Bez skrivenih</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Koristi .gitignore</value>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Opis</value>
+  </data>
 </root>
