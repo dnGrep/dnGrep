@@ -75,7 +75,7 @@ namespace dnGREP.WPF
             q => true);
 
         public ICommand SaveAsCommand => new RelayCommand(
-            p => SaveAs(),
+            p => SaveAs(true),
             q => true);
 
         public ICommand ValidateCommand => new RelayCommand(
@@ -339,7 +339,8 @@ namespace dnGREP.WPF
 
                 if (string.IsNullOrEmpty(ScriptFile))
                 {
-                    SaveAs();
+                    if (!SaveAs(false))
+                        return;
                 }
 
                 textEditor.Document.TextChanged -= Document_TextChanged;
@@ -354,11 +355,11 @@ namespace dnGREP.WPF
         }
 
         private bool firstFileSave = true;
-        private void SaveAs()
+        private bool SaveAs(bool validate)
         {
-            if (!ValidateScript(true))
+            if (validate && !ValidateScript(true))
             {
-                return;
+                return false;
             }
 
             SaveFileDialog dlg = new()
@@ -385,6 +386,12 @@ namespace dnGREP.WPF
                 Save();
 
                 NewScriptFileSaved?.Invoke(this, EventArgs.Empty);
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
