@@ -986,7 +986,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public void Save(string fileName)
 		{
-			if (fileName == null)
+			if (string.IsNullOrWhiteSpace(fileName))
 				throw new ArgumentNullException("fileName");
 			using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None)) {
 				Save(fs);

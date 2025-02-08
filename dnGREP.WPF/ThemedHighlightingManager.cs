@@ -113,7 +113,8 @@ namespace dnGREP.WPF
                 {
                     using var reader = new XmlTextReader(stream);
                     var xshd = HighlightingLoader.LoadXshd(reader);
-                    if (!string.IsNullOrEmpty(xshd.Name))
+                    if (!string.IsNullOrEmpty(xshd.Name) &&
+                        !syntaxDefinitions.Any(sd => sd.Name == xshd.Name)) // exclude user defined syntaxes
                     {
                         var extensions = xshd.Extensions
                             .Select(s => s.TrimStart('*').ToLowerInvariant()).ToArray();
@@ -136,7 +137,7 @@ namespace dnGREP.WPF
 
         private void InitializeUserSyntaxDefinitions()
         {
-            string dataFolder = Utils.GetDataFolderPath();
+            string dataFolder = DirectoryConfiguration.Instance.DataDirectory;
             if (!Directory.Exists(dataFolder))
             {
                 return;

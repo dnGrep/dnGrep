@@ -273,7 +273,7 @@ namespace dnGREP.WPF
             if (firstFileOpen)
             {
                 firstFileOpen = false;
-                string dataFolder = Path.Combine(Utils.GetDataFolderPath(), ScriptManager.ScriptFolder);
+                string dataFolder = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, ScriptManager.ScriptFolder);
                 if (!Directory.Exists(dataFolder))
                 {
                     Directory.CreateDirectory(dataFolder);

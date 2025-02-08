@@ -1895,55 +1895,6 @@ namespace dnGREP.Common
             return GetCurrentPath(typeof(Utils));
         }
 
-        private static bool? canUseCurrentFolder = null;
-        /// <summary>
-        /// Returns path to folder where user has write access to. Either current folder or user APP_DATA.
-        /// </summary>
-        /// <returns></returns>
-        public static string GetDataFolderPath()
-        {
-            string currentFolder = GetCurrentPath(typeof(Utils));
-            if (!canUseCurrentFolder.HasValue)
-            {
-                // if started in Admin mode, the user can write to these directories
-                // so filter them out first...
-                if (currentFolder.IsSubDirectoryOf(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)) ||
-                    currentFolder.IsSubDirectoryOf(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) ||
-                    currentFolder.IsSubDirectoryOf(Environment.GetFolderPath(Environment.SpecialFolder.Windows)))
-                {
-                    canUseCurrentFolder = false;
-                }
-                else
-                {
-                    canUseCurrentFolder = HasWriteAccessToFolder(currentFolder);
-                }
-            }
-
-            if (canUseCurrentFolder == true)
-            {
-                return currentFolder;
-            }
-            else
-            {
-                string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGREP");
-                if (!Directory.Exists(dataFolder))
-                    Directory.CreateDirectory(dataFolder);
-                return dataFolder;
-            }
-        }
-
-        public static bool IsPortableMode
-        {
-            get
-            {
-                if (!canUseCurrentFolder.HasValue)
-                {
-                    GetDataFolderPath();
-                }
-                return canUseCurrentFolder ?? false;
-            }
-        }
-
         public static bool IsSubDirectoryOf(this string candidate, string other)
         {
             var isChild = false;
@@ -1968,37 +1919,6 @@ namespace dnGREP.Common
             }
 
             return isChild;
-        }
-
-        private static bool HasWriteAccessToFolder(string folderPath)
-        {
-            string filename = Path.Combine(folderPath, "~temp.dat");
-            bool canAccess = true;
-
-            //2. Attempt the action but handle permission changes.
-            try
-            {
-                using FileStream fstream = File.Open(filename, FileMode.Create);
-                using TextWriter writer = new StreamWriter(fstream);
-                writer.WriteLine("sometext");
-            }
-            catch
-            {
-                //No permission. 
-                canAccess = false;
-            }
-
-            // Cleanup
-            try
-            {
-                DeleteFile(filename);
-            }
-            catch
-            {
-                // Ignore
-            }
-
-            return canAccess;
         }
 
 
@@ -2734,8 +2654,15 @@ namespace dnGREP.Common
 
         public static string HashSHA256(string file)
         {
-            using var stream = File.OpenRead(file);
-            return Convert.ToHexString(SHA256.HashData(stream));
+            try
+            {
+                using var stream = File.OpenRead(file);
+                return Convert.ToHexString(SHA256.HashData(stream));
+            }
+            catch (Exception) // cannot open file for reading
+            {
+                return string.Empty;
+            }
         }
 
         public static string HashSHA256(Stream stream)

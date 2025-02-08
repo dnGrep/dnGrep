@@ -73,7 +73,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    string dataFolder = Utils.GetDataFolderPath();
+                    string dataFolder = DirectoryConfiguration.Instance.DataDirectory;
                     string fileName = CurrentThemeName + ".xaml";
                     string? path = Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories)
                         .Where(p => Path.GetFileName(p).Equals(fileName, StringComparison.Ordinal))
@@ -103,7 +103,7 @@ namespace dnGREP.WPF
 
         public void Initialize()
         {
-            if (!Utils.IsPortableMode)
+            if (!DirectoryConfiguration.Instance.IsPortableMode)
             {
                 List<string> files =
                 [
@@ -115,17 +115,17 @@ namespace dnGREP.WPF
 
                 foreach (string file in files)
                 {
-                    // Copy xaml files from Program Files\Themes to AppData\dnGrep
+                    // Copy xaml files from Program Files\Themes to the app data directory
                     // If the file exists and is different, back up the old file first, then copy
                     string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ".";
                     string src = Path.Combine(dir, "Themes", file);
-                    string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", file);
+                    string dest = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, file);
                     if (File.Exists(dest) && FileChanged(src, dest))
                     {
                         for (int idx = 1; idx < 40; idx++)
                         {
                             string baseName = Path.GetFileNameWithoutExtension(file);
-                            string temp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", $"{baseName}_{idx}.xaml.bak");
+                            string temp = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, $"{baseName}_{idx}.xaml.bak");
                             if (!File.Exists(temp))
                             {
                                 try
@@ -256,7 +256,7 @@ namespace dnGREP.WPF
 
         private void LoadExternalThemes()
         {
-            string dataFolder = Utils.GetDataFolderPath();
+            string dataFolder = DirectoryConfiguration.Instance.DataDirectory;
             foreach (string fileName in Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories))
             {
                 try

@@ -62,9 +62,9 @@ namespace dnGREP.WPF
         public void ResetVariables()
         {
             ScriptEnvironmentVariables.Clear();
-            ScriptEnvironmentVariables.Add("dnGrep_logDir", App.LogDir);
-            ScriptEnvironmentVariables.Add("dnGrep_dataDir", Utils.GetDataFolderPath());
-            ScriptEnvironmentVariables.Add("dnGrep_scriptDir", Path.Combine(Utils.GetDataFolderPath(), ScriptFolder));
+            ScriptEnvironmentVariables.Add("dnGrep_logDir", DirectoryConfiguration.Instance.LogDirectory);
+            ScriptEnvironmentVariables.Add("dnGrep_dataDir", DirectoryConfiguration.Instance.DataDirectory);
+            ScriptEnvironmentVariables.Add("dnGrep_scriptDir", Path.Combine(DirectoryConfiguration.Instance.DataDirectory, ScriptFolder));
         }
 
         [GeneratedRegex("%(\\w+?)%")]
@@ -118,7 +118,7 @@ namespace dnGREP.WPF
         internal void LoadScripts()
         {
             _scripts.Clear();
-            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), ScriptFolder);
+            string dataFolder = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, ScriptFolder);
             if (!Directory.Exists(dataFolder))
             {
                 Directory.CreateDirectory(dataFolder);

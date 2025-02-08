@@ -13,7 +13,6 @@
     <Version>6.2</Version>
     <AssemblyVersion>6.2.0.0</AssemblyVersion>
     <FileVersion>6.2.0.0</FileVersion>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -36,27 +35,10 @@
     <AnalysisLevel>none</AnalysisLevel>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="docs\PackageReadme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net9.0-windows' ">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="Search\next.png" />
     <None Remove="Search\prev.png" />
@@ -70,8 +52,12 @@
     <Resource Include="themes\RightArrow.cur" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="docs\**" />
+    <EmbeddedResource Remove="docs\**" />
+    <None Remove="docs\**" />
     <None Remove="Highlighting\Resources\*" />
     <EmbeddedResource Include="Highlighting\Resources\*" />
+    <Page Remove="docs\**" />
     <EmbeddedResource Remove="Highlighting\Resources\Resources.cs" />
     <Resource Include="Highlighting\Resources\Resources.cs" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">

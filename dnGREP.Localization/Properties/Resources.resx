@@ -988,7 +988,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Application data and _logs</value>
+    <value>Application _data</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
@@ -4245,5 +4245,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
     <value>Forward command line arguments to the existing window</value>
     <comment>Options dialog, forward command line checkbox label</comment>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>Application _logs</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>Some files could not be copied to the new directories. Check the error log for details: </value>
+    <comment>Message box text for: Copy settings file to new directory failed</comment>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>The directory '{0}' may contain files that are not part of the application. Use this directory anyway?</value>
+    <comment>Message box text for: The directory may contain non-application files</comment>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>The application directories have changed. Do you want to copy files to the new directories?</value>
+    <comment>Message box text for: ask if the user wants application files copied to the new directory</comment>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>The new directory already has a file named "{0}". Replace the existing file?</value>
+    <comment>Message box text for: ask the user to overwrite the existing file. {0} is the file name</comment>
   </data>
 </root>

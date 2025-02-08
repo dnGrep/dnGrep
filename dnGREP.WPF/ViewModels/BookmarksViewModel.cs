@@ -765,7 +765,7 @@ namespace dnGREP.WPF
                 }
             }
 
-            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), MainViewModel.IgnoreFilterFolder);
+            string dataFolder = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, MainViewModel.IgnoreFilterFolder);
             if (!Directory.Exists(dataFolder))
             {
                 Directory.CreateDirectory(dataFolder);
