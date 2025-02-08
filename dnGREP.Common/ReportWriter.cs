@@ -92,6 +92,10 @@ namespace dnGREP.Common
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
 
+            string? dir = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
             File.WriteAllText(destinationPath, GetResultsAsCSV(source, typeOfSearch), Encoding.UTF8);
         }
 
@@ -105,6 +109,10 @@ namespace dnGREP.Common
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
 
+            string? dir = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
             File.WriteAllText(destinationPath, GetResultsAsText(source, typeOfSearch), Encoding.UTF8);
         }
 
@@ -113,6 +121,10 @@ namespace dnGREP.Common
         {
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
+
+            string? dir = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
 
             List<string>? orClauses = null;
             if (booleanOperators)
