@@ -361,4 +361,94 @@
   <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
     <value>Opis</value>
   </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Osjetljivo na velika i mala slova</value>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Maks. dubina mapa: {0}</value>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Višelinijski</value>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Bez binarnih</value>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Bez podmapa</value>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Bez simboličkih veza</value>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Cijela riječ</value>
+  </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Obriši</value>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Uredi</value>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Osjetljivo na velika i mala slova</value>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Višelinijski</value>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Zamijeni s</value>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Pretraži arhive</value>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Pretraži</value>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Koristi .gitignore</value>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Cijela riječ</value>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>_Cijela riječ</value>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Maks. dubina mapa: {0}</value>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Koristi .gitignore</value>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Koristi .gitignore za filtriranje datoteka</value>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_Cijela riječ</value>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>Bez binarnih</value>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Bez skrivenih</value>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>Bez podmapa</value>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>Bez simboličkih veza</value>
+  </data>
 </root>
