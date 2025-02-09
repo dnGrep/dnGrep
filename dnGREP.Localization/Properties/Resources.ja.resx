@@ -1602,10 +1602,6 @@
     <value>メイン ウィンドウのフォント サイズ</value>
     <comment>Options dialog, font size input label</comment>
   </data>
-  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
-    <value>セカンド インスタンスに検索フォルダ引数がある場合、既存のウィンドウでフォルダを変更します。</value>
-    <comment>Options dialog, change folder option tooltip</comment>
-  </data>
   <data name="ScriptHint_set_folder" xml:space="preserve">
     <value>検索場所: フォルダまたはファイル パス</value>
     <comment>Script editor command/target tooltip</comment>
@@ -2517,10 +2513,6 @@
   <data name="ScriptHint_run_powershell_value" xml:space="preserve">
     <value>.ps1 スクリプト ファイルの完全なパスとファイル名</value>
     <comment>Script editor command/target/value tooltip</comment>
-  </data>
-  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
-    <value>既存のウィンドウに検索フォルダを転送</value>
-    <comment>Options dialog, change folder option label</comment>
   </data>
   <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
     <value>検索時に結果パネルを最大化</value>
