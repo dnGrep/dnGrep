@@ -3625,17 +3625,9 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>筛选器：</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
-  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
-    <value>如果第二个实例有搜索文件夹参数，则更改现有窗口中的文件夹。</value>
-    <comment>Options dialog, change folder option tooltip</comment>
-  </data>
   <data name="Options_ReuseExistingWindow" xml:space="preserve">
     <value>重用现有窗口（单个实例） *</value>
     <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
-  </data>
-  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
-    <value>转发搜索文件夹到现有窗口</value>
-    <comment>Options dialog, change folder option label</comment>
   </data>
   <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
     <value>更改后需重启*</value>
@@ -4214,5 +4206,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
     <value>预览替换</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>转发命令行参数到现有窗口</value>
   </data>
 </root>

@@ -143,7 +143,7 @@
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value>폴더를 북마크에 연계합니다.</value>
+    <value>폴더를 북마크에 연계합니다</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
@@ -271,7 +271,7 @@
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>바꿀 대상(_P)</value>
+    <value>바꿀 대상(_P):</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
@@ -579,7 +579,7 @@
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>북마크(_B)</value>
+    <value>북마크(_B)…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
@@ -1135,7 +1135,7 @@
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value>이진 파일 포함</value>
+    <value>바이너리 파일 포함</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
@@ -1663,7 +1663,7 @@
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
+    <value>파일 위치에는 키워드 '{0}', 페이지 번호에 '{5}', 줄 번호에 '{1}', 검색 패턴에 '{2}', 줄에서 처음으로 일치하는 텍스트에 '{3}', 줄에서 처음으로 일치하는 텍스트의 열 번호에 '{4}'를 사용합니다.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -2483,7 +2483,8 @@
   <data name="Help_CmdLinePathToMatch" xml:space="preserve">
     <value>/pm [pattern]
 -pm [pattern]
--pathToMatch [pattern]</value>
+-pathToMatch [pattern]
+    검색 경로에 있는 파일과 일치하도록 파일 이름 패턴을 설정합니다. 쉼표나 세미콜론으로 구분된 패턴 목록일 수 있습니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample1" xml:space="preserve">
@@ -2543,10 +2544,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePatternType" xml:space="preserve">
-    <value>/pt [유형]
--pt [유형]
--patternType [유형]
-	포함하거나 제외할 유형을 지정합니다. "Asterisk"(와일드카드), "Regex"(정규식), "Everything"(Everything 검색 프로그램 설치 시) 중 하나여야 합니다.</value>
+    <value>/pt [type]
+-pt [type]
+-patternType [type]
+    일치 및 무시 패턴 유형을 설정합니다. 다음 중 하나여야 합니다: "Asterisk"(와일드카드), "Regex"(정규 표현식) 또는 "Everything"(Everything 검색 도구가 설치된 경우).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReportMode" xml:space="preserve">

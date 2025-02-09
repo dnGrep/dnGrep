@@ -713,7 +713,7 @@
     <value>Daha Fazla…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Daha Fazla</value>
+    <value>_Daha</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Dosya adlarını kopyala</value>
@@ -3015,17 +3015,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="BookmarkDetails_Filter" xml:space="preserve">
     <value>Filtre:</value>
   </data>
-  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
-    <value>İkinci örneğin bir arama klasörü argümanı varsa mevcut penceredeki klasörü değiştir.</value>
-  </data>
   <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
     <value>* Değiştirildiğinde yeniden başlatma gerekir</value>
   </data>
   <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
     <value>Dosya değiştirme işlemi devam ediyor.</value>
-  </data>
-  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
-    <value>Arama klasörünü mevcut pencereye yönlendir</value>
   </data>
   <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
     <value>Komut dosyasını durdurup çıkmak istiyor musunuz?</value>
@@ -3272,5 +3266,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Keyboard_ShiftKey" xml:space="preserve">
     <value>Shift</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>Metinsel farklılıklar oluşturmak için .NET kütüphanesi</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Dosya karşılaştırmasını aç</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Değiştirmeleri göster ve önizle</value>
   </data>
 </root>

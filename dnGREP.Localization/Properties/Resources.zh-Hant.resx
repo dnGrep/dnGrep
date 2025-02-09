@@ -91,7 +91,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>用於讀取壓縮檔案的程式庫</value>
+    <value>用於讀取壓縮檔案的函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
@@ -99,27 +99,27 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>7-Zip 的 .NET 程式庫</value>
+    <value>7-Zip 的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>用於檢測字元集的 .NET 程式庫</value>
+    <value>用於檢測字元集的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>用於擴展長度路徑的 .NET 程式庫</value>
+    <value>用於擴展長度路徑的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value>讀取 Microsoft Excel 檔案的 .NET 程式庫</value>
+    <value>用於讀取 Microsoft Excel 檔案的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>解析 ECMA-376 數字的 .NET 程式庫</value>
+    <value>用於解析 ECMA-376 數字的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>處理 Word 和 Excel 文件的 .NET 程式庫</value>
+    <value>用於處理 Word 和 Excel 文件的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
@@ -2774,7 +2774,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>程式資料和日誌</value>
+    <value>程式資料</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Options_LineNumbers" xml:space="preserve">
@@ -3591,10 +3591,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>請輸入範圍內的值: {0}-{1}.</value>
     <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
   </data>
-  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
-    <value>若第二個實例有搜尋資料夾參數, 則變更現有視窗中的資料夾.</value>
-    <comment>Options dialog, change folder option tooltip</comment>
-  </data>
   <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
     <value>您想停止此指令碼並退出嗎?</value>
     <comment>Message box text for: Script is running on exit, line 2</comment>
@@ -3622,10 +3618,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
     <value>指令碼正在執行中.</value>
     <comment>Message box text for: Script is running on exit, line 1</comment>
-  </data>
-  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
-    <value>將搜尋資料夾轉送到現有視窗</value>
-    <comment>Options dialog, change folder option label</comment>
   </data>
   <data name="Error_DocumentReadFailed" xml:space="preserve">
     <value>文件讀取失敗</value>
@@ -4152,9 +4144,27 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>開啟檔案比較</value>
   </data>
   <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
-    <value>顯示替換預覽</value>
+    <value>預覽顯示替換效果</value>
   </data>
   <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
     <value>.NET 程式庫產生文字差異</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>將命令列參數轉送到現有視窗</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>程式日誌</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>一些檔案無法複製到新目錄. 檢查錯誤日誌以獲得詳細資訊: </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>目錄 '{0}' 可能包含不屬於應用程式的檔案. 仍然使用此目錄嗎?</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>應用程式目錄已變更. 您要將檔案複製到新目錄嗎?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>新目錄已有名稱為 "{0}" 的檔案. 替換已存在的檔案？</value>
   </data>
 </root>
