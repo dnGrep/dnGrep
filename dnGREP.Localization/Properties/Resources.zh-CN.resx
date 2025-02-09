@@ -3244,7 +3244,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script Messages dialog title</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>程序数据和日志(_L)</value>
+    <value>程序数据(_D)</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_EditScript" xml:space="preserve">
@@ -4209,5 +4209,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
     <value>转发命令行参数到现有窗口</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>程序日志(_L)</value>
   </data>
 </root>
