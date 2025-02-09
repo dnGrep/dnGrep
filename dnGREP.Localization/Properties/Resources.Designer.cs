@@ -6366,6 +6366,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error:.
+        /// </summary>
+        public static string Preview_Error {
+            get {
+                return ResourceManager.GetString("Preview_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find next (F3).
         /// </summary>
         public static string Preview_FindNext {
@@ -6407,6 +6416,15 @@ namespace dnGREP.Localization.Properties {
         public static string Preview_MatchWholeWords {
             get {
                 return ResourceManager.GetString("Preview_MatchWholeWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No matches found!.
+        /// </summary>
+        public static string Preview_NoMatchesFound {
+            get {
+                return ResourceManager.GetString("Preview_NoMatchesFound", resourceCulture);
             }
         }
         

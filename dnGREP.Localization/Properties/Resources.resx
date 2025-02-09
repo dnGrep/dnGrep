@@ -4266,4 +4266,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>The new directory already has a file named "{0}". Replace the existing file?</value>
     <comment>Message box text for: ask the user to overwrite the existing file. {0} is the file name</comment>
   </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>Error:</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>No matches found!</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
 </root>
