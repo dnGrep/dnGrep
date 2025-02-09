@@ -2323,7 +2323,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
-    <value>이진 파일 포함</value>
+    <value>바이너리 파일 포함</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
