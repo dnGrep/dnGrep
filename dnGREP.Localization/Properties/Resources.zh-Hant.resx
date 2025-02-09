@@ -4167,4 +4167,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
     <value>新目錄已有名稱為 "{0}" 的檔案. 替換已存在的檔案？</value>
   </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>錯誤:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>未找到符合項!</value>
+  </data>
 </root>
