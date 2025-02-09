@@ -101,6 +101,14 @@ namespace dnGREP.WPF
             }
         }
 
+        internal void OnConfigurationFoldersChanged()
+        {
+            PopulateScripts();
+            PopulateIgnoreFilters(firstTime: true);
+            LoadSettings();
+            CurrentCultureChanged(this, EventArgs.Empty);
+        }
+
         private void CurrentCultureChanged(object? sender, EventArgs e)
         {
             PreviewModel.FilePath = string.Empty;
@@ -703,6 +711,10 @@ namespace dnGREP.WPF
 
         public static ICommand OpenAppDataCommand => new RelayCommand(
             p => OpenAppDataFolder(),
+            q => true);
+
+        public static ICommand OpenAppLogsCommand => new RelayCommand(
+            p => OpenAppLogsFolder(),
             q => true);
 
         public ICommand DeleteMRUItemCommand => new RelayCommand(
@@ -3388,7 +3400,7 @@ namespace dnGREP.WPF
                 }
             }
 
-            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), IgnoreFilterFolder);
+            string dataFolder = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, IgnoreFilterFolder);
             if (!Directory.Exists(dataFolder))
             {
                 Directory.CreateDirectory(dataFolder);
@@ -3555,7 +3567,7 @@ namespace dnGREP.WPF
 
         private static void OpenAppDataFolder()
         {
-            string dataFolder = Utils.GetDataFolderPath();
+            string dataFolder = DirectoryConfiguration.Instance.DataDirectory;
             if (!dataFolder.EndsWith(Path.DirectorySeparatorChar))
             {
                 dataFolder += Path.DirectorySeparatorChar;
@@ -3564,6 +3576,23 @@ namespace dnGREP.WPF
             {
                 FileName = "explorer.exe",
                 Arguments = "/open, \"" + dataFolder + "\"",
+                UseShellExecute = false,
+            };
+
+            Process.Start(startInfo);
+        }
+
+        private static void OpenAppLogsFolder()
+        {
+            string logFolder = DirectoryConfiguration.Instance.LogDirectory;
+            if (!logFolder.EndsWith(Path.DirectorySeparatorChar))
+            {
+                logFolder += Path.DirectorySeparatorChar;
+            }
+            ProcessStartInfo startInfo = new()
+            {
+                FileName = "explorer.exe",
+                Arguments = "/open, \"" + logFolder + "\"",
                 UseShellExecute = false,
             };
 

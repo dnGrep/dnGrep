@@ -32,7 +32,7 @@ namespace dnGREP.Common
 
         private static string BookmarksFile
         {
-            get { return Path.Combine(Utils.GetDataFolderPath(), "bookmarks.xml"); }
+            get { return Path.Combine(DirectoryConfiguration.Instance.DataDirectory, "bookmarks.xml"); }
         }
 
         [MemberNotNull(nameof(bookmarks))]

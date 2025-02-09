@@ -207,6 +207,14 @@ namespace dnGREP.WPF
 
         public ObservableCollection<string> ThemeNames { get; } = [];
 
+        [ObservableProperty]
+        private bool pathsAreDefault = true;
+
+        [ObservableProperty]
+        private string dataDirectoryPath = string.Empty;
+
+        [ObservableProperty]
+        private string logDirectoryPath = string.Empty;
 
         [ObservableProperty]
         private bool enableWindowsIntegration;
@@ -624,7 +632,33 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
+                if (AreDirectoriesChanged || AreSettingsChanged)
+                {
+                    return CurrentCulture != null;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        private bool AreDirectoriesChanged
+        {
+            get
+            {
+                return PathsAreDefault != DirectoryConfiguration.Instance.PathsAreDefault ||
+                    DataDirectoryPath != DirectoryConfiguration.Instance.DataDirectory ||
+                    LogDirectoryPath != DirectoryConfiguration.Instance.LogDirectory;
+            }
+        }
+
+        private bool AreSettingsChanged
+        {
+            get
+            {
+                return
+                    EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
                 EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
                 EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
                 IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
@@ -708,15 +742,7 @@ namespace dnGREP.WPF
                 GrepSettings.CleanExtensions(ArchiveCustomExtensions) != Settings.Get<string>(GrepSettings.Key.ArchiveCustomExtensions) ||
                 IsChanged(Plugins) ||
                 IsChanged(CustomEditors) ||
-                IsChanged(VisibilityOptions)
-                )
-                {
-                    return CurrentCulture != null;
-                }
-                else
-                {
-                    return false;
-                }
+                IsChanged(VisibilityOptions);
             }
         }
 
@@ -791,6 +817,15 @@ namespace dnGREP.WPF
 
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
+        /// <summary>
+        /// Returns a command that opens file browse dialog.
+        /// </summary>
+        public ICommand BrowseDataDirectory => new RelayCommand(
+            param => BrowseToDataDirectory());
+
+        public ICommand BrowseLogDirectory => new RelayCommand(
+            param => BrowseToLogDirectory());
+
         #endregion
 
         #region Public Methods
@@ -800,7 +835,17 @@ namespace dnGREP.WPF
         /// </summary>
         public void Save()
         {
-            SaveSettings();
+            if (AreSettingsChanged)
+            {
+                SaveSettings();
+            }
+
+            if (AreDirectoriesChanged)
+            {
+                if (!SaveDirectories())
+                    return;
+            }
+
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
@@ -845,6 +890,32 @@ namespace dnGREP.WPF
             }
         }
 
+        public void BrowseToDataDirectory()
+        {
+            var folderDialog = new OpenFolderDialog
+            {
+                Title = Resources.MessageBox_DnGrep,
+            };
+
+            if (folderDialog.ShowDialog() == true)
+            {
+                DataDirectoryPath = folderDialog.FolderName;
+            }
+        }
+
+        public void BrowseToLogDirectory()
+        {
+            var folderDialog = new OpenFolderDialog
+            {
+                Title = Resources.MessageBox_DnGrep,
+            };
+
+            if (folderDialog.ShowDialog() == true)
+            {
+                LogDirectoryPath = folderDialog.FolderName;
+            }
+        }
+
         private static void ClearSearches()
         {
             // keep the pinned bookmarks
@@ -876,6 +947,11 @@ namespace dnGREP.WPF
             {
                 WindowsIntegrationTooltip = Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu;
             }
+
+            DataDirectoryPath = DirectoryConfiguration.Instance.DataDirectory;
+            LogDirectoryPath = DirectoryConfiguration.Instance.LogDirectory;
+            PathsAreDefault = DirectoryConfiguration.Instance.PathsAreDefault;
+
             EnableWindowsIntegration = RegistryOperations.IsShellRegistered("Directory");
             EnableWindows11ShellMenu = enableWindows11ShellMenuOriginalValue = SparsePackage.IsRegistered;
             CanModifyWindows11ShellMenu = SparsePackage.CanRegisterPackage && !IsAdministrator;
@@ -1016,6 +1092,22 @@ namespace dnGREP.WPF
         {
             double value = Settings.Get<double>(settingsKey);
             return UseDefaultFont || value == 0 ? defaultValue : value;
+        }
+
+        private bool SaveDirectories()
+        {
+            if (PathsAreDefault && PathsAreDefault != DirectoryConfiguration.Instance.PathsAreDefault)
+            {
+                DataDirectoryPath = DirectoryConfiguration.Instance.DefaultDataDirectory;
+                LogDirectoryPath = DirectoryConfiguration.Instance.DefaultLogDirectory;
+            }
+
+            return ConfigurationManager.Instance.SaveDirectoryChanges(
+                DirectoryConfiguration.Instance.DataDirectory,
+                DataDirectoryPath,
+                DirectoryConfiguration.Instance.LogDirectory,
+                LogDirectoryPath);
+
         }
 
         private void SaveSettings()

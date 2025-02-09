@@ -202,6 +202,7 @@
                         <MenuItem Command="{Binding HelpCommand}" Header="{l:Loc Key='Main_Menu_About_Help'}" />
                         <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{l:Loc Key='Main_Menu_About_CheckForUpdates'}"/>
                         <MenuItem Command="{Binding OpenAppDataCommand}" Header="{l:Loc Key='Main_Menu_About_AppData'}"/>
+                        <MenuItem Command="{Binding OpenAppLogsCommand}" Header="{l:Loc Key='Main_Menu_About_AppLogs'}"/>
                         <MenuItem Command="{Binding AboutCommand}" Header="{l:Loc Key='Main_Menu_About_AboutDnGrep'}" />
                     </MenuItem>
                 </Menu>

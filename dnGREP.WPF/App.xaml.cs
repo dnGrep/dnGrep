@@ -21,7 +21,7 @@ namespace dnGREP.WPF
 
         public static string InstanceId { get; } = Guid.NewGuid().ToString();
 
-        public static string LogDir { get; private set; } = string.Empty;
+        public static string LogDir => DirectoryConfiguration.Instance.LogDirectory;
 
         public CommandLineArgs? AppArgs { get; private set; }
 
@@ -37,8 +37,7 @@ namespace dnGREP.WPF
         {
             try
             {
-                LogDir = Path.Combine(Utils.GetDataFolderPath(), "logs");
-                GlobalDiagnosticsContext.Set("logDir", LogDir);
+                GlobalDiagnosticsContext.Set("logDir", DirectoryConfiguration.Instance.LogDirectory);
 
                 // get the raw, unaltered command line
                 string? commandLine = PInvoke.GetCommandLine().ToString();

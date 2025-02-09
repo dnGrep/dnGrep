@@ -2316,11 +2316,20 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application data and _logs.
+        ///   Looks up a localized string similar to Application _data.
         /// </summary>
         public static string Main_Menu_About_AppData {
             get {
                 return ResourceManager.GetString("Main_Menu_About_AppData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application _logs.
+        /// </summary>
+        public static string Main_Menu_About_AppLogs {
+            get {
+                return ResourceManager.GetString("Main_Menu_About_AppLogs", resourceCulture);
             }
         }
         
@@ -3918,11 +3927,29 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The application directories have changed. Do you want to copy files to the new directories?.
+        /// </summary>
+        public static string MessageBox_CopyApplicationDataFilesQuestion {
+            get {
+                return ResourceManager.GetString("MessageBox_CopyApplicationDataFilesQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy Files.
         /// </summary>
         public static string MessageBox_CopyFiles {
             get {
                 return ResourceManager.GetString("MessageBox_CopyFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some files could not be copied to the new directories. Check the error log for details: .
+        /// </summary>
+        public static string MessageBox_CopySettingsFileError {
+            get {
+                return ResourceManager.GetString("MessageBox_CopySettingsFileError", resourceCulture);
             }
         }
         
@@ -4004,6 +4031,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_DeleteFiles {
             get {
                 return ResourceManager.GetString("MessageBox_DeleteFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The directory &apos;{0}&apos; may contain files that are not part of the application. Use this directory anyway?.
+        /// </summary>
+        public static string MessageBox_DirectoryNotEmptyWarning {
+            get {
+                return ResourceManager.GetString("MessageBox_DirectoryNotEmptyWarning", resourceCulture);
             }
         }
         
@@ -4193,6 +4229,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_OK {
             get {
                 return ResourceManager.GetString("MessageBox_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new directory already has a file named &quot;{0}&quot;. Replace the existing file?.
+        /// </summary>
+        public static string MessageBox_OverwriteExistingFileQuestion {
+            get {
+                return ResourceManager.GetString("MessageBox_OverwriteExistingFileQuestion", resourceCulture);
             }
         }
         

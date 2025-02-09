@@ -681,6 +681,66 @@
                     </StackPanel>
                 </GroupBox>
 
+                <GroupBox Header="Directories">
+                    <Grid Margin="0,6,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="0,3"
+                                  Content="Use default directories"
+                                  IsChecked="{Binding PathsAreDefault}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="12,3,3,3" 
+                                   Text="Application configuration and data:" />
+
+                        <TextBox Grid.Row="2" Grid.Column="0" Margin="20,3,3,3"
+                                 Text="{Binding Path=DataDirectoryPath, UpdateSourceTrigger=PropertyChanged}"
+                                 IsReadOnly="{Binding PathsAreDefault}"/>
+
+                        <Button Grid.Row="2" Grid.Column="1" Margin="3"
+                                Content="{l:Loc Key='Options_BrowseFileLocation'}"
+                                Command="{Binding Path=BrowseDataDirectory}"
+                                IsEnabled="{Binding PathsAreDefault, Converter={StaticResource not}}">
+                            <Button.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </Button.Width>
+                        </Button>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="12,3,3,3" 
+                                   Text="Application log files:" />
+
+                        <TextBox Grid.Row="4" Grid.Column="0" Margin="20,3,3,3"
+                                 Text="{Binding Path=LogDirectoryPath, UpdateSourceTrigger=PropertyChanged}"
+                                 IsReadOnly="{Binding PathsAreDefault}"/>
+
+                        <Button Grid.Row="4" Grid.Column="1" Margin="3"
+                                Content="{l:Loc Key='Options_BrowseFileLocation'}"
+                                Command="{Binding Path=BrowseLogDirectory}"
+                                IsEnabled="{Binding PathsAreDefault, Converter={StaticResource not}}">
+                            <Button.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </Button.Width>
+                        </Button>
+                    </Grid>
+                </GroupBox>
+
                 <GroupBox Header="{l:Loc Key='Options_Layout'}">
                     <StackPanel>
                         <StackPanel Margin="0,6,0,0">

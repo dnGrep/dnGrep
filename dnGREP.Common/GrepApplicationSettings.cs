@@ -426,7 +426,7 @@ namespace dnGREP.Common
         /// </summary>
         public void Load()
         {
-            Load(Path.Combine(Utils.GetDataFolderPath(), storageFileName));
+            Load(Path.Combine(DirectoryConfiguration.Instance.DataDirectory, storageFileName));
         }
 
         public void Clear()
@@ -451,6 +451,7 @@ namespace dnGREP.Common
             Version = GetFileVersion(path);
             if (Version == 0)// new file
             {
+                settings.Clear();
                 ConvertToV3();
             }
             else if (Version == 1)
@@ -783,7 +784,7 @@ namespace dnGREP.Common
         /// </summary>
         public void Save()
         {
-            Save(Path.Combine(Utils.GetDataFolderPath(), storageFileName));
+            Save(Path.Combine(DirectoryConfiguration.Instance.DataDirectory, storageFileName));
         }
 
         /// <summary>
