@@ -30,6 +30,7 @@ namespace dnGREP.WPF
             DataContext = ViewModel;
 
             searchPanel = SearchPanel.Install(textEditor);
+            searchPanel.Localization = new EditorLocalization();
             searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
             searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
 

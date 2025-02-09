@@ -83,6 +83,7 @@ namespace dnGREP.WPF
                 lineNumberMargin.SetBinding(Control.ForegroundProperty, lineNumbersForeground);
 
                 searchPanel = SearchPanel.Install(textEditor);
+                searchPanel.Localization = new EditorLocalization();
                 searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
 
                 ViewModel.LoadFile += (s, e) => LoadFile();
