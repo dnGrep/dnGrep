@@ -4213,4 +4213,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Menu_About_AppLogs" xml:space="preserve">
     <value>程序日志(_L)</value>
   </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>无法将一些文件复制到新目录。详情请查看错误日志： </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>'{0}' 目录可能包含并非程序一部分的文件。仍要使用这个目录吗？</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>程序目录已更改。要将文件复制到新目录吗？</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>新目录中已经有名为 "{0}" 的文件。替换现有文件吗？</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>错误：</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>未找到匹配项！</value>
+  </data>
 </root>
