@@ -2920,7 +2920,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Данни на _приложението и дневник</value>
+    <value>Файлове с _настройки на приложението</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
@@ -4209,5 +4209,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
     <value>Предаване на аргументите от команднен ред към съществуващия прозорец</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>_Дневник на приложението</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>Някои от файловете на са преместени в новата папка. Проверете в дневника за подробности: </value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>Папките на приложението са променени. Желаете ли файловете да бъдат преместени в новите папки?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>Новата папка вече съдържа файл на име „{0}“. Да бъде ли заменен?</value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>Папката „{0}“ вероятно съдържа файлове, които не са част от приложението. Да бъде ли използвана тази папка въпреки това?</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>Грешка:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>Няма съвпадения</value>
   </data>
 </root>
