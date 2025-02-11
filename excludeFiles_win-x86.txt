@@ -1,4 +1,3 @@
-ICSharpCode.AvalonEdit.xml
 cs\Microsoft.VisualBasic.Forms.resources.dll
 cs\PresentationCore.resources.dll
 cs\PresentationFramework.resources.dll

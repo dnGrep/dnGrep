@@ -18,18 +18,21 @@ namespace dnGREP.Common.IO
         /// <param name="path">An existing path to a folder or file.</param>
         unsafe public static string GetShort83Path(string path)
         {
-            uint num = PInvoke.GetShortPathName(path, null, 0u);
-            if (num > 0)
+            fixed (char* pPath = path)
             {
-                string buffer = new(' ', (int)num);
-                fixed (char* p = buffer)
+                uint num = PInvoke.GetShortPathName(pPath, null, 0u);
+                if (num > 0)
                 {
-                    num = PInvoke.GetShortPathName(path, new(p), num);
-                }
-                int lastWin32Error = Marshal.GetLastWin32Error();
-                if (num != 0)
-                {
-                    return buffer.Replace('\0', ' ').Trim();
+                    string buffer = new(' ', (int)num);
+                    fixed (char* p = buffer)
+                    {
+                        num = PInvoke.GetShortPathName(pPath, new(p), num);
+                    }
+                    int lastWin32Error = Marshal.GetLastWin32Error();
+                    if (num != 0)
+                    {
+                        return buffer.Replace('\0', ' ').Trim();
+                    }
                 }
             }
 
@@ -68,7 +71,7 @@ namespace dnGREP.Common.IO
 
         /// <summary>[AlphaFS] LongPathUncPrefix = "\\?\UNC\" Provides standard Windows Long Path UNC prefix.</summary>
         public static readonly string LongPathUncPrefix = string.Format(CultureInfo.InvariantCulture, "{0}{1}{2}", LongPathPrefix, "UNC", Path.DirectorySeparatorChar);
-        
+
         /// <summary>[AlphaFS] DosDeviceUncPrefix = "\??\UNC\" Provides a SUBST.EXE Path UNC prefix to a network share.</summary>
         public static readonly string DosDeviceUncPrefix = string.Format(CultureInfo.InvariantCulture, "{0}{1}{2}", NonInterpretedPathPrefix, "UNC", Path.DirectorySeparatorChar);
 
@@ -167,7 +170,7 @@ namespace dnGREP.Common.IO
         /// <param name="path">A text string to which the trailing <see cref="DirectorySeparatorChar"/> is to be added, when absent.</param>
         internal static string? AddTrailingDirectorySeparator(string path)
         {
-            return null == path ? null : 
+            return null == path ? null :
                 (Path.EndsInDirectorySeparator(path) ? path : path + Path.DirectorySeparatorChar);
         }
 

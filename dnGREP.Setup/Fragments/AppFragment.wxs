@@ -91,6 +91,9 @@
       <Component Id="cmp44E877FEA07944F7936BAF12F57254B8" Guid="{87873133-66F8-454D-B78A-4007BAC9B28F}">
         <File Id="fil9AB31307B6BA40AA9F408155190F314F" KeyPath="yes" Source="$(var.PublishDir)\NetDiff.dll" />
       </Component>
+      <Component Id="cmpA6075E0240354698A3CD7D95BFCFB155" Guid="{84C97311-4F20-4EDE-AD60-38708D081D82}">
+        <File Id="fil9844D5AEEB1D4C278BDBFBD8B36E3C60" KeyPath="yes" Source="$(var.PublishDir)\NetDiff.pdb" />
+      </Component>
       <Component Id="cmp0459596434A34BA899AD1B009417DEEB" Guid="{6F88374E-BF90-4B91-8F7C-97B5D72E108F}">
         <File Id="fil32F44C517B3F47268E1399A302DA7F90" KeyPath="yes" Source="$(var.PublishDir)\Newtonsoft.Json.dll" />
       </Component>
@@ -271,6 +274,7 @@
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
       <ComponentRef Id="cmpC9374D90A25A4EE284CA32161DF04748" />
       <ComponentRef Id="cmp44E877FEA07944F7936BAF12F57254B8" />
+      <ComponentRef Id="cmpA6075E0240354698A3CD7D95BFCFB155" />
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />
       <ComponentRef Id="cmp5675AF2D758E4055865D3B2A2EA1E463" />
       <ComponentRef Id="cmpB7F588B270AD4EFBBB04FF288C419407" />
