@@ -12,6 +12,17 @@ namespace dnGREP.Common
             string relativeToTargetFolder, string targetFolder,
             string namePattern, SearchOption searchOption)
         {
+            return GetFolderDifferences(relativeToSourceFolder, sourceFolder,
+                relativeToTargetFolder, targetFolder, string.Empty,
+                namePattern, searchOption);
+        }
+
+        public static DirectoryCompareResult GetFolderDifferences(
+            string relativeToSourceFolder, string sourceFolder,
+            string relativeToTargetFolder, string targetFolder,
+            string addToTargetPath,
+            string namePattern, SearchOption searchOption)
+        {
             DirectoryCompareResult result = new();
 
             DirectoryInfo source = new(sourceFolder);
@@ -24,12 +35,12 @@ namespace dnGREP.Common
 
             if (!target.Exists)
             {
-                result.SourceOnly.AddRange(GetFiles(relativeToSourceFolder, source, namePattern, searchOption));
+                result.SourceOnly.AddRange(GetFiles(relativeToSourceFolder, source, namePattern, searchOption, addToTargetPath));
                 return result;
             }
 
-            var sourceFiles = GetFiles(relativeToSourceFolder, source, namePattern, searchOption);
-            var targetFiles = GetFiles(relativeToTargetFolder, target, namePattern, searchOption);
+            var sourceFiles = GetFiles(relativeToSourceFolder, source, namePattern, searchOption, addToTargetPath);
+            var targetFiles = GetFiles(relativeToTargetFolder, target, namePattern, searchOption, addToTargetPath);
 
             var sourceFileSet = new HashSet<RelativeFileInfo>(sourceFiles);
             var targetFileSet = new HashSet<RelativeFileInfo>(targetFiles);
@@ -60,7 +71,7 @@ namespace dnGREP.Common
 
 
         private static List<RelativeFileInfo> GetFiles(string relativeToFolder,
-            DirectoryInfo directory, string namePattern, SearchOption searchOption)
+            DirectoryInfo directory, string namePattern, SearchOption searchOption, string addToTargetPath)
         {
             List<RelativeFileInfo> files = [];
             string[] patterns = namePattern.Split(['|'], StringSplitOptions.RemoveEmptyEntries);
@@ -68,7 +79,7 @@ namespace dnGREP.Common
             {
                 foreach (FileInfo file in directory.GetFiles(pattern, searchOption))
                 {
-                    files.Add(new RelativeFileInfo(relativeToFolder, file));
+                    files.Add(new RelativeFileInfo(relativeToFolder, file, addToTargetPath));
                 }
             }
 
@@ -90,10 +101,27 @@ namespace dnGREP.Common
         }
     }
 
-    public class RelativeFileInfo(string relativeToFolder, FileInfo fileInfo) : IEquatable<RelativeFileInfo>
+    public class RelativeFileInfo(string relativeToFolder, FileInfo fileInfo, string addToTargetPath)
+        : IEquatable<RelativeFileInfo>
     {
         public FileInfo FileInfo { get; private set; } = fileInfo;
         public string RelativeName { get; private set; } = Path.GetRelativePath(relativeToFolder, fileInfo.FullName);
+        public string AddToTargetPath { get; set; } = addToTargetPath;
+
+        public string RelativeTargetPath
+        {
+            get
+            {
+                string relativeTargetPath = RelativeName;
+                if (!string.IsNullOrEmpty(AddToTargetPath))
+                {
+                    relativeTargetPath = Path.Combine(AddToTargetPath, relativeTargetPath);
+                }
+
+                return relativeTargetPath;
+            }
+        }
+
 
         public override bool Equals(object? obj)
         {
