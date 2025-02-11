@@ -1933,7 +1933,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Auf Updates prüfen</value>
+    <value>_Auf Aktualisierungen prüfen</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
@@ -2681,7 +2681,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Anwendungsdaten und _Logs</value>
+    <value>Anwendungs_daten</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
