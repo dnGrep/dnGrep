@@ -439,11 +439,11 @@
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value>Замінити:</value>
+    <value>Замінити на:</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
-    <value>Шукати:</value>
+    <value>Пошук:</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -455,7 +455,7 @@
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value>Шукати:</value>
+    <value>Пошук:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
@@ -487,7 +487,7 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>Чутливий до регістру</value>
+    <value>C_ase чутливий</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
@@ -499,11 +499,11 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>Замінити:</value>
+    <value>Замінити на:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
-    <value>Шукати:</value>
+    <value>Пошук:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
@@ -683,7 +683,7 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
-    <value>Замінити</value>
+    <value>Замінити на</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
@@ -703,7 +703,7 @@
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_Filter" xml:space="preserve">
-    <value>Фільтр:</value>
+    <value>фільтр:</value>
     <comment>Main window, ignore filter file selector label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filter" xml:space="preserve">
@@ -723,7 +723,7 @@
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>_Все слово</value>
+    <value>_Ціле слово</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
@@ -1156,7 +1156,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Ціле слово</value>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
-    <value>_Допомога</value>
+    <value>_Довідка</value>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
     <value>Груповий пошук захоплення</value>
@@ -1168,7 +1168,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Багаторядковий</value>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
-    <value>шукати</value>
+    <value>Шукати</value>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
     <value>Пошук в архівах</value>
@@ -1442,5 +1442,1904 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
     <value>Шлях і ім'я файлу, спочатку глибина</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Кеш плагінів</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Кешувати витягнуті файли</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Кешувати файли в папці Temp</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Кешувати файли в</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>Налаштування кешу плагіна змінено. Видалити стару папку кешу?</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>Не глобально</value>
+  </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>Глобальний</value>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>Глобальний</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>Усі збіги в кожному файлі</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Перший збіг у кожному файлі</value>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>Глобальний</value>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Заміну завершено – замінено текст у {0} файлах.</value>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>Не вдалося замінити</value>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>Заміна…</value>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>Пошук скасовано</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Підрахунок матчів на лінії</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Номер збігу/кількість збігів у файлі</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Кількість матчів/загальна кількість матчів</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>Логічний вираз містить невідомий маркер</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>Логічний вираз містить невідому помилку</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>У логічному виразі відсутній шаблон пошуку</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>Логічний вираз недійсний</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>Логічний вираз ОК</value>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>Рядок байтів недійсний!</value>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>Регулярний вираз недійсний!</value>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>XPath недійсний!</value>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>Обтікання текстом</value>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>Перевірте шлях редактора через «Параметри…».</value>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>Не вдалося завантажити файл ресурсів "{0}": </value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>Скопійовано файлів: {0}.</value>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>Не вдалося відкрити файл за допомогою спеціального редактора.</value>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>Замість нього використовувався двигун за замовчуванням.</value>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>Видалити файли</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Помилка: </value>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>Не вдалося розпакувати файл з архіву. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>Неправильний шаблон: </value>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>Завантажити ресурси</value>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>Перемістити файли</value>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>Нова версія</value>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>Нова версія dnGrep ({0}) доступна для завантаження.</value>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Ні</value>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Замінити</value>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>Не вдалося замінити текст у файлах. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Файл ресурсів "{0}" не є файлом resx.</value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Запустіть dnGrep від імені адміністратора, щоб змінити відображення dnGrep у меню правою кнопкою миші Провідника Windows</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Увага, деякі файли знаходяться у вибраній директорії.</value>
+  </data>
+  <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Щось зламалося в dnGrep. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>Не вдалося видалити файли. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>Не вдалося перемістити файли. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>Не вдалося повернути файли. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>Не вдалося зберегти параметри. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>Не вдалося скасувати реєстрацію автоматичного запуску. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>Ця закладка пов'язана з іншою папкою.</value>
+  </data>
+  <data name="MessageBox_Undo" xml:space="preserve">
+    <value>Відмініти</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>Продовжити?</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Завантажити зараз?</value>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Так</value>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Так _Всім</value>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Запитуйте</value>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+  </data>
+  <data name="Options_CheckDays" xml:space="preserve">
+    <value>днів</value>
+  </data>
+  <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>Перевірте наявність нових версій під час запуску Windows</value>
+  </data>
+  <data name="Options_CheckingForUpdates" xml:space="preserve">
+    <value>Нові версії</value>
+  </data>
+  <data name="Options_ClearOldSearches" xml:space="preserve">
+    <value>Очистити старі пошуки</value>
+  </data>
+  <data name="Options_CompareApplication" xml:space="preserve">
+    <value>Порівняти додаток</value>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Аргументи</value>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Options_CustomEditor" xml:space="preserve">
+    <value>Спеціальний редактор</value>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Видалити файли</value>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Видалити остаточно</value>
+  </data>
+  <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Визначати кодування файлів під час переліку файлів за шаблоном імені файлу</value>
+  </data>
+  <data name="Options_DialogFontSize" xml:space="preserve">
+    <value>Інший розмір шрифту Windows</value>
+  </data>
+  <data name="Options_EditorArguments" xml:space="preserve">
+    <value>Аргументи</value>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
+    <value>Перевіряйте автоматично кожен</value>
+  </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>файли та окремі збіги</value>
+  </data>
+  <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>елементи, показані в списку історії шляхів</value>
+  </data>
+  <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>елементи, відображені в списках історії пошуку та заміни</value>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="Options_MatchTimeout" xml:space="preserve">
+    <value>Тайм-аут матчу</value>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Розгорнути панель результатів пошуку</value>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Перемістити файли</value>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Під час копіювання файлу, коли цільовий файл існує, перезаписати наявний файл?</value>
+  </data>
+  <data name="Options_OnMainPanel" xml:space="preserve">
+    <value>на головній панелі</value>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Варіанти результатів</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Показувати або приховувати елементи керування, коли ввімкнено персоналізацію</value>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Розширення:</value>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Плагіни</value>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>Інструмент попереднього перегляду для перекладачів</value>
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>Регулярні вирази</value>
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value>Замінити розмір шрифту вікна</value>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Вибрана тема</value>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Відправити в кошик</value>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Показати dnGrep у контекстному меню Провідника Windows</value>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>Показати спливаючі підказки з інформацією про файл</value>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Показати шлях до файлу на панелі результатів</value>
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value>Показати рядки результатів у контексті</value>
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Показати розгорнуте дерево результатів</value>
+  </data>
+  <data name="Options_ShowSearchOptions" xml:space="preserve">
+    <value>Показати параметри пошуку</value>
+  </data>
+  <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
+    <value>Показати додаткові відомості про знайдені збіги</value>
+  </data>
+  <data name="Options_StartupOptions" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="Options_Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Так</value>
+  </data>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Змінює масштаб текстового редактора</value>
+  </data>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Помилка: це бінарний файл</value>
+  </data>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>Файли</value>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Зберігати дату зміни попереднього файлу</value>
+  </data>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value>Сірники</value>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>_Попередній</value>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Попередній файл</value>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[лише для читання]</value>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Відмінити</value>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Обтікання текстом</value>
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value>Знайдено збіги для </value>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>Не знайдено збігів для </value>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Глобальний</value>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Натисніть F1, щоб отримати допомогу</value>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Попередній перегляд:</value>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="ReportSummary_ExcludePattern" xml:space="preserve">
+    <value>Виключити шаблон файлу:</value>
+  </data>
+  <data name="ReportSummary_FilePattern" xml:space="preserve">
+    <value>Включити шаблон файлу:</value>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>_Копія</value>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>Видалити _рядок</value>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Інструменти</value>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Лінія</value>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>Команда недійсна</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Для цієї команди не потрібен параметр значення</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Для цієї команди потрібне логічне значення</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Ця команда потребує рядкового значення</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>Для цієї команди потрібен цільовий параметр</value>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Закладка</value>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Додати нову закладку</value>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>Ім'я для нової закладки або пусте</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Видалити закладку</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>Назва закладки, яку потрібно видалити, або пуста для поточної закладки</value>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Видалення закладки папки</value>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>Закрийте всі вікна та вийдіть з dnGrep</value>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Розгорнути або приховати розділ фільтрів файлів</value>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Розгорнути або приховати розділ параметрів результатів</value>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Імпорт даних</value>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>Включити команди з іншого сценарію в поточний сценарій</value>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Шлях цільової папки</value>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>Результат тільки текстовий звіт</value>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Шлях і ім’я файлу для звіту</value>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>Скинути фільтри файлів до стандартних значень</value>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>Установіть значення цільової властивості</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>Рядки контексту після (число)</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>Контекстні рядки перед (число)</value>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Крапка як новий рядок</value>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>Кодування, як номер кодової сторінки</value>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>Вибір фільтра дати</value>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>Вибір фільтра діапазону часу</value>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>Увімкнути фільтрацію розміру файлу</value>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>Місце пошуку: папка або шлях до файлу</value>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>Папка, шлях до файлу або розділений комами список папок або файлів</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>Дата час Фільтр «Минулих» годин</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>Обмеження глибини папки (кількість)</value>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>Тип шаблону фільтра файлів</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>Шаблони для виключення фільтра</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>Шаблон фільтра файлу, наприклад test\\*, або список фільтрів</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>Шаблони для відповідності фільтру</value>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Файл попереднього перегляду</value>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Текст заміни або порожній рядок</value>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>Пошук в результатах</value>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>Пошук паралельно</value>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>Тип шаблону пошуку</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>Розмір від</value>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>Напрямок сортування</value>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>Налаштування типу сортування</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>Дата час Фільтр «Від»</value>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>Використовуйте ISO 8601 або місцевий формат дати та часу</value>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Зупинка після першого матчу</value>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>Вирізати пробіли у звіті</value>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>Обсяг унікальних значень звіту: за файлом або всіма файлами</value>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>Фільтрувати звіт за унікальними значеннями</value>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Не вдалося скопіювати файли: </value>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>Не вдалося видалити файли: </value>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>Файл {0} "{1}" не знайдено</value>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>Розширення файлу {0} має бути {1}</value>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>Не вдалося перемістити файли: </value>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Новий сценарій</value>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>Команда запуску вийшла з помилкою: </value>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>Команда запуску недійсна</value>
+  </data>
+  <data name="Test_CopyToClipboard" xml:space="preserve">
+    <value>Копіювати в буфер обміну</value>
+  </data>
+  <data name="Test_HighlightGroups" xml:space="preserve">
+    <value>Виділіть групи</value>
+  </data>
+  <data name="Test_NoMatchesFound" xml:space="preserve">
+    <value>Збігів не знайдено</value>
+  </data>
+  <data name="Test_ReplaceResult" xml:space="preserve">
+    <value>Замінити результат:</value>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
+    <value>\w відповідає алфавітно-цифровим символам</value>
+  </data>
+  <data name="TTA4_MatchesSpace" xml:space="preserve">
+    <value>\s відповідає пробілу</value>
+  </data>
+  <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
+    <value>Натисніть F1, щоб отримати більше шаблонів регулярних виразів</value>
+  </data>
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+    <value>$$ вставляє один знак долара в текст заміни</value>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>Максимізувати</value>
+  </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>Згорнути</value>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Відкрийте цю панель у окремому вікні</value>
+  </data>
+  <data name="Window_RestoreDown" xml:space="preserve">
+    <value>Відновити вниз</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Встановіть змінну середовища</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Запишіть рядок або час, що минув, у файл журналу</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>Рядок повідомлення або «time» для реєстрації часу, що минув</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Вирізати</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Копія</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Вставити</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>Зробіть верхній регістр</value>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Пошук скасовано в {0} – знайдено {1} збігів у {2} файлах із {3}, які шукали.</value>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>Призупинено</value>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>Сторінка</value>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>Не налаштовано</value>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>Недійсний тип введення</value>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Повторне використання існуючого вікна (один екземпляр) *</value>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* Після зміни потрібно перезапустити</value>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>Виконується заміна у файлах.</value>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Дозвольте завершити або скасуйте його перед виходом.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>Зупинити сценарій і вийти?</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>Ви хочете припинити пошук і вийти?</value>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>Результати пошуку буде видалено при виході.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>Ви хочете вийти?</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>Запитувати підтвердження під час виходу, коли виконується сценарій</value>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>Вихід</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>Запитувати підтвердження під час виходу, якщо пошук триває довше</value>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>Інша помилка</value>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext повернув "{0}" читання "{1}"</value>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Не вдалося виконати пошук в архіві "{0}"</value>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>Не показано</value>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Верхній індекс</value>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>Може підтримуватися не всіма шрифтами</value>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Витягти заголовки</value>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>Витягти колонтитули</value>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>Початок розділу</value>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>Витягти коментарі</value>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>Підрядковий</value>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>Номер повного розміру в дужках</value>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>Номери коментарів:</value>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Показувати файли з помилками пошуку на панелі результатів</value>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>{0} файли не можна шукати через дозволи, блокування або помилки: подробиці див. у файлі журналу dnGrep</value>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>Цей файл PDF не містить тексту</value>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext не вдалося створити текстовий файл</value>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext повернув "{0}"</value>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Скопіюйте та перейменуйте файли результатів за допомогою регулярних виразів</value>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Помилка: {0} для аргументу {1}</value>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>Потрібно вказати значення</value>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>Мітка</value>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Розширення</value>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>Редагувати…</value>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Відкрити за допомогою</value>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>У вікні попереднього перегляду запитайте перед завантаженням файлів, розмір яких перевищує</value>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>Увімкнути липке прокручування в дереві результатів</value>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>Додатку {0} не вдалося витягти жодного тексту</value>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>У файлі, створеному плагіном {0}, немає тексту для пошуку</value>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>Команда плагіна {0} повернула помилку: {1}</value>
+  </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>днів</value>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>місяців</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>.Бібліотека NET для створення текстових відмінностей</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Відкрити порівняння файлів</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Попередній перегляд із замінами</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>Зупинити після {0} збігів</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>Пауза після першого матчу</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>Призупинити після {0} збігів</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>Увімкнути автозаповнення в полях введення тексту</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>Переглянути пробіли</value>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Пошук завершено за {0} – знайдено {1} збігів у {2} файлах із {3}, які шукали.</value>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Роздільник для кількох збігів або груп у рядку</value>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>Пошук…</value>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>Жодного</value>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Більше не питай</value>
+  </data>
+  <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>Файл "{0}" уже існує в {1}. Перезаписати наявне?</value>
+  </data>
+  <data name="Options_ApplicationFonts" xml:space="preserve">
+    <value>Шрифти програми</value>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Файловий фільтр</value>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Перейти до попереднього збігу в цьому файлі [Ctrl+Right]</value>
+  </data>
+  <data name="ReportSummary_DotAsNewline" xml:space="preserve">
+    <value>Крапка як новий рядок</value>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>Назва файлу вже існує в цьому каталозі</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>Файли ({0}) переміщено.</value>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Перейменувати файл</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>Не вдалося видалити dnGrep із меню правої кнопки миші Провідника Windows. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>Розширення:</value>
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[Файл не знайдено: його видалено чи переміщено?]</value>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Фільтрувати унікальні значення</value>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep оновлено.</value>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} має помилки перевірки. Все одно збережіть?</value>
+  </data>
+  <data name="Options_CustomEditorHelp" xml:space="preserve">
+    <value>Використовуйте ключові слова "{0}" для розташування файлу, "{5}" для номера сторінки, "{1}" для номера рядка, "{2}" для шаблону пошуку, "{3}" для першого відповідного текст у рядку та '{4}' для номера стовпця першого збігу в рядку.</value>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>тільки файли</value>
+  </data>
+  <data name="Options_Layout" xml:space="preserve">
+    <value>Макет</value>
+  </data>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value>Використовувати шрифт за замовчуванням</value>
+  </data>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>Скасувати всі заміни</value>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>Замінити у файлі</value>
+  </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>Перейменувати файл</value>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Замінити збіги, позначені для заміни</value>
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value>Замінити текст</value>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Лише групи захоплення</value>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Параметри звіту</value>
+  </data>
+  <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
+    <value>{0} дата за останні {1}–{2} год</value>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Цільове ім'я недійсне</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Замінити шаблон пошуку порожнім рядком?</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Знайдено {0} файлів, знайдено {1} відповідних файлів – обробка {2}</value>
+  </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Довжина рядка результату пошуку в байтах</value>
+  </data>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value>Файл {0} з {1}: {2} ({3} відповідає {4} рядкам)</value>
+  </data>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value>Позначити збіг для заміни [Ctrl+R]</value>
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>Цей файл містить занадто багато збігів для окремої заміни. Натисніть «Замінити у файлі», щоб замінити всі.</value>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Збільшити:</value>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Шлях цільової папки</value>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>Пошук триває.</value>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_Новий…</value>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>Розташування панелі:</value>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>Наступний _файл</value>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} з {1} збігів, позначених для заміни</value>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Вибраний збіг</value>
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Відмініти позначку заміни для цього збігу [Ctrl+U]</value>
+  </data>
+  <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Скинути та пропустити всі збіги в цьому файлі [Ctrl+T]</value>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>За файлом</value>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>_Повторити</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>Шаблон фільтра файлу, наприклад *.txt, або список фільтрів</value>
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value>Показати попередній файл [Ctrl+PgUp]</value>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value>Відмініти файл</value>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>Знайдено {0} збігів у {1} рядках у {2} файлах</value>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Виберіть інший каталог і повторіть спробу.</value>
+  </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>Параметри пошуку</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} файлів було видалено.</value>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>Не вдалося завантажити тему "{0}". Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Ні A_ll</value>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Замінити збіг</value>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>Не вдалося відкрити файл. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} має незбережені зміни. Зберегти зараз?</value>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>Файли повернуто.</value>
+  </data>
+  <data name="Options_LoadFromFile" xml:space="preserve">
+    <value>Завантажити з файлу…</value>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Лише сірники</value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Запустіть dnGrep від імені адміністратора, щоб змінити параметр запуску програми.</value>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Більше не показувати це повідомлення</value>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>Не вдалося завершити пошук. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>Повнорозмірний персонаж</value>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>Не вдалося завершити пошук або замінити. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value>Показати наступний файл [Ctrl+PgDn]</value>
+  </data>
+  <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
+    <value>Немає бінарних файлів</value>
+  </data>
+  <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
+    <value>Немає прихованих файлів</value>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Вирізати</value>
+  </data>
+  <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>Шлях пошуку в полі "{0}" недійсний, пошук скасовано.</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>Не вдалося відкрити тестове вікно. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Скинути</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>Роздільник звіту між елементами в одному рядку</value>
+  </data>
+  <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>Шаблон файлу "{0}" не є дійсним регулярним виразом:{1}{2}</value>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Замінити макет вікна</value>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Знайти далі (F3)</value>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>Обтікання текстом</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>Не вдалося додати dnGrep до меню правої кнопки миші Провідника Windows. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>Не вдалося зареєструвати автозапуск. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Якщо позначено, «Дата зміни» не буде змінено під час заміни</value>
+  </data>
+  <data name="ReportSummary_SearchInResults" xml:space="preserve">
+    <value>Пошук в результатах</value>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Особливості</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Персоналізуйте контроль видимості</value>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Номери рядків</value>
+  </data>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Позначити всі збіги в цьому файлі для заміни [Ctrl+A]</value>
+  </data>
+  <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
+    <value>Назва вікна: {0}</value>
+  </data>
+  <data name="Options_HistoryLists" xml:space="preserve">
+    <value>Списки історії</value>
+  </data>
+  <data name="Options_InOptionsExpander" xml:space="preserve">
+    <value>у розширювачі параметрів</value>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Шрифт, який використовується в результатах пошуку, як правило, шрифт фіксованої ширини</value>
+  </data>
+  <data name="Options_WantADifferentLanguage" xml:space="preserve">
+    <value>Ви хочете іншу мову?</value>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>Відмінок сірника</value>
+  </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>Збільшити:</value>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>_Далі</value>
+  </data>
+  <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>Увага, ви збираєтеся видалити файли, знайдені під час пошуку.</value>
+  </data>
+  <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Перераховуйте файли за шаблоном імен файлів, коли поле «Шукати» порожнє</value>
+  </data>
+  <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
+    <value>0 – відповідати всім; 1.0 – точна відповідність</value>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>Стиль номера PDF:</value>
+  </data>
+  <data name="Options_ArchiveOptions" xml:space="preserve">
+    <value>Архівні файли</value>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_Запустіть сценарій</value>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Зберегти</value>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
+  <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
+    <value>{0} дата з {1} до {2}</value>
+  </data>
+  <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
+    <value>Використання шаблону файлу регулярного виразу</value>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Зберегти _як…</value>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>Завжди показувати вікно повідомлення сценарію після завершення сценарію</value>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Написати звіт</value>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Перемістити файли…</value>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>Не вдалося створити цільовий каталог: "{0}"</value>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Сортувати результати</value>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>Шаблон збігу не збігається з назвою файлу "{0}"</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Змінна=рядок (рядок може бути порожнім, щоб очистити змінну)</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Перемістити весь архів</value>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Сімейство шрифтів результатів</value>
+  </data>
+  <data name="Preview_PreviewAnyway" xml:space="preserve">
+    <value>Попередній перегляд все одно</value>
+  </data>
+  <data name="Options_MainFontSize" xml:space="preserve">
+    <value>Розмір шрифту головного вікна</value>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Перейти до наступного збігу в цьому файлі [Ctrl+Left]</value>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Параметри пошуку</value>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Перемістити виділені рядки вниз</value>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Спеціальні опції</value>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Показати простий текст у попередньому перегляді</value>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(як текст)</value>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Пропустити матч</value>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Натисніть F1, щоб отримати довідку щодо параметрів</value>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>Включити інформацію про файл у звіт</value>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Пошук .gitignore</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Очищення цієї закладки також видаляє ці закладки.</value>
+  </data>
+  <data name="Main_StopAfterFirstMatch" xml:space="preserve">
+    <value>Зупинка після першого матчу</value>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>до кінця дня</value>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>Пошук скасовано або не вдалося</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Очищення цієї закладки також очищає цю закладку.</value>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Сімейство шрифтів</value>
+  </data>
+  <data name="Main_TestExpression" xml:space="preserve">
+    <value>Тестовий вираз</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>Логічний вираз містить невідповідні дужки</value>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Використовуйте групи захоплення з «Шаблонів для відповідності» у шаблоні «Пошук»</value>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>Рядок байтів в порядку</value>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>Не вдалося перейменувати файл: </value>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Повні лінії</value>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Додайте інформацію про файл і рядок</value>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>XPath в порядку</value>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>{0} у "{1}" – dnGrep</value>
+  </data>
+  <data name="Options_TimeoutSeconds" xml:space="preserve">
+    <value>секунд</value>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>текст</value>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>має {0} збігів у {1} рядках:</value>
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Замінити всі збіги у всіх файлах і застосувати [F10]</value>
+  </data>
+  <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>Запустіть dnGrep від імені адміністратора, щоб змінити цей параметр.</value>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Знайти попередній (Shift+F3)</value>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Назва файлу містить неприпустимі символи</value>
+  </data>
+  <data name="Rename_NewName" xml:space="preserve">
+    <value>Нова назва:</value>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>При видаленні файлів</value>
+  </data>
+  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>Не відображаються основні моменти, оскільки знайдено забагато збігів.</value>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>З’єднайте цілі слова</value>
+  </data>
+  <data name="Preview_SyntaxNone" xml:space="preserve">
+    <value>Жодного</value>
+  </data>
+  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>Цей файл або двійковий, або завеликий для показу.</value>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Використовуйте регулярні вирази</value>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Замінити</value>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Перемістити виділені рядки вгору</value>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>Замінити у всіх файлах</value>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>Повний шлях і ім’я файлу cmd або пакетного файлу</value>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>Налаштування виведення звіту</value>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Показати кожен збіг або групу в окремому рядку</value>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>Рівень масштабування дерева результатів (число)</value>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>Установіть номер кодової сторінки або -1 для автоматичного визначення</value>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Вирізати пробіли</value>
+  </data>
+  <data name="ReportSummary_NoArchives" xml:space="preserve">
+    <value>Архівів немає</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Верхня межа фільтра розміру (число)</value>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>{0} дата в минулому {1} до {2} {3}</value>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>Перевірити</value>
+  </data>
+  <data name="ReportSummary_SearchIn" xml:space="preserve">
+    <value>Шукати в:</value>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_Файл</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>Символ або символи, наприклад кома або пробіл</value>
+  </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>тижнів</value>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>Сортувати результати автоматично після завершення пошуку</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>З файлами в архівах</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>Скопіюйте весь архів</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Розпакуйте та копіюйте файли</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Видалити весь архів</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>Нічого не робити</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Ця команда не допускає нульове значення</value>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>Назва ключа/файлу сценарію</value>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Запустіть командний сценарій</value>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>Поточний рядок</value>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>Показати кнопки навігації</value>
+  </data>
+  <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
+    <value>Розмір від {0} до {1} Кб</value>
+  </data>
+  <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
+    <value>Використання пошуку {0}</value>
+  </data>
+  <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
+    <value>Зупинка після першого матчу</value>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>Маленький</value>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Редактор сценаріїв</value>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>Так, все одно вийти</value>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Перевірка</value>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Додайте нову закладку, пов’язану з поточною папкою пошуку</value>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Скопіюйте назви файлів у результатах у буфер обміну</value>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Шлях і ім’я файлу для звіту</value>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Запустіть сценарій PowerShell</value>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>Ключ сценарію не знайдено</value>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>Повний шлях і ім’я файлу сценарію .ps1</value>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>Значення не можна перетворити з рядка</value>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>Видаліть файли результатів назавжди</value>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>Значення не вдалося перетворити на правильний тип</value>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Замінити збіги у файлах</value>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Застосувати налаштування закладок</value>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>Назва закладки</value>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Скопіюйте файли результатів у нове місце</value>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>Розгорніть або відновіть дерево результатів пошуку</value>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Копіювати файли…</value>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>Перемістіть файли результатів у нове місце</value>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>Повний звіт</value>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>Дата час Фільтр «Минулих» годин</value>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>Шаблон пошуку або порожній рядок</value>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>Звіт про результати у вигляді файлу csv</value>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Верхня межа фільтра за минулі години (кількість)</value>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>Виведення звіту окремими рядками</value>
+  </data>
+  <data name="Test_SearchResult" xml:space="preserve">
+    <value>Результат пошуку:</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Нижня межа фільтра розміру (число)</value>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>Файли сценаріїв</value>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>Максимальна кількість паралельних пошуків</value>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>Немає фіксованого ліміту</value>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>Кінець документа</value>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>Середній</value>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>Розмір кнопки:</value>
+  </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>хвилин</value>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>Спеціальний редактор</value>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Встановити редактором за замовчуванням для типів файлів, які не входять до списку</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>Немає файлів, вибраних для заміни.</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Розмір до</value>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>Великий</value>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>Додати…</value>
+  </data>
+  <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
+    <value>Використання пошуку в індексі Everything</value>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_Команди сценаріїв</value>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Запропонуйте</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>Зробіть нижній регістр</value>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>Сценарій повідомлень</value>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Помилка відкриття файлу PDF</value>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Помилка, пов’язана з дозволами PDF</value>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>Символ повного розміру в дужках</value>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Помилка: для аргументу {0} потрібне значення True або False</value>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>Цільовий файл існує, а перезапис помилковий: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>Цільовий файл збігається з вихідним: {0}</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Використовуйте діалогове вікно заміни</value>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Обтікання текстом</value>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Виконайте зовнішню команду</value>
+  </data>
+  <data name="Test_Title" xml:space="preserve">
+    <value>Тест</value>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t вставляє табуляцію, \\r вставляє повернення, \\n вставляє новий рядок</value>
+  </data>
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
+    <value>$&amp; замінює весь регулярний вираз</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>Заміну скасовано – замінено текст у {0} файлах.</value>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3 тощо… вставляє текст, що відповідає між круглими дужками, у текст заміни</value>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Закріпіть це спливаюче вікно назад у головному вікні</value>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Видалити файли</value>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Зберегти макет вихідної папки</value>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>Недопустимі символи</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>Тільки для читання</value>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>Введіть значення в діапазоні: {0}-{1}.</value>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>хвилин</value>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Помилка відкриття вихідного файлу</value>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Не вдалося розпакувати файл "{0}" з архіву "{1}"</value>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>Відкривши файл, відкрийте весь архів для цих розширень:</value>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Помилка: для аргументу {0} потрібен шаблон</value>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>Шлях має бути дійсним</value>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Почніть пошук</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Нижня межа фільтра за минулі години (число)</value>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>Фільтр "До" дати і часу</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>Максимальна глибина вкладеної папки</value>
+  </data>
+  <data name="TTA6_Matches1To3Characters" xml:space="preserve">
+    <value>{1,3} відповідає від 1 до 3 символів</value>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Скасувати останню операцію заміни</value>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>На лінії</value>
+  </data>
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
+    <value>. відповідає всім символам</value>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>сценарій скасовано</value>
+  </data>
+  <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>Текст заміни не є дійсним XML!</value>
+  </data>
+  <data name="Test_SampleInputText" xml:space="preserve">
+    <value>Зразок введення тексту:</value>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>Скопійовано "{0}" до "{1}"</value>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>Прикріплено до дерева результатів:</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Видалити файли з кешу, якщо вони не використовуються в</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Замінити у вибраних файлах</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>Після пошуку встановіть фокус клавіатури на</value>
+  </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Дерево результатів</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Пошук введення</value>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Меню правої кнопки миші Windows 11:</value>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>Потрібна Windows 11</value>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>Оригінальне меню правої кнопки миші:</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>Згорнути до області сповіщень *</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Не вдалося зареєструвати нову комбінацію клавіш - вона використовується?</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>Комбінація клавіш для відновлення вікна dnGrep</value>
+  </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Відчинено</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>Вихід</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Вікна</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Створіть ключ файлу кешу за допомогою:</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Хеш повного файлу</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Хеш розміру файлу та часу зміни</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [команди пошуку] 
+-e [команди пошуку] 
+-все [команди пошуку] 
+    Встановлює текст пошуку «Все». Має бути останнім параметром у командному рядку та дослівно копіюватиме решту командного рядка.</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>У логічному виразі відсутній логічний оператор</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Продовжити?</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>Не вдалося створити файл. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>Регулярний вираз у порядку</value>
+  </data>
+  <data name="MessageBox_CopyFiles" xml:space="preserve">
+    <value>Копіювати файли</value>
+  </data>
+  <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>Функція «Відмініти» поверне змінені файли до їх початкового стану. Будь-які зміни, внесені у файл(и) після заміни, буде перезаписано. Продовжити?</value>
+  </data>
+  <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>елементи, відображені в списках історії фільтрів файлів</value>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Скинути</value>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Перезавантажити</value>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Результати пошуку</value>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>Зразок тексту</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Деякі файли не можна змінити. Якщо ви продовжите, ці файли буде пропущено.</value>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>Під час переміщення файлу, коли цільовий файл існує, перезаписати наявний файл?</value>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="Options_PDFToText" xml:space="preserve">
+    <value>PDF в текст</value>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Скинути</value>
+  </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Змінює масштаб текстового редактора</value>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>_Вставити</value>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Скопіюйте текст результату в буфер обміну</value>
+  </data>
+  <data name="Options_MatchThreshold" xml:space="preserve">
+    <value>Поріг збігу (від 0 до 1,0)</value>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Продовжити?</value>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Не вдалося встановити текст буфера обміну. Буфер обміну заблоковано</value>
+  </data>
+  <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>Не вдалося завантажити такі плагіни:</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>Не вдалося скопіювати файли. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Копіювати файли</value>
+  </data>
+  <data name="Options_FollowWindowsTheme" xml:space="preserve">
+    <value>Дотримуйтеся теми Windows</value>
+  </data>
+  <data name="Options_OptionsTitle" xml:space="preserve">
+    <value>Опції</value>
+  </data>
+  <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>Параметри командного рядка PdfToText.exe:</value>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Вікно попереднього перегляду</value>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Розмір шрифту результатів</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>Знайдено {0} файлів, знайдено {1} відповідних файлів.</value>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>Збільшити:</value>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Помилки плагіна</value>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>Ця закладка пов’язана з {0} іншими папками.</value>
+  </data>
+  <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>dnGrep додасть вибрані файли в кінець командного рядка.</value>
+  </data>
+  <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
+    <value>Дозволяє запустити dnGrep із контекстного меню правою кнопкою миші Провідника Windows.</value>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>Допоможіть перекласти dnGrep.</value>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Перезавантажити поточний файл теми [Ctrl+F5]</value>
+  </data>
+  <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
+    <value>Час очікування збігу обмежує тривалість спроб механізму регулярних виразів розв’язати регулярний вираз до того, як мине час очікування. Це запобігає обробці виразів і вхідних рядків, які вимагають надмірного відстеження.</value>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Синтаксис</value>
+  </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value>Ім'я файлу, номер рядка, рядок</value>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>Результати пошуку dnGrep</value>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Номери сторінок</value>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Відмінити</value>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Дерево результатів</value>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>Кількість збігів для автоматичної зупинки пошуку</value>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>років</value>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>Розсортуйте цифри в числовому порядку</value>
+  </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>Багаторядковий пошук</value>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>Резюме</value>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>сценарій завершено</value>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>Витягти виноски</value>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>Помилка {0} обробки файлу "{1}"</value>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>Уникати лапок в аргументі "{0}"</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>Копіювати імена файлів із підрахунком збігів</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>Кількість збігів для автоматичного призупинення пошуку</value>
+  </data>
+  <data name="TTA3_MatchesDigits" xml:space="preserve">
+    <value>\d відповідає цифрам</value>
+  </data>
+  <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
+    <value>* відповідає будь-якій кількості символів</value>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Помилка: для аргументу {0} потрібен шлях</value>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>Природний порядок сортування</value>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>Вище дерево результатів</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>Не глобально</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Розпакуйте та перемістіть файли</value>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>Виконується сценарій.</value>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>Не вдалося прочитати документ</value>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>Посилання на виноски:</value>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>Розташування верхнього та нижнього колонтитулів:</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>Пересилання аргументів командного рядка до наявного вікна</value>
   </data>
 </root>

@@ -3244,7 +3244,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script Messages dialog title</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>程序数据和日志(_L)</value>
+    <value>程序数据(_D)</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_EditScript" xml:space="preserve">
@@ -3625,17 +3625,9 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>筛选器：</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
-  <data name="Options_IfTheSecondInstanceHasASearchFolderArgument" xml:space="preserve">
-    <value>如果第二个实例有搜索文件夹参数，则更改现有窗口中的文件夹。</value>
-    <comment>Options dialog, change folder option tooltip</comment>
-  </data>
   <data name="Options_ReuseExistingWindow" xml:space="preserve">
     <value>重用现有窗口（单个实例） *</value>
     <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
-  </data>
-  <data name="Options_ForwardSearchFolderToExistingWindow" xml:space="preserve">
-    <value>转发搜索文件夹到现有窗口</value>
-    <comment>Options dialog, change folder option label</comment>
   </data>
   <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
     <value>更改后需重启*</value>
@@ -4214,5 +4206,29 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
     <value>预览替换</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>转发命令行参数到现有窗口</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>程序日志(_L)</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>无法将一些文件复制到新目录。详情请查看错误日志： </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>'{0}' 目录可能包含并非程序一部分的文件。仍要使用这个目录吗？</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>程序目录已更改。要将文件复制到新目录吗？</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>新目录中已经有名为 "{0}" 的文件。替换现有文件吗？</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>错误：</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>未找到匹配项！</value>
   </data>
 </root>

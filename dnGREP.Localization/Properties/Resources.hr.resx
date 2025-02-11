@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>Informacije o dnGrep</value>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Priznanja</value>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>JSON framework za .NET</value>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>Framework za zapisivanje za .NET</value>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>.NET biblioteka za produžene duljine putanja</value>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>.NET biblioteka za čitanje Microsoft Excel datoteka</value>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Povezane mape:</value>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>.NET WPF komponenta za uređivanje teksta</value>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep na GitHub-u</value>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>.NET biblioteka za 7-Zip</value>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Indeksiranje i instantno lociranje datoteka</value>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Biblioteka za čitanje arhiviranih datoteka</value>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>.NET biblioteka za otkrivanje skupa znakova</value>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>.NET biblioteka za parsiranje ECMA-376 brojeva</value>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>.NET biblioteka za rad s Word i Excel dokumentima</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Verzija</value>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Ime oznake:</value>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_Višelinijski</value>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Pretraživanje običnog teksta</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetski</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Obrasci za isključiti:</value>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>Pretraži u ar_hivama</value>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Zamjeni s:</value>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Pronađi:</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetsko pretraživanje</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Bajt</value>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Zamjeni s:</value>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Pronađi:</value>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_Višelinijski</value>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Pretraži u ar_hivama</value>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Bajt</value>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetski</value>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Fonetsko pretraživanje</value>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Pretraživanje običnog teksta</value>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Pronađi:</value>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Booleovi operatori</value>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Višelinijski</value>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Zamjeni s:</value>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Pronađi:</value>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Bajt</value>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetski</value>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Obrasci za isključiti:</value>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Fonetsko pretraživanje</value>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Strelica prema dolje</value>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Strelica prema gore</value>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Nastavak datoteke</value>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Ostala svojstva</value>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Zamijeni s</value>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Pretraži</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sekcije</value>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Strelica prema dolje</value>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Strelica prema gore</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Višelinijski</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>Bez binarnih</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Bez simboličkih veza</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Pretraži arhive</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Cijela riječ</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Knjižne oznake</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Koristi</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argumenti:</value>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Pomakni dolje</value>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Dodaj</value>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Obriši</value>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Cijela riječ</value>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Pomakni na vrh</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Maks. dubina mapa: {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Bez podmapa</value>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Du_pliciraj</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Koristi .gitignore za filtriranje datoteka</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Osjetljivo na velika i mala slova</value>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Uredi</value>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Pomakni na dno</value>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Pomakni gore</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Bez skrivenih</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Koristi .gitignore</value>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Osjetljivo na velika i mala slova</value>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Maks. dubina mapa: {0}</value>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Višelinijski</value>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Bez binarnih</value>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Bez podmapa</value>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Bez simboličkih veza</value>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Cijela riječ</value>
+  </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Obriši</value>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Uredi</value>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Osjetljivo na velika i mala slova</value>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Višelinijski</value>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Zamijeni s</value>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Pretraži arhive</value>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Pretraži</value>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Koristi .gitignore</value>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Cijela riječ</value>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>_Cijela riječ</value>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Maks. dubina mapa: {0}</value>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Koristi .gitignore</value>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Koristi .gitignore za filtriranje datoteka</value>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_Cijela riječ</value>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Zatvori</value>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>Bez binarnih</value>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Bez skrivenih</value>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>Bez podmapa</value>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>Bez simboličkih veza</value>
+  </data>
+</root>
