@@ -107,6 +107,11 @@ namespace dnGREP.WPF
 
         private bool ValidateDirectory(string path, bool isData)
         {
+            if (isData && DirectoryConfiguration.Instance.IsApplicationDirectory(path))
+            {
+                return true;
+            }
+
             string fileName = isData ? "dnGREP.Settings.dat|bookmarks.xml|*.xaml" : "Grep_Error_Log.xml";
 
             string[] allFiles = Directory.GetFiles(path, "*.*", SearchOption.TopDirectoryOnly);
@@ -170,20 +175,48 @@ namespace dnGREP.WPF
                     var files1 = CompareFolders.GetFolderDifferences(
                         oldDataDirectory, oldDataDirectory,
                         newDataDirectory, newDataDirectory,
-                        @"*.dat|*.xml|*.xaml|*.xshd", SearchOption.TopDirectoryOnly);
+                        @"dnGREP.Settings.dat|bookmarks.xml|*.xshd", SearchOption.TopDirectoryOnly);
                     files.Merge(files1);
 
-                    var files2 = CompareFolders.GetFolderDifferences(
+                    bool copyFromAppDir = DirectoryConfiguration.Instance.IsApplicationDirectory(oldDataDirectory);
+                    bool copyToAppDir = DirectoryConfiguration.Instance.IsApplicationDirectory(newDataDirectory);
+                    if (copyFromAppDir)
+                    {
+                        var files2 = CompareFolders.GetFolderDifferences(
+                            Path.Combine(oldDataDirectory, "Themes"), Path.Combine(oldDataDirectory, "Themes"),
+                            newDataDirectory, newDataDirectory,
+                            @"*.xaml", SearchOption.TopDirectoryOnly);
+                        files.Merge(files2);
+                    }
+                    else if (copyToAppDir)
+                    {
+                        var files2 = CompareFolders.GetFolderDifferences(
+                            oldDataDirectory, oldDataDirectory,
+                            Path.Combine(newDataDirectory, "Themes"), Path.Combine(newDataDirectory, "Themes"),
+                            "Themes",
+                            @"*.xaml", SearchOption.TopDirectoryOnly);
+                        files.Merge(files2);
+                    }
+                    else
+                    {
+                        var files2 = CompareFolders.GetFolderDifferences(
+                            oldDataDirectory, oldDataDirectory,
+                            newDataDirectory, newDataDirectory,
+                            @"*.xaml", SearchOption.TopDirectoryOnly);
+                        files.Merge(files2);
+                    }
+
+                    var files3 = CompareFolders.GetFolderDifferences(
                         oldDataDirectory, oldScriptsDir,
                         newDataDirectory, newScriptsDir,
                         @"*.*", SearchOption.AllDirectories);
-                    files.Merge(files2);
+                    files.Merge(files3);
 
-                    var files3 = CompareFolders.GetFolderDifferences(
+                    var files4 = CompareFolders.GetFolderDifferences(
                         oldDataDirectory, oldFiltersDir,
                         newDataDirectory, newFiltersDir,
                         @"*.*", SearchOption.AllDirectories);
-                    files.Merge(files3);
+                    files.Merge(files4);
 
                     if (!CopyFiles(files, newDataDirectory))
                         return false;
@@ -295,7 +328,7 @@ namespace dnGREP.WPF
         {
             foreach (var file in files.SourceOnly)
             {
-                string destFile = Path.Combine(targetDirectory, file.RelativeName);
+                string destFile = Path.Combine(targetDirectory, file.RelativeTargetPath);
                 try
                 {
                     string? dir = Path.GetDirectoryName(destFile);
@@ -322,8 +355,8 @@ namespace dnGREP.WPF
                 if (askForEach)
                 {
                     answer = CustomMessageBox.Show(
-                        TranslationSource.Format(Resources.MessageBox_OverwriteExistingFileQuestion, file.RelativeName),
-                        Resources.MessageBox_DnGrep + " " + targetDirectory,
+                        TranslationSource.Format(Resources.MessageBox_OverwriteExistingFileQuestion, file.RelativeTargetPath),
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButtonEx.YesAllNoAll, MessageBoxImage.Question,
                         MessageBoxResultEx.No, MessageBoxCustoms.None,
                         TranslationSource.Instance.FlowDirection);
@@ -342,7 +375,7 @@ namespace dnGREP.WPF
                 if (answer.Result == MessageBoxResultEx.Yes || answer.Result == MessageBoxResultEx.YesToAll)
                 {
                     // if yes, overwrite the existing file
-                    string destFile = Path.Combine(targetDirectory, file.RelativeName);
+                    string destFile = Path.Combine(targetDirectory, file.RelativeTargetPath);
                     try
                     {
                         string? dir = Path.GetDirectoryName(destFile);

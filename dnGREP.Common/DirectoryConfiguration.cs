@@ -166,6 +166,12 @@ namespace dnGREP.Common
 
         public string LogDirectory { get; set; } = string.Empty;
 
+        public bool IsApplicationDirectory(string path)
+        {
+            return Directory.GetFiles(path, "dnGREP.exe").Length > 0 &&
+                 Directory.GetFiles(path, "*.dll").Length > 0;
+        }
+
         public void Save()
         {
             try
