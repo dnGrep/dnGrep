@@ -258,6 +258,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,6,0,3" Content="{l:Loc Key='Options_UseDefault'}"
                                   IsChecked="{Binding Path=UseDefaultFont}" />
@@ -411,6 +412,23 @@
                         <TextBlock Grid.Row="6" Grid.Column="2" Margin="12,3" Text="{l:Loc Key='Options_SampleText'}"
                                    FontFamily="{Binding Path=EditResultsFontFamily}"
                                    FontSize="{Binding Path=EditResultsFontSize}"/>
+
+                        <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,3" 
+                                   HorizontalAlignment="Right" Text="{l:Loc Key='Options_ResultsFontWeight'}"
+                                   ToolTip="{l:Loc Key='Options_ForFileNameInSearchResults'}"/>
+                        <ComboBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,3"
+                                  HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Path=FontWeightList}"
+                                  SelectedValue="{Binding Path=ResultsFileNameWeight}"
+                                  ToolTip="{l:Loc Key='Options_ForFileNameInSearchResults'}">
+                        <ComboBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="100" FallbackValue="100">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </ComboBox.Width>
+                        </ComboBox>
 
                     </Grid>
                 </GroupBox>

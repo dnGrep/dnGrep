@@ -4274,4 +4274,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>No matches found!</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Results font weight</value>
+    <comment>Options dialog, font weight input label</comment>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>For file name in search results</value>
+    <comment>Options dialog, tool tip for font weight</comment>
+  </data>
 </root>
