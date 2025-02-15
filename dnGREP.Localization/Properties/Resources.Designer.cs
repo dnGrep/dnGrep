@@ -5322,6 +5322,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For file name in search results.
+        /// </summary>
+        public static string Options_ForFileNameInSearchResults {
+            get {
+                return ResourceManager.GetString("Options_ForFileNameInSearchResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forward command line arguments to the existing window.
         /// </summary>
         public static string Options_ForwardCommandLineArgumentsToTheExistingWindow {
@@ -6047,6 +6056,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ResultsFontUsuallyAFixedWidthFont {
             get {
                 return ResourceManager.GetString("Options_ResultsFontUsuallyAFixedWidthFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results font weight.
+        /// </summary>
+        public static string Options_ResultsFontWeight {
+            get {
+                return ResourceManager.GetString("Options_ResultsFontWeight", resourceCulture);
             }
         }
         

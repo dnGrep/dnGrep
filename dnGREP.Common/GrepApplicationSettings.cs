@@ -166,6 +166,7 @@ namespace dnGREP.Common
             [DefaultValue("")]
             public const string ResultsFontFamily = "ResultsFontFamily";
             public const string ResultsFontSize = "ResultsFontSize";
+            public const string ResultsFileNameWeight = "ResultsFileNameWeight";
             [DefaultValue("-layout -enc UTF-8 -bom")]
             public const string PdfToTextOptions = "PdfToTextOptions";
             [DefaultValue(false)]
@@ -777,6 +778,12 @@ namespace dnGREP.Common
             {
                 Set(Key.ResultsFontSize, SystemFonts.MessageFontSize);
             }
+
+            if (!settings.TryGetValue(Key.ResultsFileNameWeight, out string? weight) ||
+                string.IsNullOrWhiteSpace(weight))
+            {
+                Set(Key.ResultsFileNameWeight, FontWeights.Normal);
+            }
         }
 
         /// <summary>
@@ -1098,6 +1105,15 @@ namespace dnGREP.Common
                         return (T)Convert.ChangeType(Rect.Parse(value), typeof(Rect));
                     }
 
+                    if (typeof(T) == typeof(FontWeight))
+                    {
+                        FontWeightConverter fwc = new();
+                        if (fwc.ConvertFromInvariantString(value) is FontWeight weight)
+                            return (T)Convert.ChangeType(weight, typeof(FontWeight));
+                        else
+                            return (T)Convert.ChangeType(FontWeights.Normal, typeof(FontWeight));
+                    }
+
                     if (typeof(T) == typeof(List<string>))
                     {
                         List<string?> list;
@@ -1302,6 +1318,13 @@ namespace dnGREP.Common
                 Rect rect = (Rect)Convert.ChangeType(value, typeof(Rect));
                 // need invariant culture for Rect.Parse to work
                 settings[key] = rect.ToString(CultureInfo.InvariantCulture);
+            }
+            else if (typeof(T) == typeof(FontWeight))
+            {
+                FontWeight weight = (FontWeight)Convert.ChangeType(value, typeof(FontWeight));
+                FontWeightConverter fwc = new();
+                if (fwc.ConvertToInvariantString(weight) is string s)
+                    settings[key] = s;
             }
             else if (typeof(T) == typeof(DateTime))
             {

@@ -53,11 +53,12 @@
                            Height="16" Source="{Binding Icon}" />
 
                     <TextBlock Grid.Column="1" 
-                               Margin="6,0,0,0" Text="{Binding Label}"
+                               Margin="6,0,0,0"
                                Style="{StaticResource ThemedTextBlock}"
                                Background="{DynamicResource TreeView.Background}"
                                HorizontalAlignment="Stretch"
                                TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
+                        <Run Text="{Binding FilePath}"/><Run Text="{Binding FileName}" FontWeight="{Binding FileNameFontWeight}"/> <Run Text="{Binding FileInfo}"/>
                         <TextBlock.ToolTip>
                             <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <StackPanel Orientation="Vertical">
