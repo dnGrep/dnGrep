@@ -4231,4 +4231,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Preview_NoMatchesFound" xml:space="preserve">
     <value>Няма съвпадения</value>
   </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Дебелина на шрифта на резултатите</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>За името на файла в резултатите от търсене</value>
+  </data>
 </root>
