@@ -4199,7 +4199,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Shift</value>
   </data>
   <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
-    <value>Преглед на заместванията</value>
+    <value>Преглед на заместеното</value>
   </data>
   <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
     <value>Библиотека на .NET която отчита разлики в текстове</value>
@@ -4208,16 +4208,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Сравняване на файлове</value>
   </data>
   <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
-    <value>Предаване на аргументите от команднен ред към съществуващия прозорец</value>
+    <value>Предаване на аргументите от команден ред към съществуващия прозорец</value>
   </data>
   <data name="Main_Menu_About_AppLogs" xml:space="preserve">
     <value>_Дневник на приложението</value>
   </data>
   <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
-    <value>Някои от файловете на са преместени в новата папка. Проверете в дневника за подробности: </value>
+    <value>Някои от файловете на са копирани в новата папка. Проверете в дневника за подробности: </value>
   </data>
   <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
-    <value>Папките на приложението са променени. Желаете ли файловете да бъдат преместени в новите папки?</value>
+    <value>Папките на приложението са променени. Желаете ли файловете да бъдат копирани в новите папки?</value>
   </data>
   <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
     <value>Новата папка вече съдържа файл на име „{0}“. Да бъде ли заменен?</value>
