@@ -4173,4 +4173,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Preview_NoMatchesFound" xml:space="preserve">
     <value>未找到符合項!</value>
   </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>搜尋結果中的檔案名稱</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>結果字體粗細</value>
+  </data>
 </root>
