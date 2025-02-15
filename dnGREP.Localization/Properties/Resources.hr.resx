@@ -541,4 +541,49 @@
   <data name="Main_DatePast" xml:space="preserve">
     <value>Zadnjih</value>
   </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Enkodiranje:</value>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Uhvati grupno pretraživanje</value>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Uključi podmape</value>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Prikaži redove konteksta</value>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>Osjetljiv na velika i mala slova</value>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>_Točka kao nova linija</value>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>Osjetljiv na velika i mala slova</value>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>_Točka kao nova linija</value>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Enkodiranje:</value>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Uključi podmape</value>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Maks. dubina</value>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>nakon</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>prije i</value>
+  </data>
 </root>
