@@ -7,6 +7,7 @@
              xmlns:my="clr-namespace:dnGREP.WPF"
              xmlns:uc="clr-namespace:dnGREP.WPF.UserControls"
              mc:Ignorable="d" 
+             my:InputBindingsBehavior.InputBindings="{Binding InputBindings}"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
@@ -87,25 +88,24 @@
                         </TextBlock.ToolTip>
                         <TextBlock.ContextMenu>
                             <ContextMenu x:Name="contextMenu">
-                                <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Click="BtnOpenFile_Click" />
+                                <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
                                 <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
                                           ItemsSource="{Binding Path=DataContext.EditorMenuItems, ElementName=contextRoot, UpdateSourceTrigger=PropertyChanged}">
                                     <MenuItem.ItemContainerStyle>
                                         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
                                             <Setter Property="Header" Value="{Binding Header}"/>
                                             <Setter Property="Command" Value="{Binding Command}"/>
-                                            <Setter Property="CommandParameter" Value="ContextGrepResult"/>
-                                            <Setter Property="IsEnabled" Value="{Binding IsEnabled}"/>
+                                            <Setter Property="InputGestureText" Value="{Binding Command.KeyGestureText}"/>
                                         </Style>
                                     </MenuItem.ItemContainerStyle>
                                 </MenuItem>
-                                <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Click="BtnOpenContainingFolder_Click" />
+                                <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Command="{Binding OpenContainingFolderCommand}" InputGestureText="{Binding OpenContainingFolderCommand.KeyGestureText}"/>
                                 <Separator />
-                                <MenuItem Header="{l:Loc Key='Main_Results_ShowExplorerMenu'}" Click="BtnOpenExplorerMenu_Click" />
-                                <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Click="BtnShowFileProperties_Click" />
+                                <MenuItem Header="{l:Loc Key='Main_Results_ShowExplorerMenu'}" Command="{Binding OpenExplorerMenuCommand}" InputGestureText="{Binding OpenExplorerMenuCommand.KeyGestureText}" />
+                                <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Command="{Binding ShowFilePropertiesCommand}" InputGestureText="{Binding ShowFilePropertiesCommand.KeyGestureText}" />
                                 <Separator />
-                                <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Click="BtnCopyFileNames_Click" />
-                                <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Click="BtnCopyFullFilePath_Click" />
+                                <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Command="{Binding CopyFileNamesCommand}" InputGestureText="{Binding CopyFileNamesCommand.KeyGestureText}" />
+                                <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Command="{Binding CopyFullFilePathsCommand}" InputGestureText="{Binding CopyFullFilePathsCommand.KeyGestureText}" />
                             </ContextMenu>
                         </TextBlock.ContextMenu>
                     </TextBlock>

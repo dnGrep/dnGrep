@@ -652,7 +652,7 @@ namespace dnGREP.Common
                     string args = Get<string>(ObsoleteKey.CustomEditorArgs);
                     bool escQuotes = Get<bool>(ObsoleteKey.EscapeQuotesInMatchArgument);
 
-                    CustomEditor customEditor = new(label, path, args, escQuotes, string.Empty);
+                    CustomEditor customEditor = new(label, path, args, escQuotes, string.Empty, string.Empty);
                     Set(Key.CustomEditors, new List<CustomEditor> { customEditor });
 
                     settings.Remove(ObsoleteKey.CustomEditor);

@@ -73,6 +73,12 @@ namespace dnGREP.WPF
                 PopulateScripts();
                 PopulateIgnoreFilters(true);
 
+                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CancelCommand, "Escape"));
+                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleFileOptionsCommand, "Alt+E"));
+                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(OptionsCommand, "F8"));
+                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
+                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleResultsMaximizeCommand, "F7"));
+
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
                 ToggleHighlights();
@@ -307,6 +313,8 @@ namespace dnGREP.WPF
 
         public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = [];
 
+        public ObservableCollection<InputBinding> InputBindings { get; } = [];
+
         [ObservableProperty]
         private bool isSearchForFocused;
 
@@ -520,44 +528,40 @@ namespace dnGREP.WPF
 
         #region Commands
 
-        /// <summary>
-        /// Returns an undo command
-        /// </summary>
-        public ICommand UndoCommand => new RelayCommand(
+        private RelayCommand? undoCommand;
+        public RelayCommand UndoCommand => undoCommand ??= new RelayCommand(
             param => Undo(),
             param => CanUndo);
 
-        /// <summary>
-        /// Returns an options command
-        /// </summary>
-        public ICommand OptionsCommand => new RelayCommand(
+
+        private RelayCommand? personalizationCommand;
+        public RelayCommand PersonalizationCommand => personalizationCommand ??= new RelayCommand(
+            p => PersonalizationOn = !PersonalizationOn,
+            q => true);
+
+
+        private RelayCommand? optionsCommand;
+        public RelayCommand OptionsCommand => optionsCommand ??= new RelayCommand(
             param => ShowOptions());
 
-        /// <summary>
-        /// Returns a help command
-        /// </summary>
-        public static ICommand HelpCommand => new RelayCommand(
+        private RelayCommand? helpCommand;
+        public RelayCommand HelpCommand => helpCommand ??= new RelayCommand(
             param => ShowHelp());
 
-        /// <summary>
-        /// Returns an about command
-        /// </summary>
-        public static ICommand AboutCommand => new RelayCommand(
+        private RelayCommand? aboutCommand;
+        public RelayCommand AboutCommand => aboutCommand ??= new RelayCommand(
             param => ShowAbout());
 
-        public static ICommand CheckForUpdatesCommand => new RelayCommand(
+        private RelayCommand? checkForUpdatesCommand;
+        public RelayCommand CheckForUpdatesCommand => checkForUpdatesCommand ??= new RelayCommand(
             param => CheckForUpdates(true));
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseCommand => new RelayCommand(
+        private RelayCommand? browseCommand;
+        public RelayCommand BrowseCommand => browseCommand ??= new RelayCommand(
             param => Browse());
 
-        /// <summary>
-        /// Returns a command that starts a search.
-        /// </summary>
-        public ICommand SearchCommand => new RelayCommand(
+        private RelayCommand? searchCommand;
+        public RelayCommand SearchCommand => searchCommand ??= new RelayCommand(
             param =>
             {
                 StopAfterNumMatches = false;
@@ -566,10 +570,8 @@ namespace dnGREP.WPF
             },
             param => CanSearch);
 
-        /// <summary>
-        /// Returns a command that starts a search, and stops after the first match
-        /// </summary>
-        public ICommand SearchAndStopCommand => new RelayCommand(
+        private RelayCommand? searchAndStopCommand;
+        public RelayCommand SearchAndStopCommand => searchAndStopCommand ??= new RelayCommand(
             param =>
             {
                 StopAfterNumMatches = true;
@@ -578,10 +580,8 @@ namespace dnGREP.WPF
             },
             param => CanSearch);
 
-        /// <summary>
-        /// Returns a command that starts a search, and stops after the first match
-        /// </summary>
-        public ICommand SearchAndPauseCommand => new RelayCommand(
+        private RelayCommand? searchAndPauseCommand;
+        public RelayCommand SearchAndPauseCommand => searchAndPauseCommand ??= new RelayCommand(
             param =>
             {
                 StopAfterNumMatches = false;
@@ -591,137 +591,111 @@ namespace dnGREP.WPF
             param => CanSearch);
 
 
-        /// <summary>
-        /// Returns a command that starts a search in results.
-        /// </summary>
-        public ICommand ReplaceCommand => new RelayCommand(
+        private RelayCommand? replaceCommand;
+        public RelayCommand ReplaceCommand => replaceCommand ??= new RelayCommand(
             param => ReplaceSwitch(),
             param => CanReplace);
 
-        /// <summary>
-        /// Returns a command that sorts the results.
-        /// </summary>
-        public ICommand SortCommand => new RelayCommand(
+        private RelayCommand? sortCommand;
+        public RelayCommand SortCommand => sortCommand ??= new RelayCommand(
             param => SortResults(),
             param => CanSortResults);
 
-        /// <summary>
-        /// Returns a command that copies files
-        /// </summary>
-        public ICommand CopyFilesCommand => new RelayCommand(
+        private RelayCommand? copyFilesCommand;
+        public RelayCommand CopyFilesCommand => copyFilesCommand ??= new RelayCommand(
             param => CopyFiles(param));
 
-        /// <summary>
-        /// Returns a command that moves files
-        /// </summary>
-        public ICommand MoveFilesCommand => new RelayCommand(
+        private RelayCommand? moveFilesCommand;
+        public RelayCommand MoveFilesCommand => moveFilesCommand ??= new RelayCommand(
             param => MoveFiles(param));
 
-        /// <summary>
-        /// Returns a command that deletes files
-        /// </summary>
-        public ICommand DeleteFilesCommand => new RelayCommand(
+        private RelayCommand? deleteFilesCommand;
+        public RelayCommand DeleteFilesCommand => deleteFilesCommand ??= new RelayCommand(
             param => DeleteFiles());
 
-        /// <summary>
-        /// Returns a command that copies content to clipboard
-        /// </summary>
-        public ICommand CopyToClipboardCommand => new RelayCommand(
+        private RelayCommand? copyToClipboardCommand;
+        public RelayCommand CopyToClipboardCommand => copyToClipboardCommand ??= new RelayCommand(
             param => CopyToClipboard(false));
 
-        /// <summary>
-        /// Returns a command that copies content to clipboard
-        /// </summary>
-        public ICommand CopyFilesWithCountsCommand => new RelayCommand(
+        private RelayCommand? copyFilesWithCountsCommand;
+        public RelayCommand CopyFilesWithCountsCommand => copyFilesWithCountsCommand ??= new RelayCommand(
             param => CopyToClipboard(true));
 
-        /// <summary>
-        /// Returns a command that opens the report options window
-        /// </summary>
-        public ICommand ReportOptions => new RelayCommand(
+        private RelayCommand? reportOptions;
+        public RelayCommand ReportOptions => reportOptions ??= new RelayCommand(
             p => ShowReportOptions());
 
-        /// <summary>
-        /// Returns a command that copies content to clipboard
-        /// </summary>
-        public ICommand SaveResultsCommand => new RelayCommand(
+        private RelayCommand? saveResultsCommand;
+        public RelayCommand SaveResultsCommand => saveResultsCommand ??= new RelayCommand(
             param => SaveResultsToFile(param as string));
 
-        /// <summary>
-        /// Returns a command that copies matching lines to clipboard
-        /// </summary>
-        public ICommand CopyMatchingLinesCommand => new RelayCommand(
+        private RelayCommand? copyMatchingLinesCommand;
+        public RelayCommand CopyMatchingLinesCommand => copyMatchingLinesCommand ??= new RelayCommand(
             param => CopyResults());
 
-        /// <summary>
-        /// Returns a command that cancels search
-        /// </summary>
-        public ICommand CancelCommand => new RelayCommand(
+        private RelayCommand? cancelCommand;
+        public RelayCommand CancelCommand => cancelCommand ??= new RelayCommand(
             param => Cancel(),
             param => CanCancel);
 
-        public ICommand PauseResumeCommand => new RelayCommand(
+        private RelayCommand? pauseResumeCommand;
+        public RelayCommand PauseResumeCommand => pauseResumeCommand ??= new RelayCommand(
             param => PauseResume(),
             param => CanCancel);
 
-        /// <summary>
-        /// Returns a command that toggles match highlights
-        /// </summary>
-        public ICommand HighlightsCommand => new RelayCommand(
+        private RelayCommand? highlightsCommand;
+        public RelayCommand HighlightsCommand => highlightsCommand ??= new RelayCommand(
             param => ToggleHighlights());
 
-        /// <summary>
-        /// Returns a command that opens test view
-        /// </summary>
-        public ICommand TestCommand => new RelayCommand(
-            param => Test());
+        private RelayCommand? testCommand;
+        public RelayCommand TestCommand => testCommand ??= new RelayCommand(
+            param => OpenTestPatternWindow());
 
-        public ICommand BookmarkAddCommand => new RelayCommand(
+        private RelayCommand? bookmarkAddCommand;
+        public RelayCommand BookmarkAddCommand => bookmarkAddCommand ??= new RelayCommand(
             param => BookmarkAddRemove(false));
 
-        public ICommand FolderBookmarkAddCommand => new RelayCommand(
+        private RelayCommand? folderBookmarkAddCommand;
+        public RelayCommand FolderBookmarkAddCommand => folderBookmarkAddCommand ??= new RelayCommand(
             param => BookmarkAddRemove(true));
 
-        /// <summary>
-        /// Returns a command that opens the bookmarks window
-        /// </summary>
-        public ICommand OpenBookmarksWindowCommand => new RelayCommand(
+        private RelayCommand? openBookmarksWindowCommand;
+        public RelayCommand OpenBookmarksWindowCommand => openBookmarksWindowCommand ??= new RelayCommand(
             param => OpenBookmarksWindow());
 
-        /// <summary>
-        /// Returns a command that resets the search options.
-        /// </summary>
-        public ICommand ResetOptionsCommand => new RelayCommand(
+        private RelayCommand? resetOptionsCommand;
+        public RelayCommand ResetOptionsCommand => resetOptionsCommand ??= new RelayCommand(
             param => ResetOptions());
 
-        /// <summary>
-        /// Returns a command that resets the search options.
-        /// </summary>
-        public ICommand ToggleFileOptionsCommand => new RelayCommand(
+        private RelayCommand? toggleFileOptionsCommand;
+        public RelayCommand ToggleFileOptionsCommand => toggleFileOptionsCommand ??= new RelayCommand(
             param => IsFiltersExpanded = !IsFiltersExpanded);
 
-        /// <summary>
-        /// Returns a command that reloads the current theme file.
-        /// </summary>
-        public static ICommand ReloadThemeCommand => new RelayCommand(
+        private RelayCommand? reloadThemeCommand;
+        public RelayCommand ReloadThemeCommand => reloadThemeCommand ??= new RelayCommand(
             param => AppTheme.Instance.ReloadCurrentTheme());
 
-        public ICommand ToggleResultsMaximizeCommand => new RelayCommand(
+        private RelayCommand? toggleResultsMaximizeCommand;
+        public RelayCommand ToggleResultsMaximizeCommand => toggleResultsMaximizeCommand ??= new RelayCommand(
             p => IsResultTreeMaximized = !IsResultTreeMaximized);
 
-        public static ICommand OpenAppDataCommand => new RelayCommand(
+        private RelayCommand? openAppDataCommand;
+        public RelayCommand OpenAppDataCommand => openAppDataCommand ??= new RelayCommand(
             p => OpenAppDataFolder(),
             q => true);
 
-        public static ICommand OpenAppLogsCommand => new RelayCommand(
+        private RelayCommand? openAppLogsCommand;
+        public RelayCommand OpenAppLogsCommand => openAppLogsCommand ??= new RelayCommand(
             p => OpenAppLogsFolder(),
             q => true);
 
-        public ICommand DeleteMRUItemCommand => new RelayCommand(
+        private RelayCommand? deleteMRUItemCommand;
+        public RelayCommand DeleteMRUItemCommand => deleteMRUItemCommand ??= new RelayCommand(
             p => DeleteMRUItem(p as MRUViewModel),
             q => true);
 
-        public ICommand FilterComboBoxDropDownCommand => new RelayCommand(
+        private RelayCommand? filterComboBoxDropDownCommand;
+        public RelayCommand FilterComboBoxDropDownCommand => filterComboBoxDropDownCommand ??= new RelayCommand(
             p => PopulateIgnoreFilters(false));
 
         #endregion
@@ -3250,7 +3224,7 @@ namespace dnGREP.WPF
             return sb.ToString();
         }
 
-        private void Test()
+        private void OpenTestPatternWindow()
         {
             try
             {

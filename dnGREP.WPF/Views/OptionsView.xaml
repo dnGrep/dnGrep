@@ -22,11 +22,8 @@
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Icon="/dnGREP;component/nGREP.ico"
-                 WindowStartupLocation="CenterOwner">
-
-    <Window.InputBindings>
-        <KeyBinding Gesture="Ctrl+F5" Command="{Binding ReloadThemeCommand}" />
-    </Window.InputBindings>
+                 WindowStartupLocation="CenterOwner"
+                 my:InputBindingsBehavior.InputBindings="{Binding InputBindings}" >
 
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />

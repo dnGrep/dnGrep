@@ -48,6 +48,8 @@ namespace dnGREP.WPF
 
             LoadSettings();
 
+            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
+
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
 
@@ -151,7 +153,7 @@ namespace dnGREP.WPF
 
         private void AddCustomEditor()
         {
-            CustomEditor ed = new(string.Empty, string.Empty, string.Empty, false, string.Empty);
+            CustomEditor ed = new(string.Empty, string.Empty, string.Empty, false, string.Empty, string.Empty);
             CustomEditorViewModel vm = new(ed, false);
             if (vm.EditCustomEditor())
             {
@@ -202,6 +204,8 @@ namespace dnGREP.WPF
                 }, DispatcherPriority.ApplicationIdle);
             }
         }
+
+        public ObservableCollection<InputBinding> InputBindings { get; } = [];
 
         public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = [];
 
@@ -1282,7 +1286,7 @@ namespace dnGREP.WPF
                 GrepEngineFactory.ReloadPlugins();
 
             if (editorsChanged)
-                GrepSearchResultsViewModel.InitializeEditorMenuItems();
+                GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("EditorsChanged");
 
             if ((isCacheRemoved || isCachePathChanged || isCacheHashTypeChanged) &&
                 Directory.Exists(oldCachePath))

@@ -30,6 +30,7 @@
                  WindowStartupLocation="Manual"
                  ResizeMode="CanResize"
                  FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}"
+                 my:InputBindingsBehavior.InputBindings="{Binding InputBindings}"
                  mc:Ignorable="d">
 
     <my:ThemedWindow.Resources>
@@ -78,15 +79,6 @@
         </DataTemplate>
 
     </my:ThemedWindow.Resources>
-
-    <my:ThemedWindow.InputBindings>
-        <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
-        <KeyBinding Key="e" Modifiers="Alt"
-                    Command="{Binding ToggleFileOptionsCommand}" />
-        <KeyBinding Key="F8" Command="{Binding OptionsCommand}" />
-        <KeyBinding Gesture="Ctrl+F5" Command="{Binding ReloadThemeCommand}" />
-        <KeyBinding Gesture="F7" Command="{Binding ToggleResultsMaximizeCommand}" />
-    </my:ThemedWindow.InputBindings>
 
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler"
                LastChildFill="true">
@@ -166,12 +158,14 @@
                         </Style>
                     </Menu.Resources>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Undo'}"
-                              Command="{Binding UndoCommand}"
+                              Command="{Binding UndoCommand}" InputGestureText="{Binding UndoCommand.KeyGestureText}"
                               TabIndex="0" 
                               Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Settings'}" TabIndex="1">
-                        <MenuItem Header="{l:Loc Key='Main_Menu_Personalize'}" IsCheckable="True" IsChecked="{Binding PersonalizationOn}"/>
-                        <MenuItem Header="{l:Loc Key='Main_Menu_Options'}" Command="{Binding OptionsCommand}" InputGestureText="F8"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_Personalize'}" IsCheckable="True" IsChecked="{Binding PersonalizationOn, Mode=OneWay}"
+                                  Command="{Binding PersonalizationCommand}" InputGestureText="{Binding PersonalizationCommand.KeyGestureText}"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_Options'}" 
+                                  Command="{Binding OptionsCommand}" InputGestureText="{Binding OptionsCommand.KeyGestureText}"/>
                     </MenuItem>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Scripts'}" TabIndex="2"
                               ItemsSource="{Binding Path=ScriptMenuItems, UpdateSourceTrigger=PropertyChanged}" >
@@ -195,15 +189,16 @@
                     </MenuItem>
 
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Bookmarks'}"
-                              Command="{Binding OpenBookmarksWindowCommand}"
+                              Command="{Binding OpenBookmarksWindowCommand}" 
+                              InputGestureText="{Binding OpenBookmarksWindowCommand.KeyGestureText}"
                               TabIndex="3"
                               Visibility="{Binding BookmarksVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_About'}" TabIndex="4">
-                        <MenuItem Command="{Binding HelpCommand}" Header="{l:Loc Key='Main_Menu_About_Help'}" />
-                        <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{l:Loc Key='Main_Menu_About_CheckForUpdates'}"/>
-                        <MenuItem Command="{Binding OpenAppDataCommand}" Header="{l:Loc Key='Main_Menu_About_AppData'}"/>
-                        <MenuItem Command="{Binding OpenAppLogsCommand}" Header="{l:Loc Key='Main_Menu_About_AppLogs'}"/>
-                        <MenuItem Command="{Binding AboutCommand}" Header="{l:Loc Key='Main_Menu_About_AboutDnGrep'}" />
+                        <MenuItem Header="{l:Loc Key='Main_Menu_About_Help'}" Command="{Binding HelpCommand}" InputGestureText="{Binding HelpCommand.KeyGestureText}"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_About_CheckForUpdates'}" Command="{Binding CheckForUpdatesCommand}" InputGestureText="{Binding CheckForUpdatesCommand.KeyGestureText}"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_About_AppData'}" Command="{Binding OpenAppDataCommand}" InputGestureText="{Binding OpenAppDataCommand.KeyGestureText}" />
+                        <MenuItem Header="{l:Loc Key='Main_Menu_About_AppLogs'}" Command="{Binding OpenAppLogsCommand}" InputGestureText="{Binding OpenAppLogsCommand.KeyGestureText}" />
+                        <MenuItem Header="{l:Loc Key='Main_Menu_About_AboutDnGrep'}" Command="{Binding AboutCommand}" InputGestureText="{Binding AboutCommand.KeyGestureText}" />
                     </MenuItem>
                 </Menu>
             </DockPanel>
@@ -1049,10 +1044,12 @@
                                 <ContextMenu>
                                     <MenuItem Tag="Simple" 
                                               Header="{Binding StopAfterNumMatchesText}"
-                                              Command="{Binding SearchAndStopCommand}"/>
+                                              Command="{Binding SearchAndStopCommand}"
+                                              InputGestureText="{Binding SearchAndStopCommand.KeyGestureText}"/>
                                     <MenuItem Tag="Simple" 
                                               Header="{Binding PauseAfterNumMatchesText}"
-                                              Command="{Binding SearchAndPauseCommand}"/>
+                                              Command="{Binding SearchAndPauseCommand}"
+                                              InputGestureText="{Binding SearchAndPauseCommand.KeyGestureText}"/>
                                 </ContextMenu>
                             </my:SplitButton.ContextMenu>
                         </my:SplitButton>
@@ -1142,20 +1139,20 @@
                             </Button.ContentTemplate>
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="advanceContextMenu">
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFiles'}" Command="{Binding CopyFilesCommand}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_MoveFiles'}" Command="{Binding MoveFilesCommand}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFiles'}" Command="{Binding CopyFilesCommand}" InputGestureText="{Binding CopyFilesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_MoveFiles'}" Command="{Binding MoveFilesCommand}" InputGestureText="{Binding MoveFilesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" InputGestureText="{Binding DeleteFilesCommand.KeyGestureText}" />
                                     <Separator />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" Command="{Binding CopyToClipboardCommand}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNamesWithMatchCount'}" Command="{Binding CopyFilesWithCountsCommand}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" Command="{Binding CopyToClipboardCommand}" InputGestureText="{Binding CopyToClipboardCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNamesWithMatchCount'}" Command="{Binding CopyFilesWithCountsCommand}" InputGestureText="{Binding CopyFilesWithCountsCommand.KeyGestureText}" />
                                     <Separator />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" InputGestureText="{Binding CopyMatchingLinesCommand.KeyGestureText}" />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_SaveResults'}">
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveResultsCommand}" CommandParameter="Report" />
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_TextResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="Text" />
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_CSVResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="CSV" />
+                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveResultsCommand}" CommandParameter="Report" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
+                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_TextResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="Text" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
+                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_CSVResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="CSV" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
                                     </MenuItem>
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_Report_Options'}" Command="{Binding ReportOptions}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_Report_Options'}" Command="{Binding ReportOptions}" InputGestureText="{Binding ReportOptions.KeyGestureText}" />
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>

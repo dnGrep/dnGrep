@@ -20,6 +20,7 @@ namespace dnGREP.WPF
             Args = editor.Args;
             EscapeQuotes = editor.EscapeQuotes;
             Extensions = editor.Extensions;
+            KeyGestureText = editor.KeyGestureText;
             IsDefault = originalIsDefault = isDefault;
 
             EscapeQuotesLabel = TranslationSource.Format(Resources.Options_CustomEditorEscapeQuotes, Match);
@@ -59,6 +60,7 @@ namespace dnGREP.WPF
             Label != original.Label ||
             Path != original.Path ||
             Args != original.Args ||
+            KeyGestureText != original.KeyGestureText ||
             EscapeQuotes != original.EscapeQuotes ||
             GrepSettings.CleanExtensions(Extensions) != original.Extensions ||
             IsDefault != originalIsDefault;
@@ -80,6 +82,9 @@ namespace dnGREP.WPF
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(ExtensionSummary))]
         private string extensions;
+
+        [ObservableProperty]
+        private string keyGestureText;
 
         [ObservableProperty]
         private bool isDefault;
@@ -136,7 +141,7 @@ namespace dnGREP.WPF
         private void CommitChanges()
         {
             // extensions are saved comma separated without spaces
-            changed = new(Label, Path, Args, EscapeQuotes, GrepSettings.CleanExtensions(Extensions));
+            changed = new(Label, Path, Args, EscapeQuotes, GrepSettings.CleanExtensions(Extensions), KeyGestureText);
 
             if (IsDefault != originalIsDefault)
             {
