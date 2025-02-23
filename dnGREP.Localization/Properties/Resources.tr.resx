@@ -3300,4 +3300,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Preview_NoMatchesFound" xml:space="preserve">
     <value>Eşleşme bulunamadı!</value>
   </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Sonuçların yazı tipi kalınlığı</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Arama sonuçlarındaki dosya adı için</value>
+  </data>
 </root>
