@@ -20,7 +20,8 @@
                  ShowInTaskbar="True"
                  KeyDown="Window_KeyDown"
                  Icon="/dnGREP;component/nGREP.ico"
-                 mc:Ignorable="d">
+                 mc:Ignorable="d"
+                 my:InputBindingsBehavior.InputBindings="{Binding InputBindings}">
 
     <Window.Resources>
         <my:TypeOfSearchValueConverter x:Key="tosConverter" />
@@ -31,13 +32,6 @@
             <Setter Property="Margin" Value="3" />
         </Style>
     </Window.Resources>
-
-    <Window.InputBindings>
-        <KeyBinding Key="Up" Modifiers="Shift+Alt" Command="{Binding MoveToTopCommand}"/>
-        <KeyBinding Key="Up" Modifiers="Alt" Command="{Binding MoveUpCommand}"/>
-        <KeyBinding Key="Down" Modifiers="Alt" Command="{Binding MoveDownCommand}"/>
-        <KeyBinding Key="Down" Modifiers="Shift+Alt" Command="{Binding MoveToBottomCommand}"/>
-    </Window.InputBindings>
 
     <Grid Margin="8">
         <Grid.RowDefinitions>
@@ -145,7 +139,7 @@
                               Height="{Binding ElementName=closeButton, Path=ActualHeight}"
                               Style="{StaticResource ThemedPinButton}"
                               IsChecked="{Binding IsPinned}" />
-                <Button Grid.Column="1" Content="{l:Loc Key='Bookmarks_Use'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
+                <Button Grid.Column="1" Content="{l:Loc Key='Bookmarks_Use'}" Command="{Binding UseBookmarkCommand}" ToolTip="{Binding UseBookmarkCommand.KeyGestureText}" />
                 <Button Grid.Column="2" Content="{l:Loc Key='Bookmarks_Close'}" IsDefault="True" x:Name="closeButton" Click="CloseButton_Click"/>
             </Grid>
         </DockPanel>

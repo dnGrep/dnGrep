@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Input;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
@@ -110,16 +109,20 @@ namespace dnGREP.WPF
 
         public KeyValuePair<string, ConfigurationTemplate?>[] CustomEditorTemplates { get; }
 
-        public ICommand EditCustomEditorCommand => new RelayCommand(
+        private RelayCommand? editCustomEditorCommand;
+        public RelayCommand EditCustomEditorCommand => editCustomEditorCommand ??= new RelayCommand(
             p => EditCustomEditor());
 
-        public ICommand DeleteCustomEditorCommand => new RelayCommand(
+        private RelayCommand? deleteCustomEditorCommand;
+        public RelayCommand DeleteCustomEditorCommand => deleteCustomEditorCommand ??= new RelayCommand(
             p => OptionsViewModel.OptionsMessenger.NotifyColleagues("DeleteCustomEditor", this));
 
-        public ICommand BrowseEditorCommand => new RelayCommand(
+        private RelayCommand? browseEditorCommand;
+        public RelayCommand BrowseEditorCommand => browseEditorCommand ??= new RelayCommand(
             p => BrowseToEditor());
 
-        public ICommand SaveCommand => new RelayCommand(
+        private RelayCommand? saveCommand;
+        public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(
             p => CommitChanges(),
             q => IsChanged);
 

@@ -204,7 +204,7 @@
                             </ComboBox>
                             <Button Margin="6,3" Padding="12,3" Content="{l:Loc Key='Options_Reload'}"
                                     Command="{Binding ReloadThemeCommand}"
-                                    ToolTip="{l:Loc Key='Options_ReloadTheCurrentThemeFile'}" />
+                                    ToolTip="{Binding ReloadThemeCommandTooltip}" />
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
@@ -227,8 +227,8 @@
                             </ComboBox>
                             <Button Margin="6,3" Padding="12,3" 
                                     Content="{l:Loc Key='Options_LoadFromFile'}"
-                                    ToolTip="{l:Loc Key='Options_PreviewToolForTranslators'}"
-                                    Command="{Binding LoadResxCommand}" />
+                                    Command="{Binding LoadResxCommand}" 
+                                    ToolTip="{Binding LoadResxCommandTooltip}" />
                         </StackPanel>
                         <TextBlock>
                             <Run Text="{l:Loc Key='Options_WantADifferentLanguage'}"/>
@@ -1144,7 +1144,8 @@
                                  Width="350" Margin="0,3"
                                  HorizontalAlignment="Left" />
                         <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
-                                Content="{l:Loc Key='Options_PdfToTextReset'}" Command="{Binding ResetPdfToTextOptionCommand}"
+                                Content="{l:Loc Key='Options_PdfToTextReset'}" 
+                                Command="{Binding ResetPdfToTextOptionCommand}"
                                 Padding="12,3" Margin="20,3" 
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <CheckBox Grid.Row="2" Grid.Column="0" 
@@ -1264,6 +1265,7 @@
             <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
                     IsDefault="True" Content="{l:Loc Key='Options_Save'}"
                     Command="{Binding Path=SaveCommand}" 
+                    ToolTip="{Binding SaveCommand.KeyGestureText}"
                     MinWidth="{Binding ElementName=btnClose, Path=ActualWidth}"/>
             <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
                     IsCancel="True" Content="{l:Loc Key='Options_Close'}" />

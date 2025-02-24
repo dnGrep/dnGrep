@@ -121,7 +121,7 @@ namespace dnGREP.WPF
 
         public BookmarkListViewModel ViewModel { get; private set; }
 
-        private void UseButton_Click(object? sender, RoutedEventArgs e)
+        internal void UseBookmarkCommand()
         {
             UseBookmark?.Invoke(this, EventArgs.Empty);
             if (!ViewModel.IsPinned)

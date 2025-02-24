@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -28,6 +29,20 @@ namespace dnGREP.WPF
 
         private int fileIndex = -1;
         private int matchIndex = -1;
+
+        static ReplaceViewModel()
+        {
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceAllCommand), "Replace_ReplaceInAllFiles", "F10");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(PrevFileCommand), "Replace_PreviousFile", "Ctrl+PageUp");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(NextFileCommand), "Replace_NextFile", "Ctrl+PageDown");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceAllInFileCommand), "Replace_ReplaceInFile", "Ctrl+A");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(UndoFileCommand), "Replace_UndoFile", "Ctrl+T");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(PrevMatchCommand), "Replace_Previous", "Ctr +Left");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(NextMatchCommand), "Replace_Next", "Ctr +Right");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceMatchCommand), "Replace_ReplaceButton", "Ctr +R");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(UndoMatchCommand), "Replace_Undo", "Ctrl+U");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ExternalDiffCommand), "Replace_OpenFileCompare", string.Empty);
+        }
 
         public ReplaceViewModel()
         {
@@ -61,6 +76,25 @@ namespace dnGREP.WPF
 
             PreviewShowingReplacements = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewShowingReplacements);
             RestoreLastModifiedDate = GrepSettings.Instance.Get<bool>(GrepSettings.Key.RestoreLastModifiedDate);
+
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Replace))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReplaceAllCommand, "F10"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PrevFileCommand, "Ctrl+PageUp"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextFileCommand, "Ctrl+PageDown"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReplaceAllInFileCommand, "Ctrl+A"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(UndoFileCommand, "Ctrl+T"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PrevMatchCommand, "Ctrl+Left"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextMatchCommand, "Ctrl+Right"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReplaceMatchCommand, "Ctrl+R"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(UndoMatchCommand, "Ctrl+U"));
         }
 
         public void SelectNextFile()
@@ -223,6 +257,8 @@ namespace dnGREP.WPF
                 }
             }
         }
+
+        public ObservableCollection<InputBinding> InputBindings { get; } = [];
 
         public IHighlightingDefinition? HighlightingDefinition =>
             ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
@@ -704,47 +740,168 @@ namespace dnGREP.WPF
             }
         }
 
-        public ICommand ReplaceAllCommand => new RelayCommand(
+        private RelayCommand? replaceAllCommand;
+        public RelayCommand ReplaceAllCommand => replaceAllCommand ??= new RelayCommand(
             p => ReplaceAll(),
             q => SearchResults != null);
 
-        public ICommand NextFileCommand => new RelayCommand(
+
+        private RelayCommand? nextFileCommand;
+        public RelayCommand NextFileCommand => nextFileCommand ??= new RelayCommand(
             p => SelectNextFile(),
             q => SearchResults != null && SearchResults.Count > 1 && fileIndex < SearchResults.Count - 1);
 
-        public ICommand PrevFileCommand => new RelayCommand(
+        private RelayCommand? prevFileCommand;
+        public RelayCommand PrevFileCommand => prevFileCommand ??= new RelayCommand(
             p => SelectPrevFile(),
             q => SearchResults != null && SearchResults.Count > 1 && fileIndex > 0);
 
-        public ICommand PrevMatchCommand => new RelayCommand(
+        private RelayCommand? prevMatchCommand;
+        public RelayCommand PrevMatchCommand => prevMatchCommand ??= new RelayCommand(
             p => SelectPrevMatch(),
             q => SelectedSearchResult != null && SelectedSearchResult.Matches.Count > 1 && IndividualReplaceEnabled);
 
-        public ICommand NextMatchCommand => new RelayCommand(
+        private RelayCommand? nextMatchCommand;
+        public RelayCommand NextMatchCommand => nextMatchCommand ??= new RelayCommand(
             p => SelectNextMatch(),
             q => SelectedSearchResult != null && SelectedSearchResult.Matches.Count > 1 && IndividualReplaceEnabled);
 
-        public ICommand ReplaceAllInFileCommand => new RelayCommand(
+        private RelayCommand? replaceAllInFileCommand;
+        public RelayCommand ReplaceAllInFileCommand => replaceAllInFileCommand ??= new RelayCommand(
             p => MarkAllInFile(),
             q => SelectedSearchResult != null && !SelectedSearchResult.Matches.All(m => m.ReplaceMatch));
 
-        public ICommand UndoFileCommand => new RelayCommand(
+        private RelayCommand? undoFileCommand;
+        public RelayCommand UndoFileCommand => undoFileCommand ??= new RelayCommand(
             p => UndoAllMarksInFile(),
             q => SelectedSearchResult != null && SelectedSearchResult.Matches.Any(m => m.ReplaceMatch));
 
-        public ICommand ReplaceMatchCommand => new RelayCommand(
+        private RelayCommand? replaceMatchCommand;
+        public RelayCommand ReplaceMatchCommand => replaceMatchCommand ??= new RelayCommand(
             p => MarkMatchForReplace(),
             q => SelectedGrepMatch != null && !SelectedGrepMatch.ReplaceMatch);
 
-        public ICommand UndoMatchCommand => new RelayCommand(
+        private RelayCommand? undoMatchCommand;
+        public RelayCommand UndoMatchCommand => undoMatchCommand ??= new RelayCommand(
             p => UndoMarkMatchForReplace(),
             q => SelectedGrepMatch != null && SelectedGrepMatch.ReplaceMatch);
 
-        public ICommand ExternalDiffCommand => new RelayCommand(
+        private RelayCommand? externalDiffCommand;
+        public RelayCommand ExternalDiffCommand => externalDiffCommand ??= new RelayCommand(
             p => ExternalDiff(),
             q => SelectedSearchResult != null && CompareApplicationConfigured);
 
         private static bool CompareApplicationConfigured => GrepSettings.Instance.IsSet(GrepSettings.Key.CompareApplication);
+
+
+        public string ReplaceAllInFileCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ReplaceAllInFileCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_MarkAllMatchesInThisFileForReplacement} ({ReplaceAllInFileCommand.KeyGestureText})";
+                }
+                return Resources.Replace_MarkAllMatchesInThisFileForReplacement;
+            }
+        }
+
+        public string ReplaceMatchCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ReplaceMatchCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_MarkMatchForReplacement} ({ReplaceMatchCommand.KeyGestureText})";
+                }
+                return Resources.Replace_MarkMatchForReplacement;
+            }
+        }
+
+        public string PrevMatchCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(PrevMatchCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_MoveToTheNextMatchInThisFile} ({PrevMatchCommand.KeyGestureText})";
+                }
+                return Resources.Replace_MoveToTheNextMatchInThisFile;
+            }
+        }
+
+        public string NextMatchCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(NextMatchCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_MoveToThePreviousMatchInThisFile} ({NextMatchCommand.KeyGestureText})";
+                }
+                return Resources.Replace_MoveToThePreviousMatchInThisFile;
+            }
+        }
+
+        public string ReplaceAllCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ReplaceAllCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_ReplaceAllMatchesInAllFilesAndApply} ({ReplaceAllCommand.KeyGestureText})";
+                }
+                return Resources.Replace_ReplaceAllMatchesInAllFilesAndApply;
+            }
+        }
+
+        public string UndoFileCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(UndoFileCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_ResetAndSkipAllMatchesInThisFile} ({UndoFileCommand.KeyGestureText})";
+                }
+                return Resources.Replace_ResetAndSkipAllMatchesInThisFile;
+            }
+        }
+
+        public string NextFileCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(NextFileCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_ShowTheNextFile} ({NextFileCommand.KeyGestureText})";
+                }
+                return Resources.Replace_ShowTheNextFile;
+            }
+        }
+
+        public string PrevFileCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(PrevFileCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_ShowThePreviousFile} ({PrevFileCommand.KeyGestureText})";
+                }
+                return Resources.Replace_ShowThePreviousFile;
+            }
+        }
+
+        public string UndoMatchCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(UndoMatchCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_UndoMarkReplaceOnThisMatch} ({UndoMatchCommand.KeyGestureText})";
+                }
+                return Resources.Replace_UndoMarkReplaceOnThisMatch;
+            }
+        }
+
         #endregion
 
         #region Replace Diff 

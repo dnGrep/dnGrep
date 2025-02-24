@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
@@ -61,6 +60,6 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double mainFormFontSize;
 
-        public ICommand? Command { get; }
+        public RelayCommand? Command { get; }
     }
 }

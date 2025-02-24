@@ -44,17 +44,37 @@ namespace dnGREP.WPF
             this.canExecute = canExecute;
         }
 
-        private string _keyGestureText = string.Empty;
+        private string? invariantKeyGestureText;
+        private string localizedKeyGestureText = string.Empty;
         public string KeyGestureText
         {
-            get { return _keyGestureText; }
+            get { return localizedKeyGestureText; }
             set
             {
-                if (value == _keyGestureText)
-                    return;
+                if (invariantKeyGestureText == null)
+                {
+                    invariantKeyGestureText = value;
+                    localizedKeyGestureText = KeyGestureLocalizer.LocalizeKeyGestureText(value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KeyGestureText)));
 
-                _keyGestureText = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KeyGestureText)));
+                    MainViewModel.MainViewMessenger.Register("CultureChanged", OnCultureChanged);
+                }
+                else
+                {
+                    if (value == localizedKeyGestureText)
+                        return;
+
+                    localizedKeyGestureText = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KeyGestureText)));
+                }
+            }
+        }
+
+        private void OnCultureChanged()
+        {
+            if (invariantKeyGestureText != null)
+            {
+                KeyGestureText = KeyGestureLocalizer.LocalizeKeyGestureText(invariantKeyGestureText);
             }
         }
 

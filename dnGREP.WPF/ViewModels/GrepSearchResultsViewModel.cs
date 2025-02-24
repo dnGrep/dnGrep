@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -29,6 +30,37 @@ namespace dnGREP.WPF
 
         internal ResultsTree? TreeControl { get; set; }
 
+        static GrepSearchResultsViewModel()
+        {
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenFilesCommand), "Main_Results_Open", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenContainingFolderCommand), "Main_Results_OpenContainingFolder", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(RenameFileCommand), "Main_Results_RenameFile", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_Results_CopyFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(MoveFilesCommand), "Main_Results_MoveFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(DeleteFilesCommand), "Main_Results_DeleteFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(RecycleFilesCommand), "Main_Results_MoveFilesToRecycleBin", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(MakeWritableCommand), "Main_Results_MakeWritable", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenExplorerMenuCommand), "Main_Results_ShowExplorerMenu", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ShowFilePropertiesCommand), "Main_Results_ShowFileProperties", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CompareFilesCommand), "Main_Results_CompareFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFileNamesCommand), "Main_Results_CopyFileNames", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFullFilePathsCommand), "Main_Results_CopyFullFilePaths", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyGrepLinesCommand), "Main_Results_CopyLinesOfText", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ExcludeFilesCommand), "Main_Results_ExcludeFromResults", "Delete");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(NextLineCommand), "Main_Results_NextMatch", "F3");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(NextFileCommand), "Main_Results_NextFile", "Shift+F3");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PreviousLineCommand), "Main_Results_PreviousMatch", "F4");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PreviousFileCommand), "Main_Results_PreviousFile", "Shift+F4");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ExpandAllCommand), "Main_Results_ExpandAll", "F6");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CollapseAllCommand), "Main_Results_CollapseAll", "Shift+F6");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetZoomCommand), "Main_Results_ResetZoom", string.Empty);
+            
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyCommand), "", "Ctrl+C");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectAllCommand), "", "Ctrl+A");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToStartCommand), "", "Ctrl+Home");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToEndCommand), "", "Ctrl+End");
+        }
+
         public GrepSearchResultsViewModel()
         {
             SelectedNodes = [];
@@ -40,18 +72,26 @@ namespace dnGREP.WPF
 
             InitializeEditorMenuItems();
 
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CopyCommand, "Ctrl+C"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectAllCommand, "Ctrl+A"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectToStartCommand, "Ctrl+Home"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectToEndCommand, "Ctrl+End"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ExcludeFilesCommand, "Delete"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextLineCommand, "F3"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextFileCommand, "Shift+F3"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PreviousLineCommand, "F4"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PreviousFileCommand, "Shift+F4"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ExpandAllCommand, "F6"));
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CollapseAllCommand, "Shift+F6"));
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
 
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CopyCommand, "Ctrl+C"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectAllCommand, "Ctrl+A"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectToStartCommand, "Ctrl+Home"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectToEndCommand, "Ctrl+End"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ExcludeFilesCommand, "Delete"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextLineCommand, "F3"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextFileCommand, "Shift+F3"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PreviousLineCommand, "F4"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PreviousFileCommand, "Shift+F4"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ExpandAllCommand, "F6"));
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CollapseAllCommand, "Shift+F6"));
         }
 
         public void Clear()

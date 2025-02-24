@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
@@ -75,10 +74,8 @@ namespace dnGREP.WPF
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
-        /// <summary>
-        /// Returns a command that saves the form
-        /// </summary>
-        public ICommand SaveCommand => new RelayCommand(
+        private RelayCommand? saveCommand;
+        public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(
             param => SaveSettings(),
             param => CanSave);
 

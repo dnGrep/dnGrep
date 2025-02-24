@@ -176,12 +176,27 @@ namespace dnGREP.WPF
             InitializeScriptTargets();
 
             ScriptMenuItems.Clear();
-            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_NewScript, new RelayCommand(p => NewScript(), q => !IsScriptRunning)));
-            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_EditScript, new RelayCommand(p => EditScript(), q => !IsScriptRunning)));
-            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_CancelScript, new RelayCommand(p => CancelScript(), q => IsScriptRunning)));
+            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_NewScript, NewScriptCommand));
+            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_EditScript, EditScriptCommand));
+            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_CancelScript, CancelScriptCommand));
             ScriptMenuItems.Add(new MenuItemViewModel(null, null));
             AddScriptFilesToMenu();
         }
+
+        private RelayCommand? newScriptCommand;
+        public RelayCommand NewScriptCommand => newScriptCommand ??= new RelayCommand(
+            p => NewScript(),
+            q => !IsScriptRunning);
+
+        private RelayCommand? editScriptCommand;
+        public RelayCommand EditScriptCommand => editScriptCommand ??= new RelayCommand(
+            p => EditScript(),
+            q => !IsScriptRunning);
+
+        private RelayCommand? cancelScriptCommand;
+        public RelayCommand CancelScriptCommand => cancelScriptCommand ??= new RelayCommand(
+            p => CancelScript(),
+            q => IsScriptRunning);
 
         private void AddScriptFilesToMenu()
         {

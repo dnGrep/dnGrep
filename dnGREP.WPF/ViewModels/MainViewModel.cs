@@ -42,6 +42,55 @@ namespace dnGREP.WPF
         private readonly string enQuad = char.ConvertFromUtf32(0x2000);
         public static readonly string IgnoreFilterFolder = "Filters";
 
+        static MainViewModel()
+        {
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReloadThemeCommand), "Options_Reload", "Ctrl+F5");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleFileOptionsCommand), "", "Alt+E");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleResultsMaximizeCommand), "", "F7");
+            
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(UndoCommand), "Main_Menu_Undo", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PersonalizationCommand), "Main_Menu_Personalize", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OptionsCommand), "Main_Menu_Options", "F8");
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(NewScriptCommand), "Main_Menu_NewScript", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(EditScriptCommand), "Main_Menu_EditScript", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CancelScriptCommand), "Main_Menu_CancelScript", string.Empty);
+            // TODO scripts!
+           
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenBookmarksWindowCommand), "Main_Menu_Bookmarks", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CheckForUpdatesCommand), "Main_Menu_About_CheckForUpdates", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenAppDataCommand), "Main_Menu_About_AppData", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenAppLogsCommand), "Main_Menu_About_AppLogs", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(AboutCommand), "Main_Menu_About_AboutDnGrep", string.Empty);
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(BrowseFolderCommand), "", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SearchCommand), "Main_SearchButton", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SearchAndStopCommand), "Main_StopAfterFirstMatch", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SearchAndPauseCommand), "Main_PauseAfterFirstMatch", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReplaceCommand), "Main_ReplaceButton", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SortCommand), "Main_SortButton", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CancelCommand), "Main_CancelButton", "Escape");
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_MoreMenu_CopyFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(MoveFilesCommand), "Main_MoreMenu_MoveFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(DeleteFilesCommand), "Main_MoreMenu_DeleteFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyToClipboardCommand), "Main_MoreMenu_CopyFileNames", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesWithCountsCommand), "Main_MoreMenu_CopyFileNamesWithMatchCount", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyMatchingLinesCommand), "Main_MoreMenu_CopyResults", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveReportCommand), "Main_MoreMenu_Save_Report", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveTextResultsCommand), "Main_MoreMenu_Save_TextResults", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveCsvResultsCommand), "Main_MoreMenu_Save_CSVResults", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReportOptionsCommand), "Main_MoreMenu_Report_Options", string.Empty);
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PauseResumeCommand), "Main_PauseButton", string.Empty);
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(HighlightsCommand), "Main_HighlightMatches", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(TestExpressionCommand), "Main_TestExpression", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(BookmarkAddCommand), "", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FolderBookmarkAddCommand), "", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetOptionsCommand), "Main_ResetOptions", string.Empty);
+        }
+
         public MainViewModel()
             : base()
         {
@@ -73,11 +122,20 @@ namespace dnGREP.WPF
                 PopulateScripts();
                 PopulateIgnoreFilters(true);
 
-                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CancelCommand, "Escape"));
-                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleFileOptionsCommand, "Alt+E"));
-                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(OptionsCommand, "F8"));
-                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
-                InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleResultsMaximizeCommand, "F7"));
+                foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
+                {
+                    PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                    if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                    {
+                        InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                    }
+                }
+
+                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CancelCommand, "Escape"));
+                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleFileOptionsCommand, "Alt+E"));
+                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(OptionsCommand, "F8"));
+                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
+                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleResultsMaximizeCommand, "F7"));
 
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
@@ -147,6 +205,8 @@ namespace dnGREP.WPF
             ClearMatchCountStatus();
             ResultsViewModel.Clear();
             UpdateReplaceButtonTooltip(true);
+
+            MainViewMessenger.NotifyColleagues("CultureChanged");
         }
 
         internal bool Closing()
@@ -556,8 +616,8 @@ namespace dnGREP.WPF
         public RelayCommand CheckForUpdatesCommand => checkForUpdatesCommand ??= new RelayCommand(
             param => CheckForUpdates(true));
 
-        private RelayCommand? browseCommand;
-        public RelayCommand BrowseCommand => browseCommand ??= new RelayCommand(
+        private RelayCommand? browseFolderCommand;
+        public RelayCommand BrowseFolderCommand => browseFolderCommand ??= new RelayCommand(
             param => Browse());
 
         private RelayCommand? searchCommand;
@@ -621,17 +681,25 @@ namespace dnGREP.WPF
         public RelayCommand CopyFilesWithCountsCommand => copyFilesWithCountsCommand ??= new RelayCommand(
             param => CopyToClipboard(true));
 
-        private RelayCommand? reportOptions;
-        public RelayCommand ReportOptions => reportOptions ??= new RelayCommand(
-            p => ShowReportOptions());
-
-        private RelayCommand? saveResultsCommand;
-        public RelayCommand SaveResultsCommand => saveResultsCommand ??= new RelayCommand(
-            param => SaveResultsToFile(param as string));
-
         private RelayCommand? copyMatchingLinesCommand;
         public RelayCommand CopyMatchingLinesCommand => copyMatchingLinesCommand ??= new RelayCommand(
             param => CopyResults());
+
+        private RelayCommand? saveReportCommand;
+        public RelayCommand SaveReportCommand => saveReportCommand ??= new RelayCommand(
+            param => SaveResultsToFile("Report"));
+
+        private RelayCommand? saveTextResultsCommand;
+        public RelayCommand SaveTextResultsCommand => saveTextResultsCommand ??= new RelayCommand(
+            param => SaveResultsToFile("Text"));
+
+        private RelayCommand? saveCsvResultsCommand;
+        public RelayCommand SaveCsvResultsCommand => saveCsvResultsCommand ??= new RelayCommand(
+            param => SaveResultsToFile("CSV"));
+
+        private RelayCommand? reportOptionsCommand;
+        public RelayCommand ReportOptionsCommand => reportOptionsCommand ??= new RelayCommand(
+            p => ShowReportOptions());
 
         private RelayCommand? cancelCommand;
         public RelayCommand CancelCommand => cancelCommand ??= new RelayCommand(
@@ -647,8 +715,8 @@ namespace dnGREP.WPF
         public RelayCommand HighlightsCommand => highlightsCommand ??= new RelayCommand(
             param => ToggleHighlights());
 
-        private RelayCommand? testCommand;
-        public RelayCommand TestCommand => testCommand ??= new RelayCommand(
+        private RelayCommand? testExpressionCommand;
+        public RelayCommand TestExpressionCommand => testExpressionCommand ??= new RelayCommand(
             param => OpenTestPatternWindow());
 
         private RelayCommand? bookmarkAddCommand;

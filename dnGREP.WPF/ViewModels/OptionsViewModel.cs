@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -36,6 +37,11 @@ namespace dnGREP.WPF
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly string ellipsis = char.ConvertFromUtf32(0x2026);
 
+        static OptionsViewModel()
+        {
+            KeyBindingManager.RegisterCommand(KeyCategory.Options, nameof(ReloadThemeCommand), "Options_Reload", "Ctrl+F5");
+        }
+
         public OptionsViewModel()
         {
             TaskLimit = Environment.ProcessorCount * 4;
@@ -48,7 +54,15 @@ namespace dnGREP.WPF
 
             LoadSettings();
 
-            InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Options))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
 
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
@@ -770,65 +784,79 @@ namespace dnGREP.WPF
 
         #region Commands
 
-        /// <summary>
-        /// Returns a command that saves the form
-        /// </summary>
-        public ICommand SaveCommand => new RelayCommand(
-            param => Save(),
-            param => CanSave);
+        private RelayCommand? saveCommand;
+        public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(
+            p => Save(),
+            p => CanSave);
 
-        public ICommand AddCustomEditorCommand => new RelayCommand(
-            param => AddCustomEditor());
+        private RelayCommand? addCustomEditorCommand;
+        public RelayCommand AddCustomEditorCommand => addCustomEditorCommand ??= new RelayCommand(
+            p => AddCustomEditor());
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseCompareCommand => new RelayCommand(
-            param => BrowseToCompareApp());
+        private RelayCommand? browseCompareCommand;
+        public RelayCommand BrowseCompareCommand => browseCompareCommand ??= new RelayCommand(
+            p => BrowseToCompareApp());
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseCacheCommand => new RelayCommand(
-            param => BrowseToCacheFolder(),
-            param => !CacheFilesInTempFolder);
+        private RelayCommand? browseCacheCommand;
+        public RelayCommand BrowseCacheCommand => browseCacheCommand ??= new RelayCommand(
+            p => BrowseToCacheFolder(),
+            p => !CacheFilesInTempFolder);
 
-        /// <summary>
-        /// Returns a command that clears old searches.
-        /// </summary>
-        public static ICommand ClearSearchesCommand => new RelayCommand(
-            param => ClearSearches());
+        private RelayCommand? clearSearchesCommand;
+        public RelayCommand ClearSearchesCommand => clearSearchesCommand ??= new RelayCommand(
+            p => ClearSearches());
 
-        /// <summary>
-        /// Returns a command that reloads the current theme file.
-        /// </summary>
-        public static ICommand ReloadThemeCommand => new RelayCommand(
-            param => AppTheme.Instance.ReloadCurrentTheme());
+        private RelayCommand? reloadThemeCommand;
+        public RelayCommand ReloadThemeCommand => reloadThemeCommand ??= new RelayCommand(
+            p => AppTheme.Instance.ReloadCurrentTheme());
 
-        /// <summary>
-        /// Returns a command that loads an external resx file.
-        /// </summary>
-        public ICommand LoadResxCommand => new RelayCommand(
-            param => LoadResxFile());
+        public string ReloadThemeCommandTooltip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ReloadThemeCommand.KeyGestureText))
+                {
+                    return $"{Resources.Options_ReloadTheCurrentThemeFile} ({ReloadThemeCommand.KeyGestureText})";
+                }
+                return Resources.Options_ReloadTheCurrentThemeFile;
+            }
+        }
 
-        public ICommand ResetArchiveExtensionsCommand => new RelayCommand(
+        private RelayCommand? loadResxCommand;
+        public RelayCommand LoadResxCommand => loadResxCommand ??= new RelayCommand(
+            p => LoadResxFile());
+
+        public string LoadResxCommandTooltip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(LoadResxCommand.KeyGestureText))
+                {
+                    return $"{Resources.Options_PreviewToolForTranslators} ({LoadResxCommand.KeyGestureText})";
+                }
+                return Resources.Options_PreviewToolForTranslators;
+            }
+        }
+
+        private RelayCommand? resetArchiveExtensionsCommand;
+        public RelayCommand ResetArchiveExtensionsCommand => resetArchiveExtensionsCommand ??= new RelayCommand(
             p => ArchiveExtensions = defaultArchiveExtensions,
             q => !ArchiveExtensions.Equals(defaultArchiveExtensions, StringComparison.Ordinal));
 
-        public ICommand ResetPdfToTextOptionCommand => new RelayCommand(
+        private RelayCommand? resetPdfToTextOptionCommand;
+        public RelayCommand ResetPdfToTextOptionCommand => resetPdfToTextOptionCommand ??= new RelayCommand(
             p => PdfToTextOptions = defaultPdfToText,
             q => !PdfToTextOptions.Equals(defaultPdfToText, StringComparison.Ordinal));
 
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseDataDirectory => new RelayCommand(
-            param => BrowseToDataDirectory());
+        private RelayCommand? browseDataDirectory;
+        public RelayCommand BrowseDataDirectory => browseDataDirectory ??= new RelayCommand(
+            p => BrowseToDataDirectory());
 
-        public ICommand BrowseLogDirectory => new RelayCommand(
-            param => BrowseToLogDirectory());
+        private RelayCommand? browseLogDirectory;
+        public RelayCommand BrowseLogDirectory => browseLogDirectory ??= new RelayCommand(
+            p => BrowseToLogDirectory());
 
         #endregion
 

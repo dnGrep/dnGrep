@@ -2200,7 +2200,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Reload the current theme file [Ctrl+F5]</value>
+    <value>Reload the current theme file</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
@@ -2416,11 +2416,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Keep modified date checkbox label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Mark all matches in this file for replacement [Ctrl+A]</value>
+    <value>Mark all matches in this file for replacement</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Mark match for replacement [Ctrl+R]</value>
+    <value>Mark match for replacement</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -2428,11 +2428,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Move to the next match in this file [Ctrl+Left]</value>
+    <value>Move to the next match in this file</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Move to the previous match in this file [Ctrl+Right]</value>
+    <value>Move to the previous match in this file</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -2464,7 +2464,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Replace all matches in all files, and apply [F10]</value>
+    <value>Replace all matches in all files, and apply</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -2504,7 +2504,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Reset and skip all matches in this file [Ctrl+T]</value>
+    <value>Reset and skip all matches in this file</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -2512,11 +2512,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Show the next file [Ctrl+PgDn]</value>
+    <value>Show the next file</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Show the previous file [Ctrl+PgUp]</value>
+    <value>Show the previous file</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2540,7 +2540,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Undo mark replace on this match [Ctrl+U]</value>
+    <value>Undo mark replace on this match</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">

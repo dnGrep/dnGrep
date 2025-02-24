@@ -16,23 +16,9 @@
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  FocusManager.FocusedElement="{Binding ElementName=btnCancel}"
-                 mc:Ignorable="d">
+                 mc:Ignorable="d"
+                 my:InputBindingsBehavior.InputBindings="{Binding InputBindings}" >
 
-    <Window.InputBindings>
-        <KeyBinding Key="F10" Command="{Binding ReplaceAllCommand}" />
-        <KeyBinding Command="{Binding PrevFileCommand}" Gesture="Ctrl+PageUp" />
-        <KeyBinding Command="{Binding NextFileCommand}" Gesture="Ctrl+PageDown" />
-        <KeyBinding Command="{Binding ReplaceAllInFileCommand}" Gesture="Ctrl+A" />
-        <KeyBinding Command="{Binding UndoFileCommand}" Gesture="Ctrl+T" />
-
-        <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Left" />
-        <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Up" />
-        <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Right" />
-        <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Down" />
-
-        <KeyBinding Command="{Binding ReplaceMatchCommand}" Gesture="Ctrl+R" />
-        <KeyBinding Command="{Binding UndoMatchCommand}" Gesture="Ctrl+U" />
-    </Window.InputBindings>
     <Window.Resources>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
@@ -177,7 +163,7 @@
                     <Button Grid.Row="0" Grid.Column="0" 
                             Margin="24,3,24,3" TabIndex="1"
                             Command="{Binding PrevFileCommand}"
-                            ToolTip="{l:Loc Key='Replace_ShowThePreviousFile'}" 
+                            ToolTip="{Binding PrevFileCommandToolTip}" 
                             Style="{StaticResource ReplaceButton}">
                         <StackPanel Orientation="Horizontal" Margin="0">
                             <Label FontFamily="Segoe UI">&#x21a9;&#x00a0;&#x00a0;</Label>
@@ -188,18 +174,18 @@
                             Margin="12,3,3,3" TabIndex="2"
                             Content="{l:Loc Key='Replace_UndoFile'}"
                             Command="{Binding UndoFileCommand}"
-                            ToolTip="{l:Loc Key='Replace_ResetAndSkipAllMatchesInThisFile'}"
+                            ToolTip="{Binding UndoFileCommandToolTip}"
                             Style="{StaticResource ReplaceButton}"/>
                     <Button Grid.Row="0" Grid.Column="2" 
                             Margin="3,3,12,3" TabIndex="3"
                             Content="{l:Loc Key='Replace_ReplaceInFile'}"
                             Command="{Binding ReplaceAllInFileCommand}"
-                            ToolTip="{l:Loc Key='Replace_MarkAllMatchesInThisFileForReplacement'}"
+                            ToolTip="{Binding ReplaceAllInFileCommandToolTip}"
                             Style="{StaticResource ReplaceButton}"/>
                     <Button Grid.Row="0" Grid.Column="3" 
                             Margin="24,3,3,3" TabIndex="4"
                             Command="{Binding NextFileCommand}"
-                            ToolTip="{l:Loc Key='Replace_ShowTheNextFile'}"
+                            ToolTip="{Binding NextFileCommandToolTip}"
                             Style="{StaticResource ReplaceButton}">
                         <StackPanel Orientation="Horizontal" Margin="0">
                             <Label Content="{l:Loc Key='Replace_NextFile'}"/>
@@ -211,7 +197,7 @@
                             TabIndex="5"
                             Content="{l:Loc Key='Replace_ReplaceInAllFiles'}"
                             Command="{Binding ReplaceAllCommand}"
-                            ToolTip="{l:Loc Key='Replace_ReplaceAllMatchesInAllFilesAndApply'}"
+                            ToolTip="{Binding ReplaceAllCommandToolTip}"
                             Style="{StaticResource ReplaceButton}"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
@@ -222,7 +208,7 @@
                     <Button Grid.Row="2" Grid.Column="0" 
                             Margin="24,3,24,3" TabIndex="10"
                             Command="{Binding PrevMatchCommand}"
-                            ToolTip="{l:Loc Key='Replace_MoveToTheNextMatchInThisFile'}"
+                            ToolTip="{Binding PrevMatchCommandToolTip}"
                             Style="{StaticResource ReplaceButton}"
                             Visibility="{Binding IsFullDialog, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
@@ -234,20 +220,20 @@
                             Margin="12,3,3,3" TabIndex="11"
                             Content="{l:Loc Key='Replace_Undo'}"
                             Command="{Binding UndoMatchCommand}"
-                            ToolTip="{l:Loc Key='Replace_UndoMarkReplaceOnThisMatch'}"
+                            ToolTip="{Binding UndoMatchCommandToolTip}"
                             Style="{StaticResource ReplaceButton}"
                             Visibility="{Binding IsFullDialog, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <Button Grid.Row="2" Grid.Column="2"
                             Margin="3,3,12,3" TabIndex="12"
                             Content="{l:Loc Key='Replace_ReplaceButton'}"
                             Command="{Binding ReplaceMatchCommand}"
-                            ToolTip="{l:Loc Key='Replace_MarkMatchForReplacement'}"
+                            ToolTip="{Binding ReplaceMatchCommandToolTip}"
                             Style="{StaticResource ReplaceButton}"
                             Visibility="{Binding IsFullDialog, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <Button Grid.Row="2" Grid.Column="3" 
                             Margin="24,3,3,3" TabIndex="13"
                             Command="{Binding NextMatchCommand}"
-                            ToolTip="{l:Loc Key='Replace_MoveToThePreviousMatchInThisFile'}"
+                            ToolTip="{Binding NextMatchCommandToolTip}"
                             Style="{StaticResource ReplaceButton}"
                             Visibility="{Binding IsFullDialog, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
@@ -271,6 +257,7 @@
                     <Button Content="{l:Loc Key='Replace_OpenFileCompare'}" 
                             Margin="0,3,48,3" TabIndex="33"
                             Command="{Binding ExternalDiffCommand}"
+                            ToolTip="{Binding ExternalDiffCommand.KeyGestureText}"
                             Style="{StaticResource ReplaceButton}"/>
                     <Button Content="{l:Loc Key='Replace_OK'}" TabIndex="32"
                             Click="OKButton_Click" 

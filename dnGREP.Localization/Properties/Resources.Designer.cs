@@ -5979,7 +5979,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reload the current theme file [Ctrl+F5].
+        ///   Looks up a localized string similar to Reload the current theme file.
         /// </summary>
         public static string Options_ReloadTheCurrentThemeFile {
             get {
@@ -6627,7 +6627,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mark all matches in this file for replacement [Ctrl+A].
+        ///   Looks up a localized string similar to Mark all matches in this file for replacement.
         /// </summary>
         public static string Replace_MarkAllMatchesInThisFileForReplacement {
             get {
@@ -6636,7 +6636,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mark match for replacement [Ctrl+R].
+        ///   Looks up a localized string similar to Mark match for replacement.
         /// </summary>
         public static string Replace_MarkMatchForReplacement {
             get {
@@ -6654,7 +6654,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move to the next match in this file [Ctrl+Left].
+        ///   Looks up a localized string similar to Move to the next match in this file.
         /// </summary>
         public static string Replace_MoveToTheNextMatchInThisFile {
             get {
@@ -6663,7 +6663,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move to the previous match in this file [Ctrl+Right].
+        ///   Looks up a localized string similar to Move to the previous match in this file.
         /// </summary>
         public static string Replace_MoveToThePreviousMatchInThisFile {
             get {
@@ -6753,7 +6753,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace all matches in all files, and apply [F10].
+        ///   Looks up a localized string similar to Replace all matches in all files, and apply.
         /// </summary>
         public static string Replace_ReplaceAllMatchesInAllFilesAndApply {
             get {
@@ -6843,7 +6843,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset and skip all matches in this file [Ctrl+T].
+        ///   Looks up a localized string similar to Reset and skip all matches in this file.
         /// </summary>
         public static string Replace_ResetAndSkipAllMatchesInThisFile {
             get {
@@ -6861,7 +6861,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show the next file [Ctrl+PgDn].
+        ///   Looks up a localized string similar to Show the next file.
         /// </summary>
         public static string Replace_ShowTheNextFile {
             get {
@@ -6870,7 +6870,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show the previous file [Ctrl+PgUp].
+        ///   Looks up a localized string similar to Show the previous file.
         /// </summary>
         public static string Replace_ShowThePreviousFile {
             get {
@@ -6924,7 +6924,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Undo mark replace on this match [Ctrl+U].
+        ///   Looks up a localized string similar to Undo mark replace on this match.
         /// </summary>
         public static string Replace_UndoMarkReplaceOnThisMatch {
             get {

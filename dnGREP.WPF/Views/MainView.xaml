@@ -371,7 +371,7 @@
                         </ComboBox>
                         <Button Grid.Row="0" Grid.Column="2"
                                 Margin="3,0,3,3"
-                                Command="{Binding BrowseCommand}"
+                                Command="{Binding BrowseFolderCommand}"
                                 ToolTip="{l:Loc Key='Main_BrowseForFolderOrFiles'}" TabIndex="11" 
                                 Content="{l:Loc Key='Main_OpenFolder'}" >
                             <Button.Width>
@@ -870,7 +870,7 @@
                             <DockPanel Grid.Column="1">
                                 <Button Margin="3,0" Padding="8,3"
                                         Content="{l:Loc Key='Main_TestExpression'}"
-                                        Command="{Binding TestCommand}"
+                                        Command="{Binding TestExpressionCommand}"
                                         DockPanel.Dock="Right" TabIndex="56" 
                                         Visibility="{Binding TestExpressionVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <CheckBox Margin="0,0,3,0"
@@ -1148,11 +1148,11 @@
                                     <Separator />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" InputGestureText="{Binding CopyMatchingLinesCommand.KeyGestureText}" />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_SaveResults'}">
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveResultsCommand}" CommandParameter="Report" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_TextResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="Text" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_CSVResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="CSV" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
+                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveReportCommand}" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
+                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_TextResults'}" Command="{Binding SaveTextResultsCommand}" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
+                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_CSVResults'}" Command="{Binding SaveCsvResultsCommand}" InputGestureText="{Binding SaveResultsCommand.KeyGestureText}" />
                                     </MenuItem>
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_Report_Options'}" Command="{Binding ReportOptions}" InputGestureText="{Binding ReportOptions.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_Report_Options'}" Command="{Binding ReportOptionsCommand}" InputGestureText="{Binding ReportOptionsCommand.KeyGestureText}" />
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
