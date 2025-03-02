@@ -57,7 +57,7 @@ namespace dnGREP.WPF
                     localizedKeyGestureText = KeyGestureLocalizer.LocalizeKeyGestureText(value);
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KeyGestureText)));
 
-                    MainViewModel.MainViewMessenger.Register("CultureChanged", OnCultureChanged);
+                    App.Messenger.Register("CultureChanged", OnCultureChanged);
                 }
                 else
                 {

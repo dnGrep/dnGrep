@@ -7,8 +7,8 @@ namespace dnGREP.WPF
     public class InputBindingsBehavior
     {
         public static readonly DependencyProperty InputBindingsProperty = DependencyProperty.RegisterAttached(
-            "InputBindings", typeof(IEnumerable<InputBinding>), typeof(InputBindingsBehavior), 
-            new PropertyMetadata(null, 
+            "InputBindings", typeof(IEnumerable<InputBinding>), typeof(InputBindingsBehavior),
+            new PropertyMetadata(null,
             new PropertyChangedCallback(Callback)));
 
         public static void SetInputBindings(UIElement element, IEnumerable<InputBinding> value)
@@ -28,6 +28,16 @@ namespace dnGREP.WPF
             {
                 foreach (InputBinding inputBinding in inputBindings)
                     uiElement.InputBindings.Add(inputBinding);
+            }
+
+            if (e.NewValue is ObservableCollectionEx<InputBinding> observableCollection)
+            {
+                observableCollection.AfterCollectionChanged += (s, e) =>
+                {
+                    uiElement.InputBindings.Clear();
+                    foreach (InputBinding inputBinding in observableCollection)
+                        uiElement.InputBindings.Add(inputBinding);
+                };
             }
         }
     }

@@ -1632,6 +1632,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign.
+        /// </summary>
+        public static string Keyboard_Assign {
+            get {
+                return ResourceManager.GetString("Keyboard_Assign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Keyboard_Close {
+            get {
+                return ResourceManager.GetString("Keyboard_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command.
+        /// </summary>
+        public static string Keyboard_CommandHeader {
+            get {
+                return ResourceManager.GetString("Keyboard_CommandHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ctrl.
         /// </summary>
         public static string Keyboard_ControlKey {
@@ -1641,11 +1668,110 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keyboard Shortcuts.
+        /// </summary>
+        public static string Keyboard_KeyboardShortcuts {
+            get {
+                return ResourceManager.GetString("Keyboard_KeyboardShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label.
+        /// </summary>
+        public static string Keyboard_LabelHeader {
+            get {
+                return ResourceManager.GetString("Keyboard_LabelHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press F1 for help on keyboard shortcuts.
+        /// </summary>
+        public static string Keyboard_PressF1ForHelpOnKeyboardShortcuts {
+            get {
+                return ResourceManager.GetString("Keyboard_PressF1ForHelpOnKeyboardShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press shortcut keys:.
+        /// </summary>
+        public static string Keyboard_PressShortcutKeys {
+            get {
+                return ResourceManager.GetString("Keyboard_PressShortcutKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Keyboard_Remove {
+            get {
+                return ResourceManager.GetString("Keyboard_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all to defaults.
+        /// </summary>
+        public static string Keyboard_ResetAllToDefaults {
+            get {
+                return ResourceManager.GetString("Keyboard_ResetAllToDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Keyboard_Save {
+            get {
+                return ResourceManager.GetString("Keyboard_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shift.
         /// </summary>
         public static string Keyboard_ShiftKey {
             get {
                 return ResourceManager.GetString("Keyboard_ShiftKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut currently used by:.
+        /// </summary>
+        public static string Keyboard_ShortcutCurrentlyUsedBy {
+            get {
+                return ResourceManager.GetString("Keyboard_ShortcutCurrentlyUsedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut for selected command.
+        /// </summary>
+        public static string Keyboard_ShortcutForSelectedCommand {
+            get {
+                return ResourceManager.GetString("Keyboard_ShortcutForSelectedCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut key.
+        /// </summary>
+        public static string Keyboard_ShortcutKeyHeader {
+            get {
+                return ResourceManager.GetString("Keyboard_ShortcutKeyHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window.
+        /// </summary>
+        public static string Keyboard_WindowHeader {
+            get {
+                return ResourceManager.GetString("Keyboard_WindowHeader", resourceCulture);
             }
         }
         
@@ -2375,6 +2501,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Menu_EditScript {
             get {
                 return ResourceManager.GetString("Main_Menu_EditScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Keyboard….
+        /// </summary>
+        public static string Main_Menu_Keyboard {
+            get {
+                return ResourceManager.GetString("Main_Menu_Keyboard", resourceCulture);
             }
         }
         

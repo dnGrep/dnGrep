@@ -36,10 +36,20 @@ namespace dnGREP.WPF
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly string ellipsis = char.ConvertFromUtf32(0x2026);
+        private static bool beenInitialized;
 
         static OptionsViewModel()
         {
-            KeyBindingManager.RegisterCommand(KeyCategory.Options, nameof(ReloadThemeCommand), "Options_Reload", "Ctrl+F5");
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            // for the ReloadThemeCommand, reuse the same settings as the main window
+            // do not register it a second time
         }
 
         public OptionsViewModel()
@@ -54,15 +64,15 @@ namespace dnGREP.WPF
 
             LoadSettings();
 
-            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Options))
+            // reuse the same settings as the main window
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
             {
                 PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
                 if (pi != null && pi.GetValue(this) is RelayCommand cmd)
                 {
-                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
                 }
             }
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
 
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
@@ -167,7 +177,7 @@ namespace dnGREP.WPF
 
         private void AddCustomEditor()
         {
-            CustomEditor ed = new(string.Empty, string.Empty, string.Empty, false, string.Empty, string.Empty);
+            CustomEditor ed = new(string.Empty, string.Empty, string.Empty, false, string.Empty);
             CustomEditorViewModel vm = new(ed, false);
             if (vm.EditCustomEditor())
             {
@@ -219,7 +229,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public ObservableCollection<InputBinding> InputBindings { get; } = [];
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = [];
 
@@ -825,18 +835,6 @@ namespace dnGREP.WPF
         private RelayCommand? loadResxCommand;
         public RelayCommand LoadResxCommand => loadResxCommand ??= new RelayCommand(
             p => LoadResxFile());
-
-        public string LoadResxCommandTooltip
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(LoadResxCommand.KeyGestureText))
-                {
-                    return $"{Resources.Options_PreviewToolForTranslators} ({LoadResxCommand.KeyGestureText})";
-                }
-                return Resources.Options_PreviewToolForTranslators;
-            }
-        }
 
         private RelayCommand? resetArchiveExtensionsCommand;
         public RelayCommand ResetArchiveExtensionsCommand => resetArchiveExtensionsCommand ??= new RelayCommand(

@@ -227,8 +227,16 @@ namespace dnGREP.WPF
                         menuItems = parent.Children;
                     }
 
-                    menuItems.Add(new MenuItemViewModel(header,
-                        new RelayCommand(p => RunScript(key), q => !IsScriptRunning)));
+                    var command = new RelayCommand(p => RunScript(key), q => !IsScriptRunning);
+                    menuItems.Add(new MenuItemViewModel(header, command));
+
+                    string scriptKey = key.Replace(Path.DirectorySeparatorChar, '_');
+                    var kbi = KeyBindingManager.GetRunScriptGesture(KeyCategory.Main, scriptKey);
+                    if (kbi != null)
+                    {
+                        var kb = KeyBindingManager.CreateKeyBinding(command, kbi.KeyGesture);
+                        InputBindings.Add(kb);
+                    }
                 }
             }
 

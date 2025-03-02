@@ -166,6 +166,8 @@
                                   Command="{Binding PersonalizationCommand}" InputGestureText="{Binding PersonalizationCommand.KeyGestureText}"/>
                         <MenuItem Header="{l:Loc Key='Main_Menu_Options'}" 
                                   Command="{Binding OptionsCommand}" InputGestureText="{Binding OptionsCommand.KeyGestureText}"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_Keyboard'}"
+                                  Command="{Binding KeyboardOptionsCommand}" InputGestureText="{Binding KeyboardOptionsCommand.KeyGestureText}"/>
                     </MenuItem>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Scripts'}" TabIndex="2"
                               ItemsSource="{Binding Path=ScriptMenuItems, UpdateSourceTrigger=PropertyChanged}" >
@@ -173,6 +175,7 @@
                             <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
                                 <Setter Property="Header" Value="{Binding Header}"/>
                                 <Setter Property="Command" Value="{Binding Command}"/>
+                                <Setter Property="InputGestureText" Value="{Binding Command.KeyGestureText}"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSeparator}" Value="True">
                                         <Setter Property="Template">

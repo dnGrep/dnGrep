@@ -24,6 +24,7 @@
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/DockSite.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/Expander.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/GroupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/ListBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/Menu.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/ProgressBar.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/RadioButton.xaml" />

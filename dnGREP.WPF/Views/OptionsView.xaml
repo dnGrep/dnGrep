@@ -227,8 +227,8 @@
                             </ComboBox>
                             <Button Margin="6,3" Padding="12,3" 
                                     Content="{l:Loc Key='Options_LoadFromFile'}"
-                                    Command="{Binding LoadResxCommand}" 
-                                    ToolTip="{Binding LoadResxCommandTooltip}" />
+                                    ToolTip="{l:Loc Key='Options_PreviewToolForTranslators'}"
+                                    Command="{Binding LoadResxCommand}"/>
                         </StackPanel>
                         <TextBlock>
                             <Run Text="{l:Loc Key='Options_WantADifferentLanguage'}"/>
@@ -1265,7 +1265,6 @@
             <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
                     IsDefault="True" Content="{l:Loc Key='Options_Save'}"
                     Command="{Binding Path=SaveCommand}" 
-                    ToolTip="{Binding SaveCommand.KeyGestureText}"
                     MinWidth="{Binding ElementName=btnClose, Path=ActualWidth}"/>
             <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
                     IsCancel="True" Content="{l:Loc Key='Options_Close'}" />

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ namespace dnGREP.WPF
     {
         private readonly TextEditor textEditor;
         private string originalScript = string.Empty;
+        private static bool beenInitialized;
 
         public event EventHandler? RequestRun;
         public event EventHandler? RequestClose;
@@ -25,22 +27,30 @@ namespace dnGREP.WPF
 
         static ScriptViewModel()
         {
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(NewCommand), "Script_Editor_New", "Ctrl+N");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SaveCommand), "Script_Editor_Save", "Ctrl+S");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SaveAsCommand), "Script_Editor_SaveAs", "Ctrl+Shift+S");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CloseCommand), "Script_Editor_Close", "Ctrl+W");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(UndoCommand), "Script_Editor_Undo", "Ctrl+Z");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(RedoCommand), "Script_Editor_Redo", "Ctrl+Y");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CutCommand), "Script_Editor_Cut", "Ctrl+X");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CopyCommand), "Script_Editor_Copy", "Ctrl+C");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(PasteCommand), "Script_Editor_Paste", "Ctrl+V");
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(NewCommand), "Script_Editor_New", "Control+N");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SaveCommand), "Script_Editor_Save", "Control+S");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SaveAsCommand), "Script_Editor_SaveAs", "Control+Shift+S");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CloseCommand), "Script_Editor_Close", "Control+W");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(UndoCommand), "Script_Editor_Undo", "Control+Z");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(RedoCommand), "Script_Editor_Redo", "Control+Y");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CutCommand), "Script_Editor_Cut", "Control+X");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CopyCommand), "Script_Editor_Copy", "Control+C");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(PasteCommand), "Script_Editor_Paste", "Control+V");
             KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(DeleteCommand), "Script_Editor_Delete", "Delete");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(DeleteLineCommand), "Script_Editor_DeleteLine", "Ctrl+D");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(DeleteLineCommand), "Script_Editor_DeleteLine", "Control+D");
             KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(MoveLinesUpCommand), "Script_Editor_MoveUp", "Alt+Up");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(MoveLinesDownCommand), "Script_Editor_MoveDown", "Alt +Down");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SuggestCommand), "Script_Editor_Suggest", "Ctrl+Space");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(ValidateCommand), "Script_Editor_Validate", "Ctrl+L");
-            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(RunCommand), "Script_Editor_RunScript", "Ctrl+R");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(MoveLinesDownCommand), "Script_Editor_MoveDown", "Alt+Down");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SuggestCommand), "Script_Editor_Suggest", "Control+Space");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(ValidateCommand), "Script_Editor_Validate", "Control+L");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(RunCommand), "Script_Editor_RunScript", "Control+R");
         }
 
         public ScriptViewModel(TextEditor textEditor)
@@ -55,34 +65,33 @@ namespace dnGREP.WPF
 
             textEditor.Document.TextChanged += Document_TextChanged;
 
+            InitializeInputBindings();
+            App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+        }
+
+        private void InitializeInputBindings()
+        {
             foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Script))
             {
                 PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
                 if (pi != null && pi.GetValue(this) is RelayCommand cmd)
                 {
-                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
                 }
             }
-
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NewCommand, "Ctrl+N"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SaveCommand, "Ctrl+S"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SaveAsCommand, "Ctrl+Shift+S"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CloseCommand, "Ctrl+W"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(UndoCommand, "Ctrl+Z"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(RedoCommand, "Ctrl+Y"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CutCommand, "Ctrl+X"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CopyCommand, "Ctrl+C"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PasteCommand, "Ctrl+V"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(DeleteCommand, "Delete"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(DeleteLineCommand, "Ctrl+D"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(MoveLinesUpCommand, "Alt+Up"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(MoveLinesDownCommand, "Alt+Down"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SuggestCommand, "Ctrl+Space"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ValidateCommand, "Ctrl+L"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(RunCommand, "Ctrl+R"));
         }
 
-        public ObservableCollection<InputBinding> InputBindings { get; } = [];
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Script)
+            {
+                InputBindings.Clear();
+                InitializeInputBindings();
+                InputBindings.RaiseAfterCollectionChanged();
+            }
+        }
+
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
 
         [ObservableProperty]

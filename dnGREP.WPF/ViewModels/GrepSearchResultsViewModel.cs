@@ -27,12 +27,34 @@ namespace dnGREP.WPF
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         public static readonly Messenger SearchResultsMessenger = new();
+        private static bool beenInitialized;
 
         internal ResultsTree? TreeControl { get; set; }
 
         static GrepSearchResultsViewModel()
         {
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenFilesCommand), "Main_Results_Open", string.Empty);
+
+            if (GrepSettings.Instance.ContainsKey(GrepSettings.Key.CustomEditors))
+            {
+                List<CustomEditor> list = GrepSettings.Instance.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+                foreach (var editor in list)
+                {
+                    if (editor != null && !string.IsNullOrEmpty(editor.Label) && !string.IsNullOrEmpty(editor.Path))
+                    {
+                        KeyBindingManager.RegisterCustomEditor(KeyCategory.Main, editor.Label);
+                    }
+                }
+            }
+
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenContainingFolderCommand), "Main_Results_OpenContainingFolder", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(RenameFileCommand), "Main_Results_RenameFile", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_Results_CopyFiles", string.Empty);
@@ -55,10 +77,10 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CollapseAllCommand), "Main_Results_CollapseAll", "Shift+F6");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetZoomCommand), "Main_Results_ResetZoom", string.Empty);
             
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyCommand), "", "Ctrl+C");
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectAllCommand), "", "Ctrl+A");
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToStartCommand), "", "Ctrl+Home");
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToEndCommand), "", "Ctrl+End");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyCommand), "", "Control+C");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectAllCommand), "", "Control+A");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToStartCommand), "", "Control+Home");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToEndCommand), "", "Control+End");
         }
 
         public GrepSearchResultsViewModel()
@@ -71,27 +93,32 @@ namespace dnGREP.WPF
             SearchResultsMessenger.Register("EditorsChanged", InitializeEditorMenuItems);
 
             InitializeEditorMenuItems();
+            InitializeInputBindings();
+            App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+        }
 
+        private void InitializeInputBindings()
+        {
             foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
             {
                 PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
                 if (pi != null && pi.GetValue(this) is RelayCommand cmd)
                 {
-                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
                 }
             }
+        }
 
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CopyCommand, "Ctrl+C"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectAllCommand, "Ctrl+A"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectToStartCommand, "Ctrl+Home"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(SelectToEndCommand, "Ctrl+End"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ExcludeFilesCommand, "Delete"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextLineCommand, "F3"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextFileCommand, "Shift+F3"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PreviousLineCommand, "F4"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PreviousFileCommand, "Shift+F4"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ExpandAllCommand, "F6"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CollapseAllCommand, "Shift+F6"));
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Main)
+            {
+                InputBindings.Clear();
+                InitializeEditorMenuItems();
+                InitializeInputBindings();
+
+                InputBindings.RaiseAfterCollectionChanged();
+            }
         }
 
         public void Clear()
@@ -135,7 +162,7 @@ namespace dnGREP.WPF
         private readonly List<RelayCommand> customEditorCommands = [];
         private readonly List<InputBinding> customEditorInputBindings = [];
 
-        public ObservableCollection<InputBinding> InputBindings { get; } = [];
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         public void InitializeEditorMenuItems()
         {
@@ -159,9 +186,11 @@ namespace dnGREP.WPF
                         RelayCommand command = new(p => OpenFiles(true, editor.Label), q => HasSelection);
                         customEditorCommands.Add(command);
                         EditorMenuItems.Add(new MenuItemViewModel(editor.Label, command));
-                        if (!string.IsNullOrEmpty(editor.KeyGestureText))
+
+                        var kbi = KeyBindingManager.GetCustomEditorGesture(KeyCategory.Main, editor.Label);
+                        if (kbi != null)
                         {
-                            var kb = KeyBindingManager.CreateFrozenKeyBinding(command, editor.KeyGestureText);
+                            var kb = KeyBindingManager.CreateKeyBinding(command, kbi.KeyGesture);
                             InputBindings.Add(kb);
                             customEditorInputBindings.Add(kb);
                         }
@@ -173,6 +202,8 @@ namespace dnGREP.WPF
             {
                 EditorMenuItems.Add(new MenuItemViewModel(Resources.Main_Results_Tooltip_NotConfigured, false));
             }
+
+            InputBindings.RaiseAfterCollectionChanged();
         }
 
         public ObservableCollection<FormattedGrepResult> SearchResults { get; set; } = [];

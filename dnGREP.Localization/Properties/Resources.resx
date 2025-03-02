@@ -4274,4 +4274,64 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>No matches found!</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Keyboard Shortcuts</value>
+    <comment>Keyboard options window title</comment>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Window</value>
+    <comment>Keyboard grid column header</comment>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Label</value>
+    <comment>Keyboard grid column header</comment>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Command</value>
+    <comment>Keyboard grid column header</comment>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Shortcut key</value>
+    <comment>Keyboard grid column header</comment>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Shortcut for selected command</value>
+    <comment>Keyboard dialog label</comment>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Press shortcut keys:</value>
+    <comment>Keyboard dialog label</comment>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>Shortcut currently used by:</value>
+    <comment>Keyboard dialog label</comment>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Keyboard dialog button label</comment>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Assign</value>
+    <comment>Keyboard dialog button label</comment>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Reset all to defaults</value>
+    <comment>Keyboard dialog button label</comment>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Keyboard dialog button label</comment>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>Keyboard dialog button label</comment>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Press F1 for help on keyboard shortcuts</value>
+    <comment>Keyboard dialog label</comment>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Keyboard…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
 </root>

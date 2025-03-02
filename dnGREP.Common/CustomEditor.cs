@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace dnGREP.Common
 {
     public record CustomEditor(string Label, string Path, string Args,
-        bool EscapeQuotes, string Extensions, string KeyGestureText)
+        bool EscapeQuotes, string Extensions)
     {
         private static readonly char[] separators = [',', ';', ' '];
 
@@ -35,7 +35,6 @@ namespace dnGREP.Common
                     elem.Add(new XElement("args", value.Args));
                     elem.Add(new XElement("escQuotes", value.EscapeQuotes));
                     elem.Add(new XElement("extensions", value.Extensions));
-                    elem.Add(new XElement("keyGesture", value.KeyGestureText));
                     root.Add(elem);
                 }
 
@@ -59,12 +58,11 @@ namespace dnGREP.Common
                         string path = elem.GetElementString("path");
                         string args = elem.GetElementString("args");
                         string extensions = elem.GetElementString("extensions");
-                        string keyGesture = elem.GetElementString("keyGesture");
                         bool escQuotes = elem.GetElementBoolean("escQuotes");
 
                         if (!string.IsNullOrEmpty(label) && !string.IsNullOrEmpty(path))
                         {
-                            list.Add(new CustomEditor(label, path, args, escQuotes, extensions, keyGesture));
+                            list.Add(new CustomEditor(label, path, args, escQuotes, extensions));
                         }
                     }
                 }

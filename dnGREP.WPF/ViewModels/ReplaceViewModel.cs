@@ -29,18 +29,27 @@ namespace dnGREP.WPF
 
         private int fileIndex = -1;
         private int matchIndex = -1;
+        private static bool beenInitialized;
 
         static ReplaceViewModel()
         {
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
             KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceAllCommand), "Replace_ReplaceInAllFiles", "F10");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(PrevFileCommand), "Replace_PreviousFile", "Ctrl+PageUp");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(NextFileCommand), "Replace_NextFile", "Ctrl+PageDown");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceAllInFileCommand), "Replace_ReplaceInFile", "Ctrl+A");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(UndoFileCommand), "Replace_UndoFile", "Ctrl+T");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(PrevMatchCommand), "Replace_Previous", "Ctr +Left");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(NextMatchCommand), "Replace_Next", "Ctr +Right");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceMatchCommand), "Replace_ReplaceButton", "Ctr +R");
-            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(UndoMatchCommand), "Replace_Undo", "Ctrl+U");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(PrevFileCommand), "Replace_PreviousFile", "Control+PageUp");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(NextFileCommand), "Replace_NextFile", "Control+PageDown");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceAllInFileCommand), "Replace_ReplaceInFile", "Control+A");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(UndoFileCommand), "Replace_UndoFile", "Control+T");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(PrevMatchCommand), "Replace_Previous", "Control+Left");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(NextMatchCommand), "Replace_Next", "Control+Right");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceMatchCommand), "Replace_ReplaceButton", "Control+R");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(UndoMatchCommand), "Replace_Undo", "Control+U");
             KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ExternalDiffCommand), "Replace_OpenFileCompare", string.Empty);
         }
 
@@ -82,19 +91,9 @@ namespace dnGREP.WPF
                 PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
                 if (pi != null && pi.GetValue(this) is RelayCommand cmd)
                 {
-                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
                 }
             }
-
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReplaceAllCommand, "F10"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PrevFileCommand, "Ctrl+PageUp"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextFileCommand, "Ctrl+PageDown"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReplaceAllInFileCommand, "Ctrl+A"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(UndoFileCommand, "Ctrl+T"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(PrevMatchCommand, "Ctrl+Left"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(NextMatchCommand, "Ctrl+Right"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReplaceMatchCommand, "Ctrl+R"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(UndoMatchCommand, "Ctrl+U"));
         }
 
         public void SelectNextFile()
@@ -258,7 +257,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public ObservableCollection<InputBinding> InputBindings { get; } = [];
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         public IHighlightingDefinition? HighlightingDefinition =>
             ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);

@@ -33,30 +33,45 @@ namespace dnGREP.WPF
         public event EventHandler? PreviewHide;
         public event EventHandler? PreviewShow;
 
-        public static readonly Messenger MainViewMessenger = new();
-
         private Brush highlightForeground = Brushes.Yellow;
         private Brush highlightBackground = Brushes.Black;
         private PauseCancelTokenSource? pauseCancelTokenSource;
 
         private readonly string enQuad = char.ConvertFromUtf32(0x2000);
         public static readonly string IgnoreFilterFolder = "Filters";
+        private static bool beenInitialized;
 
         static MainViewModel()
         {
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReloadThemeCommand), "Options_Reload", "Ctrl+F5");
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReloadThemeCommand), "Options_Reload", "Control+F5");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleFileOptionsCommand), "", "Alt+E");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleResultsMaximizeCommand), "", "F7");
             
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(UndoCommand), "Main_Menu_Undo", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PersonalizationCommand), "Main_Menu_Personalize", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OptionsCommand), "Main_Menu_Options", "F8");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(KeyboardOptionsCommand), "Main_Menu_Keyboard", "F9");
 
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(NewScriptCommand), "Main_Menu_NewScript", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(EditScriptCommand), "Main_Menu_EditScript", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CancelScriptCommand), "Main_Menu_CancelScript", string.Empty);
-            // TODO scripts!
-           
+
+            foreach (var label in ScriptManager.GetScriptNames())
+            {
+                if (!string.IsNullOrEmpty(label))
+                {
+                    KeyBindingManager.RegisterScript(KeyCategory.Main, label);
+                }
+            }
+
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenBookmarksWindowCommand), "Main_Menu_Bookmarks", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CheckForUpdatesCommand), "Main_Menu_About_CheckForUpdates", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenAppDataCommand), "Main_Menu_About_AppData", string.Empty);
@@ -70,6 +85,7 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReplaceCommand), "Main_ReplaceButton", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SortCommand), "Main_SortButton", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CancelCommand), "Main_CancelButton", "Escape");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PauseResumeCommand), "Main_PauseButton", string.Empty);
 
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_MoreMenu_CopyFiles", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(MoveFilesCommand), "Main_MoreMenu_MoveFiles", string.Empty);
@@ -81,8 +97,6 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveTextResultsCommand), "Main_MoreMenu_Save_TextResults", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveCsvResultsCommand), "Main_MoreMenu_Save_CSVResults", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReportOptionsCommand), "Main_MoreMenu_Report_Options", string.Empty);
-
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PauseResumeCommand), "Main_PauseButton", string.Empty);
 
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(HighlightsCommand), "Main_HighlightMatches", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(TestExpressionCommand), "Main_TestExpression", string.Empty);
@@ -122,20 +136,7 @@ namespace dnGREP.WPF
                 PopulateScripts();
                 PopulateIgnoreFilters(true);
 
-                foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
-                {
-                    PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
-                    if (pi != null && pi.GetValue(this) is RelayCommand cmd)
-                    {
-                        InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
-                    }
-                }
-
-                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(CancelCommand, "Escape"));
-                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleFileOptionsCommand, "Alt+E"));
-                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(OptionsCommand, "F8"));
-                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ReloadThemeCommand, "Ctrl+F5"));
-                //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(ToggleResultsMaximizeCommand, "F7"));
+                InitializeInputBindings();
 
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
@@ -161,7 +162,31 @@ namespace dnGREP.WPF
                 idleTimer.Interval = TimeSpan.FromMilliseconds(250);
                 idleTimer.Tick += IdleTimer_Tick;
 
-                MainViewMessenger.Register<MRUViewModel>("IsPinnedChanged", OnMRUPinChanged);
+                App.Messenger.Register<MRUViewModel>("IsPinnedChanged", OnMRUPinChanged);
+                App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+            }
+        }
+
+        private void InitializeInputBindings()
+        {
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+        }
+
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Main)
+            {
+                InputBindings.Clear();
+                PopulateScripts();
+                InitializeInputBindings();
+                InputBindings.RaiseAfterCollectionChanged();
             }
         }
 
@@ -206,7 +231,7 @@ namespace dnGREP.WPF
             ResultsViewModel.Clear();
             UpdateReplaceButtonTooltip(true);
 
-            MainViewMessenger.NotifyColleagues("CultureChanged");
+            App.Messenger.NotifyColleagues("CultureChanged");
         }
 
         internal bool Closing()
@@ -373,7 +398,7 @@ namespace dnGREP.WPF
 
         public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = [];
 
-        public ObservableCollection<InputBinding> InputBindings { get; } = [];
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         [ObservableProperty]
         private bool isSearchForFocused;
@@ -603,6 +628,13 @@ namespace dnGREP.WPF
         private RelayCommand? optionsCommand;
         public RelayCommand OptionsCommand => optionsCommand ??= new RelayCommand(
             param => ShowOptions());
+
+
+        private RelayCommand? keyboardOptionsCommand;
+        public RelayCommand KeyboardOptionsCommand => keyboardOptionsCommand ??= new RelayCommand(
+            p => ShowKeyboardOptions(),
+            q => true);
+
 
         private RelayCommand? helpCommand;
         public RelayCommand HelpCommand => helpCommand ??= new RelayCommand(
@@ -2485,6 +2517,21 @@ namespace dnGREP.WPF
             }
 
             ResultsViewModel.RaiseSettingsPropertiesChanged();
+        }
+
+        private static void ShowKeyboardOptions()
+        {
+            GrepSearchResultsViewModel.Initialize();
+            OptionsViewModel.Initialize();
+            BookmarkListViewModel.Initialize();
+            ReplaceViewModel.Initialize();
+            ScriptViewModel.Initialize();
+
+            KeyboardShortcutWindow keyboardForm = new()
+            {
+                Owner = Application.Current.MainWindow
+            };
+            keyboardForm.ShowDialog();
         }
 
         private static void ShowHelp()

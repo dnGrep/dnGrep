@@ -25,14 +25,23 @@ namespace dnGREP.WPF
         private readonly Window ownerWnd;
         private readonly List<BookmarkViewModel> _bookmarks;
         private bool _isDirty;
+        private static bool beenInitialized;
 
         static BookmarkListViewModel()
         {
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(AddCommand), "Bookmarks_Add", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(EditCommand), "Bookmarks_Edit", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(DuplicateCommand), "Bookmarks_Duplicate", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(DeleteCommand), "Bookmarks_Delete", string.Empty);
-            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(UseBookmarkCommand), "Bookmarks_Use", "Ctrl+B");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(UseBookmarkCommand), "Bookmarks_Use", "Control+B");
 
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveToTopCommand), string.Empty, "Shift+Alt+Up");
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveUpCommand), string.Empty, "Alt+Up");
@@ -52,20 +61,30 @@ namespace dnGREP.WPF
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
             IsPinned = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PinBookmarkWindow);
 
+            InitializeInputBindings();
+            App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+        }
+
+        private void InitializeInputBindings()
+        {
             foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Bookmark))
             {
                 PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
                 if (pi != null && pi.GetValue(this) is RelayCommand cmd)
                 {
-                    InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(cmd, kbi.KeyGesture));
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
                 }
             }
+        }
 
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(UseBookmarkCommand, "Ctrl+B"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(MoveToTopCommand, "Shift+Alt+Up"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(MoveUpCommand, "Alt+Up"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(MoveDownCommand, "Alt+Down"));
-            //InputBindings.Add(KeyBindingManager.CreateFrozenKeyBinding(MoveToBottomCommand, "Shift+Alt+Down"));
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Bookmark)
+            {
+                InputBindings.Clear();
+                InitializeInputBindings();
+                InputBindings.RaiseAfterCollectionChanged();
+            }
         }
 
         [MemberNotNull(nameof(Bookmarks))]
@@ -128,7 +147,7 @@ namespace dnGREP.WPF
         }
 
 
-        public ObservableCollection<InputBinding> InputBindings { get; } = [];
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         public ICollectionView Bookmarks { get; private set; }
 
