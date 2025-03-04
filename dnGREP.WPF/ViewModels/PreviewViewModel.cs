@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 using dnGREP.Localization;
@@ -22,6 +24,8 @@ namespace dnGREP.WPF
         public PreviewViewModel()
         {
             InitializeHighlighters();
+            InitializeInputBindings();
+            App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
 
             ViewWhitespace = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewViewWhitespace);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
@@ -69,6 +73,31 @@ namespace dnGREP.WPF
             CurrentSyntax = Resources.Preview_SyntaxNone;
         }
 
+        private void InitializeInputBindings()
+        {
+            // use the same bindings as the main tree view
+            // ensure the commands are registered there, first
+            GrepSearchResultsViewModel.Initialize();
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+        }
+
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Main)
+            {
+                InputBindings.Clear();
+                InitializeInputBindings();
+                InputBindings.RaiseAfterCollectionChanged();
+            }
+        }
+
         private void SelectCurrentSyntax(string syntaxName)
         {
             // creates a radio group for all the syntax context menu items
@@ -89,6 +118,8 @@ namespace dnGREP.WPF
         public static DockViewModel DockVM => DockViewModel.Instance;
 
         public event EventHandler? ShowPreview;
+
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = [];
 
@@ -155,6 +186,28 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool syntaxPreviewWndVisible = true;
+
+        private static MainForm? MainForm => Application.Current.MainWindow as MainForm;
+
+        private RelayCommand? nextLineCommand;
+        public RelayCommand NextLineCommand => nextLineCommand ??= new RelayCommand(
+            p => MainForm?.NextMatch(),
+            q => MainForm?.HasSearchResults ?? false);
+
+        private RelayCommand? nextFileCommand;
+        public RelayCommand NextFileCommand => nextFileCommand ??= new RelayCommand(
+            p => MainForm?.NextFile(),
+            q => MainForm?.HasSearchResults ?? false);
+
+        private RelayCommand? previousLineCommand;
+        public RelayCommand PreviousLineCommand => previousLineCommand ??= new RelayCommand(
+            p => MainForm?.PreviousMatch(),
+            q => MainForm?.HasSearchResults ?? false);
+
+        private RelayCommand? previousFileCommand;
+        public RelayCommand PreviousFileCommand => previousFileCommand ??= new RelayCommand(
+            p => MainForm?.PreviousFile(),
+            q => MainForm?.HasSearchResults ?? false);
 
         void PreviewViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {

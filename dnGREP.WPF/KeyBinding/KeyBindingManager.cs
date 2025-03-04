@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 using dnGREP.Common;
-using dnGREP.Localization.Properties;
 using NLog;
 
 namespace dnGREP.WPF
@@ -59,7 +57,7 @@ namespace dnGREP.WPF
                 keyGesture = gesture;
             }
 
-            list.Add(new(category, commandName, labelKey, defaultKeyGesture, keyGesture));
+            list.Add(new(category, commandName, labelKey, defaultKeyGesture, keyGesture, settings.Count > 0));
         }
 
         public static void RegisterCustomEditor(KeyCategory category, string editorLabel)
@@ -75,7 +73,7 @@ namespace dnGREP.WPF
             }
 
             var list = GetList(category);
-            list.Add(new(category, commandName, editorLabel, keyGesture));
+            list.Add(new(category, commandName, editorLabel, keyGesture, settings.Count > 0));
         }
 
         public static void RegisterScript(KeyCategory category, string editorLabel)
@@ -91,7 +89,7 @@ namespace dnGREP.WPF
             }
 
             var list = GetList(category);
-            list.Add(new(category, commandName, editorLabel, keyGesture));
+            list.Add(new(category, commandName, editorLabel, keyGesture, settings.Count > 0));
         }
 
         public static List<KeyBindingInfo> GetCategoryCommands(KeyCategory category)
@@ -273,137 +271,11 @@ namespace dnGREP.WPF
         }
     }
 
-    internal partial class KeyGestureLocalizer
-    {
-        public static string LocalizeKeyGestureText(string input)
-        {
-            if (!string.IsNullOrEmpty(input) &&
-                TryParse(input, out Key key, out ModifierKeys modifierKeys))
-            {
-                string keyString = KeyToString(key);
-
-                List<string> modifiers = [];
-                if (modifierKeys.HasFlag(ModifierKeys.Control))
-                {
-                    modifiers.Add(Resources.Keyboard_ControlKey);
-                }
-                if (modifierKeys.HasFlag(ModifierKeys.Shift))
-                {
-                    modifiers.Add(Resources.Keyboard_ShiftKey);
-                }
-                if (modifierKeys.HasFlag(ModifierKeys.Alt))
-                {
-                    modifiers.Add(Resources.Keyboard_AltKey);
-                }
-
-                if (modifiers.Count == 0)
-                {
-                    return keyString;
-                }
-                else
-                {
-                    return string.Format("{0}+{1}", string.Join("+", modifiers), keyString);
-                }
-            }
-            return input;
-        }
-
-        [GeneratedRegex(@"((\bControl\b)|(\bCtrl\b)|(\bShift\b)|(\bAlt\b)|(\b\w+$))")]
-        private static partial Regex ShortcutKeysRegex();
-
-        public static bool TryParse(string input, out Key key, out ModifierKeys modifiers)
-        {
-            key = Key.None;
-            modifiers = ModifierKeys.None;
-
-            var matches = ShortcutKeysRegex().Matches(input);
-
-            if (matches.Count > 0)
-            {
-                foreach (Match match in matches.SkipLast(1))
-                {
-                    switch (match.Value)
-                    {
-                        case nameof(ModifierKeys.Alt):
-                            modifiers |= ModifierKeys.Alt;
-                            break;
-                        case nameof(ModifierKeys.Control):
-                        case "Ctrl":
-                            modifiers |= ModifierKeys.Control;
-                            break;
-                        case nameof(ModifierKeys.Shift):
-                            modifiers |= ModifierKeys.Shift;
-                            break;
-                    }
-                }
-                string keyStr = matches.Last().Value;
-                if (!string.IsNullOrEmpty(keyStr) && Enum.TryParse<Key>(keyStr, out Key value))
-                {
-                    key = value;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public static bool KeyNeedsModifier(Key key)
-        {
-            return key switch
-            {
-                Key.F1 or Key.F2 or Key.F3 or Key.F4 or Key.F5 or Key.F6 or Key.F7 or Key.F8 or
-                Key.F9 or Key.F10 or Key.F11 or Key.F12 or Key.F13 or Key.F14 or Key.F15 or
-                Key.F16 or Key.F17 or Key.F18 or Key.F19 or Key.F20 or Key.F21 or Key.F22 or
-                Key.F23 or Key.F24 or Key.Escape or Key.Delete or Key.Back => false,
-                _ => true,
-            };
-        }
-
-        public static string KeyToString(Key key)
-        {
-            if (keyMap.TryGetValue(key, out string? value))
-                return value;
-
-            string? str = keyConverter.ConvertToString(key);
-            if (str != null)
-                return str;
-
-            return key.ToString();
-        }
-
-        private static readonly KeyConverter keyConverter = new();
-
-        private static readonly Dictionary<Key, string> keyMap = new Dictionary<Key, string>
-        {
-            {Key.D0, "0"},
-            {Key.D1, "1"},
-            {Key.D2, "2"},
-            {Key.D3, "3"},
-            {Key.D4, "4"},
-            {Key.D5, "5"},
-            {Key.D6, "6"},
-            {Key.D7, "7"},
-            {Key.D8, "8"},
-            {Key.D9, "9"},
-            {Key.OemTilde, "~"},
-            {Key.OemMinus, "-"},
-            {Key.OemPlus, "="},
-            {Key.OemOpenBrackets, "["},
-            {Key.OemCloseBrackets, "]"},
-            {Key.OemPipe, "\\"},
-            {Key.OemSemicolon, ";"},
-            {Key.OemQuotes, "'"},
-            {Key.OemComma, ","},
-            {Key.OemPeriod, "."},
-            {Key.OemQuestion, "/"},
-        };
-    }
-
-
     public class KeyBindingInfo : IEquatable<KeyBindingInfo>
     {
         public KeyBindingInfo(KeyCategory category, string commandName,
-            string labelKey, string defaultKeyGesture, string keyGesture)
+            string labelKey, string defaultKeyGesture, string keyGesture,
+            bool hasUserConfiguration)
         {
             Category = category;
             CommandName = commandName;
@@ -412,10 +284,11 @@ namespace dnGREP.WPF
             DefaultKeyGesture = defaultKeyGesture;
             if (!string.IsNullOrEmpty(keyGesture))
                 KeyGesture = keyGesture;
+            HasUserConfiguration = hasUserConfiguration;
         }
 
         public KeyBindingInfo(KeyCategory category, string commandName, string label,
-            string keyGesture)
+            string keyGesture, bool hasUserConfiguration)
         {
             Category = category;
             CommandName = commandName;
@@ -424,7 +297,10 @@ namespace dnGREP.WPF
             DefaultKeyGesture = string.Empty;
             if (!string.IsNullOrEmpty(keyGesture))
                 KeyGesture = keyGesture;
+            HasUserConfiguration = hasUserConfiguration;
         }
+
+        public bool HasUserConfiguration { get; private set; }
 
         public KeyCategory Category { get; private set; }
 
@@ -439,14 +315,10 @@ namespace dnGREP.WPF
         private string? userKeyGesture;
         public string KeyGesture
         {
-            get { return userKeyGesture ?? DefaultKeyGesture; }
+            get { return HasUserConfiguration ? userKeyGesture ?? string.Empty : DefaultKeyGesture; }
             set
             {
-                if (value == DefaultKeyGesture)
-                {
-                    userKeyGesture = null;
-                }
-                else if (userKeyGesture != value)
+                if (userKeyGesture != value)
                 {
                     userKeyGesture = value;
                 }

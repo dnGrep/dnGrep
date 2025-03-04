@@ -200,7 +200,11 @@ namespace dnGREP.WPF
 
         private void CurrentCultureChanged(object? sender, EventArgs e)
         {
-            PreviewModel.FilePath = string.Empty;
+            if (PreviewModel != null)
+            {
+                PreviewModel.FilePath = string.Empty;
+            }
+
             PreviewTitle = string.Empty;
 
             PopulateTimeIntervals();
@@ -333,7 +337,7 @@ namespace dnGREP.WPF
 
         private void SearchResults_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            if (ResultsViewModel.SearchResults.Count == 0 && PreviewFileContent)
+            if (ResultsViewModel.SearchResults.Count == 0 && PreviewFileContent && PreviewModel != null)
             {
                 // clear the preview
                 PreviewModel.FilePath = string.Empty;
@@ -363,7 +367,7 @@ namespace dnGREP.WPF
 
         public MainForm? MainForm => ParentWindow as MainForm;
 
-        public PreviewViewModel PreviewModel { get; internal set; } = new(); // the default will get replaced with the real view model
+        public PreviewViewModel? PreviewModel { get; internal set; } // will get set with the real view model
 
         public bool IsReplaceRunning => CurrentGrepOperation == GrepOperation.Replace;
 
@@ -1879,7 +1883,10 @@ namespace dnGREP.WPF
                 StatusMessage = Resources.Main_Status_Searching;
                 totalMatchCount = 0;
 
-                PreviewModel.FilePath = string.Empty;
+                if (PreviewModel != null)
+                {
+                    PreviewModel.FilePath = string.Empty;
+                }
                 PreviewTitle = string.Empty;
                 // clear temp files from the previous search
                 Utils.DeleteTempFolder();
@@ -2116,7 +2123,10 @@ namespace dnGREP.WPF
             {
                 StatusMessage = Resources.Main_Status_Replacing;
 
-                PreviewModel.FilePath = string.Empty;
+                if (PreviewModel != null)
+                {
+                    PreviewModel.FilePath = string.Empty;
+                }
                 PreviewTitle = string.Empty;
 
                 CurrentGrepOperation = GrepOperation.Replace;
@@ -2522,7 +2532,6 @@ namespace dnGREP.WPF
         private static void ShowKeyboardOptions()
         {
             GrepSearchResultsViewModel.Initialize();
-            OptionsViewModel.Initialize();
             BookmarkListViewModel.Initialize();
             ReplaceViewModel.Initialize();
             ScriptViewModel.Initialize();
@@ -3736,11 +3745,14 @@ namespace dnGREP.WPF
 
                 PreviewTitle = displayFileName;
 
-                // order of property setting matters here:
-                PreviewModel.GrepResult = result;
-                PreviewModel.LineNumber = line;
-                PreviewModel.Encoding = result.Encoding;
-                PreviewModel.FilePath = filePath;
+                if (PreviewModel != null)
+                {
+                    // order of property setting matters here:
+                    PreviewModel.GrepResult = result;
+                    PreviewModel.LineNumber = line;
+                    PreviewModel.Encoding = result.Encoding;
+                    PreviewModel.FilePath = filePath;
+                }
 
                 if (!DockVM.IsPreviewDocked)
                     PreviewShow?.Invoke(this, EventArgs.Empty);

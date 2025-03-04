@@ -36,21 +36,6 @@ namespace dnGREP.WPF
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly string ellipsis = char.ConvertFromUtf32(0x2026);
-        private static bool beenInitialized;
-
-        static OptionsViewModel()
-        {
-            Initialize();
-        }
-
-        public static void Initialize()
-        {
-            if (beenInitialized) return;
-
-            beenInitialized = true;
-            // for the ReloadThemeCommand, reuse the same settings as the main window
-            // do not register it a second time
-        }
 
         public OptionsViewModel()
         {
