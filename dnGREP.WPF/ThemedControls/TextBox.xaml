@@ -102,12 +102,22 @@
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
-                    <MenuItem Header="{l:Loc Key='TextBox_Command_Cut'}" InputGestureText="Ctrl+X" Command="{x:Static ApplicationCommands.Cut}"/>
-                    <MenuItem Header="{l:Loc Key='TextBox_Command_Copy'}" InputGestureText="Ctrl+C" Command="{x:Static ApplicationCommands.Copy}"/>
-                    <MenuItem Header="{l:Loc Key='TextBox_Command_Paste'}" InputGestureText="Ctrl+V" Command="{x:Static ApplicationCommands.Paste}"/>
+                    <MenuItem Header="{l:Loc Key='TextBox_Command_Cut'}" 
+                              InputGestureText="{x:Static my:TextBoxCommands.CutGesture}" 
+                              Command="{x:Static ApplicationCommands.Cut}"/>
+                    <MenuItem Header="{l:Loc Key='TextBox_Command_Copy'}" 
+                              InputGestureText="{x:Static my:TextBoxCommands.CopyGesture}" 
+                              Command="{x:Static ApplicationCommands.Copy}"/>
+                    <MenuItem Header="{l:Loc Key='TextBox_Command_Paste'}" 
+                              InputGestureText="{x:Static my:TextBoxCommands.PasteGesture}" 
+                              Command="{x:Static ApplicationCommands.Paste}"/>
                     <Separator/>
-                    <MenuItem Header="{l:Loc Key='TextBox_Command_MakeUppercase'}" InputGestureText="Ctrl+Shift+U" Command="{x:Static my:TextBoxCommands.MakeUpperCase}"/>
-                    <MenuItem Header="{l:Loc Key='TextBox_Command_MakeLowercase'}" InputGestureText="Ctrl+U" Command="{x:Static my:TextBoxCommands.MakeLowerCase}"/>
+                    <MenuItem Header="{l:Loc Key='TextBox_Command_MakeUppercase'}" 
+                              InputGestureText="{x:Static my:TextBoxCommands.LowerCaseGesture}" 
+                              Command="{x:Static my:TextBoxCommands.MakeUpperCase}"/>
+                    <MenuItem Header="{l:Loc Key='TextBox_Command_MakeLowercase'}" 
+                              InputGestureText="{x:Static my:TextBoxCommands.UpperCaseGesture}" 
+                              Command="{x:Static my:TextBoxCommands.MakeLowerCase}"/>
                 </ContextMenu>
             </Setter.Value>
         </Setter>
