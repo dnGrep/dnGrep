@@ -81,6 +81,18 @@ namespace dnGREP.WPF
             return false;
         }
 
+        public static string ToString(KeyCategory category)
+        {
+            return category switch
+            {
+                KeyCategory.Main => Resources.Window_Main,
+                KeyCategory.Replace => Resources.Replace_Title,
+                KeyCategory.Script => Resources.Script_Editor_Title,
+                KeyCategory.Bookmark => Resources.Bookmarks_Title,
+                _ => string.Empty,
+            };
+        }
+
         public static bool KeyNeedsModifier(Key key)
         {
             return key switch

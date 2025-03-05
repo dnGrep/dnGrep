@@ -54,7 +54,7 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReloadThemeCommand), "Options_Reload", "Control+F5");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleFileOptionsCommand), "", "Alt+E");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleResultsMaximizeCommand), "", "F7");
-            
+
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(UndoCommand), "Main_Menu_Undo", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PersonalizationCommand), "Main_Menu_Personalize", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OptionsCommand), "Main_Menu_Options", "F8");
@@ -229,6 +229,7 @@ namespace dnGREP.WPF
             OnPropertyChanged(nameof(IsBookmarkedTooltip));
             OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
             OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
+            OnPropertyChanged(nameof(PauseResumeButtonLabel));
 
             StatusMessage = string.Empty;
             ClearMatchCountStatus();

@@ -4334,4 +4334,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Keyboard…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Main</value>
+    <comment>A reference to dnGrep's Main window</comment>
+  </data>
 </root>

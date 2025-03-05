@@ -90,7 +90,7 @@ namespace dnGREP.WPF
 
                 if (kbi != null)
                 {
-                    kbi.KeyGesture = cmd.KeyGesture; 
+                    kbi.KeyGesture = cmd.KeyGesture;
                     categories.Add(cmd.Category);
                 }
             }
@@ -112,8 +112,9 @@ namespace dnGREP.WPF
             this.parent = parent;
             originalKeyGesture = keyGesture;
             Category = category;
-            CategoryName = category.ToString("g");
+            CategoryName = KeyGestureLocalizer.ToString(category);
             CommandName = commandName;
+            CommandShortName = commandName.EndsWith("Command", StringComparison.Ordinal) ? commandName[..^7] : commandName;
             DefaultKeyGesture = defaultKeyGesture;
             KeyGesture = keyGesture;
 
@@ -146,6 +147,8 @@ namespace dnGREP.WPF
 
         public bool IsDirty => KeyGesture != originalKeyGesture;
 
+        public string CommandName { get; }
+
         public KeyCategory Category { get; }
 
 
@@ -153,7 +156,7 @@ namespace dnGREP.WPF
         private string categoryName;
 
         [ObservableProperty]
-        private string commandName;
+        private string commandShortName;
 
         [ObservableProperty]
         private string label;

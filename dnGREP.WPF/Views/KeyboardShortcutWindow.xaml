@@ -141,11 +141,11 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn MinWidth="100" Header="{l:Loc Key='Keyboard_WindowHeader'}" IsReadOnly="True"
-                                    Binding="{Binding Category}" />
+                                    Binding="{Binding CategoryName}" />
                 <DataGridTextColumn MinWidth="100" Header="{l:Loc Key='Keyboard_LabelHeader'}" IsReadOnly="True"
                                     Binding="{Binding Label}" />
                 <DataGridTextColumn MinWidth="100" Header="{l:Loc Key='Keyboard_CommandHeader'}" IsReadOnly="True"
-                                    Binding="{Binding CommandName}" />
+                                    Binding="{Binding CommandShortName}" />
                 <DataGridTextColumn MinWidth="100" Header="{l:Loc Key='Keyboard_ShortcutKeyHeader'}" IsReadOnly="True"
                                     Binding="{Binding LocalizedKeyGesture}" />
             </DataGrid.Columns>
@@ -154,21 +154,6 @@
                 </Style>
             </DataGrid.RowStyle>
         </DataGrid>
-
-
-        <!--<ListBox ItemsSource="{Binding Commands}" 
-                 SelectedItem="{Binding SelectedCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Category}"/>
-                        <TextBlock Text="."/>
-                        <TextBlock Text="{Binding CommandName}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
-
 
     </DockPanel>
 </my:ThemedWindow>
