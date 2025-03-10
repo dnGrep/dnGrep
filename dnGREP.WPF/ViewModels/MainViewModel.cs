@@ -2499,6 +2499,7 @@ namespace dnGREP.WPF
 
         private void ShowOptions()
         {
+            UIServices.SetBusyState();
             SaveSettings();
             OptionsView optionsForm = new();
             if (ParentWindow != null)
@@ -2532,6 +2533,7 @@ namespace dnGREP.WPF
 
         private static void ShowKeyboardOptions()
         {
+            UIServices.SetBusyState();
             GrepSearchResultsViewModel.Initialize();
             BookmarkListViewModel.Initialize();
             ReplaceViewModel.Initialize();
