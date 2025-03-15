@@ -92,6 +92,23 @@ namespace dnGREP.WPF
                 _ => string.Empty,
             };
         }
+        public static Key RealKey(KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.System:
+                    return e.SystemKey;
+
+                case Key.ImeProcessed:
+                    return e.ImeProcessedKey;
+
+                case Key.DeadCharProcessed:
+                    return e.DeadCharProcessedKey;
+
+                default:
+                    return e.Key;
+            }
+        }
 
         public static bool KeyNeedsModifier(Key key)
         {

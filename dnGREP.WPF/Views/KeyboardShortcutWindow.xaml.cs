@@ -21,7 +21,7 @@ namespace dnGREP.WPF
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             List<Key> nonShortcutKeys = [Key.LeftAlt, Key.RightAlt, Key.LeftCtrl, Key.RightCtrl, Key.LeftShift, Key.RightShift, Key.LWin, Key.RWin];
-            var actualKey = RealKey(e);
+            var actualKey = KeyGestureLocalizer.RealKey(e);
 
             if (e.IsDown && !nonShortcutKeys.Contains(actualKey))
             {
@@ -69,24 +69,6 @@ namespace dnGREP.WPF
                 }
 
                 e.Handled = true;
-            }
-        }
-
-        public static Key RealKey(KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.System:
-                    return e.SystemKey;
-
-                case Key.ImeProcessed:
-                    return e.ImeProcessedKey;
-
-                case Key.DeadCharProcessed:
-                    return e.DeadCharProcessedKey;
-
-                default:
-                    return e.Key;
             }
         }
     }
