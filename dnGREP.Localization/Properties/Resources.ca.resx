@@ -3059,4 +3059,10 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
     <value>Obrir</value>
   </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Ordre</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Desa</value>
+  </data>
 </root>
