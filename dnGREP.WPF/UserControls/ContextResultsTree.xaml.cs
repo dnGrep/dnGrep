@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Markup;
-using dnGREP.Common;
-using dnGREP.Common.UI;
 
 namespace dnGREP.WPF.UserControls
 {
@@ -58,9 +53,6 @@ namespace dnGREP.WPF.UserControls
                     };
                 }
             };
-
-            GrepSearchResultsViewModel.SearchResultsMessenger.Register("OpenFiles",
-                (Action<OpenFileContext>)(ctx => OpenContextFile(true, ctx)));
         }
 
         #region INameScope Members
@@ -236,82 +228,5 @@ namespace dnGREP.WPF.UserControls
 
         #endregion
 
-        #region Tree right click events
-
-        private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is GrepSearchResultsViewModel vm &&
-                vm.ContextGrepResult != null)
-            {
-                vm.OpenFile(vm.ContextGrepResult, false, string.Empty);
-            }
-        }
-
-        private void OpenContextFile(bool useCustomEditor, OpenFileContext ctx)
-        {
-            if (ctx.CommandParameter is string name &&
-                name.Equals("ContextGrepResult", StringComparison.OrdinalIgnoreCase))
-            {
-                if (DataContext is GrepSearchResultsViewModel vm &&
-                    vm.ContextGrepResult != null)
-                {
-                    vm.OpenFile(vm.ContextGrepResult, useCustomEditor, ctx.EditorName);
-                }
-            }
-        }
-
-        private void BtnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is GrepSearchResultsViewModel vm &&
-                vm.ContextGrepResult != null)
-            {
-                string fileName = vm.ContextGrepResult.GrepResult.FileNameReal;
-                Utils.OpenContainingFolder(fileName);
-            }
-        }
-
-        private void BtnOpenExplorerMenu_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is GrepSearchResultsViewModel vm &&
-                vm.ContextGrepResult != null)
-            {
-                string fileName = vm.ContextGrepResult.GrepResult.FileNameReal;
-                ShellContextMenu menu = new();
-                menu.ShowContextMenu(new FileInfo[] { new(fileName) },
-                    PointToScreen(Mouse.GetPosition(this)));
-            }
-        }
-
-        private void BtnShowFileProperties_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is GrepSearchResultsViewModel vm &&
-               vm.ContextGrepResult != null)
-            {
-                string fileName = vm.ContextGrepResult.GrepResult.FileNameReal;
-                ShellIntegration.ShowFileProperties(fileName);
-            }
-        }
-
-        private void BtnCopyFileNames_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is GrepSearchResultsViewModel vm &&
-                vm.ContextGrepResult != null)
-            {
-                string name = Path.GetFileName(vm.ContextGrepResult.GrepResult.FileNameDisplayed);
-                NativeMethods.SetClipboardText(name);
-            }
-        }
-
-        private void BtnCopyFullFilePath_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is GrepSearchResultsViewModel vm &&
-                vm.ContextGrepResult != null)
-            {
-                string name = vm.ContextGrepResult.GrepResult.FileNameDisplayed;
-                NativeMethods.SetClipboardText(name);
-            }
-        }
-
-        #endregion
     }
 }

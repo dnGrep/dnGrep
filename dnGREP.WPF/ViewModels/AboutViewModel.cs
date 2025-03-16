@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
@@ -22,7 +23,8 @@ namespace dnGREP.WPF
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
         }
 
-        public ICommand CopyVersionCommand => new RelayCommand(
+        private RelayCommand? copyVersionCommand;
+        public RelayCommand CopyVersionCommand => copyVersionCommand ??= new RelayCommand(
             p => NativeMethods.SetClipboardText(Version));
 
 

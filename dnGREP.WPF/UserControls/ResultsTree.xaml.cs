@@ -2,9 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,18 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using dnGREP.Common;
-using dnGREP.Common.UI;
-using Microsoft.VisualBasic.FileIO;
 
 namespace dnGREP.WPF.UserControls
 {
+    public enum SearchDirection { Down = 0, Up };
+
     /// <summary>
     /// Interaction logic for ResultsTree.xaml
     /// </summary>
     public partial class ResultsTree : UserControl
     {
-        private enum SearchDirection { Down = 0, Up };
-        private GrepSearchResultsViewModel viewModel = new();
+        private GrepSearchResultsViewModel? viewModel;
 
         public ResultsTree()
         {
@@ -38,17 +35,12 @@ namespace dnGREP.WPF.UserControls
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (viewModel != null && viewModel.SelectedNodes != null)
-            {
-                viewModel.SelectedNodes.CollectionChanged -= SelectedNodes_CollectionChanged;
-            }
-
             viewModel = (GrepSearchResultsViewModel)DataContext;
+            viewModel.TreeControl = this;
             viewModel.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
-
-            GrepSearchResultsViewModel.SearchResultsMessenger.Register("OpenFiles",
-                (Action<OpenFileContext>)(ctx => OpenFiles(true, ctx)));
         }
+
+        internal MultiSelectTreeView TreeView => treeView;
 
         private void SelectedNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
@@ -98,179 +90,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        #region Tree right click events
-
-        private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFiles(false, string.Empty);
-        }
-
-        private void BtnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFolders();
-        }
-
-        private void BtnOpenExplorerMenu_Click(object sender, RoutedEventArgs e)
-        {
-            OpenExplorerMenu();
-        }
-
-        private async void TreeKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.C && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
-            {
-                if (viewModel.HasGrepLineSelection)
-                {
-                    CopyGrepLines();
-                    e.Handled = true;
-                }
-                else if (viewModel.HasGrepResultSelection)
-                {
-                    CopyFileNames(true);
-                    e.Handled = true;
-                }
-            }
-            else if (e.Key == Key.A && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
-            {
-                SelectAll();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.Home && Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-            {
-                SelectToStart();
-            }
-            else if (e.Key == Key.End && Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-            {
-                SelectToEnd();
-            }
-            else if (e.Key == Key.Delete)
-            {
-                ExcludeLines();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
-            {
-                await Next();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F3 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-            {
-                await NextFile();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
-            {
-                await Previous();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F4 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-            {
-                await PreviousFile();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.None)
-            {
-                BtnExpandAll_Click(this, e);
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F6 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-            {
-                BtnCollapseAll_Click(this, e);
-                e.Handled = true;
-            }
-        }
-
-        private void SelectAll()
-        {
-            treeView.DeselectAllChildItems();
-
-            foreach (var item in viewModel.SearchResults)
-            {
-                item.IsSelected = true;
-
-                if (item.IsExpanded)
-                {
-                    foreach (var child in item.Children)
-                    {
-                        child.IsSelected = true;
-                    }
-                }
-            }
-        }
-
-        private void SelectToStart()
-        {
-            var startTreeViewItem = treeView.StartTreeViewItem;
-            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
-            {
-                treeView.DeselectAllChildItems();
-
-                if (startItem is FormattedGrepLine line)
-                {
-                    startItem = line.Parent;
-                    if (!startItem.IsSelected)
-                        startItem.IsSelected = true;
-                }
-
-                bool isSelecting = false;
-                foreach (var item in viewModel.SearchResults.Reverse())
-                {
-                    if (item == startItem)
-                    {
-                        isSelecting = true;
-                    }
-                    else if (isSelecting)
-                    {
-                        item.IsSelected = true;
-
-                        if (item.IsExpanded)
-                        {
-                            foreach (var child in item.Children)
-                            {
-                                child.IsSelected = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void SelectToEnd()
-        {
-            var startTreeViewItem = treeView.StartTreeViewItem;
-            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
-            {
-                treeView.DeselectAllChildItems();
-
-                if (startItem is FormattedGrepLine line)
-                {
-                    startItem = line.Parent;
-                    if (!startItem.IsSelected)
-                        startItem.IsSelected = true;
-                }
-
-                bool isSelecting = false;
-                foreach (var item in viewModel.SearchResults)
-                {
-                    if (item == startItem)
-                    {
-                        isSelecting = true;
-                    }
-                    else if (isSelecting)
-                    {
-                        item.IsSelected = true;
-
-                        if (item.IsExpanded)
-                        {
-                            foreach (var child in item.Children)
-                            {
-                                child.IsSelected = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        #region Tree Tasks
 
         internal void SetFocus()
         {
@@ -334,6 +154,8 @@ namespace dnGREP.WPF.UserControls
 
         private async Task NextLineMatch()
         {
+            if (viewModel == null) return;
+
             FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .LastOrDefault();
@@ -378,6 +200,8 @@ namespace dnGREP.WPF.UserControls
 
         private async Task NextFileMatch()
         {
+            if (viewModel == null) return;
+
             FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .LastOrDefault();
@@ -418,6 +242,8 @@ namespace dnGREP.WPF.UserControls
 
         private async Task PreviousLineMatch()
         {
+            if (viewModel == null) return;
+
             FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .FirstOrDefault();
@@ -462,6 +288,8 @@ namespace dnGREP.WPF.UserControls
 
         private async Task PreviousFileMatch()
         {
+            if (viewModel == null) return;
+
             FormattedGrepResult? selectedResult = viewModel.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
                 .FirstOrDefault();
@@ -500,268 +328,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void BtnRenameFile_Click(object sender, RoutedEventArgs e)
-        {
-            FormattedGrepResult? searchResult = null;
-            var node = viewModel.SelectedNodes.FirstOrDefault();
-
-            if (node is FormattedGrepLine lineNode)
-            {
-                searchResult = lineNode.Parent;
-            }
-            else if (node is FormattedGrepResult fileNode)
-            {
-                searchResult = fileNode;
-            }
-
-            if (searchResult != null && searchResult.GrepResult != null &&
-                !string.IsNullOrEmpty(searchResult.GrepResult.FileNameReal))
-            {
-                var grepResult = searchResult.GrepResult;
-                var dlg = new RenameWindow
-                {
-                    Owner = Application.Current.MainWindow,
-                    SourcePath = grepResult.FileNameReal
-                };
-
-                var result = dlg.ShowDialog();
-                if (result.HasValue && result.Value)
-                {
-                    string destPath = dlg.DestinationPath;
-                    if (!string.IsNullOrEmpty(destPath) && !File.Exists(destPath))
-                    {
-                        try
-                        {
-                            string ext = string.Empty;
-                            if (grepResult.FileNameReal != grepResult.FileNameDisplayed)
-                            {
-                                int index = grepResult.FileNameDisplayed.IndexOf(grepResult.FileNameReal, StringComparison.Ordinal);
-                                if (index >= 0)
-                                    ext = grepResult.FileNameDisplayed.Remove(index, grepResult.FileNameReal.Length);
-                            }
-
-                            File.Move(grepResult.FileNameReal, destPath);
-
-                            grepResult.FileNameReal = destPath;
-                            grepResult.FileNameDisplayed = destPath + ext;
-
-                            // update label in the results tree
-                            searchResult.SetLabel();
-                            // update label on the preview window
-                            OnSelectedItemsChanged();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(Localization.Properties.Resources.MessageBox_RenameFailed + ex.Message,
-                                Localization.Properties.Resources.MessageBox_DnGrep + " " + Localization.Properties.Resources.MessageBox_RenameFile,
-                                MessageBoxButton.OK, MessageBoxImage.Error,
-                                MessageBoxResult.OK, Localization.TranslationSource.Instance.FlowDirection);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void BtnCopyFiles_Click(object sender, RoutedEventArgs e)
-        {
-            var (files, indexOfFirst) = GetSelectedFiles();
-            if (files.Count > 0)
-            {
-                var fileList = files.Select(f => f.GrepResult).ToList();
-                var (success, message) = FileOperations.CopyFiles(
-                    fileList, viewModel.PathSearchText, null, false);
-            }
-        }
-
-        private void BtnMoveFiles_Click(object sender, RoutedEventArgs e)
-        {
-            var (files, indexOfFirst) = GetSelectedFiles();
-            if (files.Count > 0)
-            {
-                var fileList = files.Select(f => f.GrepResult).ToList();
-                var (success, filesMoved, message) = FileOperations.MoveFiles(
-                    fileList, viewModel.PathSearchText, null, false);
-
-                if (success)
-                {
-                    viewModel.DeselectAllItems();
-                    foreach (var gr in files)
-                    {
-                        if (filesMoved.Contains(gr.GrepResult.FileNameReal, StringComparison.Ordinal))
-                        {
-                            viewModel.SearchResults.Remove(gr);
-                        }
-                    }
-
-                    if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
-                    {
-                        // the first item was removed, select the new item in that position
-                        int idx = indexOfFirst;
-                        if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
-
-                        var nextResult = viewModel.SearchResults[idx];
-                        var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
-                        if (tvi != null)
-                        {
-                            tvi.IsSelected = false;
-                            tvi.IsSelected = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void BtnDeleteFiles_Click(object sender, RoutedEventArgs e)
-        {
-            var (files, indexOfFirst) = GetSelectedFiles();
-            if (files.Count > 0)
-            {
-                var fileList = files.Select(f => f.GrepResult).ToList();
-                var (success, filesDeleted, message) = FileOperations.DeleteFiles(
-                    fileList, false, false);
-
-                if (success)
-                {
-                    viewModel.DeselectAllItems();
-                    foreach (var gr in files)
-                    {
-                        if (filesDeleted.Contains(gr.GrepResult.FileNameReal))
-                        {
-                            viewModel.SearchResults.Remove(gr);
-                        }
-                    }
-
-                    if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
-                    {
-                        // the first item was removed, select the new item in that position
-                        int idx = indexOfFirst;
-                        if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
-
-                        var nextResult = viewModel.SearchResults[idx];
-                        var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
-                        if (tvi != null)
-                        {
-                            tvi.IsSelected = false;
-                            tvi.IsSelected = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void BtnRecycleFiles_Click(object sender, RoutedEventArgs e)
-        {
-            var (files, indexOfFirst) = GetSelectedFiles();
-            viewModel.DeselectAllItems();
-            foreach (var gr in files)
-            {
-                FileSystem.DeleteFile(gr.GrepResult.FileNameReal,
-                    UIOption.OnlyErrorDialogs,
-                    RecycleOption.SendToRecycleBin);
-
-
-                viewModel.SearchResults.Remove(gr);
-            }
-
-            if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
-            {
-                // the first item was removed, select the new item in that position
-                int idx = indexOfFirst;
-                if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
-
-                var nextResult = viewModel.SearchResults[idx];
-                var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
-                if (tvi != null)
-                {
-                    tvi.IsSelected = false;
-                    tvi.IsSelected = true;
-                }
-            }
-        }
-
-        private (IList<FormattedGrepResult> files, int indexOfFirst) GetSelectedFiles()
-        {
-            // get the unique set of files from the selections
-            List<FormattedGrepResult> files = [];
-            int indexOfFirst = -1;
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepResult fileNode)
-                {
-                    string name = fileNode.GrepResult.FileNameReal;
-                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name, StringComparison.Ordinal)) && File.Exists(name))
-                    {
-                        files.Add(fileNode);
-                    }
-                }
-                if (item is FormattedGrepLine lineNode)
-                {
-                    string name = lineNode.Parent.GrepResult.FileNameReal;
-                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name, StringComparison.Ordinal)) && File.Exists(name))
-                    {
-                        files.Add(lineNode.Parent);
-                    }
-                }
-
-                if (files.Count == 1)
-                {
-                    indexOfFirst = viewModel.SearchResults.IndexOf(files.First());
-                }
-            }
-            return (files, indexOfFirst);
-        }
-
-        private void BtnCopyFileNames_Click(object sender, RoutedEventArgs e)
-        {
-            CopyFileNames(false);
-        }
-
-        private void BtnCopyFullFilePath_Click(object sender, RoutedEventArgs e)
-        {
-            CopyFileNames(true);
-        }
-
-        private void BtnCopyGrepLine_Click(object sender, RoutedEventArgs e)
-        {
-            CopyGrepLines();
-        }
-
-        private void BtnShowFileProperties_Click(object sender, RoutedEventArgs e)
-        {
-            ShowFileProperties();
-        }
-
-        private void BtnMakeWritable_Click(object sender, RoutedEventArgs e)
-        {
-            MakeFilesWritable();
-        }
-
-        private void BtnExclude_Click(object sender, RoutedEventArgs e)
-        {
-            ExcludeLines();
-        }
-
-        private async void BtnNextMatch_Click(object sender, RoutedEventArgs e)
-        {
-            await Next();
-        }
-
-        private async void BtnNextFile_Click(object sender, RoutedEventArgs e)
-        {
-            await NextFile();
-        }
-
-        private async void BtnPreviousMatch_Click(object sender, RoutedEventArgs e)
-        {
-            await Previous();
-        }
-
-        private async void BtnPreviousFile_Click(object sender, RoutedEventArgs e)
-        {
-            await PreviousFile();
-        }
-
-        private async void BtnExpandAll_Click(object sender, RoutedEventArgs e)
+        internal async Task ExpandAll()
         {
             foreach (FormattedGrepResult result in treeView.Items)
             {
@@ -769,303 +336,11 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void BtnCollapseAll_Click(object sender, RoutedEventArgs e)
+        internal void CollapseAll()
         {
             foreach (FormattedGrepResult result in treeView.Items)
             {
                 result.CollapseTreeNode();
-            }
-        }
-
-        private void OpenFiles(bool useCustomEditor, OpenFileContext ctx)
-        {
-            if (ctx.CommandParameter is string name &&
-                name.Equals("ResultsTree", StringComparison.OrdinalIgnoreCase))
-            {
-                OpenFiles(useCustomEditor, ctx.EditorName);
-            }
-        }
-
-        private void OpenFiles(bool useCustomEditor, string customEditorName)
-        {
-            // get the unique set of file names to open from the selections
-            // keep the first record from each file to use when opening the file
-            // prefer to open by line, if any line is selected; otherwise by file
-
-            List<string> fileNames = [];
-            List<FormattedGrepLine> lines = [];
-            List<FormattedGrepResult> files = [];
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepLine lineNode)
-                {
-                    string name = lineNode.Parent.GrepResult.FileNameReal;
-                    if (!fileNames.Contains(name))
-                    {
-                        fileNames.Add(name);
-                        lines.Add(lineNode);
-                    }
-                }
-            }
-
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepResult fileNode)
-                {
-                    string name = fileNode.GrepResult.FileNameReal;
-                    if (!fileNames.Contains(name))
-                    {
-                        fileNames.Add(name);
-                        files.Add(fileNode);
-                    }
-                }
-            }
-
-            foreach (var item in lines)
-                viewModel.OpenFile(item, useCustomEditor, customEditorName);
-
-            foreach (var item in files)
-                viewModel.OpenFile(item, useCustomEditor, customEditorName);
-        }
-
-        private void OpenFolders()
-        {
-            // get the unique set of folders from the selections
-            // keep the first file from each folder to open the folder
-
-            List<string> folders = [];
-            List<string> files = [];
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepResult fileNode)
-                {
-                    string name = fileNode.GrepResult.FileNameReal;
-                    string? path = Path.GetDirectoryName(name);
-                    if (!string.IsNullOrEmpty(path) && !folders.Contains(path))
-                    {
-                        folders.Add(path);
-                        files.Add(name);
-                    }
-                }
-                if (item is FormattedGrepLine lineNode)
-                {
-                    string name = lineNode.Parent.GrepResult.FileNameReal;
-                    string? path = Path.GetDirectoryName(name);
-                    if (!string.IsNullOrEmpty(path) && !folders.Contains(path))
-                    {
-                        folders.Add(path);
-                        files.Add(name);
-                    }
-                }
-            }
-
-            foreach (var fileName in files)
-                Utils.OpenContainingFolder(fileName);
-        }
-
-        private void OpenExplorerMenu()
-        {
-            // get the unique set of files from the selections
-            List<string> files = [];
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepResult fileNode)
-                {
-                    string name = fileNode.GrepResult.FileNameReal;
-                    if (!files.Contains(name) && File.Exists(name))
-                    {
-                        files.Add(name);
-                    }
-                }
-                if (item is FormattedGrepLine lineNode)
-                {
-                    string name = lineNode.Parent.GrepResult.FileNameReal;
-                    if (!files.Contains(name) && File.Exists(name))
-                    {
-                        files.Add(name);
-                    }
-                }
-            }
-
-            if (files.Count > 0)
-            {
-                ShellContextMenu menu = new();
-                menu.ShowContextMenu(files.Select(f => new FileInfo(f)).ToArray(),
-                    PointToScreen(Mouse.GetPosition(this)));
-            }
-        }
-
-        private void ShowFileProperties()
-        {
-            // get the unique set of files from the selections
-            List<string> files = [];
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepResult fileNode)
-                {
-                    string name = fileNode.GrepResult.FileNameReal;
-                    if (!files.Contains(name) && File.Exists(name))
-                    {
-                        files.Add(name);
-                    }
-                }
-                if (item is FormattedGrepLine lineNode)
-                {
-                    string name = lineNode.Parent.GrepResult.FileNameReal;
-                    if (!files.Contains(name) && File.Exists(name))
-                    {
-                        files.Add(name);
-                    }
-                }
-            }
-
-            foreach (var fileName in files)
-                ShellIntegration.ShowFileProperties(fileName);
-        }
-
-        private List<string> GetSelectedFileNames(bool showFullName)
-        {
-            List<string> list = [];
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepResult fileNode)
-                {
-                    string name = fileNode.GrepResult.FileNameDisplayed;
-                    if (!showFullName)
-                        name = Path.GetFileName(name);
-
-                    if (!list.Contains(name))
-                        list.Add(name);
-                }
-                if (item is FormattedGrepLine lineNode)
-                {
-                    string name = lineNode.Parent.GrepResult.FileNameDisplayed;
-                    if (!showFullName)
-                        name = Path.GetFileName(name);
-
-                    if (!list.Contains(name))
-                        list.Add(name);
-                }
-            }
-            return list;
-        }
-
-        private void CopyFileNames(bool showFullName)
-        {
-            var list = GetSelectedFileNames(showFullName);
-            if (list.Count > 0)
-                NativeMethods.SetClipboardText(string.Join(Environment.NewLine, (ReadOnlySpan<string?>)[.. list]));
-        }
-
-        private string GetSelectedGrepLineText()
-        {
-            if (viewModel.HasGrepLineSelection)
-            {
-                StringBuilder sb = new();
-                foreach (var item in viewModel.SelectedItems)
-                {
-                    if (item is FormattedGrepLine node)
-                    {
-                        sb.AppendLine(node.GrepLine.LineText);
-                    }
-                }
-
-                return sb.ToString().TrimEndOfLine();
-            }
-            return string.Empty;
-        }
-
-        private void CopyGrepLines()
-        {
-            var lines = GetSelectedGrepLineText();
-            if (!string.IsNullOrWhiteSpace(lines))
-                NativeMethods.SetClipboardText(lines);
-        }
-
-        private void MakeFilesWritable()
-        {
-            List<FormattedGrepResult> files = [];
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepLine lineNode)
-                {
-                    var grepResult = lineNode.Parent;
-                    if (!files.Contains(grepResult))
-                    {
-                        files.Add(grepResult);
-                    }
-                }
-                if (item is FormattedGrepResult fileNode)
-                {
-                    if (!files.Contains(fileNode))
-                    {
-                        files.Add(fileNode);
-                    }
-                }
-            }
-
-            foreach (var item in files)
-            {
-                if (File.Exists(item.GrepResult.FileNameReal))
-                {
-                    var info = new FileInfo(item.GrepResult.FileNameReal);
-                    if (info.IsReadOnly)
-                    {
-                        info.IsReadOnly = false;
-                        item.SetLabel();
-                    }
-                }
-            }
-        }
-
-        private void ExcludeLines()
-        {
-            List<FormattedGrepResult> files = [];
-            int indexOfFirst = -1;
-            foreach (var item in viewModel.SelectedItems)
-            {
-                if (item is FormattedGrepLine lineNode)
-                {
-                    var grepResult = lineNode.Parent;
-                    if (!files.Contains(grepResult))
-                    {
-                        files.Add(grepResult);
-                    }
-                }
-                if (item is FormattedGrepResult fileNode)
-                {
-                    if (!files.Contains(fileNode))
-                    {
-                        files.Add(fileNode);
-                    }
-                }
-
-                if (files.Count == 1)
-                {
-                    indexOfFirst = viewModel.SearchResults.IndexOf(files.First());
-                }
-            }
-
-            viewModel.DeselectAllItems();
-
-            foreach (var item in files)
-            {
-                viewModel.SearchResults.Remove(item);
-            }
-
-            if (indexOfFirst > -1 && viewModel.SearchResults.Count > 0)
-            {
-                // the first item was removed, select the new item in that position
-                int idx = indexOfFirst;
-                if (idx >= viewModel.SearchResults.Count) idx = viewModel.SearchResults.Count - 1;
-
-                var nextResult = viewModel.SearchResults[idx];
-                var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
-                if (tvi != null)
-                {
-                    tvi.IsSelected = false;
-                    tvi.IsSelected = true;
-                }
             }
         }
 
@@ -1080,6 +355,8 @@ namespace dnGREP.WPF.UserControls
 
         private void TreeView_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (viewModel == null) return;
+
             // middle button click on a file node or line node opens file with custom editor
             if (e.ChangedButton == MouseButton.Middle)
             {
@@ -1099,6 +376,8 @@ namespace dnGREP.WPF.UserControls
 
         private void TreeView_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (viewModel == null) return;
+
             // alt+double click on a file node or line node opens file with associated application
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Alt))
             {
@@ -1116,6 +395,8 @@ namespace dnGREP.WPF.UserControls
 
         private void TreeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (viewModel == null) return;
+
             // double click on a line node opens file
             if (treeView.SelectedItem is FormattedGrepLine line &&
                 (e.OriginalSource is TextBlock || e.OriginalSource is Run))
@@ -1128,8 +409,10 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void OnSelectedItemsChanged()
+        internal void OnSelectedItemsChanged()
         {
+            if (viewModel == null) return;
+
             Window parentWindow = Window.GetWindow(this);
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
@@ -1250,6 +533,8 @@ namespace dnGREP.WPF.UserControls
 
         private void TreeView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (viewModel == null) return;
+
             bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0 && viewModel.SearchResults.Count > 0;
             if (!handle)
                 return;
@@ -1265,14 +550,6 @@ namespace dnGREP.WPF.UserControls
             }
 
             e.Handled = true;
-        }
-
-        private void BtnResetZoom_Click(object sender, RoutedEventArgs e)
-        {
-            if (viewModel != null)
-            {
-                viewModel.ResultsScale = 1.0;
-            }
         }
 
         #endregion
@@ -1308,14 +585,14 @@ namespace dnGREP.WPF.UserControls
             data.SetData(App.InstanceId, string.Empty);
 
             // if there are lines selected, choose text drag and drop operation
-            var lines = GetSelectedGrepLineText();
+            var lines = viewModel?.GetSelectedGrepLineText();
             if (!string.IsNullOrWhiteSpace(lines))
             {
                 data.SetData(DataFormats.Text, lines);
             }
-            else if (viewModel.HasGrepResultSelection)
+            else if (viewModel != null && viewModel.HasGrepResultSelection)
             {
-                var list = GetSelectedFileNames(true);
+                var list = viewModel.GetSelectedFileNames(true);
                 StringCollection files = [.. list.ToArray()];
                 data.SetFileDropList(files);
             }
@@ -1367,6 +644,8 @@ namespace dnGREP.WPF.UserControls
 
         private void SelectNextFile(FormattedGrepResult selectedResult)
         {
+            if (viewModel == null) return;
+
             int idx = viewModel.SearchResults.IndexOf(selectedResult) + 1;
             if (idx >= viewModel.SearchResults.Count) idx = 0;
 
@@ -1380,6 +659,8 @@ namespace dnGREP.WPF.UserControls
 
         private async Task SelectNextResult(FormattedGrepLine currentLine)
         {
+            if (viewModel == null) return;
+
             var grepResult = currentLine.Parent;
             int idx = viewModel.SearchResults.IndexOf(grepResult) + 1;
             if (idx >= viewModel.SearchResults.Count) idx = 0;
@@ -1432,6 +713,8 @@ namespace dnGREP.WPF.UserControls
 
         private void SelectPreviousFile(FormattedGrepResult result)
         {
+            if (viewModel == null) return;
+
             int idx = viewModel.SearchResults.IndexOf(result) - 1;
             if (idx < 0) idx = viewModel.SearchResults.Count - 1;
 
@@ -1445,6 +728,8 @@ namespace dnGREP.WPF.UserControls
 
         private async Task SelectPreviousResult(FormattedGrepResult result)
         {
+            if (viewModel == null) return;
+
             int idx = viewModel.SearchResults.IndexOf(result) - 1;
             if (idx < 0) idx = viewModel.SearchResults.Count - 1;
 
@@ -1454,6 +739,8 @@ namespace dnGREP.WPF.UserControls
 
         private async Task SelectPreviousResult(FormattedGrepLine currentLine)
         {
+            if (viewModel == null) return;
+
             var grepResult = currentLine.Parent;
             int idx = viewModel.SearchResults.IndexOf(grepResult) - 1;
             if (idx < 0) idx = viewModel.SearchResults.Count - 1;
@@ -1499,7 +786,7 @@ namespace dnGREP.WPF.UserControls
         /// <returns>
         /// The TreeViewItem that contains the specified item.
         /// </returns>
-        private static TreeViewItem? GetTreeViewItem(ItemsControl container, object item, object? selectedItem, SearchDirection dir, int depth)
+        internal static TreeViewItem? GetTreeViewItem(ItemsControl container, object item, object? selectedItem, SearchDirection dir, int depth)
         {
             if (container != null)
             {
@@ -1657,16 +944,6 @@ namespace dnGREP.WPF.UserControls
             }
             return null;
         }
-
-        //private static TreeViewItem ContainerFromItem(ItemContainerGenerator root, object item)
-        //{
-        //    if (root.ContainerFromItem(item) is TreeViewItem treeViewItem)
-        //    {
-        //        return treeViewItem;
-        //    }
-
-        //    return null;
-        //}
 
         private static TreeViewItem? ContainerFromItemRecursive(ItemContainerGenerator root, object item)
         {

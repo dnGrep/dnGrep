@@ -5,11 +5,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Text;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
@@ -18,17 +17,70 @@ using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.UserControls;
+using Microsoft.VisualBasic.FileIO;
+using NLog;
 using Windows.Win32;
 
 namespace dnGREP.WPF
 {
     public partial class GrepSearchResultsViewModel : CultureAwareViewModel
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         public static readonly Messenger SearchResultsMessenger = new();
+        private static bool beenInitialized;
+
+        internal ResultsTree? TreeControl { get; set; }
 
         static GrepSearchResultsViewModel()
         {
-            InitializeEditorMenuItems();
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenFilesCommand), "Main_Results_Open", string.Empty);
+
+            if (GrepSettings.Instance.ContainsKey(GrepSettings.Key.CustomEditors))
+            {
+                List<CustomEditor> list = GrepSettings.Instance.Get<List<CustomEditor>>(GrepSettings.Key.CustomEditors);
+                foreach (var editor in list)
+                {
+                    if (editor != null && !string.IsNullOrEmpty(editor.Label) && !string.IsNullOrEmpty(editor.Path))
+                    {
+                        KeyBindingManager.RegisterCustomEditor(KeyCategory.Main, editor.Label);
+                    }
+                }
+            }
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenContainingFolderCommand), "Main_Results_OpenContainingFolder", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(RenameFileCommand), "Main_Results_RenameFile", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_Results_CopyFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(MoveFilesCommand), "Main_Results_MoveFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(DeleteFilesCommand), "Main_Results_DeleteFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(RecycleFilesCommand), "Main_Results_MoveFilesToRecycleBin", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(MakeWritableCommand), "Main_Results_MakeWritable", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenExplorerMenuCommand), "Main_Results_ShowExplorerMenu", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ShowFilePropertiesCommand), "Main_Results_ShowFileProperties", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CompareFilesCommand), "Main_Results_CompareFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFileNamesCommand), "Main_Results_CopyFileNames", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFullFilePathsCommand), "Main_Results_CopyFullFilePaths", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyGrepLinesCommand), "Main_Results_CopyLinesOfText", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ExcludeFilesCommand), "Main_Results_ExcludeFromResults", "Delete");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(NextLineCommand), "Main_Results_NextMatch", "F3");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(NextFileCommand), "Main_Results_NextFile", "Shift+F3");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PreviousLineCommand), "Main_Results_PreviousMatch", "F4");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PreviousFileCommand), "Main_Results_PreviousFile", "Shift+F4");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ExpandAllCommand), "Main_Results_ExpandAll", "F6");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CollapseAllCommand), "Main_Results_CollapseAll", "Shift+F6");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetZoomCommand), "Main_Results_ResetZoom", string.Empty);
+            
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyCommand), "", "Control+C");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectAllCommand), "", "Control+A");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToStartCommand), "", "Control+Home");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToEndCommand), "", "Control+End");
         }
 
         public GrepSearchResultsViewModel()
@@ -38,6 +90,35 @@ namespace dnGREP.WPF
             SearchResults.CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
 
             SearchResultsMessenger.Register<ITreeItem>("IsSelectedChanged", OnSelectionChanged);
+            SearchResultsMessenger.Register("EditorsChanged", InitializeEditorMenuItems);
+
+            InitializeEditorMenuItems();
+            InitializeInputBindings();
+            App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+        }
+
+        private void InitializeInputBindings()
+        {
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+        }
+
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Main)
+            {
+                InputBindings.Clear();
+                InitializeEditorMenuItems();
+                InitializeInputBindings();
+
+                InputBindings.RaiseAfterCollectionChanged();
+            }
         }
 
         public void Clear()
@@ -76,11 +157,24 @@ namespace dnGREP.WPF
 
         private readonly Dictionary<string, BitmapSource> icons = [];
 
-        public static ObservableCollection<MenuItemViewModel> EditorMenuItems { get; } = [];
+        public ObservableCollection<MenuItemViewModel> EditorMenuItems { get; } = [];
 
-        public static void InitializeEditorMenuItems()
+        private readonly List<RelayCommand> customEditorCommands = [];
+        private readonly List<InputBinding> customEditorInputBindings = [];
+
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
+
+        public void InitializeEditorMenuItems()
         {
             EditorMenuItems.Clear();
+            customEditorCommands.Clear();
+
+            // remove custom editor key bindings from InputBinding collection
+            foreach (var inputBinding in customEditorInputBindings)
+            {
+                InputBindings.Remove(inputBinding);
+            }
+            customEditorInputBindings.Clear();
 
             if (GrepSettings.Instance.ContainsKey(GrepSettings.Key.CustomEditors))
             {
@@ -89,7 +183,17 @@ namespace dnGREP.WPF
                 {
                     if (editor != null && !string.IsNullOrEmpty(editor.Label) && !string.IsNullOrEmpty(editor.Path))
                     {
-                        EditorMenuItems.Add(new MenuItemViewModel(editor.Label, new RelayCommand(p => OpenFiles(new(editor.Label, p)))));
+                        RelayCommand command = new(p => OpenFiles(true, editor.Label), q => HasSelection);
+                        customEditorCommands.Add(command);
+                        EditorMenuItems.Add(new MenuItemViewModel(editor.Label, command));
+
+                        var kbi = KeyBindingManager.GetCustomEditorGesture(KeyCategory.Main, editor.Label);
+                        if (kbi != null)
+                        {
+                            var kb = KeyBindingManager.CreateKeyBinding(command, kbi.KeyGesture);
+                            InputBindings.Add(kb);
+                            customEditorInputBindings.Add(kb);
+                        }
                     }
                 }
             }
@@ -98,11 +202,8 @@ namespace dnGREP.WPF
             {
                 EditorMenuItems.Add(new MenuItemViewModel(Resources.Main_Results_Tooltip_NotConfigured, false));
             }
-        }
 
-        private static void OpenFiles(OpenFileContext ctx)
-        {
-            SearchResultsMessenger.NotifyColleagues("OpenFiles", ctx);
+            InputBindings.RaiseAfterCollectionChanged();
         }
 
         public ObservableCollection<FormattedGrepResult> SearchResults { get; set; } = [];
@@ -217,12 +318,6 @@ namespace dnGREP.WPF
                     newEntry.Icon = value;
                 }
             }
-        }
-
-        public GrepSearchResultsViewModel(List<GrepSearchResult> list)
-            : this()
-        {
-            AddRange(list);
         }
 
         public List<GrepSearchResult> GetList()
@@ -401,10 +496,6 @@ namespace dnGREP.WPF
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasGrepLineSelection)));
         }
 
-        public ICommand CompareFilesCommand => new RelayCommand(
-            p => CompareFiles(),
-            q => CanCompareFiles);
-
         public List<GrepSearchResult> GetSelectedFiles()
         {
             List<GrepSearchResult> files = [];
@@ -450,26 +541,6 @@ namespace dnGREP.WPF
         }
 
 
-        public bool CanCompareFiles
-        {
-            get
-            {
-                if (CompareApplicationConfigured)
-                {
-                    int count = GetSelectedFiles().Count;
-                    return count == 2 || count == 3;
-                }
-                return false;
-            }
-        }
-
-        private void CompareFiles()
-        {
-            var files = GetSelectedFiles();
-            if (files.Count == 2 || files.Count == 3)
-                Utils.CompareFiles(files);
-        }
-
         [ObservableProperty]
         private bool wrapText;
         partial void OnWrapTextChanged(bool value)
@@ -513,665 +584,615 @@ namespace dnGREP.WPF
         {
             GrepLineSelected?.Invoke(this, new GrepLineSelectEventArgs(formattedGrepLine, lineMatchCount, matchOrdinal, fileMatchCount));
         }
-    }
 
-    public partial class FormattedGrepResult : CultureAwareViewModel, ITreeItem
-    {
-        public GrepSearchResult GrepResult { get; private set; } = new();
+        #region Commands
 
-        public int Matches
+        private RelayCommand? openContainingFolderCommand;
+        public RelayCommand OpenContainingFolderCommand => openContainingFolderCommand ??= new RelayCommand(
+            p => OpenFolders(),
+            q => HasSelection);
+
+        private RelayCommand? openExplorerMenuCommand;
+        public RelayCommand OpenExplorerMenuCommand => openExplorerMenuCommand ??= new RelayCommand(
+            p => OpenExplorerMenu(),
+            q => HasSelection);
+
+        private RelayCommand? openFilesCommand;
+        public RelayCommand OpenFilesCommand => openFilesCommand ??= new RelayCommand(
+            p => OpenFiles(false, string.Empty),
+            q => HasSelection);
+
+        private RelayCommand? renameFileCommand;
+        public RelayCommand RenameFileCommand => renameFileCommand ??= new RelayCommand(
+            p => RenameFile(),
+            q => HasSingleSelection);
+
+        private RelayCommand? copyFileNamesCommand;
+        public RelayCommand CopyFileNamesCommand => copyFileNamesCommand ??= new RelayCommand(
+            p => CopyFileNames(false),
+            q => HasSelection);
+
+        private RelayCommand? copyFullFilePathsCommand;
+        public RelayCommand CopyFullFilePathsCommand => copyFullFilePathsCommand ??= new RelayCommand(
+            p => CopyFileNames(true),
+            q => HasSelection);
+
+        private RelayCommand? copyGrepLinesCommand;
+        public RelayCommand CopyGrepLinesCommand => copyGrepLinesCommand ??= new RelayCommand(
+            p => CopyGrepLines(),
+            q => HasGrepLineSelection);
+
+        private RelayCommand? showFilePropertiesCommand;
+        public RelayCommand ShowFilePropertiesCommand => showFilePropertiesCommand ??= new RelayCommand(
+            p => ShowFileProperties(),
+            q => HasSelection);
+
+        private RelayCommand? makeWritableCommand;
+        public RelayCommand MakeWritableCommand => makeWritableCommand ??= new RelayCommand(
+            p => MakeFilesWritable(),
+            q => HasReadOnlySelection);
+
+        private RelayCommand? copyFilesCommand;
+        public RelayCommand CopyFilesCommand => copyFilesCommand ??= new RelayCommand(
+            p => CopyFiles(),
+            q => HasSelection);
+
+        private RelayCommand? moveFilesCommand;
+        public RelayCommand MoveFilesCommand => moveFilesCommand ??= new RelayCommand(
+            p => MoveFiles(),
+            q => HasSelection);
+
+        private RelayCommand? deleteFilesCommand;
+        public RelayCommand DeleteFilesCommand => deleteFilesCommand ??= new RelayCommand(
+            p => DeleteFiles(),
+            q => HasSelection);
+
+        private RelayCommand? recycleFilesCommand;
+        public RelayCommand RecycleFilesCommand => recycleFilesCommand ??= new RelayCommand(
+            p => RecycleFiles(),
+            q => HasSelection);
+
+        private RelayCommand? compareFilesCommand;
+        public RelayCommand CompareFilesCommand => compareFilesCommand ??= new RelayCommand(
+            p => CompareFiles(),
+            q => CanCompareFiles);
+
+        // Ctrl+C
+        private RelayCommand? copyCommand;
+        public RelayCommand CopyCommand => copyCommand ??= new RelayCommand(
+            param => Copy(),
+            q => HasSelection);
+
+        // Ctrl+A
+        private RelayCommand? selectAllCommand;
+        public RelayCommand SelectAllCommand => selectAllCommand ??= new RelayCommand(
+            p => SelectAll());
+
+        // Ctrl+Home
+        private RelayCommand? selectToStartCommand;
+        public RelayCommand SelectToStartCommand => selectToStartCommand ??= new RelayCommand(
+            p => SelectToStart(),
+            q => HasSelection);
+
+        // Ctrl+End
+        private RelayCommand? selectToEndCommand;
+        public RelayCommand SelectToEndCommand => selectToEndCommand ??= new RelayCommand(
+            p => SelectToEnd(),
+            q => HasSelection);
+
+        // Delete
+        private RelayCommand? excludeFilesCommand;
+        public RelayCommand ExcludeFilesCommand => excludeFilesCommand ??= new RelayCommand(
+            p => ExcludeFiles(),
+            q => HasSelection);
+
+        // F3
+        private RelayCommand? nextLineCommand;
+        public RelayCommand NextLineCommand => nextLineCommand ??= new RelayCommand(
+            p => NextLine());
+
+        // Shift+F3
+        private RelayCommand? nextFileCommand;
+        public RelayCommand NextFileCommand => nextFileCommand ??= new RelayCommand(
+            p => NextFile());
+
+        // F4
+        private RelayCommand? previousLineCommand;
+        public RelayCommand PreviousLineCommand => previousLineCommand ??= new RelayCommand(
+            p => PreviousLine());
+
+        // F4
+        private RelayCommand? previousFileCommand;
+        public RelayCommand PreviousFileCommand => previousFileCommand ??= new RelayCommand(
+            p => PreviousFile());
+
+        // F6
+        private RelayCommand? expandAllCommand;
+        public RelayCommand ExpandAllCommand => expandAllCommand ??= new RelayCommand(
+            p => ExpandAll());
+
+        // Shift+F6
+        private RelayCommand? collapseAllCommand;
+        public RelayCommand CollapseAllCommand => collapseAllCommand ??= new RelayCommand(
+            p => CollapseAll());
+
+        private RelayCommand? resetZoomCommand;
+        public RelayCommand ResetZoomCommand => resetZoomCommand ??= new RelayCommand(
+            p => ResultsScale = 1.0,
+            q => true);
+
+
+        #endregion
+
+        #region Command Implementation
+
+        private void OpenFiles(bool useCustomEditor, string customEditorName)
         {
-            get { return GrepResult.Matches.Count; }
-        }
+            // get the unique set of file names to open from the selections
+            // keep the first record from each file to use when opening the file
+            // prefer to open by line, if any line is selected; otherwise by file
 
-        public string Style { get; private set; } = string.Empty;
-
-        [ObservableProperty]
-        private string filePath = string.Empty;
-
-        [ObservableProperty]
-        private string fileName = string.Empty;
-
-        [ObservableProperty]
-        private string fileInfo = string.Empty;
-
-        [ObservableProperty]
-        private FontWeight fileNameFontWeight = FontWeights.Normal;
-
-        private readonly List<string> matchIdx = [];
-
-        /// <summary>
-        /// Returns an ordinal based on the match id
-        /// </summary>
-        internal int GetMatchNumber(string id)
-        {
-            int index = matchIdx.IndexOf(id);
-            if (index > -1)
-                return index + 1;
-
-            matchIdx.Add(id);
-            return matchIdx.Count;
-        }
-
-        internal Dictionary<string, string> GroupColors { get; } = [];
-
-        public static bool ShowFileInfoTooltips
-        {
-            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips); }
-        }
-
-        // some settings have changed, raise property changed events to update the UI
-        public void RaiseSettingsPropertiesChanged()
-        {
-            OnPropertyChanged(nameof(ShowFileInfoTooltips));
-        }
-
-        public async Task ExpandTreeNode()
-        {
-            if (!FormattedLines.IsLoaded)
+            List<string> fileNames = [];
+            List<FormattedGrepLine> lines = [];
+            List<FormattedGrepResult> files = [];
+            foreach (var item in SelectedItems)
             {
-                IsLoading = true;
-                await FormattedLines.LoadAsync();
-                IsLoading = false;
-            }
-            IsExpanded = true;
-        }
-
-        internal void CollapseTreeNode()
-        {
-            IsExpanded = false;
-        }
-
-        [ObservableProperty]
-        private bool isExpanded = false;
-        partial void OnIsExpandedChanged(bool value)
-        {
-            if (value == true && !FormattedLines.IsLoaded && !FormattedLines.IsLoading)
-            {
-                IsLoading = true;
-                Task.Run(() => FormattedLines.LoadAsync());
-            }
-        }
-
-        [ObservableProperty]
-        private bool isLoading;
-
-        [ObservableProperty]
-        private bool isSelected;
-        partial void OnIsSelectedChanged(bool value)
-        {
-            GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
-        }
-
-        [ObservableProperty]
-        private int lineNumberColumnWidth = 30;
-
-        public BitmapSource? Icon { get; set; }
-
-        public LazyResultsList FormattedLines { get; private set; }
-
-        private readonly string searchFolderPath;
-
-        public FormattedGrepResult(GrepSearchResult result, string folderPath)
-        {
-            GrepResult = result;
-
-            searchFolderPath = folderPath;
-            SetLabel();
-
-            FormattedLines = new LazyResultsList(result, this);
-            FormattedLines.LineNumberColumnWidthChanged += FormattedLines_PropertyChanged;
-            FormattedLines.LoadFinished += FormattedLines_LoadFinished;
-        }
-
-        internal void SetLabel()
-        {
-            bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
-
-            string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath;
-            FileName = Path.GetFileName(GrepResult.FileNameDisplayed);
-            FileNameFontWeight = GrepSettings.Instance.Get<FontWeight>(GrepSettings.Key.ResultsFileNameWeight);
-            string additionalInfo = string.Empty;
-
-            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
-                GrepResult.FileNameDisplayed.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
-            {
-                if (!string.IsNullOrWhiteSpace(basePath))
+                if (item is FormattedGrepLine lineNode)
                 {
-                    string? dirName = Path.GetDirectoryName(GrepResult.FileNameDisplayed);
-                    if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!fileNames.Contains(name))
                     {
-                        FilePath = Path.GetRelativePath(basePath, dirName) + Path.DirectorySeparatorChar;
+                        fileNames.Add(name);
+                        lines.Add(lineNode);
                     }
                 }
             }
-            if (!string.IsNullOrWhiteSpace(GrepResult.AdditionalInformation))
+
+            foreach (var item in SelectedItems)
             {
-                additionalInfo += " " + GrepResult.AdditionalInformation + " ";
-            }
-            int matchCount = GrepResult.Matches == null ? 0 : GrepResult.Matches.Count;
-            if (matchCount > 0)
-            {
-                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) && !GrepResult.IsHexFile)
+                if (item is FormattedGrepResult fileNode)
                 {
-                    var lineCount = GrepResult.Matches?.Where(r => r.LineNumber > 0)
-                       .Select(r => r.LineNumber).Distinct().Count() ?? 0;
-                    additionalInfo = TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, additionalInfo, matchCount, lineCount);
-                }
-                else
-                {
-                    additionalInfo = string.Format(Resources.Main_ResultList_CountMatches, additionalInfo, matchCount);
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!fileNames.Contains(name))
+                    {
+                        fileNames.Add(name);
+                        files.Add(fileNode);
+                    }
                 }
             }
-            if (isFileReadOnly)
-            {
-                additionalInfo = additionalInfo + " " + Resources.Main_ResultList_ReadOnly;
-            }
 
-            FileInfo = additionalInfo;
+            foreach (var item in lines)
+                OpenFile(item, useCustomEditor, customEditorName);
 
-            Style = string.Empty;
-            if (isFileReadOnly)
-            {
-                Style = "ReadOnly";
-            }
-
-            if (!GrepResult.IsSuccess)
-            {
-                Style = "Error";
-            }
-
-            if (!string.IsNullOrEmpty(GrepResult.FileInfo.ErrorMsg))
-            {
-                Style = "Error";
-            }
-            OnPropertyChanged(nameof(Style));
+            foreach (var item in files)
+                OpenFile(item, useCustomEditor, customEditorName);
         }
 
-        void FormattedLines_LoadFinished(object? sender, EventArgs e)
+        private void OpenFolders()
         {
-            IsLoading = false;
-        }
+            // get the unique set of folders from the selections
+            // keep the first file from each folder to open the folder
 
-        void FormattedLines_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "LineNumberColumnWidth")
-                LineNumberColumnWidth = FormattedLines.LineNumberColumnWidth;
-        }
-
-        public ObservableCollection<FormattedGrepMatch> FormattedMatches { get; } = [];
-
-        [ObservableProperty]
-        private bool wrapText;
-        partial void OnWrapTextChanged(bool value)
-        {
-            foreach (var item in FormattedLines)
+            List<string> folders = [];
+            List<string> files = [];
+            foreach (var item in SelectedItems)
             {
-                item.WrapText = value;
+                if (item is FormattedGrepResult fileNode)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    string? path = Path.GetDirectoryName(name);
+                    if (!string.IsNullOrEmpty(path) && !folders.Contains(path))
+                    {
+                        folders.Add(path);
+                        files.Add(name);
+                    }
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    string? path = Path.GetDirectoryName(name);
+                    if (!string.IsNullOrEmpty(path) && !folders.Contains(path))
+                    {
+                        folders.Add(path);
+                        files.Add(name);
+                    }
+                }
+            }
+
+            foreach (var fileName in files)
+                Utils.OpenContainingFolder(fileName);
+        }
+
+        private void OpenExplorerMenu()
+        {
+            // get the unique set of files from the selections
+            List<string> files = [];
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
+            }
+
+            if (files.Count > 0 && TreeControl != null)
+            {
+                ShellContextMenu menu = new();
+                menu.ShowContextMenu(files.Select(f => new FileInfo(f)).ToArray(),
+                    TreeControl.PointToScreen(Mouse.GetPosition(TreeControl)));
             }
         }
 
-        public int Level => 0;
-
-        public IEnumerable<ITreeItem> Children => FormattedLines;
-
-        /// <summary>
-        /// Dummy property to satisfy tree binding
-        /// </summary>
-        public GrepLine GrepLine { get; private set; } = new(-1, string.Empty, false, null);
-
-
-        public override bool Equals(object? obj)
+        private void RenameFile()
         {
-            if (obj is FormattedGrepResult other)
-                return GrepResult.Equals(other.GrepResult);
-            return false;
+            FormattedGrepResult? searchResult = null;
+            var node = SelectedNodes.FirstOrDefault();
+
+            if (node is FormattedGrepLine lineNode)
+            {
+                searchResult = lineNode.Parent;
+            }
+            else if (node is FormattedGrepResult fileNode)
+            {
+                searchResult = fileNode;
+            }
+
+            if (searchResult != null && searchResult.GrepResult != null &&
+                !string.IsNullOrEmpty(searchResult.GrepResult.FileNameReal))
+            {
+                var grepResult = searchResult.GrepResult;
+                var dlg = new RenameWindow
+                {
+                    Owner = Application.Current.MainWindow,
+                    SourcePath = grepResult.FileNameReal
+                };
+
+                var result = dlg.ShowDialog();
+                if (result.HasValue && result.Value)
+                {
+                    string destPath = dlg.DestinationPath;
+                    if (!string.IsNullOrEmpty(destPath) && !File.Exists(destPath))
+                    {
+                        try
+                        {
+                            string ext = string.Empty;
+                            if (grepResult.FileNameReal != grepResult.FileNameDisplayed)
+                            {
+                                int index = grepResult.FileNameDisplayed.IndexOf(grepResult.FileNameReal, StringComparison.Ordinal);
+                                if (index >= 0)
+                                    ext = grepResult.FileNameDisplayed.Remove(index, grepResult.FileNameReal.Length);
+                            }
+
+                            File.Move(grepResult.FileNameReal, destPath);
+
+                            grepResult.FileNameReal = destPath;
+                            grepResult.FileNameDisplayed = destPath + ext;
+
+                            // update label in the results tree
+                            searchResult.SetLabel();
+                            // update label on the preview window
+                            TreeControl?.OnSelectedItemsChanged();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(Resources.MessageBox_RenameFailed + ex.Message,
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_RenameFile,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
+                    }
+                }
+            }
         }
 
-        public override int GetHashCode()
+        private void CopyFileNames(bool showFullName)
         {
-            return GrepResult.GetHashCode();
+            var list = GetSelectedFileNames(showFullName);
+            if (list.Count > 0)
+                NativeMethods.SetClipboardText(string.Join(Environment.NewLine, (ReadOnlySpan<string?>)[.. list]));
         }
-    }
 
-    public partial class FormattedGrepLine : CultureAwareViewModel, ITreeItem
-    {
-        private readonly string enQuad = char.ConvertFromUtf32(0x2000);
-
-        public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
+        private void CopyGrepLines()
         {
-            Parent = parent;
-            GrepLine = line;
-            Parent.PropertyChanged += Parent_PropertyChanged;
-            LineNumberColumnWidth = initialColumnWidth;
-            IsSectionBreak = breakSection;
-            WrapText = Parent.WrapText;
-            int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
-            var pdfNumberStyle = GrepSettings.Instance.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
+            var lines = GetSelectedGrepLineText();
+            if (!string.IsNullOrWhiteSpace(lines))
+                NativeMethods.SetClipboardText(lines);
+        }
 
-            LineNumberAlignment = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? TextAlignment.Left : TextAlignment.Right;
-
-            if (pdfNumberStyle == PdfNumberType.PageNumber && line.PageNumber > -1)
+        private void CopyFiles()
+        {
+            var (files, indexOfFirst) = GetSelectedFilesInt();
+            if (files.Count > 0)
             {
-                FormattedLineNumber = line.PageNumber.ToString();
-            }
-            else
-            {
-                FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
-                    line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * lineSize) :
-                    line.LineNumber.ToString();
-            }
-
-            //string fullText = lineSummary;
-            if (line.IsContext)
-            {
-                Style = "Context";
-            }
-            if (line.LineNumber == -1 && string.IsNullOrEmpty(line.LineText))
-            {
-                Style = "Empty";
+                var fileList = files.Select(f => f.GrepResult).ToList();
+                var (success, message) = FileOperations.CopyFiles(
+                    fileList, PathSearchText, null, false);
             }
         }
 
-        public GrepLine GrepLine { get; private set; }
-        public string FormattedLineNumber { get; private set; }
+        private void MoveFiles()
+        {
+            if (TreeControl == null) return;
 
-        public TextAlignment LineNumberAlignment { get; private set; } = TextAlignment.Right;
+            var (files, indexOfFirst) = GetSelectedFilesInt();
+            if (files.Count > 0)
+            {
+                var fileList = files.Select(f => f.GrepResult).ToList();
+                var (success, filesMoved, message) = FileOperations.MoveFiles(
+                    fileList, PathSearchText, null, false);
 
-        private InlineCollection? formattedText;
-        public InlineCollection? FormattedText
+                if (success)
+                {
+                    DeselectAllItems();
+                    foreach (var gr in files)
+                    {
+                        if (filesMoved.Contains(gr.GrepResult.FileNameReal, StringComparison.Ordinal))
+                        {
+                            SearchResults.Remove(gr);
+                        }
+                    }
+
+                    if (indexOfFirst > -1 && SearchResults.Count > 0)
+                    {
+                        // the first item was removed, select the new item in that position
+                        int idx = indexOfFirst;
+                        if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
+
+                        var nextResult = SearchResults[idx];
+                        var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                        if (tvi != null)
+                        {
+                            tvi.IsSelected = false;
+                            tvi.IsSelected = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DeleteFiles()
+        {
+            if (TreeControl == null) return;
+
+            var (files, indexOfFirst) = GetSelectedFilesInt();
+            if (files.Count > 0)
+            {
+                var fileList = files.Select(f => f.GrepResult).ToList();
+                var (success, filesDeleted, message) = FileOperations.DeleteFiles(
+                    fileList, false, false);
+
+                if (success)
+                {
+                    DeselectAllItems();
+                    foreach (var gr in files)
+                    {
+                        if (filesDeleted.Contains(gr.GrepResult.FileNameReal))
+                        {
+                            SearchResults.Remove(gr);
+                        }
+                    }
+
+                    if (indexOfFirst > -1 && SearchResults.Count > 0)
+                    {
+                        // the first item was removed, select the new item in that position
+                        int idx = indexOfFirst;
+                        if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
+
+                        var nextResult = SearchResults[idx];
+                        var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                        if (tvi != null)
+                        {
+                            tvi.IsSelected = false;
+                            tvi.IsSelected = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void RecycleFiles()
+        {
+            if (TreeControl == null) return;
+
+            var (files, indexOfFirst) = GetSelectedFilesInt();
+            DeselectAllItems();
+            foreach (var gr in files)
+            {
+                FileSystem.DeleteFile(gr.GrepResult.FileNameReal,
+                    UIOption.OnlyErrorDialogs,
+                    RecycleOption.SendToRecycleBin);
+
+
+                SearchResults.Remove(gr);
+            }
+
+            if (indexOfFirst > -1 && SearchResults.Count > 0)
+            {
+                // the first item was removed, select the new item in that position
+                int idx = indexOfFirst;
+                if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
+
+                var nextResult = SearchResults[idx];
+                var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                if (tvi != null)
+                {
+                    tvi.IsSelected = false;
+                    tvi.IsSelected = true;
+                }
+            }
+        }
+
+
+        public bool CanCompareFiles
         {
             get
             {
-                LoadFormattedText();
-                return formattedText;
-            }
-        }
-
-        public void LoadFormattedText()
-        {
-            if (formattedText == null || formattedText.Count == 0)
-            {
-                formattedText = FormatLine(GrepLine);
-
-                if (GrepLine.IsHexFile)
+                if (CompareApplicationConfigured)
                 {
-                    IsHexData = true;
-                    ResultColumn1Width = "Auto";
-                    ResultColumn2Width = "Auto";
-                    ResultColumn1SharedSizeGroupName = "COL1";
-                    FormattedHexValues = FormatHexValues(GrepLine);
+                    int count = GetSelectedFiles().Count;
+                    return count == 2 || count == 3;
                 }
-                else
+                return false;
+            }
+        }
+
+        private void CompareFiles()
+        {
+            var files = GetSelectedFiles();
+            if (files.Count == 2 || files.Count == 3)
+                Utils.CompareFiles(files);
+        }
+
+        internal string GetSelectedGrepLineText()
+        {
+            if (HasGrepLineSelection)
+            {
+                StringBuilder sb = new();
+                foreach (var item in SelectedItems)
                 {
-                    IsHexData = false;
-                    ResultColumn1Width = "*";
-                    ResultColumn2Width = "0";
-                    ResultColumn1SharedSizeGroupName = null;
-                }
-            }
-        }
-
-        [ObservableProperty]
-        private string? formattedHexValues;
-
-        [ObservableProperty]
-        private bool isHexData;
-
-        [ObservableProperty]
-        private string? resultColumn1SharedSizeGroupName = null; // cannot be empty string, but looks like null works
-
-        [ObservableProperty]
-        private string resultColumn1Width = "*";
-
-        [ObservableProperty]
-        private string resultColumn2Width = "0";
-
-        // FormattedGrepLines don't expand, but the XAML code expects this property on TreeViewItems
-        public bool IsExpanded { get; set; }
-
-        [ObservableProperty]
-        private bool isSelected;
-        partial void OnIsSelectedChanged(bool value)
-        {
-            GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
-        }
-
-        [ObservableProperty]
-        private bool isSectionBreak = false;
-
-        public string Style { get; private set; } = "";
-
-        [ObservableProperty]
-        private int lineNumberColumnWidth = 30;
-
-        void Parent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(LineNumberColumnWidth))
-                LineNumberColumnWidth = Parent.LineNumberColumnWidth;
-        }
-
-        public static bool HighlightCaptureGroups
-        {
-            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightCaptureGroups); }
-        }
-
-        public FormattedGrepResult Parent { get; private set; }
-
-        [ObservableProperty]
-        private bool wrapText;
-        partial void OnWrapTextChanged(bool value)
-        {
-            MaxLineLength = value ? 10000 : 500;
-        }
-
-        public int MaxLineLength { get; private set; } = 500;
-
-        public int Level => 1;
-
-        public IEnumerable<ITreeItem> Children => [];
-
-        private InlineCollection FormatLine(GrepLine line)
-        {
-            Paragraph paragraph = new();
-
-            string fullLine = line.LineText;
-            if (line.LineText.Length > MaxLineLength)
-            {
-                fullLine = line.LineText[..MaxLineLength];
-            }
-
-            if (line.Matches.Count == 0)
-            {
-                Run mainRun = new(fullLine);
-                paragraph.Inlines.Add(mainRun);
-            }
-            else
-            {
-                int counter = 0;
-                GrepMatch[] lineMatches = new GrepMatch[line.Matches.Count];
-                line.Matches.CopyTo(lineMatches);
-                foreach (GrepMatch m in lineMatches)
-                {
-                    _ = Parent.GetMatchNumber(m.FileMatchId);
-                    int matchStartLocation = m.StartLocation;
-                    int matchLength = m.Length;
-                    if (matchStartLocation < counter)
+                    if (item is FormattedGrepLine node)
                     {
-                        // overlapping match: continue highlight from previous end
-                        int overlap = counter - matchStartLocation;
-                        matchStartLocation = counter;
-                        matchLength -= overlap;
+                        sb.AppendLine(node.GrepLine.LineText);
                     }
+                }
 
-                    try
+                return sb.ToString().TrimEndOfLine();
+            }
+            return string.Empty;
+        }
+
+        internal List<string> GetSelectedFileNames(bool showFullName)
+        {
+            List<string> list = [];
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    string name = fileNode.GrepResult.FileNameDisplayed;
+                    if (!showFullName)
+                        name = Path.GetFileName(name);
+
+                    if (!list.Contains(name))
+                        list.Add(name);
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameDisplayed;
+                    if (!showFullName)
+                        name = Path.GetFileName(name);
+
+                    if (!list.Contains(name))
+                        list.Add(name);
+                }
+            }
+            return list;
+        }
+
+        private (IList<FormattedGrepResult> files, int indexOfFirst) GetSelectedFilesInt()
+        {
+            // get the unique set of files from the selections
+            List<FormattedGrepResult> files = [];
+            int indexOfFirst = -1;
+
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name, StringComparison.Ordinal)) && File.Exists(name))
                     {
-                        string? regLine = null;
-                        string? fmtLine = null;
-                        if (matchStartLocation < fullLine.Length)
-                        {
-                            regLine = fullLine[counter..matchStartLocation];
-                        }
+                        files.Add(fileNode);
+                    }
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name, StringComparison.Ordinal)) && File.Exists(name))
+                    {
+                        files.Add(lineNode.Parent);
+                    }
+                }
 
-                        if (matchStartLocation + matchLength <= fullLine.Length)
-                        {
-                            fmtLine = fullLine.Substring(matchStartLocation, matchLength);
-                        }
-                        else if (fullLine.Length > matchStartLocation)
-                        {
-                            // match may include the non-printing newline chars at the end of the line: don't overflow the length
-                            fmtLine = fullLine[matchStartLocation..];
-                        }
-                        else
-                        {
-                            // past the end of the line: line may be truncated, or it may be the newline chars
-                        }
+                if (files.Count == 1)
+                {
+                    indexOfFirst = SearchResults.IndexOf(files.First());
+                }
+            }
+            return (files, indexOfFirst);
+        }
 
-                        if (regLine != null)
+        private void Copy()
+        {
+            if (HasGrepLineSelection)
+            {
+                CopyGrepLines();
+            }
+            else if (HasGrepResultSelection)
+            {
+                CopyFileNames(true);
+            }
+        }
+
+        private void SelectAll()
+        {
+            TreeControl?.TreeView.DeselectAllChildItems();
+
+            foreach (var item in SearchResults)
+            {
+                item.IsSelected = true;
+
+                if (item.IsExpanded)
+                {
+                    foreach (var child in item.Children)
+                    {
+                        child.IsSelected = true;
+                    }
+                }
+            }
+        }
+
+        private void SelectToStart()
+        {
+            var startTreeViewItem = TreeControl?.TreeView.StartTreeViewItem;
+            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
+            {
+                TreeControl?.TreeView.DeselectAllChildItems();
+
+                if (startItem is FormattedGrepLine line)
+                {
+                    startItem = line.Parent;
+                    if (!startItem.IsSelected)
+                        startItem.IsSelected = true;
+                }
+
+                bool isSelecting = false;
+                foreach (var item in SearchResults.Reverse())
+                {
+                    if (item == startItem)
+                    {
+                        isSelecting = true;
+                    }
+                    else if (isSelecting)
+                    {
+                        item.IsSelected = true;
+
+                        if (item.IsExpanded)
                         {
-                            Run regularRun = new(regLine);
-                            paragraph.Inlines.Add(regularRun);
-                        }
-                        if (fmtLine != null)
-                        {
-                            if (HighlightCaptureGroups && m.Groups.Count > 0)
+                            foreach (var child in item.Children)
                             {
-                                FormatCaptureGroups(paragraph, m, fmtLine);
-                            }
-                            else
-                            {
-                                Run run = new(fmtLine);
-                                run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
-                                run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                                paragraph.Inlines.Add(run);
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    catch
-                    {
-                        // on error show the whole line with no highlights
-                        paragraph.Inlines.Clear();
-                        Run regularRun = new(fullLine);
-                        paragraph.Inlines.Add(regularRun);
-                        // set position to end of line
-                        matchStartLocation = fullLine.Length;
-                        matchLength = 0;
-                    }
-                    finally
-                    {
-                        counter = matchStartLocation + matchLength;
-                    }
-                }
-
-                if (counter < fullLine.Length)
-                {
-                    try
-                    {
-                        string regLine = fullLine[counter..];
-                        Run regularRun = new(regLine);
-                        paragraph.Inlines.Add(regularRun);
-                    }
-                    catch
-                    {
-                        Run regularRun = new(fullLine);
-                        paragraph.Inlines.Add(regularRun);
-                    }
-                }
-
-                if (line.LineText.Length > MaxLineLength)
-                {
-                    string msg = TranslationSource.Format(Resources.Main_ResultList_CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
-
-                    var msgRun = new Run(msg);
-                    msgRun.SetResourceReference(Run.ForegroundProperty, "TreeView.Message.Highlight.Foreground");
-                    msgRun.SetResourceReference(Run.BackgroundProperty, "TreeView.Message.Highlight.Background");
-                    paragraph.Inlines.Add(msgRun);
-
-                    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MaxLineLength).Select(m => m);
-                    int count = hiddenMatches.Count();
-                    if (count > 0)
-                    {
-                        paragraph.Inlines.Add(new Run(" " + Resources.Main_ResultList_AdditionalMatches));
-                    }
-
-                    // if close to getting them all, then take them all,
-                    // otherwise, stop at 20 and just show the remaining count
-                    int takeCount = count > 25 ? 20 : count;
-
-                    foreach (GrepMatch m in hiddenMatches.Take(takeCount))
-                    {
-                        if (m.StartLocation + m.Length <= line.LineText.Length)
-                        {
-                            paragraph.Inlines.Add(new Run(enQuad));
-                            string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
-                            var run = new Run(fmtLine);
-                            run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
-                            run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                            paragraph.Inlines.Add(run);
-
-                            if (m.StartLocation + m.Length == line.LineText.Length)
-                                paragraph.Inlines.Add(new Run(" " + Resources.Main_ResultList_AtEndOfLine));
-                            else
-                                paragraph.Inlines.Add(new Run(" " + TranslationSource.Format(Resources.Main_ResultList_AtPosition, m.StartLocation)));
-                        }
-                    }
-
-                    if (count > takeCount)
-                    {
-                        paragraph.Inlines.Add(new Run(TranslationSource.Format(Resources.Main_ResultList_PlusCountMoreMatches, count - takeCount)));
-                    }
-                }
-            }
-            return paragraph.Inlines;
-        }
-
-        private void FormatCaptureGroups(Paragraph paragraph, GrepMatch match, string fmtLine)
-        {
-            if (paragraph == null || match == null || string.IsNullOrEmpty(fmtLine))
-                return;
-
-            GroupMap map = new(match, fmtLine);
-            foreach (var range in map.Ranges.Where(r => r.Length > 0))
-            {
-                var run = new Run(range.RangeText);
-                if (range.Group == null)
-                {
-                    run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
-                    run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1, Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, match.RegexMatchValue.TrimEnd('\r', '\n'));
-                    paragraph.Inlines.Add(run);
-                }
-                else
-                {
-                    if (!Parent.GroupColors.TryGetValue(range.Group.Name, out string? bgColor))
-                    {
-                        int groupIdx = Parent.GroupColors.Count % 10;
-                        bgColor = $"Match.Group.{groupIdx}.Highlight.Background";
-                        Parent.GroupColors.Add(range.Group.Name, bgColor);
-                    }
-                    run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
-                    run.SetResourceReference(Run.BackgroundProperty, bgColor);
-                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2,
-                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, range.Group.Name, range.Group.FullValue.TrimEnd('\r', '\n'));
-                    paragraph.Inlines.Add(run);
-                }
-            }
-        }
-
-        private string FormatHexValues(GrepLine grepLine)
-        {
-            string[] parts = grepLine.LineText.TrimEnd().Split(' ');
-            List<byte> list = [];
-            foreach (string num in parts)
-            {
-                if (byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
-                {
-                    list.Add(result);
-                }
-            }
-            string text = Parent.GrepResult.Encoding.GetString(list.ToArray());
-            List<char> nonPrintableChars = [];
-            for (int idx = 0; idx < text.Length; idx++)
-            {
-                if (!char.IsLetterOrDigit(text[idx]) && !char.IsPunctuation(text[idx]) && text[idx] != ' ')
-                {
-                    nonPrintableChars.Add(text[idx]);
-                }
-            }
-            foreach (char c in nonPrintableChars)
-            {
-                text = text.Replace(c, '.');
-            }
-            return text;
-        }
-
-        private class GroupMap
-        {
-            private readonly int start;
-            private readonly List<Range> ranges = [];
-            public GroupMap(GrepMatch match, string text)
-            {
-                start = match.StartLocation;
-                MatchText = text;
-                ranges.Add(new Range(0, MatchText.Length, this, null));
-
-                foreach (var group in match.Groups.OrderByDescending(g => g.Length))
-                {
-                    Insert(group);
-                }
-                ranges.Sort();
-            }
-
-            public IEnumerable<Range> Ranges => ranges;
-
-            public string MatchText { get; }
-
-            private void Insert(GrepCaptureGroup group)
-            {
-                int startIndex = group.StartLocation - start;
-                int endIndex = startIndex + group.Length;
-
-                //gggggg
-                //xxxxxx
-                var replace = ranges.FirstOrDefault(r => r.Start == startIndex && r.End == endIndex);
-                if (replace != null)
-                {
-                    ranges.Remove(replace);
-                    ranges.Add(new Range(startIndex, endIndex, this, group));
-                }
-                else
-                {
-                    //gg
-                    //xxxxxx
-                    var head = ranges.FirstOrDefault(r => r.Start == startIndex && r.End > endIndex);
-                    if (head != null)
-                    {
-                        ranges.Remove(head);
-                        ranges.Add(new Range(startIndex, endIndex, this, group));
-                        ranges.Add(new Range(endIndex, head.End, this, head.Group));
-                    }
-                    else
-                    {
-                        //    gg
-                        //xxxxxx
-                        var tail = ranges.FirstOrDefault(r => r.Start < startIndex && r.End == endIndex);
-                        if (tail != null)
-                        {
-                            ranges.Remove(tail);
-                            ranges.Add(new Range(tail.Start, startIndex, this, tail.Group));
-                            ranges.Add(new Range(startIndex, endIndex, this, group));
-                        }
-                        else
-                        {
-                            //  gg
-                            //xxxxxx
-                            var split = ranges.FirstOrDefault(r => r.Start < startIndex && r.End > endIndex);
-                            if (split != null)
-                            {
-                                ranges.Remove(split);
-                                ranges.Add(new Range(split.Start, startIndex, this, split.Group));
-                                ranges.Add(new Range(startIndex, endIndex, this, group));
-                                ranges.Add(new Range(endIndex, split.End, this, split.Group));
-                            }
-                            else
-                            {
-                                //   gggg  
-                                //xxxxxyyyyy
-                                var spans = ranges.Where(r => (r.Start < startIndex && r.End < endIndex) ||
-                                    (r.Start > startIndex && r.End > endIndex)).OrderBy(r => r.Start).ToList();
-
-                                if (spans.Count == 2)
-                                {
-                                    ranges.Remove(spans[0]);
-                                    ranges.Remove(spans[1]);
-                                    ranges.Add(new Range(spans[0].Start, startIndex, this, spans[0].Group));
-                                    ranges.Add(new Range(startIndex, endIndex, this, group));
-                                    ranges.Add(new Range(endIndex, spans[1].End, this, spans[1].Group));
-                                }
+                                child.IsSelected = true;
                             }
                         }
                     }
@@ -1179,94 +1200,248 @@ namespace dnGREP.WPF
             }
         }
 
-        private class Range(int start, int end, GroupMap parent, GrepCaptureGroup? group)
-            : IComparable<Range>, IComparable, IEquatable<Range>
+        private void SelectToEnd()
         {
-            public int Start { get; } = Math.Min(start, end);
-            public int End { get; } = Math.Max(start, end);
-
-            public int Length { get { return End - Start; } }
-
-            public string RangeText { get { return parent.MatchText.Substring(Start, Length); } }
-
-            public GrepCaptureGroup? Group { get; } = group;
-
-            public int CompareTo(object? obj)
+            var startTreeViewItem = TreeControl?.TreeView.StartTreeViewItem;
+            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
             {
-                return CompareTo(obj as Range);
-            }
+                TreeControl?.TreeView.DeselectAllChildItems();
 
-            public int CompareTo(Range? other)
-            {
-                if (other == null)
-                    return 1;
-                else
-                    return Start.CompareTo(other.Start); // should never be equal
-            }
+                if (startItem is FormattedGrepLine line)
+                {
+                    startItem = line.Parent;
+                    if (!startItem.IsSelected)
+                        startItem.IsSelected = true;
+                }
 
-            public override bool Equals(object? obj)
-            {
-                return Equals(obj as Range);
-            }
+                bool isSelecting = false;
+                foreach (var item in SearchResults)
+                {
+                    if (item == startItem)
+                    {
+                        isSelecting = true;
+                    }
+                    else if (isSelecting)
+                    {
+                        item.IsSelected = true;
 
-            public bool Equals(Range? other)
-            {
-                if (other == null) return false;
-
-                return Start == other.Start &&
-                    End == other.End;
-            }
-
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(Start, End);
-            }
-
-            public override string ToString()
-            {
-                return $"{Start} - {End}:  {RangeText}";
+                        if (item.IsExpanded)
+                        {
+                            foreach (var child in item.Children)
+                            {
+                                child.IsSelected = true;
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        private void ExcludeFiles()
+        {
+            List<FormattedGrepResult> files = [];
+            int indexOfFirst = -1;
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepLine lineNode)
+                {
+                    var grepResult = lineNode.Parent;
+                    if (!files.Contains(grepResult))
+                    {
+                        files.Add(grepResult);
+                    }
+                }
+                if (item is FormattedGrepResult fileNode)
+                {
+                    if (!files.Contains(fileNode))
+                    {
+                        files.Add(fileNode);
+                    }
+                }
+
+                if (files.Count == 1)
+                {
+                    indexOfFirst = SearchResults.IndexOf(files.First());
+                }
+            }
+
+            DeselectAllItems();
+
+            foreach (var item in files)
+            {
+                SearchResults.Remove(item);
+            }
+
+            if (indexOfFirst > -1 && SearchResults.Count > 0 &&
+                TreeControl != null)
+            {
+                // the first item was removed, select the new item in that position
+                int idx = indexOfFirst;
+                if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
+
+                var nextResult = SearchResults[idx];
+                var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                if (tvi != null)
+                {
+                    tvi.IsSelected = false;
+                    tvi.IsSelected = true;
+                }
+            }
+        }
+
+        private void ShowFileProperties()
+        {
+            // get the unique set of files from the selections
+            List<string> files = [];
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
+            }
+
+            foreach (var fileName in files)
+                ShellIntegration.ShowFileProperties(fileName);
+        }
+
+        private void MakeFilesWritable()
+        {
+            List<FormattedGrepResult> files = [];
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepLine lineNode)
+                {
+                    var grepResult = lineNode.Parent;
+                    if (!files.Contains(grepResult))
+                    {
+                        files.Add(grepResult);
+                    }
+                }
+                if (item is FormattedGrepResult fileNode)
+                {
+                    if (!files.Contains(fileNode))
+                    {
+                        files.Add(fileNode);
+                    }
+                }
+            }
+
+            foreach (var item in files)
+            {
+                if (File.Exists(item.GrepResult.FileNameReal))
+                {
+                    var info = new FileInfo(item.GrepResult.FileNameReal);
+                    if (info.IsReadOnly)
+                    {
+                        info.IsReadOnly = false;
+                        item.SetLabel();
+                    }
+                }
+            }
+        }
+
+        private async void NextLine()
+        {
+            try
+            {
+                if (TreeControl != null)
+                {
+                    await TreeControl.Next();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Calling TreeControl.Next()");
+            }
+        }
+
+        private async void NextFile()
+        {
+            try
+            {
+                if (TreeControl != null)
+                {
+                    await TreeControl.NextFile();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Calling TreeControl.NextFile()");
+            }
+        }
+
+        private async void PreviousLine()
+        {
+            try
+            {
+                if (TreeControl != null)
+                {
+                    await TreeControl.Previous();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Calling TreeControl.Previous()");
+            }
+        }
+
+        private async void PreviousFile()
+        {
+            try
+            {
+                if (TreeControl != null)
+                {
+                    await TreeControl.PreviousFile();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Calling TreeControl.PreviousFile()");
+            }
+        }
+
+        private async void ExpandAll()
+        {
+            try
+            {
+                if (TreeControl != null)
+                {
+                    await TreeControl.ExpandAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Calling TreeControl.ExpandAll()");
+            }
+        }
+
+        private void CollapseAll()
+        {
+            try
+            {
+                TreeControl?.CollapseAll();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Calling TreeControl.CollapseAll()");
+            }
+        }
+
+
+
+        #endregion
     }
-
-    public partial class FormattedGrepMatch : CultureAwareViewModel
-    {
-        public FormattedGrepMatch(GrepMatch match)
-        {
-            Match = match;
-            ReplaceMatch = Match.ReplaceMatch;
-
-            Background = Match.ReplaceMatch ? Brushes.PaleGreen : Brushes.Bisque;
-        }
-
-        public GrepMatch Match { get; }
-
-        public override string ToString()
-        {
-            return Match.ToString() + $" replace={ReplaceMatch}";
-        }
-
-        [ObservableProperty]
-        private bool replaceMatch = false;
-
-        partial void OnReplaceMatchChanging(bool value)
-        {
-            Match.ReplaceMatch = value;
-            Background = Match.ReplaceMatch ? Brushes.PaleGreen : Brushes.Bisque;
-        }
-
-        [ObservableProperty]
-        private Brush background = Brushes.Bisque;
-
-        [ObservableProperty]
-        private double fontSize = 12;
-
-        [ObservableProperty]
-        private FontWeight fontWeight = FontWeights.Normal;
-    }
-
-    public record OpenFileContext(string EditorName, object CommandParameter)
-    {
-    }
-
 }

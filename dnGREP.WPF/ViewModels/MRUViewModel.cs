@@ -56,7 +56,7 @@ namespace dnGREP.WPF
 
                 isPinned = value;
                 OnPropertyChanged(nameof(IsPinned));
-                MainViewModel.MainViewMessenger.NotifyColleagues("IsPinnedChanged", this);
+                App.Messenger.NotifyColleagues("IsPinnedChanged", this);
             }
         }
 

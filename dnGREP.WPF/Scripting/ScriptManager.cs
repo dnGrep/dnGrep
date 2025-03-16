@@ -136,6 +136,26 @@ namespace dnGREP.WPF
             }
         }
 
+        internal static List<string> GetScriptNames()
+        {
+            List<string> results = [];
+            string dataFolder = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, ScriptFolder);
+            if (Directory.Exists(dataFolder))
+            {
+                foreach (string fileName in Directory.GetFiles(dataFolder, "*" + ScriptExt, SearchOption.AllDirectories))
+                {
+                    string name = Path.GetFileNameWithoutExtension(fileName);
+                    string? fileFolder = Path.GetDirectoryName(fileName);
+                    if (fileFolder != null && dataFolder != fileFolder)
+                    {
+                        name = Path.GetRelativePath(dataFolder, fileFolder) + '_' + name;
+                    }
+                    results.Add(name.Replace(Path.DirectorySeparatorChar, '_'));
+                }
+            }
+            return results;
+        }
+
         [MemberNotNull(nameof(scriptCommands), nameof(commandCompletionData))]
         private static void LoadScriptCommands()
         {

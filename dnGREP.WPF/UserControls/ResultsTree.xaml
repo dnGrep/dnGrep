@@ -8,7 +8,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             my:InputBindingsBehavior.InputBindings="{Binding InputBindings}" >
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -35,7 +36,6 @@
                                   VirtualizingStackPanel.IsVirtualizing="True"
                                   MouseDoubleClick="TreeView_MouseDoubleClick" 
                                   MouseUp="TreeView_MouseUp"
-                                  PreviewKeyDown="TreeKeyDown"
                                   PreviewMouseDoubleClick="TreeView_PreviewMouseDoubleClick"
                                   Grid.IsSharedSizeScope="True"
                                   ScrollViewer.HorizontalScrollBarVisibility="{Binding Path=WrapText, Converter={StaticResource BoolToScollBarVisibilityConverter}}">
@@ -153,7 +153,7 @@
         </TreeView.Resources>
         <TreeView.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Click="BtnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
 
                 <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
                           ItemsSource="{Binding Path=EditorMenuItems, UpdateSourceTrigger=PropertyChanged}" >
@@ -161,42 +161,41 @@
                         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
                             <Setter Property="Header" Value="{Binding Header}"/>
                             <Setter Property="Command" Value="{Binding Command}"/>
-                            <Setter Property="CommandParameter" Value="ResultsTree"/>
-                            <Setter Property="IsEnabled" Value="{Binding IsEnabled}"/>
+                            <Setter Property="InputGestureText" Value="{Binding Command.KeyGestureText}"/>
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
-                <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Click="BtnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Click="BtnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_CopyFiles'}" Click="BtnCopyFiles_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_MoveFiles'}" Click="BtnMoveFiles_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_DeleteFiles'}" Click="BtnDeleteFiles_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_MoveFilesToRecycleBin'}" Click="BtnRecycleFiles_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_MakeWritable'}" Click="BtnMakeWritable_Click" IsEnabled="{Binding HasReadOnlySelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Command="{Binding OpenContainingFolderCommand}" InputGestureText="{Binding OpenContainingFolderCommand.KeyGestureText}"/>
+                <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Command="{Binding RenameFileCommand}" InputGestureText="{Binding RenameFileCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_CopyFiles'}" Command="{Binding CopyFilesCommand}" InputGestureText="{Binding CopyFilesCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_MoveFiles'}" Command="{Binding MoveFilesCommand}" InputGestureText="{Binding MoveFilesCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" InputGestureText="{Binding DeleteFilesCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_MoveFilesToRecycleBin'}" Command="{Binding RecycleFilesCommand}" InputGestureText="{Binding RecycleFilesCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_MakeWritable'}" Command="{Binding MakeWritableCommand}" InputGestureText="{Binding MakeWritableCommand.KeyGestureText}" />
                 <Separator />
-                <MenuItem Header="{l:Loc Key='Main_Results_ShowExplorerMenu'}" Click="BtnOpenExplorerMenu_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Click="BtnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_ShowExplorerMenu'}" Command="{Binding OpenExplorerMenuCommand}" InputGestureText="{Binding OpenExplorerMenuCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Command="{Binding ShowFilePropertiesCommand}" InputGestureText="{Binding ShowFilePropertiesCommand.KeyGestureText}" />
                 <Separator />
-                <MenuItem Header="{l:Loc Key='Main_Results_CompareFiles'}" Command="{Binding CompareFilesCommand}"
+                <MenuItem Header="{l:Loc Key='Main_Results_CompareFiles'}" Command="{Binding CompareFilesCommand}" InputGestureText="{Binding CompareFilesCommand.KeyGestureText}"
                           ToolTipService.ShowOnDisabled="True">
                     <MenuItem.ToolTip>
                         <ToolTip Content="{l:Loc Key='Main_Results_Tooltip_NotConfigured'}"
                                  Visibility="{Binding Path=CompareApplicationConfigured, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                     </MenuItem.ToolTip>
                 </MenuItem>
-                <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Click="BtnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Click="BtnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_CopyLinesOfText'}" Click="BtnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Command="{Binding CopyFileNamesCommand}" InputGestureText="{Binding CopyFileNamesCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Command="{Binding CopyFullFilePathsCommand}" InputGestureText="{Binding CopyFullFilePathsCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_CopyLinesOfText'}" Command="{Binding CopyGrepLinesCommand}" InputGestureText="{Binding CopyGrepLinesCommand.KeyGestureText}" />
                 <Separator />
-                <MenuItem Header="{l:Loc Key='Main_Results_ExcludeFromResults'}" Click="BtnExclude_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='Main_Results_NextMatch'}" Click="BtnNextMatch_Click" InputGestureText="F3" />
-                <MenuItem Header="{l:Loc Key='Main_Results_NextFile'}" Click="BtnNextFile_Click" InputGestureText="Shift+F3" />
-                <MenuItem Header="{l:Loc Key='Main_Results_PreviousMatch'}" Click="BtnPreviousMatch_Click" InputGestureText="F4"/>
-                <MenuItem Header="{l:Loc Key='Main_Results_PreviousFile'}" Click="BtnPreviousFile_Click" InputGestureText="Shift+F4"/>
-                <MenuItem Header="{l:Loc Key='Main_Results_ExpandAll'}" Click="BtnExpandAll_Click" InputGestureText="F6" />
-                <MenuItem Header="{l:Loc Key='Main_Results_CollapseAll'}" Click="BtnCollapseAll_Click" InputGestureText="Shift+F6"/>
+                <MenuItem Header="{l:Loc Key='Main_Results_ExcludeFromResults'}" Command="{Binding ExcludeFilesCommand}" InputGestureText="{Binding ExcludeFilesCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_NextMatch'}" Command="{Binding NextLineCommand}" InputGestureText="{Binding NextLineCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_NextFile'}" Command="{Binding NextFileCommand}" InputGestureText="{Binding NextFileCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_PreviousMatch'}" Command="{Binding PreviousLineCommand}" InputGestureText="{Binding PreviousLineCommand.KeyGestureText}"/>
+                <MenuItem Header="{l:Loc Key='Main_Results_PreviousFile'}" Command="{Binding PreviousFileCommand}" InputGestureText="{Binding PreviousFileCommand.KeyGestureText}"/>
+                <MenuItem Header="{l:Loc Key='Main_Results_ExpandAll'}" Command="{Binding ExpandAllCommand}" InputGestureText="{Binding ExpandAllCommand.KeyGestureText}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_CollapseAll'}" Command="{Binding CollapseAllCommand}" InputGestureText="{Binding CollapseAllCommand.KeyGestureText}"/>
                 <Separator />
-                <MenuItem Header="{l:Loc Key='Main_Results_ResetZoom'}" Click="BtnResetZoom_Click" />
+                <MenuItem Header="{l:Loc Key='Main_Results_ResetZoom'}" Command="{Binding ResetZoomCommand}" InputGestureText="{Binding ResetZoomCommand.KeyGestureText}" />
             </ContextMenu>
         </TreeView.ContextMenu>
         <TreeView.ItemContainerStyle>

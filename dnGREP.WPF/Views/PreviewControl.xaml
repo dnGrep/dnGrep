@@ -11,7 +11,8 @@
              FlowDirection="{Binding CultureFlowDirection}"
              FontFamily="{Binding ApplicationFontFamily}"
              FontSize="{Binding MainFormFontSize}"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             my:InputBindingsBehavior.InputBindings="{Binding InputBindings}">
 
     <UserControl.Resources>
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
@@ -107,7 +108,9 @@
                            WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}">
                 <ae:TextEditor.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{l:Loc Key='TextBox_Command_Copy'}" Command="Copy"/>
+                        <MenuItem Header="{l:Loc Key='TextBox_Command_Copy'}" 
+                                  InputGestureText="{x:Static my:TextBoxCommands.CopyGesture}" 
+                                  Command="Copy"/>
                         <Separator/>
                         <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" 
                                   IsChecked="{Binding DockVM.PreviewAutoPosition}"/>

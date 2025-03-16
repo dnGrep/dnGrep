@@ -22,11 +22,8 @@
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Icon="/dnGREP;component/nGREP.ico"
-                 WindowStartupLocation="CenterOwner">
-
-    <Window.InputBindings>
-        <KeyBinding Gesture="Ctrl+F5" Command="{Binding ReloadThemeCommand}" />
-    </Window.InputBindings>
+                 WindowStartupLocation="CenterOwner"
+                 my:InputBindingsBehavior.InputBindings="{Binding InputBindings}" >
 
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />
@@ -207,7 +204,7 @@
                             </ComboBox>
                             <Button Margin="6,3" Padding="12,3" Content="{l:Loc Key='Options_Reload'}"
                                     Command="{Binding ReloadThemeCommand}"
-                                    ToolTip="{l:Loc Key='Options_ReloadTheCurrentThemeFile'}" />
+                                    ToolTip="{Binding ReloadThemeCommandTooltip}" />
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
@@ -231,7 +228,7 @@
                             <Button Margin="6,3" Padding="12,3" 
                                     Content="{l:Loc Key='Options_LoadFromFile'}"
                                     ToolTip="{l:Loc Key='Options_PreviewToolForTranslators'}"
-                                    Command="{Binding LoadResxCommand}" />
+                                    Command="{Binding LoadResxCommand}"/>
                         </StackPanel>
                         <TextBlock>
                             <Run Text="{l:Loc Key='Options_WantADifferentLanguage'}"/>
@@ -1165,7 +1162,8 @@
                                  Width="350" Margin="0,3"
                                  HorizontalAlignment="Left" />
                         <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
-                                Content="{l:Loc Key='Options_PdfToTextReset'}" Command="{Binding ResetPdfToTextOptionCommand}"
+                                Content="{l:Loc Key='Options_PdfToTextReset'}" 
+                                Command="{Binding ResetPdfToTextOptionCommand}"
                                 Padding="12,3" Margin="20,3" 
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <CheckBox Grid.Row="2" Grid.Column="0" 

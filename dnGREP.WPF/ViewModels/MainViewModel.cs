@@ -33,14 +33,77 @@ namespace dnGREP.WPF
         public event EventHandler? PreviewHide;
         public event EventHandler? PreviewShow;
 
-        public static readonly Messenger MainViewMessenger = new();
-
         private Brush highlightForeground = Brushes.Yellow;
         private Brush highlightBackground = Brushes.Black;
         private PauseCancelTokenSource? pauseCancelTokenSource;
 
         private readonly string enQuad = char.ConvertFromUtf32(0x2000);
         public static readonly string IgnoreFilterFolder = "Filters";
+        private static bool beenInitialized;
+
+        static MainViewModel()
+        {
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReloadThemeCommand), "Options_Reload", "Control+F5");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleFileOptionsCommand), "", "Alt+E");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleResultsMaximizeCommand), "", "F7");
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(UndoCommand), "Main_Menu_Undo", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PersonalizationCommand), "Main_Menu_Personalize", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OptionsCommand), "Main_Menu_Options", "F8");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(KeyboardOptionsCommand), "Main_Menu_Keyboard", "F9");
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(NewScriptCommand), "Main_Menu_NewScript", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(EditScriptCommand), "Main_Menu_EditScript", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CancelScriptCommand), "Main_Menu_CancelScript", string.Empty);
+
+            foreach (var label in ScriptManager.GetScriptNames())
+            {
+                if (!string.IsNullOrEmpty(label))
+                {
+                    KeyBindingManager.RegisterScript(KeyCategory.Main, label);
+                }
+            }
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenBookmarksWindowCommand), "Main_Menu_Bookmarks", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CheckForUpdatesCommand), "Main_Menu_About_CheckForUpdates", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenAppDataCommand), "Main_Menu_About_AppData", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenAppLogsCommand), "Main_Menu_About_AppLogs", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(AboutCommand), "Main_Menu_About_AboutDnGrep", string.Empty);
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(BrowseFolderCommand), "", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SearchCommand), "Main_SearchButton", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SearchAndStopCommand), "Main_StopAfterFirstMatch", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SearchAndPauseCommand), "Main_PauseAfterFirstMatch", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReplaceCommand), "Main_ReplaceButton", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SortCommand), "Main_SortButton", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CancelCommand), "Main_CancelButton", "Escape");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PauseResumeCommand), "Main_PauseButton", string.Empty);
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_MoreMenu_CopyFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(MoveFilesCommand), "Main_MoreMenu_MoveFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(DeleteFilesCommand), "Main_MoreMenu_DeleteFiles", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyToClipboardCommand), "Main_MoreMenu_CopyFileNames", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesWithCountsCommand), "Main_MoreMenu_CopyFileNamesWithMatchCount", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyMatchingLinesCommand), "Main_MoreMenu_CopyResults", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveReportCommand), "Main_MoreMenu_Save_Report", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveTextResultsCommand), "Main_MoreMenu_Save_TextResults", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SaveCsvResultsCommand), "Main_MoreMenu_Save_CSVResults", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ReportOptionsCommand), "Main_MoreMenu_Report_Options", string.Empty);
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(HighlightsCommand), "Main_HighlightMatches", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(TestExpressionCommand), "Main_TestExpression", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(BookmarkAddCommand), "", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FolderBookmarkAddCommand), "", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetOptionsCommand), "Main_ResetOptions", string.Empty);
+        }
 
         public MainViewModel()
             : base()
@@ -73,6 +136,8 @@ namespace dnGREP.WPF
                 PopulateScripts();
                 PopulateIgnoreFilters(true);
 
+                InitializeInputBindings();
+
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
                 ToggleHighlights();
@@ -97,7 +162,31 @@ namespace dnGREP.WPF
                 idleTimer.Interval = TimeSpan.FromMilliseconds(250);
                 idleTimer.Tick += IdleTimer_Tick;
 
-                MainViewMessenger.Register<MRUViewModel>("IsPinnedChanged", OnMRUPinChanged);
+                App.Messenger.Register<MRUViewModel>("IsPinnedChanged", OnMRUPinChanged);
+                App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+            }
+        }
+
+        private void InitializeInputBindings()
+        {
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+        }
+
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Main)
+            {
+                InputBindings.Clear();
+                PopulateScripts();
+                InitializeInputBindings();
+                InputBindings.RaiseAfterCollectionChanged();
             }
         }
 
@@ -111,7 +200,11 @@ namespace dnGREP.WPF
 
         private void CurrentCultureChanged(object? sender, EventArgs e)
         {
-            PreviewModel.FilePath = string.Empty;
+            if (PreviewModel != null)
+            {
+                PreviewModel.FilePath = string.Empty;
+            }
+
             PreviewTitle = string.Empty;
 
             PopulateTimeIntervals();
@@ -136,11 +229,14 @@ namespace dnGREP.WPF
             OnPropertyChanged(nameof(IsBookmarkedTooltip));
             OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
             OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
+            OnPropertyChanged(nameof(PauseResumeButtonLabel));
 
             StatusMessage = string.Empty;
             ClearMatchCountStatus();
             ResultsViewModel.Clear();
             UpdateReplaceButtonTooltip(true);
+
+            App.Messenger.NotifyColleagues("CultureChanged");
         }
 
         internal bool Closing()
@@ -242,7 +338,7 @@ namespace dnGREP.WPF
 
         private void SearchResults_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            if (ResultsViewModel.SearchResults.Count == 0 && PreviewFileContent)
+            if (ResultsViewModel.SearchResults.Count == 0 && PreviewFileContent && PreviewModel != null)
             {
                 // clear the preview
                 PreviewModel.FilePath = string.Empty;
@@ -272,7 +368,7 @@ namespace dnGREP.WPF
 
         public MainForm? MainForm => ParentWindow as MainForm;
 
-        public PreviewViewModel PreviewModel { get; internal set; } = new(); // the default will get replaced with the real view model
+        public PreviewViewModel? PreviewModel { get; internal set; } // will get set with the real view model
 
         public bool IsReplaceRunning => CurrentGrepOperation == GrepOperation.Replace;
 
@@ -306,6 +402,8 @@ namespace dnGREP.WPF
         public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = [];
 
         public ObservableCollection<IgnoreFilterFile> IgnoreFilterList { get; } = [];
+
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         [ObservableProperty]
         private bool isSearchForFocused;
@@ -520,44 +618,47 @@ namespace dnGREP.WPF
 
         #region Commands
 
-        /// <summary>
-        /// Returns an undo command
-        /// </summary>
-        public ICommand UndoCommand => new RelayCommand(
+        private RelayCommand? undoCommand;
+        public RelayCommand UndoCommand => undoCommand ??= new RelayCommand(
             param => Undo(),
             param => CanUndo);
 
-        /// <summary>
-        /// Returns an options command
-        /// </summary>
-        public ICommand OptionsCommand => new RelayCommand(
+
+        private RelayCommand? personalizationCommand;
+        public RelayCommand PersonalizationCommand => personalizationCommand ??= new RelayCommand(
+            p => PersonalizationOn = !PersonalizationOn,
+            q => true);
+
+
+        private RelayCommand? optionsCommand;
+        public RelayCommand OptionsCommand => optionsCommand ??= new RelayCommand(
             param => ShowOptions());
 
-        /// <summary>
-        /// Returns a help command
-        /// </summary>
-        public static ICommand HelpCommand => new RelayCommand(
+
+        private RelayCommand? keyboardOptionsCommand;
+        public RelayCommand KeyboardOptionsCommand => keyboardOptionsCommand ??= new RelayCommand(
+            p => ShowKeyboardOptions(),
+            q => true);
+
+
+        private RelayCommand? helpCommand;
+        public RelayCommand HelpCommand => helpCommand ??= new RelayCommand(
             param => ShowHelp());
 
-        /// <summary>
-        /// Returns an about command
-        /// </summary>
-        public static ICommand AboutCommand => new RelayCommand(
+        private RelayCommand? aboutCommand;
+        public RelayCommand AboutCommand => aboutCommand ??= new RelayCommand(
             param => ShowAbout());
 
-        public static ICommand CheckForUpdatesCommand => new RelayCommand(
+        private RelayCommand? checkForUpdatesCommand;
+        public RelayCommand CheckForUpdatesCommand => checkForUpdatesCommand ??= new RelayCommand(
             param => CheckForUpdates(true));
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseCommand => new RelayCommand(
+        private RelayCommand? browseFolderCommand;
+        public RelayCommand BrowseFolderCommand => browseFolderCommand ??= new RelayCommand(
             param => Browse());
 
-        /// <summary>
-        /// Returns a command that starts a search.
-        /// </summary>
-        public ICommand SearchCommand => new RelayCommand(
+        private RelayCommand? searchCommand;
+        public RelayCommand SearchCommand => searchCommand ??= new RelayCommand(
             param =>
             {
                 StopAfterNumMatches = false;
@@ -566,10 +667,8 @@ namespace dnGREP.WPF
             },
             param => CanSearch);
 
-        /// <summary>
-        /// Returns a command that starts a search, and stops after the first match
-        /// </summary>
-        public ICommand SearchAndStopCommand => new RelayCommand(
+        private RelayCommand? searchAndStopCommand;
+        public RelayCommand SearchAndStopCommand => searchAndStopCommand ??= new RelayCommand(
             param =>
             {
                 StopAfterNumMatches = true;
@@ -578,10 +677,8 @@ namespace dnGREP.WPF
             },
             param => CanSearch);
 
-        /// <summary>
-        /// Returns a command that starts a search, and stops after the first match
-        /// </summary>
-        public ICommand SearchAndPauseCommand => new RelayCommand(
+        private RelayCommand? searchAndPauseCommand;
+        public RelayCommand SearchAndPauseCommand => searchAndPauseCommand ??= new RelayCommand(
             param =>
             {
                 StopAfterNumMatches = false;
@@ -591,137 +688,119 @@ namespace dnGREP.WPF
             param => CanSearch);
 
 
-        /// <summary>
-        /// Returns a command that starts a search in results.
-        /// </summary>
-        public ICommand ReplaceCommand => new RelayCommand(
+        private RelayCommand? replaceCommand;
+        public RelayCommand ReplaceCommand => replaceCommand ??= new RelayCommand(
             param => ReplaceSwitch(),
             param => CanReplace);
 
-        /// <summary>
-        /// Returns a command that sorts the results.
-        /// </summary>
-        public ICommand SortCommand => new RelayCommand(
+        private RelayCommand? sortCommand;
+        public RelayCommand SortCommand => sortCommand ??= new RelayCommand(
             param => SortResults(),
             param => CanSortResults);
 
-        /// <summary>
-        /// Returns a command that copies files
-        /// </summary>
-        public ICommand CopyFilesCommand => new RelayCommand(
+        private RelayCommand? copyFilesCommand;
+        public RelayCommand CopyFilesCommand => copyFilesCommand ??= new RelayCommand(
             param => CopyFiles(param));
 
-        /// <summary>
-        /// Returns a command that moves files
-        /// </summary>
-        public ICommand MoveFilesCommand => new RelayCommand(
+        private RelayCommand? moveFilesCommand;
+        public RelayCommand MoveFilesCommand => moveFilesCommand ??= new RelayCommand(
             param => MoveFiles(param));
 
-        /// <summary>
-        /// Returns a command that deletes files
-        /// </summary>
-        public ICommand DeleteFilesCommand => new RelayCommand(
+        private RelayCommand? deleteFilesCommand;
+        public RelayCommand DeleteFilesCommand => deleteFilesCommand ??= new RelayCommand(
             param => DeleteFiles());
 
-        /// <summary>
-        /// Returns a command that copies content to clipboard
-        /// </summary>
-        public ICommand CopyToClipboardCommand => new RelayCommand(
+        private RelayCommand? copyToClipboardCommand;
+        public RelayCommand CopyToClipboardCommand => copyToClipboardCommand ??= new RelayCommand(
             param => CopyToClipboard(false));
 
-        /// <summary>
-        /// Returns a command that copies content to clipboard
-        /// </summary>
-        public ICommand CopyFilesWithCountsCommand => new RelayCommand(
+        private RelayCommand? copyFilesWithCountsCommand;
+        public RelayCommand CopyFilesWithCountsCommand => copyFilesWithCountsCommand ??= new RelayCommand(
             param => CopyToClipboard(true));
 
-        /// <summary>
-        /// Returns a command that opens the report options window
-        /// </summary>
-        public ICommand ReportOptions => new RelayCommand(
-            p => ShowReportOptions());
-
-        /// <summary>
-        /// Returns a command that copies content to clipboard
-        /// </summary>
-        public ICommand SaveResultsCommand => new RelayCommand(
-            param => SaveResultsToFile(param as string));
-
-        /// <summary>
-        /// Returns a command that copies matching lines to clipboard
-        /// </summary>
-        public ICommand CopyMatchingLinesCommand => new RelayCommand(
+        private RelayCommand? copyMatchingLinesCommand;
+        public RelayCommand CopyMatchingLinesCommand => copyMatchingLinesCommand ??= new RelayCommand(
             param => CopyResults());
 
-        /// <summary>
-        /// Returns a command that cancels search
-        /// </summary>
-        public ICommand CancelCommand => new RelayCommand(
+        private RelayCommand? saveReportCommand;
+        public RelayCommand SaveReportCommand => saveReportCommand ??= new RelayCommand(
+            param => SaveResultsToFile("Report"));
+
+        private RelayCommand? saveTextResultsCommand;
+        public RelayCommand SaveTextResultsCommand => saveTextResultsCommand ??= new RelayCommand(
+            param => SaveResultsToFile("Text"));
+
+        private RelayCommand? saveCsvResultsCommand;
+        public RelayCommand SaveCsvResultsCommand => saveCsvResultsCommand ??= new RelayCommand(
+            param => SaveResultsToFile("CSV"));
+
+        private RelayCommand? reportOptionsCommand;
+        public RelayCommand ReportOptionsCommand => reportOptionsCommand ??= new RelayCommand(
+            p => ShowReportOptions());
+
+        private RelayCommand? cancelCommand;
+        public RelayCommand CancelCommand => cancelCommand ??= new RelayCommand(
             param => Cancel(),
             param => CanCancel);
 
-        public ICommand PauseResumeCommand => new RelayCommand(
+        private RelayCommand? pauseResumeCommand;
+        public RelayCommand PauseResumeCommand => pauseResumeCommand ??= new RelayCommand(
             param => PauseResume(),
             param => CanCancel);
 
-        /// <summary>
-        /// Returns a command that toggles match highlights
-        /// </summary>
-        public ICommand HighlightsCommand => new RelayCommand(
+        private RelayCommand? highlightsCommand;
+        public RelayCommand HighlightsCommand => highlightsCommand ??= new RelayCommand(
             param => ToggleHighlights());
 
-        /// <summary>
-        /// Returns a command that opens test view
-        /// </summary>
-        public ICommand TestCommand => new RelayCommand(
-            param => Test());
+        private RelayCommand? testExpressionCommand;
+        public RelayCommand TestExpressionCommand => testExpressionCommand ??= new RelayCommand(
+            param => OpenTestPatternWindow());
 
-        public ICommand BookmarkAddCommand => new RelayCommand(
+        private RelayCommand? bookmarkAddCommand;
+        public RelayCommand BookmarkAddCommand => bookmarkAddCommand ??= new RelayCommand(
             param => BookmarkAddRemove(false));
 
-        public ICommand FolderBookmarkAddCommand => new RelayCommand(
+        private RelayCommand? folderBookmarkAddCommand;
+        public RelayCommand FolderBookmarkAddCommand => folderBookmarkAddCommand ??= new RelayCommand(
             param => BookmarkAddRemove(true));
 
-        /// <summary>
-        /// Returns a command that opens the bookmarks window
-        /// </summary>
-        public ICommand OpenBookmarksWindowCommand => new RelayCommand(
+        private RelayCommand? openBookmarksWindowCommand;
+        public RelayCommand OpenBookmarksWindowCommand => openBookmarksWindowCommand ??= new RelayCommand(
             param => OpenBookmarksWindow());
 
-        /// <summary>
-        /// Returns a command that resets the search options.
-        /// </summary>
-        public ICommand ResetOptionsCommand => new RelayCommand(
+        private RelayCommand? resetOptionsCommand;
+        public RelayCommand ResetOptionsCommand => resetOptionsCommand ??= new RelayCommand(
             param => ResetOptions());
 
-        /// <summary>
-        /// Returns a command that resets the search options.
-        /// </summary>
-        public ICommand ToggleFileOptionsCommand => new RelayCommand(
+        private RelayCommand? toggleFileOptionsCommand;
+        public RelayCommand ToggleFileOptionsCommand => toggleFileOptionsCommand ??= new RelayCommand(
             param => IsFiltersExpanded = !IsFiltersExpanded);
 
-        /// <summary>
-        /// Returns a command that reloads the current theme file.
-        /// </summary>
-        public static ICommand ReloadThemeCommand => new RelayCommand(
+        private RelayCommand? reloadThemeCommand;
+        public RelayCommand ReloadThemeCommand => reloadThemeCommand ??= new RelayCommand(
             param => AppTheme.Instance.ReloadCurrentTheme());
 
-        public ICommand ToggleResultsMaximizeCommand => new RelayCommand(
+        private RelayCommand? toggleResultsMaximizeCommand;
+        public RelayCommand ToggleResultsMaximizeCommand => toggleResultsMaximizeCommand ??= new RelayCommand(
             p => IsResultTreeMaximized = !IsResultTreeMaximized);
 
-        public static ICommand OpenAppDataCommand => new RelayCommand(
+        private RelayCommand? openAppDataCommand;
+        public RelayCommand OpenAppDataCommand => openAppDataCommand ??= new RelayCommand(
             p => OpenAppDataFolder(),
             q => true);
 
-        public static ICommand OpenAppLogsCommand => new RelayCommand(
+        private RelayCommand? openAppLogsCommand;
+        public RelayCommand OpenAppLogsCommand => openAppLogsCommand ??= new RelayCommand(
             p => OpenAppLogsFolder(),
             q => true);
 
-        public ICommand DeleteMRUItemCommand => new RelayCommand(
+        private RelayCommand? deleteMRUItemCommand;
+        public RelayCommand DeleteMRUItemCommand => deleteMRUItemCommand ??= new RelayCommand(
             p => DeleteMRUItem(p as MRUViewModel),
             q => true);
 
-        public ICommand FilterComboBoxDropDownCommand => new RelayCommand(
+        private RelayCommand? filterComboBoxDropDownCommand;
+        public RelayCommand FilterComboBoxDropDownCommand => filterComboBoxDropDownCommand ??= new RelayCommand(
             p => PopulateIgnoreFilters(false));
 
         #endregion
@@ -1805,7 +1884,10 @@ namespace dnGREP.WPF
                 StatusMessage = Resources.Main_Status_Searching;
                 totalMatchCount = 0;
 
-                PreviewModel.FilePath = string.Empty;
+                if (PreviewModel != null)
+                {
+                    PreviewModel.FilePath = string.Empty;
+                }
                 PreviewTitle = string.Empty;
                 // clear temp files from the previous search
                 Utils.DeleteTempFolder();
@@ -2042,7 +2124,10 @@ namespace dnGREP.WPF
             {
                 StatusMessage = Resources.Main_Status_Replacing;
 
-                PreviewModel.FilePath = string.Empty;
+                if (PreviewModel != null)
+                {
+                    PreviewModel.FilePath = string.Empty;
+                }
                 PreviewTitle = string.Empty;
 
                 CurrentGrepOperation = GrepOperation.Replace;
@@ -2414,6 +2499,7 @@ namespace dnGREP.WPF
 
         private void ShowOptions()
         {
+            UIServices.SetBusyState();
             SaveSettings();
             OptionsView optionsForm = new();
             if (ParentWindow != null)
@@ -2443,6 +2529,21 @@ namespace dnGREP.WPF
             }
 
             ResultsViewModel.RaiseSettingsPropertiesChanged();
+        }
+
+        private static void ShowKeyboardOptions()
+        {
+            UIServices.SetBusyState();
+            GrepSearchResultsViewModel.Initialize();
+            BookmarkListViewModel.Initialize();
+            ReplaceViewModel.Initialize();
+            ScriptViewModel.Initialize();
+
+            KeyboardShortcutWindow keyboardForm = new()
+            {
+                Owner = Application.Current.MainWindow
+            };
+            keyboardForm.ShowDialog();
         }
 
         private static void ShowHelp()
@@ -3250,7 +3351,7 @@ namespace dnGREP.WPF
             return sb.ToString();
         }
 
-        private void Test()
+        private void OpenTestPatternWindow()
         {
             try
             {
@@ -3647,11 +3748,14 @@ namespace dnGREP.WPF
 
                 PreviewTitle = displayFileName;
 
-                // order of property setting matters here:
-                PreviewModel.GrepResult = result;
-                PreviewModel.LineNumber = line;
-                PreviewModel.Encoding = result.Encoding;
-                PreviewModel.FilePath = filePath;
+                if (PreviewModel != null)
+                {
+                    // order of property setting matters here:
+                    PreviewModel.GrepResult = result;
+                    PreviewModel.LineNumber = line;
+                    PreviewModel.Encoding = result.Encoding;
+                    PreviewModel.FilePath = filePath;
+                }
 
                 if (!DockVM.IsPreviewDocked)
                     PreviewShow?.Invoke(this, EventArgs.Empty);

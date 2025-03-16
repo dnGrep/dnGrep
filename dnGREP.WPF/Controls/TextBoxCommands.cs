@@ -10,6 +10,12 @@ namespace dnGREP.WPF
         public static RoutedUICommand MakeLowerCase { get; }
         public static RoutedUICommand MakeUpperCase { get; }
 
+        public static string LowerCaseGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+U");
+        public static string UpperCaseGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+Shift+U");
+        public static string CutGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+X");
+        public static string CopyGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+C");
+        public static string PasteGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+V");
+
         static TextBoxCommands()
         {
             MakeLowerCase = new RoutedUICommand("Make Lowercase",

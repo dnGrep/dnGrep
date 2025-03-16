@@ -134,8 +134,6 @@ namespace dnGREP.WPF
 
             Loaded += Window_Loaded;
             Closing += MainForm_Closing;
-
-            PreviewKeyDown += MainForm_PreviewKeyDown;
         }
 
         public MainViewModel ViewModel => viewModel;
@@ -186,16 +184,6 @@ namespace dnGREP.WPF
 
             SetActivePreviewDockSite();
             DockSite.InitFloatingWindows();
-
-            previewControl.PreviewKeyDown += (s, a) =>
-            {
-                // called when the preview control is un-docked in a Floating Window
-                MainForm_PreviewKeyDown(s, a);
-                if (a.Handled)
-                {
-                    previewControl.SetFocus();
-                }
-            };
         }
 
         private static void SetWatermark(DatePicker dp)
@@ -503,30 +491,6 @@ namespace dnGREP.WPF
                 tbFilePatternIgnore.ActualWidth - tbFilePatternIgnore.Margin.Left - tbFilePatternIgnore.Margin.Right;
 
             viewModel.MaxFileFiltersSummaryWidth = Math.Max(0, maxWidth);
-        }
-
-        private void MainForm_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
-            {
-                NextMatch();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F3 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-            {
-                NextFile();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
-            {
-                PreviousMatch();
-                e.Handled = true;
-            }
-            else if (e.Key == Key.F4 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-            {
-                PreviousFile();
-                e.Handled = true;
-            }
         }
 
         internal async void NextMatch()

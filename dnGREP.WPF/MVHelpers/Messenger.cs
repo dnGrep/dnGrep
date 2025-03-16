@@ -52,7 +52,7 @@ namespace dnGREP.WPF.MVHelpers
 
             VerifyParameterType(message, parameterType);
 
-            if (callback.Target != null && parameterType != null)
+            if (callback.Target != null)
             {
                 _messageToActionsMap.AddAction(message, callback.Target, callback.Method, parameterType);
             }
@@ -156,7 +156,7 @@ namespace dnGREP.WPF.MVHelpers
             /// <param name="target">The target object to invoke, or null.</param>
             /// <param name="method">The method to invoke.</param>
             /// <param name="actionType">The type of the Action delegate.</param>
-            internal void AddAction(string message, object target, MethodInfo method, Type actionType)
+            internal void AddAction(string message, object target, MethodInfo method, Type? actionType)
             {
                 lock (_map)
                 {
@@ -270,7 +270,7 @@ namespace dnGREP.WPF.MVHelpers
             /// <param name="target">The object on which the target method is invoked, or null if the method is static.</param>
             /// <param name="method">The MethodInfo used to create the Action.</param>
             /// <param name="parameterType">The type of parameter to be passed to the action. Pass null if there is no parameter.</param>
-            internal WeakAction(object target, MethodInfo method, Type parameterType)
+            internal WeakAction(object target, MethodInfo method, Type? parameterType)
             {
                 if (target == null)
                 {
@@ -329,7 +329,7 @@ namespace dnGREP.WPF.MVHelpers
 
             #region Fields
 
-            internal readonly Type ParameterType;
+            internal readonly Type? ParameterType;
 
             readonly Type _delegateType;
             readonly MethodInfo _method;

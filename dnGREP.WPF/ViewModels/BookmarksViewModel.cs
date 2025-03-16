@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -24,6 +25,29 @@ namespace dnGREP.WPF
         private readonly Window ownerWnd;
         private readonly List<BookmarkViewModel> _bookmarks;
         private bool _isDirty;
+        private static bool beenInitialized;
+
+        static BookmarkListViewModel()
+        {
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(AddCommand), "Bookmarks_Add", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(EditCommand), "Bookmarks_Edit", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(DuplicateCommand), "Bookmarks_Duplicate", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(DeleteCommand), "Bookmarks_Delete", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(UseBookmarkCommand), "Bookmarks_Use", "Control+B");
+
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveToTopCommand), string.Empty, "Shift+Alt+Up");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveUpCommand), string.Empty, "Alt+Up");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveDownCommand), string.Empty, "Alt+Down");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveToBottomCommand), string.Empty, "Shift+Alt+Down");
+        }
 
         public BookmarkListViewModel(Window owner, Action<Bookmark> clearStar)
         {
@@ -36,6 +60,31 @@ namespace dnGREP.WPF
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
             IsPinned = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PinBookmarkWindow);
+
+            InitializeInputBindings();
+            App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+        }
+
+        private void InitializeInputBindings()
+        {
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Bookmark))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+        }
+
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Bookmark)
+            {
+                InputBindings.Clear();
+                InitializeInputBindings();
+                InputBindings.RaiseAfterCollectionChanged();
+            }
         }
 
         [MemberNotNull(nameof(Bookmarks))]
@@ -89,6 +138,17 @@ namespace dnGREP.WPF
             return false;
         }
 
+        private void UseBookmark()
+        {
+            if (ownerWnd is BookmarksWindow window)
+            {
+                window.UseBookmarkCommand();
+            }
+        }
+
+
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
+
         public ICollectionView Bookmarks { get; private set; }
 
         [ObservableProperty]
@@ -117,35 +177,48 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private bool hasSelection = false;
 
-
-        public ICommand AddCommand => new RelayCommand(
+        private RelayCommand? addCommand;
+        public RelayCommand AddCommand => addCommand ??= new RelayCommand(
             param => AddBookmark());
 
-        public ICommand EditCommand => new RelayCommand(
+        private RelayCommand? editCommand;
+        public RelayCommand EditCommand => editCommand ??= new RelayCommand(
             param => Edit(),
             param => SelectedBookmark != null);
 
-        public ICommand DuplicateCommand => new RelayCommand(
+        private RelayCommand? duplicateCommand;
+        public RelayCommand DuplicateCommand => duplicateCommand ??= new RelayCommand(
             param => Duplicate(),
             param => SelectedBookmark != null);
 
-        public ICommand DeleteCommand => new RelayCommand(
+        private RelayCommand? deleteCommand;
+        public RelayCommand DeleteCommand => deleteCommand ??= new RelayCommand(
             param => Delete(),
             param => SelectedBookmark != null);
 
-        public ICommand MoveToTopCommand => new RelayCommand(
+
+        private RelayCommand? useBookmarkCommand;
+        public RelayCommand UseBookmarkCommand => useBookmarkCommand ??= new RelayCommand(
+            p => UseBookmark(),
+            q => HasSelection);
+
+        private RelayCommand? moveToTopCommand;
+        public RelayCommand MoveToTopCommand => moveToTopCommand ??= new RelayCommand(
             p => MoveToTop(),
             q => SelectedBookmark != null && SelectedBookmark.Ordinal > 0);
 
-        public ICommand MoveUpCommand => new RelayCommand(
+        private RelayCommand? moveUpCommand;
+        public RelayCommand MoveUpCommand => moveUpCommand ??= new RelayCommand(
             p => MoveUp(),
             q => SelectedBookmark != null && SelectedBookmark.Ordinal > 0);
 
-        public ICommand MoveDownCommand => new RelayCommand(
+        private RelayCommand? moveDownCommand;
+        public RelayCommand MoveDownCommand => moveDownCommand ??= new RelayCommand(
             p => MoveDown(),
             q => SelectedBookmark != null && SelectedBookmark.Ordinal < _bookmarks.Count - 1);
 
-        public ICommand MoveToBottomCommand => new RelayCommand(
+        private RelayCommand? moveToBottomCommand;
+        public RelayCommand MoveToBottomCommand => moveToBottomCommand ??= new RelayCommand(
             p => MoveToBottom(),
             q => SelectedBookmark != null && SelectedBookmark.Ordinal < _bookmarks.Count - 1);
 
@@ -690,7 +763,7 @@ namespace dnGREP.WPF
                 ApplyFilePropertyFilters = ApplyFilePropertyFilters,
                 ApplyContentSearchFilters = ApplyContentSearchFilters,
                 FolderReferences = [.. PathReferences.Split(newlines, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(Path.TrimEndingDirectorySeparator)]
+                .Select(Path.TrimEndingDirectorySeparator)]
             };
         }
 
@@ -980,15 +1053,19 @@ namespace dnGREP.WPF
             SectionIndex = value;
         }
 
-        public ICommand FilterComboBoxDropDownCommand => new RelayCommand(
+        private RelayCommand? filterComboBoxDropDownCommand;
+        public RelayCommand FilterComboBoxDropDownCommand => filterComboBoxDropDownCommand ??= new RelayCommand(
             p => PopulateIgnoreFilters());
 
         /// <summary>
         /// Returns a command that checks for can save
         /// </summary>
-        public ICommand SaveCommand => new RelayCommand(
-            param => { /*nothing to do here*/ },
-            param => CanSave());
+        private RelayCommand? saveCommand;
+        public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(
+            param =>
+            { /*nothing to do here*/
+            },
+                param => CanSave());
 
         private bool CanSave()
         {

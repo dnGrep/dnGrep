@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
@@ -219,27 +218,33 @@ namespace dnGREP.WPF
 
         private static MainForm? MainForm => Application.Current.MainWindow as MainForm;
 
-        public ICommand PreviousFileCommand => new RelayCommand(
+        private RelayCommand? previousFileCommand;
+        public RelayCommand PreviousFileCommand => previousFileCommand ??= new RelayCommand(
             p => MainForm?.PreviousFile(),
             q => MainForm?.HasSearchResults ?? false);
 
-        public ICommand PreviousMatchCommand => new RelayCommand(
+        private RelayCommand? previousMatchCommand;
+        public RelayCommand PreviousMatchCommand => previousMatchCommand ??= new RelayCommand(
             p => MainForm?.PreviousMatch(),
             q => MainForm?.HasSearchResults ?? false);
 
-        public ICommand NextMatchCommand => new RelayCommand(
+        private RelayCommand? nextMatchCommand;
+        public RelayCommand NextMatchCommand => nextMatchCommand ??= new RelayCommand(
             p => MainForm?.NextMatch(),
             q => MainForm?.HasSearchResults ?? false);
 
-        public ICommand NextFileCommand => new RelayCommand(
+        private RelayCommand? nextFileCommand;
+        public RelayCommand NextFileCommand => nextFileCommand ??= new RelayCommand(
             p => MainForm?.NextFile(),
             q => MainForm?.HasSearchResults ?? false);
 
-        public ICommand ScrollToCurrentCommand => new RelayCommand(
+        private RelayCommand? scrollToCurrentCommand;
+        public RelayCommand ScrollToCurrentCommand => scrollToCurrentCommand ??= new RelayCommand(
             p => MainForm?.ScrollToCurrent(),
             q => MainForm?.HasStartItem ?? false);
 
-        public ICommand CollapseAllCommand => new RelayCommand(
+        private RelayCommand? collapseAllCommand;
+        public RelayCommand CollapseAllCommand => collapseAllCommand ??= new RelayCommand(
             p => MainForm?.CollapseAll(),
             q => MainForm?.HasExpandedNode ?? false);
     }

@@ -7,6 +7,7 @@ using System.Windows;
 using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
+using dnGREP.WPF.MVHelpers;
 using NLog;
 using Windows.Win32;
 
@@ -24,6 +25,8 @@ namespace dnGREP.WPF
         public static string LogDir => DirectoryConfiguration.Instance.LogDirectory;
 
         public CommandLineArgs? AppArgs { get; private set; }
+
+        public static readonly Messenger Messenger = new();
 
         /// <summary>The pipe name.</summary>
         private const string UniquePipeName = "{C5475DAC-0582-42DE-B2B8-C17DFF29988A}";
@@ -104,6 +107,7 @@ namespace dnGREP.WPF
 
                 if (MainWindow == null)
                 {
+                    KeyBindingManager.LoadBindings();
                     GrepEngineFactory.InitializePlugins();
                     MainWindow = new MainForm();
                     Utils.DeleteTempFolder();

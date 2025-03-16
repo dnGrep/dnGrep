@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
@@ -42,7 +41,8 @@ namespace dnGREP.WPF
         private string customExtensions = string.Empty;
 
 
-        public ICommand ResetExtensions => new RelayCommand(
+        private RelayCommand? resetExtensionsCommand;
+        public RelayCommand ResetExtensions => resetExtensionsCommand ??= new RelayCommand(
             p => MappedExtensions = DefaultExtensions,
             q => !MappedExtensions.Equals(DefaultExtensions, StringComparison.Ordinal));
 

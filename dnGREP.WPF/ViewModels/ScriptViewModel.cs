@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -16,11 +18,40 @@ namespace dnGREP.WPF
     {
         private readonly TextEditor textEditor;
         private string originalScript = string.Empty;
+        private static bool beenInitialized;
 
         public event EventHandler? RequestRun;
         public event EventHandler? RequestClose;
         public event EventHandler? RequestSuggest;
         public event EventHandler? NewScriptFileSaved;
+
+        static ScriptViewModel()
+        {
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(NewCommand), "Script_Editor_New", "Control+N");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SaveCommand), "Script_Editor_Save", "Control+S");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SaveAsCommand), "Script_Editor_SaveAs", "Control+Shift+S");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CloseCommand), "Script_Editor_Close", "Control+W");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(UndoCommand), "Script_Editor_Undo", "Control+Z");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(RedoCommand), "Script_Editor_Redo", "Control+Y");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CutCommand), "Script_Editor_Cut", "Control+X");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(CopyCommand), "Script_Editor_Copy", "Control+C");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(PasteCommand), "Script_Editor_Paste", "Control+V");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(DeleteCommand), "Script_Editor_Delete", "Delete");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(DeleteLineCommand), "Script_Editor_DeleteLine", "Control+D");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(MoveLinesUpCommand), "Script_Editor_MoveUp", "Alt+Up");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(MoveLinesDownCommand), "Script_Editor_MoveDown", "Alt+Down");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(SuggestCommand), "Script_Editor_Suggest", "Control+Space");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(ValidateCommand), "Script_Editor_Validate", "Control+L");
+            KeyBindingManager.RegisterCommand(KeyCategory.Script, nameof(RunCommand), "Script_Editor_RunScript", "Control+R");
+        }
 
         public ScriptViewModel(TextEditor textEditor)
         {
@@ -33,7 +64,34 @@ namespace dnGREP.WPF
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
 
             textEditor.Document.TextChanged += Document_TextChanged;
+
+            InitializeInputBindings();
+            App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
         }
+
+        private void InitializeInputBindings()
+        {
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Script))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+        }
+
+        private void OnKeyGestureChanged(KeyCategory category)
+        {
+            if (category == KeyCategory.Script)
+            {
+                InputBindings.Clear();
+                InitializeInputBindings();
+                InputBindings.RaiseAfterCollectionChanged();
+            }
+        }
+
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
 
         [ObservableProperty]
@@ -65,28 +123,33 @@ namespace dnGREP.WPF
 
         public ObservableCollection<ValidationErrorViewModel> ValidationData { get; } = [];
 
-#pragma warning disable CA1822
-        public ICommand NewCommand => new RelayCommand(
+        private RelayCommand? newCommand;
+        public RelayCommand NewCommand => newCommand ??= new RelayCommand(
             p => NewScript(),
             q => true);
 
-        public ICommand SaveCommand => new RelayCommand(
+        private RelayCommand? saveCommand;
+        public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(
             p => Save(),
             q => true);
 
-        public ICommand SaveAsCommand => new RelayCommand(
+        private RelayCommand? saveAsCommand;
+        public RelayCommand SaveAsCommand => saveAsCommand ??= new RelayCommand(
             p => SaveAs(true),
             q => true);
 
-        public ICommand ValidateCommand => new RelayCommand(
+        private RelayCommand? validateCommand;
+        public RelayCommand ValidateCommand => validateCommand ??= new RelayCommand(
             p => ValidateScript(false),
             q => true);
 
-        public ICommand CloseCommand => new RelayCommand(
+        private RelayCommand? closeCommand;
+        public RelayCommand CloseCommand => closeCommand ??= new RelayCommand(
             p => Close(),
             q => true);
 
-        public ICommand HelpCommand => new RelayCommand(
+        private RelayCommand? helpCommand;
+        public RelayCommand HelpCommand => helpCommand ??= new RelayCommand(
             p =>
             {
                 ProcessStartInfo startInfo = new()
@@ -97,31 +160,38 @@ namespace dnGREP.WPF
                 using var proc = Process.Start(startInfo);
             });
 
-        public ICommand UndoCommand => new RelayCommand(
+        private RelayCommand? undoCommand;
+        public RelayCommand UndoCommand => undoCommand ??= new RelayCommand(
             p => textEditor.Undo(),
             q => textEditor.CanUndo);
 
-        public ICommand RedoCommand => new RelayCommand(
+        private RelayCommand? redoCommand;
+        public RelayCommand RedoCommand => redoCommand ??= new RelayCommand(
             p => textEditor.Redo(),
             q => textEditor.CanRedo);
 
-        public ICommand CutCommand => new RelayCommand(
+        private RelayCommand? cutCommand;
+        public RelayCommand CutCommand => cutCommand ??= new RelayCommand(
             p => textEditor.Cut(),
             q => CanCutOrCopy);
 
-        public ICommand CopyCommand => new RelayCommand(
+        private RelayCommand? copyCommand;
+        public RelayCommand CopyCommand => copyCommand ??= new RelayCommand(
             p => textEditor.Copy(),
             q => CanCutOrCopy);
 
-        public ICommand PasteCommand => new RelayCommand(
+        private RelayCommand? pasteCommand;
+        public RelayCommand PasteCommand => pasteCommand ??= new RelayCommand(
             p => textEditor.Paste(),
             q => CanPaste);
 
-        public ICommand DeleteCommand => new RelayCommand(
+        private RelayCommand? deleteCommand;
+        public RelayCommand DeleteCommand => deleteCommand ??= new RelayCommand(
             p => textEditor.Delete(),
             q => textEditor.TextArea != null && textEditor.TextArea.Document != null);
 
-        public ICommand DeleteLineCommand => new RelayCommand(
+        private RelayCommand? deleteLineCommand;
+        public RelayCommand DeleteLineCommand => deleteLineCommand ??= new RelayCommand(
             p => AvalonEditCommands.DeleteLine.Execute(null, textEditor.TextArea),
             q => textEditor.TextArea != null && textEditor.TextArea.Document != null);
 
@@ -134,22 +204,25 @@ namespace dnGREP.WPF
             textEditor.TextArea.ReadOnlySectionProvider.CanInsert(textEditor.TextArea.Caret.Offset)
                     && Clipboard.ContainsText();
 
-        public ICommand SuggestCommand => new RelayCommand(
+        private RelayCommand? suggestCommand;
+        public RelayCommand SuggestCommand => suggestCommand ??= new RelayCommand(
             p => RequestSuggest?.Invoke(this, EventArgs.Empty),
             q => true);
 
-        public ICommand MoveLinesUpCommand => new RelayCommand(
+        private RelayCommand? moveLinesUpCommand;
+        public RelayCommand MoveLinesUpCommand => moveLinesUpCommand ??= new RelayCommand(
             p => MoveSelectedLinesUp(),
             q => CanMoveLineUp);
 
-        public ICommand MoveLinesDownCommand => new RelayCommand(
+        private RelayCommand? moveLinesDownCommand;
+        public RelayCommand MoveLinesDownCommand => moveLinesDownCommand ??= new RelayCommand(
             p => MoveSelectedLinesDown(),
             q => CanMoveLineDown);
 
-        public ICommand RunCommand => new RelayCommand(
+        private RelayCommand? runCommand;
+        public RelayCommand RunCommand => runCommand ??= new RelayCommand(
             p => RunScript(),
             q => true);
-#pragma warning restore CA1822
 
         private bool CanMoveLineUp
         {

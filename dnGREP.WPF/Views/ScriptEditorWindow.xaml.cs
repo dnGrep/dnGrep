@@ -20,6 +20,7 @@ namespace dnGREP.WPF
         public event EventHandler? NewScriptFileSaved;
         public event EventHandler? RequestRun;
         private WindowState storedWindowState = WindowState.Normal;
+        private CompletionWindow? completionWindow;
 
         public ScriptEditorWindow()
         {
@@ -58,7 +59,6 @@ namespace dnGREP.WPF
             textEditor.SyntaxHighlighting = definition;
             textEditor.TextArea.TextEntering += TextArea_TextEntering;
             textEditor.TextArea.TextEntered += TextArea_TextEntered;
-            textEditor.TextArea.KeyDown += TextArea_KeyDown;
             textEditor.TextArea.KeyUp += TextArea_KeyUp;
 
             Closing += ScriptEditorWindow_Closing;
@@ -130,16 +130,6 @@ namespace dnGREP.WPF
         public void OpenScriptFile(string filePath)
         {
             viewModel.OpenScriptFile(filePath);
-        }
-
-        private CompletionWindow? completionWindow;
-        void TextArea_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                Suggest();
-                e.Handled = true;
-            }
         }
 
         private void TextArea_KeyUp(object sender, KeyEventArgs e)

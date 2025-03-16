@@ -1,9 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 
 namespace dnGREP.WPF
 {
+    public interface IUICommand : ICommand, INotifyPropertyChanged
+    {
+        string KeyGestureText { get; set; }
+    }
+
     /// <summary>
     /// A command whose sole purpose is to 
     /// relay its functionality to other
@@ -11,10 +17,12 @@ namespace dnGREP.WPF
     /// default return value for the CanExecute
     /// method is 'true'.
     /// </summary>
-    public class RelayCommand : ICommand
+    public class RelayCommand : IUICommand
     {
         private readonly Action<object> execute;
         private readonly Predicate<object>? canExecute;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Creates a new command that can always execute.
@@ -34,6 +42,40 @@ namespace dnGREP.WPF
         {
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.canExecute = canExecute;
+        }
+
+        private string? invariantKeyGestureText;
+        private string localizedKeyGestureText = string.Empty;
+        public string KeyGestureText
+        {
+            get { return localizedKeyGestureText; }
+            set
+            {
+                if (invariantKeyGestureText == null)
+                {
+                    invariantKeyGestureText = value;
+                    localizedKeyGestureText = KeyGestureLocalizer.LocalizeKeyGestureText(value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KeyGestureText)));
+
+                    App.Messenger.Register("CultureChanged", OnCultureChanged);
+                }
+                else
+                {
+                    if (value == localizedKeyGestureText)
+                        return;
+
+                    localizedKeyGestureText = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KeyGestureText)));
+                }
+            }
+        }
+
+        private void OnCultureChanged()
+        {
+            if (invariantKeyGestureText != null)
+            {
+                KeyGestureText = KeyGestureLocalizer.LocalizeKeyGestureText(invariantKeyGestureText);
+            }
         }
 
         [DebuggerStepThrough]

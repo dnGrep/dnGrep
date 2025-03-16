@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -47,6 +48,16 @@ namespace dnGREP.WPF
                 (Action<CustomEditorViewModel>)(vm => SetAsDefault(vm)));
 
             LoadSettings();
+
+            // reuse the same settings as the main window
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.Main))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
 
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
@@ -212,6 +223,8 @@ namespace dnGREP.WPF
             }
         }
 
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
+
         public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = [];
 
         public ObservableCollection<string> ThemeNames { get; } = [];
@@ -263,13 +276,13 @@ namespace dnGREP.WPF
                 {
                     modifiers.Add(Resources.Keyboard_ControlKey);
                 }
-                if (hotKey.KeyModifiers.HasFlag(HOT_KEY_MODIFIERS.MOD_ALT))
-                {
-                    modifiers.Add(Resources.Keyboard_AltKey);
-                }
                 if (hotKey.KeyModifiers.HasFlag(HOT_KEY_MODIFIERS.MOD_SHIFT))
                 {
                     modifiers.Add(Resources.Keyboard_ShiftKey);
+                }
+                if (hotKey.KeyModifiers.HasFlag(HOT_KEY_MODIFIERS.MOD_ALT))
+                {
+                    modifiers.Add(Resources.Keyboard_AltKey);
                 }
 
                 LocalizedRestoreWindowKeyboardShortcut = string.Format("{0}+{1}", string.Join("+", modifiers), hotKey.Key);
@@ -779,65 +792,67 @@ namespace dnGREP.WPF
 
         #region Commands
 
-        /// <summary>
-        /// Returns a command that saves the form
-        /// </summary>
-        public ICommand SaveCommand => new RelayCommand(
-            param => Save(),
-            param => CanSave);
+        private RelayCommand? saveCommand;
+        public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(
+            p => Save(),
+            p => CanSave);
 
-        public ICommand AddCustomEditorCommand => new RelayCommand(
-            param => AddCustomEditor());
+        private RelayCommand? addCustomEditorCommand;
+        public RelayCommand AddCustomEditorCommand => addCustomEditorCommand ??= new RelayCommand(
+            p => AddCustomEditor());
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseCompareCommand => new RelayCommand(
-            param => BrowseToCompareApp());
+        private RelayCommand? browseCompareCommand;
+        public RelayCommand BrowseCompareCommand => browseCompareCommand ??= new RelayCommand(
+            p => BrowseToCompareApp());
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseCacheCommand => new RelayCommand(
-            param => BrowseToCacheFolder(),
-            param => !CacheFilesInTempFolder);
+        private RelayCommand? browseCacheCommand;
+        public RelayCommand BrowseCacheCommand => browseCacheCommand ??= new RelayCommand(
+            p => BrowseToCacheFolder(),
+            p => !CacheFilesInTempFolder);
 
-        /// <summary>
-        /// Returns a command that clears old searches.
-        /// </summary>
-        public static ICommand ClearSearchesCommand => new RelayCommand(
-            param => ClearSearches());
+        private RelayCommand? clearSearchesCommand;
+        public RelayCommand ClearSearchesCommand => clearSearchesCommand ??= new RelayCommand(
+            p => ClearSearches());
 
-        /// <summary>
-        /// Returns a command that reloads the current theme file.
-        /// </summary>
-        public static ICommand ReloadThemeCommand => new RelayCommand(
-            param => AppTheme.Instance.ReloadCurrentTheme());
+        private RelayCommand? reloadThemeCommand;
+        public RelayCommand ReloadThemeCommand => reloadThemeCommand ??= new RelayCommand(
+            p => AppTheme.Instance.ReloadCurrentTheme());
 
-        /// <summary>
-        /// Returns a command that loads an external resx file.
-        /// </summary>
-        public ICommand LoadResxCommand => new RelayCommand(
-            param => LoadResxFile());
+        public string ReloadThemeCommandTooltip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ReloadThemeCommand.KeyGestureText))
+                {
+                    return $"{Resources.Options_ReloadTheCurrentThemeFile} ({ReloadThemeCommand.KeyGestureText})";
+                }
+                return Resources.Options_ReloadTheCurrentThemeFile;
+            }
+        }
 
-        public ICommand ResetArchiveExtensionsCommand => new RelayCommand(
+        private RelayCommand? loadResxCommand;
+        public RelayCommand LoadResxCommand => loadResxCommand ??= new RelayCommand(
+            p => LoadResxFile());
+
+        private RelayCommand? resetArchiveExtensionsCommand;
+        public RelayCommand ResetArchiveExtensionsCommand => resetArchiveExtensionsCommand ??= new RelayCommand(
             p => ArchiveExtensions = defaultArchiveExtensions,
             q => !ArchiveExtensions.Equals(defaultArchiveExtensions, StringComparison.Ordinal));
 
-        public ICommand ResetPdfToTextOptionCommand => new RelayCommand(
+        private RelayCommand? resetPdfToTextOptionCommand;
+        public RelayCommand ResetPdfToTextOptionCommand => resetPdfToTextOptionCommand ??= new RelayCommand(
             p => PdfToTextOptions = defaultPdfToText,
             q => !PdfToTextOptions.Equals(defaultPdfToText, StringComparison.Ordinal));
 
         private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BrowseDataDirectory => new RelayCommand(
-            param => BrowseToDataDirectory());
+        private RelayCommand? browseDataDirectory;
+        public RelayCommand BrowseDataDirectory => browseDataDirectory ??= new RelayCommand(
+            p => BrowseToDataDirectory());
 
-        public ICommand BrowseLogDirectory => new RelayCommand(
-            param => BrowseToLogDirectory());
+        private RelayCommand? browseLogDirectory;
+        public RelayCommand BrowseLogDirectory => browseLogDirectory ??= new RelayCommand(
+            p => BrowseToLogDirectory());
 
         #endregion
 
@@ -1297,7 +1312,7 @@ namespace dnGREP.WPF
                 GrepEngineFactory.ReloadPlugins();
 
             if (editorsChanged)
-                GrepSearchResultsViewModel.InitializeEditorMenuItems();
+                GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("EditorsChanged");
 
             if ((isCacheRemoved || isCachePathChanged || isCacheHashTypeChanged) &&
                 Directory.Exists(oldCachePath))
