@@ -3950,4 +3950,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
     <value>終了</value>
   </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>コマンド</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
 </root>
