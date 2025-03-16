@@ -4237,4 +4237,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
     <value>За името на файла в резултатите от търсене</value>
   </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Етикет</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Премахване</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Запазване</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Затваряне</value>
+  </data>
 </root>
