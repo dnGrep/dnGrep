@@ -3306,4 +3306,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
     <value>Arama sonuçlarındaki dosya adı için</value>
   </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Etiket</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Komut</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Çıkar</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
 </root>
