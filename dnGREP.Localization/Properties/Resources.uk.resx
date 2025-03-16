@@ -3369,4 +3369,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
     <value>Для імені файлу в результатах пошуку</value>
   </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Мітка</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
 </root>
