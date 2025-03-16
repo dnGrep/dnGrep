@@ -2987,4 +2987,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
     <value>Abrir</value>
   </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Comando</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
 </root>
