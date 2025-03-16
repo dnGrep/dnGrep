@@ -4053,4 +4053,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
     <value>Выход</value>
   </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Ярлык</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Удалить:</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
 </root>
