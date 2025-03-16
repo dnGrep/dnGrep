@@ -2653,4 +2653,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
     <value>פתח</value>
   </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>פקודה</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>הסר:</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
 </root>
