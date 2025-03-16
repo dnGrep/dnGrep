@@ -2908,4 +2908,16 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Replace_OpenFileCompare" xml:space="preserve">
     <value>Dateivergleich öffnen</value>
   </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Befehlszeile</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Entfernen:</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
 </root>
