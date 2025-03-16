@@ -586,4 +586,55 @@
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
     <value>prije i</value>
   </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Obriši datoteke…</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>Kopiraj nazive datoteka</value>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Kopiraj rezultate</value>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Premjesti datoteke…</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Kopiraj datoteke…</value>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>_Spremljene oznake…</value>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Otkaži skriptu</value>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Uredi skriptu…</value>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Nova skripta…</value>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Personaliziraj</value>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Skripte</value>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Postav_ke</value>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>_Opcije…</value>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>P_oništi</value>
+  </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>Izmjenjeno</value>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>Viš_e…</value>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>_Više</value>
+  </data>
 </root>
