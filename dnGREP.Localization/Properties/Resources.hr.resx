@@ -451,4 +451,139 @@
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
     <value>Bez simboličkih veza</value>
   </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Enkodiranje:</value>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Datoteka:</value>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Veličina:</value>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Tip:</value>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Automatski pozicioniraj</value>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Pretraži mape ili datoteke</value>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_Otkaži</value>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>Uhvati grupno pretraživanje</value>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>Osjetljiv na velika i mala slova</value>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Mijenja razinu zumiranja prikaza rezultata</value>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Očisti oznaku</value>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Kombiniraj više uzoraka pretrage koristeći 'AND' ili 'OR'</value>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>nakon</value>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>prije i</value>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Promjene retka konteksta primijenit će se u sljedećem pretraživanju</value>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Prikaži redove konteksta</value>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Kreirano</value>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>sati</value>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>Zakvači dolje</value>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>Zakvači desno</value>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>_Točka kao nova linija</value>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Prazno</value>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Enkodiranje:</value>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Uključi podmape</value>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>Maks. dubina</value>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Maksimiziraj rezultate (F7)</value>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>_O programu</value>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>Zadnjih</value>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Enkodiranje:</value>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Uhvati grupno pretraživanje</value>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Uključi podmape</value>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Prikaži redove konteksta</value>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>Osjetljiv na velika i mala slova</value>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>_Točka kao nova linija</value>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>Osjetljiv na velika i mala slova</value>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>_Točka kao nova linija</value>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Enkodiranje:</value>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Uključi podmape</value>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Maks. dubina</value>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>nakon</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>prije i</value>
+  </data>
 </root>

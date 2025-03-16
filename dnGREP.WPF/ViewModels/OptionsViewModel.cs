@@ -191,7 +191,16 @@ namespace dnGREP.WPF
 
         public static IList<FontInfo> FontFamilies
         {
-            get { return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source)).ToList(); }
+            get 
+            { 
+                return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source))
+                    .OrderBy(r => r.FamilyName).ToList();
+            }
+        }
+
+        public static IList<FontWeight> FontWeightList
+        {
+            get { return [FontWeights.Normal, FontWeights.SemiBold, FontWeights.Bold, FontWeights.Black]; }
         }
 
         private void ApplyCompareApplicationTemplate(ConfigurationTemplate? template)
@@ -641,6 +650,9 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double editResultsFontSize;
 
+        [ObservableProperty]
+        private FontWeight resultsFileNameWeight;
+
         public bool CanSave
         {
             get
@@ -734,6 +746,7 @@ namespace dnGREP.WPF
                 EditDialogFontSize != Settings.Get<double>(GrepSettings.Key.DialogFontSize) ||
                 EditResultsFontFamily != Settings.Get<string>(GrepSettings.Key.ResultsFontFamily) ||
                 EditResultsFontSize != Settings.Get<double>(GrepSettings.Key.ResultsFontSize) ||
+                ResultsFileNameWeight != Settings.Get<FontWeight>(GrepSettings.Key.ResultsFileNameWeight) ||
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PreviewLargeFileLimit != Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit) ||
                 CacheExtractedFiles != Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles) ||
@@ -1036,6 +1049,7 @@ namespace dnGREP.WPF
                 ValueOrDefault(GrepSettings.Key.ResultsFontFamily, GrepSettings.DefaultMonospaceFontFamily);
             ResultsFontSize = EditResultsFontSize =
                 ValueOrDefault(GrepSettings.Key.ResultsFontSize, SystemFonts.MessageFontSize);
+            ResultsFileNameWeight = Settings.Get<FontWeight>(GrepSettings.Key.ResultsFileNameWeight);
 
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
@@ -1239,6 +1253,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.DialogFontSize, DialogFontSize);
             Settings.Set(GrepSettings.Key.ResultsFontFamily, ResultsFontFamily);
             Settings.Set(GrepSettings.Key.ResultsFontSize, ResultsFontSize);
+            Settings.Set(GrepSettings.Key.ResultsFileNameWeight, ResultsFileNameWeight);
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PreviewLargeFileLimit, PreviewLargeFileLimit);
             Settings.Set(GrepSettings.Key.CacheExtractedFiles, CacheExtractedFiles);

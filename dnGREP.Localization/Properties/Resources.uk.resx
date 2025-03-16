@@ -1114,7 +1114,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Пов’язати закладку з папкою</value>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Дані програми та журнали</value>
+    <value>Application _data</value>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
     <value>з початку дня</value>
@@ -3341,5 +3341,32 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
     <value>Пересилання аргументів командного рядка до наявного вікна</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>_журнали програми</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>Деякі файли не вдалося скопіювати до нових каталогів. Подробиці перевірте в журналі помилок: </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>Каталог "{0}" може містити файли, які не є частиною програми. Усе одно використовувати цей каталог?</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>Змінено каталоги програм. Бажаєте скопіювати файли до нових каталогів?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>У новому каталозі вже є файл із назвою "{0}". Замінити наявний файл?</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>Помилка:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>Збігів не знайдено!</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Маса шрифту результатів</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Для імені файлу в результатах пошуку</value>
   </data>
 </root>

@@ -41,7 +41,7 @@
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.2" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj" />

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
@@ -27,7 +28,16 @@ namespace dnGREP.WPF
         public string Style { get; private set; } = string.Empty;
 
         [ObservableProperty]
-        private string label = string.Empty;
+        private string filePath = string.Empty;
+
+        [ObservableProperty]
+        private string fileName = string.Empty;
+
+        [ObservableProperty]
+        private string fileInfo = string.Empty;
+
+        [ObservableProperty]
+        private FontWeight fileNameFontWeight = FontWeights.Normal;
 
         private readonly List<string> matchIdx = [];
 
@@ -120,19 +130,25 @@ namespace dnGREP.WPF
             bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
 
             string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath;
-            string displayedName = Path.GetFileName(GrepResult.FileNameDisplayed);
+            FileName = Path.GetFileName(GrepResult.FileNameDisplayed);
+            FileNameFontWeight = GrepSettings.Instance.Get<FontWeight>(GrepSettings.Key.ResultsFileNameWeight);
+            string additionalInfo = string.Empty;
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
                 GrepResult.FileNameDisplayed.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
             {
                 if (!string.IsNullOrWhiteSpace(basePath))
-                    displayedName = GrepResult.FileNameDisplayed[basePath.Length..].TrimStart('\\');
-                else
-                    displayedName = GrepResult.FileNameDisplayed;
+                {
+                    string? dirName = Path.GetDirectoryName(GrepResult.FileNameDisplayed);
+                    if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)
+                    {
+                        FilePath = Path.GetRelativePath(basePath, dirName) + Path.DirectorySeparatorChar;
+                    }
+                }
             }
             if (!string.IsNullOrWhiteSpace(GrepResult.AdditionalInformation))
             {
-                displayedName += " " + GrepResult.AdditionalInformation + " ";
+                additionalInfo += " " + GrepResult.AdditionalInformation + " ";
             }
             int matchCount = GrepResult.Matches == null ? 0 : GrepResult.Matches.Count;
             if (matchCount > 0)
@@ -141,19 +157,19 @@ namespace dnGREP.WPF
                 {
                     var lineCount = GrepResult.Matches?.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count() ?? 0;
-                    displayedName = TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, displayedName, matchCount, lineCount);
+                    additionalInfo = TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, additionalInfo, matchCount, lineCount);
                 }
                 else
                 {
-                    displayedName = string.Format(Resources.Main_ResultList_CountMatches, displayedName, matchCount);
+                    additionalInfo = string.Format(Resources.Main_ResultList_CountMatches, additionalInfo, matchCount);
                 }
             }
             if (isFileReadOnly)
             {
-                displayedName = displayedName + " " + Resources.Main_ResultList_ReadOnly;
+                additionalInfo = additionalInfo + " " + Resources.Main_ResultList_ReadOnly;
             }
 
-            Label = displayedName;
+            FileInfo = additionalInfo;
 
             Style = string.Empty;
             if (isFileReadOnly)
