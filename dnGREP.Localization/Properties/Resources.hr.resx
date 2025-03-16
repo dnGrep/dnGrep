@@ -724,4 +724,40 @@
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
     <value>, +{0} dodatnih podudaranja</value>
   </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Premjesti datoteke…</value>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Zamijeni</value>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>P_oništi</value>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>P_oništi</value>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>_Regularni izraz</value>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Kopiraj datoteke…</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Regularni izraz</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Regularni izraz</value>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Kopiraj nazive datoteka</value>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>_Regularni izraz</value>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+  </data>
 </root>
