@@ -2712,4 +2712,10 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
     <value>Ava</value>
   </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Sulge</value>
+  </data>
 </root>
