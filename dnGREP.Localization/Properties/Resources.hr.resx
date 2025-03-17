@@ -760,4 +760,100 @@
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>…</value>
   </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>Vrsta i naziv datoteke</value>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>Veličina datoteke</value>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Tekst</value>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>Pretraga otkazana ili neuspješna</value>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>Pretraži parale_lno</value>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Pretraživanje bajtova: pročitaj datoteku binarno i pretraži bajtove kao heksadecimalne znamenke: 68 65 78 20</value>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Pretraga regularnim izrazom</value>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath pretraga (samo za XML dokumente)</value>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>Odaberi datum</value>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>Prikaži opcije za rezultat</value>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>Veličina je</value>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Preskoči datoteke koje su spremljene u oblaku</value>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>Sortiraj</value>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>Uzlazno</value>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>Silazno</value>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>Samo naziv datoteke</value>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>Posljednje vrijeme pisanja</value>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>Broj podudaranja</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Putanja i naziv datoteke, širina-prvo</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Putanja i naziv datoteke, dubina-prvo</value>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>Isključeno {0} nedostajućih datoteka.</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>Zamjena otkazana</value>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Zamjena izvršena - zamijenjen tekst u {0} datoteka.</value>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>Zamjena neuspješna</value>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>U procesu zamjenjavanja…</value>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>Pretraga otkazana</value>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Pretraga izvršena u {0} - {1} podudaranja pronađeno u {2} datoteka od {3} pretraženih.</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>Pretraženo {0} datoteka, pronađeno {1} datoteka s podudaranjima.</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Pretraženo {0} datoteka, pronađeno {1} datoteka s podudaranjima - u procesu pretrage {2}</value>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>Pretražujem…</value>
+  </data>
 </root>
