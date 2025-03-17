@@ -2570,4 +2570,10 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
 -separateLines [True/False]
     Establece el indicador para mostrar cada coincidencia o grupo en una línea separada en la salida del informe de expresión regular: True o False.</value>
   </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>
