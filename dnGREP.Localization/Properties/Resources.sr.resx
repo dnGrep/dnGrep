@@ -3431,4 +3431,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
     <value>Отворити</value>
   </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Сачувати</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Затворити</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Уклонити</value>
+  </data>
 </root>
