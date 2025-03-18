@@ -1787,7 +1787,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Презарежда файла на текущата тема [Ctrl+F5]</value>
+    <value>Презарежда файла на текущата тема</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
@@ -1955,11 +1955,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Отбелязване на съвпаденията във файла за заменяне [Ctrl+A]</value>
+    <value>Отбелязване на съвпаденията във файла за заменяне</value>
     <comment>Replace window, Replace in File button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Отбелязва съвпадението за заменяне [Ctrl+R]</value>
+    <value>Отбелязва съвпадението за заменяне</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -1967,11 +1967,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Към следващото съвпадение във файла [Ctrl+Left]</value>
+    <value>Към следващото съвпадение във файла</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Към предишното съвпадение във файла [Ctrl+Right]</value>
+    <value>Към предишното съвпадение във файла</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1999,7 +1999,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Заменяне на съвпаденията във всички файлове и прилагане [F10]</value>
+    <value>Заменяне на съвпаденията във всички файлове и прилагане</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -2039,7 +2039,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Нулиране и пропускане на съвпаденията във файла [Ctrl+T]</value>
+    <value>Нулиране и пропускане на съвпаденията във файла</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -2047,11 +2047,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Показва следващия файл [Ctrl+PgDn]</value>
+    <value>Показва следващия файл</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Показва предишния файл [Ctrl+PgUp]</value>
+    <value>Показва предишния файл</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2075,7 +2075,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Връщане на заменената отметка за съвпадението [Ctrl+U]</value>
+    <value>Връщане на заменената отметка за съвпадението</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
@@ -4251,5 +4251,38 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Затваряне</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Клавишни комбинации</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Прозорец</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Комбинация</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Клавишна комбинация за избраната команда</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Натиснете желаните клавиши:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>В момента се използват от:</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Задаване</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Нулиране на всички</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Клавиатура…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Главен</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Натиснете F1 за помощ относно клавишните комбинации</value>
   </data>
 </root>
