@@ -1800,7 +1800,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Перезагрузка текущего файла темы [Ctrl+F5]</value>
+    <value>Перезагрузка текущего файла темы</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
@@ -1972,11 +1972,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Пометить все совпадения в этом файле для замены [Ctrl+A]</value>
+    <value>Пометить все совпадения в этом файле для замены</value>
     <comment>Replace window, Replace in File button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Пометить совпадение для замены [Ctrl+R]</value>
+    <value>Пометить совпадение для замены</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -1984,11 +1984,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Перейти к следующему совпадению в этом файле [Ctrl+Влево]</value>
+    <value>Перейти к следующему совпадению в этом файле</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Перейти к предыдущему совпадению в этом файле [Ctrl+Вправо]</value>
+    <value>Перейти к предыдущему совпадению в этом файле</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -2020,7 +2020,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Заменить все совпадения во всех файлах и применить [F10]</value>
+    <value>Заменить все совпадения во всех файлах и применить</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -2060,7 +2060,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Сбросить и пропустить все совпадения в этом файле [Ctrl+T]</value>
+    <value>Сбросить и пропустить все совпадения в этом файле</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -2068,11 +2068,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Показать следующий файл [Ctrl+PgDn]</value>
+    <value>Показать следующий файл</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Показать предыдущий файл [Ctrl+PgUp]</value>
+    <value>Показать предыдущий файл</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2096,7 +2096,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Отменить пометку замены в этом совпадении [Ctrl+U]</value>
+    <value>Отменить пометку замены в этом совпадении</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
