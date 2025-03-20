@@ -1925,11 +1925,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Rename file dialog input label</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Marca la coincidència per a la substitució [Ctrl+R]</value>
+    <value>Marca la coincidència per a la substitució</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Moure a la següent coincidència en aquest fitxer [Ctrl+Esquerra]</value>
+    <value>Moure a la següent coincidència en aquest fitxer</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1941,7 +1941,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Mostra el fitxer anterior [Ctrl+Av Pàg]</value>
+    <value>Mostra el fitxer anterior</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -1969,11 +1969,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, fourth color and highlight key label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Restableix i omet totes les coincidències en aquest fitxer [Ctrl+T]</value>
+    <value>Restableix i omet totes les coincidències en aquest fitxer</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Mostra el fitxer següent [Ctrl+PgDn]</value>
+    <value>Mostra el fitxer següent</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2057,7 +2057,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Moure a la coincidència anterior en aquest fitxer [Ctrl+Dreta]</value>
+    <value>Moure a la coincidència anterior en aquest fitxer</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
@@ -2193,7 +2193,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Marca totes les coincidències d'aquest fitxer per a la substitució [Ctrl+A]</value>
+    <value>Marca totes les coincidències d'aquest fitxer per a la substitució</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
@@ -2201,7 +2201,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Substituir totes les coincidències en tots els fitxers, i aplica [F10]</value>
+    <value>Substituir totes les coincidències en tots els fitxers, i aplica</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
@@ -2209,7 +2209,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Desfés la marca de substitució en aquesta coincidència [Ctrl+U]</value>
+    <value>Desfés la marca de substitució en aquesta coincidència</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="ScriptHint_undo" xml:space="preserve">
@@ -2685,7 +2685,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Torna a carregar el fitxer de tema actual [Ctrl+F5]</value>
+    <value>Torna a carregar el fitxer de tema actual</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
