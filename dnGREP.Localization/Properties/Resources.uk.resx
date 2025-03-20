@@ -2263,7 +2263,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Файловий фільтр</value>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Перейти до попереднього збігу в цьому файлі [Ctrl+Right]</value>
+    <value>Перейти до попереднього збігу в цьому файлі</value>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
     <value>Крапка як новий рядок</value>
@@ -2347,7 +2347,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Файл {0} з {1}: {2} ({3} відповідає {4} рядкам)</value>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Позначити збіг для заміни [Ctrl+R]</value>
+    <value>Позначити збіг для заміни</value>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
     <value>Цей файл містить занадто багато збігів для окремої заміни. Натисніть «Замінити у файлі», щоб замінити всі.</value>
@@ -2377,10 +2377,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Вибраний збіг</value>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Відмініти позначку заміни для цього збігу [Ctrl+U]</value>
+    <value>Відмініти позначку заміни для цього збігу</value>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Скинути та пропустити всі збіги в цьому файлі [Ctrl+T]</value>
+    <value>Скинути та пропустити всі збіги в цьому файлі</value>
   </data>
   <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
     <value>За файлом</value>
@@ -2392,7 +2392,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Шаблон фільтра файлу, наприклад *.txt, або список фільтрів</value>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Показати попередній файл [Ctrl+PgUp]</value>
+    <value>Показати попередній файл</value>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
     <value>Відмініти файл</value>
@@ -2449,7 +2449,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Не вдалося завершити пошук або замінити. Подробиці перевірте в журналі помилок: </value>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Показати наступний файл [Ctrl+PgDn]</value>
+    <value>Показати наступний файл</value>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
     <value>Немає бінарних файлів</value>
@@ -2506,7 +2506,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Номери рядків</value>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Позначити всі збіги в цьому файлі для заміни [Ctrl+A]</value>
+    <value>Позначити всі збіги в цьому файлі для заміни</value>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
     <value>Назва вікна: {0}</value>
@@ -2599,7 +2599,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Розмір шрифту головного вікна</value>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Перейти до наступного збігу в цьому файлі [Ctrl+Left]</value>
+    <value>Перейти до наступного збігу в цьому файлі</value>
   </data>
   <data name="Options_Personalize_SearchOptions" xml:space="preserve">
     <value>Параметри пошуку</value>
@@ -2683,7 +2683,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>має {0} збігів у {1} рядках:</value>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Замінити всі збіги у всіх файлах і застосувати [F10]</value>
+    <value>Замінити всі збіги у всіх файлах і застосувати</value>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
     <value>Запустіть dnGrep від імені адміністратора, щоб змінити цей параметр.</value>
@@ -3244,7 +3244,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Допоможіть перекласти dnGrep.</value>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Перезавантажити поточний файл теми [Ctrl+F5]</value>
+    <value>Перезавантажити поточний файл теми</value>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
     <value>Час очікування збігу обмежує тривалість спроб механізму регулярних виразів розв’язати регулярний вираз до того, як мине час очікування. Це запобігає обробці виразів і вхідних рядків, які вимагають надмірного відстеження.</value>
