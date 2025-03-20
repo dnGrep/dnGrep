@@ -655,7 +655,7 @@
     <comment>Main window tooltip</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>次のファイルを表示 [Ctrl+PgDn]</value>
+    <value>次のファイルを表示</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="MessageBox_YesToAll" xml:space="preserve">
@@ -735,7 +735,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>このファイルの一致を置換のためにマーク [Ctrl+R]</value>
+    <value>このファイルの一致を置換のためにマーク</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="ScriptHint_run_cmd_value" xml:space="preserve">
@@ -1175,7 +1175,7 @@
     <comment>Test window, Close button text (accel)</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>このファイルの次の一致項目に移動 [Ctrl+左矢印]</value>
+    <value>このファイルの次の一致項目に移動</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
@@ -1271,7 +1271,7 @@
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>このファイルのすべての一致を置換のためにマーク [Ctrl+A]</value>
+    <value>このファイルのすべての一致を置換のためにマーク</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
@@ -1863,7 +1863,7 @@
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>このファイルの前の一致項目に移動 [Ctrl+右矢印]</value>
+    <value>このファイルの前の一致項目に移動</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
@@ -3263,7 +3263,7 @@
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>すべてのファイルですべての一致を置換して適用 [F10]</value>
+    <value>すべてのファイルですべての一致を置換して適用</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
@@ -3287,7 +3287,7 @@
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>現在のテーマ ファイルを再読み込み [Ctrl+F5]</value>
+    <value>現在のテーマ ファイルを再読み込み</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
@@ -3363,7 +3363,7 @@
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>この一致項目の置換のマークを元に戻す [Ctrl+U]</value>
+    <value>この一致項目の置換のマークを元に戻す</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Scripts_MoveFilesFailed" xml:space="preserve">
@@ -3387,7 +3387,7 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>前のファイルを表示 [Ctrl+PgUp]</value>
+    <value>前のファイルを表示</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
@@ -3583,7 +3583,7 @@
     <comment>Message box text for: Search is running on exit, line 2</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>このファイルのすべての一致をリセットしてスキップ [Ctrl+T]</value>
+    <value>このファイルのすべての一致をリセットしてスキップ</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
