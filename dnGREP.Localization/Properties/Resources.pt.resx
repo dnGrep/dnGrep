@@ -1082,7 +1082,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Substituir todas as correspondências em todos os ficheiros e aplicar [F10]</value>
+    <value>Substituir todas as correspondências em todos os ficheiros e aplicar</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -1106,15 +1106,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Repor e ignorar todas as correspondências neste ficheiro [Ctrl+T]</value>
+    <value>Repor e ignorar todas as correspondências neste ficheiro</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Mostrar o ficheiro seguinte [Ctrl+PgDn]</value>
+    <value>Mostrar o ficheiro seguinte</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Mostrar o ficheiro anterior [Ctrl+PgUp]</value>
+    <value>Mostrar o ficheiro anterior</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2306,7 +2306,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Recarregar o ficheiro do tema atual [Ctrl+F5]</value>
+    <value>Recarregar o ficheiro do tema atual</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
@@ -2438,7 +2438,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Marcar todas as correspondências neste ficheiro para substituição [Ctrl+A]</value>
+    <value>Marcar todas as correspondências neste ficheiro para substituição</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
@@ -2446,7 +2446,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Mover para a correspondência anterior neste ficheiro [Ctrl+Dir]</value>
+    <value>Mover para a correspondência anterior neste ficheiro</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
@@ -2466,7 +2466,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Mover para a próxima correspondência neste ficheiro [Ctrl+Esq]</value>
+    <value>Mover para a próxima correspondência neste ficheiro</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
@@ -2478,7 +2478,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Marcar correspondência para substituição [Ctrl+R]</value>
+    <value>Marcar correspondência para substituição</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
@@ -2530,7 +2530,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Anular marca de substituição nesta correspondência [Ctrl+U]</value>
+    <value>Anular marca de substituição nesta correspondência</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="ReportOptionsWindow_Preview" xml:space="preserve">
