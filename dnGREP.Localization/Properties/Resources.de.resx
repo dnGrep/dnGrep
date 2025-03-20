@@ -1621,7 +1621,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Rückgängig Datei</value>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Zurücknahme der Ersetzung an dieser Fundstelle [Strg+U]</value>
+    <value>Zurücknahme der Ersetzung an dieser Fundstelle</value>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
     <value>Text mit Zeilenumbrüchen</value>
