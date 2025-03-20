@@ -1713,7 +1713,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Vuelva a cargar el archivo de tema actual [Ctrl + F5]</value>
+    <value>Vuelva a cargar el archivo de tema actual</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
@@ -1885,11 +1885,11 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Marque todas las coincidencias en este archivo para su reemplazo [Ctrl + A]</value>
+    <value>Marque todas las coincidencias en este archivo para su reemplazo</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Marca la coincidencia para el reemplazo [Ctrl + R]</value>
+    <value>Marca la coincidencia para el reemplazo</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -1897,11 +1897,11 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Mover a la siguiente coincidencia en este archivo [Ctrl + Izquierda]</value>
+    <value>Mover a la siguiente coincidencia en este archivo</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Mover a la coincidencia anterior en este archivo [Ctrl + Derecha]</value>
+    <value>Mover a la coincidencia anterior en este archivo</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
@@ -1925,7 +1925,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Reemplace todas las coincidencias en todos los archivos y aplique [F10]</value>
+    <value>Reemplace todas las coincidencias en todos los archivos y aplique</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
@@ -1961,7 +1961,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Restablecer y omitir todas las coincidencias en este archivo [Ctrl + T]</value>
+    <value>Restablecer y omitir todas las coincidencias en este archivo</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -1969,11 +1969,11 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Mostrar el siguiente archivo [Ctrl + PgDn]</value>
+    <value>Mostrar el siguiente archivo</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Mostrar el archivo anterior [Ctrl + PgUp]</value>
+    <value>Mostrar el archivo anterior</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -1993,7 +1993,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Deshacer la sustitución de marcas en esta coincidencia [Ctrl + U]</value>
+    <value>Deshacer la sustitución de marcas en esta coincidencia</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
