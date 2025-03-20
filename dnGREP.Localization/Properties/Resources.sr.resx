@@ -1637,7 +1637,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Пречи на претходно налажење у овој датотеци [Ctrl+Right]</value>
+    <value>Пречи на претходно налажење у овој датотеци</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1653,7 +1653,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Заменити сва налажења у свим датотекама и применити [F10]</value>
+    <value>Заменити сва налажења у свим датотекама и применити</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -1689,11 +1689,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Приказати следећу датотеку [Ctrl+PgDn]</value>
+    <value>Приказати следећу датотеку</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Приказати претходну датотеку [Ctrl+PgUp]</value>
+    <value>Приказати претходну датотеку</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -1925,7 +1925,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Поново учитајте тренутну тему [Ctrl+F5]</value>
+    <value>Поново учитајте тренутну тему</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
@@ -1961,7 +1961,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Пречи на следеће налажење у овој датотеци [Ctrl+Left]</value>
+    <value>Пречи на следеће налажење у овој датотеци</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
@@ -2137,11 +2137,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Означити налажења за замену [Ctrl+R]</value>
+    <value>Означити налажења за замену</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Означити сва налажења у овој датотеци за замену [Ctrl+A]</value>
+    <value>Означити сва налажења у овој датотеци за замену</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
@@ -2265,7 +2265,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Ресетовати и прескочити сва налажења у овој датотеци [Ctrl+T]</value>
+    <value>Ресетовати и прескочити сва налажења у овој датотеци</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
@@ -2612,7 +2612,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Поништити ознаку замене на овом нелажењу [Ctrl+U]</value>
+    <value>Поништити ознаку замене на овом нелажењу</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="TTB0_InsertsTabNewline" xml:space="preserve">
