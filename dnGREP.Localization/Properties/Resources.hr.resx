@@ -856,4 +856,37 @@
   <data name="Main_Status_Searching" xml:space="preserve">
     <value>Pretražujem…</value>
   </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Sljedeća datoteka</value>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>Sljedeće podudaranje</value>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>Otvori</value>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>Otvori mapu datoteke</value>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>Otvori s prilagođenim uređivačem</value>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Prethodna datoteka</value>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>Prethodno podudaranje</value>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>Preimenuj datoteku</value>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>Resetiraj zumiranje</value>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Prikaži izbornik Istraživača</value>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>Prikaži postavke datoteke</value>
+  </data>
 </root>
