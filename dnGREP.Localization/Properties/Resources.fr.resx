@@ -3107,4 +3107,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Fermer</value>
   </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Droit</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
 </root>
