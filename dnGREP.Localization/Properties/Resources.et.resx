@@ -2718,4 +2718,10 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Sulge</value>
   </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>vasakule</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>paremale</value>
+  </data>
 </root>
