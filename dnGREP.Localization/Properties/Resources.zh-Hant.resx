@@ -4227,4 +4227,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Menu_Keyboard" xml:space="preserve">
     <value>鍵盤…</value>
   </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>刪除</value>
+  </data>
 </root>
