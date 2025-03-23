@@ -889,4 +889,7 @@
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
     <value>Prikaži postavke datoteke</value>
   </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Pretraživanje pomoću dnGrep</value>
+  </data>
 </root>
