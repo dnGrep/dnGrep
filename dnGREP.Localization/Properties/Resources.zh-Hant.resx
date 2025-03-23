@@ -549,11 +549,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
-    <value>所有日期</value>
+    <value>全部日期</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
-    <value>所有大小</value>
+    <value>全部大小</value>
     <comment>Main window, size filter radio button label (accel)</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
@@ -697,7 +697,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, Patterns to exclude label tooltip</comment>
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
-    <value>所有檔案</value>
+    <value>全部檔案</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
@@ -1897,7 +1897,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
-    <value>取消所有取代</value>
+    <value>取消全部取代</value>
     <comment>Replace window, Cancel button tooltip</comment>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
@@ -1917,11 +1917,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>當前檔案中的所有符合項標記為取代 [Ctrl+A]</value>
+    <value>當前檔案中的全部符合項標記為取代</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>標記取代的符合項 [Ctrl+R]</value>
+    <value>標記取代的符合項</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -1929,11 +1929,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>移動到當前檔案的上一個符合項 [Ctrl+Left]</value>
+    <value>移動到當前檔案的下一個符合項</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>移動到當前檔案的下一個符合項 [Ctrl+Right]</value>
+    <value>移動到當前檔案的上一個符合項</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1965,7 +1965,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>取代所有檔案中的所有符合項 [F10]</value>
+    <value>取代並套用全部檔案中的所有符合項</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -1973,7 +1973,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
-    <value>取代所有檔案</value>
+    <value>取代全部檔案</value>
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
@@ -2005,7 +2005,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>重置並跳過該檔案中所有符合項 [Ctrl+T]</value>
+    <value>重置並跳過該檔案中全部符合項</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -2013,11 +2013,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>顯示下一檔案 [Ctrl+PgDn]</value>
+    <value>顯示下一個檔案</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>顯示上一檔案 [Ctrl+PgUp]</value>
+    <value>顯示上一個檔案</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2025,7 +2025,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>此檔案包含了太多單個符合項, 點擊 '取代此檔案' 取代所有的符合項.</value>
+    <value>此檔案包含了太多單個符合項, 點擊 '取代此檔案' 取代全部的符合項.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -2041,7 +2041,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>撤銷標記取代的符合項 [Ctrl+U]</value>
+    <value>撤銷標記取代的符合項</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
@@ -2265,7 +2265,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value>. 符合所有字元</value>
+    <value>. 符合全部字元</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
@@ -2942,7 +2942,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_uniquescope" xml:space="preserve">
-    <value>報告唯一值範圍: 依檔案或所有檔案</value>
+    <value>報告唯一值範圍: 依檔案或全部檔案</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
@@ -3186,7 +3186,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_exit" xml:space="preserve">
-    <value>關閉所有視窗並退出 dnGrep</value>
+    <value>關閉全部視窗並退出 dnGrep</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
@@ -3712,7 +3712,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window sort options menu item tooltip</comment>
   </data>
   <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
-    <value>可能並非支援所有字體</value>
+    <value>可能並非支援全部字體</value>
     <comment>Options dialog, radio button tooltip</comment>
   </data>
   <data name="Error_PdftotextReturned0" xml:space="preserve">
@@ -4019,7 +4019,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_GlobalTooltip_True" xml:space="preserve">
-    <value>每個檔案中的所有符合項</value>
+    <value>每個檔案中的全部符合項</value>
     <comment>Main window, tooltip for the Global checkbox, when checked</comment>
   </data>
   <data name="Main_GlobalTooltip_False" xml:space="preserve">
@@ -4178,5 +4178,53 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ResultsFontWeight" xml:space="preserve">
     <value>結果字體粗細</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>鍵盤快速鍵</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>視窗</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>命令</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>快速鍵</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>所選取命令的快速鍵</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>目前使用的快速鍵:</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>指定</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>按下快速鍵:</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>重置全部為預設</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>主要</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>按 [F1] 鍵以取得鍵盤快速鍵的說明</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>鍵盤…</value>
   </data>
 </root>

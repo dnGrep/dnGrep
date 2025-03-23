@@ -1516,11 +1516,11 @@
     <comment>Replace window, Keep modified date checkbox label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Märgi kõik vasted selles failis asendamiseks [Ctrl+A]</value>
+    <value>Märgi kõik vasted selles failis asendamiseks</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Liigu selles failis eelmisele vastele [Ctrl+paremale]</value>
+    <value>Liigu selles failis eelmisele vastele</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1580,7 +1580,7 @@
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Liigu selles failis järgmisele vastele [Ctrl+vasakule]</value>
+    <value>Liigu selles failis järgmisele vastele</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
@@ -1787,7 +1787,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Märgi vaste asendamiseks [Ctrl+R]</value>
+    <value>Märgi vaste asendamiseks</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
@@ -1827,7 +1827,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, regular expressions group heading label</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Taaslae käesolev teemafail [Ctrl+F5]</value>
+    <value>Taaslae käesolev teemafail</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
@@ -2711,5 +2711,17 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   </data>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
     <value>Ava</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Sulge</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>vasakule</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>paremale</value>
   </data>
 </root>
