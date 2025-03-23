@@ -3381,4 +3381,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Закрити</value>
   </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
 </root>
