@@ -191,7 +191,7 @@
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Geçerli tema dosyasını yeniden yükle [Ctrl+F5]</value>
+    <value>Geçerli tema dosyasını yeniden yükle</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
@@ -713,7 +713,7 @@
     <value>Daha Fazla…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>Da_ha</value>
+    <value>_Daha</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Dosya adlarını kopyala</value>
@@ -1684,7 +1684,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>[salt okunur]</value>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Bu dosyadaki tüm eşleşmeleri sıfırla ve atla [Ctrl+T]</value>
+    <value>Bu dosyadaki tüm eşleşmeleri sıfırla ve atla</value>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
     <value>Dosya Adı,Satır Numarası,Dize</value>
@@ -2029,7 +2029,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Yeni isim:</value>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Bu dosyadaki sonraki eşleşmeye git [Ctrl+Left]</value>
+    <value>Bu dosyadaki sonraki eşleşmeye git</value>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
     <value>Tüm dosyalarda değiştir</value>
@@ -2479,7 +2479,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Önceki</value>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Tüm dosyalardaki tüm eşleşmeleri değiştir ve uygula [F10]</value>
+    <value>Tüm dosyalardaki tüm eşleşmeleri değiştir ve uygula</value>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
     <value>Dosyada değiştir</value>
@@ -2488,10 +2488,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Eşleşmeyi atla</value>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Sonraki dosyayı göster [Ctrl+PgDn]</value>
+    <value>Sonraki dosyayı göster</value>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Önceki dosyayı göster [Ctrl+PgUp]</value>
+    <value>Önceki dosyayı göster</value>
   </data>
   <data name="Replace_Title" xml:space="preserve">
     <value>Metni Değiştir</value>
@@ -2656,10 +2656,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Önceki dosya değiştirilme tarihini koru</value>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Bu dosyadaki tüm eşleşmeleri değiştirmek için işaretleyin [Ctrl+A]</value>
+    <value>Bu dosyadaki tüm eşleşmeleri değiştirmek için işaretleyin</value>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Bu dosyadaki önceki eşleşmeye git [Ctrl+Right]</value>
+    <value>Bu dosyadaki önceki eşleşmeye git</value>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
     <value>Sonraki _dosya</value>
@@ -2839,7 +2839,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Tema</value>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Değiştirmek için eşleşmeyi işaretle [Ctrl+R]</value>
+    <value>Değiştirmek için eşleşmeyi işaretle</value>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
     <value>_Değiştir</value>
@@ -2854,7 +2854,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Bu dosya tek tek değiştirilemeyecek kadar fazla eşleşme içeriyor. Hepsini değiştirmek için 'Dosyada değiştir'i tıklayın.</value>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Bu eşleşmede işaret değiştirmeyi geri al [Ctrl+U]</value>
+    <value>Bu eşleşmede işaret değiştirmeyi geri al</value>
   </data>
   <data name="ReportOptionsWindow_CSV" xml:space="preserve">
     <value>CSV</value>
@@ -3305,5 +3305,53 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
     <value>Arama sonuçlarındaki dosya adı için</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Etiket</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Komut</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Çıkar</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Tümünü varsayılanlara sıfırla</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Seçilen komut için kısayol tuşu</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Klavye Kısayolları</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Pencere</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Kısayol Tuşu</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Kısayol tuşlarına basın:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>Şu anda kullanılan kısayol:</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Ata</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Klavye kısayolları hakkında yardım için F1 tuşuna basın</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Klavye…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Ana Pencere</value>
   </data>
 </root>

@@ -1405,7 +1405,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>neu laden</value>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>neu laden der aktuellen Theme-Datei [Strg+F5]</value>
+    <value>Aktuelle Theme-Datei neu laden</value>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
     <value>Ersetze Schriftgröße</value>
@@ -1531,19 +1531,19 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Dateien</value>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Markierte Fundstelle(n) in dieser Datei ersetzen [Strg+A]</value>
+    <value>Makierte Fundstellen in dieser Datei ersetzen</value>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Markierte Fundstelle ersetzen [Strg+R]</value>
+    <value>Markierte Fundstelle ersetzen</value>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
     <value>Fundstellen</value>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Springe zur vorherigen Fundstelle in der Datei [Strg+Links]</value>
+    <value>Springe zur nächsten Fundstelle in der Datei</value>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Springe zur nächsten Fundstelle in der Datei [Strg+Rechts]</value>
+    <value>Springe zur vorherigen Fundstelle in der Datei</value>
   </data>
   <data name="Replace_Next" xml:space="preserve">
     <value>_Weiter</value>
@@ -1564,7 +1564,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>[Schreibgeschützt]</value>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Ersetze alle Funde in allen Dateien [F10]</value>
+    <value>Ersetze alle Funde in allen Dateien</value>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
     <value>_Ersetze</value>
@@ -1594,16 +1594,16 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Ersetzen mit:</value>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Zurücksetzten aller Fundstellen in dieser Datei [Strg+T]</value>
+    <value>Zurücksetzten aller Fundstellen in dieser Datei</value>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
     <value>Suche nach:</value>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Zeige die nächste Datei [Strg+Seite nach unten]</value>
+    <value>Nächste Datei anzeigen</value>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Zeige die vorherige Datei [Strg+Seite nach oben]</value>
+    <value>Vorherige Datei anzeigen</value>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
     <value>Nicht</value>
@@ -1621,7 +1621,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Rückgängig Datei</value>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Zurücknahme der Ersetzung an dieser Fundstelle [Strg+U]</value>
+    <value>Zurücknahme der Ersetzung an dieser Fundstelle</value>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
     <value>Text mit Zeilenumbrüchen</value>
@@ -2907,5 +2907,17 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Replace_OpenFileCompare" xml:space="preserve">
     <value>Dateivergleich öffnen</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Befehlszeile</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Entfernen:</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Schließen</value>
   </data>
 </root>
