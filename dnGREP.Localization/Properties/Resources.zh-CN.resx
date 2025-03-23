@@ -4285,4 +4285,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
     <value>当前使用此快捷键的是：</value>
   </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>删除</value>
+  </data>
 </root>
