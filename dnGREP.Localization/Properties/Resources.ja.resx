@@ -3962,4 +3962,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>閉じる</value>
   </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>右矢印</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>左矢印</value>
+  </data>
 </root>
