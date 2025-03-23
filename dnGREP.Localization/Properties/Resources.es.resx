@@ -2582,4 +2582,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
   <data name="Keyborard_LeftArrowKey" xml:space="preserve">
     <value>Izquierda</value>
   </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
 </root>
