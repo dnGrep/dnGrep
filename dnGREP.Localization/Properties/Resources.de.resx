@@ -2920,4 +2920,16 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Schließen</value>
   </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Rechts</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>Seite nach unten</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>Seite nach oben</value>
+  </data>
 </root>
