@@ -2999,4 +2999,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Fechar</value>
   </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Dir</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Esq</value>
+  </data>
 </root>
