@@ -3354,4 +3354,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Window_Main" xml:space="preserve">
     <value>Ana Pencere</value>
   </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Sil</value>
+  </data>
 </root>
