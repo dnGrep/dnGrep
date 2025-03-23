@@ -892,4 +892,43 @@
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
     <value>Pretraživanje pomoću dnGrep</value>
   </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>Preimenuj datoteku</value>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Prethodna datoteka</value>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Preskoči datoteke koje su spremljene u oblaku</value>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_Tekst</value>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Pretraživanje bajtova: pročitaj datoteku binarno i pretraži bajtove kao heksadecimalne znamenke: 68 65 78 20</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Pretraga regularnim izrazom</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Tekst</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath pretraga (samo za XML dokumente)</value>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Preskoči datoteke koje su spremljene u oblaku</value>
+  </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Otvori</value>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
 </root>
