@@ -4285,4 +4285,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
     <value>Натиснете F1 за помощ относно клавишните комбинации</value>
   </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Премахване</value>
+  </data>
 </root>
