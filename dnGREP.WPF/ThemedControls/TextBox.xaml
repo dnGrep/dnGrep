@@ -113,10 +113,10 @@
                               Command="{x:Static ApplicationCommands.Paste}"/>
                     <Separator/>
                     <MenuItem Header="{l:Loc Key='TextBox_Command_MakeUppercase'}" 
-                              InputGestureText="{x:Static my:TextBoxCommands.LowerCaseGesture}" 
+                              InputGestureText="{x:Static my:TextBoxCommands.UpperCaseGesture}" 
                               Command="{x:Static my:TextBoxCommands.MakeUpperCase}"/>
                     <MenuItem Header="{l:Loc Key='TextBox_Command_MakeLowercase'}" 
-                              InputGestureText="{x:Static my:TextBoxCommands.UpperCaseGesture}" 
+                              InputGestureText="{x:Static my:TextBoxCommands.LowerCaseGesture}" 
                               Command="{x:Static my:TextBoxCommands.MakeLowerCase}"/>
                 </ContextMenu>
             </Setter.Value>
