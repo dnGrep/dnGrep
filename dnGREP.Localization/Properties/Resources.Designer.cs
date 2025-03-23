@@ -1641,6 +1641,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Keyboard_BackspaceKey {
+            get {
+                return ResourceManager.GetString("Keyboard_BackspaceKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Keyboard_Close {
@@ -1668,6 +1677,51 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Keyboard_DeleteKey {
+            get {
+                return ResourceManager.GetString("Keyboard_DeleteKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Down.
+        /// </summary>
+        public static string Keyboard_DownArrowKey {
+            get {
+                return ResourceManager.GetString("Keyboard_DownArrowKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End.
+        /// </summary>
+        public static string Keyboard_EndKey {
+            get {
+                return ResourceManager.GetString("Keyboard_EndKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esc.
+        /// </summary>
+        public static string Keyboard_EscapeKey {
+            get {
+                return ResourceManager.GetString("Keyboard_EscapeKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Keyboard_HomeKey {
+            get {
+                return ResourceManager.GetString("Keyboard_HomeKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyboard Shortcuts.
         /// </summary>
         public static string Keyboard_KeyboardShortcuts {
@@ -1682,6 +1736,24 @@ namespace dnGREP.Localization.Properties {
         public static string Keyboard_LabelHeader {
             get {
                 return ResourceManager.GetString("Keyboard_LabelHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PgDn.
+        /// </summary>
+        public static string Keyboard_PageDownKey {
+            get {
+                return ResourceManager.GetString("Keyboard_PageDownKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PgUp.
+        /// </summary>
+        public static string Keyboard_PageUpKey {
+            get {
+                return ResourceManager.GetString("Keyboard_PageUpKey", resourceCulture);
             }
         }
         
@@ -1704,6 +1776,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PrtScn.
+        /// </summary>
+        public static string Keyboard_PrintScreenKey {
+            get {
+                return ResourceManager.GetString("Keyboard_PrintScreenKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Keyboard_Remove {
@@ -1718,6 +1799,15 @@ namespace dnGREP.Localization.Properties {
         public static string Keyboard_ResetAllToDefaults {
             get {
                 return ResourceManager.GetString("Keyboard_ResetAllToDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        public static string Keyboard_RightArrowKey {
+            get {
+                return ResourceManager.GetString("Keyboard_RightArrowKey", resourceCulture);
             }
         }
         
@@ -1767,6 +1857,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Space.
+        /// </summary>
+        public static string Keyboard_SpaceKey {
+            get {
+                return ResourceManager.GetString("Keyboard_SpaceKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Up.
+        /// </summary>
+        public static string Keyboard_UpArrowKey {
+            get {
+                return ResourceManager.GetString("Keyboard_UpArrowKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Window.
         /// </summary>
         public static string Keyboard_WindowHeader {
@@ -1781,6 +1889,15 @@ namespace dnGREP.Localization.Properties {
         public static string Keyboard_WindowsLogoKey {
             get {
                 return ResourceManager.GetString("Keyboard_WindowsLogoKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        public static string Keyborard_LeftArrowKey {
+            get {
+                return ResourceManager.GetString("Keyborard_LeftArrowKey", resourceCulture);
             }
         }
         
