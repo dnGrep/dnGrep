@@ -2576,4 +2576,10 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Derecha</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
 </root>
