@@ -159,6 +159,20 @@ namespace dnGREP.WPF
             {Key.OemComma, ","},
             {Key.OemPeriod, "."},
             {Key.OemQuestion, "/"},
+
+            {Key.Space, Resources.Keyboard_SpaceKey},
+            {Key.Escape, Resources.Keyboard_EscapeKey},
+            {Key.Up, Resources.Keyboard_UpArrowKey},
+            {Key.Down, Resources.Keyboard_DownArrowKey},
+            {Key.Left, Resources.Keyborard_LeftArrowKey},
+            {Key.Right, Resources.Keyboard_RightArrowKey},
+            {Key.Delete, Resources.Keyboard_DeleteKey},
+            {Key.Back, Resources.Keyboard_BackspaceKey},
+            {Key.PageUp, Resources.Keyboard_PageUpKey},
+            {Key.PageDown, Resources.Keyboard_PageDownKey},
+            {Key.Home, Resources.Keyboard_HomeKey},
+            {Key.End, Resources.Keyboard_EndKey},
+            {Key.PrintScreen, Resources.Keyboard_PrintScreenKey},
         };
     }
 

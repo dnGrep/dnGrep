@@ -20,7 +20,7 @@ namespace dnGREP.WPF
 
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            List<Key> nonShortcutKeys = [Key.LeftAlt, Key.RightAlt, Key.LeftCtrl, Key.RightCtrl, Key.LeftShift, Key.RightShift, Key.LWin, Key.RWin];
+            List<Key> nonShortcutKeys = [Key.LeftAlt, Key.RightAlt, Key.LeftCtrl, Key.RightCtrl, Key.LeftShift, Key.RightShift, Key.LWin, Key.RWin, Key.Apps];
             var actualKey = KeyGestureLocalizer.RealKey(e);
 
             if (e.IsDown && !nonShortcutKeys.Contains(actualKey))

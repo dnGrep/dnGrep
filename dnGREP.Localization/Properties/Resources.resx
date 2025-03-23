@@ -4346,4 +4346,56 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Main</value>
     <comment>A reference to dnGrep's Main window</comment>
   </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>Up</value>
+    <comment>Text for the Up arrow key</comment>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>Down</value>
+    <comment>Text for the Down arrow key</comment>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Left</value>
+    <comment>Text for the Left arrow key</comment>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Right</value>
+    <comment>Text for the Right arrow key</comment>
+  </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Text for the Delete key</comment>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Back</value>
+    <comment>Text for the Backspace key</comment>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+    <comment>Text for the Page Up key</comment>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+    <comment>Text for the Page Down key</comment>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Home</value>
+    <comment>Text for the Home key</comment>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>End</value>
+    <comment>Text for the End key</comment>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+    <comment>Text for the Print Screen key</comment>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>Space</value>
+    <comment>Text for the Space key</comment>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+    <comment>Text for the Escape key</comment>
+  </data>
 </root>
