@@ -4230,4 +4230,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_DeleteKey" xml:space="preserve">
     <value>刪除</value>
   </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>◀︎</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>►</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>▼</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>▲</value>
+  </data>
 </root>
