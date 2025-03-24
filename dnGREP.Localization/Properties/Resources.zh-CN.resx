@@ -4288,4 +4288,40 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_DeleteKey" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>↓</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>←</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>→</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Back Space</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>空格键</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>↑</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
 </root>
