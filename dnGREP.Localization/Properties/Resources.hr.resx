@@ -934,4 +934,7 @@
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
     <value>Potraga datoteke .gitignore</value>
   </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
 </root>
