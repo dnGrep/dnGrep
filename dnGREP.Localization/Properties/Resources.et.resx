@@ -170,10 +170,6 @@
     <value>Lemmiku üksikasjad</value>
     <comment>Bookmark details dialog, window title</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+nool alla</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
     <value>Kirjeldus</value>
     <comment>Bookmarks dialog, grid header</comment>
@@ -233,10 +229,6 @@
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
     <value>Ainult failinimi</value>
     <comment>Main window sort options menu label (accel)</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+nool üles</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value>Kopeeri failinimed</value>
@@ -710,14 +702,6 @@
   <data name="Bookmarks_MoveDown" xml:space="preserve">
     <value>Liiguta allapoole</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Tõstuklahv+Alt+nool alla</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Tõstuklahv+Alt+nool üles</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
     <value>Mitmerealine</value>

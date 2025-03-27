@@ -2699,10 +2699,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜索参数已更改</value>
     <comment>Main window replace button tooltip</comment>
   </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+向上</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveDown" xml:space="preserve">
     <value>下移</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
@@ -2723,10 +2719,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>名称</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+向上</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
-  </data>
   <data name="Main_MaximizeResults" xml:space="preserve">
     <value>最大化结果（F7）</value>
     <comment>Main window, Maximize results button tooltip</comment>
@@ -2738,14 +2730,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
     <value>书签名：</value>
     <comment>Bookmark name label</comment>
-  </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+向下</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+向下</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
   </data>
   <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
     <value>搜索时最大化搜索结果面板</value>

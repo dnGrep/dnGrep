@@ -1209,12 +1209,6 @@
   <data name="Bookmarks_NameHeader" xml:space="preserve">
     <value>Yer İmi Adı</value>
   </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Aşağı Ok</value>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Yukarı Ok</value>
-  </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
     <value>Çok Satırlı</value>
   </data>
@@ -1469,12 +1463,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
     <value>_Normal ifade</value>
-  </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+Aşağı Ok</value>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+Yukarı Ok</value>
   </data>
   <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
     <value>/cs [True/False]

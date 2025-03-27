@@ -2443,14 +2443,6 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     Ejecuta el script identificado por la clave de script.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt + ↓</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt + ↑</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveToBottom" xml:space="preserve">
     <value>Ir hasta abajo</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
@@ -2470,14 +2462,6 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
   <data name="Bookmarks_MoveUp" xml:space="preserve">
     <value>Mover hacia arriba</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift + Alt + ↓</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift + Alt + ↑</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
     <value>/sep [carácter separador o texto]

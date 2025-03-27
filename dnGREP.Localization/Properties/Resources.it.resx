@@ -1225,14 +1225,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Nome</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Freccia Giù</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Freccia su</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
-  </data>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
     <value>Copia file…</value>
     <comment>Main window, results list, context menu item label</comment>
