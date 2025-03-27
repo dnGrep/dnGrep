@@ -397,14 +397,6 @@
     <value>_Add</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+Down Arrow</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+Up Arrow</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_Close" xml:space="preserve">
     <value>_Close</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
@@ -468,14 +460,6 @@
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
     <value>Sections</value>
     <comment>Bookmarks dialog, grid header</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Down Arrow</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Up Arrow</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
     <value>Case sensitive</value>

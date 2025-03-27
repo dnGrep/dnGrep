@@ -132,6 +132,8 @@
                   SelectionMode="Single" 
                   SelectionUnit="FullRow"
                   CanUserResizeColumns="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
                   Style="{StaticResource ThemedDataGrid}"
                   ColumnHeaderStyle="{StaticResource ThemedDataGridColumnHeader}"
                   CellStyle="{StaticResource ThemedDataGridCell}"

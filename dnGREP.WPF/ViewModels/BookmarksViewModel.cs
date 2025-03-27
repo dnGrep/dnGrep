@@ -43,10 +43,10 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(DeleteCommand), "Bookmarks_Delete", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(UseBookmarkCommand), "Bookmarks_Use", "Control+B");
 
-            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveToTopCommand), string.Empty, "Shift+Alt+Up");
-            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveUpCommand), string.Empty, "Alt+Up");
-            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveDownCommand), string.Empty, "Alt+Down");
-            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveToBottomCommand), string.Empty, "Shift+Alt+Down");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveToTopCommand), "Bookmarks_MoveToTop", "Shift+Alt+Up");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveUpCommand), "Bookmarks_MoveUp", "Alt+Up");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveDownCommand), "Bookmarks_MoveDown", "Alt+Down");
+            KeyBindingManager.RegisterCommand(KeyCategory.Bookmark, nameof(MoveToBottomCommand), "Bookmarks_MoveToBottom", "Shift+Alt+Down");
         }
 
         public BookmarkListViewModel(Window owner, Action<Bookmark> clearStar)
@@ -84,6 +84,11 @@ namespace dnGREP.WPF
                 InputBindings.Clear();
                 InitializeInputBindings();
                 InputBindings.RaiseAfterCollectionChanged();
+
+                OnPropertyChanged(nameof(MoveToTopCommand));
+                OnPropertyChanged(nameof(MoveUpCommand));
+                OnPropertyChanged(nameof(MoveDownCommand));
+                OnPropertyChanged(nameof(MoveToBottomCommand));
             }
         }
 

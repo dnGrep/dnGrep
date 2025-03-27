@@ -718,24 +718,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alt+Down Arrow.
-        /// </summary>
-        public static string Bookmarks_AltDownArrow {
-            get {
-                return ResourceManager.GetString("Bookmarks_AltDownArrow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alt+Up Arrow.
-        /// </summary>
-        public static string Bookmarks_AltUpArrow {
-            get {
-                return ResourceManager.GetString("Bookmarks_AltUpArrow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to _Close.
         /// </summary>
         public static string Bookmarks_Close {
@@ -876,24 +858,6 @@ namespace dnGREP.Localization.Properties {
         public static string Bookmarks_SectionsHeader {
             get {
                 return ResourceManager.GetString("Bookmarks_SectionsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shift+Alt+Down Arrow.
-        /// </summary>
-        public static string Bookmarks_ShiftAltDownArrow {
-            get {
-                return ResourceManager.GetString("Bookmarks_ShiftAltDownArrow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shift+Alt+Up Arrow.
-        /// </summary>
-        public static string Bookmarks_ShiftAltUpArrow {
-            get {
-                return ResourceManager.GetString("Bookmarks_ShiftAltUpArrow", resourceCulture);
             }
         }
         
