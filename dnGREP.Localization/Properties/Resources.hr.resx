@@ -931,4 +931,19 @@
   <data name="Options_KB" xml:space="preserve">
     <value>KB</value>
   </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>Pro_nađi:</value>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Pretraži u</value>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Pretraž_i u rezultatima</value>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Potraga datoteke .gitignore</value>
+  </data>
 </root>

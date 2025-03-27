@@ -3384,4 +3384,76 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_DeleteKey" xml:space="preserve">
     <value>Видалити</value>
   </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Комбінації клавіш</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Вікно</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Клавіша швидкого доступу</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Натисніть клавіші швидкого доступу:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>Ярлик, який зараз використовує:</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Вилучити</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Призначити</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Скинути все до значень за замовчуванням</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Натисніть F1, щоб отримати довідку щодо комбінацій клавіш</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Клавіатура…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Головна</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Вправо</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Додому</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Ярлик для вибраної команди</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Вліво</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>Вниз</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>Вгору</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
 </root>
