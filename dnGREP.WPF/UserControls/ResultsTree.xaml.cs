@@ -21,6 +21,7 @@ namespace dnGREP.WPF.UserControls
     public partial class ResultsTree : UserControl
     {
         private GrepSearchResultsViewModel? viewModel;
+        private bool skipScrollOnExpand;
 
         public ResultsTree()
         {
@@ -31,6 +32,8 @@ namespace dnGREP.WPF.UserControls
             treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
             treeView.PreviewTouchMove += TreeView_PreviewTouchMove;
             treeView.PreviewTouchUp += TreeView_PreviewTouchUp;
+
+            GrepSearchResultsViewModel.SearchResultsMessenger.Register("FormattedLinesLoaded", ScrollExpandedItemToTop);
         }
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -90,6 +93,40 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        private TreeViewItem? expandedTreeViewItem;
+        private void TreeViewItem_Expanded(object sender, RoutedEventArgs e)
+        {
+            // if going backward, expandedTreeViewItem will be set to null
+            // so it does not get scrolled to the top: we want the bottom
+            // of the expanded item to be visible
+            if (skipScrollOnExpand)
+            {
+                expandedTreeViewItem = null; // clear if already set
+                return;
+            }
+
+            if (sender is TreeViewItem tvi && tvi.Header is FormattedGrepResult)
+            {
+                expandedTreeViewItem = tvi;
+            }
+        }
+
+        private void ScrollExpandedItemToTop()
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                if (expandedTreeViewItem != null)
+                {
+                    // This is used for navigating forward in the tree view
+                    // scroll down so the expanded item is above top of the view
+                    treeView.ScrollViewer?.ScrollToVerticalOffset(treeView.ScrollViewer.VerticalOffset + treeView.ActualHeight);
+                    // BringIntoView will scroll the expanded item to the top of the view
+                    expandedTreeViewItem.BringIntoView();
+                    expandedTreeViewItem = null;
+                }
+            });
+        }
+
         #region Tree Tasks
 
         internal void SetFocus()
@@ -130,12 +167,15 @@ namespace dnGREP.WPF.UserControls
         {
             try
             {
+                // when moving backward, do not scroll to the top of the expanded item
+                skipScrollOnExpand = true;
                 Cursor = Cursors.Wait;
                 await PreviousLineMatch();
             }
             finally
             {
                 Cursor = Cursors.Arrow;
+                skipScrollOnExpand = false;
             }
         }
 
@@ -143,12 +183,15 @@ namespace dnGREP.WPF.UserControls
         {
             try
             {
+                // when moving backward, do not scroll to the top of the expanded item
+                skipScrollOnExpand = true;
                 Cursor = Cursors.Wait;
                 await PreviousFileMatch();
             }
             finally
             {
                 Cursor = Cursors.Arrow;
+                skipScrollOnExpand = false;
             }
         }
 
@@ -330,10 +373,12 @@ namespace dnGREP.WPF.UserControls
 
         internal async Task ExpandAll()
         {
+            skipScrollOnExpand = true;
             foreach (FormattedGrepResult result in treeView.Items)
             {
                 await result.ExpandTreeNode();
             }
+            skipScrollOnExpand = false;
         }
 
         internal void CollapseAll()

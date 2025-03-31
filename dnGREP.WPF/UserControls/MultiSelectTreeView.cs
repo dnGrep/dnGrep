@@ -20,13 +20,23 @@ namespace dnGREP.WPF.UserControls
     }
 
 
+    [TemplatePart(Name = "_tv_scrollviewer_", Type = typeof(ScrollViewer))]
     public class MultiSelectTreeView : TreeView
     {
+        public ScrollViewer? ScrollViewer { get; private set; }
+
         public MultiSelectTreeView()
         {
             GotFocus += OnTreeViewItemGotFocus;
             PreviewMouseDown += OnTreeViewItemPreviewMouseDown;
             PreviewMouseUp += OnTreeViewItemPreviewMouseUp;
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            ScrollViewer = GetTemplateChild("_tv_scrollviewer_") as ScrollViewer;
         }
 
         private static TreeViewItem? _selectTreeViewItemOnMouseUp;

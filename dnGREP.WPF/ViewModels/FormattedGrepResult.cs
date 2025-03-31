@@ -87,10 +87,17 @@ namespace dnGREP.WPF
         private bool isExpanded = false;
         partial void OnIsExpandedChanged(bool value)
         {
-            if (value == true && !FormattedLines.IsLoaded && !FormattedLines.IsLoading)
+            if (value) // IsExpanded
             {
-                IsLoading = true;
-                Task.Run(() => FormattedLines.LoadAsync());
+                if (!FormattedLines.IsLoaded && !FormattedLines.IsLoading)
+                {
+                    IsLoading = true;
+                    Task.Run(() => FormattedLines.LoadAsync());
+                }
+                else
+                {
+                    GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("FormattedLinesLoaded");
+                }
             }
         }
 
@@ -192,6 +199,8 @@ namespace dnGREP.WPF
         void FormattedLines_LoadFinished(object? sender, EventArgs e)
         {
             IsLoading = false;
+
+            GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("FormattedLinesLoaded");
         }
 
         void FormattedLines_PropertyChanged(object? sender, PropertyChangedEventArgs e)
