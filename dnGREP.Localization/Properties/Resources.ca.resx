@@ -1173,10 +1173,6 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Nom del marcador:</value>
     <comment>Bookmark name label</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+Fletxa Avall</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveToBottom" xml:space="preserve">
     <value>Mou fins el final</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
@@ -1188,10 +1184,6 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Bookmarks_NameHeader" xml:space="preserve">
     <value>Nom</value>
     <comment>Bookmarks dialog, grid header</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Maj+Alt+Fletxa Avall</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
     <value>Capturar grups de cerca</value>
@@ -1253,17 +1245,9 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Mou avall</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+Fletxa Amunt</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveUp" xml:space="preserve">
     <value>Mou amunt</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Mays+Alt+Fletxa Amunt</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Help_CmdLineReportMode" xml:space="preserve">
     <value>/rm [mode]

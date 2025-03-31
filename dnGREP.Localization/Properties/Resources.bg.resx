@@ -2707,10 +2707,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Наименование</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+стрелка надолу</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
   <data name="Main_MaximizeResults" xml:space="preserve">
     <value>Увеличаване на резултатите (F7)</value>
     <comment>Main window, Maximize results button tooltip</comment>
@@ -2727,17 +2723,9 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Преместване накрая</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+стрелка нагоре</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveDown" xml:space="preserve">
     <value>Преместване надолу</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
-  </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+стрелка надолу</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
     <value>Преместване най-горе</value>
@@ -2746,10 +2734,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Bookmarks_MoveUp" xml:space="preserve">
     <value>Преместване нагоре</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+стрелка нагоре</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Options_PDFNumberStyle" xml:space="preserve">
     <value>Номериране на PDF:</value>
@@ -4287,5 +4271,41 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Keyboard_DeleteKey" xml:space="preserve">
     <value>Премахване</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>Надолу</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Наляво</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Надясно</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Изтриване назад</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>Нагоре</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>Интервал</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>Край</value>
   </data>
 </root>

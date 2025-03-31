@@ -250,12 +250,6 @@
   <data name="Options_PhoneticSearch" xml:space="preserve">
     <value>Fonetsko pretraživanje</value>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+Strelica prema dolje</value>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+Strelica prema gore</value>
-  </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
     <value>Nastavak datoteke</value>
   </data>
@@ -276,12 +270,6 @@
   </data>
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
     <value>Sekcije</value>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Strelica prema dolje</value>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Strelica prema gore</value>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
     <value>Višelinijski</value>
@@ -930,5 +918,23 @@
   </data>
   <data name="Options_KB" xml:space="preserve">
     <value>KB</value>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>Pro_nađi:</value>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Pretraži u</value>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Pretraž_i u rezultatima</value>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Potraga datoteke .gitignore</value>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Pretraga</value>
   </data>
 </root>

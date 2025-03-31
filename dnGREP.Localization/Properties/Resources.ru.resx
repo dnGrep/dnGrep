@@ -2663,22 +2663,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Переместить ниже</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+Стрелка вниз</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+Стрелка вверх</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Стрелка вниз</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Стрелка вверх</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
-  </data>
   <data name="Help_CmdLineFileInformation" xml:space="preserve">
     <value>/fi [True/False]
 -fi [True/False]
@@ -3101,7 +3085,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script message for file not found: {0} is the target name and {1} is the file name</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Данные приложения и _логи</value>
+    <value>Данные _приложения</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_NewScript" xml:space="preserve">
@@ -3744,7 +3728,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="ScriptHint_copy" xml:space="preserve">
-    <value>Копировать и переименовать файлы результатов, используя регулярные выражения.</value>
+    <value>Копировать и переименовать файлы результатов, используя регулярные выражения</value>
     <comment>Script editor command tooltip </comment>
   </data>
   <data name="Options_EndOfDocument" xml:space="preserve">
@@ -4054,13 +4038,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Выход</value>
   </data>
   <data name="Keyboard_LabelHeader" xml:space="preserve">
-    <value>Ярлык</value>
+    <value>Метка</value>
   </data>
   <data name="Keyboard_CommandHeader" xml:space="preserve">
     <value>Команда</value>
   </data>
   <data name="Keyboard_Remove" xml:space="preserve">
-    <value>Удалить:</value>
+    <value>Удалить</value>
   </data>
   <data name="Keyboard_Save" xml:space="preserve">
     <value>Применить</value>
@@ -4075,6 +4059,240 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Вправо</value>
   </data>
   <data name="Keyboard_DeleteKey" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Delete</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Удалять файлы из кэша, если они не используются</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>Настройки кэша плагинов изменились. Удалить старую папку кэша?</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>Неглобальный</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>Все совпадения в каждом файле</value>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Контекстное меню Windows 11:</value>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>Требуется Windows 11</value>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>Оригинальное контекстное меню:</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [команды поиска]
+-e [команды поиска]
+-everything [команды поиска]
+    Задает текст поиска в Everything. Должен быть последним параметром в командной строке и копирует её остаток без изменений.</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>Остановиться после количества совпадений: {0}</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>Включить автозаполнение в полях ввода текста</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>После поиска, установить фокус клавиатуры на</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Поле поиска содержимого</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Извлечь и скопировать файлы</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Переместить весь архив</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Извлечь и переместить файлы</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Кэш плагинов</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Хеш только размера и времени изменения файла</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Кэшировать извлеченные файлы</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Кэшировать файлы в папке Temp</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Кэшировать файлы в</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Использовать диалог замены</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Заменить в выбранных файлах</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Не удалось зарегистрировать новое сочетание клавиш, возможно оно уже используется?</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>Передавать аргументы командной строки в существующее окно</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>Пауза после количества совпадений: {0}</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>Пауза после первого совпадения</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>Количество совпадений для автоматической приостановки поиска</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>Количество совпадений для автоматической остановки поиска</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Сочетания клавиш</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Сочетание клавиш</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Сочетание клавиш для выбранной команды</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Окно</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Нажмите сочетание клавиш:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>В настоящее время используется сочетание:</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Назначить</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Сбросить все до значений по умолчанию</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Клавиатура…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Главное</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>Отображать пробелы</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>С файлами в архивах</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>Скопировать весь архив</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>Ничего не делать</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Удалить весь архив</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>Вверх</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>Вниз</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>Пробел</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>Каталог '{0}' может содержать файлы, которые не являются частью приложения. Использовать этот каталог в любом случае?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>В новом каталоге уже есть файл с именем "{0}". Заменить существующий файл?</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>Ошибка:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>Совпадений не найдено!</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Хэш всего файла полностью</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Создавать ключ файла кэша, используя:</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>Сворачивать в область уведомлений *</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Первое совпадение в каждом файле</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>Неглобальный</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>Библиотека .NET для генерации текстовых различий</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>Сочетание клавиш для восстановления окна dnGrep</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>Не выбрано ни одного файла для замены.</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Нажмите F1 для получения справки о сочетаниях клавиш</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>Некоторые файлы не удалось скопировать в новые каталоги. Проверьте лог ошибок для получения подробной информации: </value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Открыть сравнение файлов</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>Логи п_риложения</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Предварительный просмотр замен</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>Изменились каталоги приложения. Хотите скопировать файлы в новые каталоги?</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Жирность шрифта результатов</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Для имени файла в результатах поиска</value>
   </data>
 </root>

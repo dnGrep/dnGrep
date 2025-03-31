@@ -2414,21 +2414,9 @@
     <value>북마크 이름:</value>
     <comment>Bookmark name label</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+아래 화살표키</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+위 화살표키</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_NameHeader" xml:space="preserve">
     <value>이름</value>
     <comment>Bookmarks dialog, grid header</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+아래 화살표키</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
   </data>
   <data name="Bookmarks_MoveToBottom" xml:space="preserve">
     <value>맨 아래로</value>
@@ -2441,10 +2429,6 @@
   <data name="Bookmarks_MoveDown" xml:space="preserve">
     <value>아래로</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+위 화살표키</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
     <value>원격 클라우드 저장소 파일 건너뛰기</value>
