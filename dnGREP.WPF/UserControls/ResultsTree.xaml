@@ -39,7 +39,7 @@
                                   PreviewMouseDoubleClick="TreeView_PreviewMouseDoubleClick"
                                   Grid.IsSharedSizeScope="True"
                                   ScrollViewer.HorizontalScrollBarVisibility="{Binding Path=WrapText, Converter={StaticResource BoolToScollBarVisibilityConverter}}">
-        <TreeView.ItemsPanel>
+       <TreeView.ItemsPanel>
             <ItemsPanelTemplate>
                 <Controls:MyVirtualizingStackPanel/>
             </ItemsPanelTemplate>
@@ -207,6 +207,7 @@
                 <EventSetter Event="UIElement.PreviewMouseMove" Handler="TreeView_PreviewMouseMove" />
                 <EventSetter Event="RequestBringIntoView" Handler="TreeView_RequestBringIntoView" />
                 <EventSetter Event="Selected" Handler="TreeView_OnSelected" />
+                <EventSetter Event="Expanded" Handler="TreeViewItem_Expanded" />
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="1" />
