@@ -2921,14 +2921,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Nome do marcador:</value>
     <comment>Bookmark name label</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+Seta para baixo</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+Seta para cima</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveDown" xml:space="preserve">
     <value>Mover para baixo</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
@@ -2940,14 +2932,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Bookmarks_MoveUp" xml:space="preserve">
     <value>Mover para cima</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Seta para baixo</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Seta para cima</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
     <value>Mover para o topo</value>

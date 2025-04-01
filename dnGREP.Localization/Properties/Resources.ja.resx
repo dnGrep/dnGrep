@@ -922,10 +922,6 @@
     <value>パスとファイル名、深さ優先</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+上矢印</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
     <value>ファイルを移動…</value>
     <comment>Main window, More button menu item label (accel)</comment>
@@ -973,10 +969,6 @@
   <data name="Script_Editor_Redo" xml:space="preserve">
     <value>やり直し</value>
     <comment>Script editor menu item (accel)</comment>
-  </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+下矢印</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
     <value>別のディレクトリを選択して再試行してください。</value>
@@ -3282,10 +3274,6 @@
     <value>日時 'To' フィルタ</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+上矢印</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
-  </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
     <value>現在のテーマ ファイルを再読み込み</value>
     <comment>Options dialog, theme reload button tooltip</comment>
@@ -3341,10 +3329,6 @@
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
     <value>論理式は正常です</value>
     <comment>Main window, Boolean expression status</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+下矢印</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
     <value>含めるファイル パターン:</value>

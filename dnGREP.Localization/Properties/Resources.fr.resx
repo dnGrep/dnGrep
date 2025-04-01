@@ -2821,25 +2821,9 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Nom</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>ALT+Flèche bas</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
     <value>nom de l'onglet:</value>
     <comment>Bookmark name label</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>ALT+Flèche haut</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Flèche du haut</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Flèche du bas</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
   </data>
   <data name="Main_Menu_EditScript" xml:space="preserve">
     <value>Editer le script…</value>

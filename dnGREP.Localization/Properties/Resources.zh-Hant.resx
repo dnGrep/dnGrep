@@ -2061,7 +2061,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[檔案未找到: 已被刪除或移動?]</value>
+    <value>[未找到檔案: 已被刪除或移動?]</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
@@ -2405,7 +2405,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
-    <value>dnGrep is up to date.</value>
+    <value>dnGrep 是最新版.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
   <data name="Main_Results_PreviousFile" xml:space="preserve">
@@ -2765,10 +2765,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>重置</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+↓</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveToBottom" xml:space="preserve">
     <value>移到底部</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
@@ -2889,10 +2885,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>書籤名稱:</value>
     <comment>Bookmark name label</comment>
   </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+↑</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveDown" xml:space="preserve">
     <value>下移</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
@@ -2908,14 +2900,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Bookmarks_NameHeader" xml:space="preserve">
     <value>名稱</value>
     <comment>Bookmarks dialog, grid header</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+↓</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+↑</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
     <value>移除資料夾書籤</value>
@@ -4123,16 +4107,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>無法註冊新的鍵盤快速鍵 - 它正在使用中嗎?</value>
   </data>
   <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
-    <value>Windows</value>
+    <value>[⊞ Win]</value>
   </data>
   <data name="Keyboard_ShiftKey" xml:space="preserve">
-    <value>Shift</value>
+    <value>[Shift]</value>
   </data>
   <data name="Keyboard_ControlKey" xml:space="preserve">
-    <value>Ctrl</value>
+    <value>[Ctrl]</value>
   </data>
   <data name="Keyboard_AltKey" xml:space="preserve">
-    <value>Alt</value>
+    <value>[Alt]</value>
   </data>
   <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
     <value>用於還原 dnGrep 視窗的鍵盤快速鍵</value>
@@ -4226,5 +4210,44 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Menu_Keyboard" xml:space="preserve">
     <value>鍵盤…</value>
+  </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>[Del]</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>[◀︎]</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>[►]</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>▼</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>▲</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>[PgUp]</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>[PgDn]</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>[Home]</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>[End]</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>[PrtScn]</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>␣</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>[⌫ Backspace]</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>[Esc]</value>
   </data>
 </root>

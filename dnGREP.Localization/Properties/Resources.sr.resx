@@ -2645,14 +2645,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Укључите информације о датотеци и линији</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+Стрелица на доле</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+Стрелица на горе</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_MoveDown" xml:space="preserve">
     <value>На доле</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
@@ -2669,10 +2661,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>На горе</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+Стрелица на горе</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
-  </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
     <value>Име обележивача:</value>
     <comment>Bookmark name label</comment>
@@ -2680,10 +2668,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Bookmarks_NameHeader" xml:space="preserve">
     <value>Име</value>
     <comment>Bookmarks dialog, grid header</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+Стрелица на доле</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
   </data>
   <data name="Options_LineNumbers" xml:space="preserve">
     <value>Бројеви линија</value>

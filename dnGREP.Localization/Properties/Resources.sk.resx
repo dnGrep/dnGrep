@@ -278,14 +278,6 @@
     <value>_Pridať</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
-  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
-    <value>Alt+šípka nadol</value>
-    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
-    <value>Alt+šípka hore</value>
-    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
-  </data>
   <data name="Bookmarks_Close" xml:space="preserve">
     <value>_Zavrieť</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
@@ -385,14 +377,6 @@
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
     <value>Sekcie</value>
     <comment>Bookmarks dialog, grid header</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
-    <value>Shift+Alt+šipka nadol</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
-  </data>
-  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
-    <value>Shift+Alt+šipka nahor</value>
-    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
     <value>Maximálna hĺbka priečinka 1{0}</value>
