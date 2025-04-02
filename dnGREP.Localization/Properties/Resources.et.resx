@@ -91,7 +91,7 @@
     <comment>Bookmark details dialog, search group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
-    <value>Tühista</value>
+    <value>Katkesta</value>
     <comment>Bookmark details dialog, cancel button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
@@ -480,7 +480,7 @@
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value>Asendamine tühistatud</value>
+    <value>Asendamine on katkestatud</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
@@ -496,7 +496,7 @@
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value>Otsing katkestatud</value>
+    <value>Otsing on katkestatud</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
@@ -548,7 +548,7 @@
     <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>Otsing tühistatud või ebaõnnestus</value>
+    <value>Otsing on katkestatud või ebaõnnestus</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
@@ -760,7 +760,7 @@
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>Liiguta failid…</value>
+    <value>Liiguta faile…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
@@ -996,7 +996,7 @@
     <comment>Rename file dialog title</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
-    <value>Tühista</value>
+    <value>Katkesta</value>
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
@@ -1012,7 +1012,7 @@
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
-    <value>Tühista</value>
+    <value>Katkesta</value>
     <comment>Report options dialog, close button</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -1196,7 +1196,7 @@
     <comment>Main window, Byte search type tooltip</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
-    <value>Tühista</value>
+    <value>Katkesta</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
@@ -1308,7 +1308,7 @@
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
-    <value>Zuum:</value>
+    <value>Suurendus:</value>
     <comment>Main window, results options zoom slider label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
@@ -1340,7 +1340,7 @@
     <comment>Main window, open folder tooltip</comment>
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
-    <value>Tühista</value>
+    <value>_Katkesta</value>
     <comment>Main window, Cancel button label (accel)</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
@@ -1408,7 +1408,7 @@
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>Rakenduse andmed ja logifailid</value>
+    <value>Rakenduse andmed</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
@@ -1432,7 +1432,7 @@
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
   <data name="Options_Personalize_Features" xml:space="preserve">
-    <value>Funktsioonid</value>
+    <value>Funktsionaalsused</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
@@ -1448,11 +1448,11 @@
     <comment>Options dialog, save button label (accel)</comment>
   </data>
   <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
-    <value>Kuva tulemuste puu laiendatult</value>
+    <value>Näita tulemuste puud avatuna</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>Kuva täiendavaid detaile leitud vastete kohta</value>
+    <value>Näita täiendavaid üksikasju leitud vastete kohta</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
@@ -1556,7 +1556,7 @@
     <comment>Rename file dialog input label</comment>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
-    <value>Muudab tekstiredaktori zuumi</value>
+    <value>Muudab tekstiredaktori suumitaset</value>
     <comment>Replace window, Zoom slider tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -1703,7 +1703,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Menu_CancelScript" xml:space="preserve">
-    <value>Katkesta skript</value>
+    <value>Katkesta skripti töö</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
@@ -1751,11 +1751,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Rename file dialog error message</comment>
   </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
-    <value>Tühista kõik asendamised</value>
+    <value>Katkesta kõik asendamised</value>
     <comment>Replace window, Cancel button tooltip</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>File {0} kokku {1}-st failist: {2} ({3} vastet {4}-l real)</value>
+    <value>Faile {0} kokku {1}-st failist: {2} ({3} vastet {4}-l real)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
@@ -1819,7 +1819,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, Replace window layout options label</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>Tulemuste fondi perekond</value>
+    <value>Fondiperekond tulemuste vaates</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Options_ResultsFontSize" xml:space="preserve">
@@ -1855,7 +1855,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
-    <value>Kuva faili info kontspikreid</value>
+    <value>Näita failiinfo kohtspikreid</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
@@ -2586,7 +2586,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>Tõstutundlik</value>
+    <value>Tõstu_tundlik</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
@@ -2598,7 +2598,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
-    <value>Kuva kontekstiridasid</value>
+    <value>Näita kontekstiridu</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
@@ -2614,11 +2614,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
-    <value>rida pärast</value>
+    <value>järgmist rida</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
-    <value>Zuum:</value>
+    <value>Suumitase:</value>
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
@@ -2634,7 +2634,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="MessageBox_Cancel" xml:space="preserve">
-    <value>Tühista</value>
+    <value>Katkesta</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
@@ -2642,7 +2642,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Options_SearchOptions" xml:space="preserve">
-    <value>Otsingu valikud</value>
+    <value>Otsinguvalikud</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
   <data name="Main_Results_MoveFiles" xml:space="preserve">
@@ -2662,7 +2662,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
-    <value>Vastete esiletõstmine</value>
+    <value>Tõsta otsinguvasted esile</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_EditorOK" xml:space="preserve">
@@ -2670,7 +2670,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Options_EditorCancel" xml:space="preserve">
-    <value>Tühista</value>
+    <value>Katkesta</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
@@ -2707,5 +2707,29 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   </data>
   <data name="Keyboard_RightArrowKey" xml:space="preserve">
     <value>paremale</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Kas laadin nüüd alla?</value>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Luba tal lõpetada või katkesta enne lõpetamist.</value>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Ära küsi enam uuesti</value>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Ei</value>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Ei _kõigile</value>
+  </data>
+  <data name="Main_Results_CollapseAll" xml:space="preserve">
+    <value>Ahenda kõik</value>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Jah</value>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Jah kõigi_le</value>
   </data>
 </root>
