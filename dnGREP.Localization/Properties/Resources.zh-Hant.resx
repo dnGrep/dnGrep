@@ -2505,7 +2505,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="ReportOptionsWindow_Global" xml:space="preserve">
-    <value>全局</value>
+    <value>整體</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="Options_Personalize_FileFilter" xml:space="preserve">
@@ -3991,15 +3991,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="BookmarkDetails_Global" xml:space="preserve">
-    <value>全局</value>
+    <value>整體</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Global" xml:space="preserve">
-    <value>全局</value>
+    <value>整體</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_global" xml:space="preserve">
-    <value>全局</value>
+    <value>整體</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_GlobalTooltip_True" xml:space="preserve">
@@ -4011,11 +4011,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, tooltip for the Global checkbox, when not checked</comment>
   </data>
   <data name="ReportSummary_NotGlobal" xml:space="preserve">
-    <value>非全局</value>
+    <value>非整體</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
-    <value>非全局</value>
+    <value>非整體</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Options_FocusResultsTree" xml:space="preserve">
