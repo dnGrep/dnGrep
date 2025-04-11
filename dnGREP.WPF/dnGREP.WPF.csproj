@@ -220,12 +220,6 @@
   <ItemGroup Condition="'$(Platform)'=='x86'">
     <SevenZipFiles Include="$(SolutionDir)\Dependencies\7z32.dll" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Platform)'=='x64'">
-    <EverythingFiles Include="$(SolutionDir)\dnGREP.Everything\x64\Everything64.dll" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(Platform)'=='x86'">
-    <EverythingFiles Include="$(SolutionDir)\dnGREP.Everything\x86\Everything32.dll" />
-  </ItemGroup>
   <ItemGroup>
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.OpenXml.plugin" />
     <OpenXmlPluginFiles Include="$(SolutionDir)\dnGREP.OpenXmlEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.OpenXml.dll" />
@@ -265,7 +259,6 @@
   </ItemGroup>
   <Target Name="CopyExtraFiles" AfterTargets="AfterBuild">
     <Copy SourceFiles="@(SevenZipFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\$(TargetFramework)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\$(TargetFramework)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\$(TargetFramework)\Plugins\OpenXmlSearch" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(PDFPluginFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\$(TargetFramework)\Plugins\PdfSearch" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="bin\$(Platform)\$(Configuration)\$(TargetFramework)\Plugins\PdfSearch\xpdf" SkipUnchangedFiles="true" />
@@ -275,7 +268,6 @@
   </Target>
   <Target Name="PublishExtraFiles" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
     <Copy SourceFiles="@(SevenZipFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
-    <Copy SourceFiles="@(EverythingFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
     <Copy SourceFiles="@(OpenXmlPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\OpenXmlSearch" />
     <Copy SourceFiles="@(PDFPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch" />
     <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf" />
