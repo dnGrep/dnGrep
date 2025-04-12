@@ -8,10 +8,12 @@ namespace dnGREP.Everything
     {
 #pragma warning disable SYSLIB1054
 
+        // Do not include the Everything32.dll or Everything64.dll in the project,
+        // MSI or portable zip, it must be installed separately by the user.
 #if x86
-        private const string EverythingDLL = "Everything32.dll";
+        internal const string EverythingDLL = "Everything32.dll";
 #else
-        private const string EverythingDLL = "Everything64.dll";
+        internal const string EverythingDLL = "Everything64.dll";
 #endif
 
         internal const uint EVERYTHING_OK = 0;                    // The operation completed successfully.

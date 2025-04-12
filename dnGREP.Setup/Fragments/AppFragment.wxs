@@ -60,6 +60,8 @@
       <Component Id="cmp2D32460505F046C6A24B8F46AF2F6FD0" Guid="{373CEBBF-8D67-4648-A4CF-65E1BAD7CC83}">
         <File Id="fil2E6C049FE36844CFA597FA46C2B17344" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Everything.pdb" />
       </Component>
+      <!-- Do not include Everything32.dll or Everything64.dll in the MSI, it must
+           be installed separately by the user. -->
       <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{B7C5DBF9-8740-4677-8D55-E9C01BF58028}">
         <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.exe" />
         <!-- Store the installation dir for future updates -->
@@ -78,9 +80,6 @@
       </Component>
       <Component Id="cmp7FB095CD79B0456CBE2B08103FC384F3" Guid="{26AADCD2-37DF-41C1-8EED-ED7D375781C8}">
         <File Id="fil5903B951748F47648D6C78498970D642" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.runtimeconfig.json" />
-      </Component>
-      <Component Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" Guid="{392076A3-06CF-4212-941B-DD82FB72075D}">
-        <File Id="filA5A20558D688414DA4A216589F40877A" KeyPath="yes" Source="$(var.PublishDir)\Everything$(var.App.PlatformShort).dll" />
       </Component>
       <Component Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" Guid="{499E357F-9822-4945-A800-82BF6979E072}">
         <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source="$(var.PublishDir)\ICSharpCode.AvalonEdit.dll" />
@@ -275,7 +274,6 @@
       <ComponentRef Id="cmp40521BA90501425EAE4F9E951AF1C60B" />
       <ComponentRef Id="cmp882BA74D47644877B0CE35ADA1A69FC8" />
       <ComponentRef Id="cmp7FB095CD79B0456CBE2B08103FC384F3" />
-      <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
       <ComponentRef Id="cmpC9374D90A25A4EE284CA32161DF04748" />
       <ComponentRef Id="cmp44E877FEA07944F7936BAF12F57254B8" />

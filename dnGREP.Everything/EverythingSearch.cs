@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace dnGREP.Everything
 {
@@ -18,23 +19,36 @@ namespace dnGREP.Everything
                 {
                     try
                     {
-                        uint major = NativeMethods.Everything_GetMajorVersion();
-                        uint minor = NativeMethods.Everything_GetMinorVersion();
-                        uint revision = NativeMethods.Everything_GetRevision();
+                        // Check if the Everything DLL is available in the same directory as the executable.
+                        // It is not included with dnGrep, it must be installed separately by the user.
+                        var dllFile = Path.Combine(
+                            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty,
+                            NativeMethods.EverythingDLL);
 
-                        // we need version 1.4.1 or higher
-                        if (major < 1)
+                        if (!File.Exists(dllFile))
+                        {
                             isAvailable = false;
-                        else if (major > 1)
-                            isAvailable = true;
+                        }
                         else
                         {
-                            if (minor < 4)
+                            uint major = NativeMethods.Everything_GetMajorVersion();
+                            uint minor = NativeMethods.Everything_GetMinorVersion();
+                            uint revision = NativeMethods.Everything_GetRevision();
+
+                            // we need version 1.4.1 or higher
+                            if (major < 1)
                                 isAvailable = false;
-                            else if (minor > 4)
+                            else if (major > 1)
                                 isAvailable = true;
                             else
-                                isAvailable = revision >= 1;
+                            {
+                                if (minor < 4)
+                                    isAvailable = false;
+                                else if (minor > 4)
+                                    isAvailable = true;
+                                else
+                                    isAvailable = revision >= 1;
+                            }
                         }
                     }
                     catch (Exception)
