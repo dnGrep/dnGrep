@@ -937,4 +937,64 @@
   <data name="Test_SearchGroup" xml:space="preserve">
     <value>Pretraga</value>
   </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Koristi grupe za snimanje iz 'Uzorci za podudaranje' u uzorku 'Traži'</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>Booleov izraz sadrži nepoznati token</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>Booleovom izrazu nedostaje Booleov operator</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>Booleov izraz sadrži neusklađene zagrade</value>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>Niz bajtova nije ispravan!</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>Booleov izraz je OK</value>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>Regularan izraz nije ispravan!</value>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>Niz bajtova je OK</value>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>Regularan izraz je OK</value>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>{0} u "{1}" - dnGrep</value>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>Prelamanje teksta</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Zamijeniti uzorak pretraživanja praznim tekstom?</value>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>Zum:</value>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>do kraja dana</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>Booleovom izrazu nedostaje uzorak za pretraživanje</value>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>XPath je OK</value>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>XPath nije ispravan!</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>Booleov izraz ima nepoznatu grešku</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>Booleov izraz nije ispravan</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Nastaviti?</value>
+  </data>
 </root>
