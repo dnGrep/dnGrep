@@ -144,7 +144,13 @@ namespace dnGREP.WPF
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
                 GrepResult.FileNameDisplayed.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
             {
-                if (!string.IsNullOrWhiteSpace(basePath))
+                if (!GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowRelativeFilePath) ||
+                    string.IsNullOrEmpty(basePath) ||
+                    basePath.Equals(Path.GetPathRoot(basePath), StringComparison.OrdinalIgnoreCase))
+                {
+                    FilePath = Path.GetDirectoryName(GrepResult.FileNameDisplayed) + Path.DirectorySeparatorChar;
+                }
+                else
                 {
                     string? dirName = Path.GetDirectoryName(GrepResult.FileNameDisplayed);
                     if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)

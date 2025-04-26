@@ -4382,4 +4382,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Esc</value>
     <comment>Text for the Escape key</comment>
   </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Show path relative to search path</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
 </root>
