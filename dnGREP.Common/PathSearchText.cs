@@ -61,6 +61,31 @@ namespace dnGREP.Common
             }
         }
 
+        private string commonBaseFolder = string.Empty;
+        /// <summary>
+        /// Gets the common base folder of one or many files or folders.
+        /// If the FileOrFolderPath contains multiple paths, it returns empty string.
+        /// </summary>
+        public string CommonBaseFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(commonBaseFolder))
+                {
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        string path = UiUtils.CleanPath(FileOrFolderPath).Replace('|', ';');
+                        commonBaseFolder = UiUtils.GetCommonBaseFolder(path);
+                    }
+                    else
+                    {
+                        commonBaseFolder = UiUtils.GetCommonBaseFolder(FileOrFolderPath);
+                    }
+                }
+                return commonBaseFolder;
+            }
+        }
+
         private bool? isValidPath;
         /// <summary>
         /// Gets a flag indicating the path or set of paths are valid

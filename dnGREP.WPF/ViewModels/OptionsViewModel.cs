@@ -375,6 +375,9 @@ namespace dnGREP.WPF
         private bool showFilePathInResults;
 
         [ObservableProperty]
+        private bool showRelativeFilePath;
+
+        [ObservableProperty]
         private bool showFileErrorsInResults;
 
         [ObservableProperty]
@@ -701,6 +704,7 @@ namespace dnGREP.WPF
                 CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
                 CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
+                ShowRelativeFilePath != Settings.Get<bool>(GrepSettings.Key.ShowRelativeFilePath) ||
                 ShowFileErrorsInResults != Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults) ||
                 NavigationButtonsVisible != Settings.Get<bool>(GrepSettings.Key.NavigationButtonsVisible) ||
                 NavigationToolsPosition != Settings.Get<NavigationToolsPosition>(GrepSettings.Key.NavToolsPosition) ||
@@ -997,6 +1001,7 @@ namespace dnGREP.WPF
             CompareApplicationPath = Settings.Get<string>(GrepSettings.Key.CompareApplication);
             CompareApplicationArgs = Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
+            ShowRelativeFilePath = Settings.Get<bool>(GrepSettings.Key.ShowRelativeFilePath);
             ShowFileErrorsInResults = Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults);
             NavigationButtonsVisible = Settings.Get<bool>(GrepSettings.Key.NavigationButtonsVisible);
             NavigationToolsPosition = Settings.Get<NavigationToolsPosition>(GrepSettings.Key.NavToolsPosition);
@@ -1208,6 +1213,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.CompareApplication, CompareApplicationPath);
             Settings.Set(GrepSettings.Key.CompareApplicationArgs, CompareApplicationArgs);
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
+            Settings.Set(GrepSettings.Key.ShowRelativeFilePath, ShowRelativeFilePath);
             Settings.Set(GrepSettings.Key.ShowFileErrorsInResults, ShowFileErrorsInResults);
             Settings.Set(GrepSettings.Key.NavigationButtonsVisible, NavigationButtonsVisible);
             Settings.Set(GrepSettings.Key.NavToolsPosition, NavigationToolsPosition);

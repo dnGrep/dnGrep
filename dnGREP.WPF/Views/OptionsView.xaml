@@ -612,8 +612,11 @@
                                   IsChecked="{Binding Path=MaximizeResultsTreeOnSearch}" />
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_ShowFilesWithSearchErrorsInResultsPanel'}"
                                   IsChecked="{Binding Path=ShowFileErrorsInResults}" />
-                        <CheckBox Name="cbShowPath" Margin="3" Content="{l:Loc Key='Options_ShowFilePathInResultsPanel'}"
+                        <CheckBox Margin="3" Content="{l:Loc Key='Options_ShowFilePathInResultsPanel'}"
                                   IsChecked="{Binding Path=ShowFilePathInResults}" />
+                        <CheckBox Margin="24,3,3,3" Content="{l:Loc Key='Options_ShowPathRelativeToSearchPath'}"
+                                  IsChecked="{Binding Path=ShowRelativeFilePath}" 
+                                  IsEnabled="{Binding Path=ShowFilePathInResults}"/>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Name="cbShowContext" Margin="3" HorizontalAlignment="Center"
                                       IsChecked="{Binding Path=ShowLinesInContext}" 

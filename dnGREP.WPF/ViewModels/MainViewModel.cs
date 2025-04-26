@@ -1874,7 +1874,7 @@ namespace dnGREP.WPF
                 }
 
                 // set base folder for results display
-                ResultsViewModel.FolderPath = PathSearchText.BaseFolder;
+                ResultsViewModel.FolderPath = PathSearchText.CommonBaseFolder;
                 ResultsViewModel.TypeOfSearch = TypeOfSearch;
 
                 if (SearchInResultsContent && CanSearchInResults)

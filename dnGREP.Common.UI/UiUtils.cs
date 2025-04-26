@@ -178,12 +178,52 @@ namespace dnGREP.Common.UI
                             return commonPath;
                     }
 
-                    if (paths[0].Trim() != "" && File.Exists(paths[0]))
-                        return Path.GetDirectoryName(paths[0]) ?? string.Empty;
-                    else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
-                        return paths[0];
+                    string firstPath = paths[0].Trim();
+                    if (!string.IsNullOrEmpty(firstPath) && File.Exists(firstPath))
+                        return Path.GetDirectoryName(firstPath) ?? string.Empty;
+                    else if (!string.IsNullOrEmpty(firstPath) && Directory.Exists(firstPath))
+                        return firstPath;
                     else
                         return string.Empty;
+                }
+            }
+            catch
+            {
+                return string.Empty;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Returns the common base folder of one or many files or folders. 
+        /// </summary>
+        /// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
+        /// <returns>Common Base folder path or empty string if none exists</returns>
+        public static string GetCommonBaseFolder(string path)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(path))
+                    return string.Empty;
+                string[] paths = SplitPath(path, false);
+                if (paths.Length > 0)
+                {
+                    if (paths.Length > 1)
+                    {
+                        string commonPath = FindCommonPath(paths);
+                        if (!string.IsNullOrWhiteSpace(commonPath) && Directory.Exists(commonPath))
+                            return commonPath;
+                    }
+                    else
+                    {
+                        string singlePath = paths[0].Trim();
+                        if (!string.IsNullOrEmpty(singlePath) && File.Exists(singlePath))
+                            return Path.GetDirectoryName(singlePath) ?? string.Empty;
+                        else if (!string.IsNullOrEmpty(singlePath) && Directory.Exists(singlePath))
+                            return singlePath;
+                        else
+                            return string.Empty;
+                    }
                 }
             }
             catch

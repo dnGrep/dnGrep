@@ -6411,6 +6411,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show path relative to search path.
+        /// </summary>
+        public static string Options_ShowPathRelativeToSearchPath {
+            get {
+                return ResourceManager.GetString("Options_ShowPathRelativeToSearchPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show result lines in context.
         /// </summary>
         public static string Options_ShowResultLinesInContext {
