@@ -816,7 +816,14 @@ namespace dnGREP.WPF
 
         private void OnHotKeyHandler(HotKey hotKey)
         {
-            RestoreWindow();
+            if (IsActive)
+            {
+                WindowState = WindowState.Minimized;
+            }
+            else
+            {
+                RestoreWindow();
+            }
         }
 
         internal void RestoreWindow()
