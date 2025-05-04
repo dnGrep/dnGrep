@@ -195,7 +195,7 @@
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
-    <value>テキスト エディターのズームを変更</value>
+    <value>テキスト エディタのズームを変更</value>
     <comment>Preview window, zoom slider tooltip</comment>
   </data>
   <data name="ScriptHint_expandfilefilters" xml:space="preserve">
@@ -211,7 +211,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
-    <value>アプリケーションを比較</value>
+    <value>アプリケーションの比較</value>
     <comment>Options dialog, compare application group header label</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -255,7 +255,7 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value>デフォルトのフォントを使用</value>
+    <value>既定のフォントを使用する</value>
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
@@ -283,7 +283,7 @@
     <comment>Options dialog, confirmation value units label</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
-    <value>検索対象:</value>
+    <value>検索対象 :</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
@@ -467,7 +467,7 @@
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
-    <value>ズーム：</value>
+    <value>ズーム :</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
@@ -527,7 +527,7 @@
     <comment>Options dialog, compare arguments input box label</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
-    <value>一致しきい値（0 から 1.0）</value>
+    <value>一致しきい値 (0 から 1.0)</value>
     <comment>Options dialog, phonetic options text input label</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
@@ -539,7 +539,7 @@
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value>Windows エクスプローラの右クリック コンテキスト メニューから dnGrep を起動できるようにします。</value>
+    <value>エクスプローラの右クリック コンテキスト メニューから dnGrep を起動できるようになります。</value>
     <comment>Options dialog, explorer right-click menu checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
@@ -583,7 +583,7 @@
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>Windows エクスプローラの右クリック メニューに dnGrep を表示</value>
+    <value>エクスプローラの右クリック メニューに dnGrep を表示</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Script_Editor_Copy" xml:space="preserve">
@@ -635,7 +635,7 @@
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
-    <value>新しい名前：</value>
+    <value>新しい名前 :</value>
     <comment>Rename file dialog input label</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
@@ -727,7 +727,7 @@
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
-    <value>ファイルのコピー時、宛先のファイルが存在する場合、既存のファイルを上書きしますか？</value>
+    <value>ファイルのコピー時、宛先のファイルが存在する場合、既存のファイルを上書きしますか?</value>
     <comment>Options dialog, overwrite on copy options label</comment>
   </data>
   <data name="Main_Results_DeleteFiles" xml:space="preserve">
@@ -735,7 +735,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>このファイルの一致を置換のためにマーク</value>
+    <value>置換の一致をマーク</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="ScriptHint_run_cmd_value" xml:space="preserve">
@@ -755,7 +755,7 @@
     <comment>Main window, More button label (accel)</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
-    <value>カスタム エディター</value>
+    <value>カスタム エディタ</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
@@ -947,7 +947,7 @@
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Rename_Title" xml:space="preserve">
-    <value>ファイルの名前を変更</value>
+    <value>ファイル名の変更</value>
     <comment>Rename file dialog title</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
@@ -1207,7 +1207,7 @@
     <comment>Bookmark details dialog, Patterns to exclude label</comment>
   </data>
   <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
-    <value>Personalize が有効な場合、コントロールを表示または非表示にします</value>
+    <value>個人用設定 が有効な場合、コントロールを表示または非表示にします</value>
     <comment>Options dialog, control tooltip</comment>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
@@ -1219,7 +1219,7 @@
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
-    <value>次の_ファイル</value>
+    <value>次のファイル(_F)</value>
     <comment>Replace window, Next file button label (accel)</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
@@ -1263,7 +1263,7 @@
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>このファイルのすべての一致を置換のためにマーク</value>
+    <value>このファイル内のすべての一致を置換対象としてマークする</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
@@ -1315,7 +1315,7 @@
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
-    <value>前へ</value>
+    <value>前へ(_P)</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
@@ -1359,7 +1359,7 @@
     <comment>Options dialog, window title</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 ? すべて一致; 1.0 ? 完全一致</value>
+    <value>0 – すべて一致; 1.0 – 完全一致</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
@@ -1375,7 +1375,7 @@
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
-    <value>PdfToText.exe のコマンドライン オプション：</value>
+    <value>PdfToText.exe のコマンドライン オプション :</value>
     <comment>Options dialog, PDF text input label</comment>
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
@@ -1503,7 +1503,7 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
-    <value>テキスト エディターのズームを変更</value>
+    <value>テキスト エディタのズームを変更</value>
     <comment>Replace window, Zoom slider tooltip</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
@@ -1735,7 +1735,7 @@
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
-    <value>dnGrep の翻訳をサポートしてください。</value>
+    <value>dnGrep の翻訳に協力してください。</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
@@ -1743,7 +1743,7 @@
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Preview_PreviewAnyway" xml:space="preserve">
-    <value>とにかくプレビュー</value>
+    <value>とりあえずプレビュー</value>
     <comment>Preview window, warning label</comment>
   </data>
   <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
@@ -1891,7 +1891,7 @@
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_Personalize_ResultOptions" xml:space="preserve">
-    <value>結果のオプション</value>
+    <value>結果オプション</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
@@ -1915,7 +1915,7 @@
     <comment>Test window, search input label</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>ウィンドウのフォント サイズを置換</value>
+    <value>置換ウィンドウのフォント サイズ</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
@@ -1939,7 +1939,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Preview_Title_AsText" xml:space="preserve">
-    <value>（テキストとして）</value>
+    <value>(テキストとして)</value>
     <comment>Preview window, file label when binary file is shown as text</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
@@ -1959,7 +1959,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
-    <value>(_R)置換</value>
+    <value>置換(_R)</value>
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="ScriptHint_copy" xml:space="preserve">
@@ -2015,7 +2015,7 @@
     <comment>Options dialog, PDF to text group header label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
-    <value>拡張子：</value>
+    <value>拡張子 :</value>
     <comment>Options dialog, plug-in options label</comment>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
@@ -2207,7 +2207,7 @@
     <comment>Options dialog, compare command input box label</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
-    <value>次へ</value>
+    <value>次へ(_N)</value>
     <comment>Replace window, Next button label (accel)</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
@@ -2251,7 +2251,7 @@
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
-    <value>翻訳者のためのプレビュー ツール</value>
+    <value>翻訳者向けプレビュー ツール</value>
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -2363,7 +2363,7 @@
     <comment>Message box check box label</comment>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>ファイル フィルターの履歴リストに表示されるアイテム数</value>
+    <value>ファイル フィルターの履歴リストに表示する項目数</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
@@ -2411,7 +2411,7 @@
     <comment>Bookmark details dialog, replace text input box label</comment>
   </data>
   <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
-    <value>通常、固定幅のフォントで表示される検索結果のフォント</value>
+    <value>検索結果で使用されるフォント (通常は等幅幅フォント)</value>
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="ScriptHint_set_sorttype" xml:space="preserve">
@@ -2443,7 +2443,7 @@
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>オプションのヘルプには F1 キーを押してください</value>
+    <value>オプションのヘルプを表示するにはF1を押してください</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_FullSizeCharacter" xml:space="preserve">
@@ -2511,7 +2511,7 @@
     <comment>Options dialog, layout option checkbox label (accel)</comment>
   </data>
   <data name="Options_SendToRecycleBin" xml:space="preserve">
-    <value>ゴミ箱に送る</value>
+    <value>ごみ箱に送る</value>
     <comment>Options dialog, delete option label (accel)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
@@ -2587,7 +2587,7 @@
     <comment>Options dialog, options group label</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>ファイル {0} of {1}:?{2}?({3} 行で {4} 一致)</value>
+    <value>ファイル {0} / {1} : {2} ({3} が {4} 行に一致)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
@@ -2691,7 +2691,7 @@
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
-    <value>ウィンドウ レイアウトを置換</value>
+    <value>置換ウィンドウのレイアウト</value>
     <comment>Options dialog, Replace window layout options label</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
@@ -2767,7 +2767,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>テキストを折り返す</value>
+    <value>長い行を折り返す</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
@@ -2891,7 +2891,7 @@
     <comment>Main window, open folder tooltip</comment>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>ファイルからの読み込み…</value>
+    <value>ファイルから読み込み…</value>
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
@@ -2911,7 +2911,7 @@
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
-    <value>完全な単語に一致</value>
+    <value>単語の完全一致</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
@@ -2931,7 +2931,7 @@
     <comment>Message box text for: Search failed</comment>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value>エラー: これはバイナリ ファイルです</value>
+    <value>エラー : これはバイナリ ファイルです</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Preview_FindPrevious" xml:space="preserve">
@@ -2939,7 +2939,7 @@
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
-    <value>該当箇所前後の表示</value>
+    <value>該当箇所前後行の表示</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
@@ -3063,7 +3063,7 @@
     <comment>Preview window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Options_PDFNumberStyle" xml:space="preserve">
-    <value>PDF 番号のスタイル：</value>
+    <value>PDF 番号のスタイル :</value>
     <comment>Options dialog, PDF numbering options label</comment>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
@@ -3079,7 +3079,7 @@
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
-    <value>パスの履歴リストに表示されるアイテム数</value>
+    <value>パスの履歴リストに表示する項目数</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
@@ -3127,7 +3127,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>大文字と小文字を区別する</value>
+    <value>大/小文字を区別する</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
@@ -3319,7 +3319,7 @@
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>一致のタイムアウトは、正規表現エンジンがタイムアウトする前に正規表現を解決しようとする時間を制限します。これにより、過度なバックトラッキングを必要とする式および入力文字列の処理が防がれます。</value>
+    <value>一致のタイムアウトは、正規表現エンジンが正規表現の解決を試みる時間を制限します。これにより、正規表現や入力文字列の処理で過度のバックトラックが発生するのを防ぎます。</value>
     <comment>Options dialog, regular expression options help text</comment>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
@@ -3355,7 +3355,7 @@
     <comment>Script message for move error</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>多数の一致が見つかったため、ハイライトが表示されません。</value>
+    <value>一致が多すぎるため強調表示を表示しません。</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Replace_Undo" xml:space="preserve">
@@ -3399,7 +3399,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value>検索および置換の履歴リストに表示されるアイテム数</value>
+    <value>検索および置換の履歴リストに表示する項目数</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
@@ -3435,7 +3435,7 @@
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value>置換先:</value>
+    <value>置換対象 :</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
@@ -3487,7 +3487,7 @@
     <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>結果のフォント ファミリ</value>
+    <value>結果のフォント ファミリー</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
@@ -3539,11 +3539,11 @@
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>'{0}' はファイルの場所に、'{5}' はページ番号に、'{1}' は行番号に、'{2}' は検索パターンに、'{3}' は行の最初に一致したテキストに、'{4}' は行の最初の一致の列番号に使用されます。</value>
+    <value>キーワード '{0}' はファイルの場所、'{5}' はページ番号、'{1}' は行番号、'{2}' は検索パターン、'{3}' は行の最初に一致したテキスト、'{4}' は行の最初の一致の列番号に使用されます。</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
-    <value>異なる言語を使用しますか？</value>
+    <value>別の言語をご希望ですか?</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
@@ -3631,7 +3631,7 @@
     <comment>Options dialog, footnote text</comment>
   </data>
   <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
-    <value>ファイルの移動時、宛先のファイルが存在する場合、既存のファイルを上書きしますか？</value>
+    <value>ファイルの移動時、宛先のファイルが存在する場合、既存のファイルを上書きしますか?</value>
     <comment>Options dialog, overwrite on move options label</comment>
   </data>
   <data name="Main_Paused" xml:space="preserve">
