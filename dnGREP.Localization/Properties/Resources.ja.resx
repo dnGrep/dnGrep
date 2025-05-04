@@ -251,7 +251,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Script_Editor_RunScript" xml:space="preserve">
-    <value>スクリプトの実行</value>
+    <value>スクリプトの実行(_R)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
@@ -311,7 +311,7 @@
     <comment>Main window, filter size radio button label (accel)</comment>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
-    <value>次のキーワードの一致: </value>
+    <value>次のキーワードの一致 : </value>
     <comment>Report content text</comment>
   </data>
   <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
@@ -359,7 +359,7 @@
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
-    <value>{0} の日付: {1} から {2} まで</value>
+    <value>{0} の日付 : {1} から {2} まで</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ScriptHint_movefiles_value" xml:space="preserve">
@@ -379,11 +379,11 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
-    <value>除外するファイル パターン:</value>
+    <value>除外するファイル パターン :</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>改行をドットとして扱う</value>
+    <value>ドットを改行として扱う</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ScriptHint_set" xml:space="preserve">
@@ -391,7 +391,7 @@
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Script_Editor_Save" xml:space="preserve">
-    <value>保存</value>
+    <value>保存(_S)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
@@ -483,11 +483,11 @@
     <comment>Script validation list header</comment>
   </data>
   <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
-    <value>レポートオプション</value>
+    <value>レポート オプション</value>
     <comment>Report options dialog, window title</comment>
   </data>
   <data name="Script_Editor_SaveAs" xml:space="preserve">
-    <value>名前をつけて保存…</value>
+    <value>名前をつけて保存(_A)…</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
@@ -587,7 +587,7 @@
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Script_Editor_Copy" xml:space="preserve">
-    <value>コピー</value>
+    <value>コピー(_C)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
@@ -595,7 +595,7 @@
     <comment>Test window, error text</comment>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
-    <value>(_H)ヘルプ</value>
+    <value>ヘルプ(_H)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
@@ -623,7 +623,7 @@
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
-    <value>1行の中の複数の一致またはグループのセパレータ</value>
+    <value>1行に複数の一致またはグループがある場合の区切り文字</value>
     <comment>Report options dialog, text box label</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
@@ -643,7 +643,7 @@
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
-    <value>スクリプト コマンド</value>
+    <value>スクリプト コマンド(_S)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
@@ -703,7 +703,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[ファイルが見つかりません: 削除または移動された可能性がありますか？]</value>
+    <value>[ファイルが見つかりません : 削除または移動された可能性がありますか?]</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
@@ -795,7 +795,7 @@
     <comment>Main window, ignore filter file selector label (accel)</comment>
   </data>
   <data name="Script_Editor_Tools" xml:space="preserve">
-    <value>(_T)ツール</value>
+    <value>ツール(_T)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
@@ -867,7 +867,7 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
-    <value>{1} 行に {0} 件の一致があります:</value>
+    <value>{1} 行に {0} 件の一致があります :</value>
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
@@ -931,7 +931,7 @@
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>サブフォルダなし</value>
+    <value>サブフォルダーなし</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
@@ -967,7 +967,7 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Script_Editor_Redo" xml:space="preserve">
-    <value>やり直し</value>
+    <value>やり直し(_R)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
@@ -1063,7 +1063,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
-    <value>元に戻す</value>
+    <value>元に戻す(_U)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
@@ -1079,7 +1079,7 @@
     <comment>Main window, Maximize results button tooltip</comment>
   </data>
   <data name="ReportOptionsWindow_Preview" xml:space="preserve">
-    <value>プレビュー:</value>
+    <value>プレビュー :</value>
     <comment>Report options dialog, label</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
@@ -1095,7 +1095,7 @@
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
   <data name="Script_Editor_Paste" xml:space="preserve">
-    <value>貼り付け</value>
+    <value>貼り付け(_P)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
@@ -1255,7 +1255,7 @@
     <comment>Report options dialog, button label</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>単語全体</value>
+    <value>完全一致</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Options_Personalize_ResultsTree" xml:space="preserve">
@@ -1351,7 +1351,7 @@
     <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
-    <value>検索場所:</value>
+    <value>検索場所 :</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
@@ -1567,7 +1567,7 @@
     <comment>Options dialog, checkbox label</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value>サイズ: {0} KB から {1} KB まで</value>
+    <value>サイズ : {0} KB から {1} KB まで</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
@@ -1727,7 +1727,7 @@
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>正規表現ファイルパターンを使用</value>
+    <value>正規表現ファイル パターンを使用</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
@@ -1791,7 +1791,7 @@
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
-    <value>(_E)編集</value>
+    <value>編集(_E)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_Personalize_FileFilter" xml:space="preserve">
@@ -1819,7 +1819,7 @@
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Script_Editor_Cut" xml:space="preserve">
-    <value>切り_取り</value>
+    <value>切り取り(_T)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
@@ -1839,7 +1839,7 @@
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value>大文字と小文字を区別</value>
+    <value>大/小文字を区別</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Main_Modified" xml:space="preserve">
@@ -1899,7 +1899,7 @@
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
-    <value>フルライン</value>
+    <value>全行</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="Main_Results_NextFile" xml:space="preserve">
@@ -2023,7 +2023,7 @@
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Script_Editor_Validate" xml:space="preserve">
-    <value>検証</value>
+    <value>検証(_L)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_reportmode" xml:space="preserve">
@@ -2043,7 +2043,7 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="ReportOptionsWindow_Global" xml:space="preserve">
-    <value>グローバル</value>
+    <value>全ファイル</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="Test_Title" xml:space="preserve">
@@ -2075,7 +2075,7 @@
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>最大のフォルダの深さ: {0}</value>
+    <value>フォルダーの最大階層 : {0}</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
@@ -2103,7 +2103,7 @@
     <comment>Options dialog, custom archive extension label</comment>
   </data>
   <data name="Report_FoundNoMatchesFor" xml:space="preserve">
-    <value>一致なし: </value>
+    <value>一致なし : </value>
     <comment>Report content text</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
@@ -2143,7 +2143,7 @@
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
-    <value>エンコーディング:</value>
+    <value>エンコーディング :</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
@@ -2283,7 +2283,7 @@
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Script_Editor_File" xml:space="preserve">
-    <value>(_F)ファイル</value>
+    <value>ファイル(_F)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
@@ -2451,7 +2451,7 @@
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
-    <value>非表示ファイルなし</value>
+    <value>隠しファイルなし</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ScriptHint_set_sizefrom" xml:space="preserve">
@@ -2527,7 +2527,7 @@
     <comment>Script validation list header</comment>
   </data>
   <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
-    <value>現在の検索フォルダに関連付けた新しいブックマークを追加</value>
+    <value>現在の検索フォルダーに関連付けた新しいブックマークを追加</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
@@ -2595,7 +2595,7 @@
     <comment>Main window, results list context menu item label</comment>
   </data>
   <data name="Script_Editor_Delete" xml:space="preserve">
-    <value>削除</value>
+    <value>削除(_D)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_No" xml:space="preserve">
@@ -2667,11 +2667,11 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Script_Editor_New" xml:space="preserve">
-    <value>新規…</value>
+    <value>新規(_N)…</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
-    <value>ファイルおよび行の情報を含む</value>
+    <value>ファイルおよび行の情報を含める</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
@@ -2679,7 +2679,7 @@
     <comment>Main window, XPath search type tooltip</comment>
   </data>
   <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
-    <value>{0} の日付: 過去 {1} から {2} 時間まで</value>
+    <value>{0} の日付 : 過去 {1} から {2} 時間まで</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
@@ -2783,7 +2783,7 @@
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Editor_DeleteLine" xml:space="preserve">
-    <value>行の_削除</value>
+    <value>行の削除(_L)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
@@ -2863,7 +2863,7 @@
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
-    <value>ズーム：</value>
+    <value>ズーム :</value>
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
@@ -2923,7 +2923,7 @@
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value>検索対象:</value>
+    <value>検索対象 :</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
@@ -3007,7 +3007,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Script_Editor_Close" xml:space="preserve">
-    <value>閉じる</value>
+    <value>閉じる(_C)</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Options_AboveResultsTree" xml:space="preserve">
@@ -3143,7 +3143,7 @@
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>テキストを折り返す</value>
+    <value>長い行を折り返す</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
@@ -3331,7 +3331,7 @@
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
-    <value>含めるファイル パターン:</value>
+    <value>含めるファイル パターン :</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="Main_Menu_NewScript" xml:space="preserve">
@@ -3359,7 +3359,7 @@
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Replace_Undo" xml:space="preserve">
-    <value>元に戻す</value>
+    <value>元に戻す(_U)</value>
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
