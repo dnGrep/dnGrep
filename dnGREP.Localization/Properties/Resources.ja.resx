@@ -147,11 +147,11 @@
     <comment>About dialog button label</comment>
   </data>
   <data name="ScriptHint_sort" xml:space="preserve">
-    <value>結果をソート</value>
+    <value>結果の並べ替え</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Test_SearchType_XPath" xml:space="preserve">
-    <value>(_X)XPath</value>
+    <value>XPath(_X)</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value>. はすべての文字に一致します</value>
+    <value>. はすべての文字に一致</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
@@ -199,7 +199,7 @@
     <comment>Preview window, zoom slider tooltip</comment>
   </data>
   <data name="ScriptHint_expandfilefilters" xml:space="preserve">
-    <value>ファイルフィルター セクションを展開または非表示にする</value>
+    <value>ファイルフィルター セクションの展開または非表示</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
@@ -287,7 +287,7 @@
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
-    <value>日時 '過去' 時間のフィルタ</value>
+    <value>日時 '過去' 時間のフィルター</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
@@ -347,7 +347,7 @@
     <comment>Message box button text</comment>
   </data>
   <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
-    <value>エラー: 引数 {1} に対して {0} が必要です</value>
+    <value>エラー : 引数 {1} に対して {0} が必要です</value>
     <comment>Script copy command validation error message. {0} is the error message and {1} is the command argument name.</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
@@ -363,15 +363,15 @@
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ScriptHint_movefiles_value" xml:space="preserve">
-    <value>宛先フォルダのパス</value>
+    <value>宛先フォルダーのパス</value>
     <comment>Script editor command/value tooltip</comment>
   </data>
   <data name="ScriptHint_report_csv" xml:space="preserve">
-    <value>結果の CSV ファイルとしてのレポート</value>
+    <value>CSV ファイルでの結果レポート</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_ButtonSize" xml:space="preserve">
-    <value>ボタンのサイズ:</value>
+    <value>ボタンのサイズ :</value>
     <comment>Options dialog, layout radio group label</comment>
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
@@ -411,7 +411,7 @@
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>(_W)単語全体</value>
+    <value>完全一致(_W)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
@@ -443,7 +443,7 @@
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
-    <value>日時 '過去' 時間のフィルタ</value>
+    <value>日時 '過去' 時間のフィルター</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
@@ -591,7 +591,7 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>置換テキストは有効なXMLではありません！</value>
+    <value>置換テキストは有効な XML ではありません!</value>
     <comment>Test window, error text</comment>
   </data>
   <data name="Script_Editor_Help" xml:space="preserve">
@@ -603,7 +603,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
-    <value>結果は終了時にクリアされます。</value>
+    <value>終了時に検索結果は消去されます。</value>
     <comment>Message box text for: Search results on exit, line 1</comment>
   </data>
   <data name="ScriptHint_bookmark_remove" xml:space="preserve">
@@ -611,7 +611,7 @@
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
-    <value>検索対象：</value>
+    <value>検索対象 :</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
@@ -671,7 +671,7 @@
     <comment>Help dialog button label</comment>
   </data>
   <data name="ScriptHint_env_cmd_value" xml:space="preserve">
-    <value>変数=文字列（文字列が空の場合は変数をクリア）</value>
+    <value>変数=文字列 (文字列が空の場合は変数を消去)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
@@ -715,7 +715,7 @@
     <comment>Scripts: name for unnamed script file</comment>
   </data>
   <data name="ScriptHint_set_uniquescope" xml:space="preserve">
-    <value>レポートの一意の値の範囲：ファイル別またはすべてのファイル</value>
+    <value>レポートの一意の値の範囲 : ファイル別またはすべてのファイル</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_replace" xml:space="preserve">
@@ -739,7 +739,7 @@
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="ScriptHint_run_cmd_value" xml:space="preserve">
-    <value>cmd またはバッチファイルの完全なパスとファイル名</value>
+    <value>CMD またはバッチファイルのフルパスとファイル名</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
@@ -747,7 +747,7 @@
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>[オプション…] でエディタのパスを確認</value>
+    <value>[オプション…] でエディタのパスを確認。</value>
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
@@ -767,7 +767,7 @@
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="Scripts_InvalidFileExtension" xml:space="preserve">
-    <value>{0}ファイルの拡張子は{1}でなければなりません</value>
+    <value>{0} ファイルの拡張子は {1} でなければなりません</value>
     <comment>Script message for invalid file extension{0} is the target name and {1} is the file extension</comment>
   </data>
   <data name="Script_Editor_MoveDown" xml:space="preserve">
@@ -779,7 +779,7 @@
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="ScriptHint_resetfilters" xml:space="preserve">
-    <value>ファイルフィルターをデフォルトの値にリセット</value>
+    <value>ファイルフィルターを既定値にリセット</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="MessageBox_Cancel" xml:space="preserve">
@@ -791,7 +791,7 @@
     <comment>Options dialog, delete files group header label</comment>
   </data>
   <data name="Main_Filter" xml:space="preserve">
-    <value>フィルタ:</value>
+    <value>フィルター :</value>
     <comment>Main window, ignore filter file selector label (accel)</comment>
   </data>
   <data name="Script_Editor_Tools" xml:space="preserve">
@@ -839,11 +839,11 @@
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="ScriptHint_set_resultszoom" xml:space="preserve">
-    <value>結果ツリーのズーム レベル（数）</value>
+    <value>結果ツリーのズーム レベル(数)</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_RunCommandError" xml:space="preserve">
-    <value>実行コマンドがエラーで終了しました： </value>
+    <value>実行コマンドがエラーで終了しました : </value>
     <comment>Script message for run command error</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
@@ -863,7 +863,7 @@
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value>\s は空白に一致します</value>
+    <value>\s は空白に一致</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
@@ -915,7 +915,7 @@
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value>\d は数字に一致します</value>
+    <value>\d は数字に一致</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
@@ -963,7 +963,7 @@
     <comment>Options dialog, layout radio button label</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value>\w は英数字に一致します</value>
+    <value>\w は英数字に一致</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Script_Editor_Redo" xml:space="preserve">
@@ -991,7 +991,7 @@
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
-    <value>エラー: パターンは引数 {0} に必要です</value>
+    <value>エラー : パターンは引数 {0} に必要です</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
@@ -1103,7 +1103,7 @@
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
-    <value>宛先ファイルが存在し、上書きが false です: '{0}'</value>
+    <value>宛先ファイルが存在し、上書きが false です : '{0}'</value>
     <comment>Script copy command error message. {0} is the destination path and file name.</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
@@ -1119,7 +1119,7 @@
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ExtractFooters" xml:space="preserve">
-    <value>フッターの抽出</value>
+    <value>フッタの抽出</value>
     <comment>Options dialog, check box label</comment>
   </data>
   <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
@@ -1151,7 +1151,7 @@
     <comment>pdftotext error message returned to results list</comment>
   </data>
   <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
-    <value>宛先ファイルがソースファイルと同じです: {0}</value>
+    <value>宛先ファイルがソースファイルと同じです : {0}</value>
     <comment>Script copy command error message. {0} is the destination path and file name.</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
@@ -1163,7 +1163,7 @@
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Test_Close" xml:space="preserve">
-    <value>閉じる</value>
+    <value>閉じる(_C)</value>
     <comment>Test window, Close button text (accel)</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
@@ -1171,7 +1171,7 @@
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
-    <value>数字を数値順にソート</value>
+    <value>数字を数値順に並べ替え</value>
     <comment>Main window sort options menu item tooltip</comment>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
@@ -1199,7 +1199,7 @@
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
-    <value>後続するコンテキスト行（数）</value>
+    <value>後続するコンテキスト行(数)</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
@@ -1239,7 +1239,7 @@
     <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
-    <value>前のコンテキスト行（数）</value>
+    <value>前のコンテキスト行(数)</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
@@ -1383,7 +1383,7 @@
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
-    <value>置換が中止されました。{0} ファイルでテキストが置換されました。</value>
+    <value>置換が中止されました – {0} ファイルでテキストが置換されました。</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
@@ -1399,7 +1399,7 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Error_PdftotextReturned0" xml:space="preserve">
-    <value>pdftotextが'{0}'を返しました</value>
+    <value>pdftotext が '{0}' を返しました</value>
     <comment>Format string for pdftotext error messages: {0} is the error message</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
@@ -1423,7 +1423,7 @@
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
-    <value>ファイルの削除に失敗しました： </value>
+    <value>ファイルの削除に失敗しました : </value>
     <comment>Script message for delete error</comment>
   </data>
   <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
@@ -1435,11 +1435,11 @@
     <comment>Message box text for: unset Explorer context menu error</comment>
   </data>
   <data name="ScriptHint_include_script" xml:space="preserve">
-    <value>他のスクリプトからコマンドを含める</value>
+    <value>別のスクリプトのコマンドを現在のスクリプトに含める</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_PanelPosition" xml:space="preserve">
-    <value>パネルの位置:</value>
+    <value>パネルの位置 :</value>
     <comment>Options dialog, layout radio group label</comment>
   </data>
   <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
@@ -1447,11 +1447,11 @@
     <comment>Error message returned to results list. {0} is the file name</comment>
   </data>
   <data name="TTA6_Matches1To3Characters" xml:space="preserve">
-    <value>{1,3} は1から3文字に一致します</value>
+    <value>{1,3} は 1 から 3 文字に一致</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="ScriptHint_copyfiles_value" xml:space="preserve">
-    <value>宛先フォルダのパス</value>
+    <value>宛先フォルダーのパス</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="MessageBox_MoveFiles" xml:space="preserve">
@@ -1467,11 +1467,11 @@
     <comment>Bookmark details dialog, Byte search type tooltip</comment>
   </data>
   <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
-    <value>ファイル '{1}' の処理中にエラーが発生しました: {0}</value>
+    <value>ファイル '{1}' の処理中にエラーが発生しました : {0}</value>
     <comment>Script copy command error message. {0} is the error message and {1} is the source path and file name.</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>(_R)正規表現</value>
+    <value>正規表現(_R)</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
@@ -1495,7 +1495,7 @@
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
-    <value>Word （docx）</value>
+    <value>Word (docx)</value>
     <comment>Options dialog, section heading</comment>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
@@ -1531,7 +1531,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
-    <value>次の範囲の値を入力してください: {0} ～ {1}。</value>
+    <value>次の範囲の値を入力してください : {0} ～ {1}。</value>
     <comment>Validation message for user input of numeric values: {0} is the minimum allowed value, {1) is the maximum allowed value</comment>
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
@@ -1547,7 +1547,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
-    <value>pdftotextがテキストファイルを作成できませんでした</value>
+    <value>pdftotext がテキストファイルを作成できませんでした</value>
     <comment>pdftotext error message returned to results list</comment>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
@@ -1595,7 +1595,7 @@
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="ScriptHint_set_folder" xml:space="preserve">
-    <value>検索場所: フォルダまたはファイル パス</value>
+    <value>検索場所 : フォルダーまたはファイル パス</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
@@ -1623,7 +1623,7 @@
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
-    <value>スクリプトを停止して終了しますか？</value>
+    <value>スクリプトを停止して終了しますか?</value>
     <comment>Message box text for: Script is running on exit, line 2</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
@@ -1639,7 +1639,7 @@
     <comment>Help dialog header text</comment>
   </data>
   <data name="Options_ExtractHeaders" xml:space="preserve">
-    <value>ヘッダーの抽出</value>
+    <value>ヘッダの抽出</value>
     <comment>Options dialog, check box label</comment>
   </data>
   <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
@@ -1679,11 +1679,11 @@
     <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
-    <value>置換結果：</value>
+    <value>置換結果 :</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
-    <value>大文字と小文字を区別</value>
+    <value>大/小文字を区別</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_sortdirection" xml:space="preserve">
@@ -1747,7 +1747,7 @@
     <comment>Preview window, warning label</comment>
   </data>
   <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
-    <value>マッチング パターンがファイル名 '{0}' に一致しませんでした</value>
+    <value>一致パターンがファイル名 '{0}' に一致しませんでした</value>
     <comment>Script copy command error message.  {0} is the source file name.</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
@@ -1775,7 +1775,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Options_ReuseExistingWindow" xml:space="preserve">
-    <value>既存のウィンドウを再利用（シングルインスタンス） *</value>
+    <value>既存のウィンドウを再利用 (シングルインスタンス) *</value>
     <comment>Options dialog, singleton instance label (star refers to Options_RestartRequiredWhenChanged footnote</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
@@ -1807,7 +1807,7 @@
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
-    <value>過去の時間フィルタの上限（数）</value>
+    <value>過去の時間フィルターの上限(数)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Main_Results_ResetZoom" xml:space="preserve">
@@ -1823,7 +1823,7 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
-    <value>宛先ディレクトリを作成できませんでした: '{0}'</value>
+    <value>宛先ディレクトリを作成できませんでした : '{0}'</value>
     <comment>Script copy command error message.  {0} is the directory name.</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
@@ -1875,7 +1875,7 @@
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
-    <value>ソースフォルダのレイアウトを保持</value>
+    <value>ソースフォルダーのレイアウトを保持</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
@@ -1911,7 +1911,7 @@
     <comment>Main window replace button tooltip</comment>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
-    <value>サンプル入力テキスト：</value>
+    <value>サンプル入力テキスト :</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
@@ -1923,7 +1923,7 @@
     <comment>Message box text for: Move file</comment>
   </data>
   <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
-    <value>エラー: 引数 {0} には True または False が必要です</value>
+    <value>エラー : 引数 {0} には True または False が必要です</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="Main_ResultList_AtPosition" xml:space="preserve">
@@ -1947,7 +1947,7 @@
     <comment>Main window, status bar message</comment>
   </data>
   <data name="ScriptHint_set_separatelines" xml:space="preserve">
-    <value>レポートのアイテムごとに出力</value>
+    <value>出力を別々の行にレポートする</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
@@ -1975,11 +1975,11 @@
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
-    <value>テキストを折り返す</value>
+    <value>長い行を折り返す</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
-    <value>終了しますか？</value>
+    <value>終了しますか?</value>
     <comment>Message box text for: Search results on exit, line 2</comment>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
@@ -2063,11 +2063,11 @@
     <comment>Script copy command success message. {0} is the source file name and {1} is the destination file name.</comment>
   </data>
   <data name="ScriptHint_set_folder_value" xml:space="preserve">
-    <value>フォルダ、ファイル パス、またはフォルダまたはファイルのカンマ区切りリスト</value>
+    <value>フォルダー、ファイル パス、またはフォルダーまたはファイルのカンマ区切りリスト</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_filetimerange" xml:space="preserve">
-    <value>時間範囲フィルタの選択</value>
+    <value>時間範囲フィルターの選択</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
@@ -2087,7 +2087,7 @@
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
-    <value>(_T)テキスト</value>
+    <value>テキスト(_T)</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
@@ -2099,7 +2099,7 @@
     <comment>Main window, Cancel button label (accel)</comment>
   </data>
   <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
-    <value>ファイルを開く際には、これらの拡張子に対してアーカイブ全体を開く:</value>
+    <value>ファイルを開く際には、これらの拡張子に対してアーカイブ全体を開く :</value>
     <comment>Options dialog, custom archive extension label</comment>
   </data>
   <data name="Report_FoundNoMatchesFor" xml:space="preserve">
@@ -2227,7 +2227,7 @@
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="ScriptHint_run_powershell" xml:space="preserve">
-    <value>PowerShell スクリプトを実行</value>
+    <value>PowerShell スクリプトの実行</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_bookmark_add" xml:space="preserve">
@@ -2243,7 +2243,7 @@
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
-    <value>*は任意の数の文字に一致します</value>
+    <value>* は任意の数の文字に一致</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
@@ -2263,7 +2263,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
-    <value>PDFの権限に関するエラー</value>
+    <value>PDF の権限に関するエラー</value>
     <comment>pdftotext error message returned to results list</comment>
   </data>
   <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
@@ -2303,7 +2303,7 @@
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>ハイライトグループ</value>
+    <value>強調表示グループ</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
@@ -2315,11 +2315,11 @@
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
-    <value>検索が中止されました。{0} ? {1} ファイルの {3} 件中 {2} 件が一致しました。</value>
+    <value>{0} で検索がキャンセルされました – 検索した {3} 個のファイルのうち {2} 個に {1} 件の一致が見つかりました。</value>
     <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
   </data>
   <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
-    <value>脚注の参照文字：</value>
+    <value>脚注の参照文字 :</value>
     <comment>Options dialog, radio button group label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
@@ -2339,7 +2339,7 @@
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Scripts_CopyFilesFailed" xml:space="preserve">
-    <value>ファイルのコピーに失敗しました： </value>
+    <value>ファイルのコピーに失敗しました : </value>
     <comment>Script message for copy error</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
@@ -2371,7 +2371,7 @@
     <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
-    <value>一致フィルタ パターン</value>
+    <value>一致フィルター パターン</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
@@ -2399,11 +2399,11 @@
     <comment>Main window, Regular expression search type tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
-    <value>全体の単語</value>
+    <value>単語の完全一致</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
-    <value>(_M)複数行</value>
+    <value>複数行(_M)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
@@ -2415,7 +2415,7 @@
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="ScriptHint_set_sorttype" xml:space="preserve">
-    <value>並べ替えタイプの設定</value>
+    <value>並べ替えの種類の設定</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_Subscript" xml:space="preserve">
@@ -2427,7 +2427,7 @@
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
-    <value>上限サイズ（数値）フィルター</value>
+    <value>サイズフィルターの上限 (数値)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Main_Results_CurrentLine" xml:space="preserve">
@@ -2471,7 +2471,7 @@
     <comment>Main window, Patterns to include label tooltip</comment>
   </data>
   <data name="ScriptHint_maximizeresults" xml:space="preserve">
-    <value>検索結果ツリーを最大化または元に戻す</value>
+    <value>検索結果ツリーの最大化または元に戻す</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_messages" xml:space="preserve">
@@ -2479,7 +2479,7 @@
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
-    <value>pdftotextが'{0}'で'{1}'を読み込むのに失敗しました</value>
+    <value>pdftotext が'{0}'で'{1}'を読み込むのに失敗しました</value>
     <comment>Format string for pdftotext error messages: {0} is the error message and {1} is the file name</comment>
   </data>
   <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
@@ -2503,7 +2503,7 @@
     <comment>Message box text for: Incorrect regular expression</comment>
   </data>
   <data name="ScriptHint_run_powershell_value" xml:space="preserve">
-    <value>.ps1 スクリプト ファイルの完全なパスとファイル名</value>
+    <value>.ps1 スクリプト ファイルのフルパスとファイル名</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
@@ -2551,7 +2551,7 @@
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
-    <value>抽出されたヘッダーおよびフッターの位置：</value>
+    <value>抽出されたヘッダおよびフッタの位置 :</value>
     <comment>Options dialog, radio button group label</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
@@ -2559,11 +2559,11 @@
     <comment>Options dialog, Plug-ins group header label</comment>
   </data>
   <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
-    <value>結果ツリーの横にドッキング:</value>
+    <value>結果ツリーの横にドッキング :</value>
     <comment>Options dialog, layout radio group label</comment>
   </data>
   <data name="ScriptHint_report_text" xml:space="preserve">
-    <value>結果のテキスト専用レポート</value>
+    <value>結果のテキストのみのレポート</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
@@ -2583,7 +2583,7 @@
     <comment>Main window, search results text</comment>
   </data>
   <data name="Options_CommentReferenceNumbers" xml:space="preserve">
-    <value>コメントの参照番号：</value>
+    <value>コメントの参照番号 :</value>
     <comment>Options dialog, options group label</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
@@ -2655,7 +2655,7 @@
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
-    <value>*.txt などのファイル フィルタ パターン、またはフィルタのリスト</value>
+    <value>*.txt などのファイル フィルター パターン、またはフィルターのリスト</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Main_Results_PreviousFile" xml:space="preserve">
@@ -2663,7 +2663,7 @@
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>(_A)大文字と小文字を区別する</value>
+    <value>大/小文字を区別する(_A)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Script_Editor_New" xml:space="preserve">
@@ -2711,7 +2711,7 @@
     <comment>Bookmark details dialog, cancel button label (accel)</comment>
   </data>
   <data name="Scripts_ScriptMessages" xml:space="preserve">
-    <value>スクリプトメッセージ</value>
+    <value>スクリプト メッセージ</value>
     <comment>Script Messages dialog title</comment>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
@@ -2775,7 +2775,7 @@
     <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
-    <value>{0} ファイルは権限、ロック、またはエラーのために検索できませんでした：詳細はdnGrepログファイルを参照してください</value>
+    <value>{0} ファイルは権限、ロック、またはエラーのために検索できませんでした : 詳細は dnGrep ログファイルを参照してください</value>
     <comment>Main window tooltip. {0} is the count of file read errors</comment>
   </data>
   <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
@@ -2815,7 +2815,7 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
-    <value>シンボリック リンクに従う</value>
+    <value>シンボリックリンクを辿る</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
@@ -2823,7 +2823,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
-    <value>検索結果：</value>
+    <value>検索結果 :</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Main_Results_CopyFileNames" xml:space="preserve">
@@ -2895,7 +2895,7 @@
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
-    <value>過去の時間フィルタの下限（数）</value>
+    <value>過去の時間フィルターの下限(数)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Preview_Syntax" xml:space="preserve">
@@ -2907,7 +2907,7 @@
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
-    <value>テスト\* などのファイル フィルタ パターン、またはフィルタのリスト</value>
+    <value>テスト\\* などのファイル フィルター パターン、またはフィルターのリスト</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
@@ -2967,7 +2967,7 @@
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
-    <value>下限サイズ（数値）フィルター</value>
+    <value>サイズフィルターの下限 (数値)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
@@ -3003,7 +3003,7 @@
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_paterntype" xml:space="preserve">
-    <value>ファイル フィルタ パターンの種類</value>
+    <value>ファイル フィルター パターンの種類</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Script_Editor_Close" xml:space="preserve">
@@ -3019,7 +3019,7 @@
     <comment>Main window, results list, context menu item tooltip</comment>
   </data>
   <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
-    <value>PDFファイルのオープンエラー</value>
+    <value>PDF ファイルのオープンエラー</value>
     <comment>pdftotext error message returned to results list</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
@@ -3039,7 +3039,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
-    <value>同じ行内のアイテム間のレポートセパレーター</value>
+    <value>同じ行の項目間のレポート区切り文字</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
@@ -3051,7 +3051,7 @@
     <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
-    <value>サブフォルダを含める</value>
+    <value>サブフォルダーを含める</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
@@ -3099,7 +3099,7 @@
     <comment>Main window replace button tooltip</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>次で置換：</value>
+    <value>置換対象 :</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
@@ -3179,7 +3179,7 @@
     <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
   <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
-    <value>エラー: パスは引数 {0} に必要です</value>
+    <value>エラー : パスは引数 {0} に必要です</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
@@ -3219,7 +3219,7 @@
     <comment>Options dialog, New versions group header label</comment>
   </data>
   <data name="Scripts_ScriptFiles" xml:space="preserve">
-    <value>スクリプトファイル</value>
+    <value>スクリプト ファイル</value>
     <comment>Scripts: Open and Save file dialog label for script files</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
@@ -3227,7 +3227,7 @@
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
-    <value>フォルダ ブックマークを削除</value>
+    <value>フォルダー ブックマークを削除</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
@@ -3251,7 +3251,7 @@
     <comment>Message box text for: Search is running on exit, line 1</comment>
   </data>
   <data name="BookmarkDetails_Filter" xml:space="preserve">
-    <value>フィルタ:</value>
+    <value>フィルター :</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
@@ -3271,7 +3271,7 @@
     <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="ScriptHint_set_enddate" xml:space="preserve">
-    <value>日時 'To' フィルタ</value>
+    <value>日時 'To' フィルター</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
@@ -3283,7 +3283,7 @@
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="ScriptHint_set_startdate" xml:space="preserve">
-    <value>日時「開始」フィルター</value>
+    <value>日時 'From' フィルター</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
@@ -3339,7 +3339,7 @@
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
-    <value>最大サブフォルダの深さ</value>
+    <value>サブフォルダーの最大階層</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_Menu_Personalize" xml:space="preserve">
@@ -3351,7 +3351,7 @@
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Scripts_MoveFilesFailed" xml:space="preserve">
-    <value>ファイルの移動に失敗しました： </value>
+    <value>ファイルの移動に失敗しました : </value>
     <comment>Script message for move error</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
@@ -3367,7 +3367,7 @@
     <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>(_D)改行をドットとして扱う</value>
+    <value>ドットを改行として扱う(_D)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
@@ -3383,7 +3383,7 @@
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
-    <value>該当箇所前後の表示</value>
+    <value>該当箇所前後行の表示</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_LineNumbers" xml:space="preserve">
@@ -3395,7 +3395,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="ScriptHint_run_cmd" xml:space="preserve">
-    <value>コマンド スクリプトを実行</value>
+    <value>コマンド スクリプトの実行</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
@@ -3443,7 +3443,7 @@
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="ScriptHint_set_searchparallel" xml:space="preserve">
-    <value>並行検索</value>
+    <value>並列検索</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
@@ -3451,11 +3451,11 @@
     <comment>Main window Search In group heading</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
-    <value>.gitignoreを使用</value>
+    <value>.gitignore を使用</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
-    <value>改行をドットとして扱う</value>
+    <value>ドットを改行として扱う</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
@@ -3475,7 +3475,7 @@
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
-    <value>隠しフォルダを含める</value>
+    <value>隠しフォルダーを含める</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_copyfiles" xml:space="preserve">
@@ -3495,7 +3495,7 @@
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
-    <value>フォルダの深さ制限（数）</value>
+    <value>フォルダーの階層制限(数)</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
@@ -3515,7 +3515,7 @@
     <comment>Options dialog, control label</comment>
   </data>
   <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
-    <value>除外フィルタ パターン</value>
+    <value>除外フィルター パターン</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
@@ -3563,7 +3563,7 @@
     <comment>Bookmark details dialog, search type group header label</comment>
   </data>
   <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
-    <value>検索を停止して終了しますか？</value>
+    <value>検索を停止して終了しますか?</value>
     <comment>Message box text for: Search is running on exit, line 2</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
@@ -3607,7 +3607,7 @@
     <comment>Message box text for: Replace window warning</comment>
   </data>
   <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
-    <value>このPDFファイルにはテキストが含まれていません</value>
+    <value>この PDF ファイルにはテキストが含まれていません</value>
     <comment>Main window search results message</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
@@ -3615,11 +3615,11 @@
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
   </data>
   <data name="ScriptHint_expandresultoptions" xml:space="preserve">
-    <value>結果オプション セクションを展開または非表示にする</value>
+    <value>結果オプション セクションの展開または非表示</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_run" xml:space="preserve">
-    <value>外部コマンドを実行</value>
+    <value>外部コマンドの実行</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Options_Yes" xml:space="preserve">
@@ -3627,7 +3627,7 @@
     <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
-    <value>* 変更時に再起動が必要</value>
+    <value>* 変更した場合は再起動が必要です</value>
     <comment>Options dialog, footnote text</comment>
   </data>
   <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
@@ -3710,7 +3710,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    検索の種類の設定 – 次のいずれか："PlainText"、"Regex"(正規表現)、"XPath"、または "Soundex" (音韻的)。</value>
+    検索の種類の設定 – 次のいずれか : "PlainText"、"Regex"(正規表現)、"XPath"、または "Soundex" (音韻的)。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExit" xml:space="preserve">
@@ -3753,7 +3753,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/scope [scope]
 -scope [scope]
 -uniqueScope [scope]
-    正規表現レポート出力の一意の値の範囲を設定するためのフラグの設定 – 次のいずれか： "Global" または "PerFile"。</value>
+    正規表現レポート出力の一意の値の範囲を設定するためのフラグの設定 – 次のいずれか : "Global" または "PerFile"。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
@@ -3823,7 +3823,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/rm [mode]
 -rm [mode]
 -reportMode [mode]
-    正規表現レポートのレポート出力モードの設定 - 次のいずれか："FullLine"、"Matches"、または "Groups"。</value>
+    正規表現レポートのレポート出力モードの設定 – 次のいずれか : "FullLine"、"Matches"、または "Groups"。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReport" xml:space="preserve">
@@ -3857,7 +3857,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, button label to delete custom editor</comment>
   </data>
   <data name="Options_EditorExtensions" xml:space="preserve">
-    <value>拡張機能</value>
+    <value>拡張子</value>
     <comment>Options custom editor dialog, text box label</comment>
   </data>
   <data name="Options_EditorLabel" xml:space="preserve">
@@ -3869,11 +3869,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, button label to edit custom editor</comment>
   </data>
   <data name="Options_CustomEditor_Title" xml:space="preserve">
-    <value>カスタムエディター</value>
+    <value>カスタム エディタ</value>
     <comment>Options custom editor dialog title</comment>
   </data>
   <data name="Options_EditorSetAsDefault" xml:space="preserve">
-    <value>ファイルタイプのデフォルトエディターに設定する</value>
+    <value>ファイル種類の既定のエディタに設定する</value>
     <comment>Options custom editor dialog, checkbox label</comment>
   </data>
   <data name="Validation_ValueIsRequired" xml:space="preserve">
@@ -3885,7 +3885,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, label for text box entry</comment>
   </data>
   <data name="Main_Results_OpenWith" xml:space="preserve">
-    <value>指定して開く</value>
+    <value>カスタム エディタで開く</value>
     <comment>Main window, results list context menu item label</comment>
   </data>
   <data name="Options_EditorAdd" xml:space="preserve">
@@ -3897,7 +3897,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>Kバイト</value>
+    <value>KB</value>
     <comment>Options dialog, label for file size</comment>
   </data>
   <data name="Main_DatePastMinutes" xml:space="preserve">
@@ -3913,15 +3913,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
   <data name="BookmarkDetails_Global" xml:space="preserve">
-    <value>グローバル</value>
+    <value>全体</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Global" xml:space="preserve">
-    <value>グローバル</value>
+    <value>全体</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="ScriptHint_set_global" xml:space="preserve">
-    <value>グローバル</value>
+    <value>全体</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_FocusResultsTree" xml:space="preserve">
@@ -3953,6 +3953,279 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>左矢印</value>
   </data>
   <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>プラグイン キャッシ</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>指定場所</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>各ファイルのすべての一致</value>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Windows 11 右クリックメニュー :</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>一致件数付きのファイル名をコピー</value>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>元の右クリックメニュー :</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>検索を自動一時停止する一致数</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>何もしない</value>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>結果ツリーで固定スクロールを有効にする</value>
+  </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>読み取り専用</value>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>Windows 11が必要</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>全体ではない</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>各ファイルの最初の一致</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>検索後の、キーボードフォーカス先</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>アーカイブ全体を移動する</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>ファイルの抽出と移動</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>空白を表示</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>アーカイブ全体を削除する</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>ファイルサイズと変更時刻のハッシュ</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>置換ダイアログを使用する</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>選択したファイルで置換</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>置換対象として選択されたファイルがありません。</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>新しいキーボードショートカットを登録できませんでした - 使用中ですか?</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>dnGrep ウィンドウを復元するためのキーボードショートカット</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>コマンドライン引数を既存のウィンドウに転送する</value>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>{0} 過去の日付 {1} から {2} {3}</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>最初の一致後に一時停止</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>{0} 件の一致後に一時停止</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>{0} 件の一致後に停止</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>ウィンドウ</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>ショートカットキー</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>すべてを既定値にリセット</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>キーボードショートカットのヘルプを表示するには、F1 キーを押してください</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>キーボード(_K)…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>メイン</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>アーカイブ内のファイル</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>アーカイブ全体をコピーする</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>下矢印</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>上矢印</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>検索の入力欄</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>アプリケーション ログ(_L)</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>一部のファイルを新しいディレクトリにコピーできませんでした。詳細についてはエラーログを確認してください : </value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>エラー :</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>一致するものが見つかりません!</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>検索パスからの相対パスを表示</value>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>{0} プラグインはテキストを抽出できませんでした</value>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>{0}プラグインによって作成されたファイルには検索可能なテキストがありません</value>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>{0} プラグイン コマンドがエラーを返しました : {1}</value>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>検索完了時に結果を自動的に並べ替える</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>検索を自動停止する一致数</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>テキスト入力ボックスでオートコンプリートを有効にする</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>全体ではない</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>抽出したファイルをキャッシュする</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Tempフォルダー内のキャッシュファイル</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>指定期間使用されていない場合はファイルを削除</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>プラグインのキャッシュ設定が変更されました。古いキャッシュフォルダーを削除しますか?</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>キャッシュ ファイル キーの作成 :</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>完全なファイルのハッシュ</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>テキストの差異を生成する .NET ライブラリ</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>ファイル比較を開く</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>置換を表示するプレビュー</value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>ディレクトリ '{0}' には、アプリケーションに含まれないファイルが含まれている可能性があります。このディレクトリを使用しますか?</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>アプリケーションディレクトリが変更されました。ファイルを新しいディレクトリにコピーしますか?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>新しいディレクトリには既に "{0}" という名前のファイルがあります。既存のファイルを置き換えますか?</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>結果のフォントの太さ</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>検索結果のファイル名</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>選択したコマンドのショートカット</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>ショートカットキーを押す :</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>現在使用されているショートカット :</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
     <value>削除</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>割り当てる</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>スペース</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [search commands]
+-e [search commands]
+-everything [search commands]
+    Everything検索テキストを設定します。コマンドラインの最後のオプションとして指定する必要があり、コマンドラインの残りの部分をそのままコピーします。</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>ファイルの抽出とコピー</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>通知領域に最小化 *</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>キーボード ショートカット</value>
   </data>
 </root>
