@@ -1495,7 +1495,7 @@
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
-    <value>Word (docx)</value>
+    <value>Word（docx）</value>
     <comment>Options dialog, section heading</comment>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
@@ -4190,13 +4190,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>割り当てる</value>
   </data>
   <data name="Keyboard_BackspaceKey" xml:space="preserve">
-    <value>Back</value>
+    <value>BackSpace</value>
   </data>
   <data name="Keyboard_PageUpKey" xml:space="preserve">
-    <value>PgUp</value>
+    <value>PageUp</value>
   </data>
   <data name="Keyboard_PageDownKey" xml:space="preserve">
-    <value>PgDn</value>
+    <value>PageDown</value>
   </data>
   <data name="Keyboard_HomeKey" xml:space="preserve">
     <value>Home</value>
@@ -4205,7 +4205,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>End</value>
   </data>
   <data name="Keyboard_PrintScreenKey" xml:space="preserve">
-    <value>PrtScn</value>
+    <value>PrintScreen</value>
   </data>
   <data name="Keyboard_SpaceKey" xml:space="preserve">
     <value>スペース</value>
