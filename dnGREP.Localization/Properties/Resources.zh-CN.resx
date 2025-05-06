@@ -4308,4 +4308,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_PageUpKey" xml:space="preserve">
     <value>PgUp</value>
   </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>显示相对于搜索路径的路径</value>
+  </data>
 </root>

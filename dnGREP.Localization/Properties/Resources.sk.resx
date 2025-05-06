@@ -1018,4 +1018,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_BackspaceKey" xml:space="preserve">
     <value>Späť</value>
   </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Zavrieť</value>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>Príkaz</value>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>Príkaz</value>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
 </root>

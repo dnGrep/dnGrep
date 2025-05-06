@@ -4308,4 +4308,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_EndKey" xml:space="preserve">
     <value>Край</value>
   </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Пътищата са спрямо пътя на търсене</value>
+  </data>
 </root>

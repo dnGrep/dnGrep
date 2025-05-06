@@ -997,4 +997,25 @@
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
     <value>Nastaviti?</value>
   </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>Zum:</value>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Prelamanje teksta</value>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Zum:</value>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Nastaviti?</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>Nastaviti?</value>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>Prelamanje teksta</value>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Prelamanje teksta</value>
+  </data>
 </root>
