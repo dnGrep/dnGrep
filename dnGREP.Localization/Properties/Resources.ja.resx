@@ -2131,7 +2131,7 @@
     <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} 内の "{1}" – dnGrep</value>
+    <value>"{1}" 内の {0} – dnGrep</value>
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
