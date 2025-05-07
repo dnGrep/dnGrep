@@ -1018,4 +1018,22 @@
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
     <value>Prelamanje teksta</value>
   </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Pretvori PDF datoteke u obični tekst</value>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Kreirano</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Sadržaj</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Uključi svojstva pretraživanja sadržaja u oznaku</value>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>"Everything" usluga indeksiranja</value>
+  </data>
 </root>
