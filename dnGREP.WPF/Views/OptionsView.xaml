@@ -699,7 +699,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Directories">
+                <GroupBox Header="{l:Loc Key='Options_Directories'}">
                     <Grid Margin="0,6,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -714,11 +714,11 @@
                         </Grid.ColumnDefinitions>
 
                         <CheckBox Grid.Row="0" Grid.Column="0" Margin="0,3"
-                                  Content="Use default directories"
+                                  Content="{l:Loc Key='Options_UseDefaultDirectories'}"
                                   IsChecked="{Binding PathsAreDefault}"/>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="12,3,3,3" 
-                                   Text="Application configuration and data:" />
+                                   Text="{l:Loc Key='Options_ApplicationConfigurationAndData'}" />
 
                         <TextBox Grid.Row="2" Grid.Column="0" Margin="20,3,3,3"
                                  Text="{Binding Path=DataDirectoryPath, UpdateSourceTrigger=PropertyChanged}"
@@ -738,7 +738,7 @@
                         </Button>
 
                         <TextBlock Grid.Row="3" Grid.Column="0" Margin="12,3,3,3" 
-                                   Text="Application log files:" />
+                                   Text="{l:Loc Key='Options_ApplicationLogFiles'}" />
 
                         <TextBox Grid.Row="4" Grid.Column="0" Margin="20,3,3,3"
                                  Text="{Binding Path=LogDirectoryPath, UpdateSourceTrigger=PropertyChanged}"

@@ -4386,4 +4386,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Show path relative to search path</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Directories</value>
+    <comment>Options dialog, section heading</comment>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Use default directories</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Application configuration and data:</value>
+    <comment>Options dialog, text box label</comment>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Application log files:</value>
+    <comment>Options dialog, text box label</comment>
+  </data>
 </root>

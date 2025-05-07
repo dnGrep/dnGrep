@@ -4917,11 +4917,29 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application configuration and data:.
+        /// </summary>
+        public static string Options_ApplicationConfigurationAndData {
+            get {
+                return ResourceManager.GetString("Options_ApplicationConfigurationAndData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application fonts.
         /// </summary>
         public static string Options_ApplicationFonts {
             get {
                 return ResourceManager.GetString("Options_ApplicationFonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application log files:.
+        /// </summary>
+        public static string Options_ApplicationLogFiles {
+            get {
+                return ResourceManager.GetString("Options_ApplicationLogFiles", resourceCulture);
             }
         }
         
@@ -5237,6 +5255,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_DialogFontSize {
             get {
                 return ResourceManager.GetString("Options_DialogFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directories.
+        /// </summary>
+        public static string Options_Directories {
+            get {
+                return ResourceManager.GetString("Options_Directories", resourceCulture);
             }
         }
         
@@ -6542,6 +6569,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_UseDefault {
             get {
                 return ResourceManager.GetString("Options_UseDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use default directories.
+        /// </summary>
+        public static string Options_UseDefaultDirectories {
+            get {
+                return ResourceManager.GetString("Options_UseDefaultDirectories", resourceCulture);
             }
         }
         
