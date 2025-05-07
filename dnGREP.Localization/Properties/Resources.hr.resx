@@ -1036,4 +1036,7 @@
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
     <value>"Everything" usluga indeksiranja</value>
   </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>"Everything" usluga indeksiranja</value>
+  </data>
 </root>
