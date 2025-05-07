@@ -4253,4 +4253,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
     <value>顯示相對於搜尋路徑的路徑</value>
   </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>使用預設目錄</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>應用程式日誌檔:</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>目錄</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>應用程式配置和資料:</value>
+  </data>
 </root>
