@@ -4228,4 +4228,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
     <value>キーボード ショートカット</value>
   </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>アプリケーションの設定とデータ :</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>アプリケーションのログファイル :</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>既定のディレクトリを使用する</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>ディレクトリ</value>
+  </data>
 </root>
