@@ -4311,4 +4311,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
     <value>显示相对于搜索路径的路径</value>
   </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>目录</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>使用默认目录</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>应用程序配置和数据：</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>程序日志文件：</value>
+  </data>
 </root>
