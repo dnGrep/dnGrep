@@ -3442,4 +3442,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_PageUpKey" xml:space="preserve">
     <value>PgUp</value>
   </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Конфігурація та дані програми:</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Використовувати каталоги за замовчуванням</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Файли журналу застосунків:</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Довідники</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Показати шлях відносно шляху пошуку</value>
+  </data>
 </root>
