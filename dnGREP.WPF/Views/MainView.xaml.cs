@@ -127,7 +127,14 @@ namespace dnGREP.WPF
             DataContext = viewModel;
 
             if (notifyIcon != null)
-                notifyIcon.Text = viewModel.WindowTitle;
+            {
+                string text = viewModel.WindowTitle;
+                if (!string.IsNullOrEmpty(text) && text.Length > 127)
+                {
+                    text = text.Substring(0, 127); 
+                }
+                notifyIcon.Text = text;
+            }
 
             viewModel.PreviewModel = previewControl.ViewModel;
             DockViewModel.Instance.PropertyChanged += ViewModel_PropertyChanged;
