@@ -4402,4 +4402,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Application log files:</value>
     <comment>Options dialog, text box label</comment>
   </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Find</value>
+    <comment>Preview window, context menu item label</comment>
+  </data>
 </root>

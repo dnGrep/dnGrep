@@ -111,6 +111,9 @@
                         <MenuItem Header="{l:Loc Key='TextBox_Command_Copy'}" 
                                   InputGestureText="{x:Static my:TextBoxCommands.CopyGesture}" 
                                   Command="Copy"/>
+                        <MenuItem Header="{l:Loc Key='Preview_Find'}" 
+                                  InputGestureText="{x:Static my:TextBoxCommands.FindGesture}" 
+                                  Command="Find"/>
                         <Separator/>
                         <MenuItem Header="{l:Loc Key='Main_AutoPosition'}" IsCheckable="True" 
                                   IsChecked="{Binding DockVM.PreviewAutoPosition}"/>
