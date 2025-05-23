@@ -409,6 +409,9 @@ namespace dnGREP.WPF
         private string windowTitle = Resources.Main_DnGREP_Title;
 
         [ObservableProperty]
+        private string notificationTitle = Resources.Main_DnGREP_Title;
+
+        [ObservableProperty]
         private string textBoxStyle = string.Empty;
 
         [ObservableProperty]
@@ -558,11 +561,29 @@ namespace dnGREP.WPF
             if (name == nameof(FileOrFolderPath) || name == nameof(SearchFor))
             {
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
+                {
                     WindowTitle = Resources.Main_DnGREP_Title;
+                    NotificationTitle = Resources.Main_DnGREP_Title;
+                }
                 else
+                {
                     WindowTitle = TranslationSource.Format(Resources.Main_WindowTitle,
                         string.IsNullOrEmpty(SearchFor) ? Resources.Main_Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
                         FileOrFolderPath);
+
+                    string title = WindowTitle;
+                    if (title.EndsWith(Resources.Main_DnGREP_Title, StringComparison.OrdinalIgnoreCase))
+                    {
+                        title = title.Remove(WindowTitle.Length - 6, 6)
+                            .TrimEnd(' ', '-', '–');
+                    }
+                    title = Resources.Main_DnGREP_Title + " – " + title;
+                    if (title.Length > 127)
+                    {
+                        title = title[..127];
+                    }
+                    NotificationTitle = title;
+                }
             }
 
             if (name == nameof(TypeOfSearch))

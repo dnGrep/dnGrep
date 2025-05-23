@@ -128,12 +128,7 @@ namespace dnGREP.WPF
 
             if (notifyIcon != null)
             {
-                string text = viewModel.WindowTitle;
-                if (!string.IsNullOrEmpty(text) && text.Length > 127)
-                {
-                    text = text.Substring(0, 127); 
-                }
-                notifyIcon.Text = text;
+                notifyIcon.Text = viewModel.NotificationTitle;
             }
 
             viewModel.PreviewModel = previewControl.ViewModel;
@@ -385,15 +380,15 @@ namespace dnGREP.WPF
 
         private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "IsPreviewDocked")
+            if (e.PropertyName == nameof(viewModel.DockVM.IsPreviewDocked))
             {
                 AutoPositionPreviewWindow(ActualWidth / ActualHeight);
             }
-            else if (e.PropertyName == "PreviewAutoPosition")
+            else if (e.PropertyName == nameof(viewModel.DockVM.PreviewAutoPosition))
             {
                 AutoPositionPreviewWindow(ActualWidth / ActualHeight);
             }
-            else if (e.PropertyName == "PreviewDockSide")
+            else if (e.PropertyName == nameof(viewModel.DockVM.PreviewDockSide))
             {
                 SetActivePreviewDockSite();
 
@@ -411,9 +406,9 @@ namespace dnGREP.WPF
                     dvm.SaveSettings();
                 }
             }
-            else if (e.PropertyName == "WindowTitle" && notifyIcon != null)
+            else if (e.PropertyName == nameof(viewModel.NotificationTitle) && notifyIcon != null)
             {
-                notifyIcon.Text = viewModel.WindowTitle;
+                notifyIcon.Text = viewModel.NotificationTitle;
             }
         }
 
