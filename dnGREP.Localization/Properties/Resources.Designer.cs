@@ -6654,6 +6654,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find.
+        /// </summary>
+        public static string Preview_Find {
+            get {
+                return ResourceManager.GetString("Preview_Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find next (F3).
         /// </summary>
         public static string Preview_FindNext {

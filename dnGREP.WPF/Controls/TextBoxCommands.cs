@@ -15,6 +15,7 @@ namespace dnGREP.WPF
         public static string CutGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+X");
         public static string CopyGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+C");
         public static string PasteGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+V");
+        public static string FindGesture { get; } = KeyGestureLocalizer.LocalizeKeyGestureText("Ctrl+F");
 
         static TextBoxCommands()
         {
