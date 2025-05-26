@@ -152,8 +152,16 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    string? dirName = Path.GetDirectoryName(GrepResult.FileNameDisplayed);
-                    if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)
+                    string? dirName = Path.GetDirectoryName(GrepResult.FileNameDisplayed) ?? string.Empty;
+                    if (basePath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        dirName += Path.DirectorySeparatorChar.ToString(); // ensure trailing separator for relative path calculation
+                    }
+                    if (dirName.Equals(basePath, StringComparison.OrdinalIgnoreCase))
+                    {
+                        FilePath = string.Empty; // no relative path if the directory is the same as the base path
+                    }
+                    else if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)
                     {
                         FilePath = Path.GetRelativePath(basePath, dirName) + Path.DirectorySeparatorChar;
                     }

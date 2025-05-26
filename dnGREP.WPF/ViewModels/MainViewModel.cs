@@ -3739,8 +3739,9 @@ namespace dnGREP.WPF
                     displayFileName = result.FileNameDisplayed + " " + Resources.Preview_Title_AsText;
                 }
 
-                string basePath = PathSearchText.BaseFolder;
+                string basePath = PathSearchText.CommonBaseFolder;
                 if (!string.IsNullOrWhiteSpace(basePath) &&
+                    !basePath.Equals(Path.GetPathRoot(basePath), StringComparison.OrdinalIgnoreCase) &&
                     displayFileName.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
                 {
                     displayFileName = displayFileName[basePath.Length..].TrimStart('\\');
