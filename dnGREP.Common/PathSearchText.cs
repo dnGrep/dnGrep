@@ -21,6 +21,7 @@ namespace dnGREP.Common
                     return;
 
                 baseFolder = string.Empty;
+                commonBaseFolder = string.Empty;
                 isValidPath = null;
                 fileOrFolderPath = value;
             }
