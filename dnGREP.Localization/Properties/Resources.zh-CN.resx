@@ -4323,4 +4323,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplicationLogFiles" xml:space="preserve">
     <value>程序日志文件：</value>
   </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>寻找</value>
+  </data>
 </root>
