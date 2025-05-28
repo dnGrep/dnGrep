@@ -4265,4 +4265,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
     <value>應用程式配置和資料:</value>
   </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
 </root>
