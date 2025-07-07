@@ -3381,4 +3381,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_SpaceKey" xml:space="preserve">
     <value>Boşluk</value>
   </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Bul</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Dizinler</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Uygulama Günlüğü Dosyaları:</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Arama yoluna göre yolu göster</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Varsayılan dizinleri kullan</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Uygulama yapılandırması ve verileri:</value>
+  </data>
 </root>
