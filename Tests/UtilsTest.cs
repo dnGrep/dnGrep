@@ -183,11 +183,11 @@ namespace Tests
 
         [Theory]
         [InlineData(01, "The quick brown fox\r\njumps over the lazy dog")]
-        [InlineData(01, "The quick brown fox\njumps over the lazy dog")]
-        [InlineData(01, "The quick brown fox\rjumps over the lazy dog")]
-        [InlineData(01, "The quick brown fox\r\njumps over the lazy dog\r\n")]
-        [InlineData(01, "The quick brown fox\njumps over the lazy dog\n")]
-        [InlineData(01, "The quick brown fox\rjumps over the lazy dog\r")]
+        [InlineData(02, "The quick brown fox\njumps over the lazy dog")]
+        [InlineData(03, "The quick brown fox\rjumps over the lazy dog")]
+        [InlineData(04, "The quick brown fox\r\njumps over the lazy dog\r\n")]
+        [InlineData(05, "The quick brown fox\njumps over the lazy dog\n")]
+        [InlineData(06, "The quick brown fox\rjumps over the lazy dog\r")]
         public void TestGetTwoLineCaptureGroups(int index, string text)
         {
             // index is used to identify the test case
@@ -227,8 +227,8 @@ namespace Tests
 
         [Theory]
         [InlineData(01, "The quick brown fox\r\nruns and\r\njumps over the lazy dog")]
-        [InlineData(01, "The quick brown fox\nruns and\njumps over the lazy dog")]
-        [InlineData(01, "The quick brown fox\rruns and\rjumps over the lazy dog")]
+        [InlineData(02, "The quick brown fox\nruns and\njumps over the lazy dog")]
+        [InlineData(03, "The quick brown fox\rruns and\rjumps over the lazy dog")]
         public void TestGetThreeLineCaptureGroups(int index, string text)
         {
             // index is used to identify the test case
