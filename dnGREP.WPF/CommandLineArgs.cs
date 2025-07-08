@@ -44,7 +44,7 @@ namespace dnGREP.WPF
         private static string[] SplitCommandLine(string line)
         {
             List<string> result = [];
-            foreach (string arg in ParseLine(line))
+            foreach (string arg in ParseArgumentsWithEmbeddedQuotes(line))
             {
                 string token = arg.Trim();
                 if (!string.IsNullOrEmpty(token))
@@ -53,6 +53,59 @@ namespace dnGREP.WPF
                 }
             }
             return result.Skip(1).ToArray(); // skip the app and return array of all strings
+        }
+
+        /// <summary>
+        /// Parses a command line string into arguments, supporting quoted strings with embedded quotes.
+        /// Embedded quotes inside a quoted argument should be escaped by doubling them ("").
+        /// Example: --name "John ""The Man"" Doe" yields ["--name", "John \"The Man\" Doe"]
+        /// </summary>
+        public static List<string> ParseArgumentsWithEmbeddedQuotes(string commandLine)
+        {
+            List<string> args = new();
+            if (string.IsNullOrEmpty(commandLine))
+                return args;
+
+            StringBuilder current = new();
+            bool inQuotes = false;
+            int i = 0;
+            while (i < commandLine.Length)
+            {
+                char c = commandLine[i];
+
+                if (c == '"')
+                {
+                    if (inQuotes && i + 1 < commandLine.Length && commandLine[i + 1] == '"')
+                    {
+                        // Embedded quote ("")
+                        current.Append('"');
+                        i += 2;
+                        continue;
+                    }
+                    inQuotes = !inQuotes;
+                    i++;
+                    continue;
+                }
+
+                if (char.IsWhiteSpace(c) && !inQuotes)
+                {
+                    if (current.Length > 0)
+                    {
+                        args.Add(current.ToString());
+                        current.Clear();
+                    }
+                    i++;
+                    continue;
+                }
+
+                current.Append(c);
+                i++;
+            }
+
+            if (current.Length > 0)
+                args.Add(current.ToString());
+
+            return args;
         }
 
         internal static IEnumerable<string> ParseLine(string input)
