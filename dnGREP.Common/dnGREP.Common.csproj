@@ -55,7 +55,7 @@
     <PackageReference Include="NLog">
       <Version>6.0.1</Version>
     </PackageReference>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.6" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.7" />
     <PackageReference Include="UTF.Unknown">
       <Version>2.5.1</Version>
     </PackageReference>
