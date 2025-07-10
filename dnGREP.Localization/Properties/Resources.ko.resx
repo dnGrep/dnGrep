@@ -223,7 +223,7 @@
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value>Folder:</value>
+    <value>폴더(_O):</value>
     <comment>Main window, folder input caption (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
