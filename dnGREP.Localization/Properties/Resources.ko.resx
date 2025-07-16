@@ -3541,6 +3541,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>괄호 안의 전체 크기 문자</value>
   </data>
   <data name="Options_ExtractHeaders" xml:space="preserve">
-    <value>Extract headers</value>
+    <value>헤더 추출</value>
   </data>
 </root>
