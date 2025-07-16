@@ -319,7 +319,7 @@
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value>_Search</value>
+    <value>검색(_S)</value>
     <comment>Main window, search button label (accel)</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
@@ -335,7 +335,7 @@
     <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>Size is</value>
+    <value>크기는</value>
     <comment>Main window, filter size radio button label (accel)</comment>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
@@ -343,27 +343,27 @@
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>to</value>
+    <value>에서</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value>Sort</value>
+    <value>정렬</value>
     <comment>Main window, sort button label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
-    <value>Excluded {0} missing files.</value>
+    <value>누락된 파일 {0}개를 제외했습니다.</value>
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>Replacing…</value>
+    <value>교체 중…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value>Search canceled</value>
+    <value>검색 취소됨</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>Searched {0} files, found {1} matching files – processing {2}</value>
+    <value>{0}개의 파일을 검색하여 {1}개의 일치하는 파일을 찾았습니다 - {2}을 처리 중입니다</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
@@ -375,31 +375,31 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regular expression is not valid!</value>
+    <value>정규 표현식이 유효하지 않습니다!</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regular expression is OK</value>
+    <value>정규 표현식은 괜찮습니다</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
-    <value>Could not load the '{0}' resources file: </value>
+    <value>'{0}' 리소스 파일을 로드할 수 없습니다: </value>
     <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>Clearing this bookmark also removes those bookmarks.</value>
+    <value>이 북마크를 지우면 해당 북마크도 제거됩니다.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value>{0} files have been deleted.</value>
+    <value>{0}개의 파일이 삭제되었습니다.</value>
     <comment>Message box text for: Delete files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value>{0} files have been moved.</value>
+    <value>{0}개의 파일이 이동되었습니다.</value>
     <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
-    <value>Delete Files</value>
+    <value>파일 삭제</value>
     <comment>Message box title for: Delete files</comment>
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
@@ -407,27 +407,27 @@
     <comment>Message box title</comment>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
-    <value>Continue?</value>
+    <value>계속하시겠습니까?</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
-    <value>Files have been reverted.</value>
+    <value>파일이 반환되었습니다.</value>
     <comment>Message box text for: Main window undo replace success</comment>
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
-    <value>Rename File</value>
+    <value>파일 이름 바꾸기</value>
     <comment>Message box title for: Rename file</comment>
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
-    <value>Replace</value>
+    <value>바꾸기</value>
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value>Could not complete the search. Check the error log for details: </value>
+    <value>검색을 완료할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Search failed</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value>Attention, you are about to delete files found during search.</value>
+    <value>주의하세요, 검색 중에 발견된 파일을 삭제하려고 합니다.</value>
     <comment>Message box text for: Delete files warning</comment>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
@@ -435,23 +435,23 @@
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_Layout" xml:space="preserve">
-    <value>Layout</value>
+    <value>레이아웃</value>
     <comment>Options dialog, layout group header label</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
-    <value>Show file info tooltips</value>
+    <value>파일 정보 도구 설명 표시</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
-    <value>Startup</value>
+    <value>시작</value>
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
-    <value>Do you want a different language?</value>
+    <value>다른 언어를 원하시나요?</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>Match case</value>
+    <value>대소문자 일치</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
@@ -459,35 +459,35 @@
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Rename_Title" xml:space="preserve">
-    <value>Rename file</value>
+    <value>파일 이름 바꾸기</value>
     <comment>Rename file dialog title</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
-    <value>Files</value>
+    <value>파일</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
-    <value>Next _file</value>
+    <value>다음 파일( _F)</value>
     <comment>Replace window, Next file button label (accel)</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
-    <value>Previous file</value>
+    <value>이전 파일</value>
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
-    <value>Replace in all files</value>
+    <value>모든 파일에서 바꾸기</value>
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
-    <value>Replace in file</value>
+    <value>파일에서 바꾸기</value>
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Replace match</value>
+    <value>일치 바꾸기</value>
     <comment>Replace window, third color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>Skip match</value>
+    <value>일치 건너뛰기</value>
     <comment>Replace window, fourth color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
@@ -603,39 +603,39 @@
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>Search canceled or failed</value>
+    <value>검색이 취소되었거나 실패했습니다</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value>Continue?</value>
+    <value>계속하시겠습니까?</value>
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>Replace the search pattern with an empty string?</value>
+    <value>검색 패턴을 빈 문자열로 바꾸시겠습니까?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>Check editor path via "Options…".</value>
+    <value>"옵션..."을 통해 편집기 경로를 확인합니다.</value>
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value>Clearing this bookmark also clears that bookmark.</value>
+    <value>이 북마크를 지우면 해당 북마크도 지워집니다.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value>Copy Files</value>
+    <value>파일 복사</value>
     <comment>Message box title for: Copy files</comment>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value>Could not load the '{0}' theme. Check the error log for details: </value>
+    <value>'{0}' 테마를 로드할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
-    <value>days</value>
+    <value>일</value>
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
-    <value>Clear old searches</value>
+    <value>이전 검색 지우기</value>
     <comment>Options dialog, history list button label (accel)</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
@@ -643,15 +643,15 @@
     <comment>Options dialog, close button text (accel)</comment>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
-    <value>Compare application</value>
+    <value>응용 프로그램 비교</value>
     <comment>Options dialog, compare application group header label</comment>
   </data>
   <data name="Options_CompareArguments" xml:space="preserve">
-    <value>Arguments</value>
+    <value>인수</value>
     <comment>Options dialog, compare arguments input box label</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
-    <value>Help translate dnGrep.</value>
+    <value>dnGrep 번역을 도와주세요.</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
@@ -659,47 +659,47 @@
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
-    <value>Replace window layout</value>
+    <value>창 레이아웃 교체</value>
     <comment>Options dialog, Replace window layout options label</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>Replace window font size</value>
+    <value>창 글꼴 크기 바꾸기</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>Results font family</value>
+    <value>결과 글꼴 제품군</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Options_ResultsFontSize" xml:space="preserve">
-    <value>Results font size</value>
+    <value>결과 글꼴 크기</value>
     <comment>Options dialog, results font size label</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
-    <value>Show result lines in context</value>
+    <value>컨텍스트에서 결과 줄 표시</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
-    <value>Show results tree expanded</value>
+    <value>결과 트리 확장 보기</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
-    <value>Show search options</value>
+    <value>검색 옵션 표시</value>
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>Show additional details about the matches found</value>
+    <value>찾은 일치에 대한 추가 세부 정보 표시</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change this setting.</value>
+    <value>이 설정을 변경하려면 dnGrep을 관리자로 실행합니다.</value>
     <comment>Options dialog, Explorer right-click tooltip</comment>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value>Error: this is a binary file</value>
+    <value>오류: 이진 파일입니다</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>File {0} of {1}: {2} ({3} matches on {4} lines)</value>
+    <value>{1}의 {0} 파일:  {2} ({4} 줄에서 일치하는 3개)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
@@ -711,7 +711,7 @@
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
-    <value>Matches</value>
+    <value>일치</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -719,7 +719,7 @@
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>Found {0} matches on {1} lines in {2} files</value>
+    <value>{2} 파일의 {1} 줄에서 {0}개의 일치하는 항목을 찾았습니다</value>
     <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
@@ -783,7 +783,7 @@
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
-    <value>XPath is not valid!</value>
+    <value>XPath가 유효하지 않습니다!</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
@@ -1207,15 +1207,15 @@
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
-    <value>Match {0}{1}{2}</value>
+    <value>일치 {0}{1}{2}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Match {0}{1}Group {2}: {3}</value>
+    <value>일치 {0}{1}그룹 {2}: {3}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value>, +{0} more matches</value>
+    <value>, +{0}개 이상 일치</value>
     <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
@@ -1255,7 +1255,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value>Search _for:</value>
+    <value>검색 대상( _F):</value>
     <comment>Main window, search pattern text input box label (accel)</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
@@ -1263,15 +1263,15 @@
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
-    <value>Search in</value>
+    <value>검색</value>
     <comment>Main window Search In group heading</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
-    <value>Search _in results</value>
+    <value>결과 검색(_I)</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>Search paralle_l</value>
+    <value>병렬 검색(_L)</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
@@ -1279,15 +1279,15 @@
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>음역 검색(영어)</value>
+    <value>음성 검색</value>
     <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>텍스트 검색</value>
+    <value>일반 텍스트 검색</value>
     <comment>Main window, Text search type tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>이진 검색: 파일을 이진으로 읽고 이진 내용을 16진수를 통해 68 65 78 20 식으로 입력하여 검색합니다</value>
+    <value>바이트 검색: 파일을 이진 파일로 읽고 바이트를 16진수로 검색합니다: 68 65 78 20</value>
     <comment>Main window, Byte search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
@@ -1307,131 +1307,131 @@
     <comment>Main window, XPath search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath 검색 (XML 문서 전용)</value>
+    <value>XPath 검색 (XML 문서만 해당)</value>
     <comment>Main window, XPath search type tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
-    <value>Select a date</value>
+    <value>날짜 선택</value>
     <comment>Main window, filter files by date, date picker watermark</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>Replace completed – replaced text in {0} files.</value>
+    <value>완료됨 - {0}개의 파일에서 텍스트를 교체합니다.</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>Replace failed</value>
+    <value>교체 실패</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>Searched {0} files, found {1} matching files.</value>
+    <value>{0}개의 파일을 검색했지만 일치하는 {1}개의 파일을 찾았습니다.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
-    <value>Show result options</value>
+    <value>결과 옵션 표시</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value>Ascending</value>
+    <value>오름차순</value>
     <comment>Main window sort button options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
-    <value>Descending</value>
+    <value>내림차순</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
-    <value>File name only</value>
+    <value>파일 이름만</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
-    <value>File size</value>
+    <value>파일 크기</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
-    <value>File type and name</value>
+    <value>파일 유형 및 이름</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value>Last write time</value>
+    <value>마지막 쓰기 시간</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>Match count</value>
+    <value>일치 횟수</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value>Path and file name, breadth-first</value>
+    <value>경로 및 파일 이름, 너비 우선</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>Path and file name, depth-first</value>
+    <value>경로 및 파일 이름, 깊이 우선</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value>Replace canceled</value>
+    <value>교체 취소됨</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>Searching…</value>
+    <value>검색 중…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
-    <value>Searching for .gitignore</value>
+    <value>.gitignore 검색하기</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>Test expression</value>
+    <value>테스트 표현식</value>
     <comment>Main window, test search expression button label (accel)</comment>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
-    <value>through the end of the day</value>
+    <value>하루가 끝날 때까지</value>
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Use capture groups from 'Patterns to match' in the 'Search for' pattern</value>
+    <value>'검색할 패턴' 패턴의 '일치할 패턴' 캡처 그룹 사용</value>
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>.gitignore 파일 내 정의로 필터링 합니다</value>
+    <value>.gitignore를 사용하여 파일 필터링</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
-    <value>Boolean expression contains an unknown token</value>
+    <value>알 수 없는 토큰이 포함된 부울 표현식</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
-    <value>Boolean expression has an unknown error</value>
+    <value>부울 표현식에 알 수 없는 오류가 있습니다</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
-    <value>Boolean expression has mismatched parentheses</value>
+    <value>부울 표현식에 괄호가 일치하지 않습니다</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
-    <value>Boolean expression is missing a Boolean operator</value>
+    <value>부울 표현식에 부울 연산자가 없습니다</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
-    <value>Boolean expression is missing a search pattern</value>
+    <value>부울 표현식에 검색 패턴이 없습니다</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
-    <value>Boolean expression is not valid</value>
+    <value>부울 표현식이 유효하지 않습니다</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
-    <value>Boolean expression is OK</value>
+    <value>부울 표현식은 괜찮습니다</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Byte string is not valid!</value>
+    <value>바이트 문자열이 잘못되었습니다!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Byte string is OK</value>
+    <value>바이트 문자열은 괜찮습니다</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath is OK</value>
+    <value>XPath는 괜찮습니다</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
@@ -1439,219 +1439,219 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} in "{1}" – dnGrep</value>
+    <value>"{1}"의 {0} – dnGrep</value>
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>텍스트 묶음</value>
+    <value>텍스트 줄바꿈</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>확대/축소:</value>
     <comment>Main window, results options zoom slider label</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value>{0} files have been copied.</value>
+    <value>{0}개의 파일이 복사되었습니다.</value>
     <comment>Message box text for: Copy file: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value>Could not open the file with the custom editor.</value>
+    <value>사용자 지정 편집기로 파일을 열 수 없습니다.</value>
     <comment>Message box text for: Open file with custom editor</comment>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value>The default engine was used instead.</value>
+    <value>기본 엔진이 대신 사용되었습니다.</value>
     <comment>Message box text for: Plug-in failed to load error</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
-    <value>dnGrep is up to date.</value>
+    <value>dnGrep은 최신 상태입니다.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
-    <value>Error: </value>
+    <value>오류: </value>
     <comment>Message box text for: general error message</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>Could not open the file. Check the error log for details: </value>
+    <value>파일을 열 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Open file error</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value>Could not set clipboard text. The clipboard is locked by</value>
+    <value>클립보드 텍스트를 설정할 수 없습니다. 클립보드가 다음에 의해 잠겼습니다</value>
     <comment>Message box text for: Copy to clipboard error</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>Could not extract file from archive. Check the error log for details: </value>
+    <value>압축파일에서 파일을 추출할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
-    <value>Incorrect pattern: </value>
+    <value>잘못된 패턴: </value>
     <comment>Message box text for: Incorrect regular expression</comment>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
-    <value>Load Resources</value>
+    <value>리소스 로드</value>
     <comment>Message box title for: Load resources</comment>
   </data>
   <data name="MessageBox_MoveFiles" xml:space="preserve">
-    <value>Move Files</value>
+    <value>파일 이동</value>
     <comment>Message box title for: Move files</comment>
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value>New Version</value>
+    <value>새 버전</value>
     <comment>Message box title for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>New version of dnGrep ({0}) is available for download.</value>
+    <value>새로운 버전의 dnGrep({0})을 다운로드할 수 있습니다.</value>
     <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
-    <value>Please select another directory and try again.</value>
+    <value>다른 디렉터리를 선택한 후 다시 시도해 주세요.</value>
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
-    <value>Plug-in Errors</value>
+    <value>플러그인 오류</value>
     <comment>Message box title for: Plug-in errors</comment>
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
-    <value>Could not rename the file: </value>
+    <value>파일 이름을 변경할 수 없습니다: </value>
     <comment>Message box text for: Rename file</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>Could not replace text in files. Check the error log for details: </value>
+    <value>파일에서 텍스트를 바꿀 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value>Resources file '{0}', is not a resx file.</value>
+    <value>리소스 파일 '{0}'은 resx 파일이 아닙니다.</value>
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change showing dnGrep in Windows Explorer right-click menu</value>
+    <value>관리자로 dnGrep을 실행하여 Windows 탐색기 마우스 오른쪽 버튼 메뉴에 dnGrep 표시를 변경합니다</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change application startup option.</value>
+    <value>관리자로 dnGrep을 실행하여 응용 프로그램 시작 옵션을 변경합니다.</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>Could not complete the search or replace. Check the error log for details: </value>
+    <value>검색을 완료하거나 교체할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value>The search path in the '{0}' field is not valid, search canceled.</value>
+    <value>'{0}' 필드의 검색 경로가 잘못되었습니다. 검색이 취소되었습니다.</value>
     <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
-    <value>Attention, some of the files are located in the selected directory.</value>
+    <value>주의하세요, 일부 파일은 선택한 디렉터리에 있습니다.</value>
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
-    <value>Some of the files cannot be modified. If you continue, these files will be skipped.</value>
+    <value>일부 파일은 수정할 수 없습니다. 계속하면 이러한 파일은 건너뛸 수 있습니다.</value>
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>Something broke down in dnGrep. Check the error log for details: </value>
+    <value>dnGrep에서 문제가 발생했습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Unknown error</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>The file '{0}' already exists in {1}. Overwrite existing?</value>
+    <value>파일 '{0}'이 {1}에 이미 존재합니다. 기존 파일을 덮어쓰시겠습니까?</value>
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
+    <value>파일 패턴 '{0}'이 올바른 정규식이 아닙니다: {1}{2}</value>
     <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>Could not load the following plug-ins:</value>
+    <value>다음 플러그인을 로드할 수 없습니다:</value>
     <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>Could not add dnGrep to the Windows Explorer right-click menu. Check the error log for details: </value>
+    <value>Windows 탐색기 마우스 오른쪽 버튼 메뉴에 dnGrep을 추가할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value>Could not copy the files. Check the error log for details: </value>
+    <value>파일을 복사할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Copy files</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value>Could not create the file. Check the error log for details: </value>
+    <value>파일을 만들 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Create file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value>Could not delete the files. Check the error log for details: </value>
+    <value>파일을 삭제할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Delete file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value>Could not move the files. Check the error log for details: </value>
+    <value>파일을 이동할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Move file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value>Could not register auto startup. Check the error log for details: </value>
+    <value>자동 시작을 등록할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: set startup option error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>Could not remove dnGrep from the Windows Explorer right-click menu. Check the error log for details: </value>
+    <value>Windows 탐색기 마우스 오른쪽 버튼 메뉴에서 dnGrep을 제거할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: unset Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value>Could not revert files. Check the error log for details: </value>
+    <value>파일을 되돌릴 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Undo replace error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value>Could not open the test window. Check the error log for details: </value>
+    <value>테스트 창을 열 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Main window start test dialog error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value>Could not save options. Check the error log for details: </value>
+    <value>옵션을 저장할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: Saving user options</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value>Could not unregister auto startup. Check the error log for details: </value>
+    <value>자동 시작 등록을 취소할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
     <comment>Message box text for: unsetting auto start error</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>This bookmark is associated with {0} other folders.</value>
+    <value>이 북마크는 {0}개의 다른 폴더와 연결되어 있습니다.</value>
     <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>This bookmark is associated with one other folder.</value>
+    <value>이 북마크는 다른 폴더와 연결되어 있습니다.</value>
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Continue?</value>
+    <value>실행 취소하면 수정된 파일이 원래 상태로 돌아갑니다. 교체 후 파일에 변경된 내용은 덮어쓰게 됩니다. 계속하시겠습니까?</value>
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
-    <value>Window title: {0}</value>
+    <value>창 제목: {0}</value>
     <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>Continue?</value>
+    <value>계속하시겠습니까?</value>
     <comment>Message box text for: Replace window warning</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>Download it now?</value>
+    <value>지금 다운로드하시겠습니까?</value>
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>List files using the file name pattern when the 'Search for' field is empty</value>
+    <value>'검색' 필드가 비어 있을 때 파일 이름 패턴을 사용하여 파일 나열</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value>Application fonts</value>
+    <value>응용 프로그램 글꼴</value>
     <comment>Options dialog, Application fonts group header label</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
-    <value>Extensions:</value>
+    <value>확장:</value>
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>Archive files</value>
+    <value>압축파일</value>
     <comment>Options dialog, Archive files group header label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Check for new versions when Windows starts</value>
+    <value>Windows가 시작되면 새 버전 확인</value>
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
-    <value>New versions</value>
+    <value>새 버전</value>
     <comment>Options dialog, New versions group header label</comment>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
@@ -1659,7 +1659,7 @@
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
-    <value>Custom editor</value>
+    <value>사용자 지정 편집기</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
@@ -1667,231 +1667,231 @@
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Detect file encoding when listing files using the file name pattern</value>
+    <value>파일 이름 패턴을 사용하여 파일을 나열할 때 파일 인코딩 감지</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
-    <value>Other windows font size</value>
+    <value>기타 창 글꼴 크기</value>
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep will add the selected files to the end of the command-line.</value>
+    <value>dnGrep는 선택한 파일을 명령줄 끝에 추가합니다.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value>Arguments</value>
+    <value>인수</value>
     <comment>Options dialog, custom editor arguments input box label</comment>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
-    <value>Command</value>
+    <value>명령</value>
     <comment>Options dialog, custom editor command input box label</comment>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>Check automatically every</value>
+    <value>자동으로 확인 매번</value>
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
+    <value>Windows 탐색기 마우스 오른쪽 버튼 클릭 컨텍스트 메뉴에서 dnGrep을 시작할 수 있습니다.</value>
     <comment>Options dialog, explorer right-click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
-    <value>files and individual matches</value>
+    <value>파일 및 개별 일치 항목</value>
     <comment>Options dialog, Replace window layout option radio button label (accel)</comment>
   </data>
   <data name="Options_FilesOnly" xml:space="preserve">
-    <value>files only</value>
+    <value>파일만</value>
     <comment>Options dialog, Replace window layout radio button label (accel)</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value>Follow Windows theme</value>
+    <value>Windows 테마 따르기</value>
     <comment>Options dialog, theme checkbox label (accel)</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>Font family</value>
+    <value>글꼴 제품군</value>
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
-    <value>Byte search result line length</value>
+    <value>바이트 검색 결과 줄 길이</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
-    <value>History lists</value>
+    <value>기록 목록</value>
     <comment>Options dialog, History group heading label</comment>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
-    <value>in options expander</value>
+    <value>옵션 확장기에서</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>items shown in file filter history lists</value>
+    <value>파일 필터 기록 목록에 표시된 항목</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
-    <value>items shown in path history list</value>
+    <value>경로 기록 목록에 표시된 항목</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value>items shown in search and replace history lists</value>
+    <value>검색 및 기록 목록 교체에 표시된 항목</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>언어</value>
     <comment>Options dialog, language group header label</comment>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>Load from file…</value>
+    <value>파일에서 로드…</value>
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
-    <value>Main window font size</value>
+    <value>기본 창 글꼴 크기</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 – match everything; 1.0 – exact match</value>
+    <value>0 – 모든 것과 일치; 1.0 – 정확한 일치</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
-    <value>Match threshold (from 0 to 1.0)</value>
+    <value>일치 임계값 (0에서 1.0까지)</value>
     <comment>Options dialog, phonetic options text input label</comment>
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
-    <value>Match timeout</value>
+    <value>일치 시간 초과</value>
     <comment>Options dialog, regular expression options text input label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
-    <value>on the main panel</value>
+    <value>메인 패널에서</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
-    <value>Options</value>
+    <value>옵션</value>
     <comment>Options dialog, window title</comment>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
-    <value>PDF to text</value>
+    <value>PDF에서 텍스트로</value>
     <comment>Options dialog, PDF to text group header label</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
-    <value>PdfToText.exe command-line options:</value>
+    <value>PdfToText.exe 명령줄 옵션:</value>
     <comment>Options dialog, PDF text input label</comment>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>재설정</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>음역 검색(영어)</value>
+    <value>음성 검색</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>사용함</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
-    <value>Extensions:</value>
+    <value>확장자:</value>
     <comment>Options dialog, plug-in options label</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
-    <value>Plug-ins</value>
+    <value>플러그인</value>
     <comment>Options dialog, Plug-ins group header label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>Press F1 for help on options</value>
+    <value>옵션에 대한 도움말을 보려면 F1을 누릅니다</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
-    <value>Preview tool for translators</value>
+    <value>번역가를 위한 미리보기 도구</value>
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value>Regular expressions</value>
+    <value>정규 표현식</value>
     <comment>Options dialog, regular expressions group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
-    <value>Reload</value>
+    <value>새로 고침</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
-    <value>Font used in search results, usually a fixed width font</value>
+    <value>검색 결과에 사용되는 글꼴, 일반적으로 고정 너비 글꼴</value>
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
-    <value>Search results</value>
+    <value>검색 결과</value>
     <comment>Options dialog, Search results group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample text</value>
+    <value>예시 텍스트</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>저장</value>
     <comment>Options dialog, save button label (accel)</comment>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
-    <value>Selected theme</value>
+    <value>선택한 테마</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>Show dnGrep in the right-click menu of Windows Explorer</value>
+    <value>Windows 탐색기의 오른쪽 클릭 메뉴에 dnGrep 표시</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>Show file path in the results panel</value>
+    <value>결과 패널에 파일 경로 표시</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking.</value>
+    <value>일치 시간 초과는 정규 표현식 엔진이 정규 표현식을 시간 초과하기 전에 해결하려고 시도하는 시간을 제한합니다. 이는 과도한 역추적이 필요한 표현식과 입력 문자열을 처리하는 것을 방지합니다.</value>
     <comment>Options dialog, regular expression options help text</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value>Use default font</value>
+    <value>기본 글꼴 사용</value>
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
-    <value>Changes text editor zoom</value>
+    <value>텍스트 편집기 확대/축소 변경</value>
     <comment>Preview window, zoom slider tooltip</comment>
   </data>
   <data name="Preview_FindNext" xml:space="preserve">
-    <value>Find next (F3)</value>
+    <value>다음 찾기 (F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_FindPrevious" xml:space="preserve">
-    <value>Find previous (Shift+F3)</value>
+    <value>이전 찾기 (Shift+F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>Not showing highlights because too many matches were found.</value>
+    <value>일치하는 항목이 너무 많아서 강조를 표시하지 않습니다.</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
-    <value>Match whole words</value>
+    <value>전체 단어 일치</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_PreviewAnyway" xml:space="preserve">
-    <value>Preview anyway</value>
+    <value>어쨌든 미리보기</value>
     <comment>Preview window, warning label</comment>
   </data>
   <data name="Preview_SyntaxNone" xml:space="preserve">
-    <value>None</value>
+    <value>없음</value>
     <comment>Preview window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value>This file is either binary, or too large to be shown.</value>
+    <value>이 파일은 이진 파일이거나 너무 커서 표시할 수 없습니다.</value>
     <comment>Preview window, warning message</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
-    <value>Use regular expressions</value>
+    <value>정규 표현식 사용</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>텍스트 묶음</value>
+    <value>텍스트 줄바꿈</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>확대/축소:</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
-    <value>New name:</value>
+    <value>새 이름:</value>
     <comment>Rename file dialog input label</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
@@ -1899,11 +1899,11 @@
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
-    <value>Cancel all replacements</value>
+    <value>모든 바꾸기 취소</value>
     <comment>Replace window, Cancel button tooltip</comment>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
-    <value>Changes text editor zoom</value>
+    <value>텍스트 편집기 확대/축소 변경</value>
     <comment>Replace window, Zoom slider tooltip</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
@@ -1915,11 +1915,11 @@
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
-    <value>_Next</value>
+    <value>다음(_N)</value>
     <comment>Replace window, Next button label (accel)</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
-    <value>{0} of {1} matches marked for replacement</value>
+    <value>{1}개의 일치 항목 중 {0}개가 교체용으로 표시됨</value>
     <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
@@ -1927,11 +1927,11 @@
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
-    <value>_Previous</value>
+    <value>이전(_P)</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
-    <value>[read-only]</value>
+    <value>[읽기 전용]</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
@@ -1939,19 +1939,19 @@
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
-    <value>_Replace</value>
+    <value>바꾸기(_R)</value>
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
-    <value>text</value>
+    <value>텍스트</value>
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Selected match</value>
+    <value>선택된 일치</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value>Replace matches marked for replacement</value>
+    <value>교체를 위해 표시된 일치 항목 바꾸기</value>
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
@@ -1963,23 +1963,23 @@
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
-    <value>None</value>
+    <value>없음</value>
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>This file contains too many matches for individual replace. Click 'Replace in file' to replace all of them.</value>
+    <value>이 파일에는 개별적으로 교체할 수 있는 일치 항목이 너무 많습니다. 모두 교체하려면 '파일로 바꾸기'를 클릭하세요.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
-    <value>Replace Text</value>
+    <value>텍스트 바꾸기</value>
     <comment>Replace window, window title</comment>
   </data>
   <data name="Replace_Undo" xml:space="preserve">
-    <value>_Undo</value>
+    <value>실행 취소(_U)</value>
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
-    <value>Undo file</value>
+    <value>파일 실행 취소</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
@@ -1987,31 +1987,31 @@
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>텍스트 묶음</value>
+    <value>텍스트 줄바꿈</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>확대/축소:</value>
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
-    <value>File Name,Line Number,String</value>
+    <value>파일 이름, 줄 번호, 문자열</value>
     <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
-    <value>dnGrep Search Results</value>
+    <value>dnGrep 검색 결과</value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[File not found: has it been deleted or moved?]</value>
+    <value>[파일을 찾을 수 없습니다: 삭제되었거나 이동되었나요?]</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
-    <value>Found matches for </value>
+    <value>일치하는 항목 찾기 </value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_FoundNoMatchesFor" xml:space="preserve">
-    <value>Found no matches for </value>
+    <value>일치하는 항목 찾지 못함 </value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
@@ -2243,19 +2243,19 @@
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
-    <value>Command</value>
+    <value>명령</value>
     <comment>Options dialog, compare command input box label</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
-    <value>Undo</value>
+    <value>실행 취소</value>
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>테마</value>
     <comment>Options dialog, theme group header label</comment>
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
-    <value>seconds</value>
+    <value>초</value>
     <comment>Options dialog, regular expression options timeout input label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
@@ -2439,11 +2439,11 @@
     <comment>Main window, search option label</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>재설정</value>
     <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
   <data name="Options_PluginReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>재설정</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
   <data name="Help_CmdLineSearchType" xml:space="preserve">
@@ -2627,7 +2627,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, Maximize results button tooltip</comment>
   </data>
   <data name="Main_Menu_About_AppData" xml:space="preserve">
-    <value>응용 프로그램 데이터 및 로그(_L)</value>
+    <value>응용 프로그램 데이터(_D)</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_CancelScript" xml:space="preserve">
