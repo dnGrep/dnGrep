@@ -67,11 +67,11 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>텍스트 인코딩을 감지하는 .NET 라이브러리</value>
+    <value>문자 집합 탐지를 위한 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value>.NET WPF 텍스트 에디터 컴포넌트</value>
+    <value>.NET WPF 텍스트 편집기 구성 요소</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_Content_Group" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Everything 색인 서비스</value>
+    <value>Everything 인덱스 서비스</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
-    <value>파일 패턴 타입</value>
+    <value>파일 패턴 유형</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
@@ -95,19 +95,19 @@
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value>와일드카드</value>
+    <value>와일드 카드</value>
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>압축 파일 검색(_C)</value>
+    <value>압축파일에서 검색(_C)</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>이진</value>
+    <value>바이트</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>음역 검색(영어)</value>
+    <value>음성 검색</value>
     <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
@@ -115,11 +115,11 @@
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>모든 단어(_W)</value>
+    <value>전체 단어(_W)</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
-    <value>개요</value>
+    <value>섹션</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Title" xml:space="preserve">
@@ -495,7 +495,7 @@
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Show the previous file</value>
+    <value>이전 파일 표시</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
@@ -559,7 +559,7 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>대체 내용</value>
+    <value>바꿀 내용</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
@@ -655,7 +655,7 @@
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Reload the current theme file</value>
+    <value>현재 테마 파일 다시 로드</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
@@ -699,15 +699,15 @@
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>{1}의 {0} 파일:  {2} ({4} 줄에서 일치하는 3개)</value>
+    <value>{1}의 {0} 파일:  {2} ({4} 줄에서 일치하는 {3}개)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Mark all matches in this file for replacement</value>
+    <value>이 파일의 모든 일치 항목을 교체용으로 표시</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Mark match for replacement</value>
+    <value>교체용 일치 마크</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
@@ -771,7 +771,7 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value>GitHub 페이지</value>
+    <value>GitHub의 dnGrep</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
@@ -803,39 +803,39 @@
     <comment>Window title bar close button tooltip</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>파일 시스템을 색인하여 즉시 검색</value>
+    <value>파일 시스템 인덱싱, 파일 즉시 찾기</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>.NET 에서 사용하는 JSON 프레임워크</value>
+    <value>.NET을 위한 JSON 프레임워크</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>압축된 파일을 읽는 라이브러리</value>
+    <value>압축 파일 읽기 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value>.NET 로깅 프레임워크</value>
+    <value>NET을 위한 로깅 프레임워크</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>.NET 7-Zip 프레임워크</value>
+    <value>.7-Zip용 NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET 을 이용하여 경로 길이 확장</value>
+    <value>확장 길이 경로를 위한 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value>Microsoft Excel 파일을 읽는 .NET 라이브러리</value>
+    <value>Microsoft Excel 파일 읽기용 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>ECMA-376 표준 숫자를 해석하는 .NET 라이브러리</value>
+    <value>.ECMA-376 숫자를 구문 분석하는 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>Word 및 Excel 문서를 처리하는 .NET 라이브러리</value>
+    <value>Word 및 Excel 문서 작업을 위한 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
@@ -847,7 +847,7 @@
     <comment>About dialog label</comment>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value>관련 폴더:</value>
+    <value>연결된 폴더:</value>
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
@@ -859,7 +859,7 @@
     <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>온점에 행문자 포함(_D)</value>
+    <value>점을 줄 바꿈으로(_D)</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
@@ -867,7 +867,7 @@
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>북마크 내 파일 원본 속성 포함</value>
+    <value>북마크에 파일 소스 속성 포함</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
@@ -875,7 +875,7 @@
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>북마크 내 파일 필터 속성 포함</value>
+    <value>북마크에 파일 필터 속성 포함</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
@@ -895,11 +895,11 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
-    <value>숨긴 폴더 포함</value>
+    <value>숨김 폴더 포함</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
-    <value>파일 형식 패턴:</value>
+    <value>일치하는 패턴:</value>
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
@@ -907,7 +907,7 @@
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>정규식(_R)</value>
+    <value>정규 표현식(_R)</value>
     <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
@@ -915,27 +915,27 @@
     <comment>Bookmark details dialog, replace text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
-    <value>검색어:</value>
+    <value>검색 대상:</value>
     <comment>Bookmark details dialog, search pattern text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>음역(영어)</value>
+    <value>음성</value>
     <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>텍스트 검색</value>
+    <value>일반 텍스트 검색</value>
     <comment>Bookmark details dialog, Text search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>이진 검색: 파일을 이진으로 읽고 이진 내용을 16진수를 통해 68 65 78 20 식으로 입력하여 검색합니다</value>
+    <value>바이트 검색: 파일을 이진 파일로 읽고 바이트를 16진수로 검색합니다: 68 65 78 20</value>
     <comment>Bookmark details dialog, Byte search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>정규식(_R)</value>
+    <value>정규 표현식(_R)</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>정규식 검색</value>
+    <value>정규 표현식 검색</value>
     <comment>Bookmark details dialog, search type regular expression tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
@@ -943,15 +943,15 @@
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath 검색 (XML 문서 전용)</value>
+    <value>XPath 검색 (XML 문서만)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
-    <value>해당 북마크는 이미 존재합니다</value>
+    <value>이 북마크는 이미 존재합니다</value>
     <comment>Bookmark details dialog, error text</comment>
   </data>
   <data name="BookmarkDetails_Title" xml:space="preserve">
-    <value>북마크 상세</value>
+    <value>북마크 세부 정보</value>
     <comment>Bookmark details dialog, window title</comment>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
@@ -963,7 +963,7 @@
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>.gitignore 파일 내 정의로 필터링 합니다</value>
+    <value>.gitignore를 사용하여 파일 필터링</value>
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
@@ -975,7 +975,7 @@
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
-    <value>검색어</value>
+    <value>검색 대상</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
@@ -991,27 +991,27 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>이진 제외</value>
+    <value>이진 안 함</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>숨김 제외</value>
+    <value>숨김 안 함</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value>하위폴더 제외</value>
+    <value>하위 폴더 안 함</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>심볼릭링크 제외</value>
+    <value>심볼릭 링크 안 함</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>압축도 검색</value>
+    <value>압축파일에서 검색</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
-    <value>단어 전체</value>
+    <value>전체 단어</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
@@ -1907,11 +1907,11 @@
     <comment>Replace window, Zoom slider tooltip</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Move to the next match in this file</value>
+    <value>이 파일의 다음 일치로 이동</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Move to the previous match in this file</value>
+    <value>이 파일에서 이전 일치로 이동</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1935,7 +1935,7 @@
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Replace all matches in all files, and apply</value>
+    <value>모든 파일의 모든 일치 항목을 바꾸고 적용</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -1955,11 +1955,11 @@
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Reset and skip all matches in this file</value>
+    <value>이 파일의 모든 일치 항목을 재설정하고 건너뛰기</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Show the next file</value>
+    <value>다음 파일 표시</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -1983,7 +1983,7 @@
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Undo mark replace on this match</value>
+    <value>이 일치에서 바꾸기 표시 취소</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
@@ -2187,11 +2187,11 @@
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value>라이브러리 출저</value>
+    <value>감사 인사</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value>마지막 빌드</value>
+    <value>빌드 날짜</value>
     <comment>About dialog label</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
@@ -2379,35 +2379,35 @@
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>원격 클라우드 파일 넘기기</value>
+    <value>원격 클라우드 저장소 파일 건너뛰기</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Help_CmdLineArguments" xml:space="preserve">
-    <value>인자:</value>
+    <value>인수:</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
     <value>/cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-	    검색 시 대소문자 구분 사용 – True 및 False로 기재.</value>
+    대소문자 구분 검색 플래그 - 참 또는 거짓을 설정합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
     <value>/bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-	검색 시 부울 표현식 설정 – True 및 False 로 기재.</value>
+	부울 연산자 검색 플래그 - 참 또는 거짓을 설정합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineCSVReport" xml:space="preserve">
     <value>/csv [파일경로]
 -csv [파일경로)
-    검색이 완료된 후 결과 파일을 CSV 형식으로 만듭니다.</value>
+    검색이 완료된 후 결과 파일을 CSV 형식으로 생성합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
-    <value>맨 위로</value>
+    <value>맨 위로 이동</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
@@ -2419,15 +2419,15 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_MoveToBottom" xml:space="preserve">
-    <value>맨 아래로</value>
+    <value>맨 아래로 이동</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Bookmarks_MoveUp" xml:space="preserve">
-    <value>위로</value>
+    <value>위로 이동</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Bookmarks_MoveDown" xml:space="preserve">
-    <value>아래로</value>
+    <value>아래로 이동</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
@@ -2457,30 +2457,30 @@
     <value>/sc [스크립트 키]
 -sc [스크립트 키]
 -script [스크립트 키]
-    스크립트 키로 정의한 스크립트를 실행합니다.</value>
+    스크립트 키로 식별된 스크립트를 실행합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
-    <value>인자를 정의하지 않아 마지막 사용자 설정을 저장한 시점으로 지정합니다.</value>
+    <value>지정되지 않은 인수는 마지막으로 저장된 사용자 설정으로 기본 설정됩니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePathToMatch" xml:space="preserve">
     <value>/pm [pattern]
 -pm [pattern]
 -pathToMatch [pattern]
-    검색 경로에 있는 파일과 일치하도록 파일 이름 패턴을 설정합니다. 쉼표나 세미콜론으로 구분된 패턴 목록일 수 있습니다.</value>
+    검색 경로의 파일과 일치하도록 파일 이름 패턴을 설정합니다. 쉼표 또는 세미콜론으로 구분된 패턴 목록일 수 있습니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample1" xml:space="preserve">
     <value>dnGrep [인자]
-아래 인자목록을 조합하여 인자를 사용합니다
+아래 목록의 모든 인수 조합을 사용합니다.
 예시:
 dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample2" xml:space="preserve">
     <value>dnGrep [폴더경로] [검색어]
-플래그 없이 하나 및 둘의 인자를 지정하여 첫번째 인자는 검색할 폴더, 두번째 인자는 검색할 검색어 표현식을 지정합니다.
+플래그가 없는 한두 개의 인수: 첫 번째 인수는 검색할 폴더이고, 두 번째 인수는 검색할 정규 표현식입니다.
 예시:
 dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
@@ -2489,81 +2489,81 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/x
 -x
 -exit
-	명령어 완료 시 dnGrep 프로그램을 종료합니다.</value>
+	명령줄 작업이 완료된 후 dnGrep을 종료합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFileInformation" xml:space="preserve">
     <value>/fi [True/False]
 -fi [True/False]
 -fileInformation [True/False]
-	보고서 출력 시 파일과 해당 줄의 정보를 포함하는 여부를 설정합니다 – True 및 False.</value>
+	보고서 출력에 파일 및 줄 정보를 포함할 플래그를 참 또는 거짓으로 설정합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
     <value>/sep [구분할 문자 및 텍스트]
 -sep [구분할 문자 및 텍스트]
 -listItemSeparator [구분할 문자 및 텍스트]
-	보고서 출력 시 찾은 파일 줄을 구분할 문자 및 텍스트를 지정합니다.</value>
+	보고서 출력에서 줄에 있는 목록 항목을 구분하도록 문자 또는 문자열을 설정합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineMultiline" xml:space="preserve">
     <value>/ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-	여러줄 검색 플래그 지정 – True 및 False.</value>
+	다중 줄 검색 플래그 - 참 또는 거짓을 설정합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
     <value>/pi [pattern]
 -pi [pattern]
 -pathToIgnore [pattern]
-	검색 경로에서 제외할 파일 및 디렉토리명 패턴을 지정합니다. 쉼표(,) 및 세미콜론(;) 문자로 구분할 수 있습니다.</value>
+	검색 경로에서 파일이나 폴더를 제외하도록 파일 또는 디렉터리 이름 패턴을 설정합니다. 쉼표 또는 세미콜론으로 구분된 패턴 목록일 수 있습니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReport" xml:space="preserve">
     <value>/rpt [파일경로]
 -rpt [파일경로]
 -report [파일경로]
-	검색 완료 후 보고서 파일을 만들 경로를 지정합니다.</value>
+	검색이 완료된 후 보고서 형식으로 결과 파일을 만듭니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePatternType" xml:space="preserve">
     <value>/pt [type]
 -pt [type]
 -patternType [type]
-    일치 및 무시 패턴 유형을 설정합니다. 다음 중 하나여야 합니다: "Asterisk"(와일드카드), "Regex"(정규 표현식) 또는 "Everything"(Everything 검색 도구가 설치된 경우).</value>
+    일치 및 무시 패턴 유형을 설정합니다 - "Asterisk" (와일드카드), "Regex" (정규 표현식) 또는 "Everything" (Everything 검색 도구가 설치된 경우) 중 하나여야 합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReportMode" xml:space="preserve">
     <value>/rm [모드]
 -rm [모드]
 -reportMode [모드]
-	보고서 출력 시 정규식에 맞는 출력 결과 모드를 지정합니다. "FullLine"(모든 줄), "Matches"(정규식 맞춤), or "Groups"(그룹 맞춤) 중 하나여야 합니다.</value>
+	정규 표현식 보고서의 보고서 출력 모드를 설정합니다 - "FullLine", "Matches" 또는 "Groups" 중 하나여야 합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineSearchFor" xml:space="preserve">
-    <value>/s [검색어]
--s [검색어]
--searchFor [검색어]
-	검색어를 텍스트 및 패턴으로 지정합니다. 이 인자를 지정하면 바로 검색이 시작됩니다.</value>
+    <value>/s [검색 대상]
+-s [검색 대상]
+-searchFor [검색 대상]
+	파일 집합 내에서 검색할 패턴이나 텍스트를 설정합니다. 이 인수가 설정되면 검색이 자동으로 실행됩니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
     <value>/dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-	온점을 행 포함 취급하는 검색 플래그 설정 – True 및 False.</value>
+	점을 새줄 검색 플래그 - 참 또는 거짓으로 설정합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFolder" xml:space="preserve">
     <value>/f [폴더경로]
 -f [폴더경로]
 -folder [폴더경로]
-	검색할 폴더 경로를 지정합니다. 쉼표(,)나 세미콜론(;) 문자로 여러 폴더를 구분할 수 있습니다.</value>
+	폴더 경로를 검색하도록 설정합니다. 폴더 경로의 쉼표 또는 세미콜론으로 구분된 목록일 수 있습니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineHeader" xml:space="preserve">
-    <value>dnGrep:	텍스트, 워드, 엑셀, PDF 문서 및 압축 파일을 정규식, XPath 및 음역(영어) 또는 일반 검색어를 통해 검색합니다.</value>
+    <value>dnGrep:	텍스트 파일, Word 및 Excel  문서, PDF, 아카이브에서 텍스트, 정규 표현식, XPath, 음성 쿼리를 사용하여 검색합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineUsage" xml:space="preserve">
@@ -3436,7 +3436,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>닫기</value>
   </data>
   <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
-    <value>검색이 {0}에서 취소되었습니다 - {2}개의 {3}개의 파일에서 {1}개의 일치 항목이 발견되었습니다.</value>
+    <value>{0}에서 검색이 취소되었습니다. 검색된 {3}개 중 {2}개 파일에서 {1}개의 일치 항목이 발견되었습니다.</value>
   </data>
   <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
     <value>취소된 텍스트 바꾸기 – {0} 파일에서 텍스트를 바꿨습니다.</value>
@@ -3517,7 +3517,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>파일을 열면 다음 확장자에 대한 전체 압축파일 열기:</value>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
-    <value>Word (docx)</value>
+    <value>워드 (docx)</value>
   </data>
   <data name="Options_ExtractFootnotes" xml:space="preserve">
     <value>각주 추출</value>
@@ -3547,7 +3547,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>바닥글 추출</value>
   </data>
   <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
-    <value>추출된 머리글 및  바닥글 위치:</value>
+    <value>추출된 머리글 및 바닥글 위치:</value>
   </data>
   <data name="Options_SectionStart" xml:space="preserve">
     <value>섹션 시작</value>
@@ -3871,7 +3871,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>명령줄 인수를 기존 창으로 전달</value>
   </data>
   <data name="Main_Menu_About_AppLogs" xml:space="preserve">
-    <value>Application _logs</value>
+    <value>응용 프로그램 로그(_L)</value>
   </data>
   <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
     <value>일부 파일을 새 디렉터리로 복사할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
@@ -3986,5 +3986,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Preview_Find" xml:space="preserve">
     <value>찾기</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Home</value>
   </data>
 </root>
