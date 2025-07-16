@@ -3412,25 +3412,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>구성하지 않음</value>
   </data>
   <data name="BookmarkDetails_Global" xml:space="preserve">
-    <value>전체</value>
+    <value>전역</value>
   </data>
   <data name="Main_Global" xml:space="preserve">
-    <value>전체</value>
+    <value>전역</value>
   </data>
   <data name="ScriptHint_set_global" xml:space="preserve">
-    <value>전체</value>
+    <value>전역</value>
   </data>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
-    <value>Open</value>
+    <value>열기</value>
   </data>
   <data name="Keyboard_CommandHeader" xml:space="preserve">
-    <value>Command</value>
+    <value>명령</value>
   </data>
   <data name="Keyboard_Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>제거</value>
   </data>
   <data name="Keyboard_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>저장</value>
   </data>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>닫기</value>
@@ -3734,11 +3734,257 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Help_CmdLineEverything" xml:space="preserve">
     <value>/e [검색 명령어]
-
 -e [검색 명령어]
-
 -everything [검색 명령어]
-
     Everything 텍스트를 설정합니다. 명령줄의 마지막 옵션이어야 하며 나머지 명령줄을 복사합니다.</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>{0}개의 일치 후 중지</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>첫 번째 일치 후 일시 중지</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>{0}개 일치 후 일시 중지</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>검색을 자동으로 중지할 일치 항목 수</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>검색을 자동으로 일시 중지할 일치 항목 수</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>텍스트 입력 상자에서 자동 완성 사용</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>전역 아님</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>전역 아님</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>각 파일의 모든 일치 항목</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>각 파일의 첫 번째 일치</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>검색 후 키보드 집중을 다음과 같이 설정합니다</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>입력 검색</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>압축파일에 파일 포함</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>전체 압축파일 복사</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>파일 추출 및 복사</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>전체 압축파일 이동</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>파일 추출 및 이동</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>전체 압축파일 삭제</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>아무것도 하지 않음</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>플러그인 캐시</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>추출된 파일 캐시</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>임시 폴더의 캐시 파일</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>캐시 파일</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>캐시에서 파일을 사용하지 않는 경우 삭제</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>플러그인 캐시 설정이 변경되었습니다. 이전 캐시 폴더를 삭제하시겠습니까?</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>공백 보기</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>캐시 파일 키 만들기:</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>전체 파일 해시</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>파일 크기와 수정된 시간의 해시</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>바꾸기 사용 대화 상자</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>선택한 파일로 바꾸기</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>바꿀 파일이 선택되지 않았습니다.</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>새 키보드 바로 가기를 등록할 수 없습니다 - 사용 중인가요?</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>알림 영역 최소화 *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>dnGrep 창을 복원하는 키보드 단축키</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>텍스트 차이를 생성하는 .NET 라이브러리</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>파일 비교 열기</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>교체 항목을 보여주는 미리보기</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>명령줄 인수를 기존 창으로 전달</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>Application _logs</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>일부 파일을 새 디렉터리로 복사할 수 없습니다. 자세한 내용은 오류 로그를 확인하세요: </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>디렉터리 '{0}'에는 응용 프로그램의 일부가 아닌 파일이 포함될 수 있습니다. 어쨌든 이 디렉터리를 사용하시겠습니까?</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>응용 프로그램가 변경되었습니다. 파일을 새 디렉터리에 복사하시겠습니까?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>새 디렉터리에 이미 "{0}"이라는 파일이 있습니다. 기존 파일을 교체하시겠습니까?</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>오류:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>일치를 찾을 수 없습니다!</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>결과 글꼴 두께</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>검색 결과에서 파일 이름의 경우</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>키보드 단축키</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>창</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>레이블</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>단축키</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>선택한 명령의 단축키</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>단축키를 누르세요:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>현재 사용 중인 단축키:</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>할당</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>모두 기본값으로 재설정</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>키보드 단축키에 대한 도움말을 보려면 F1을 누릅니다</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>키보드(_K)…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>기본</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>위로</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>아래로</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>왼쪽</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>오른쪽</value>
+  </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>뒤로</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>스페이스</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>검색 경로에 대한 경로 표시</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>디렉터리</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>기본 디렉터리 사용</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>응용 프로그램 구성 및 데이터:</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>응용 프로그램 로그 파일:</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>찾기</value>
   </data>
 </root>
