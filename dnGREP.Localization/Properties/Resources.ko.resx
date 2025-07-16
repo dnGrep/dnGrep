@@ -723,27 +723,27 @@
     <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>하위폴더 제외</value>
+    <value>하위 폴더 없음</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
-    <value>{0} date from {1} to {2}</value>
+    <value>{0} 날짜: {1}에서 {2}</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
-    <value>{0} date in past {1} to {2} hours</value>
+    <value>지난 {1}~{2}시간 동안의 {0} 날짜</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
-    <value>Using Everything index search</value>
+    <value>Everything 인덱스 검색 사용</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Using regular expression file pattern</value>
+    <value>정규 표현식 파일 패턴 사용</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
-    <value>Using {0} search</value>
+    <value>{0} 검색 사용</value>
     <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
@@ -755,7 +755,7 @@
     <comment>Test window, error text</comment>
   </data>
   <data name="Test_SearchType_XPath" xml:space="preserve">
-    <value>_XPath</value>
+    <value>XPath(_X)</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
@@ -2059,11 +2059,11 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
-    <value>압축파일 아님</value>
+    <value>압축파일 없음</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>이진 아님</value>
+    <value>이진 없음</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
@@ -2075,7 +2075,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>심볼릭링크 제외</value>
+    <value>심볼릭 링크 없음</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
@@ -2083,7 +2083,7 @@
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
-    <value>Search in:</value>
+    <value>검색:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
@@ -2091,7 +2091,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value>Size from {0} to {1} KB</value>
+    <value>크기: {0}에서 {1}KB</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
@@ -2139,7 +2139,7 @@
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>정규식(_R)</value>
+    <value>정규 표현식(_R)</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
@@ -2307,7 +2307,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
-    <value>그룹 캡쳐 검색</value>
+    <value>그룹 검색 캡처</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
@@ -3434,5 +3434,113 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>닫기</value>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>검색이 {0}에서 취소되었습니다 - {2}개의 {3}개의 파일에서 {1}개의 일치 항목이 발견되었습니다.</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>취소된 텍스트 바꾸기 – {0} 파일에서 텍스트를 바꿨습니다.</value>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>기존 창 재사용 (단일 인스턴스) *</value>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* 변경 시 재시작 필요</value>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>파일 바꾸기가 실행 중입니다.</value>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>종료하기 전에 완료하거나 취소하세요.</value>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>스크립트가 실행 중입니다.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>스크립트를 중지하고 종료하시겠습니까?</value>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>예, 어쨌든 종료</value>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>이 메시지를 다시 표시하지 않음</value>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>검색이 실행 중입니다.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>검색을 중지하고 종료하시겠습니까?</value>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>검색 결과는 종료 시 삭제됩니다.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>종료하시겠습니까?</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>스크립트가 실행 중일 때 종료 시 확인 요청</value>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>검색이 다음보다 오래 실행될 때 종료 시 확인 요청</value>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>분</value>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>PDF 파일을 여는 중 오류 발생</value>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>출력 파일을 여는 중 오류 발생</value>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>PDF 권한과 관련된 오류</value>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>기타 오류</value>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext가 '{1}'을 읽으며 '{0}'을 반환했습니다</value>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>압축파일 '{0}' 내부를 검색하지 못했습니다</value>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>압출파일 '{1}'에서 파일 '{0}'을 추출하지 못했습니다</value>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>문서 읽기 실패</value>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>파일을 열면 다음 확장자에 대한 전체 압축파일 열기:</value>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>각주 추출</value>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>각주 참조 문자:</value>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>표시되지 않음</value>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>위 첨자</value>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>모든 글꼴에서 지원되지 않을 수 있습니다</value>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>전체 크기 문자</value>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>괄호 안의 전체 크기 문자</value>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Extract headers</value>
   </data>
 </root>
