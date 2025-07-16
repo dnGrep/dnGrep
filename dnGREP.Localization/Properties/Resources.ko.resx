@@ -523,7 +523,7 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value>Boolean 연산자</value>
+    <value>부울 연산자</value>
     <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
@@ -699,7 +699,7 @@
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>{1}의 {0} 파일:  {2} ({4} 줄에서 일치하는 {3}개)</value>
+    <value>{1}의 {0} 파일: {2} ({4} 줄에서 일치하는 {3}개)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
@@ -831,7 +831,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>.ECMA-376 숫자를 구문 분석하는 .NET 라이브러리</value>
+    <value>ECMA-376 숫자를 구문 분석하는 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
