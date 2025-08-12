@@ -133,5 +133,55 @@ namespace Tests
             Assert.Equal(expExit, args.Exit);
         }
 
+        [Theory]
+        [InlineData(01, @" /s p\w* /e c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(02, @" /s p\w* /cs true /ww True /ml false /dn false /bo False /e c:\temp\testData *.cs", 14, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(03, @" /e c:\temp\testData *.cs -searchforexact p\w*", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(04, @" /se p\w* -everything c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        public void SplitCommandLineTestEverything(int index, string commandLine, int argCount,
+            bool? expInvalidArgument, string? expEverything, string? expSearchFor,
+            SearchType? expSearchType, string? expPatternToInclude, string? expPatternToExclude,
+            FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord,
+            bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool? expExecuteSearch,
+            string? expReportPath, string? expTextPath, string? expCsvPath, ReportMode? reportMode,
+            bool? includeFileInformation, bool? trimWhitespace, bool? filterUniqueValues,
+            UniqueScope? uniqueScope, bool? outputOnSeparateLines, string? listItemSeparator,
+            string? script, bool? expExit)
+        {
+            // index is used to identify the test case
+            Assert.True(index > 0);
+
+            string program = @"""C:\\Program Files\\dnGREP\\dnGREP.exe""";
+
+            CommandLineArgs args = new(program + commandLine);
+
+            Assert.Equal(argCount, args.Count);
+            Assert.Equal(expInvalidArgument, args.InvalidArgument);
+            Assert.Equal(expEverything, args.Everything);
+            Assert.Equal(expSearchFor, args.SearchFor);
+            Assert.Equal(expSearchType, args.TypeOfSearch);
+            Assert.Equal(expPatternToInclude, args.NamePatternToInclude);
+            Assert.Equal(expPatternToExclude, args.NamePatternToExclude);
+            Assert.Equal(expTypeOfFileSearch, args.TypeOfFileSearch);
+            Assert.Equal(expCaseSensitive, args.CaseSensitive);
+            Assert.Equal(expWholeWord, args.WholeWord);
+            Assert.Equal(expMultiline, args.Multiline);
+            Assert.Equal(expDotAsNewLine, args.DotAsNewline);
+            Assert.Equal(expBooleanOperators, args.BooleanOperators);
+            Assert.Equal(expExecuteSearch, args.ExecuteSearch);
+            Assert.Equal(expReportPath, args.ReportPath);
+            Assert.Equal(expTextPath, args.TextPath);
+            Assert.Equal(expCsvPath, args.CsvPath);
+            Assert.Equal(reportMode, args.ReportMode);
+            Assert.Equal(includeFileInformation, args.IncludeFileInformation);
+            Assert.Equal(trimWhitespace, args.TrimWhitespace);
+            Assert.Equal(filterUniqueValues, args.FilterUniqueValues);
+            Assert.Equal(uniqueScope, args.UniqueScope);
+            Assert.Equal(outputOnSeparateLines, args.OutputOnSeparateLines);
+            Assert.Equal(listItemSeparator, args.ListItemSeparator);
+            Assert.Equal(script, args.Script);
+            Assert.Equal(expExit, args.Exit);
+        }
+
     }
 }

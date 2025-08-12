@@ -30,7 +30,7 @@ namespace dnGREP.WPF
             // Getting the arguments from Environment.GetCommandLineArgs() or StartupEventArgs 
             // does strange things with quoted strings, so parse them here:
             string[] args = SplitCommandLine(commandLine);
-            Count = args.Length;
+            Count = 0;
             if (args.Length > 0)
             {
                 EvaluateArgs(args);
@@ -44,7 +44,7 @@ namespace dnGREP.WPF
         private static string[] SplitCommandLine(string line)
         {
             List<string> result = [];
-            foreach (string arg in ParseArgumentsWithEmbeddedQuotes(line))
+            foreach (string arg in ParseLine(line))
             {
                 string token = arg.Trim();
                 if (!string.IsNullOrEmpty(token))
@@ -53,59 +53,6 @@ namespace dnGREP.WPF
                 }
             }
             return result.Skip(1).ToArray(); // skip the app and return array of all strings
-        }
-
-        /// <summary>
-        /// Parses a command line string into arguments, supporting quoted strings with embedded quotes.
-        /// Embedded quotes inside a quoted argument should be escaped by doubling them ("").
-        /// Example: --name "John ""The Man"" Doe" yields ["--name", "John \"The Man\" Doe"]
-        /// </summary>
-        public static List<string> ParseArgumentsWithEmbeddedQuotes(string commandLine)
-        {
-            List<string> args = new();
-            if (string.IsNullOrEmpty(commandLine))
-                return args;
-
-            StringBuilder current = new();
-            bool inQuotes = false;
-            int i = 0;
-            while (i < commandLine.Length)
-            {
-                char c = commandLine[i];
-
-                if (c == '"')
-                {
-                    if (inQuotes && i + 1 < commandLine.Length && commandLine[i + 1] == '"')
-                    {
-                        // Embedded quote ("")
-                        current.Append('"');
-                        i += 2;
-                        continue;
-                    }
-                    inQuotes = !inQuotes;
-                    i++;
-                    continue;
-                }
-
-                if (char.IsWhiteSpace(c) && !inQuotes)
-                {
-                    if (current.Length > 0)
-                    {
-                        args.Add(current.ToString());
-                        current.Clear();
-                    }
-                    i++;
-                    continue;
-                }
-
-                current.Append(c);
-                i++;
-            }
-
-            if (current.Length > 0)
-                args.Add(current.ToString());
-
-            return args;
         }
 
         internal static IEnumerable<string> ParseLine(string input)
@@ -300,12 +247,14 @@ namespace dnGREP.WPF
                         if (idx == 0)
                         {
                             SearchPath = FormatPathArgs(arg);
+                            Count++;
                         }
                         else if (idx == 1)
                         {
                             SearchFor = arg.StripQuotes();
                             TypeOfSearch = SearchType.Regex;
                             ExecuteSearch = true;
+                            Count++;
                         }
                     }
                     else
@@ -329,14 +278,17 @@ namespace dnGREP.WPF
                         {
                             case "/warmup":
                                 WarmUp = true;
+                                Count++;
                                 break;
 
                             case "/registercontextmenu":
                                 RegisterContextMenu = true;
+                                Count++;
                                 break;
 
                             case "/removecontextmenu":
                                 RemoveContextMenu = true;
+                                Count++;
                                 break;
 
                             case "/sc":
@@ -346,6 +298,7 @@ namespace dnGREP.WPF
                                 {
                                     Script = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -360,15 +313,32 @@ namespace dnGREP.WPF
                             case "-everything":
                                 if (!string.IsNullOrWhiteSpace(value))
                                 {
-                                    // must be the last option on the command line, will copy the remainder of the line
+                                    // must be the last option on the command line,
+                                    // except possibly the -searchforexact arg
+                                    // will copy the remainder of the line
                                     int pos = CommandLine.IndexOf(arg, StringComparison.OrdinalIgnoreCase);
                                     if (pos > -1)
                                     {
                                         pos += arg.Length + 1;
                                         if (pos < CommandLine.Length)
                                         {
-                                            Everything = CommandLine.Substring(pos);
-                                            idx = args.Length;
+                                            string remainder = CommandLine.Substring(pos);
+                                            int pos2 = remainder.IndexOf(" -searchforexact ", StringComparison.Ordinal);
+                                            if (pos2 > -1)
+                                            {
+                                                Everything = remainder[..pos2];
+                                                while (idx + 1 < args.Length && !args[idx + 1].Equals("-searchforexact", StringComparison.OrdinalIgnoreCase))
+                                                {
+                                                    idx++;
+                                                }
+                                                Count += 2;
+                                            }
+                                            else
+                                            {
+                                                Everything = remainder;
+                                                idx = args.Length;
+                                                Count += 2;
+                                            }
                                         }
                                         else
                                         {
@@ -396,6 +366,7 @@ namespace dnGREP.WPF
                                     else
                                         SearchPath = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -412,6 +383,7 @@ namespace dnGREP.WPF
                                 {
                                     NamePatternToInclude = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -428,6 +400,7 @@ namespace dnGREP.WPF
                                 {
                                     NamePatternToExclude = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -446,6 +419,7 @@ namespace dnGREP.WPF
                                 {
                                     TypeOfFileSearch = tofs;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -463,6 +437,56 @@ namespace dnGREP.WPF
                                     SearchFor = value;
                                     ExecuteSearch = true;
                                     idx++;
+                                    Count += 2;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+
+                                break;
+
+                            case "/se":
+                            case "-se":
+                            case "-searchforexact":
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
+                                    // must be the last option on the command line,
+                                    // except possibly the -everything arg
+                                    // will copy the remainder of the line
+                                    int pos = CommandLine.IndexOf(arg, StringComparison.OrdinalIgnoreCase);
+                                    if (pos > -1)
+                                    {
+                                        pos += arg.Length + 1;
+                                        if (pos < CommandLine.Length)
+                                        {
+                                            string remainder = CommandLine.Substring(pos);
+                                            int pos2 = remainder.IndexOf(" -everything ", StringComparison.Ordinal);
+                                            if (pos2 > -1)
+                                            {
+                                                SearchFor = remainder[..pos2];
+                                                ExecuteSearch = true;
+                                                while (idx + 1 < args.Length && !args[idx + 1].Equals("-everything", StringComparison.OrdinalIgnoreCase))
+                                                {
+                                                    idx++;
+                                                }
+                                                Count += 2;
+                                            }
+                                            else
+                                            {
+                                                SearchFor = remainder;
+                                                ExecuteSearch = true;
+                                                idx = args.Length;
+                                                Count += 2;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            InvalidArgument = true;
+                                            ShowHelp = true;
+                                        }
+                                    }
                                 }
                                 else
                                 {
@@ -481,6 +505,7 @@ namespace dnGREP.WPF
                                 {
                                     TypeOfSearch = tos;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -496,6 +521,7 @@ namespace dnGREP.WPF
                                 {
                                     CaseSensitive = caseSensitive;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -511,6 +537,7 @@ namespace dnGREP.WPF
                                 {
                                     WholeWord = wholeWord;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -526,6 +553,7 @@ namespace dnGREP.WPF
                                 {
                                     Multiline = multiline;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -541,6 +569,7 @@ namespace dnGREP.WPF
                                 {
                                     DotAsNewline = dotAsNewline;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -556,6 +585,7 @@ namespace dnGREP.WPF
                                 {
                                     BooleanOperators = booleanOperators;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -573,6 +603,7 @@ namespace dnGREP.WPF
                                 {
                                     ReportMode = rm;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -588,6 +619,7 @@ namespace dnGREP.WPF
                                 {
                                     IncludeFileInformation = fileInformation;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -603,6 +635,7 @@ namespace dnGREP.WPF
                                 {
                                     TrimWhitespace = trim;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -618,6 +651,7 @@ namespace dnGREP.WPF
                                 {
                                     FilterUniqueValues = unique;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -635,6 +669,7 @@ namespace dnGREP.WPF
                                 {
                                     UniqueScope = scope;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -650,6 +685,7 @@ namespace dnGREP.WPF
                                 {
                                     OutputOnSeparateLines = separatelines;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -665,6 +701,7 @@ namespace dnGREP.WPF
                                 {
                                     ListItemSeparator = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -681,6 +718,7 @@ namespace dnGREP.WPF
                                 {
                                     ReportPath = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -696,6 +734,7 @@ namespace dnGREP.WPF
                                 {
                                     TextPath = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -710,6 +749,7 @@ namespace dnGREP.WPF
                                 {
                                     CsvPath = value;
                                     idx++;
+                                    Count += 2;
                                 }
                                 else
                                 {
@@ -722,6 +762,7 @@ namespace dnGREP.WPF
                             case "-x":
                             case "-exit":
                                 Exit = true;
+                                Count++;
                                 break;
 
                             case "/h":
@@ -731,6 +772,7 @@ namespace dnGREP.WPF
                             case "-v":
                             case "-version":
                                 ShowHelp = true;
+                                Count++;
                                 break;
 
                             default:
