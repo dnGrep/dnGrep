@@ -3457,4 +3457,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
     <value>Показати шлях відносно шляху пошуку</value>
   </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Знайти</value>
+  </data>
 </root>
