@@ -1272,11 +1272,23 @@ namespace dnGREP.Localization.Properties {
         ///   Looks up a localized string similar to /e [search commands]
         ///-e [search commands]
         ///-everything [search commands]
-        ///    Sets the Everything search text. Must be the last option on the command line and will copy the remainder of the command line verbatim..
+        ///    Sets the Everything search text..
         /// </summary>
         public static string Help_CmdLineEverything {
             get {
                 return ResourceManager.GetString("Help_CmdLineEverything", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /e* [search commands]
+        ///-e* [search commands]
+        ///-everything* [search commands]
+        ///    Sets the Everything search text. Must be the last option on the command line and will copy the remainder of the command line verbatim..
+        /// </summary>
+        public static string Help_CmdLineEverythingVerbatim {
+            get {
+                return ResourceManager.GetString("Help_CmdLineEverythingVerbatim", resourceCulture);
             }
         }
         
@@ -1454,6 +1466,18 @@ namespace dnGREP.Localization.Properties {
         public static string Help_CmdLineSearchFor {
             get {
                 return ResourceManager.GetString("Help_CmdLineSearchFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /s* [searchFor]
+        ///-s* [searchFor]
+        ///-searchFor* [searchFor]
+        ///    Sets the pattern or text to search for within the set of files. Must be the last option on the command line and will copy the remainder of the command line verbatim. When this argument is set, the search will be run automatically..
+        /// </summary>
+        public static string Help_CmdLineSearchForVerbatim {
+            get {
+                return ResourceManager.GetString("Help_CmdLineSearchForVerbatim", resourceCulture);
             }
         }
         

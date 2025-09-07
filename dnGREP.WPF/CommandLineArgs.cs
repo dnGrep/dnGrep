@@ -952,10 +952,12 @@ namespace dnGREP.WPF
             sb.AppendLine(Resources.Help_CmdLineScript).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineFolder).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineEverything).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineEverythingVerbatim).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePathToMatch).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePathToIgnore).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePatternType).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineSearchFor).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineSearchForVerbatim).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineSearchType).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineCaseSensitive).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineWholeWord).AppendLine();
