@@ -76,4 +76,10 @@
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
     <value>Převést PDF soubory na čistý text</value>
   </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Verze</value>
+  </data>
 </root>
