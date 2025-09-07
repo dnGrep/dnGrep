@@ -313,8 +313,25 @@ namespace dnGREP.WPF
                             case "-everything":
                                 if (!string.IsNullOrWhiteSpace(value))
                                 {
+                                    Everything = value;
+                                    idx++;
+                                    Count += 2;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+
+                                break;
+
+                            case "/e*":
+                            case "-e*":
+                            case "-everything*":
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
                                     // must be the last option on the command line,
-                                    // except possibly the -searchforexact arg
+                                    // except possibly the -searchfor* arg
                                     // will copy the remainder of the line
                                     int pos = CommandLine.IndexOf(arg, StringComparison.OrdinalIgnoreCase);
                                     if (pos > -1)
@@ -323,11 +340,11 @@ namespace dnGREP.WPF
                                         if (pos < CommandLine.Length)
                                         {
                                             string remainder = CommandLine.Substring(pos);
-                                            int pos2 = remainder.IndexOf(" -searchforexact ", StringComparison.Ordinal);
+                                            int pos2 = remainder.ToLowerInvariant().IndexOf(" -searchfor* ", StringComparison.Ordinal);
                                             if (pos2 > -1)
                                             {
                                                 Everything = remainder[..pos2];
-                                                while (idx + 1 < args.Length && !args[idx + 1].Equals("-searchforexact", StringComparison.OrdinalIgnoreCase))
+                                                while (idx + 1 < args.Length && !args[idx + 1].ToLowerInvariant().Equals("-searchfor*", StringComparison.OrdinalIgnoreCase))
                                                 {
                                                     idx++;
                                                 }
@@ -447,9 +464,9 @@ namespace dnGREP.WPF
 
                                 break;
 
-                            case "/se":
-                            case "-se":
-                            case "-searchforexact":
+                            case "/s*":
+                            case "-s*":
+                            case "-searchfor*":
                                 if (!string.IsNullOrWhiteSpace(value))
                                 {
                                     // must be the last option on the command line,
@@ -462,12 +479,12 @@ namespace dnGREP.WPF
                                         if (pos < CommandLine.Length)
                                         {
                                             string remainder = CommandLine.Substring(pos);
-                                            int pos2 = remainder.IndexOf(" -everything ", StringComparison.Ordinal);
+                                            int pos2 = remainder.ToLowerInvariant().IndexOf(" -everything* ", StringComparison.Ordinal);
                                             if (pos2 > -1)
                                             {
                                                 SearchFor = remainder[..pos2];
                                                 ExecuteSearch = true;
-                                                while (idx + 1 < args.Length && !args[idx + 1].Equals("-everything", StringComparison.OrdinalIgnoreCase))
+                                                while (idx + 1 < args.Length && !args[idx + 1].ToLowerInvariant().Equals("-everything*", StringComparison.OrdinalIgnoreCase))
                                                 {
                                                     idx++;
                                                 }

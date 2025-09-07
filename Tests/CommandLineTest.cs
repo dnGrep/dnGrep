@@ -87,6 +87,7 @@ namespace Tests
         [InlineData(48, @" -f c:\temp\testData -f ""c:\temp\test files""", 4, false, false, @"c:\temp\testData;""c:\temp\test files""", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(49, @" -f ""c:\temp\test files"" -f ""c:\temp\testData""", 4, false, false, @"""c:\temp\test files"";c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
         [InlineData(50, @" -f ""c:\temp\test files"" -f c:\temp\testData", 4, false, false, @"""c:\temp\test files"";c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(51, @" -f c:\temp\testData\ -s ""p\w* r\w*""", 4, false, false, @"c:\temp\testData\", @"p\w* r\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
         public void SplitCommandLineTest(int index, string commandLine, int argCount,
             bool? expInvalidArgument, bool? expIsWarmUp, string? expSearchPath, string? expSearchFor,
             SearchType? expSearchType, string? expPatternToInclude, string? expPatternToExclude,
@@ -134,11 +135,32 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData(01, @" /s p\w* /e c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(02, @" /s p\w* /cs true /ww True /ml false /dn false /bo False /e c:\temp\testData *.cs", 14, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(03, @" /e c:\temp\testData *.cs -searchforexact p\w*", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(04, @" /se p\w* -everything c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
-        public void SplitCommandLineTestEverything(int index, string commandLine, int argCount,
+        // invalid, should use *
+        [InlineData(01, @" /s p\w* /e c:\temp\testData *.cs", 0, true, null, null, null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // valid everything args
+        [InlineData(02, @" /s p\w* /e* c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(03, @" /s p\w* -e* c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(04, @" /s p\w* -everything* c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // invalid, should use *
+        [InlineData(05, @" /s p\w* /cs true /ww True /ml false /dn false /bo False /e c:\temp\testData *.cs", 0, true, null, null, null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // valid everything verbatim args
+        [InlineData(06, @" /s p\w* /cs true /ww True /ml false /dn false /bo False /e* c:\temp\testData *.cs", 14, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(07, @" /s p\w* /cs true /ww True /ml false /dn false /bo False -e* c:\temp\testData *.cs", 14, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(08, @" /s p\w* /cs true /ww True /ml false /dn false /bo False -everything* c:\temp\testData *.cs", 14, false, @"c:\temp\testData *.cs", @"p\w*", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // valid searchFor verbatim args
+        [InlineData(09, @" /cs true /ww True /ml false /dn false /bo False /s* ""p\w*"" ""r\w*""", 12, false, null, @"""p\w*"" ""r\w*""", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(10, @" /cs true /ww True /ml false /dn false /bo False -s* ""p\w*"" ""r\w*""", 12, false, null, @"""p\w*"" ""r\w*""", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(11, @" /cs true /ww True /ml false /dn false /bo False -searchFor* ""p\w*"" ""r\w*""", 12, false, null, @"""p\w*"" ""r\w*""", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(12, @" /cs true /ww True /ml false /dn false /bo False -searchFor* ""p\w*"" ""r\w*""", 12, false, null, @"""p\w*"" ""r\w*""", null, null, null, null, true, true, false, false, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // two verbatim args
+        [InlineData(13, @" /e* c:\temp\testData *.cs -searchFor* ""p\w*"" ""r\w*""", 4, false, @"c:\temp\testData *.cs", @"""p\w*"" ""r\w*""", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // test case insensitive
+        [InlineData(14, @" /e* c:\temp\testData *.cs -searchfor* ""p\w*"" ""r\w*""", 4, false, @"c:\temp\testData *.cs", @"""p\w*"" ""r\w*""", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // switch order of verbatim args    
+        [InlineData(15, @" /s* ""p\w*"" ""r\w*"" -everything* c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"""p\w*"" ""r\w*""", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        // test case insensitive
+        [InlineData(16, @" /s* ""p\w*"" ""r\w*"" -everyThing* c:\temp\testData *.cs", 4, false, @"c:\temp\testData *.cs", @"""p\w*"" ""r\w*""", null, null, null, null, null, null, null, null, null, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        public void SplitCommandLineTestVerbatimArgs(int index, string commandLine, int argCount,
             bool? expInvalidArgument, string? expEverything, string? expSearchFor,
             SearchType? expSearchType, string? expPatternToInclude, string? expPatternToExclude,
             FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord,
@@ -155,32 +177,35 @@ namespace Tests
 
             CommandLineArgs args = new(program + commandLine);
 
-            Assert.Equal(argCount, args.Count);
             Assert.Equal(expInvalidArgument, args.InvalidArgument);
-            Assert.Equal(expEverything, args.Everything);
-            Assert.Equal(expSearchFor, args.SearchFor);
-            Assert.Equal(expSearchType, args.TypeOfSearch);
-            Assert.Equal(expPatternToInclude, args.NamePatternToInclude);
-            Assert.Equal(expPatternToExclude, args.NamePatternToExclude);
-            Assert.Equal(expTypeOfFileSearch, args.TypeOfFileSearch);
-            Assert.Equal(expCaseSensitive, args.CaseSensitive);
-            Assert.Equal(expWholeWord, args.WholeWord);
-            Assert.Equal(expMultiline, args.Multiline);
-            Assert.Equal(expDotAsNewLine, args.DotAsNewline);
-            Assert.Equal(expBooleanOperators, args.BooleanOperators);
-            Assert.Equal(expExecuteSearch, args.ExecuteSearch);
-            Assert.Equal(expReportPath, args.ReportPath);
-            Assert.Equal(expTextPath, args.TextPath);
-            Assert.Equal(expCsvPath, args.CsvPath);
-            Assert.Equal(reportMode, args.ReportMode);
-            Assert.Equal(includeFileInformation, args.IncludeFileInformation);
-            Assert.Equal(trimWhitespace, args.TrimWhitespace);
-            Assert.Equal(filterUniqueValues, args.FilterUniqueValues);
-            Assert.Equal(uniqueScope, args.UniqueScope);
-            Assert.Equal(outputOnSeparateLines, args.OutputOnSeparateLines);
-            Assert.Equal(listItemSeparator, args.ListItemSeparator);
-            Assert.Equal(script, args.Script);
-            Assert.Equal(expExit, args.Exit);
+            if (!args.InvalidArgument)
+            {
+                Assert.Equal(argCount, args.Count);
+                Assert.Equal(expEverything, args.Everything);
+                Assert.Equal(expSearchFor, args.SearchFor);
+                Assert.Equal(expSearchType, args.TypeOfSearch);
+                Assert.Equal(expPatternToInclude, args.NamePatternToInclude);
+                Assert.Equal(expPatternToExclude, args.NamePatternToExclude);
+                Assert.Equal(expTypeOfFileSearch, args.TypeOfFileSearch);
+                Assert.Equal(expCaseSensitive, args.CaseSensitive);
+                Assert.Equal(expWholeWord, args.WholeWord);
+                Assert.Equal(expMultiline, args.Multiline);
+                Assert.Equal(expDotAsNewLine, args.DotAsNewline);
+                Assert.Equal(expBooleanOperators, args.BooleanOperators);
+                Assert.Equal(expExecuteSearch, args.ExecuteSearch);
+                Assert.Equal(expReportPath, args.ReportPath);
+                Assert.Equal(expTextPath, args.TextPath);
+                Assert.Equal(expCsvPath, args.CsvPath);
+                Assert.Equal(reportMode, args.ReportMode);
+                Assert.Equal(includeFileInformation, args.IncludeFileInformation);
+                Assert.Equal(trimWhitespace, args.TrimWhitespace);
+                Assert.Equal(filterUniqueValues, args.FilterUniqueValues);
+                Assert.Equal(uniqueScope, args.UniqueScope);
+                Assert.Equal(outputOnSeparateLines, args.OutputOnSeparateLines);
+                Assert.Equal(listItemSeparator, args.ListItemSeparator);
+                Assert.Equal(script, args.Script);
+                Assert.Equal(expExit, args.Exit);
+            }
         }
 
     }
