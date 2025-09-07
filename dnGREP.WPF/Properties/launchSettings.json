@@ -1,7 +1,8 @@
 {
   "profiles": {
     "dnGREP.WPF": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "/f \"C:\\\\repos\\\\testFiles\\\\test\" /st PlainText /pm \"*.ahk;*.ini;*.txt\" /s \""
     }
   }
 }
