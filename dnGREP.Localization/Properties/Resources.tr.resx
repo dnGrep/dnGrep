@@ -3181,7 +3181,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/e [search commands]
 -e [search commands]
 -everything [search commands]
-    Everything arama metnini ayarlar. Komut satırındaki son seçenek olmalıdır ve komut satırının geri kalanını kelimesi kelimesine kopyalayacaktır.</value>
+    Everything arama metnini ayarlar.</value>
   </data>
   <data name="Options_CacheExtractedFiles" xml:space="preserve">
     <value>Çıkarılan dosyaları önbelleğe al</value>
@@ -3398,5 +3398,17 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
     <value>Uygulama yapılandırması ve verileri:</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [search commands]
+-e* [search commands]
+-everything* [search commands]
+    Everything arama metnini ayarlar. Komut satırındaki son seçenek olmalıdır ve komut satırının geri kalanını kelimesi kelimesine kopyalayacaktır.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [searchFor]
+-s* [searchFor]
+-searchFor* [searchFor]
+    Dosya kümesi içinde aramak için desen veya metni ayarlar. Komut satırındaki son seçenek olmalıdır ve komut satırının geri kalanını kelimesi kelimesine kopyalayacaktır. Bu argüman ayarlandığında, arama otomatik olarak çalıştırılır.</value>
   </data>
 </root>

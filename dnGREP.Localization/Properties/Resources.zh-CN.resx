@@ -4021,7 +4021,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/e [search commands]
 -e [search commands]
 -everything [search commands]
-    设置 Everything 搜索文本。 必须是命令行最后一个选项，会一字不差地复制命令行剩余部分。</value>
+    设置 Everything 搜索文本。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
@@ -4325,5 +4325,17 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Preview_Find" xml:space="preserve">
     <value>寻找</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [search commands]
+-e* [search commands]
+-everything* [search commands]
+    设置 Everything 搜索文本。必须是命令行最后一个选项，会一字不差地复制命令行剩余部分。</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [searchFor]
+-s* [searchFor]
+-searchFor* [searchFor]
+    设置在文件集内要搜索的模式或文本。必须是命令行最后一个选项，会一字不差地复制命令行剩余部分。设置该变量时会自动运行搜索。</value>
   </data>
 </root>

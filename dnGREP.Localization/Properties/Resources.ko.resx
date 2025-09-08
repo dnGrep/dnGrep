@@ -1071,7 +1071,7 @@
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>온점에 행문자 포함(_D)</value>
+    <value>점을 새 줄로(_D)</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
@@ -2027,7 +2027,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>점을 줄바꿈으로</value>
+    <value>점을 새 줄로</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
