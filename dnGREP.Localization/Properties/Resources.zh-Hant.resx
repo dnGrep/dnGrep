@@ -500,7 +500,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/s [searchFor]
 -s [searchFor]
 -searchFor [searchFor]
-    設定所欲搜尋樣式或文字. 當此引數已設定, 將會自動搜尋.</value>
+    設定檔案集中所欲搜尋樣式或文字.  當此引數已設定, 將會自動搜尋.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineSearchType" xml:space="preserve">
@@ -3652,7 +3652,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom archive extension label</comment>
   </data>
   <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
-    <value>錯誤: 參數 {1} 的錯誤訊息 {0}</value>
+    <value>錯誤: 引數 {1} 的錯誤訊息 {0}</value>
     <comment>Script copy command validation error message. {0} is the error message and {1} is the command argument name.</comment>
   </data>
   <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
@@ -3672,7 +3672,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, check box label</comment>
   </data>
   <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
-    <value>錯誤: 參數 {0} 需要樣式</value>
+    <value>錯誤: 引數 {0} 需要樣式</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
@@ -3720,7 +3720,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
   <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
-    <value>'{0}' 參數中的轉義引號</value>
+    <value>'{0}' 引數中的轉義引號</value>
     <comment>Options dialog, checkbox label. The {0} placeholder is the non-localized expression</comment>
   </data>
   <data name="Options_ExtractHeaders" xml:space="preserve">
@@ -3736,7 +3736,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script copy command error message.  {0} is the directory name.</comment>
   </data>
   <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
-    <value>錯誤: 參數 {0} 需要 True 或 False</value>
+    <value>錯誤: 引數 {0} 需要 True 或 False</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="ScriptHint_copy" xml:space="preserve">
@@ -3792,7 +3792,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
-    <value>錯誤: 參數 {0} 需要路徑</value>
+    <value>錯誤: 引數 {0} 需要路徑</value>
     <comment>Script copy command validation error message. {0} is the command argument name.</comment>
   </data>
   <data name="Options_SectionStart" xml:space="preserve">
@@ -3987,7 +3987,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/e [search commands]
 -e [search commands]
 -everything [search commands]
-    設定 Everything 搜尋文字. 必須是命令列上的最後一個選項, 並將逐字複製命令列的其餘部分.</value>
+    設定 Everything 搜尋文字.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="BookmarkDetails_Global" xml:space="preserve">
@@ -4134,7 +4134,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>.NET 程式庫產生文字差異</value>
   </data>
   <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
-    <value>將命令列參數轉送到現有視窗</value>
+    <value>將命令列引數轉送到現有視窗</value>
   </data>
   <data name="Main_Menu_About_AppLogs" xml:space="preserve">
     <value>程式日誌</value>
@@ -4267,5 +4267,17 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Preview_Find" xml:space="preserve">
     <value>搜尋</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [search commands]
+-e* [search commands]
+-everything* [search commands]
+    設定 Everything 搜尋文字. 必須是命令列上的最後一個選項, 並將逐字複製命令列的其餘部分.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [searchFor]
+-s* [searchFor]
+-searchFor* [searchFor]
+    設定檔案集中所欲搜尋樣式或文字. 必須是命令列上的最後一個選項, 並將逐字複製命令列的其餘部分. 當此引數已設定, 將會自動搜尋.</value>
   </data>
 </root>
