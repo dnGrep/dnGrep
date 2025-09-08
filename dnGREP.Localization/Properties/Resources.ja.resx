@@ -4240,4 +4240,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_Directories" xml:space="preserve">
     <value>ディレクトリ</value>
   </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [search commands]
+-e* [search commands]
+-everything* [search commands]
+    Everything検索テキストを設定します。コマンドラインの最後のオプションとして指定する必要があり、コマンドラインの残りの部分をそのままコピーします。</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [searchFor]
+-s* [searchFor]
+-searchFor* [searchFor]
+    ファイルセット内で検索するパターンまたはテキストを設定します。コマンドラインの最後のオプションとして指定する必要があり、コマンドラインの残りの部分をそのままコピーします。この引数が設定されると、検索は自動的に実行されます。</value>
+  </data>
 </root>
