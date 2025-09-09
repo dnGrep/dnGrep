@@ -559,7 +559,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/s [търсене]
 -s [търсене]
 -searchFor [търсене]
-    Задава модел или текст, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
+    Задава модел или низ, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineSearchType" xml:space="preserve">
@@ -4331,5 +4331,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -e* [команди за търсене]
 -everything* [команди за търсене]
     Задава текст за търсене с Everything. Трябва да бъде последната команда на командния ред и ще използва дословно всичко след нея.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [търсене]
+-s* [търсене]
+-searchFor* [търсене]
+    Задава модел или низ, който да бъде търсен в набора от файлове. Трябва да бъде последната команда на командния ред и ще използва дословно всичко след нея. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
   </data>
 </root>
