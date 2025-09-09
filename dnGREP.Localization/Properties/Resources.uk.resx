@@ -271,7 +271,7 @@
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>Пошук в архівах</value>
+    <value>Пошук в ар_хіві</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
@@ -383,7 +383,7 @@
     <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Пошук в архівах</value>
+    <value>Пошук в ар_хівах</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
@@ -2900,7 +2900,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>хвилин</value>
   </data>
   <data name="Options_CustomEditor_Title" xml:space="preserve">
-    <value>Спеціальний редактор</value>
+    <value>Спеціальний Редактор</value>
   </data>
   <data name="Options_EditorSetAsDefault" xml:space="preserve">
     <value>Встановити редактором за замовчуванням для типів файлів, які не входять до списку</value>
@@ -3113,10 +3113,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Хеш розміру файлу та часу зміни</value>
   </data>
   <data name="Help_CmdLineEverything" xml:space="preserve">
-    <value>/e [команди пошуку] 
--e [команди пошуку] 
--все [команди пошуку] 
-    Встановлює текст пошуку «Все». Має бути останнім параметром у командному рядку та дослівно копіюватиме решту командного рядка.</value>
+    <value>/e [команди пошуку]
+-e [команди пошуку]
+-everything [команди пошуку]
+Встановлює текст пошуку «Все».</value>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
     <value>У логічному виразі відсутній логічний оператор</value>
@@ -3459,5 +3459,17 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Preview_Find" xml:space="preserve">
     <value>Знайти</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [команди пошуку]
+-e* [команди пошуку]
+-everything* [команди пошуку]
+    Встановлює текст пошуку Everything. Повинно бути останньою опцією в командному рядку і копіюватиме решту командного рядка дослівно.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [searchFor]
+-s* [searchFor]
+-searchFor* [searchFor]
+    Встановлює шаблон або текст для пошуку в наборі файлів. Повинно бути останнім параметром у командному рядку, після чого решта командного рядка буде скопійована дослівно. Якщо цей аргумент встановлено, пошук буде виконано автоматично.</value>
   </data>
 </root>
