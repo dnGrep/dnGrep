@@ -82,4 +82,7 @@
   <data name="About_Version" xml:space="preserve">
     <value>Verze</value>
   </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
 </root>
