@@ -1,4 +1,4 @@
-version: 4.5.{build}.0
+version: 4.6.{build}.0
 branches:
   only:
   - master
@@ -16,7 +16,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 install: 
-  - ps: ./dotnet-install.ps1 -Channel 9.0 -Version 9.0.303
+  - ps: ./dotnet-install.ps1 -Channel 9.0 -Version 9.0.305
 before_build:
   - cmd: nuget restore
   - ps: ./make-msix.ps1

@@ -163,7 +163,11 @@ namespace dnGREP.WPF
                     }
                     else if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)
                     {
-                        FilePath = Path.GetRelativePath(basePath, dirName) + Path.DirectorySeparatorChar;
+                        FilePath = Path.GetRelativePath(basePath, dirName);
+                        if (!FilePath.EndsWith(Path.DirectorySeparatorChar))
+                        {
+                            FilePath += Path.DirectorySeparatorChar;
+                        }
                     }
                 }
             }

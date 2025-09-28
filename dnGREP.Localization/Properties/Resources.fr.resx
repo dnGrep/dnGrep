@@ -931,7 +931,7 @@
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Utilisez les mots-clés '{0}' pour l'emplacement du fichier, '{1}' pour le numéro de ligne, '{2}' pour le modèle de recherche, '{3}' pour le premier texte correspondant sur la ligne, et '{4}' pour le numéro de colonne de la première correspondance sur la ligne.</value>
+    <value>Utilisez les mots-clés '{0}' pour l'emplacement du fichier, '{5}' pour le numéro de la page, '{1}' pour le numéro de ligne, '{2}' pour le modèle de recherche, '{3}' pour le premier texte correspondant sur la ligne, et '{4}' pour le numéro de colonne de la première correspondance sur la ligne.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -1886,8 +1886,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
-    <value>/txt [cheminfichier]
--txt [chemin du fichier]
+    <value>/txt [filePath]
+-txt [filePath]
 -text [filePath]
     Crée un fichier de résultats au format texte une fois la recherche terminée.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
@@ -2822,7 +2822,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
-    <value>nom de l'onglet:</value>
+    <value>Nom de l'onglet:</value>
     <comment>Bookmark name label</comment>
   </data>
   <data name="Main_Menu_EditScript" xml:space="preserve">
@@ -3096,5 +3096,56 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Keyborard_LeftArrowKey" xml:space="preserve">
     <value>Gauche</value>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Dossier de destination</value>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Remplacer les correspondances dans les fichiers</value>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Ecrire un rapport</value>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Le chemin et le nom du fichier de rapport</value>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>Le rapport sauvegardé dans un fichier csv</value>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>Le rapport complet</value>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Le chemin et le nom du fichier du rapport</value>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Commencer la recherche</value>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Aperçu du fichier</value>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Trier les résultats</value>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Annuler la dernière action</value>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>A la ligne</value>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Nouveau script</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Couper</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Copier</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Coller</value>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Recherche annulée en {0} - {1} correspondance(s) in {2} fichier(s) parmis {3} fichier(s) analysés.</value>
   </data>
 </root>

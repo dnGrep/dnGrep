@@ -318,7 +318,21 @@ namespace dnGREP.Common
                                 sb.Append(formattedLineNumber).Append(": ");
                             }
 
-                            string text = line.LineText.Substring(match.StartLocation, match.Length);
+                            string text = string.Empty;
+                            if (match.StartLocation + match.Length <= line.LineText.Length)
+                            {
+                                text = line.LineText.Substring(match.StartLocation, match.Length);
+                            }
+                            else if (line.LineText.Length > match.StartLocation)
+                            {
+                                // match may include the non-printing newline chars at the end of the line: don't overflow the length
+                                text = line.LineText[match.StartLocation..];
+                            }
+                            else
+                            {
+                                // past the end of the line: line may be truncated, or it may be the newline chars
+                            }
+
                             sb.Append(options.TrimWhitespace ? text.Trim() : text);
                             count++;
 
