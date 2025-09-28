@@ -37,6 +37,8 @@ namespace dnGREP.WPF
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly string ellipsis = char.ConvertFromUtf32(0x2026);
 
+        public bool SearchListsCleared { get; private set; }
+
         public OptionsViewModel()
         {
             TaskLimit = Environment.ProcessorCount * 4;
@@ -191,8 +193,8 @@ namespace dnGREP.WPF
 
         public static IList<FontInfo> FontFamilies
         {
-            get 
-            { 
+            get
+            {
                 return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source))
                     .OrderBy(r => r.FamilyName).ToList();
             }
@@ -685,8 +687,8 @@ namespace dnGREP.WPF
         {
             get
             {
-                return
-                    EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
+                return 
+                EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
                 EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
                 EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
                 IsSingletonInstance != Settings.Get<bool>(GrepSettings.Key.IsSingletonInstance) ||
@@ -948,23 +950,25 @@ namespace dnGREP.WPF
             }
         }
 
-        private static void ClearSearches()
+        private void ClearSearches()
         {
             // keep the pinned bookmarks
-            Settings.Set(GrepSettings.Key.FastPathBookmarks,
-                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastPathBookmarks).Where(r => r.IsPinned));
+            var list = Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastPathBookmarks).Where(r => r.IsPinned).ToList();
+            Settings.Set(GrepSettings.Key.FastPathBookmarks, list);
 
-            Settings.Set(GrepSettings.Key.FastFileMatchBookmarks,
-                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileMatchBookmarks).Where(r => r.IsPinned));
+            list = Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileMatchBookmarks).Where(r => r.IsPinned).ToList();
+            Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, list);
 
-            Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks,
-                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileNotMatchBookmarks).Where(r => r.IsPinned));
+            list = Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastFileNotMatchBookmarks).Where(r => r.IsPinned).ToList();
+            Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, list);
 
-            Settings.Set(GrepSettings.Key.FastSearchBookmarks,
-                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastSearchBookmarks).Where(r => r.IsPinned));
+            list = Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastSearchBookmarks).Where(r => r.IsPinned).ToList();
+            Settings.Set(GrepSettings.Key.FastSearchBookmarks, list);
 
-            Settings.Set(GrepSettings.Key.FastReplaceBookmarks,
-                Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastReplaceBookmarks).Where(r => r.IsPinned));
+            list = Settings.Get<List<MostRecentlyUsed>>(GrepSettings.Key.FastReplaceBookmarks).Where(r => r.IsPinned).ToList();
+            Settings.Set(GrepSettings.Key.FastReplaceBookmarks, list);
+
+            SearchListsCleared = true;
         }
 
         private void LoadSettings()

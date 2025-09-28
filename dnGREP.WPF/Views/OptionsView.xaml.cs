@@ -53,6 +53,7 @@ namespace dnGREP.WPF
             Closing += (s, e) => SaveSettings();
         }
 
+        public bool SearchListsCleared => viewModel.SearchListsCleared;
         public bool PluginCacheCleared => viewModel.PluginCacheCleared;
 
 
