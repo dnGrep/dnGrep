@@ -2518,6 +2518,17 @@ namespace dnGREP.WPF
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
+
+            if (optionsForm.SearchListsCleared)
+            {
+                // will reload from settings
+                FastFileMatchBookmarks.Clear();
+                FastFileNotMatchBookmarks.Clear();
+                FastPathBookmarks.Clear();
+                FastReplaceBookmarks.Clear();
+                FastSearchBookmarks.Clear();
+            }
+
             LoadSettings();
 
             if (optionsForm.PluginCacheCleared)
