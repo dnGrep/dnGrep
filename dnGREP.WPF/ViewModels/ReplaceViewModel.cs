@@ -371,7 +371,25 @@ namespace dnGREP.WPF
                                     piece = DiffModel.Lines[idx];
                                     line = piece.Text;
                                     if (line != null)
-                                        sb.Append(ChopLongLines(line, grepLine, piece)).Append(newLine);
+                                    {
+                                        // for the replace line, fix up the grepLine
+                                        // data to show the replacement text
+                                        List<GrepMatch> matches = [];
+                                        int offset = 0;
+                                        foreach (var m in grepLine.Matches)
+                                        {
+                                            matches.Add(new(m.SearchPattern, m.LineNumber,
+                                                m.StartLocation + offset, ReplaceWith.Length));
+
+                                            // adjust for the different lengths of the
+                                            // original and replacement text
+                                            offset -= m.Length - ReplaceWith.Length;
+                                        }
+                                        var replaceLine = new GrepLine(grepLine.LineNumber,
+                                            line, false, matches);
+
+                                        sb.Append(ChopLongLines(line, replaceLine, piece)).Append(newLine);
+                                    }
                                 }
                             }
                             else
