@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -378,12 +379,24 @@ namespace dnGREP.WPF
                                         int offset = 0;
                                         foreach (var m in grepLine.Matches)
                                         {
+                                            string replaceText = ReplaceWith;
+                                            string matchText = m.RegexMatchValue;
+                                            if (TypeOfSearch == SearchType.Regex &&
+                                                !string.IsNullOrEmpty(matchText) &&
+                                                !string.IsNullOrEmpty(replaceText))
+                                            {
+                                                // if the replace text contains captures,
+                                                // need to generate the replace text to get
+                                                // the correct length
+                                                replaceText = Regex.Replace(matchText, SearchFor, ReplaceWith);
+                                            }
+
                                             matches.Add(new(m.SearchPattern, m.LineNumber,
-                                                m.StartLocation + offset, ReplaceWith.Length));
+                                                m.StartLocation + offset, replaceText.Length));
 
                                             // adjust for the different lengths of the
                                             // original and replacement text
-                                            offset -= m.Length - ReplaceWith.Length;
+                                            offset -= m.Length - replaceText.Length;
                                         }
                                         var replaceLine = new GrepLine(grepLine.LineNumber,
                                             line, false, matches);
