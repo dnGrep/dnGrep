@@ -51,7 +51,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Height="{Binding ActualHeight, ElementName=contentPresenter, 
                                         Converter={StaticResource PercentValueConverter}, ConverterParameter=.8}"
-                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" >
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                             <Grid x:Name="markGrid">
                                 <Path x:Name="optionMark" Margin="1"
                                       Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z "
@@ -81,7 +81,7 @@
                             <Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Foreground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Foreground}" />
                             <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Disabled.Background}" />
                             <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Disabled.Border}" />
                             <Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
@@ -189,6 +189,66 @@
                 <Setter TargetName="circle" Property="Stroke" Value="{DynamicResource Expander.Disabled.Circle.Stroke}" />
                 <Setter TargetName="circle" Property="Fill" Value="{DynamicResource Expander.Disabled.Circle.Fill}" />
                 <Setter TargetName="arrow" Property="Stroke" Value="{DynamicResource Expander.Disabled.Arrow.Stroke}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DoubleArrowButtonTemplate" TargetType="{x:Type CheckBox}">
+        <DockPanel Background="Transparent">
+            <Border
+                x:Name="ArrowBorder"
+                Background="Transparent"
+                Margin="{TemplateBinding Margin}"
+                Padding="{TemplateBinding Padding}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Path
+                        x:Name="ArrowLeft"
+                        Width="8"
+                        Height="22"
+                        Grid.Column="0"
+                        Margin="0,0,3,8"
+                        Data="M 6,0 L 0,5 H 4 V 10 H 6 Z"
+                        Fill="{DynamicResource OptionMark.Static.Background}"
+                        Stretch="Fill"
+                        Stroke="{DynamicResource OptionMark.Static.Glyph}"
+                        StrokeThickness="1" />
+                    <Path
+                        x:Name="ArrowRight"
+                        Width="8"
+                        Height="22"
+                        Grid.Column="1"
+                        Margin="3,8,0,0"
+                        Data="M 6,0 L 0,5 H 4 V 10 H 6 Z"
+                        Fill="{DynamicResource OptionMark.Static.Background}"
+                        Stretch="Fill"
+                        Stroke="{DynamicResource OptionMark.Static.Glyph}"
+                        StrokeThickness="1">
+                        <Path.RenderTransform>
+                            <RotateTransform Angle="180" CenterX="3" CenterY="8" />
+                        </Path.RenderTransform>
+                    </Path>
+                </Grid>
+            </Border>
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="Center" RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </DockPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect" Value="{DynamicResource OptionMark.DropShadowEffect}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#FFF9E61E" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="ArrowLeft" Property="Stroke" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
+                <Setter TargetName="ArrowRight" Property="Stroke" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
+                <Setter TargetName="ArrowBorder" Property="Opacity" Value="0.5" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

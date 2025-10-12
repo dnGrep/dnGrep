@@ -103,6 +103,7 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(BookmarkAddCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FolderBookmarkAddCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetOptionsCommand), "Main_ResetOptions", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FlipSearchAndReplaceCommand), "Main_FlipSearchAndReplace", string.Empty);
         }
 
         public MainViewModel()
@@ -802,6 +803,10 @@ namespace dnGREP.WPF
         private RelayCommand? filterComboBoxDropDownCommand;
         public RelayCommand FilterComboBoxDropDownCommand => filterComboBoxDropDownCommand ??= new RelayCommand(
             p => PopulateIgnoreFilters(false));
+
+        private RelayCommand? flipSearchAndReplaceCommand;
+        public RelayCommand FlipSearchAndReplaceCommand => flipSearchAndReplaceCommand ??= new RelayCommand(
+            _ => (SearchFor, ReplaceWith) = (ReplaceWith, SearchFor));
 
         #endregion
 

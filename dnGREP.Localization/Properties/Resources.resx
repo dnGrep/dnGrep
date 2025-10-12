@@ -4420,4 +4420,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Sets the pattern or text to search for within the set of files. Must be the last option on the command line and will copy the remainder of the command line verbatim. When this argument is set, the search will be run automatically.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Swap Search for and Replace with</value>
+    <comment>Main window, flip search and replace string</comment>
+  </data>
 </root>
