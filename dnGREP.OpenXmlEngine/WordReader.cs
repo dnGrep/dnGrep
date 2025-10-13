@@ -80,7 +80,10 @@ namespace dnGREP.Engines.OpenXml
 
             pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-            return sb.ToString();
+            string text = sb.ToString();
+            StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+            text = subs.ReplaceAllKeys(text);
+            return text;
         }
 
         private static Queue<Tuple<Paragraph?, SectionProperties>> GetSectionMap(Body? body)
@@ -288,6 +291,10 @@ namespace dnGREP.Engines.OpenXml
                 if (child is Text text)
                 {
                     sb.Append(text.Text);
+                }
+                else if (child is NoBreakHyphen)
+                {
+                    sb.Append(char.ConvertFromUtf32(0x2011));
                 }
                 else if (child is FootnoteReference fn)
                 {

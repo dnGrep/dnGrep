@@ -383,6 +383,7 @@ namespace dnGREP.Common
             public const string RestoreWindowKeyboardShortcut = "RestoreWindowKeyboardShortcut";
             [DefaultValue(true)]
             public const string PreviewShowingReplacements = "PreviewShowingReplacements";
+            public const string SubstitutionStrings = "SubstitutionStrings";
         }
 
         public static class ObsoleteKey
@@ -604,6 +605,7 @@ namespace dnGREP.Common
                                         var elemStr = elem.Element("stringArray");
                                         var elemCE = elem.Element("customEditorArray");
                                         var elemPI = elem.Element("pluginArray");
+                                        var elemKV = elem.Element("keyValuePairArray");
                                         if (elemStr != null)
                                         {
                                             settings[key.Value] = elemStr.ToString();
@@ -615,6 +617,10 @@ namespace dnGREP.Common
                                         else if (elemPI != null)
                                         {
                                             settings[key.Value] = elemPI.ToString();
+                                        }
+                                        else if (elemKV != null)
+                                        {
+                                            settings[key.Value] = elemKV.ToString();
                                         }
                                     }
                                     else
@@ -896,6 +902,11 @@ namespace dnGREP.Common
                             elem = new XElement("item", XElement.Parse(value));
                             elem.SetAttributeValue("key", key);
                         }
+                        else if (value.StartsWith("<keyValuePairArray", StringComparison.Ordinal))
+                        {
+                            elem = new XElement("item", XElement.Parse(value));
+                            elem.SetAttributeValue("key", key);
+                        }
                         else
                         {
                             elem = new XElement("item", value);
@@ -949,6 +960,49 @@ namespace dnGREP.Common
                 return root.ToString();
             }
             return string.Empty;
+        }
+
+        private static string SerializeStringDictionary(Dictionary<string, string> map)
+        {
+            if (map.Count > 0)
+            {
+                XElement root = new("keyValuePairArray");
+                foreach (var pair in map)
+                {
+                    var elem = new XElement("keyValuePair");
+                    elem.SetAttributeValue("key", pair.Key);
+                    elem.SetAttributeValue("value", pair.Value);
+                    root.Add(elem);
+                }
+
+                string xmlString = root.ToString();
+                return xmlString;
+            }
+            return string.Empty;
+        }
+
+        private static Dictionary<string, string> DeserializeStringDictionary(string xmlContent)
+        {
+            Dictionary<string, string> map = [];
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                XElement root = XElement.Parse(xmlContent, LoadOptions.PreserveWhitespace);
+                if (root != null)
+                {
+                    foreach (var elem in root.Descendants("pair"))
+                    {
+                        if (!string.IsNullOrEmpty(elem.Value) &&
+                            elem.Attribute("value") is XAttribute attr &&
+                            attr.Value != null)
+                        {
+                            map.Add(elem.Value, attr.Value);
+                        }
+                    }
+                }
+            }
+
+            return map;
         }
 
         private static List<string?> Deserialize(string xmlContent)
@@ -1128,6 +1182,20 @@ namespace dnGREP.Common
                             list = [];
                         }
                         return (T)Convert.ChangeType(list, typeof(List<string>));
+                    }
+
+                    if (typeof(T) == typeof(Dictionary<string, string>))
+                    {
+                        Dictionary<string, string> list;
+                        if (!string.IsNullOrEmpty(value) && value.StartsWith("<keyValuePairArray", StringComparison.Ordinal))
+                        {
+                            list = DeserializeStringDictionary(value);
+                        }
+                        else
+                        {
+                            list = [];
+                        }
+                        return (T)Convert.ChangeType(list, typeof(Dictionary<string, string>));
                     }
 
                     if (typeof(T) == typeof(List<MostRecentlyUsed>))
@@ -1348,6 +1416,10 @@ namespace dnGREP.Common
             {
                 settings[key] = Serialize(list);
             }
+            else if (value is Dictionary<string, string> map)
+            {
+                settings[key] = SerializeStringDictionary(map);
+            }
             else if (value is List<MostRecentlyUsed> items)
             {
                 settings[key] = SerializeMRU(items);
@@ -1413,6 +1485,10 @@ namespace dnGREP.Common
             else if (typeof(T) == typeof(List<string>))
             {
                 return (T)Convert.ChangeType(new List<string>(), typeof(List<string>));
+            }
+            else if (typeof(T) == typeof(Dictionary<string, string>))
+            {
+                return (T)Convert.ChangeType(new Dictionary<string, string>(), typeof(Dictionary<string, string>));
             }
             else if (typeof(T) == typeof(List<MostRecentlyUsed>))
             {
@@ -1589,6 +1665,31 @@ namespace dnGREP.Common
         public bool HasCustomEditor => ContainsKey(Key.CustomEditors) &&
             Get<List<CustomEditor>>(Key.CustomEditors).Count > 0;
 
+        private StringMap? stringMap;
+        public StringMap GetSubstitutionStrings()
+        {
+            if (stringMap == null)
+            {
+                stringMap = new StringMap();
+                var list = Get<Dictionary<string, string>>(Key.SubstitutionStrings);
+                if (list.Count > 0)
+                {
+                    stringMap.Load(list);
+                }
+                else
+                {
+                    // Initialize
+                    stringMap.Map.Add(char.ConvertFromUtf32(0x00A0),
+                                      char.ConvertFromUtf32(0x0020));
+                    stringMap.Map.Add("“", "\"");
+                    stringMap.Map.Add("”", "\"");
+                    stringMap.Map.Add("–", "-");
+                    stringMap.Map.Add(char.ConvertFromUtf32(0x2011), "-");
+                    stringMap.SaveToSettings(GrepSettings.Key.SubstitutionStrings);
+                }
+            }
+            return stringMap;
+        }
     }
 
 
