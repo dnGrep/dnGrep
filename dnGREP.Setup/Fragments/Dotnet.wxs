@@ -81,7 +81,7 @@
         <File Id="filD101FC4DA814CAB2847D9DA443BA18C2" KeyPath="yes" Source="$(var.PublishDir)\mscordaccore.dll" />
       </Component>
       <Component Id="cmpE115ABDFD132AD880024EE2939D54BF1" Guid="{3060FE5D-6F21-43CB-A584-57BD23D9FDF9}">
-        <File Id="fil50ADE2B6BA6A9BAD2A38D1A83A3227E4" KeyPath="yes" Source="$(var.PublishDir)\mscordaccore_$(var.Platform.Id)_$(var.Platform.Id)_9.0.925.41916.dll" />
+        <File Id="fil50ADE2B6BA6A9BAD2A38D1A83A3227E4" KeyPath="yes" Source="$(var.PublishDir)\mscordaccore_$(var.Platform.Id)_$(var.Platform.Id)_9.0.1025.47515.dll" />
       </Component>
       <Component Id="cmp8919AF6C6904B98D882508E0D18E868B" Guid="{FAC75B35-5646-4042-8BBB-B7FD5AEE4476}">
         <File Id="filA9E828B55293AF9546D153D082D8422A" KeyPath="yes" Source="$(var.PublishDir)\mscordbi.dll" />
