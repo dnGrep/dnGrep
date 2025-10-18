@@ -103,7 +103,7 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(BookmarkAddCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FolderBookmarkAddCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetOptionsCommand), "Main_ResetOptions", string.Empty);
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FlipSearchAndReplaceCommand), "Main_FlipSearchAndReplace", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FlipSearchAndReplaceCommand), "Main_FlipSearchAndReplaceStrings", string.Empty);
         }
 
         public MainViewModel()
