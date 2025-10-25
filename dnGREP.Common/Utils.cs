@@ -1948,33 +1948,13 @@ namespace dnGREP.Common
             {
                 if (!files.Contains(result.FileNameReal))
                 {
-                    if (IsReadOnly(result))
+                    if (result.IsReadOnly)
                     {
                         files.Add(result.FileNameReal);
                     }
                 }
             }
             return files;
-        }
-
-        public static bool IsReadOnly(GrepSearchResult result)
-        {
-            if (result.IsHexFile)
-            {
-                return true;
-            }
-
-            if (result.IsReadOnlyFileType)
-            {
-                return true;
-            }
-
-            if (File.Exists(result.FileNameReal))
-            {
-                return File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly);
-            }
-
-            return false;
         }
 
         public static bool HasReadOnlyAttributeSet(GrepSearchResult? result)

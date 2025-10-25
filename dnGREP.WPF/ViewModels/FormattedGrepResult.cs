@@ -134,7 +134,7 @@ namespace dnGREP.WPF
 
         internal void SetLabel()
         {
-            bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
+            bool isFileReadOnly = GrepResult.IsReadOnly;
 
             string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath;
             FileName = Path.GetFileName(GrepResult.FileNameDisplayed);

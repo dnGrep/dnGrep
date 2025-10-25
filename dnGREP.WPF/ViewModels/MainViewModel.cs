@@ -2056,8 +2056,8 @@ namespace dnGREP.WPF
                     }
                 }
 
-                List<GrepSearchResult> replaceList = ResultsViewModel.GetWritableList()
-                    .Where(sr => sr.Matches.Count != 0).ToList(); // filter out files with errors shown in results tree
+                List<GrepSearchResult> replaceList = ResultsViewModel.
+                    GetWritableFilesWithMatches().ToList(); // filter out files with errors shown in results tree
 
                 bool doReplace = false;
                 if (IsScriptRunning)
@@ -3169,9 +3169,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                var writableFiles = ResultsViewModel.GetWritableList();
-                var hasWritableFiles = writableFiles.Count != 0 &&
-                    writableFiles.SelectMany(m => m.Matches).Any();
+                var hasWritableFiles = ResultsViewModel.GetWritableFilesWithMatches().Any();
 
                 bool enabled = FilesFound && CurrentGrepOperation == GrepOperation.None &&
                         !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) &&
@@ -3191,11 +3189,9 @@ namespace dnGREP.WPF
             ReplaceButtonToolTip = string.Empty;
             if (!clear && !CanReplace && FilesFound)
             {
-                var writableFiles = ResultsViewModel.GetWritableList();
-                var hasWritableFiles = writableFiles.Count != 0;
-                var hasMatches = writableFiles.SelectMany(m => m.Matches).Any();
+                var hasMatches = ResultsViewModel.GetWritableFilesWithMatches().Any();
 
-                if (!hasWritableFiles)
+                if (!hasMatches)
                 {
                     ReplaceButtonToolTip = Resources.Main_ReplaceTooltip_NoWritableFilesInResults;
                 }

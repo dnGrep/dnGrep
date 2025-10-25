@@ -157,7 +157,7 @@ namespace dnGREP.WPF
                 string formattedText = TranslationSource.Format(Resources.Replace_FileNumberOfCountName,
                    FileNumber, FileCount, item.FileNameReal, matchStr, lineStr);
 
-                if (Utils.IsReadOnly(item))
+                if (item.IsReadOnly)
                 {
                     formattedText += " " + Resources.Replace_ReadOnly;
                 }
@@ -190,7 +190,7 @@ namespace dnGREP.WPF
                 string formattedText = TranslationSource.Format(Resources.Replace_NumberOfMatchesMarkedForReplacement,
                    replaceStr, matchStr);
 
-                if (Utils.IsReadOnly(item))
+                if (item.IsReadOnly)
                 {
                     formattedText += " " + Resources.Replace_ReadOnly;
                 }
