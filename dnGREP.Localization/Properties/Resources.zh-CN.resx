@@ -4338,4 +4338,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -searchFor* [searchFor]
     设置在文件集内要搜索的模式或文本。必须是命令行最后一个选项，会一字不差地复制命令行剩余部分。设置该变量时会自动运行搜索。</value>
   </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>交换搜索项和替换内容</value>
+  </data>
 </root>

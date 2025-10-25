@@ -4255,4 +4255,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -searchFor* [searchFor]
     ファイルセット内で検索するパターンまたはテキストを設定します。コマンドラインの最後のオプションとして指定する必要があり、コマンドラインの残りの部分をそのままコピーします。この引数が設定されると、検索は自動的に実行されます。</value>
   </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>検索対象と置換対象を入れ替え</value>
+  </data>
 </root>
