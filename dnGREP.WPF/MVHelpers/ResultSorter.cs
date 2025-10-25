@@ -212,8 +212,8 @@ namespace dnGREP.WPF.MVHelpers
             var left = direction == ListSortDirection.Ascending ? x : y;
             var right = direction == ListSortDirection.Ascending ? y : x;
 
-            bool isLeftFileReadOnly = left == null || Utils.IsReadOnly(left.GrepResult);
-            bool isRightFileReadOnly = right == null || Utils.IsReadOnly(right.GrepResult);
+            bool isLeftFileReadOnly = left == null || left.GrepResult.IsReadOnly;
+            bool isRightFileReadOnly = right == null || right.GrepResult.IsReadOnly;
 
             if (isLeftFileReadOnly != isRightFileReadOnly)
                 return isRightFileReadOnly.CompareTo(isLeftFileReadOnly);
