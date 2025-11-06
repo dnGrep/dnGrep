@@ -20,7 +20,7 @@ namespace dnGREP.Common
             }
         }
 
-        internal void SaveToSettings(string key)
+        public void SaveToSettings(string key)
         {
             GrepSettings.Instance.Set(key, map);
         }

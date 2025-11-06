@@ -641,6 +641,12 @@ namespace dnGREP.WPF
             q => true);
 
 
+        private RelayCommand? stringMapCommand;
+        public RelayCommand StringMapCommand => stringMapCommand ??= new RelayCommand(
+            p => ShowStringMap(),
+            q => true);
+
+
         private RelayCommand? helpCommand;
         public RelayCommand HelpCommand => helpCommand ??= new RelayCommand(
             param => ShowHelp());
@@ -2555,6 +2561,15 @@ namespace dnGREP.WPF
                 Owner = Application.Current.MainWindow
             };
             keyboardForm.ShowDialog();
+        }
+
+        private static void ShowStringMap()
+        {
+            StringMapWindow form = new()
+            {
+                Owner = Application.Current.MainWindow
+            };
+            form.ShowDialog();
         }
 
         private static void ShowHelp()
