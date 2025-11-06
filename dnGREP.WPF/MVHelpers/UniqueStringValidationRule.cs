@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,13 +30,13 @@ namespace dnGREP.WPF
         public static readonly DependencyProperty ItemsProperty =
              DependencyProperty.Register(
                  "Items",
-                 typeof(ObservableCollection<string>),
+                 typeof(HashSet<string>),
                  typeof(KeyList),
                  new PropertyMetadata(null));
 
-        public ObservableCollection<string> Items
+        public HashSet<string> Items
         {
-            get { return (ObservableCollection<string>)GetValue(ItemsProperty); }
+            get { return (HashSet<string>)GetValue(ItemsProperty); }
             set { SetValue(ItemsProperty, value); }
         }
     }

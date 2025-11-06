@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -29,8 +30,6 @@ namespace dnGREP.WPF
 
                 MapKeys.Add(item.Key);
             }
-
-            //SelectedMapItem = MapItems.First();
         }
 
         [ObservableProperty]
@@ -41,10 +40,7 @@ namespace dnGREP.WPF
 
         public ObservableCollection<StringSubstitutionViewModel> MapItems { get; } = [];
 
-        public ObservableCollection<string> MapKeys { get; } = [];
-
-        [ObservableProperty]
-        private StringSubstitutionViewModel? selectedMapItem;
+        public HashSet<string> MapKeys { get; } = [];
 
         private RelayCommand? saveCommand;
         public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(

@@ -72,7 +72,7 @@
                    Content="Original character(s)"/>
 
             <Label Grid.Row="1" Grid.Column="1"
-                   Content="Unicode code point"/>
+                   Content="Unicode code point(s)"/>
 
             <TextBox Grid.Row="2" Grid.Column="0"
                      Margin="3,3,12,3"
@@ -114,7 +114,7 @@
                    Content="Substitute character(s)"/>
 
             <Label Grid.Row="3" Grid.Column="1"
-                   Content="Unicode code point"/>
+                   Content="Unicode code point(s)"/>
 
             <TextBox Grid.Row="4" Grid.Column="0"
                      HorizontalAlignment="Stretch"
@@ -174,10 +174,9 @@
                       Grid.Row="1" Grid.ColumnSpan="3"
                       Margin="3"
                       ItemsSource="{Binding MapItems}"
-                      SelectedValue="{Binding SelectedMapItem}"
                       AutoGenerateColumns="False" 
                       SelectionMode="Single" 
-                      SelectionUnit="FullRow"
+                      SelectionUnit="Cell"
                       CanUserResizeColumns="True"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
@@ -186,7 +185,8 @@
                       CellStyle="{StaticResource ThemedDataGridCell}"
                       RowHeaderStyle="{StaticResource ThemedDataGridRowHeader}"
                       HorizontalGridLinesBrush="{DynamicResource DataGrid.GridLine}"
-                      VerticalGridLinesBrush="{DynamicResource DataGrid.GridLine}">
+                      VerticalGridLinesBrush="{DynamicResource DataGrid.GridLine}"
+                      PreviewKeyDown="DataGrid_PreviewKeyDown">
 
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Delete" Width="Auto">
@@ -206,22 +206,22 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding MapKey}"
-                                   ToolTipService.ToolTip="{Binding MapKeyName}" />
+                                           ToolTipService.ToolTip="{Binding MapKeyName}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Unicode code point" IsReadOnly="True" Width="2*"
-                                    Binding="{Binding MapKeyCodePoint}" />
+                                        Binding="{Binding MapKeyCodePoint}" />
                     <DataGridTemplateColumn Header="Substitute" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding MapValue}"
-                                ToolTipService.ToolTip="{Binding MapValueName}" />
+                                           ToolTipService.ToolTip="{Binding MapValueName}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Unicode code point" IsReadOnly="True" Width="2*"
-                                    Binding="{Binding MapValueCodePoint}" />
+                                        Binding="{Binding MapValueCodePoint}" />
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource ThemedDataGridRow}">
