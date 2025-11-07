@@ -418,7 +418,7 @@
                                   ItemsSource="{Binding Path=FontWeightList}"
                                   SelectedValue="{Binding Path=ResultsFileNameWeight}"
                                   ToolTip="{l:Loc Key='Options_ForFileNameInSearchResults'}">
-                        <ComboBox.Width>
+                            <ComboBox.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="100" FallbackValue="100">
                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
                                     <Binding Path="ApplicationFontFamily"/>
@@ -578,7 +578,7 @@
                                 </TextBox.Width>
                             </TextBox>
                         </Grid>
-                        
+
                         <Label Content="{l:Loc Key='Options_MaximumNumberOfParallelSearches'}"/>
                         <StackPanel Orientation="Horizontal">
                             <Slider Width="250" HorizontalAlignment="Left"
@@ -1240,38 +1240,48 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_PluginOptions'}">
-                    <ItemsControl ItemsSource="{Binding Path=Plugins}" Grid.IsSharedSizeScope="True">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,0,0,12">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="400"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" Margin="0,3,6,3"/>
-                                    <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0"
-                                              Content="{l:Loc Key='Options_PluginEnabled'}" IsChecked="{Binding IsEnabled}"/>
-                                    <CheckBox Grid.Row="0" Grid.Column="2" Margin="6,0"
-                                              Content="{l:Loc Key='Options_PluginShowPlainTextInPreview'}" IsChecked="{Binding PreviewTextEnabled}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="3,0" VerticalAlignment="Bottom"
-                                               Text="{l:Loc Key='Options_PluginExtensions'}"/>
-                                    <Button Grid.Row="1" Grid.Column="2"
-                                            Content="{l:Loc Key='Options_PluginReset'}"
-                                            Command="{Binding ResetExtensions}"
-                                            Padding="12,1" Margin="20,0" 
-                                            HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding MappedExtensions}" 
-                                             Margin="3" HorizontalAlignment="Stretch"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <StackPanel>
+                        <Button Content="String map"
+                                HorizontalAlignment="Left"
+                                Margin="0,6"
+                                Padding="18,3"
+                                Command="{Binding ShowStringMapCommand}"/>
+                        <ItemsControl ItemsSource="{Binding Path=Plugins}" Grid.IsSharedSizeScope="True">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" Margin="0,3,6,3"/>
+                                        <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0"
+                                                  Content="{l:Loc Key='Options_PluginEnabled'}" IsChecked="{Binding IsEnabled}"/>
+                                        <CheckBox Grid.Row="0" Grid.Column="2" Margin="6,0"
+                                                  Content="{l:Loc Key='Options_PluginShowPlainTextInPreview'}" IsChecked="{Binding PreviewTextEnabled}"/>
+                                        <CheckBox Grid.Row="0" Grid.Column="3" Margin="6,0"
+                                                  Content="Apply string map" IsChecked="{Binding ApplyStringMap}"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="3,0" VerticalAlignment="Bottom"
+                                                   Text="{l:Loc Key='Options_PluginExtensions'}"/>
+                                        <Button Grid.Row="1" Grid.Column="2"
+                                                Content="{l:Loc Key='Options_PluginReset'}"
+                                                Command="{Binding ResetExtensions}"
+                                                Padding="12,1" Margin="20,0" 
+                                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding MappedExtensions}" 
+                                                 Margin="3" HorizontalAlignment="Stretch"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </GroupBox>
             </StackPanel>
 

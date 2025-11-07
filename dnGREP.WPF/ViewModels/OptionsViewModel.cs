@@ -824,6 +824,10 @@ namespace dnGREP.WPF
         public RelayCommand ReloadThemeCommand => reloadThemeCommand ??= new RelayCommand(
             p => AppTheme.Instance.ReloadCurrentTheme());
 
+        private RelayCommand? showStringMapCommand;
+        public RelayCommand ShowStringMapCommand => showStringMapCommand ??= new RelayCommand(
+            p => ShowStringMap());
+
         public string ReloadThemeCommandTooltip
         {
             get
@@ -948,6 +952,15 @@ namespace dnGREP.WPF
             {
                 LogDirectoryPath = folderDialog.FolderName;
             }
+        }
+
+        private static void ShowStringMap()
+        {
+            StringMapWindow form = new()
+            {
+                Owner = Application.Current.MainWindow
+            };
+            form.ShowDialog();
         }
 
         private void ClearSearches()

@@ -706,7 +706,7 @@ namespace dnGREP.Common
                             CleanExtensions(Get<string>(name + "Extensions")) :
                             string.Empty;
 
-                    plugins.Add(new(name, enabled, previewText, extensions));
+                    plugins.Add(new(name, enabled, previewText, extensions, false));
 
                     settings.Remove(name + "Enabled");
                     settings.Remove(name + "PreviewText");
@@ -1572,8 +1572,8 @@ namespace dnGREP.Common
                         .FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
                     PluginConfiguration newCfg = cfg != null ?
-                        new(cfg.Name, cfg.Enabled, cfg.PreviewText, CleanExtensions(list)) :
-                        new(name, true, false, CleanExtensions(list));
+                        new(cfg.Name, cfg.Enabled, cfg.PreviewText, CleanExtensions(list), false) :
+                        new(name, true, false, CleanExtensions(list), false);
 
                     if (cfg != null)
                     {
@@ -1643,7 +1643,7 @@ namespace dnGREP.Common
 
         public PluginConfiguration AddNewPluginConfig(string name, bool enabled, bool previewText, string extensions)
         {
-            PluginConfiguration cfg = new(name, enabled, previewText, extensions);
+            PluginConfiguration cfg = new(name, enabled, previewText, extensions, false);
             List<PluginConfiguration> plugins = Get<List<PluginConfiguration>>(Key.Plugins) ?? [];
             plugins.Add(cfg);
             Set(Key.Plugins, plugins);

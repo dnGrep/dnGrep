@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace dnGREP.Common
 {
     public record PluginConfiguration(string Name, bool Enabled, bool PreviewText,
-        string Extensions)
+        string Extensions, bool ApplyStringMap)
     {
         private static readonly char[] separators = [',', ';', ' '];
 
@@ -34,6 +34,7 @@ namespace dnGREP.Common
                     elem.Add(new XElement("enabled", value.Enabled));
                     elem.Add(new XElement("previewText", value.PreviewText));
                     elem.Add(new XElement("extensions", value.Extensions));
+                    elem.Add(new XElement("applyStringMap", value.ApplyStringMap));
                     root.Add(elem);
                 }
 
@@ -57,10 +58,11 @@ namespace dnGREP.Common
                         bool enabled = elem.GetElementBoolean("enabled");
                         bool previewText = elem.GetElementBoolean("previewText");
                         string extensions = elem.GetElementString("extensions");
+                        bool applyStringMap = elem.GetElementBoolean("applyStringMap");
 
                         if (!string.IsNullOrEmpty(name))
                         {
-                            list.Add(new PluginConfiguration(name, enabled, previewText, extensions));
+                            list.Add(new PluginConfiguration(name, enabled, previewText, extensions, applyStringMap));
                         }
                     }
                 }
