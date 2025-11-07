@@ -1294,7 +1294,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>vor und</value>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
-    <value>externer Editor</value>
+    <value>Externer Editor</value>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
     <value>Verwenden Sie die Schlüsselwörter '{0}' für den Speicherort der Datei, '{5}' für die Seitennummer, '{1}' für die Zeilennummer, '{2}' für das Suchmuster, '{3}' für den ersten übereinstimmenden Text in der Zeile und '{4}' für die Spaltennummer der ersten Übereinstimmung in der Zeile.</value>
