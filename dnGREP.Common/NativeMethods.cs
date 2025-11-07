@@ -39,10 +39,13 @@ namespace dnGREP.Common
             var fileInfoPtr = Marshal.AllocHGlobal(fileInfoSize); // Allocate unmanaged memory
             try
             {
-                PInvoke.SHGetFileInfo(fileNameOrExtension, FILE_FLAGS_AND_ATTRIBUTES.FILE_ATTRIBUTE_NORMAL,
-                    (SHFILEINFOW*)fileInfoPtr,
-                    (uint)fileInfoSize,
-                    SHGFI_FLAGS.SHGFI_TYPENAME | SHGFI_FLAGS.SHGFI_USEFILEATTRIBUTES);
+                fixed (char* lpExtension = fileNameOrExtension)
+                {
+                    PInvoke.SHGetFileInfo(lpExtension, FILE_FLAGS_AND_ATTRIBUTES.FILE_ATTRIBUTE_NORMAL,
+                        (SHFILEINFOW*)fileInfoPtr,
+                        (uint)fileInfoSize,
+                        SHGFI_FLAGS.SHGFI_TYPENAME | SHGFI_FLAGS.SHGFI_USEFILEATTRIBUTES);
+                }
 
                 if (Marshal.PtrToStructure(fileInfoPtr, typeof(SHFILEINFOW)) is SHFILEINFOW fileInfo)
                 {
