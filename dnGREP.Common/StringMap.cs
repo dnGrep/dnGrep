@@ -72,6 +72,11 @@ namespace dnGREP.Common
 
         public string ReplaceAllKeys(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
             foreach (var item in map)
             {
                 text = text.Replace(item.Key, item.Value, StringComparison.Ordinal);

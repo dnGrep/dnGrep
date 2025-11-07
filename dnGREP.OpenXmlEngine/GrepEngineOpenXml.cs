@@ -31,6 +31,8 @@ namespace dnGREP.Engines.OpenXml
 
         public bool PreviewPlainText { get; set; }
 
+        public bool ApplyStringMap { get; set; }
+
         public List<GrepSearchResult> Search(string documentFilePath, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
@@ -326,7 +328,7 @@ namespace dnGREP.Engines.OpenXml
                         fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
                         stream = fileStream;
                     }
-                    text = WordReader.ExtractWordText(stream, pauseCancelToken);
+                    text = WordReader.ExtractWordText(stream, ApplyStringMap, pauseCancelToken);
 
                     if (!string.IsNullOrEmpty(cacheFilePath) && !File.Exists(cacheFilePath))
                     {
@@ -389,7 +391,7 @@ namespace dnGREP.Engines.OpenXml
                         fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
                         stream = fileStream;
                     }
-                    slides = PowerPointReader.ExtractPowerPointText(stream, pauseCancelToken);
+                    slides = PowerPointReader.ExtractPowerPointText(stream, ApplyStringMap, pauseCancelToken);
 
                     if (!string.IsNullOrEmpty(cacheFilePath))
                     {

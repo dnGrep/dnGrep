@@ -48,6 +48,8 @@ namespace dnGREP.Engines.Pdf
 
         public bool PreviewPlainText { get; set; }
 
+        public bool ApplyStringMap { get; set; }
+
         public List<GrepSearchResult> Search(string pdfFile, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
@@ -117,7 +119,7 @@ namespace dnGREP.Engines.Pdf
             ExtractTextResults extracted;
             if (File.Exists(cacheFilePath))
             {
-                extracted = ReadCacheFile(cacheFilePath, encoding);
+                extracted = ReadCacheFile(cacheFilePath, encoding, false);
             }
             else
             {
@@ -274,7 +276,7 @@ namespace dnGREP.Engines.Pdf
             if (File.Exists(cacheFilePath))
             {
                 // it is already extracted!
-                return ReadCacheFile(cacheFilePath, encoding);
+                return ReadCacheFile(cacheFilePath, encoding, false);
             }
 
             string longPdfFilePath = PathEx.GetLongPath(pdfFilePath);
@@ -302,7 +304,7 @@ namespace dnGREP.Engines.Pdf
 
             if (process.ExitCode == 0)
             {
-                return ReadCacheFile(cacheFilePath, encoding);
+                return ReadCacheFile(cacheFilePath, encoding, ApplyStringMap);
             }
             else
             {
@@ -318,7 +320,7 @@ namespace dnGREP.Engines.Pdf
             }
         }
 
-        private static ExtractTextResults ReadCacheFile(string cacheFilePath, Encoding encoding)
+        private static ExtractTextResults ReadCacheFile(string cacheFilePath, Encoding encoding, bool applyStringMap)
         {
             Encoding fileEncoding = encoding;
             string textOut;
@@ -331,6 +333,16 @@ namespace dnGREP.Engines.Pdf
 
             using (StreamReader streamReader = new(cacheFilePath, fileEncoding, detectEncodingFromByteOrderMarks: false))
                 textOut = streamReader.ReadToEnd();
+
+            if (applyStringMap)
+            {
+                StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+                textOut = subs.ReplaceAllKeys(textOut);
+
+                // and write it back to cache
+                using StreamWriter writer = new(cacheFilePath, false, fileEncoding, 4096);
+                writer.Write(textOut);
+            }
 
             return new ExtractTextResults(textOut, fileEncoding);
         }

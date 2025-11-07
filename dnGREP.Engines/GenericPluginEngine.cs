@@ -29,6 +29,8 @@ namespace dnGREP.Engines
 
         public bool PreviewPlainText { get; set; }
 
+        public bool ApplyStringMap { get; set; }
+
         public List<GrepSearchResult> Search(string filePath, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
         {
@@ -302,6 +304,12 @@ namespace dnGREP.Engines
                 using var streamReader = new StreamReader(ms, fileEncoding, detectEncodingFromByteOrderMarks: false);
                 textOut = streamReader.ReadToEnd();
 
+                if (ApplyStringMap)
+                {
+                    StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+                    textOut = subs.ReplaceAllKeys(textOut);
+                }
+
                 if (!string.IsNullOrEmpty(textOut))
                 {
                     File.WriteAllText(cacheFilePath, textOut, fileEncoding);
@@ -323,6 +331,12 @@ namespace dnGREP.Engines
 
                 using StreamReader sr = new(cacheFilePath, fileEncoding, detectEncodingFromByteOrderMarks: false);
                 textOut = sr.ReadToEnd();
+
+                if (ApplyStringMap)
+                {
+                    StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+                    textOut = subs.ReplaceAllKeys(textOut);
+                }
             }
 
             if (process.ExitCode == 0 && !string.IsNullOrEmpty(textOut))

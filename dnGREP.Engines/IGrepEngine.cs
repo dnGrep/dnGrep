@@ -73,6 +73,7 @@ namespace dnGREP.Engines
     public interface IGrepPluginEngine : IGrepEngine
     {
         bool PreviewPlainText { get; set; }
+        bool ApplyStringMap { get; set; }
     }
 
 }

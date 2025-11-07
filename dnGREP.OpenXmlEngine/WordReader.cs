@@ -35,7 +35,7 @@ namespace dnGREP.Engines.OpenXml
         internal static HeaderFooterPosition WordHeaderFooterPosition { get; private set; }
         internal static FootnoteRefType WordFootnoteNumber => FootnoteRefType.Parenthesis;
 
-        public static string ExtractWordText(Stream stream,
+        public static string ExtractWordText(Stream stream, bool applyStringMap,
             PauseCancelToken pauseCancelToken)
         {
             StringBuilder sb = new();
@@ -81,8 +81,12 @@ namespace dnGREP.Engines.OpenXml
             pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
             string text = sb.ToString();
-            StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
-            text = subs.ReplaceAllKeys(text);
+            if (applyStringMap)
+            {
+                StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+                text = subs.ReplaceAllKeys(text);
+            }
+
             return text;
         }
 
