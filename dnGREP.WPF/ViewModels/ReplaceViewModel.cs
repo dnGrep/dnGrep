@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -156,7 +157,7 @@ namespace dnGREP.WPF
                 string formattedText = TranslationSource.Format(Resources.Replace_FileNumberOfCountName,
                    FileNumber, FileCount, item.FileNameReal, matchStr, lineStr);
 
-                if (Utils.IsReadOnly(item))
+                if (item.IsReadOnly)
                 {
                     formattedText += " " + Resources.Replace_ReadOnly;
                 }
@@ -189,7 +190,7 @@ namespace dnGREP.WPF
                 string formattedText = TranslationSource.Format(Resources.Replace_NumberOfMatchesMarkedForReplacement,
                    replaceStr, matchStr);
 
-                if (Utils.IsReadOnly(item))
+                if (item.IsReadOnly)
                 {
                     formattedText += " " + Resources.Replace_ReadOnly;
                 }
@@ -371,7 +372,37 @@ namespace dnGREP.WPF
                                     piece = DiffModel.Lines[idx];
                                     line = piece.Text;
                                     if (line != null)
-                                        sb.Append(ChopLongLines(line, grepLine, piece)).Append(newLine);
+                                    {
+                                        // for the replace line, fix up the grepLine
+                                        // data to show the replacement text
+                                        List<GrepMatch> matches = [];
+                                        int offset = 0;
+                                        foreach (var m in grepLine.Matches)
+                                        {
+                                            string replaceText = ReplaceWith;
+                                            string matchText = m.RegexMatchValue;
+                                            if (TypeOfSearch == SearchType.Regex &&
+                                                !string.IsNullOrEmpty(matchText) &&
+                                                !string.IsNullOrEmpty(replaceText))
+                                            {
+                                                // if the replace text contains captures,
+                                                // need to generate the replace text to get
+                                                // the correct length
+                                                replaceText = Regex.Replace(matchText, SearchFor, ReplaceWith);
+                                            }
+
+                                            matches.Add(new(m.SearchPattern, m.LineNumber,
+                                                m.StartLocation + offset, replaceText.Length));
+
+                                            // adjust for the different lengths of the
+                                            // original and replacement text
+                                            offset -= m.Length - replaceText.Length;
+                                        }
+                                        var replaceLine = new GrepLine(grepLine.LineNumber,
+                                            line, false, matches);
+
+                                        sb.Append(ChopLongLines(line, replaceLine, piece)).Append(newLine);
+                                    }
                                 }
                             }
                             else

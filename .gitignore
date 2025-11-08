@@ -273,3 +273,6 @@ __pycache__/
 # Generated file
 /dnGrep.msix
 /dnGREP.WPF/Properties/launchSettings.json
+
+# Visual Studio History (VSHistory) files
+.vshistory/

@@ -148,6 +148,31 @@ namespace dnGREP.Common
 
         public bool IsReadOnlyFileType { get; set; } = false;
 
+        public bool IsReadOnly
+        {
+            get
+            {
+                if (IsHexFile)
+                {
+                    return true;
+                }
+
+                if (IsReadOnlyFileType)
+                {
+                    return true;
+                }
+
+                try
+                {
+                    return File.GetAttributes(FileNameReal).HasFlag(FileAttributes.ReadOnly);
+                }
+                catch
+                {
+                    return true;
+                }
+            }
+        }
+
         private List<GrepLine>? searchResults;
 
         public bool HasSearchResults

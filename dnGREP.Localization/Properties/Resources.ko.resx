@@ -3990,4 +3990,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_HomeKey" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [검색 명령]
+-e* [검색 명령]
+-everything* [검색 명령]
+    Everything 검색 텍스트를 설정합니다. 명령줄의 마지막 옵션이어야 하며, 나머지 명령줄은 그대로 복사합니다.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [검색 대상]
+-s* [검색 대상]
+-searchFor* [검색 대상]
+    파일 집합 내에서 검색할 패턴이나 텍스트를 설정합니다. 명령줄의 마지막 옵션이어야 하며 나머지 명령줄을 복사합니다. 이 인수가 설정되면 검색이 자동으로 실행됩니다.</value>
+  </data>
 </root>

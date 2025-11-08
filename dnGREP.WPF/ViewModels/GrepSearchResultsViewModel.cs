@@ -328,20 +328,19 @@ namespace dnGREP.WPF
         }
 
         /// <summary>
-        /// Gets the list of results that are writable
+        /// Gets the set of results that are writable and have matches
         /// </summary>
         /// <returns></returns>
-        public List<GrepSearchResult> GetWritableList()
+        public IEnumerable<GrepSearchResult> GetWritableFilesWithMatches()
         {
-            List<GrepSearchResult> writableFiles = [];
             foreach (var item in SearchResults)
             {
-                if (!Utils.IsReadOnly(item.GrepResult))
+                if (item.GrepResult.Matches.Any() &&
+                    !item.GrepResult.IsReadOnly)
                 {
-                    writableFiles.Add(item.GrepResult);
+                    yield return item.GrepResult;
                 }
             }
-            return writableFiles;
         }
 
         public void AddRange(List<GrepSearchResult> list)
@@ -524,7 +523,7 @@ namespace dnGREP.WPF
                 {
                     if (!files.Contains(fileNode.GrepResult))
                     {
-                        if (!Utils.IsReadOnly(fileNode.GrepResult))
+                        if (!fileNode.GrepResult.IsReadOnly)
                             files.Add(fileNode.GrepResult);
                     }
                 }
@@ -532,7 +531,7 @@ namespace dnGREP.WPF
                 {
                     if (!files.Contains(lineNode.Parent.GrepResult))
                     {
-                        if (!Utils.IsReadOnly(lineNode.Parent.GrepResult))
+                        if (!lineNode.Parent.GrepResult.IsReadOnly)
                             files.Add(lineNode.Parent.GrepResult);
                     }
                 }

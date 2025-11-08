@@ -2367,6 +2367,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Swap Search for and Replace with.
+        /// </summary>
+        public static string Main_FlipSearchAndReplaceStrings {
+            get {
+                return ResourceManager.GetString("Main_FlipSearchAndReplaceStrings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to F_older:.
         /// </summary>
         public static string Main_Folder {
