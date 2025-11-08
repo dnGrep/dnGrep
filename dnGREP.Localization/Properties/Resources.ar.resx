@@ -787,4 +787,10 @@
     <value>البحث باستخدام dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>البحث</value>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>البحث</value>
+  </data>
 </root>
