@@ -6,7 +6,7 @@
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  mc:Ignorable="d"
-                 Title="String Replacements"
+                 Title="{l:Loc Key='StringMap_StringReplacements'}"
                  MinWidth="500"
                  MinHeight="300"
                  Width="600"
@@ -14,7 +14,7 @@
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
-                 my:DiginesisHelpProvider.HelpKeyword="Keyboard"
+                 my:DiginesisHelpProvider.HelpKeyword="StringMap"
                  my:DiginesisHelpProvider.HelpNavigator="Topic"
                  my:DiginesisHelpProvider.ShowHelp="True"
                  ResizeMode="CanResize"
@@ -65,14 +65,14 @@
 
             <Label Grid.Row="0" Grid.Column="0"
                    Margin="3,12,3,3"
-                   Content="Add mapping"
+                   Content="{l:Loc Key='StringMap_AddMapping'}"
                    FontWeight="SemiBold"/>
 
             <Label Grid.Row="1" Grid.Column="0"
-                   Content="Original character(s)"/>
+                   Content="{l:Loc Key='StringMap_OriginalCharacters'}"/>
 
             <Label Grid.Row="1" Grid.Column="1"
-                   Content="Unicode code point(s)"/>
+                   Content="{l:Loc Key='StringMap_UnicodeCodePoints'}"/>
 
             <TextBox Grid.Row="2" Grid.Column="0"
                      Margin="3,3,12,3"
@@ -88,10 +88,10 @@
                              UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <my:UniqueStringValidationRule
-                                ValidatesOnTargetUpdated="True"
-                                ErrorMessage="Original value already exists.">
+                                ValidatesOnTargetUpdated="True">
                                 <my:UniqueStringValidationRule.KeyList>
-                                    <my:KeyList Items="{Binding Data.MapKeys, Source={StaticResource proxy}}"/>
+                                    <my:KeyList Items="{Binding Data.MapKeys, Source={StaticResource proxy}}"
+                                                ErrorMessage="{l:Loc Key='StringMap_OriginalValueAlreadyExists'}"/>
                                 </my:UniqueStringValidationRule.KeyList>
                             </my:UniqueStringValidationRule>
                         </Binding.ValidationRules>
@@ -107,14 +107,14 @@
                      Text="{Binding MapKeyCodePoint, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Grid.Row="2" Grid.Column="2" 
-                    Content="Add"
+                    Content="{l:Loc Key='StringMap_Add'}"
                     Command="{Binding AddMapCommand}"/>
 
             <Label Grid.Row="3" Grid.Column="0"
-                   Content="Substitute character(s)"/>
+                   Content="{l:Loc Key='StringMap_SubstituteCharacters'}"/>
 
             <Label Grid.Row="3" Grid.Column="1"
-                   Content="Unicode code point(s)"/>
+                   Content="{l:Loc Key='StringMap_UnicodeCodePoints'}"/>
 
             <TextBox Grid.Row="4" Grid.Column="0"
                      HorizontalAlignment="Stretch"
@@ -132,17 +132,17 @@
                      Text="{Binding MapValueCodePoint, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button Grid.Row="4" Grid.Column="2"
-                    Content="Clear"
+                    Content="{l:Loc Key='StringMap_Clear'}"
                     Command="{Binding ClearFieldsCommand}"/>
 
             <Button Grid.Row="6" Grid.Column="1"
                     HorizontalAlignment="Right"
-                    Content="Save"
+                    Content="{l:Loc Key='StringMap_Save'}"
                     IsDefault="True" 
                     Command="{Binding Path=SaveCommand}" />
 
             <Button Grid.Row="6" Grid.Column="2" 
-                    Content="Cancel"
+                    Content="{l:Loc Key='StringMap_Cancel'}"
                     IsCancel="True" />
 
         </Grid>
@@ -161,13 +161,13 @@
 
             <Border Grid.Row="0" Grid.Column="0">
                 <!-- hidden text to use as a dynamic spacer -->
-                <TextBlock Text="Delete" Padding="9,0" Visibility="Hidden"/>
+                <TextBlock Text="{l:Loc Key='StringMap_Delete'}" Padding="9,0" Visibility="Hidden"/>
             </Border>
             <Border Grid.Row="0" Grid.Column="1">
-                <TextBlock Text="Replace this character or characters" />
+                <TextBlock Text="{l:Loc Key='StringMap_ReplaceThisCharacterOrCharacters'}" />
             </Border>
             <Border Grid.Row="0" Grid.Column="2">
-                <TextBlock Text="With this character or chararacters" />
+                <TextBlock Text="{l:Loc Key='StringMap_WithThisCharacterOrChararacters'}" />
             </Border>
 
             <DataGrid x:Name="dataGrid"
@@ -189,7 +189,7 @@
                       PreviewKeyDown="DataGrid_PreviewKeyDown">
 
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Delete" Width="Auto">
+                    <DataGridTemplateColumn Header="{l:Loc Key='StringMap_Delete'}" Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="&#xE10A;" FontFamily="Segoe UI Symbol" 
@@ -202,7 +202,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Original" Width="*">
+                    <DataGridTemplateColumn Header="{l:Loc Key='StringMap_Original'}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding MapKey}"
@@ -210,9 +210,9 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Unicode code point" IsReadOnly="True" Width="2*"
+                    <DataGridTextColumn Header="{l:Loc Key='StringMap_UnicodeCodePoint'}" IsReadOnly="True" Width="2*"
                                         Binding="{Binding MapKeyCodePoint}" />
-                    <DataGridTemplateColumn Header="Substitute" Width="*">
+                    <DataGridTemplateColumn Header="{l:Loc Key='StringMap_Substitute'}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding MapValue}"
@@ -220,7 +220,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Unicode code point" IsReadOnly="True" Width="2*"
+                    <DataGridTextColumn Header="{l:Loc Key='StringMap_UnicodeCodePoint'}" IsReadOnly="True" Width="2*"
                                         Binding="{Binding MapValueCodePoint}" />
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>

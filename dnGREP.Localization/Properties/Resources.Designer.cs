@@ -4968,6 +4968,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply string map.
+        /// </summary>
+        public static string Options_ApplyStringMap {
+            get {
+                return ResourceManager.GetString("Options_ApplyStringMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extensions:.
         /// </summary>
         public static string Options_ArchiveExtensions {
@@ -6530,6 +6539,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_StartupOptions {
             get {
                 return ResourceManager.GetString("Options_StartupOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String map….
+        /// </summary>
+        public static string Options_StringMap {
+            get {
+                return ResourceManager.GetString("Options_StringMap", resourceCulture);
             }
         }
         
@@ -9185,6 +9203,150 @@ namespace dnGREP.Localization.Properties {
         public static string ShellMenu_SearchWithDnGrep {
             get {
                 return ResourceManager.GetString("ShellMenu_SearchWithDnGrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string StringMap_Add {
+            get {
+                return ResourceManager.GetString("StringMap_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add mapping.
+        /// </summary>
+        public static string StringMap_AddMapping {
+            get {
+                return ResourceManager.GetString("StringMap_AddMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string StringMap_Cancel {
+            get {
+                return ResourceManager.GetString("StringMap_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string StringMap_Clear {
+            get {
+                return ResourceManager.GetString("StringMap_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string StringMap_Delete {
+            get {
+                return ResourceManager.GetString("StringMap_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        public static string StringMap_Original {
+            get {
+                return ResourceManager.GetString("StringMap_Original", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original character(s).
+        /// </summary>
+        public static string StringMap_OriginalCharacters {
+            get {
+                return ResourceManager.GetString("StringMap_OriginalCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original value already exists..
+        /// </summary>
+        public static string StringMap_OriginalValueAlreadyExists {
+            get {
+                return ResourceManager.GetString("StringMap_OriginalValueAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace this character or characters.
+        /// </summary>
+        public static string StringMap_ReplaceThisCharacterOrCharacters {
+            get {
+                return ResourceManager.GetString("StringMap_ReplaceThisCharacterOrCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string StringMap_Save {
+            get {
+                return ResourceManager.GetString("StringMap_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String Replacements.
+        /// </summary>
+        public static string StringMap_StringReplacements {
+            get {
+                return ResourceManager.GetString("StringMap_StringReplacements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Substitute.
+        /// </summary>
+        public static string StringMap_Substitute {
+            get {
+                return ResourceManager.GetString("StringMap_Substitute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Substitute character(s).
+        /// </summary>
+        public static string StringMap_SubstituteCharacters {
+            get {
+                return ResourceManager.GetString("StringMap_SubstituteCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode code point.
+        /// </summary>
+        public static string StringMap_UnicodeCodePoint {
+            get {
+                return ResourceManager.GetString("StringMap_UnicodeCodePoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode code point(s).
+        /// </summary>
+        public static string StringMap_UnicodeCodePoints {
+            get {
+                return ResourceManager.GetString("StringMap_UnicodeCodePoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With this character or chararacters.
+        /// </summary>
+        public static string StringMap_WithThisCharacterOrChararacters {
+            get {
+                return ResourceManager.GetString("StringMap_WithThisCharacterOrChararacters", resourceCulture);
             }
         }
         

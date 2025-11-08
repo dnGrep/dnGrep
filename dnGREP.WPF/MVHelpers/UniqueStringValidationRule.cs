@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,13 +12,11 @@ namespace dnGREP.WPF
     {
         public KeyList? KeyList { get; set; }
 
-        public string ErrorMessage { get; set; } = string.Empty;
-
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value is string newKey && KeyList?.Items != null && KeyList.Items.Contains(newKey))
             {
-                return new ValidationResult(false, ErrorMessage);
+                return new ValidationResult(false, KeyList.ErrorMessage);
             }
             return ValidationResult.ValidResult;
         }
@@ -38,6 +35,20 @@ namespace dnGREP.WPF
         {
             get { return (HashSet<string>)GetValue(ItemsProperty); }
             set { SetValue(ItemsProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty ErrorMessageProperty =
+             DependencyProperty.Register(
+                 "ErrorMessage",
+                 typeof(string),
+                 typeof(KeyList),
+                 new PropertyMetadata("Name is already used"));
+
+        public string ErrorMessage
+        {
+            get { return (string)GetValue(ErrorMessageProperty); }
+            set { SetValue(ErrorMessageProperty, value); }
         }
     }
 

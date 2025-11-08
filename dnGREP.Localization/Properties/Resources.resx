@@ -4420,4 +4420,76 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Sets the pattern or text to search for within the set of files. Must be the last option on the command line and will copy the remainder of the command line verbatim. When this argument is set, the search will be run automatically.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>String Replacements</value>
+    <comment>String replacements dialog title</comment>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Add mapping</value>
+    <comment>String replacements dialog, section label</comment>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Original character(s)</value>
+    <comment>String replacements dialog. text box label</comment>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Unicode code point(s)</value>
+    <comment>String replacements dialog, text box label</comment>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>Original value already exists.</value>
+    <comment>String replacements dialog, error message</comment>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Add</value>
+    <comment>String replacements dialog, button label</comment>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Substitute character(s)</value>
+    <comment>String replacements dialog, text box label</comment>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>String replacements dialog, button label</comment>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>String replacements dialog, button label</comment>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>String replacements dialog, button label</comment>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>String replacements dialog, column heading</comment>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Replace this character or characters</value>
+    <comment>String replacements dialog, column heading</comment>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>With this character or chararacters</value>
+    <comment>String replacements dialog, column heading</comment>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Unicode code point</value>
+    <comment>String replacements dialog, column heading</comment>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Original</value>
+    <comment>String replacements dialog, column heading</comment>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Substitute</value>
+    <comment>String replacements dialog, column heading</comment>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>String map…</value>
+    <comment>Options dialog, button label</comment>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Apply string map</value>
+    <comment>Options dialog, check box label</comment>
+  </data>
 </root>
