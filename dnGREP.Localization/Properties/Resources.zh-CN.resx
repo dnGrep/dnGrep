@@ -4341,4 +4341,58 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
     <value>交换搜索项和替换内容</value>
   </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>字符串替换</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>添加映射</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>原字符</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Unicode 代码点</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>原值已存在。</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>替换字符</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>替换这个或这些字符</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>用这个或这些字符</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Unicode 代码点</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>原始</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>替换</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>字符串地图…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>应用字符串地图</value>
+  </data>
 </root>
