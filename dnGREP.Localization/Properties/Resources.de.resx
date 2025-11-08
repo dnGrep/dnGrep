@@ -3345,4 +3345,10 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Error_PdftotextReturned0" xml:space="preserve">
     <value>pdftotext hat '{0}' zurückgegeben</value>
   </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
 </root>
