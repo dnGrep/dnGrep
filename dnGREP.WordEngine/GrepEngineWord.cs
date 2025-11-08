@@ -79,6 +79,7 @@ namespace dnGREP.Engines.Word
 
         public bool PreviewPlainText { get; set; }
 
+        public bool ApplyStringMap { get; set; }
 
         public List<GrepSearchResult> Search(string wordFilePath, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, PauseCancelToken pauseCancelToken)
@@ -298,6 +299,13 @@ namespace dnGREP.Engines.Word
                     if (text != null)
                     {
                         string docText = Utils.CleanLineBreaks(text.ToString() ?? string.Empty);
+
+                        if (ApplyStringMap)
+                        {
+                            StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+                            docText = subs.ReplaceAllKeys(docText);
+                        }
+
                         File.WriteAllText(cacheFilePath, docText);
                     }
                 }

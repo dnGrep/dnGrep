@@ -14,12 +14,14 @@ namespace dnGREP.WPF
             IsEnabled = plugin.Enabled;
             PreviewTextEnabled = plugin.PreviewText;
             MappedExtensions = plugin.Extensions;
+            ApplyStringMap = plugin.ApplyStringMap;
             DefaultExtensions = GrepSettings.CleanExtensions(defaultExtensions);
         }
 
         public bool IsChanged => IsEnabled != original.Enabled ||
             PreviewTextEnabled != original.PreviewText ||
-            GrepSettings.CleanExtensions(MappedExtensions) != original.Extensions;
+            GrepSettings.CleanExtensions(MappedExtensions) != original.Extensions || 
+            ApplyStringMap != original.ApplyStringMap;
 
         public PluginConfiguration original;
 
@@ -33,6 +35,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool previewTextEnabled;
+
+        [ObservableProperty]
+        private bool applyStringMap;
 
         [ObservableProperty]
         private string mappedExtensions = string.Empty;
@@ -49,7 +54,7 @@ namespace dnGREP.WPF
         internal PluginConfiguration Save()
         {
             return IsChanged ? new(Name, IsEnabled, PreviewTextEnabled,
-                GrepSettings.CleanExtensions(MappedExtensions)) : original;
+                GrepSettings.CleanExtensions(MappedExtensions), ApplyStringMap) : original;
         }
     }
 }

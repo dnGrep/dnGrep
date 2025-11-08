@@ -35,7 +35,7 @@ namespace dnGREP.Engines.OpenXml
         internal static HeaderFooterPosition WordHeaderFooterPosition { get; private set; }
         internal static FootnoteRefType WordFootnoteNumber => FootnoteRefType.Parenthesis;
 
-        public static string ExtractWordText(Stream stream,
+        public static string ExtractWordText(Stream stream, bool applyStringMap,
             PauseCancelToken pauseCancelToken)
         {
             StringBuilder sb = new();
@@ -80,7 +80,14 @@ namespace dnGREP.Engines.OpenXml
 
             pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-            return sb.ToString();
+            string text = sb.ToString();
+            if (applyStringMap)
+            {
+                StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+                text = subs.ReplaceAllKeys(text);
+            }
+
+            return text;
         }
 
         private static Queue<Tuple<Paragraph?, SectionProperties>> GetSectionMap(Body? body)
@@ -288,6 +295,10 @@ namespace dnGREP.Engines.OpenXml
                 if (child is Text text)
                 {
                     sb.Append(text.Text);
+                }
+                else if (child is NoBreakHyphen)
+                {
+                    sb.Append(char.ConvertFromUtf32(0x2011));
                 }
                 else if (child is FootnoteReference fn)
                 {

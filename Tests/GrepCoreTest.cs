@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Unicode;
 using System.Windows.Forms;
 using dnGREP.Common;
 using dnGREP.Common.IO;
@@ -2143,6 +2144,14 @@ namespace Tests
             var list = results.FirstOrDefault(r => r.FileNameDisplayed.Contains("list", StringComparison.OrdinalIgnoreCase));
             Assert.NotNull(list);
             Assert.Equal(6, list.Matches.Count);
+        }
+
+        [Fact]
+        public void TestUnicodeInfo()
+        {
+            UnicodeCharInfo ciSpace = UnicodeInfo.GetCharInfo(0x20);
+            UnicodeCharInfo ciNBSpace = UnicodeInfo.GetCharInfo(0xA0);
+
         }
 
 #pragma warning restore SYSLIB1045

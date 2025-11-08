@@ -17,7 +17,7 @@ namespace dnGREP.Engines.OpenXml
     {
         private static readonly string bar = char.ConvertFromUtf32(0x2016) + " ";
 
-        public static List<Sheet> ExtractPowerPointText(Stream stream,
+        public static List<Sheet> ExtractPowerPointText(Stream stream, bool applyStringMap,
             PauseCancelToken pauseCancelToken)
         {
             List<Sheet> slides = [];
@@ -31,6 +31,12 @@ namespace dnGREP.Engines.OpenXml
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                 string text = GetSlideText(ppt, idx, pauseCancelToken);
+
+                if (applyStringMap)
+                {
+                    StringMap subs = GrepSettings.Instance.GetSubstitutionStrings();
+                    text = subs.ReplaceAllKeys(text);
+                }
 
                 slides.Add(new((idx + 1).ToString(), text));
             }

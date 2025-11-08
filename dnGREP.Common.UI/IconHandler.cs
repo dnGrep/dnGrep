@@ -25,11 +25,13 @@ namespace dnGREP.Common.UI
             var fileInfoPtr = Marshal.AllocHGlobal(fileInfoSize); // Allocate unmanaged memory
             try
             {
-                PInvoke.SHGetFileInfo(extension, 0, (SHFILEINFOW*)fileInfoPtr,
-                    (uint)fileInfoSize,
-                    SHGFI_FLAGS.SHGFI_ICON | SHGFI_FLAGS.SHGFI_USEFILEATTRIBUTES |
-                    (size == IconSize.Large ? SHGFI_FLAGS.SHGFI_LARGEICON : SHGFI_FLAGS.SHGFI_SMALLICON));
-
+                fixed (char* lpExtension = extension)
+                {
+                    PInvoke.SHGetFileInfo(lpExtension, 0, (SHFILEINFOW*)fileInfoPtr,
+                        (uint)fileInfoSize,
+                        SHGFI_FLAGS.SHGFI_ICON | SHGFI_FLAGS.SHGFI_USEFILEATTRIBUTES |
+                        (size == IconSize.Large ? SHGFI_FLAGS.SHGFI_LARGEICON : SHGFI_FLAGS.SHGFI_SMALLICON));
+                }
                 if (Marshal.PtrToStructure(fileInfoPtr, typeof(SHFILEINFOW)) is SHFILEINFOW fileInfo)
                 {
                     return GetManagedIcon(fileInfo.hIcon)?.ToBitmap();

@@ -232,6 +232,7 @@ namespace dnGREP.Engines
                         if (engine is IGrepPluginEngine pluginEngine)
                         {
                             pluginEngine.PreviewPlainText = fileTypeEngines[fileExtension].PreviewPlainText;
+                            pluginEngine.ApplyStringMap = fileTypeEngines[fileExtension].ApplyStringMap;
                         }
 
                         loadedEngines.Add(engine);

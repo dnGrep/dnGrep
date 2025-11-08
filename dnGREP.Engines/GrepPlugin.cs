@@ -85,6 +85,11 @@ namespace dnGREP.Engines
         public bool PreviewPlainText { get; private set; }
 
         /// <summary>
+        /// Gets a flag indicating if this plugin should apply the string map to the extracted text
+        /// </summary>
+        public bool ApplyStringMap { get; private set; }
+
+        /// <summary>
         /// Returns true if engine supports search only. Returns false is engine supports replace as well.
         /// </summary>
         public bool IsSearchOnly { get; private set; }
@@ -219,6 +224,7 @@ namespace dnGREP.Engines
 
                     Enabled = cfg.Enabled;
                     PreviewPlainText = cfg.PreviewText;
+                    ApplyStringMap = cfg.ApplyStringMap;
                     GetExtensionsFromSettings(cfg, defaultExtensions ?? []);
 
                     result = pluginType != null || !string.IsNullOrEmpty(Application);
