@@ -4283,4 +4283,58 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
     <value>交換搜尋並替換為</value>
   </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>字串替換</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>增添映射</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>原始字元</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Unicode 代碼點</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>原始值已存在.</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>增添</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>替代字元</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>替換此字元或多個字元</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>用此字元或多個字元</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Unicode 代碼點</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>原始</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>替代</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>字串映射…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>套用字串映射</value>
+  </data>
 </root>
