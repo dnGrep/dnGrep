@@ -155,7 +155,7 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>點號(.)搜尋包含換行字元</value>
+    <value>點號(.)作為換行字元</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
@@ -426,7 +426,7 @@
     <value>/dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    設定點號(.)搜尋包含換行字元搜尋旗標 - True 或 False.</value>
+    設定點號(.)作為換行搜尋旗標 - True 或 False.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample1" xml:space="preserve">
@@ -665,7 +665,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>點號(.)搜尋包含換行字元</value>
+    <value>點號(.)作為換行字元</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
@@ -2089,7 +2089,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>點號(.)搜尋包含換行字元</value>
+    <value>點號(.)作為換行字元</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
@@ -2197,7 +2197,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>點號(.)搜尋包含換行字元</value>
+    <value>點號(.)作為換行字元</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
@@ -2686,7 +2686,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
-    <value>包含換行字元</value>
+    <value>點號(.)作為換行字元</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
@@ -4279,5 +4279,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -s* [searchFor]
 -searchFor* [searchFor]
     設定檔案集中所欲搜尋樣式或文字. 必須是命令列上的最後一個選項, 並將逐字複製命令列的其餘部分. 當此引數已設定, 將會自動搜尋.</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>交換搜尋並替換為</value>
   </data>
 </root>

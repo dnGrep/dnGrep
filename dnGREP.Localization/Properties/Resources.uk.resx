@@ -3472,4 +3472,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -searchFor* [searchFor]
     Встановлює шаблон або текст для пошуку в наборі файлів. Повинно бути останнім параметром у командному рядку, після чого решта командного рядка буде скопійована дослівно. Якщо цей аргумент встановлено, пошук буде виконано автоматично.</value>
   </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Замінити пошук та заміну на</value>
+  </data>
 </root>

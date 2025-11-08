@@ -649,7 +649,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>keine binären Dateien</value>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>keine versteckten Verz.</value>
+    <value>keine versteckten</value>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
     <value>keine Unterverzeichnisse</value>
@@ -1294,7 +1294,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>vor und</value>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
-    <value>externer Editor</value>
+    <value>Externer Editor</value>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
     <value>Verwenden Sie die Schlüsselwörter '{0}' für den Speicherort der Datei, '{5}' für die Seitennummer, '{1}' für die Zeilennummer, '{2}' für das Suchmuster, '{3}' für den ersten übereinstimmenden Text in der Zeile und '{4}' für die Spaltennummer der ersten Übereinstimmung in der Zeile.</value>
@@ -2298,7 +2298,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
-    <value>benutze .gitignore</value>
+    <value>Verwende .gitignore</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
@@ -2306,7 +2306,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
-    <value>Text mit Zeilenumbrüchen</value>
+    <value>Text umbrechen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
@@ -2893,10 +2893,10 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Dateivergleich öffnen</value>
   </data>
   <data name="Keyboard_CommandHeader" xml:space="preserve">
-    <value>Befehlszeile</value>
+    <value>Befehl</value>
   </data>
   <data name="Keyboard_Remove" xml:space="preserve">
-    <value>Entfernen:</value>
+    <value>Entfernen</value>
   </data>
   <data name="Keyboard_Save" xml:space="preserve">
     <value>Speichern</value>
@@ -2915,5 +2915,434 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Keyboard_PageUpKey" xml:space="preserve">
     <value>Seite nach oben</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>Kommandozeilen-Argumente an das vorhandene Fenster weiterleiten</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>In den System-Tray minimieren *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>Tastenkombination zum Wiederherstellen des dnGrep-Fensters</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>Beim Beenden nachfragen, wenn ein Skript aktiv ist</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>Beim Beenden nachfragen, wenn die Suche länger läuft als</value>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>Minuten</value>
+  </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>Minuten</value>
+  </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>Wochen</value>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>Monate</value>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>Jahre</value>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>Erfordert Windows 11</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Ergebnisse Schriftstärke</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>Fehler:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>Keine Übereinstimmungen gefunden!</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Alles auf Standardeinstellungen zurücksetzen</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>Oben</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>Unten</value>
+  </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Entf</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Rücktaste</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Pos1</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>Leertaste</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>Druck</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Tastatur…</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Fenster</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Zuweisen</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Drücke F1 für Hilfe zu Tastaturkürzeln</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Tastenkombinationen verwalten</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Anzeigetext</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Tastenkombinationen für gewählten Befehl</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Tastenkombinationen</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Tastenkombinationen drücken:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>Tastenkombination wird derzeit verwendet von:</value>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>Hinzufügen…</value>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>Klein</value>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>Mittel</value>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>Groß</value>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>Anzeigetext</value>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>Benutzerdefinierter Editor</value>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Öffnen mit</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>Autom. Vervollständigung in Texteingabefeldern aktivieren</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>Nichts tun</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>Kopiere das ganze Archiv</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Anwendungsprotokolldateien:</value>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>Ja, trotzdem beenden</value>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>Die Suche läuft.</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>Die Einstellungen für den Plug-in-Cache haben sich geändert. Möchten Sie den alten Cache-Ordner löschen?</value>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>Die Suchergebnisse werden beim Beenden gelöscht.</value>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>Das Ersetzen in Dateien läuft.</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>Das neue Verzeichnis enthält bereits eine Datei mit dem Namen "{0}". Soll die vorhandene Datei ersetzt werden?</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>Skript beenden und Programm verlassen?</value>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Diese Meldung nicht mehr anzeigen</value>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>Programm beenden?</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>Suche beenden und Programm verlassen?</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Neue Tastenkombination konnte nicht registriert werden – wird sie bereits verwendet?</value>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Lassen Sie den Vorgang abschließen oder brechen Sie ihn vor dem Beenden ab.</value>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>Ein Skript wird ausgeführt.</value>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>Der vollständige Pfad und Dateiname der .ps1-Skriptdatei</value>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Suche starten</value>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>Der vollständige Pfad und Dateiname einer cmd- oder Batch-Datei</value>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>Der Ergebnisbericht (nur Text)</value>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>Auswahl des Datumsfilters</value>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>Dateiinformationen in Bericht aufnehmen</value>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>Auswahl des Zeitbereichs-Filters</value>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>Dateigrößenfilterung aktivieren</value>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>Suchort: Ordner oder Dateipfad</value>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>Der Ordner, der Dateipfad oder durch Kommas getrennte Liste von Ordnern oder Dateien</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>Ende</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Anwendungskonfiguration und Daten:</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Standardverzeichnisse verwenden</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Verzeichnisse</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Pfad relativ zum Suchpfad anzeigen</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Hauptfenster</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>Die Anwendungsverzeichnisse haben sich geändert. Möchten Sie die Dateien in die neuen Verzeichnisse kopieren?</value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' enthält möglicherweise Dateien, die nicht Teil der Anwendung sind. Möchten Sie dieses Verzeichnis trotzdem verwenden?</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>Einige Dateien konnten nicht in die neuen Verzeichnisse kopiert werden. Details finden Sie im Fehlerprotokoll: </value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>Anwendungs_protokolle</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Vorschau mit Ersetzungen</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>Es sind keine Dateien zum Ersetzen ausgewählt.</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Ersetze in ausgewählten Dateien</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Ersetzen-Dialog verwenden</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Hash der Dateigröße und Änderungszeit</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Hash der vollständigen Datei</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Cache-Schlüssel generieren mit:</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>Whitespace anzeigen</value>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>Dokument lesen fehlgeschlagen</value>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>Kommentare extrahieren</value>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>'{0}' nach '{1}' kopiert</value>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>Ziffern in numerischer Reihenfolge sortieren</value>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>Das Suchmuster passte nicht zum Dateinamen '{0}'</value>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>Setzt den Wert für die Zieleigenschaft</value>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>Die {0}-Datei '{1}' wurde nicht gefunden</value>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>Die Dateiendung {0} muss {1} sein</value>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>Dateien verschieben fehlgeschlagen: </value>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Neues Skript</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Umgebungsvariable festlegen</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Variable=Zeichenkette (Zeichenkette kann leer sein, um eine Variable zu löschen)</value>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>Pfad muss gültig sein</value>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Als Standardeditor für nicht aufgelistete Dateitypen festlegen</value>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>Bearbeiten…</value>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>Im Vorschaufenster - vor dem Laden von Dateien nachfragen, die größer sind als</value>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>Skript abgebrochen</value>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>Skript abgeschlossen</value>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>Skript-Dateien</value>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>Skript-Meldungen</value>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>Keine feste Begrenzung</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Schreibt eine Zeichenfolge oder die verstrichene Zeit in die Protokolldatei</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>Eine Meldungstext oder 'time' zum Protokollieren der verstrichenen Zeit</value>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>Nicht konfiguriert</value>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>Unzulässige Zeichen</value>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>Bitte geben Sie einen Wert im Bereich {0}-{1} ein.</value>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>Ungültiger Eingabetyp</value>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Fehler beim Öffnen der PDF-Datei</value>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Fehler beim Öffnen einer Ausgabedatei</value>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Fehler im Zusammenhang mit PDF-Berechtigungen</value>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>Anderer Fehler</value>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext hat '{0}' zurückgegeben, beim Lesen von '{1}'</value>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>Zielverzeichnis konnte nicht erstellt werden: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>Zieldatei ist identisch mit der Quelldatei: {0}</value>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>Fehler {0} bei der Verarbeitung der Datei '{1}'</value>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>Aktuelle Zeile</value>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>Navigationsschaltflächen anzeigen</value>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>Schaltflächengröße:</value>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>Position der Schaltfläche:</value>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>Über dem Ergebnisbaum</value>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>An der Kante des Ergebnisbaums angedockt:</value>
+  </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>Mehrzeilige Suche</value>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>Wert ist erforderlich</value>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Letzten Ersetzungsvorgang rückgängig machen</value>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>In Zeile</value>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Dateikopieren fehlgeschlagen: </value>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>Löschen der Dateien fehlgeschlagen: </value>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>Verwenden ISO 8601 oder lokales Datums-/Zeitformat</value>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>Leerzeichen im Bericht entfernen</value>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Ergebnisse sortieren</value>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>Wird möglicherweise nicht von allen Schriftarten unterstützt</value>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Dateien mit Suchfehlern im Ergebnisfenster anzeigen</value>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>{0} Dateien konnten wegen Berechtigungen, Locks oder Fehlern nicht durchsucht werden: Details findest du in der dnGrep-Logdatei</value>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>Diese PDF-Datei enthält keinen Text</value>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext konnte keine Textdatei erstellen</value>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext hat '{0}' zurückgegeben</value>
   </data>
 </root>
