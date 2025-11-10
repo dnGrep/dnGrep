@@ -1039,4 +1039,28 @@
   <data name="Main_EverythingIndexService" xml:space="preserve">
     <value>"Everything" usluga indeksiranja</value>
   </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Ne</value>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Ne za s_ve</value>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Odaberite drugi direktorij i pokušajte ponovno.</value>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Plug-in greške</value>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Preimenuj datoteku</value>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Zamijeni</value>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>Nije moguće zamijeniti tekst u datotekama. Provjeri zapis grešaka za detalje: </value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Pokreni dnGrep kao Administrator za promjenu opcije pokretanja aplikacije.</value>
+  </data>
 </root>
