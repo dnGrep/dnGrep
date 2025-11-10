@@ -3351,4 +3351,28 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>Sortiere Ergebnisse automatisch, wenn die Suche abgeschlossen ist</value>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Windows 11-Kontextmenü:</value>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>Original-Kontextmenü:</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>Nach {0} Treffer stoppen</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>Pause nach dem ersten Treffer</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>Pause nach {0} Treffern</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>Anzahl Treffer, nach denen die Suche automatisch gestoppt wird</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>Anzahl Treffer, nach denen die Suche automatisch pausiert wird</value>
+  </data>
 </root>
