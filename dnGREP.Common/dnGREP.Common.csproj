@@ -53,9 +53,9 @@
       <Version>13.0.4</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>6.0.5</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.10" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.11" />
     <PackageReference Include="UnicodeInformation" Version="2.7.1" />
     <PackageReference Include="UTF.Unknown">
       <Version>2.6.0</Version>
