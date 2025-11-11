@@ -3472,4 +3472,61 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -searchFor* [searchFor]
     Встановлює шаблон або текст для пошуку в наборі файлів. Повинно бути останнім параметром у командному рядку, після чого решта командного рядка буде скопійована дослівно. Якщо цей аргумент встановлено, пошук буде виконано автоматично.</value>
   </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Замінити пошук та заміну на</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Заміна рядків</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Додати зіставлення</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Оригінальний(і) персонаж(и)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Кодова точка(и) Юнікоду</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>Початкове значення вже існує.</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Символ(и) заміни</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Замініть цей символ або символи</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>З цим персонажем або персонажами</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Кодова точка Юнікоду</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Оригінал</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Замінник</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Карта рядків…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Застосувати карту рядків</value>
+  </data>
 </root>

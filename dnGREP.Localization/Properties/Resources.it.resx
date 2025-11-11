@@ -1256,4 +1256,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_HighlightGroups" xml:space="preserve">
     <value>Gruppi in evidenza</value>
   </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
 </root>
