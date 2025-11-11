@@ -111,6 +111,9 @@
       <Component Id="cmpF80D34B512294E6DAAB9CE30E531C5D7" Guid="{B2470E9C-FFC4-4EA8-B9F4-196DB5FC2FB0}">
         <File Id="fil4A341CF47501456094615919642614C9" KeyPath="yes" Source="$(var.PublishDir)\SevenZipSharp.pdb" />
       </Component>
+      <Component Id="cmp1F76D796AA5540D599331612BF19E0F3" Guid="{67B4BDA3-6854-4C44-8187-21A640B991D0}">
+        <File Id="fil56057F34D0794560B9729C73D6618633" KeyPath="yes" Source="$(var.PublishDir)\UnicodeInformation.dll" />
+      </Component>
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.PublishDir)\UtfUnknown.dll" />
       </Component>
@@ -284,6 +287,7 @@
       <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
       <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
       <ComponentRef Id="cmpF80D34B512294E6DAAB9CE30E531C5D7" />
+      <ComponentRef Id="cmp1F76D796AA5540D599331612BF19E0F3" />
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
       
       <ComponentRef Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" />
