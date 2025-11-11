@@ -4002,4 +4002,61 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -searchFor* [검색 대상]
     파일 집합 내에서 검색할 패턴이나 텍스트를 설정합니다. 명령줄의 마지막 옵션이어야 하며 나머지 명령줄을 복사합니다. 이 인수가 설정되면 검색이 자동으로 실행됩니다.</value>
   </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>검색 및 교체 대상</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>문자열 교체</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>매핑 추가</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>원본 문자</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>유니코드 코드 포인트</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>원래 값이 이미 존재합니다.</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>대체 문자</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>지우기</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>이 문자 또는 문자 바꾸기</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>이 문자 또는 문자와 함께</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>유니코드 포인트</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>원본</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>대체물</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>문자열 맵…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>문자열 맵 적용</value>
+  </data>
 </root>
