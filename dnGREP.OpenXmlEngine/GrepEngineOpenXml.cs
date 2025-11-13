@@ -254,7 +254,7 @@ namespace dnGREP.Engines.OpenXml
                 {
                     if (stream == null)
                     {
-                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
+                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                         stream = fileStream;
                     }
                     sheets = ExcelReader.ExtractExcelText(stream, pauseCancelToken);
@@ -325,7 +325,7 @@ namespace dnGREP.Engines.OpenXml
                 {
                     if (stream == null)
                     {
-                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
+                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                         stream = fileStream;
                     }
                     text = WordReader.ExtractWordText(stream, ApplyStringMap, pauseCancelToken);
@@ -388,7 +388,7 @@ namespace dnGREP.Engines.OpenXml
                 {
                     if (stream == null)
                     {
-                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read);
+                        fileStream = File.Open(documentFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                         stream = fileStream;
                     }
                     slides = PowerPointReader.ExtractPowerPointText(stream, ApplyStringMap, pauseCancelToken);
@@ -475,3 +475,4 @@ namespace dnGREP.Engines.OpenXml
         private static partial Regex SheetNameRegex();
     }
 }
+
