@@ -595,7 +595,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Stunden</value>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
     <value>dnGrep</value>
@@ -760,7 +760,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>…</value>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
     <value>Ausschlussmuster:</value>
@@ -946,7 +946,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>KB</value>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
     <value>Sortieren</value>
@@ -2581,7 +2581,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Message box button text (accel)</comment>
   </data>
   <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
-    <value>Wird beim Verschieben einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <value>Wenn eine Datei verschoben wird, soll dann die Zieldatei überschrieben werden, falls sie dort bereits existiert?</value>
     <comment>Options dialog, overwrite on move options label</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
@@ -2685,7 +2685,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
-    <value>Wird beim Kopieren einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <value>Wenn eine Datei kopiert wird, soll dann die Zieldatei überschrieben werden, falls sie dort bereits existiert?</value>
     <comment>Options dialog, overwrite on copy options label</comment>
   </data>
   <data name="ScriptHint_copyfiles" xml:space="preserve">
@@ -3575,5 +3575,32 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Options_WithFilesInArchives" xml:space="preserve">
     <value>Mit Dateien in Archiven</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Für Dateiname in Suchergebnissen</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>.NET-Bibliothek zur Erzeugung textueller Unterschiede</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>Read-Only</value>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Quellordnerstruktur beibehalten</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>Datums-/Zeit-Filter 'Von'</value>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>Datums-/Zeit-Filter 'Bis'</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Größe bis</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Datei-Größen-Filter Obergrenze (Zahl)</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Datei-Größen-Filter Untergrenze (Zahl)</value>
   </data>
 </root>
