@@ -47,9 +47,6 @@
       <Component Id="cmp66BA23AD1045B9EEC11EA61276B6FA75" Guid="{D2014ABD-8C69-4421-A89B-C16723AB1A31}">
         <File Id="fil362A3F4DD1B20A2AA5F22DF884FCB1E0" KeyPath="yes" Source="$(var.PublishDir)\hostpolicy.dll" />
       </Component>
-      <Component Id="cmp7D9B39FE1997599E2B94A90A638508C6" Guid="{0A966F87-E85E-400B-BF7D-FC1A6C681BF8}">
-        <File Id="fil864EBB430168DECE502135FFAFD434BC" KeyPath="yes" Source="$(var.PublishDir)\Microsoft.CSharp.dll" />
-      </Component>
       <Component Id="cmp2E62ED3AF8E64C706078F3B6BA93B4CC" Guid="{3B44B94C-F23F-48D0-A731-45D3F69F1803}">
         <File Id="filC188079FF561E0523A1E94737EABF022" KeyPath="yes" Source="$(var.PublishDir)\Microsoft.DiaSymReader.Native.$(var.Platform.Id).dll" />
       </Component>
@@ -763,7 +760,6 @@
       <ComponentRef Id="cmp2D49C38D19E9AA3F4DD3B30216A6AACF" />
       <ComponentRef Id="cmp874E81D33C3769A0B4CB22338C418A9B" />
       <ComponentRef Id="cmp66BA23AD1045B9EEC11EA61276B6FA75" />
-      <ComponentRef Id="cmp7D9B39FE1997599E2B94A90A638508C6" />
       <ComponentRef Id="cmp2E62ED3AF8E64C706078F3B6BA93B4CC" />
       <ComponentRef Id="cmpEBC556F8CA27F34ECF95A3CC3C127D11" />
       <ComponentRef Id="cmp64574E1D04CF47C5F413633EDDA30195" />

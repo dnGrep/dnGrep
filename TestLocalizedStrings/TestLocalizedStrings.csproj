@@ -25,11 +25,4 @@
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.11" />
-  </ItemGroup>
 </Project>
