@@ -55,7 +55,7 @@ namespace dnGREP.WPF
             {
                 stringMap.Map.Add(item.MapKey, item.MapValue);
             }
-            stringMap.SaveToSettings(GrepSettings.Key.SubstitutionStrings);
+            GrepSettings.Instance.SaveSubstitutionStrings(stringMap);
 
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
