@@ -3736,7 +3736,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/e [검색 명령어]
 -e [검색 명령어]
 -everything [검색 명령어]
-    Everything 텍스트를 설정합니다. 명령줄의 마지막 옵션이어야 하며 나머지 명령줄을 복사합니다.</value>
+    모든 항목 검색 텍스트를 지정합니다.</value>
   </data>
   <data name="Main_StopAfter0Matches" xml:space="preserve">
     <value>{0}개의 일치 후 중지</value>
