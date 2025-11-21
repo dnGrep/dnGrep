@@ -3,7 +3,7 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <LangVersion>12</LangVersion>
     <OutputType>WinExe</OutputType>
-    <Platforms>x86;x64</Platforms>
+    <Platforms>x86;x64;ARM64</Platforms>
     <AssemblyName>dnGREP</AssemblyName>
     <ApplicationIcon>nGREP.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
@@ -26,6 +26,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x64'">
     <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>dnGREP.pfx</AssemblyOriginatorKeyFile>
@@ -216,6 +219,9 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
     <SevenZipFiles Include="$(SolutionDir)\Dependencies\7z64.dll" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)'=='ARM64'">
+    <SevenZipFiles Include="$(SolutionDir)\Dependencies\7zArm64.dll" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x86'">
     <SevenZipFiles Include="$(SolutionDir)\Dependencies\7z32.dll" />

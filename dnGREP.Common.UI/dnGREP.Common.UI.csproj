@@ -3,7 +3,7 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <LangVersion>12</LangVersion>
     <OutputType>Library</OutputType>
-    <Platforms>x86;x64</Platforms>
+    <Platforms>x86;x64;ARM64</Platforms>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -21,6 +21,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x64'">
     <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>$(NoWarn);WFAC010;CA1416</NoWarn>

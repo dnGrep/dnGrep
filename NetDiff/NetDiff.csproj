@@ -9,6 +9,7 @@
     <Version>1.5.0</Version>
     <SignAssembly>false</SignAssembly>
     <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
 
 </Project>
