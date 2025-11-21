@@ -595,7 +595,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Stunden</value>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
     <value>dnGrep</value>
@@ -760,7 +760,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>…</value>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
     <value>Ausschlussmuster:</value>
@@ -946,7 +946,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>KB</value>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
     <value>Sortieren</value>
@@ -1075,7 +1075,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Löschung des Lesezeichens entfernt das Lesezeichen.</value>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value>Dateien kopieren</value>
+    <value>Kopieren von Dateien</value>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
     <value>Kann die Sprachdatei '{0}' nicht laden: </value>
@@ -2581,7 +2581,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Message box button text (accel)</comment>
   </data>
   <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
-    <value>Wird beim Verschieben einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <value>Wenn eine Datei verschoben wird, soll dann die Zieldatei überschrieben werden, falls sie dort bereits existiert?</value>
     <comment>Options dialog, overwrite on move options label</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
@@ -2685,7 +2685,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
-    <value>Wird beim Kopieren einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <value>Wenn eine Datei kopiert wird, soll dann die Zieldatei überschrieben werden, falls sie dort bereits existiert?</value>
     <comment>Options dialog, overwrite on copy options label</comment>
   </data>
   <data name="ScriptHint_copyfiles" xml:space="preserve">
@@ -3325,7 +3325,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Ergebnisse sortieren</value>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
-    <value>Word (docx)</value>
+    <value>Word (.docx)</value>
   </data>
   <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
     <value>Wird möglicherweise nicht von allen Schriftarten unterstützt</value>
@@ -3374,5 +3374,233 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
     <value>Anzahl Treffer, nach denen die Suche automatisch pausiert wird</value>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Ersetzungstext oder leerer String</value>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Suche im Archiv '{0}' fehlgeschlagen</value>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Fehler beim Extrahieren der Datei '{0}' aus dem Archiv '{1}'</value>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>Nicht angezeigt</value>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>Fußnoten extrahieren</value>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Hochgestellt</value>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>Fußnoten-Referenzzeichen:</value>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>Zeichen in voller Größe</value>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>Zeichen in voller Größe in Klammern</value>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Kopfzeilen extrahieren</value>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>Fußzeilen extrahieren</value>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>Abschnittsanfang</value>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>Position der extrahierten Kopf- und Fußzeile:</value>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>Ende des Dokuments</value>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>Tiefgestellt</value>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>Zahl in voller Größe in Klammern</value>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>Kommentar-Referenznummern:</value>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Ergebnisdateien kopieren und umbenennen unter Verwendung regulärer Ausdrücke</value>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Fehler: Ein Muster wird für das Argument {0} benötigt</value>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Fehler: Wahr (True) oder Falsch (False) wird für das Argument {0} benötigt</value>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Fehler: Ein Pfad wird für das Argument {0} benötigt</value>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Fehler: {0} für Argument {1}</value>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>Die Zieldatei existiert und Überschreiben ist deaktiviert: '{0}'</value>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Dateierweiterungen</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Leeren</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Unicode-Wert</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Originalzeichen</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Unicode-Wert(e)</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>Der Originalwert existiert bereits.</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Ersatzzeichen</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>Durch diese(s) Zeichen ersetzen</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Diese(s) Zeichen ersetzen</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Zeichenersetzung hinzufügen</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Zeichenersetzungs-Tabelle…</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Zeichenersetzungs-Tabelle</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Ersatz</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Zeichenersetzungs-Tabelle anwenden</value>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>Festhalten der Kopfzeilen im Ergebnisbaum aktivieren</value>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>Das Plugin {0} konnte keinen Text extrahieren</value>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>Die vom Plugin {0} erstellte Datei enthält keinen durchsuchbaren Text</value>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>Der Befehl des Plugins {0} gab einen Fehler zurück: {1}</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>Dateinamen mit Trefferanzahl kopieren</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [Suchbefehle]
+-e [Suchbefehle]
+-everything [Suchbefehle]
+    Legt den Suchtext für "Everything" fest.</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>Alle Treffer in jeder Datei</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Erster Treffer in jeder Datei</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>Nach der Suche den Tastaturfokus setzen auf</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Eingabefeld Suche</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Dateien extrahieren und kopieren</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Das gesamte Archiv verschieben</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Dateien extrahieren und verschieben</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Ganzes Archiv löschen</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>'Suchen nach' und 'Ersetzen durch' tauschen</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [Suchmuster]
+-s* [Suchmuster]
+-searchFor* [Suchmuster]
+    Legt das Muster oder den Text fest, nach dem in den Dateien gesucht werden soll. Muss die letzte Option in der Kommandozeile sein und kopiert den Rest der Kommandozeile wörtlich. Wenn dieses Argument festgelegt wird, wird die Suche automatisch ausgeführt.</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [Suchbefehle]
+-e* [Suchbefehle]
+-everything* [Suchbefehle]
+    Legt den Suchtext für "Everything" fest. Muss die letzte Option in der Kommandozeile sein und kopiert den Rest der Kommandozeile wörtlich.</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Finden</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Dateien aus dem Cache löschen, wenn sie nicht verwendet wurden seit</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Cache-Dateien ablegen in</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Cache-Dateien im Temp-Ordner ablegen</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Extrahierte Dateien zwischenspeichern</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Plug-in-Cache</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>Mit Dateien in Archiven</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Für Dateiname in Suchergebnissen</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>.NET-Bibliothek zur Erzeugung textueller Unterschiede</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>Read-Only</value>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Quellordnerstruktur beibehalten</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>Datums-/Zeit-Filter 'Von'</value>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>Datums-/Zeit-Filter 'Bis'</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Größe bis</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Datei-Größen-Filter Obergrenze (Zahl)</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Datei-Größen-Filter Untergrenze (Zahl)</value>
   </data>
 </root>
