@@ -19,39 +19,6 @@ namespace dnGREP.Common
                 map[item.Key] = item.Value;
             }
         }
-
-        public void SaveToSettings(string key)
-        {
-            GrepSettings.Instance.Set(key, map);
-        }
-
-        //public string this[string key]
-        //{
-        //    get => map[key];
-        //    set => map[key] = value;
-        //}
-
-        //public void Add(string key, string value)
-        //{
-        //    map.Add(key, value);
-        //}
-
-        //public bool ContainsKey(string key)
-        //{
-        //    return map.ContainsKey(key);
-        //}
-
-        //public bool TryGetValue(string key, out string value)
-        //{
-        //    if (map.TryGetValue(key, out var result) && result is not null)
-        //    {
-        //        value = result;
-        //        return true;
-        //    }
-        //    value = string.Empty;
-        //    return false;
-        //}
-
         public static string Describe(string text)
         {
             if (string.IsNullOrEmpty(text))

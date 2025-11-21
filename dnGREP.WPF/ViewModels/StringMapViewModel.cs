@@ -55,7 +55,7 @@ namespace dnGREP.WPF
             {
                 stringMap.Map.Add(item.MapKey, item.MapValue);
             }
-            stringMap.SaveToSettings(GrepSettings.Key.SubstitutionStrings);
+            GrepSettings.Instance.SaveSubstitutionStrings(stringMap);
 
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
@@ -171,7 +171,7 @@ namespace dnGREP.WPF
             MapValueCodePoint = string.Empty;
         }
 
-        private string CodePointsToString(string codePoints)
+        private static string CodePointsToString(string codePoints)
         {
             Match m = CodePointRegex().Match(codePoints);
             if (m != null && m.Success)
@@ -195,7 +195,7 @@ namespace dnGREP.WPF
             return string.Empty;
         }
 
-        private string StringToCodePoints(string value)
+        private static string StringToCodePoints(string value)
         {
             string codePoints = string.Empty;
             foreach (Rune r in value.EnumerateRunes())
