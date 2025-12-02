@@ -13,7 +13,6 @@
     <Version>6.2</Version>
     <AssemblyVersion>6.2.0.0</AssemblyVersion>
     <FileVersion>6.2.0.0</FileVersion>
-    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup>

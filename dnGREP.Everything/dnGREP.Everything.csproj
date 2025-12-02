@@ -33,7 +33,7 @@
     <DefineConstants>$(DefineConstants);x64</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='ARM64'">
-    <DefineConstants>$(DefineConstants);x64</DefineConstants>
+    <DefineConstants>$(DefineConstants);arm64</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfoCommon.cs">
