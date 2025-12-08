@@ -1,6 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <!-- Adding variable -->
   <?include ..\Variables.wxi ?>
 
@@ -8,7 +6,7 @@
   <?define Platform.Id="amd64" ?>
   <?else?>
   <?define Platform.Id="x86" ?>
-  <?endif ?>
+  <?endif?>
 
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
@@ -25,7 +23,7 @@
       <Component Id="cmpCB85EF404A6F4275832293FC73A147A7" Guid="{A205E376-39EA-4B96-BF55-CF5E1B6695F1}">
         <File Id="fil5C6413D4186F436EB33F2D9C46F6181B" KeyPath="yes" Source="$(var.PublishDir)\clrgcexp.dll" />
       </Component>
-      <?endif ?>
+      <?endif?>
       <Component Id="cmp990AE3383455059B02B09DC3CE89CC08" Guid="{14BA7B2A-C903-4876-A340-DF25E3C63565}">
         <File Id="fil6717DE22B2F74B1321973F09459C7203" KeyPath="yes" Source="$(var.PublishDir)\clrjit.dll" />
       </Component>
