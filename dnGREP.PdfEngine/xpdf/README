@@ -1,11 +1,11 @@
 Xpdf
 ====
 
-version 4.05
-2024-feb-08
+version 4.06
+2025-nov-14
 
 The Xpdf software and documentation are
-copyright 1996-2024 Glyph & Cog, LLC.
+copyright 1996-2025 Glyph & Cog, LLC.
 
 Email: xpdf@xpdfreader.com
 WWW: http://www.xpdfreader.com/
