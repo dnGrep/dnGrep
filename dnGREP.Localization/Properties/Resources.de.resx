@@ -390,7 +390,7 @@
   <data name="Help_CmdLineCSVReport" xml:space="preserve">
     <value>/csv [filePath]
 -csv [filePath]
-    Erstellt nach Abschluss der Suche eine Ergebnisdatei im CSV-Format.</value>
+    Erstellt nach Abschluss der Suche eine Bericht im CSV-Format.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
@@ -595,7 +595,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Stunden</value>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
     <value>dnGrep</value>
@@ -679,7 +679,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Gruppen hervorheben</value>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>Fundstellen hervorheben</value>
+    <value>Treffer hervorheben</value>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
     <value>Gruppen von Regulären Ausdrücken hervorheben - Änderungen werden bei der nächsten Suche übernommen.</value>
@@ -760,7 +760,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>…</value>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
     <value>Ausschlussmuster:</value>
@@ -814,10 +814,10 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>...(+{0:n0} Zeichen)</value>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value>{0} ({1} Fundstellen)</value>
+    <value>{0} ({1} Treffer)</value>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} Fundstellen in {2} Zeilen)</value>
+    <value>{0} ({1} Treffer in {2} Zeilen)</value>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Übereinstimmung {0}{1}{2}</value>
@@ -826,7 +826,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Überienstimmung {0}{1}Gruppe {2}: {3}</value>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value>, +{0} mehre Fundstellen</value>
+    <value>, +{0} weitere Treffer</value>
   </data>
   <data name="Main_ResultList_ReadOnly" xml:space="preserve">
     <value>[nur lesen]</value>
@@ -853,7 +853,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Alles anzeigen</value>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>Nexte Fundstelle</value>
+    <value>Nächster Treffer</value>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
     <value>Öffnen</value>
@@ -865,7 +865,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Öffne mit benutzerdefiniertem Editor</value>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>vorherige Fundstelle</value>
+    <value>Vorheriger Treffer</value>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
     <value>Datei umbenennen</value>
@@ -946,7 +946,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>KB</value>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>zu</value>
+    <value>bis</value>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
     <value>Sortieren</value>
@@ -973,10 +973,10 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Trefferanzahl</value>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value>Pfad und Dateiname, Größe-zuerst</value>
+    <value>Pfad und Dateiname, Breitensuche (Nachbar-zuerst)</value>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>Pfad und Dateiname, Tiefe-zuerst</value>
+    <value>Pfad und Dateiname, Tiefensuche</value>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
     <value>Ausgeschlossene {0} fehlende Dateien.</value>
@@ -1021,7 +1021,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>bis zum Ende des Tages</value>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Verwenden Sie Capture-Gruppen aus 'Pfade, die übereinstimmen' im Muster 'Suchen nach'</value>
+    <value>Verwenden Sie Erfassungsgruppen (Regex) aus 'Suchen in'/'Suchmuster' im Muster 'Suchen nach'</value>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
     <value>benutze .gitignore</value>
@@ -1075,7 +1075,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Löschung des Lesezeichens entfernt das Lesezeichen.</value>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value>Dateien kopieren</value>
+    <value>Kopieren von Dateien</value>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
     <value>Kann die Sprachdatei '{0}' nicht laden: </value>
@@ -1531,19 +1531,19 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Dateien</value>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Makierte Fundstellen in dieser Datei ersetzen</value>
+    <value>Markierte Treffer in dieser Datei ersetzen</value>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>Markierte Fundstelle ersetzen</value>
+    <value>Treffer zum Ersetzen markieren</value>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
-    <value>Fundstellen</value>
+    <value>Treffer</value>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Springe zur nächsten Fundstelle in der Datei</value>
+    <value>Springe zum nächsten Treffer in der Datei</value>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Springe zur vorherigen Fundstelle in der Datei</value>
+    <value>Springe zum vorherigen Treffer in der Datei</value>
   </data>
   <data name="Replace_Next" xml:space="preserve">
     <value>_Weiter</value>
@@ -1579,22 +1579,22 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Text</value>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Fundstelle selektiert</value>
+    <value>Selektierter Treffer</value>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Fundstelle ersetzt</value>
+    <value>Treffer ersetzen</value>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>Fundstelle</value>
+    <value>Treffer überspringen</value>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value>Fundstelle(n) ersetzen</value>
+    <value>Markierte Treffer ersetzen</value>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
     <value>Ersetzen mit:</value>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Zurücksetzten aller Fundstellen in dieser Datei</value>
+    <value>Alle Treffer in dieser Datei zurücksetzen und überspringen</value>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
     <value>Suche nach:</value>
@@ -1609,7 +1609,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Nicht</value>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'Ersetze in der Datei'.</value>
+    <value>Diese Datei enthält zu viele Treffer für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'Ersetze in der Datei'.</value>
   </data>
   <data name="Replace_Title" xml:space="preserve">
     <value>Text ersetzen</value>
@@ -1621,7 +1621,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Rückgängig Datei</value>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Zurücknahme der Ersetzung an dieser Fundstelle</value>
+    <value>Markierung zum Ersetzen für diesen Treffer aufheben</value>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
     <value>Text mit Zeilenumbrüchen</value>
@@ -1639,16 +1639,16 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>[Datei nicht gefunden: wurde sie gelöscht oder verschoben?]</value>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>gefunden {0} Fundstelle(n) in {1} Zeile(n) in {2} Dateie(n)</value>
+    <value>gefunden {0} Treffer in {1} Zeile(n) in {2} Datei(en)</value>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
-    <value>gefundene Fundstelle für </value>
+    <value>Treffer gefunden für </value>
   </data>
   <data name="Report_FoundNoMatchesFor" xml:space="preserve">
-    <value>keine Fundstelle für </value>
+    <value>Keine Treffer gefunden für </value>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
-    <value>habe {0} Fundstellen in {1} Zeilen:</value>
+    <value>enthält {0} Treffer in {1} Zeile(n):</value>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
     <value>Boolische Operatoren</value>
@@ -1705,7 +1705,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Größe von {0} bis {1} KB</value>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>Halt nach erster Fundstelle</value>
+    <value>Nach erstem Treffer stoppen</value>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
     <value>{0} Datum vom {1} bis {2}</value>
@@ -1813,7 +1813,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>$&amp; ersetzt die gesamte reguläre Ausdrücke</value>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... fügt die mit Klammern eingeschlossenen Fundstelle(n) in den durchsuchten Text ein</value>
+    <value>$1, $2, $3, usw... fügt die mit Klammern eingeschlossenen Treffer in den durchsuchten Text ein</value>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
     <value>$$ fügt ein einzelnes Dollarzeichen in den Ersetzungstext ein</value>
@@ -2027,7 +2027,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>/einzigartig [True/False]
 -unique [True/False]
 -uniqueValues [True/False]
-    Legt das Kennzeichen für die Ausgabe eindeutiger Übereinstimmungs- oder Gruppenwerte in der Ausgabe des Berichts über reguläre Ausdrücke fest - "True" oder "False".</value>
+    Legt das Kennzeichen für die Ausgabe eindeutiger Übereinstimmungs- oder Gruppenwerte in der Berichtsausgabe über reguläre Ausdrücke fest - "True" oder "False".</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
@@ -2122,7 +2122,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>/scope [scope]
 -scope [scope]
 -uniqueScope [scope]
-    Setzt das Flag, um den Bereich der eindeutigen Werte in der Ausgabe des Berichts mit regulären Ausdrücken festzulegen - muss einer der folgenden Werte sein: "Global" oder "PerFile".</value>
+    Setzt das Flag, um den Bereich der eindeutigen Werte in der Berichtsausgabe mit regulären Ausdrücken festzulegen - muss einer der folgenden Werte sein: "Global" oder "PerFile".</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
@@ -2142,7 +2142,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Preview window, file label when binary file is shown as text</comment>
   </data>
   <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
-    <value>Nur Gruppen erfassen</value>
+    <value>Nur Erfassungsgruppen (Regex)</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_CSV" xml:space="preserve">
@@ -2234,7 +2234,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
-    <value>Gruppensuche erfassen</value>
+    <value>Suche mit Erfassungsgruppen (Regex)</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
@@ -2286,15 +2286,15 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
-    <value>Kontextzeilen einblenden</value>
+    <value>Kontextzeilen anzeigen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
-    <value>Überspringen entfernter Cloud-Speicherdateien</value>
+    <value>Überspringen entfernter Cloud-Speicher-Dateien</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
-    <value>Halt nach erster Fundstelle</value>
+    <value>Nach erstem Treffer stoppen</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
@@ -2581,7 +2581,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Message box button text (accel)</comment>
   </data>
   <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
-    <value>Wird beim Verschieben einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <value>Wenn eine Datei verschoben wird, soll dann die Zieldatei überschrieben werden, falls sie dort bereits existiert?</value>
     <comment>Options dialog, overwrite on move options label</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
@@ -2685,7 +2685,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
-    <value>Wird beim Kopieren einer Datei die vorhandene Datei überschrieben, wenn die Zieldatei bereits existiert?</value>
+    <value>Wenn eine Datei kopiert wird, soll dann die Zieldatei überschrieben werden, falls sie dort bereits existiert?</value>
     <comment>Options dialog, overwrite on copy options label</comment>
   </data>
   <data name="ScriptHint_copyfiles" xml:space="preserve">
@@ -2784,7 +2784,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
-    <value>Fundstellen hervorheben</value>
+    <value>Treffer hervorheben</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_EditorOK" xml:space="preserve">
@@ -3325,7 +3325,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Ergebnisse sortieren</value>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
-    <value>Word (docx)</value>
+    <value>Word (.docx)</value>
   </data>
   <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
     <value>Wird möglicherweise nicht von allen Schriftarten unterstützt</value>
@@ -3374,5 +3374,314 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
     <value>Anzahl Treffer, nach denen die Suche automatisch pausiert wird</value>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Ersetzungstext oder leerer String</value>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Suche im Archiv '{0}' fehlgeschlagen</value>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Fehler beim Extrahieren der Datei '{0}' aus dem Archiv '{1}'</value>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>Nicht angezeigt</value>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>Fußnoten extrahieren</value>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Hochgestellt</value>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>Fußnoten-Referenzzeichen:</value>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>Zeichen in voller Größe</value>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>Zeichen in voller Größe in Klammern</value>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Kopfzeilen extrahieren</value>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>Fußzeilen extrahieren</value>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>Abschnittsanfang</value>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>Position der extrahierten Kopf- und Fußzeile:</value>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>Ende des Dokuments</value>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>Tiefgestellt</value>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>Zahl in voller Größe in Klammern</value>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>Kommentar-Referenznummern:</value>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Ergebnisdateien kopieren und umbenennen unter Verwendung regulärer Ausdrücke</value>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Fehler: Ein Muster wird für das Argument {0} benötigt</value>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Fehler: Wahr (True) oder Falsch (False) wird für das Argument {0} benötigt</value>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Fehler: Ein Pfad wird für das Argument {0} benötigt</value>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Fehler: {0} für Argument {1}</value>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>Die Zieldatei existiert und Überschreiben ist deaktiviert: '{0}'</value>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Dateierweiterungen</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Leeren</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Unicode-Wert</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Originalzeichen</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Unicode-Wert(e)</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>Der Originalwert existiert bereits.</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Ersatzzeichen</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>Durch diese(s) Zeichen ersetzen</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Diese(s) Zeichen ersetzen</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Zeichenersetzung hinzufügen</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Zeichenersetzungs-Tabelle…</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Zeichenersetzungs-Tabelle</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Ersatz</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Zeichenersetzungs-Tabelle anwenden</value>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>Festhalten der Kopfzeilen im Ergebnisbaum aktivieren</value>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>Das Plugin {0} konnte keinen Text extrahieren</value>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>Die vom Plugin {0} erstellte Datei enthält keinen durchsuchbaren Text</value>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>Der Befehl des Plugins {0} gab einen Fehler zurück: {1}</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>Dateinamen mit Trefferanzahl kopieren</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [Suchbefehle]
+-e [Suchbefehle]
+-everything [Suchbefehle]
+    Legt den Suchtext für "Everything" fest.</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>Alle Treffer in jeder Datei</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Erster Treffer in jeder Datei</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>Nach der Suche den Tastaturfokus setzen auf</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Eingabefeld Suche</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Dateien extrahieren und kopieren</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Das gesamte Archiv verschieben</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Dateien extrahieren und verschieben</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Ganzes Archiv löschen</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>'Suchen nach' und 'Ersetzen durch' tauschen</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [Suchmuster]
+-s* [Suchmuster]
+-searchFor* [Suchmuster]
+    Legt das Muster oder den Text fest, nach dem in den Dateien gesucht werden soll. Muss die letzte Option in der Kommandozeile sein und kopiert den Rest der Kommandozeile wörtlich. Wenn dieses Argument festgelegt wird, wird die Suche automatisch ausgeführt.</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [Suchbefehle]
+-e* [Suchbefehle]
+-everything* [Suchbefehle]
+    Legt den Suchtext für "Everything" fest. Muss die letzte Option in der Kommandozeile sein und kopiert den Rest der Kommandozeile wörtlich.</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Finden</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Dateien aus dem Cache löschen, wenn sie nicht verwendet wurden seit</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Cache-Dateien ablegen in</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Cache-Dateien im Temp-Ordner ablegen</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Extrahierte Dateien zwischenspeichern</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Plug-in-Cache</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>Mit Dateien in Archiven</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Für Dateiname in Suchergebnissen</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>.NET-Bibliothek zur Erzeugung textueller Unterschiede</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>ReadOnly</value>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Quellordnerstruktur beibehalten</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>Datums-/Zeit-Filter 'Von'</value>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>Datums-/Zeit-Filter 'Bis'</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Größe bis</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Datei-Größen-Filter Obergrenze (Zahl)</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Datei-Größen-Filter Untergrenze (Zahl)</value>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>Geben Sie die Codepage-Nummer oder -1 für automatische Erkennung ein</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Untere Grenze (Zahl) für den Filter 'Vergangene Stunden'</value>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Obere Grenze (Zahl) für den Filter 'Vergangene Stunden'</value>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>Datums-/Uhrzeitfilter 'Vergangene' Stunden</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>Trennzeichen im Bericht zwischen Elementen auf derselben Zeile</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>Zeichen oder Zeichenkette, wie z. B. Komma oder Komma-Leerzeichen</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>Maximale Tiefe der Unterordner</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>Ordner-Tiefenlimit (Zahl)</value>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>Der Typ des Dateifiltermusters</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>Filter-Muster zum Ausschließen</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>Ein Dateifiltermuster, wie z. B. test\\*, oder eine Liste von Filtern</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>Muster zum Filtern</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>Datums-/Uhrzeitfilter 'zurückliegende' Stunden</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>Ein Dateifiltermuster, wie z. B. *.txt, oder eine Liste von Filtern</value>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Datei vorschau</value>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>Berichtsausgabe-Einstellung</value>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>Zoomfaktor für die Ergebnisbaum (Zahl)</value>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>Einstellung des Sortiertyps</value>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>Umfang der eindeutigen Werte im Bericht: pro Datei oder alle Dateien</value>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>Bericht nach eindeutigen Werten filtern</value>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>Der Ausführungsbefehl wurde mit einem Fehler beendet: </value>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>Der Ausführungsbefehl ist ungültig</value>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>Beim Öffnen einer Datei das gesamte Archiv für diese Erweiterungen öffnen:</value>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>Anführungszeichen im '{0}'-Argument escapen</value>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>{0}-Datum in der Vergangenheit {1} bis {2} {3}</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>Nicht global</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>Nicht global</value>
   </data>
 </root>

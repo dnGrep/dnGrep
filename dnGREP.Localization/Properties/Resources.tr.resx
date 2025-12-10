@@ -3411,4 +3411,61 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -searchFor* [searchFor]
     Dosya kümesi içinde aramak için desen veya metni ayarlar. Komut satırındaki son seçenek olmalıdır ve komut satırının geri kalanını kelimesi kelimesine kopyalayacaktır. Bu argüman ayarlandığında, arama otomatik olarak çalıştırılır.</value>
   </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Aramayı Değiştir ve Şununla Değiştir</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Dize Değiştirmeleri</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Eşleme ekle</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Orijinal karakter(ler)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Unicode kod noktaları</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>Orijinal değer zaten mevcut.</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Karakter(ler)i değiştir</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Bu karakteri veya karakterleri değiştirin</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>Bu karakter veya karakterlerle</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Unicode kod noktası</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Orijinal</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Yerine Koy</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Dize haritası…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Dize eşlemesini uygula</value>
+  </data>
 </root>
