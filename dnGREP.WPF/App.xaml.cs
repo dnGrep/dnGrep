@@ -9,6 +9,7 @@ using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
 using dnGREP.WPF.MVHelpers;
+using dnGREP.WPF.Services;
 using NLog;
 using Windows.Win32;
 
@@ -109,7 +110,7 @@ namespace dnGREP.WPF
                 if (MainWindow == null)
                 {
                     KeyBindingManager.LoadBindings();
-                    GrepEngineFactory.InitializePlugins();
+                    GrepEngineFactory.InitializePlugins(new PasswordService());
                     MainWindow = new MainForm();
                     Utils.DeleteTempFolder();
                     Utils.DeleteUndoFolder();

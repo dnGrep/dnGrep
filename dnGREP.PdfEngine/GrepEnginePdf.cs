@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using dnGREP.Localization;
@@ -21,9 +22,9 @@ namespace dnGREP.Engines.Pdf
         private string pathToPdfToText = string.Empty;
 
         #region Initialization and disposal
-        public override bool Initialize(GrepEngineInitParams param, FileFilter filter)
+        public override bool Initialize(GrepEngineInitParams param, FileFilter filter, IPassword? passwordService)
         {
-            base.Initialize(param, filter);
+            base.Initialize(param, filter, passwordService);
             try
             {
                 // Make sure pdftotext.exe exists
@@ -68,7 +69,7 @@ namespace dnGREP.Engines.Pdf
             try
             {
                 // Extract text
-                extracted = ExtractText(pdfFile, cacheFilePath, encoding, pauseCancelToken);
+                extracted = ExtractText(pdfFile, cacheFilePath, encoding, string.Empty, pauseCancelToken);
                 if (string.IsNullOrEmpty(extracted.Text) || !File.Exists(cacheFilePath))
                 {
                     string message = Resources.Error_PdftotextFailedToCreateTextFile;
@@ -140,7 +141,7 @@ namespace dnGREP.Engines.Pdf
 
                 try
                 {
-                    extracted = ExtractText(tempPdfFilePath, cacheFilePath, encoding, pauseCancelToken);
+                    extracted = ExtractText(tempPdfFilePath, cacheFilePath, encoding, string.Empty, pauseCancelToken);
                     if (string.IsNullOrEmpty(extracted.Text) || !File.Exists(cacheFilePath))
                     {
                         string message = Resources.Error_PdftotextFailedToCreateTextFile;
@@ -266,7 +267,7 @@ namespace dnGREP.Engines.Pdf
         }
 
         private ExtractTextResults ExtractText(string pdfFilePath, string cacheFilePath,
-            Encoding encoding, PauseCancelToken pauseCancelToken)
+            Encoding encoding, string password, PauseCancelToken pauseCancelToken)
         {
             if (string.IsNullOrEmpty(cacheFilePath))
             {
@@ -291,6 +292,11 @@ namespace dnGREP.Engines.Pdf
                 options = "-eol unix " + options;
             }
 
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                options += $" -upw {password}";
+            }
+
             using Process process = new();
             // use command prompt
             process.StartInfo.FileName = pathToPdfToText;
@@ -308,6 +314,19 @@ namespace dnGREP.Engines.Pdf
             }
             else
             {
+                if (process.ExitCode == 1)
+                {
+                    var name = Path.GetFileName(pdfFilePath);
+                    var path = Path.GetDirectoryName(pdfFilePath) ?? string.Empty;
+
+                    bool retry = !string.IsNullOrEmpty(password);
+                    if (PasswordService?.RequestPassword(name, path, retry) is string newPassword &&
+                        !string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        return ExtractText(pdfFilePath, cacheFilePath, encoding, newPassword, pauseCancelToken);
+                    }
+                }
+
                 string errorMessage = string.Empty;
                 errorMessage = process.ExitCode switch
                 {

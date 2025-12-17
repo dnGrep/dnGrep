@@ -20,6 +20,8 @@ namespace dnGREP.Engines
         protected GrepEngineInitParams initParams = GrepEngineInitParams.Default;
         private GoogleMatch? fuzzyMatchEngine;
 
+        protected IPassword? PasswordService { get; private set; }
+
         private static readonly ConcurrentDictionary<string, string> guidxMatches = new();
         internal static void ResetGuidxCache() => guidxMatches.Clear();
 
@@ -28,10 +30,11 @@ namespace dnGREP.Engines
         {
         }
 
-        public virtual bool Initialize(GrepEngineInitParams param, FileFilter filter)
+        public virtual bool Initialize(GrepEngineInitParams param, FileFilter filter, IPassword? passwordService)
         {
             initParams = param;
             FileFilter = filter;
+            PasswordService = passwordService;
             return true;
         }
 

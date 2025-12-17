@@ -369,7 +369,7 @@ namespace dnGREP.Engines.Word
                 logger.Error(ex, "Failed to load Word and create Document.");
             }
 
-            base.Initialize(initParams, FileFilter);
+            base.Initialize(initParams, FileFilter, PasswordService);
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace dnGREP.Engines
 {
     public interface IGrepEngine
     {
-        bool Initialize(GrepEngineInitParams param, FileFilter filter);
+        bool Initialize(GrepEngineInitParams param, FileFilter filter, IPassword? passwordRequest);
 
         /// <summary>
         /// Returns a list of file extensions handled by this engine.
