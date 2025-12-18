@@ -1752,6 +1752,25 @@ namespace dnGREP.Common
             }
         }
 
+        private static readonly List<string> passwordProtectedCacheFiles = [];
+
+        public static void AddPasswordProtectedCacheFile(string file)
+        {
+            passwordProtectedCacheFiles.Add(file);
+        }
+
+        public static void DeletePasswordProtectedCacheFiles()
+        {
+            foreach (var file in passwordProtectedCacheFiles)
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch { }
+            }
+        }
+
         /// <summary>
         /// Returns path to a folder used by dnGREP for undo files (including trailing slash). If folder does not exist
         /// it gets created.

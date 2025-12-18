@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using dnGREP.Localization;
@@ -310,6 +309,11 @@ namespace dnGREP.Engines.Pdf
 
             if (process.ExitCode == 0)
             {
+                if (!string.IsNullOrEmpty(password))
+                {
+                    Utils.AddPasswordProtectedCacheFile(cacheFilePath);
+                }
+
                 return ReadCacheFile(cacheFilePath, encoding, ApplyStringMap);
             }
             else
@@ -318,8 +322,8 @@ namespace dnGREP.Engines.Pdf
                 {
                     var name = Path.GetFileName(pdfFilePath);
                     var path = Path.GetDirectoryName(pdfFilePath) ?? string.Empty;
-
                     bool retry = !string.IsNullOrEmpty(password);
+
                     if (PasswordService?.RequestPassword(name, path, retry) is string newPassword &&
                         !string.IsNullOrWhiteSpace(newPassword))
                     {
