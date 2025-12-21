@@ -1063,4 +1063,13 @@
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
     <value>Pokreni dnGrep kao Administrator za promjenu opcije pokretanja aplikacije.</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
 </root>
