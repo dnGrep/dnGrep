@@ -3058,4 +3058,16 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Keyboard_PageUpKey" xml:space="preserve">
     <value>Av Pàg</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>D'acord</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
 </root>
