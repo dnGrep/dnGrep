@@ -4395,4 +4395,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
     <value>Кодова точка на Уникод</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
 </root>
