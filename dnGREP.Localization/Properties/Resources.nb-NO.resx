@@ -2465,4 +2465,10 @@
   <data name="Keyboard_Close" xml:space="preserve">
     <value>Lukk</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
 </root>
