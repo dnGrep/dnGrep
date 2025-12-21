@@ -1036,4 +1036,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReportOptionsWindow_Save" xml:space="preserve">
     <value>Uložiť</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
 </root>
