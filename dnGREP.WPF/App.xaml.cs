@@ -110,7 +110,9 @@ namespace dnGREP.WPF
                 if (MainWindow == null)
                 {
                     KeyBindingManager.LoadBindings();
-                    GrepEngineFactory.InitializePlugins(new PasswordService());
+                    var passwordSvc = new PasswordService();
+                    ArchiveDirectory.InitializePasswordService(passwordSvc);
+                    GrepEngineFactory.InitializePlugins(passwordSvc);
                     MainWindow = new MainForm();
                     Utils.DeleteTempFolder();
                     Utils.DeleteUndoFolder();
