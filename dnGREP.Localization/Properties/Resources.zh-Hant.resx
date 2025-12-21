@@ -4337,4 +4337,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>套用字串對映</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
 </root>
