@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -77,9 +76,9 @@ namespace dnGREP.Engines
         {
         }
 
-        public IEnumerable<List<GrepSearchResult>> Search(string file, string searchPattern,
-            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
-            PauseCancelToken pauseCancelToken)
+        public IEnumerable<List<GrepSearchResult>> Search(string file, string password,
+            string searchPattern, SearchType searchType, GrepSearchOption searchOptions,
+            Encoding encoding, PauseCancelToken pauseCancelToken)
         {
             ArgumentNullException.ThrowIfNull(file, nameof(file));
 
@@ -89,17 +88,17 @@ namespace dnGREP.Engines
             }
 
             using FileStream fileStream = new(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
-            foreach (var item in Search(fileStream, file, searchPattern, searchType, searchOptions, encoding, pauseCancelToken))
+            foreach (var item in Search(fileStream, file, password, searchPattern, searchType, searchOptions, encoding, pauseCancelToken))
             {
                 yield return item;
             }
         }
 
-        public IEnumerable<List<GrepSearchResult>> Search(Stream input, string fileName,
+        public IEnumerable<List<GrepSearchResult>> Search(Stream input, string fileName, string password,
             string searchPattern, SearchType searchType, GrepSearchOption searchOptions,
             Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            var enumerator = SearchInsideArchive(input, fileName, searchPattern, searchType,
+            var enumerator = SearchInsideArchive(input, fileName, password, searchPattern, searchType,
                 searchOptions, encoding, pauseCancelToken).GetEnumerator();
             while (true)
             {
@@ -136,10 +135,10 @@ namespace dnGREP.Engines
         }
 
         private IEnumerable<List<GrepSearchResult>> SearchInsideArchive(Stream input, string fileName,
-            string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
-            PauseCancelToken pauseCancelToken)
+            string password, string searchPattern, SearchType searchType, GrepSearchOption searchOptions,
+            Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            using SevenZipExtractor extractor = new(input, true);
+            using SevenZipExtractor extractor = new(input, password, true);
             foreach (var fileInfo in extractor.ArchiveFileData)
             {
                 FileData fileData = new(fileName, fileInfo);
@@ -205,7 +204,7 @@ namespace dnGREP.Engines
                     extractor.ExtractFile(index, stream);
 
                     var enumerator = SearchInsideArchive(stream, fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
-                        searchPattern, searchType, searchOptions, encoding, pauseCancelToken).GetEnumerator();
+                        password, searchPattern, searchType, searchOptions, encoding, pauseCancelToken).GetEnumerator();
 
                     while (true)
                     {

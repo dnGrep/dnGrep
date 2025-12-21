@@ -6300,6 +6300,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request password for secure archive files.
+        /// </summary>
+        public static string Options_RequestArchivePassword {
+            get {
+                return ResourceManager.GetString("Options_RequestArchivePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request password for secure PDF files.
+        /// </summary>
+        public static string Options_RequestPDFPassword {
+            get {
+                return ResourceManager.GetString("Options_RequestPDFPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requires Windows 11.
         /// </summary>
         public static string Options_RequiresWindows11 {
@@ -6683,6 +6701,69 @@ namespace dnGREP.Localization.Properties {
         public static string Optionss_AskBeforeLoadingFiles {
             get {
                 return ResourceManager.GetString("Optionss_AskBeforeLoadingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string PasswordDialog_Cancel {
+            get {
+                return ResourceManager.GetString("PasswordDialog_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caps Lock.
+        /// </summary>
+        public static string PasswordDialog_CapsLock {
+            get {
+                return ResourceManager.GetString("PasswordDialog_CapsLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string PasswordDialog_OK {
+            get {
+                return ResourceManager.GetString("PasswordDialog_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password for:.
+        /// </summary>
+        public static string PasswordDialog_PasswordFor {
+            get {
+                return ResourceManager.GetString("PasswordDialog_PasswordFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show password.
+        /// </summary>
+        public static string PasswordDialog_ShowPassword {
+            get {
+                return ResourceManager.GetString("PasswordDialog_ShowPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password entered is incorrect..
+        /// </summary>
+        public static string PasswordDialog_ThePasswordEnteredIsIncorrect {
+            get {
+                return ResourceManager.GetString("PasswordDialog_ThePasswordEnteredIsIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string PasswordDialog_Title {
+            get {
+                return ResourceManager.GetString("PasswordDialog_Title", resourceCulture);
             }
         }
         

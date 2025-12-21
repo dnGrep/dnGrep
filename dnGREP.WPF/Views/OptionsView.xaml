@@ -1077,6 +1077,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" 
                                    Text="{l:Loc Key='Options_ArchiveExtensions'}"
@@ -1101,6 +1102,9 @@
                                  Text="{Binding ArchiveCustomExtensions}" TextWrapping="Wrap"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                        <CheckBox Grid.Row="4" Grid.Column="0" 
+                                  Content="{l:Loc Key='Options_RequestArchivePassword'}"
+                                  IsChecked="{Binding RequestArchivePassword}"/>
                     </Grid>
                 </GroupBox>
 
@@ -1153,6 +1157,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -1169,10 +1174,13 @@
                                 Command="{Binding ResetPdfToTextOptionCommand}"
                                 Padding="12,3" Margin="20,3" 
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <CheckBox Grid.Row="2" Grid.Column="0" 
+                        <CheckBox Grid.Row="2" Grid.Column="0" Margin="0,3"
                                   Content="{l:Loc Key='Options_MultilineSearch'}"
                                   IsChecked="{Binding PdfJoinLines}"/>
-                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,6,0,0">
+                        <CheckBox Grid.Row="3" Grid.Column="0" Margin="0,3"
+                                  Content="{l:Loc Key='Options_RequestPDFPassword'}"
+                                  IsChecked="{Binding RequestPDFPassword}"/>
+                        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,6,0,0">
                             <TextBlock Text="{l:Loc Key='Options_PDFNumberStyle'}" />
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_PageNumbers'}" GroupName="pdfNumber"
                                          IsChecked="{Binding PdfNumberStyle, Converter={StaticResource ebc}, ConverterParameter=PageNumber}" />

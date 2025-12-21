@@ -4496,4 +4496,40 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Apply string map</value>
     <comment>Options dialog, check box label</comment>
   </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Request password for secure PDF files</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Request password for secure archive files</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Password</value>
+    <comment>PasswordDialog, title</comment>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>The password entered is incorrect.</value>
+    <comment>PasswordDialog, error messagae</comment>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Password for:</value>
+    <comment>PasswordDialog, file label</comment>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+    <comment>PasswordDialog, warning message</comment>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Show password</value>
+    <comment>PasswordDialog, checkbox label</comment>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>PasswordDialog, OK button label</comment>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>PasswordDialog, Cancel button label</comment>
+  </data>
 </root>

@@ -572,6 +572,12 @@ namespace dnGREP.WPF
         private PdfNumberType pdfNumberStyle = PdfNumberType.PageNumber;
 
         [ObservableProperty]
+        private bool requestPDFPassword;
+
+        [ObservableProperty]
+        private bool requestArchivePassword;
+
+        [ObservableProperty]
         private bool wordExtractComments = false;
 
         [ObservableProperty]
@@ -763,6 +769,8 @@ namespace dnGREP.WPF
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 PdfJoinLines != Settings.Get<bool>(GrepSettings.Key.PdfJoinLines) ||
                 PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
+                RequestPDFPassword != Settings.Get<bool>(GrepSettings.Key.RequestPDFPassword) ||
+                RequestArchivePassword != Settings.Get<bool>(GrepSettings.Key.RequestArchivePassword) ||
                 WordExtractFootnotes != Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes) ||
                 WordFootnoteReference != Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference) ||
                 WordExtractComments != Settings.Get<bool>(GrepSettings.Key.WordExtractComments) ||
@@ -1089,6 +1097,8 @@ namespace dnGREP.WPF
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
             PdfJoinLines = Settings.Get<bool>(GrepSettings.Key.PdfJoinLines);
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
+            RequestPDFPassword = Settings.Get<bool>(GrepSettings.Key.RequestPDFPassword);
+            RequestArchivePassword = Settings.Get<bool>(GrepSettings.Key.RequestArchivePassword);
 
             WordExtractFootnotes = Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes);
             WordFootnoteReference = Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference);
@@ -1287,6 +1297,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
             Settings.Set(GrepSettings.Key.PdfJoinLines, PdfJoinLines);
             Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
+            Settings.Set(GrepSettings.Key.RequestPDFPassword, RequestPDFPassword);
+            Settings.Set(GrepSettings.Key.RequestArchivePassword, RequestArchivePassword);
             Settings.Set(GrepSettings.Key.WordExtractFootnotes, WordExtractFootnotes);
             Settings.Set(GrepSettings.Key.WordFootnoteReference, WordFootnoteReference);
             Settings.Set(GrepSettings.Key.WordExtractComments, WordExtractComments);

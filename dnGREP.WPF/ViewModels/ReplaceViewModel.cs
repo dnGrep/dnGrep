@@ -954,7 +954,7 @@ namespace dnGREP.WPF
             if (SelectedSearchResult != null)
             {
                 GrepEnginePlainText engine = new();
-                engine.Initialize(InitParameters, FileFilter.Default);
+                engine.Initialize(InitParameters, FileFilter.Default, null);
 
                 var replaceItems = SelectedSearchResult.Matches.Select(m => m.Copy(replaceMatch: true)).ToList();
 
@@ -995,7 +995,7 @@ namespace dnGREP.WPF
                 string destinationFile = Path.Combine(Utils.GetTempFolder(), newFileName);
 
                 GrepEnginePlainText engine = new();
-                engine.Initialize(InitParameters, FileFilter.Default);
+                engine.Initialize(InitParameters, FileFilter.Default, null);
 
                 var replaceItems = SelectedSearchResult.Matches.Select(m => m.Copy(replaceMatch: true)).ToList();
 

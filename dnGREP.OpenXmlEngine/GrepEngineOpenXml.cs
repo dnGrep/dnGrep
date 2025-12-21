@@ -21,10 +21,10 @@ namespace dnGREP.Engines.OpenXml
 
         public List<string> DefaultFileExtensions => ["docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm"];
 
-        public override bool Initialize(GrepEngineInitParams param, FileFilter filter)
+        public override bool Initialize(GrepEngineInitParams param, FileFilter filter, IPassword? passwordService)
         {
             WordReader.Initialize();
-            return base.Initialize(param, filter);
+            return base.Initialize(param, filter, passwordService);
         }
 
         public bool IsSearchOnly => true;

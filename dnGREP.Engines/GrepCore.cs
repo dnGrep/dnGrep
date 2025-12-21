@@ -372,11 +372,12 @@ namespace dnGREP.Common
 
                 if (isArchive && engine is ArchiveEngine archiveEngine)
                 {
+                    string password = ArchiveDirectory.GetArchivePassword(file); 
                     archiveEngine.SetSearchOptions(FileFilter, SearchParams);
                     archiveEngine.StartingFileSearch += ArchiveEngine_StartingFileSearch;
 
-                    foreach (var fileSearchResults in archiveEngine.Search(file, searchPattern, searchType,
-                        searchOptions, encoding, pauseCancelToken))
+                    foreach (var fileSearchResults in archiveEngine.Search(file, password, 
+                        searchPattern, searchType, searchOptions, encoding, pauseCancelToken))
                     {
                         if (fileSearchResults.Count > 0)
                         {
@@ -474,6 +475,7 @@ namespace dnGREP.Common
 
                 if (isArchive && engine is ArchiveEngine archiveEngine)
                 {
+                    string password = ArchiveDirectory.GetArchivePassword(file);
                     archiveEngine.SetSearchOptions(FileFilter, SearchParams);
                     archiveEngine.StartingFileSearch += ArchiveEngine_StartingFileSearch;
 
@@ -482,8 +484,8 @@ namespace dnGREP.Common
                         searchPattern = searchPatterns[idx];
                         pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                        foreach (var fileSearchResults in archiveEngine.Search(file, searchPattern, searchType,
-                            searchOptions, encoding, pauseCancelToken))
+                        foreach (var fileSearchResults in archiveEngine.Search(file, password,
+                            searchPattern, searchType, searchOptions, encoding, pauseCancelToken))
                         {
                             if (fileSearchResults.Count > 0)
                             {
