@@ -3529,4 +3529,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>Застосувати карту рядків</value>
   </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
 </root>
