@@ -3684,4 +3684,13 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
     <value>Nicht global</value>
   </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
 </root>
