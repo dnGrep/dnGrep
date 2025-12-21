@@ -24,6 +24,7 @@
                  Icon="/dnGREP;component/nGREP.ico"
                  WindowStartupLocation="CenterOwner">
     <Window.Resources>
+        <my:SpecialCharacterToStringConverter x:Key="specialChar"/>
         <Style TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlockStyle}">
             <Setter Property="Margin" Value="3" />
         </Style>
@@ -85,7 +86,8 @@
                 </TextBox.Resources>
                 <TextBox.Text>
                     <Binding Path="MapKey" Mode="TwoWay" 
-                             UpdateSourceTrigger="PropertyChanged">
+                             UpdateSourceTrigger="PropertyChanged"
+                             Converter="{StaticResource specialChar}">
                         <Binding.ValidationRules>
                             <my:UniqueStringValidationRule
                                 ValidatesOnTargetUpdated="True">
@@ -121,7 +123,7 @@
                      Margin="3,3,12,3"
                      TextAlignment="Left"
                      VerticalAlignment="Center"
-                     Text="{Binding MapValue}"
+                     Text="{Binding MapValue, Converter={StaticResource specialChar}}"
                      ToolTip="{Binding MapValueName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBox Grid.Row="4" Grid.Column="1"
@@ -205,7 +207,7 @@
                     <DataGridTemplateColumn Header="{l:Loc Key='StringMap_Original'}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MapKey}"
+                                <TextBlock Text="{Binding MapKey, Converter={StaticResource specialChar}}"
                                            ToolTipService.ToolTip="{Binding MapKeyName}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -215,7 +217,7 @@
                     <DataGridTemplateColumn Header="{l:Loc Key='StringMap_Substitute'}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MapValue}"
+                                <TextBlock Text="{Binding MapValue, Converter={StaticResource specialChar}}"
                                            ToolTipService.ToolTip="{Binding MapValueName}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
