@@ -4295,4 +4295,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
     <value>Для имени файла в результатах поиска</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Добавить:</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>
