@@ -384,6 +384,10 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string PreviewShowingReplacements = "PreviewShowingReplacements";
             public const string SubstitutionStrings = "SubstitutionStrings";
+            [DefaultValue(false)]
+            public const string RequestArchivePassword = "RequestArchivePassword";
+            [DefaultValue(false)]
+            public const string RequestPDFPassword = "RequestPDFPassword";
         }
 
         public static class ObsoleteKey

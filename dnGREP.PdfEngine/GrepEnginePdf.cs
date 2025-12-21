@@ -19,11 +19,15 @@ namespace dnGREP.Engines.Pdf
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private string pathToPdfToText = string.Empty;
+        private bool requestPassword = false;
 
         #region Initialization and disposal
         public override bool Initialize(GrepEngineInitParams param, FileFilter filter, IPassword? passwordService)
         {
             base.Initialize(param, filter, passwordService);
+
+            requestPassword = GrepSettings.Instance.Get<bool>(GrepSettings.Key.RequestPDFPassword);
+
             try
             {
                 // Make sure pdftotext.exe exists
@@ -318,7 +322,7 @@ namespace dnGREP.Engines.Pdf
             }
             else
             {
-                if (process.ExitCode == 1)
+                if (process.ExitCode == 1 && requestPassword)
                 {
                     var name = Path.GetFileName(pdfFilePath);
                     var path = Path.GetDirectoryName(pdfFilePath) ?? string.Empty;

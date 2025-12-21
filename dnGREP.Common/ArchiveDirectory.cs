@@ -59,22 +59,28 @@ namespace dnGREP.Common
         public static string GetArchivePassword(string filePath)
         {
             ArgumentNullException.ThrowIfNull(filePath);
-            string password = string.Empty;
-            while (!CheckArchive(filePath, password))
-            {
-                var name = Path.GetFileName(filePath);
-                var path = Path.GetDirectoryName(filePath) ?? string.Empty;
-                bool retry = !string.IsNullOrEmpty(password);
 
-                if (passwordService?.RequestPassword(name, path, retry) is string newPassword &&
-                    !string.IsNullOrWhiteSpace(newPassword))
+            string password = string.Empty;
+
+            bool requestPassword = GrepSettings.Instance.Get<bool>(GrepSettings.Key.RequestArchivePassword);
+            if (requestPassword)
+            {
+                while (!CheckArchive(filePath, password))
                 {
-                    password = newPassword;
-                }
-                else
-                {
-                    password = string.Empty;
-                    break;
+                    var name = Path.GetFileName(filePath);
+                    var path = Path.GetDirectoryName(filePath) ?? string.Empty;
+                    bool retry = !string.IsNullOrEmpty(password);
+
+                    if (passwordService?.RequestPassword(name, path, retry) is string newPassword &&
+                        !string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        password = newPassword;
+                    }
+                    else
+                    {
+                        password = string.Empty;
+                        break;
+                    }
                 }
             }
             return password;
