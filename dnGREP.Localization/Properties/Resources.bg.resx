@@ -4401,4 +4401,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Отказ</value>
   </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Искане на паролата на защитените файлове на PDF</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Искане на паролата на защитените архивни файлове</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>Въведената парола е невярна.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Парола за:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Главни букви</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Показване на паролата</value>
+  </data>
 </root>
