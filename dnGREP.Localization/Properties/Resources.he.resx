@@ -2665,4 +2665,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_Close" xml:space="preserve">
     <value>סגור</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>_ביטול</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>_ביטול</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>הוסף:</value>
+  </data>
 </root>
