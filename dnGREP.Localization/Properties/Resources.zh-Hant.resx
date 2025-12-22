@@ -4343,4 +4343,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>請求安全 PDF 檔案的密碼</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>請求安全壓縮檔案的密碼</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>輸入的密碼不正確.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>密碼:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>大寫鎖定</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>顯示密碼</value>
+  </data>
 </root>
