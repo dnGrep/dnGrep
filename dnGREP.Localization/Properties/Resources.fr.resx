@@ -3148,4 +3148,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
     <value>Recherche annulée en {0} - {1} correspondance(s) in {2} fichier(s) parmis {3} fichier(s) analysés.</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Dossier de destination</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
 </root>
