@@ -2429,7 +2429,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>De acuerdo</value>
+    <value>BIEN</value>
     <comment>Message box button text</comment>
   </data>
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
@@ -2567,6 +2567,18 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Izquierda</value>
   </data>
   <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>BIEN</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Cancel·lar</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Cancel·lar</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
     <value>Borrar</value>
   </data>
 </root>
