@@ -4815,6 +4815,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The string map settings have changed. Delete the cache folder?.
+        /// </summary>
+        public static string MessageBox_TheStringMapSettingsHaveChanged {
+            get {
+                return ResourceManager.GetString("MessageBox_TheStringMapSettingsHaveChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This bookmark is associated with {0} other folders..
         /// </summary>
         public static string MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders {

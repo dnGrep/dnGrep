@@ -4532,4 +4532,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Cancel</value>
     <comment>PasswordDialog, Cancel button label</comment>
   </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>The string map settings have changed. Delete the cache folder?</value>
+    <comment>Message box text for: delete cache files</comment>
+  </data>
 </root>

@@ -17,7 +17,11 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
 
-            viewModel.RequestClose += (s, e) => Close();
+            viewModel.RequestClose += (s, e) =>
+            {
+                DialogResult = true;
+                Close();
+            };
             DataContext = viewModel;
         }
 
