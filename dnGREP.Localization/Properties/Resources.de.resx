@@ -3693,4 +3693,22 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>Das eingegebene Passwort ist falsch.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Passwort für:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Feststelltaste</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Passwort anzeigen</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Passwort für geschützte PDF-Dateien anfordern</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Passwort für geschützte Archivdateien abfragen</value>
+  </data>
 </root>
