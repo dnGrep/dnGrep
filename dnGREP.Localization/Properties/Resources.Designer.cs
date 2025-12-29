@@ -4068,6 +4068,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View Whitespace.
+        /// </summary>
+        public static string Main_ViewWhitespace {
+            get {
+                return ResourceManager.GetString("Main_ViewWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Whole word.
         /// </summary>
         public static string Main_WholeWord {

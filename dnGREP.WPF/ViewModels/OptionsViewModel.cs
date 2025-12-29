@@ -140,6 +140,7 @@ namespace dnGREP.WPF
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_ContextShowLines), GrepSettings.Key.ShowContextLinesVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_Zoom), GrepSettings.Key.ZoomResultsTreeVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_WrapText), GrepSettings.Key.WrapTextResultsTreeVisible));
+            VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_ViewWhitespace), GrepSettings.Key.ViewWhitespaceResultsTreeVisible));
 
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_PreviewWindow), nameof(Resources.Preview_Zoom), GrepSettings.Key.PreviewZoomWndVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_PreviewWindow), nameof(Resources.Preview_WrapText), GrepSettings.Key.WrapTextPreviewWndVisible));

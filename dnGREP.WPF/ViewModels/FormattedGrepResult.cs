@@ -13,11 +13,14 @@ using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.UserControls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace dnGREP.WPF
 {
     public partial class FormattedGrepResult : CultureAwareViewModel, ITreeItem
     {
+        private static readonly string space = char.ConvertFromUtf32(0X00B7);
+
         public GrepSearchResult GrepResult { get; private set; } = new();
 
         public int Matches
@@ -120,11 +123,12 @@ namespace dnGREP.WPF
 
         private readonly string searchFolderPath;
 
-        public FormattedGrepResult(GrepSearchResult result, string folderPath)
+        public FormattedGrepResult(GrepSearchResult result, string folderPath, bool viewWhitespace)
         {
             GrepResult = result;
 
             searchFolderPath = folderPath;
+            ViewWhitespace = viewWhitespace;
             SetLabel();
 
             FormattedLines = new LazyResultsList(result, this);
@@ -137,7 +141,7 @@ namespace dnGREP.WPF
             bool isFileReadOnly = GrepResult.IsReadOnly;
 
             string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath;
-            FileName = Path.GetFileName(GrepResult.FileNameDisplayed);
+            FileName = MarkWhitespace(Path.GetFileName(GrepResult.FileNameDisplayed));
             FileNameFontWeight = GrepSettings.Instance.Get<FontWeight>(GrepSettings.Key.ResultsFileNameWeight);
             string additionalInfo = string.Empty;
 
@@ -148,7 +152,7 @@ namespace dnGREP.WPF
                     string.IsNullOrEmpty(basePath) ||
                     basePath.Equals(Path.GetPathRoot(basePath), StringComparison.OrdinalIgnoreCase))
                 {
-                    FilePath = Path.GetDirectoryName(GrepResult.FileNameDisplayed) + Path.DirectorySeparatorChar;
+                    FilePath = Path.GetDirectoryName(MarkWhitespace(GrepResult.FileNameDisplayed)) + Path.DirectorySeparatorChar;
                 }
                 else
                 {
@@ -163,7 +167,7 @@ namespace dnGREP.WPF
                     }
                     else if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)
                     {
-                        FilePath = Path.GetRelativePath(basePath, dirName);
+                        FilePath = MarkWhitespace(Path.GetRelativePath(basePath, dirName));
                         if (!FilePath.EndsWith(Path.DirectorySeparatorChar))
                         {
                             FilePath += Path.DirectorySeparatorChar;
@@ -233,10 +237,36 @@ namespace dnGREP.WPF
         private bool wrapText;
         partial void OnWrapTextChanged(bool value)
         {
-            foreach (var item in FormattedLines)
+            if (FormattedLines != null)
             {
-                item.WrapText = value;
+                foreach (var item in FormattedLines)
+                {
+                    item.WrapText = value;
+                }
             }
+        }
+
+        [ObservableProperty]
+        private bool viewWhitespace;
+        partial void OnViewWhitespaceChanged(bool value)
+        {
+            if (FormattedLines != null)
+            {
+                foreach (var item in FormattedLines)
+                {
+                    item.ViewWhitespace = value;
+                }
+            }
+        }
+
+        private string MarkWhitespace(string text)
+        {
+            if (ViewWhitespace)
+            {
+                text = text
+                    .Replace(" ", space, StringComparison.Ordinal);
+            }
+            return text;
         }
 
         public int Level => 0;

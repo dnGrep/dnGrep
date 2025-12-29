@@ -69,6 +69,7 @@ namespace dnGREP.WPF
             ShowContextLinesVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowContextLinesVisible);
             ZoomResultsTreeVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.ZoomResultsTreeVisible);
             WrapTextResultsTreeVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextResultsTreeVisible);
+            ViewWhitespaceResultsTreeVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.ViewWhitespaceResultsTreeVisible);
         }
 
         [ObservableProperty]
@@ -190,7 +191,11 @@ namespace dnGREP.WPF
         [NotifyPropertyChangedFor(nameof(ResultsTreeOptionsExpanderVisible))]
         private bool wrapTextResultsTreeVisible = true;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ResultsTreeOptionsExpanderVisible))]
+        private bool viewWhitespaceResultsTreeVisible = true;
+
         public bool ResultsTreeOptionsExpanderVisible =>
-            HighlightMatchesVisible || HighlightGroupsVisible || ShowContextLinesVisible || ZoomResultsTreeVisible || WrapTextResultsTreeVisible;
+            HighlightMatchesVisible || HighlightGroupsVisible || ShowContextLinesVisible || ZoomResultsTreeVisible || WrapTextResultsTreeVisible || ViewWhitespaceResultsTreeVisible;
     }
 }

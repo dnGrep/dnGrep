@@ -4536,4 +4536,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>The string map settings have changed. Delete the cache folder?</value>
     <comment>Message box text for: delete cache files</comment>
   </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>View Whitespace</value>
+    <comment>Main window, checkbox label</comment>
+  </data>
 </root>
