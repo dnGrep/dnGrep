@@ -82,6 +82,18 @@ namespace dnGREP.WPF
                 textEditor.TextArea.TextView.CurrentLineBorder = border;
 
                 searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+
+                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPluginFile &&
+                    ViewModel.GrepResult != null)
+                {
+                    for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
+                    {
+                        if (textEditor.TextArea.TextView.BackgroundRenderers[i] is PreviewHighlighter)
+                            textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
+                    }
+
+                    textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+                }
             };
         }
 
