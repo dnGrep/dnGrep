@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -329,11 +330,25 @@ namespace dnGREP.WPF
 
         private string MarkWhitespace(string text)
         {
-            if (ViewWhitespace)
+            if (ViewWhitespace && !string.IsNullOrEmpty(text))
             {
-                text = text
-                    .Replace(" ", space, StringComparison.Ordinal)
-                    .Replace("\t", tab, StringComparison.Ordinal);
+                StringBuilder sb = new(text.Length);
+                foreach (char ch in text)
+                {
+                    if (ch == '\t')
+                    {
+                        sb.Append(tab);
+                    }
+                    else if (char.IsWhiteSpace(ch))
+                    {
+                        sb.Append(space);
+                    }
+                    else
+                    {
+                        sb.Append(ch);
+                    }
+                }
+                return sb.ToString();
             }
             return text;
         }

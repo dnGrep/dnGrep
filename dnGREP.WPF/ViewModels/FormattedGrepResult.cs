@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -263,8 +264,17 @@ namespace dnGREP.WPF
         {
             if (ViewWhitespace)
             {
-                text = text
-                    .Replace(" ", space, StringComparison.Ordinal);
+                StringBuilder sb = new(text.Length);
+                foreach (char ch in text)
+                {
+                    if (char.IsWhiteSpace(ch))
+                    {
+                        sb.Append(space);
+                    }
+                    else
+                        sb.Append(ch);
+                }
+                return sb.ToString();
             }
             return text;
         }
