@@ -4540,4 +4540,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>View Whitespace</value>
     <comment>Main window, checkbox label</comment>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Move to top</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Move up</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Move down</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Move to bottom</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
 </root>

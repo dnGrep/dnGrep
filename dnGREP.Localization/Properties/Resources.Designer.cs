@@ -9360,6 +9360,42 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move down.
+        /// </summary>
+        public static string StringMap_MoveDown {
+            get {
+                return ResourceManager.GetString("StringMap_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to bottom.
+        /// </summary>
+        public static string StringMap_MoveToBottom {
+            get {
+                return ResourceManager.GetString("StringMap_MoveToBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to top.
+        /// </summary>
+        public static string StringMap_MoveToTop {
+            get {
+                return ResourceManager.GetString("StringMap_MoveToTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up.
+        /// </summary>
+        public static string StringMap_MoveUp {
+            get {
+                return ResourceManager.GetString("StringMap_MoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original.
         /// </summary>
         public static string StringMap_Original {

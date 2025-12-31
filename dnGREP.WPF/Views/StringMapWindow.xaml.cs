@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Common.UI;
@@ -22,6 +22,7 @@ namespace dnGREP.WPF
                 DialogResult = true;
                 Close();
             };
+            viewModel.SetFocus += ViewModel_SetFocus;
             DataContext = viewModel;
         }
 
@@ -37,6 +38,27 @@ namespace dnGREP.WPF
                 {
                     NativeMethods.SetClipboardText(textBlock.Text);
                     e.Handled = true; // Set to true to prevent default handling
+                }
+            }
+        }
+        private void ViewModel_SetFocus(object? sender, DataEventArgs<int> e)
+        {
+            dataGrid.Focus();
+            dataGrid.UpdateLayout();
+            dataGrid.ScrollIntoView(dataGrid.Items[e.Data]);
+            var row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(e.Data);
+            if (row != null)
+            {
+                row.Focus();
+                DataGridCellsPresenter? presenter = row.GetVisualChild<DataGridCellsPresenter>();
+                if (presenter != null)
+                {
+                    DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(1);
+                    if (cell != null)
+                    {
+                        dataGrid.ScrollIntoView(row, dataGrid.Columns[1]);
+                        cell.Focus();
+                    }
                 }
             }
         }

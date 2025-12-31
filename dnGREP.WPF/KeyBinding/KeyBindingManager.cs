@@ -11,7 +11,7 @@ using NLog;
 
 namespace dnGREP.WPF
 {
-    public enum KeyCategory { Main, Bookmark, Replace, Script }
+    public enum KeyCategory { Main, Bookmark, Replace, Script, StringMap }
 
     internal static class KeyBindingManager
     {
@@ -25,11 +25,13 @@ namespace dnGREP.WPF
         private static readonly List<KeyBindingInfo> bookmarkCommandBindings = [];
         private static readonly List<KeyBindingInfo> replaceCommandBindings = [];
         private static readonly List<KeyBindingInfo> scriptCommandBindings = [];
+        private static readonly List<KeyBindingInfo> stringMapCommandBindings = [];
 
         public static IEnumerable<KeyBindingInfo> AllCommandBindings => mainCommandBindings
             .Concat(bookmarkCommandBindings)
             .Concat(replaceCommandBindings)
-            .Concat(scriptCommandBindings);
+            .Concat(scriptCommandBindings)
+            .Concat(stringMapCommandBindings);
 
         private static List<KeyBindingInfo> GetList(KeyCategory category)
         {
@@ -38,6 +40,7 @@ namespace dnGREP.WPF
                 KeyCategory.Bookmark => bookmarkCommandBindings,
                 KeyCategory.Replace => replaceCommandBindings,
                 KeyCategory.Script => scriptCommandBindings,
+                KeyCategory.StringMap => stringMapCommandBindings,
                 _ => mainCommandBindings,
             };
         }
@@ -51,13 +54,16 @@ namespace dnGREP.WPF
 
             // look up the user's key gesture
             string keyGesture = string.Empty;
-            if (settings.TryGetValue(category, out Dictionary<string, string>? commands) &&
-                commands.TryGetValue(commandName, out string? gesture))
+            var categorySettings = settings.GetValueOrDefault(category);
+            if (categorySettings != null)
             {
-                keyGesture = gesture;
+                if (categorySettings.TryGetValue(commandName, out string? gesture))
+                {
+                    keyGesture = gesture;
+                }
             }
 
-            list.Add(new(category, commandName, labelKey, defaultKeyGesture, keyGesture, settings.Count > 0));
+            list.Add(new(category, commandName, labelKey, defaultKeyGesture, keyGesture, categorySettings?.Count > 0));
         }
 
         public static void RegisterCustomEditor(KeyCategory category, string editorLabel)
@@ -66,14 +72,17 @@ namespace dnGREP.WPF
 
             // look up the user's key gesture
             string keyGesture = string.Empty;
-            if (settings.TryGetValue(category, out Dictionary<string, string>? commands) &&
-                commands.TryGetValue(commandName, out string? gesture))
+            var categorySettings = settings.GetValueOrDefault(category);
+            if (categorySettings != null)
             {
-                keyGesture = gesture;
+                if (categorySettings.TryGetValue(commandName, out string? gesture))
+                {
+                    keyGesture = gesture;
+                }
             }
 
             var list = GetList(category);
-            list.Add(new(category, commandName, editorLabel, keyGesture, settings.Count > 0));
+            list.Add(new(category, commandName, editorLabel, keyGesture, categorySettings?.Count > 0));
         }
 
         public static void RegisterScript(KeyCategory category, string editorLabel)
@@ -82,14 +91,17 @@ namespace dnGREP.WPF
 
             // look up the user's key gesture
             string keyGesture = string.Empty;
-            if (settings.TryGetValue(category, out Dictionary<string, string>? commands) &&
-                commands.TryGetValue(commandName, out string? gesture))
+            var categorySettings = settings.GetValueOrDefault(category);
+            if (categorySettings != null)
             {
-                keyGesture = gesture;
+                if (categorySettings.TryGetValue(commandName, out string? gesture))
+                {
+                    keyGesture = gesture;
+                }
             }
 
             var list = GetList(category);
-            list.Add(new(category, commandName, editorLabel, keyGesture, settings.Count > 0));
+            list.Add(new(category, commandName, editorLabel, keyGesture, categorySettings?.Count > 0));
         }
 
         public static List<KeyBindingInfo> GetCategoryCommands(KeyCategory category)

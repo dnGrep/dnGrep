@@ -2556,6 +2556,7 @@ namespace dnGREP.WPF
             BookmarkListViewModel.Initialize();
             ReplaceViewModel.Initialize();
             ScriptViewModel.Initialize();
+            StringMapViewModel.Initialize();
 
             KeyboardShortcutWindow keyboardForm = new()
             {

@@ -22,7 +22,8 @@
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Icon="/dnGREP;component/nGREP.ico"
-                 WindowStartupLocation="CenterOwner">
+                 WindowStartupLocation="CenterOwner"
+                 my:InputBindingsBehavior.InputBindings="{Binding InputBindings}">
     <Window.Resources>
         <my:SpecialCharacterToStringConverter x:Key="specialChar"/>
         <Style TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlockStyle}">
@@ -123,8 +124,8 @@
                      Margin="3,3,12,3"
                      TextAlignment="Left"
                      VerticalAlignment="Center"
-                     Text="{Binding MapValue, Converter={StaticResource specialChar}}"
-                     ToolTip="{Binding MapValueName, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding MapValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource specialChar}}"
+                     ToolTip="{Binding MapValueName}"/>
 
             <TextBox Grid.Row="4" Grid.Column="1"
                      HorizontalAlignment="Stretch"
@@ -176,9 +177,8 @@
                       Grid.Row="1" Grid.ColumnSpan="3"
                       Margin="3"
                       ItemsSource="{Binding MapItems}"
+                      SelectedValue="{Binding SelectedItem}"
                       AutoGenerateColumns="False" 
-                      SelectionMode="Single" 
-                      SelectionUnit="Cell"
                       CanUserResizeColumns="True"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
@@ -229,6 +229,14 @@
                     <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource ThemedDataGridRow}">
                     </Style>
                 </DataGrid.RowStyle>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{l:Loc Key='StringMap_MoveToTop'}" Command="{Binding MoveToTopCommand}" InputGestureText="{Binding MoveToTopCommand.KeyGestureText}"/>
+                        <MenuItem Header="{l:Loc Key='StringMap_MoveUp'}" Command="{Binding MoveUpCommand}" InputGestureText="{Binding MoveUpCommand.KeyGestureText}"/>
+                        <MenuItem Header="{l:Loc Key='StringMap_MoveDown'}" Command="{Binding MoveDownCommand}" InputGestureText="{Binding MoveDownCommand.KeyGestureText}"/>
+                        <MenuItem Header="{l:Loc Key='StringMap_MoveToBottom'}" Command="{Binding MoveToBottomCommand}" InputGestureText="{Binding MoveToBottomCommand.KeyGestureText}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
     </DockPanel>
