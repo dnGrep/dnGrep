@@ -1042,4 +1042,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Zrušiť</value>
   </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
 </root>
