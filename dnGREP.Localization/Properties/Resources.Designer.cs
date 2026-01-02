@@ -2088,6 +2088,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Replace with to Search for.
+        /// </summary>
+        public static string Main_CopyReplaceWithToSearchFor {
+            get {
+                return ResourceManager.GetString("Main_CopyReplaceWithToSearchFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Search for to Replace with.
+        /// </summary>
+        public static string Main_CopySearchForToReplaceWith {
+            get {
+                return ResourceManager.GetString("Main_CopySearchForToReplaceWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created.
         /// </summary>
         public static string Main_Created {

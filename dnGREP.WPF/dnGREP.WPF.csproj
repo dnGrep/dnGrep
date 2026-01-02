@@ -32,6 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\ExclamationPoint.png" />
+    <None Remove="Images\SwapDark0.png" />
+    <None Remove="Images\SwapDark1.png" />
+    <None Remove="Images\SwapDark2.png" />
+    <None Remove="Images\SwapLight0.png" />
+    <None Remove="Images\SwapLight1.png" />
+    <None Remove="Images\SwapLight2.png" />
     <None Remove="nlog.config" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +64,12 @@
     </Content>
     <Resource Include="Images\dnGrep48.png" />
     <Resource Include="Images\ExclamationPoint.png" />
+    <Resource Include="Images\SwapDark0.png" />
+    <Resource Include="Images\SwapDark1.png" />
+    <Resource Include="Images\SwapDark2.png" />
+    <Resource Include="Images\SwapLight0.png" />
+    <Resource Include="Images\SwapLight1.png" />
+    <Resource Include="Images\SwapLight2.png" />
     <Resource Include="ThemedControls\next.png" />
     <Resource Include="ThemedControls\prev.png" />
     <Resource Include="Images\dnGrep96.png" />
