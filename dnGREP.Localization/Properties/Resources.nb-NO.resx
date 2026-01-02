@@ -2471,4 +2471,13 @@
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Avbryt</value>
   </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
 </root>
