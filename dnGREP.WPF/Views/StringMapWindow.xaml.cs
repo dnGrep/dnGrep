@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using dnGREP.Common;
@@ -41,26 +42,47 @@ namespace dnGREP.WPF
                 }
             }
         }
-        private void ViewModel_SetFocus(object? sender, DataEventArgs<int> e)
+
+        private void ViewModel_SetFocus(object? sender, DataEventArgs<GridLocation> e)
         {
             dataGrid.Focus();
             dataGrid.UpdateLayout();
-            dataGrid.ScrollIntoView(dataGrid.Items[e.Data]);
-            var row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(e.Data);
+            dataGrid.ScrollIntoView(dataGrid.Items[e.Data.Row]);
+            var row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(e.Data.Row);
             if (row != null)
             {
                 row.Focus();
                 DataGridCellsPresenter? presenter = row.GetVisualChild<DataGridCellsPresenter>();
                 if (presenter != null)
                 {
-                    DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(1);
+                    DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(e.Data.Col);
                     if (cell != null)
                     {
-                        dataGrid.ScrollIntoView(row, dataGrid.Columns[1]);
+                        dataGrid.ScrollIntoView(row, dataGrid.Columns[e.Data.Col]);
                         cell.Focus();
                     }
                 }
             }
         }
+
+        private void dataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            if (dataGrid.SelectedCells.Count > 0 && dataGrid.Columns.Count > 0)
+            {
+                // Get the first selected cell
+                DataGridCellInfo cellInfo = dataGrid.SelectedCells[0];
+
+                int colIndex = dataGrid.Columns.IndexOf(cellInfo.Column);
+
+                // The 'Item' property of the cell is the data object for the entire row
+                // Cast it to your specific data type (e.g., YourDataType)
+                StringSubstitutionViewModel? selectedItem = cellInfo.Item as StringSubstitutionViewModel;
+
+                viewModel.SelectedItem = selectedItem;
+                viewModel.SelectedColumn = colIndex > -1 ? colIndex : 1;
+            }
+        }
     }
+
+    public record GridLocation(int Row, int Col);
 }

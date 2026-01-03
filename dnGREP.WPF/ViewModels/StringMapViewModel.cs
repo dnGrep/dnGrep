@@ -16,7 +16,7 @@ namespace dnGREP.WPF
 {
     public partial class StringMapViewModel : CultureAwareViewModel
     {
-        public event EventHandler<DataEventArgs<int>>? SetFocus;
+        public event EventHandler<DataEventArgs<GridLocation>>? SetFocus;
         public event EventHandler? RequestClose;
 
         private readonly List<StringSubstitutionViewModel> _items = [];
@@ -85,9 +85,8 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private StringSubstitutionViewModel? selectedItem = null;
 
-        partial void OnSelectedItemChanged(StringSubstitutionViewModel? value)
-        {
-        }
+        [ObservableProperty]
+        private int selectedColumn = 1;
 
         public ICollectionView MapItems { get; private set; }
 
@@ -287,7 +286,7 @@ namespace dnGREP.WPF
             if (SelectedItem != null)
             {
                 int idx = _items.IndexOf(SelectedItem);
-                SetFocus?.Invoke(this, new DataEventArgs<int>(idx));
+                SetFocus?.Invoke(this, new DataEventArgs<GridLocation>(new(idx, SelectedColumn)));
             }
         }
 

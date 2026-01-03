@@ -177,8 +177,10 @@
                       Grid.Row="1" Grid.ColumnSpan="3"
                       Margin="3"
                       ItemsSource="{Binding MapItems}"
-                      SelectedValue="{Binding SelectedItem}"
                       AutoGenerateColumns="False" 
+                      SelectionMode="Single" 
+                      SelectionUnit="Cell"
+                      SelectedCellsChanged="dataGrid_SelectedCellsChanged"
                       CanUserResizeColumns="True"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
@@ -189,7 +191,7 @@
                       HorizontalGridLinesBrush="{DynamicResource DataGrid.GridLine}"
                       VerticalGridLinesBrush="{DynamicResource DataGrid.GridLine}"
                       PreviewKeyDown="DataGrid_PreviewKeyDown">
-
+                
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="{l:Loc Key='StringMap_Delete'}" Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
