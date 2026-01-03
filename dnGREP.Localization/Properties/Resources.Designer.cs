@@ -4068,6 +4068,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View Whitespace.
+        /// </summary>
+        public static string Main_ViewWhitespace {
+            get {
+                return ResourceManager.GetString("Main_ViewWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Whole word.
         /// </summary>
         public static string Main_WholeWord {
@@ -4811,6 +4820,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_TheSearchIsRunning {
             get {
                 return ResourceManager.GetString("MessageBox_TheSearchIsRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The string map settings have changed. Delete the cache folder?.
+        /// </summary>
+        public static string MessageBox_TheStringMapSettingsHaveChanged {
+            get {
+                return ResourceManager.GetString("MessageBox_TheStringMapSettingsHaveChanged", resourceCulture);
             }
         }
         
@@ -9338,6 +9356,42 @@ namespace dnGREP.Localization.Properties {
         public static string StringMap_Delete {
             get {
                 return ResourceManager.GetString("StringMap_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move down.
+        /// </summary>
+        public static string StringMap_MoveDown {
+            get {
+                return ResourceManager.GetString("StringMap_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to bottom.
+        /// </summary>
+        public static string StringMap_MoveToBottom {
+            get {
+                return ResourceManager.GetString("StringMap_MoveToBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to top.
+        /// </summary>
+        public static string StringMap_MoveToTop {
+            get {
+                return ResourceManager.GetString("StringMap_MoveToTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up.
+        /// </summary>
+        public static string StringMap_MoveUp {
+            get {
+                return ResourceManager.GetString("StringMap_MoveUp", resourceCulture);
             }
         }
         

@@ -291,7 +291,7 @@ namespace dnGREP.Engines.OpenXml
             {
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                Debug.WriteLine(child.GetType().Name);
+                //Debug.WriteLine(child.GetType().Name);
                 if (child is Text text)
                 {
                     sb.Append(text.Text);

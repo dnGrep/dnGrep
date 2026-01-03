@@ -335,6 +335,10 @@
                           IsChecked="{Binding ResultsViewModel.WrapText}"
                           TabIndex="98"
                           Visibility="{Binding WrapTextResultsTreeVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <CheckBox Content="{l:Loc Key='Main_ViewWhitespace'}" Margin="10,3,6,3"                                  
+                          IsChecked="{Binding ResultsViewModel.ViewWhitespace}"
+                          TabIndex="99"
+                          Visibility="{Binding ViewWhitespaceResultsTreeVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </WrapPanel>
 
             <DockPanel Margin="4,0" LastChildFill="True">

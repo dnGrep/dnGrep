@@ -914,6 +914,7 @@ namespace dnGREP.WPF
             NaturalSort = GrepSettings.Instance.Get<bool>(GrepSettings.Key.NaturalSort);
             ResultsViewModel.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
             ResultsViewModel.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
+            ResultsViewModel.ViewWhitespace = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeViewWhitespace);
             IsResultOptionsExpanded = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowResultOptions);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -963,6 +964,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
             Settings.Set(GrepSettings.Key.ResultsTreeScale, ResultsViewModel.ResultsScale);
             Settings.Set(GrepSettings.Key.ResultsTreeWrap, ResultsViewModel.WrapText);
+            Settings.Set(GrepSettings.Key.ResultsTreeViewWhitespace, ResultsViewModel.ViewWhitespace);
             Settings.Set(GrepSettings.Key.HighlightMatches, HighlightsOn);
             Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
@@ -2554,6 +2556,7 @@ namespace dnGREP.WPF
             BookmarkListViewModel.Initialize();
             ReplaceViewModel.Initialize();
             ScriptViewModel.Initialize();
+            StringMapViewModel.Initialize();
 
             KeyboardShortcutWindow keyboardForm = new()
             {
