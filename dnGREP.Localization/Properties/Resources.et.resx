@@ -2744,4 +2744,16 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>Katkesta</value>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Liiguta kõige üles</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Liiguta ülespoole</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Liiguta allapoole</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Liiguta kõige alla</value>
+  </data>
 </root>
