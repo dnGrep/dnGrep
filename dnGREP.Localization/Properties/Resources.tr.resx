@@ -3468,4 +3468,31 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>Dize eşlemesini uygula</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Güvenli PDF dosyaları için şifre iste</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Güvenli arşiv dosyaları için şifre iste</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>Girilen şifre yanlış.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Şifre:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Şifreyi göster</value>
+  </data>
 </root>

@@ -2732,4 +2732,16 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="MessageBox_YesToAll" xml:space="preserve">
     <value>Jah kõigi_le</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>Olgu</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Katkesta</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Katkesta</value>
+  </data>
 </root>

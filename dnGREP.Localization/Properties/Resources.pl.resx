@@ -454,4 +454,13 @@
     <value>Szukaj za pomocą dnGrep</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
 </root>

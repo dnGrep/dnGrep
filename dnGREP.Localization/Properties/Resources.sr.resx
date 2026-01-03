@@ -3427,4 +3427,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyboard_Remove" xml:space="preserve">
     <value>Уклонити</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>У реду</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Поништити</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Сачувати</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Поништити</value>
+  </data>
 </root>

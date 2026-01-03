@@ -1262,4 +1262,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchGroup" xml:space="preserve">
     <value>Cerca</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
 </root>
