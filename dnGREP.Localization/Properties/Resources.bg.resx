@@ -4437,4 +4437,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Преместване накрая</value>
   </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>Списъкът със замествания е променен. Да бъде ли премахната помощната папка?</value>
+  </data>
 </root>
