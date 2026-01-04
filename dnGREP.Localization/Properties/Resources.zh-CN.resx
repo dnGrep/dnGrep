@@ -4422,4 +4422,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_ShowPassword" xml:space="preserve">
     <value>显示密码</value>
   </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>字符串地图设置已更改。删除缓存文件夹？</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>查看空白</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>移到顶部</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>移到底部</value>
+  </data>
 </root>
