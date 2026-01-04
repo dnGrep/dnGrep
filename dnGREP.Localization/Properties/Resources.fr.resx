@@ -3166,4 +3166,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>déplacer en haut</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Monter</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>descendre</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>déplacer en bas</value>
+  </data>
 </root>
