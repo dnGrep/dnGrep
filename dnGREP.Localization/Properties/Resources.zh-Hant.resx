@@ -4364,4 +4364,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_ShowPassword" xml:space="preserve">
     <value>顯示密碼</value>
   </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>檢視 Whitespace</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>移到頂部</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>移到底部</value>
+  </data>
 </root>
