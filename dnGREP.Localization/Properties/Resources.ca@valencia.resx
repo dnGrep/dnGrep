@@ -77,7 +77,7 @@
     <value>dnGrep a GitHub</value>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>Indexació del sistema d'arxius, localitza els fitxers a l'instant</value>
+    <value>Indexació del sistema de fitxers, localitza els fitxers a l'instant</value>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
     <value>JSON framework per a .NET</value>
@@ -329,13 +329,13 @@
     <value>Sense binaris</value>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>No ocults</value>
+    <value>Sense amagar</value>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value>No subcarpetes</value>
+    <value>Sense subcarpetes</value>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>No enllaços simbòlics</value>
+    <value>Sense enllaços simbòlics</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
     <value>Cerca als fitxers comprimits</value>
@@ -412,7 +412,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Estableix la ruta a la carpeta de cerca. Pot ser una llista de rutes de carpeta separades per coma o punt i coma.</value>
   </data>
   <data name="Help_CmdLineHeader" xml:space="preserve">
-    <value>dnGrep:  Cerca en fitxers de text, documents de Word i Excel, PDF, y arxius utilitzant text, expressions regulars, XPath, i consultes fonètiques.</value>
+    <value>dnGrep:  Cerca en fitxers de text, documents de Word i Excel, PDF, i altres fitxers de text, expressions regulars, XPath, i consultes fonètiques.</value>
   </data>
   <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
     <value>/sep [caràcter separador o text]
@@ -424,19 +424,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    Estableix l'indicador de cera multi-línia – True or False.</value>
+    Estableix l'indicador de cera multi-línia – Cert or Fals.</value>
   </data>
   <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
     <value>/pi [patró]
 -pi [patró]
 -pathToIgnore [patró]
-    Estableix el patró de nom d'arxiu o carpeta per a excloure fitxers o carpetes en la ruta de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
+    Estableix el patró de nom de fitxer o carpeta per a excloure fitxers o carpetes en la ruta de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
   </data>
   <data name="Help_CmdLinePathToMatch" xml:space="preserve">
     <value>/pm [patró]
 -pm [patró]
 -pathToMatch [patró]
-    Estableix el patró de nom de fitxer per a la coincidència amb els arxius de la ruta de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
+    Estableix el patró de nom de fitxer per a la coincidència amb els fitxers de la ruta de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
   </data>
   <data name="Help_CmdLinePatternType" xml:space="preserve">
     <value>/pt [tipus]
@@ -448,7 +448,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/rpt [Ruta al fitxer]
 -rpt [Ruta al fitxer]
 -report [Ruta al fitxer]
-    Crea arxiu de resultats en format d'informe quan es finalitza la cerca.</value>
+    Crea fitxer de resultats en format d'informe quan es finalitza la cerca.</value>
   </data>
   <data name="Help_CmdLineReportMode" xml:space="preserve">
     <value>/rm [mode]
@@ -526,7 +526,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Un o més arguments no son vàlids.</value>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>Afegeix el patró de cerca als favorits</value>
+    <value>Afegeix el patró de cerca als marcadors</value>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
     <value>Totes les dates</value>
@@ -535,7 +535,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Totes les mides</value>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value>Associar favorits amb carpetes</value>
+    <value>Associa marcadors amb carpetes</value>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
     <value>Data de modificació:</value>
@@ -574,7 +574,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Canvia el nivell de zoom de l'arbre de resultats</value>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value>Netejar favorits</value>
+    <value>Neteja marcadors</value>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
     <value>Combina múltiples patrons de cerca utilitzant 'AND' o 'OR'</value>
@@ -727,7 +727,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>A_juda</value>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Favorits…</value>
+    <value>_Marcadors…</value>
   </data>
   <data name="Main_Menu_CancelScript" xml:space="preserve">
     <value>Cancel·la script</value>
@@ -823,7 +823,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Pre_visualització del fitxer</value>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
-    <value>Suprimeix la carpeta de la associació de favorits</value>
+    <value>Suprimeix la carpeta de la associació de marcadors</value>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
     <value>_Substitueix</value>
@@ -1141,7 +1141,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>La cadena de bytes no és vàlida!</value>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>La cadena de bytes es correcta</value>
+    <value>La cadena de bytes és correcta</value>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
     <value>L'expressió regular no és vàlida!</value>
@@ -1234,7 +1234,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>No s'ha pogut copiar al porta-retalls. El porta-retalls està bloquejat per</value>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>No s'ha pogut extreure de l'arxiu. Comprova el registre d'error per a més detalls: </value>
+    <value>No s'ha pogut extreure del fitxer. Comprova el registre d'error per a més detalls: </value>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
     <value>S'han revertit els fitxers.</value>
@@ -1357,10 +1357,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>No s'ha pogut desregistrar l'inici automàtic. Comproveu el registre d'error per a més detalls: </value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>Aquest favorit esta associat amb {0} altres carpetes.</value>
+    <value>Aquest marcador està associat amb {0} altres carpetes.</value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>Aquest favorit està associat amb una altre carpeta.</value>
+    <value>Aquest marcador està associat amb una altra carpeta.</value>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
     <value>Desfés</value>
@@ -1459,7 +1459,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Mida del tipus de lletra per altres finestres</value>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep afegirà els fitxers seleccionats al final de la línia de comandes.</value>
+    <value>dnGrep afegirà els fitxers seleccionats al final de la línia d'ordres.</value>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
     <value>Arguments</value>
@@ -1600,7 +1600,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Cerca fonètica</value>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
-    <value>Activat</value>
+    <value>Habilitat</value>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
     <value>Extensions:</value>
@@ -2191,7 +2191,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Resultat de la substitució:</value>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>El text de substitució no és vàlid XML!</value>
+    <value>El text de substitució no és un XML vàlid!</value>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
     <value>Substitueix per:</value>
@@ -2275,7 +2275,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Ordenació natural</value>
   </data>
   <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
-    <value>Ordena els dígits per ordre numèric</value>
+    <value>Ordena els dígits de forma numèrica</value>
   </data>
   <data name="Options_PanelPosition" xml:space="preserve">
     <value>Posició del tauler:</value>
@@ -2609,5 +2609,236 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="ScriptHint_set_searchtype" xml:space="preserve">
     <value>El tipus de patró de cerca</value>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>Informeu de l'eixida en línies separades</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>Mida des de</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Límit inferior del filtre de mida (número)</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Mida a</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Teclat…</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Tanca</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>Espai</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Afig</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Suprimeix</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Contrasenya</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Inici</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>Fi</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>Impr Pant</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>Re pàg</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>Amunt</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>Avall</value>
+  </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Suprimeix</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Arrere</value>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Tanca</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Assigna</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Dreceres de teclat</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Tecla de drecera</value>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>Sí, ix igualment</value>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>En eixir</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>Ix</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Límit superior del filtre de mida (número)</value>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>Direcció d'ordenació</value>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>Configuració del tipus d'ordenació</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>Filtre de data i hora 'Des de'</value>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>Utilitza el format de data i hora ISO 8601 o local</value>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>Retalla els espais en blanc a l'informe</value>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>Informe d'abast de valors únics: per fitxer o tots els fitxers</value>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>Filtra l'informe per valors únics</value>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Ordena els resultats</value>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>A la línia</value>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>No s'han pogut suprimir els fitxers: </value>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>No s'ha trobat el fitxer {0} '{1}'</value>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>L'extensió de fitxer {0} ha de ser {1}</value>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>No s'han pogut desplaçar els fitxers: </value>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Nou script</value>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>L'ordre d'execució ha finalitzat amb l'error: </value>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>L'ordre d'execució no és vàlida</value>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>script cancel·lat</value>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>script complet</value>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>Fitxers de script</value>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>Missatges de script</value>
+  </data>
+  <data name="Test_CopyToClipboard" xml:space="preserve">
+    <value>Copia al porta-retalls</value>
+  </data>
+  <data name="Test_HighlightGroups" xml:space="preserve">
+    <value>Destaca Grups</value>
+  </data>
+  <data name="Test_NoMatchesFound" xml:space="preserve">
+    <value>No s'han trobat coincidències</value>
+  </data>
+  <data name="Test_SampleInputText" xml:space="preserve">
+    <value>Text d'entrada de mostra:</value>
+  </data>
+  <data name="Test_SearchResult" xml:space="preserve">
+    <value>Resultat de la cerca:</value>
+  </data>
+  <data name="Test_Title" xml:space="preserve">
+    <value>Prova</value>
+  </data>
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
+    <value>. coincideix amb tots els caràcters</value>
+  </data>
+  <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
+    <value>\w coincidència amb caràcters alfanumèrics</value>
+  </data>
+  <data name="TTA3_MatchesDigits" xml:space="preserve">
+    <value>\d coincidència amb dígits</value>
+  </data>
+  <data name="TTA4_MatchesSpace" xml:space="preserve">
+    <value>\s coincidència amb espai</value>
+  </data>
+  <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
+    <value>* coincidència amb qualsevol nombre de caràcters</value>
+  </data>
+  <data name="TTA6_Matches1To3Characters" xml:space="preserve">
+    <value>{1,3} coincideix amb entre 1 i 3 caràcters</value>
+  </data>
+  <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
+    <value>Prem F1 per obtindre més patrons d'expressió regular</value>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t insereix una pestanya, \\r insereix un retorn, \\n insereix una nova línia</value>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Acobla aquesta finestra emergent de nou a la finestra principal</value>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>Maximitza</value>
+  </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>Minimitza</value>
+  </data>
+  <data name="Window_RestoreDown" xml:space="preserve">
+    <value>Envia a la barra</value>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>Nombre màxim de cerques paral·leles</value>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>Sense límit fix</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Estableix una variable d'entorn</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Variable=cadena (la cadena pot estar buida per suprimir una variable)</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Escriu una cadena o un temps transcorregut al fitxer de registre</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>Una cadena de missatge, o 'temps', per registrar el temps transcorregut</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Retalla</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Copia</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Enganxa</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>Posa en majúscula</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>Posa en minúscula</value>
   </data>
 </root>
