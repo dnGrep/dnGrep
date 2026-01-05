@@ -1183,7 +1183,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Netejar aquest marcador també neteja aquest marcador.</value>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>Netejar aquest marcador també suprimirà  aquests marcadors.</value>
+    <value>Netejar aquest marcador també suprimirà aquests marcadors.</value>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
     <value>Copia Fitxers</value>
@@ -2567,5 +2567,47 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
     <value>Filtre d'hores 'Passades' de data i hora</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Límit inferior del filtre d'hores passades (número)</value>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>Filtre d'hores 'Passades' de data i hora</value>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Límit superior del filtre d'hores passades (número)</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>Separador d'informes entre elements de la mateixa línia</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>Caràcter o caràcters com ara coma o espai de coma</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>Profunditat màxima de la subcarpeta</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>Límit de profunditat de carpeta (número)</value>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>El tipus de patró de filtre de fitxer</value>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Vista prèvia de fitxer</value>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>Configuració d'eixida de l'informe</value>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>Nivell de zoom per a l'arbre de resultats (número)</value>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>Patró de cerca o cadena buida</value>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>Cerca en paral·lel</value>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>El tipus de patró de cerca</value>
   </data>
 </root>
