@@ -4313,4 +4313,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Отображать пробелы</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Переместить в начало</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Переместить выше</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Переместить ниже</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Переместить в конец</value>
+  </data>
 </root>

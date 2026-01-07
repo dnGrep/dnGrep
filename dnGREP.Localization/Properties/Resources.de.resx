@@ -2190,11 +2190,11 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Bookmarks_MoveToBottom" xml:space="preserve">
-    <value>Nach unten verschieben</value>
+    <value>Ganz nach unten verschieben</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
-    <value>Nach oben verschieben</value>
+    <value>Ganz nach oben verschieben</value>
     <comment>Bookmarks dialog, bookmark list context menu text</comment>
   </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
@@ -3710,5 +3710,23 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Options_RequestArchivePassword" xml:space="preserve">
     <value>Passwort für geschützte Archivdateien abfragen</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Ganz nach oben verschieben</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Nach oben verschieben</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Nach unten verschieben</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Ganz nach unten verschieben</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>Die Einstellungen für die Zeichenersetzungs-Tabelle haben sich geändert. Cache-Ordner löschen?</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Leerzeichen anzeigen</value>
   </data>
 </root>

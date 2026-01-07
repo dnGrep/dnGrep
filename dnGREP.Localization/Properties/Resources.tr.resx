@@ -3495,4 +3495,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_ShowPassword" xml:space="preserve">
     <value>Şifreyi göster</value>
   </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Boşlukları Görüntüle</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>En üste taşı</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Yukarı taşı</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Aşağı taşı</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>En alta taşı</value>
+  </data>
 </root>

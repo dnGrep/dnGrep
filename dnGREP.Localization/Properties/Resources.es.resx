@@ -2581,4 +2581,16 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
   <data name="StringMap_Delete" xml:space="preserve">
     <value>Borrar</value>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Ir hasta arriba</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Mover hacia arriba</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Mover hacia abajo</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Ir hasta abajo</value>
+  </data>
 </root>

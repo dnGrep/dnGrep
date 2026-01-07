@@ -3532,4 +3532,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Скасувати</value>
   </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Переглянути пробіли</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Перейти вгору</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Рухатися вгору</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Рухатися вниз</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Перемістіть вниз</value>
+  </data>
 </root>

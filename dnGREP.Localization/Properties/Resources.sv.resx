@@ -915,4 +915,16 @@
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>Avbryt</value>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Gå till toppen</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Gå upp</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Gå ner</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Gå till botten</value>
+  </data>
 </root>

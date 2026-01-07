@@ -3070,4 +3070,16 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>Cancel·la</value>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Mou al principi</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Mou amunt</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Mou avall</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Mou fins el final</value>
+  </data>
 </root>

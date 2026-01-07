@@ -799,4 +799,16 @@
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>انتقل إلى الأعلى</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>تحرك الى للاعلى</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>تحرك لأسفل</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>انتقل إلى الأسفل</value>
+  </data>
 </root>

@@ -1072,4 +1072,16 @@
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>Otkaži</value>
   </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Pomakni na vrh</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Pomakni gore</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Pomakni dolje</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Pomakni na dno</value>
+  </data>
 </root>
