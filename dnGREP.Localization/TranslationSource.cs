@@ -29,6 +29,7 @@ namespace dnGREP.Localization
                 { "ar", "العربية" },
                 { "bg", "Български" },
                 { "ca", "català" },
+                { "ca-ES-valencia", "Valencià" },
                 { "de", "Deutsch" },
                 { "en", "English" },
                 { "es", "español" },
@@ -58,7 +59,7 @@ namespace dnGREP.Localization
             if (!string.IsNullOrWhiteSpace(ietfLanguageTag) && AppCultures.ContainsKey(ietfLanguageTag))
             {
                 ResourceManagerEx.Instance.FileResources = null;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(ietfLanguageTag);
+                CurrentCulture = CultureInfo.GetCultureInfo(ietfLanguageTag);
             }
         }
 

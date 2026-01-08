@@ -22,6 +22,7 @@ namespace dnGREP.TestLocalizedStrings
                 { "ar", "العربية" },
                 { "bg", "Български" },
                 { "ca", "català" },
+                { "ca-ES-valencia", "Valencià" },
                 { "de", "Deutsch" },
                 { "en", "English" },
                 { "es", "español" },

@@ -247,6 +247,9 @@
     <WordPluginFiles Include="$(SolutionDir)\dnGREP.WordEngine\bin\$(Platform)\$(Configuration)\$(TargetFramework)\dnGREP.Engines.Word.pdb" />
   </ItemGroup>
   <ItemGroup>
+    <ValencianFiles Include="$(SolutionDir)\dnGREP.WPF\bin\$(Platform)\$(Configuration)\$(TargetFramework)\ca-ES-valencia\dnGREP.Localization.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <SparsePackageFiles Include="$(SolutionDir)\dnGREP.ContextMenu\bin\$(Platform)\$(Configuration)\dnGREP.ContextMenu.dll" />
     <SparsePackageFiles Include="$(SolutionDir)\dnGREP.WPF\nGrep.ico" />
     <SparsePackageFiles Include="$(SolutionDir)\dnGREP.msix" />
@@ -269,6 +272,8 @@
     <Copy SourceFiles="@(WordPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\MsWordSearch" />
     <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net9.0\" />
     <Copy SourceFiles="@(SparsePackageFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
+    <!-- I don't know why this satellite assembly is not published the same as the others -->
+    <Copy SourceFiles="@(ValencianFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\ca-ES-valencia" />
   </Target>
   <PropertyGroup>
     <Authors>dnGrep Community Contributors</Authors>
