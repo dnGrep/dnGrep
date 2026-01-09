@@ -28,6 +28,18 @@ namespace dnGREP.Common
             if (text.Length == 1)
             {
                 UnicodeCharInfo uci = UnicodeInfo.GetCharInfo(text[0]);
+                if (string.IsNullOrEmpty(uci.Name))
+                {
+                    if (uci.NameAliases.FirstOrDefault() is UnicodeNameAlias alias &&
+                        !string.IsNullOrEmpty(alias.Name))
+                    {
+                        return alias.Name;
+                    }
+                    else
+                    {
+                        return uci.OldName;
+                    }
+                }
                 return uci.Name;
             }
             else

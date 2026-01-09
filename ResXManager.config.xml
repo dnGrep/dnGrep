@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Values xmlns="urn:tom-englert.de/Configuration/1/0">
   <Value Key="SortFileContentOnSave">False</Value>
-</Values>
+<Value Key="Rules">{"EnabledRules":["StringFormat","WhiteSpaceLead","WhiteSpaceTail","PunctuationLead","PunctuationTail"]}</Value></Values>

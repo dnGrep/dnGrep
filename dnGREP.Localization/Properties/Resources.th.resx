@@ -136,4 +136,7 @@
   <data name="Test_SearchGroup" xml:space="preserve">
     <value>ค้นหา</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
 </root>

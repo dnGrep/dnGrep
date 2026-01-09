@@ -4312,4 +4312,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>文字列マップを適用</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>空白を表示</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>一番上に移動</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>上に移動</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>下へ移動</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>一番下に移動</value>
+  </data>
 </root>

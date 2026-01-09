@@ -4395,4 +4395,49 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>应用字符串地图</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>请求安全 PDF 文件的密码</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>请求安全压缩文件的密码</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>输入的密码不对。</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>谁的密码：</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>大写锁</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>显示密码</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>字符串地图设置已更改。删除缓存文件夹？</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>查看空白</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>移到顶部</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>移到底部</value>
+  </data>
 </root>

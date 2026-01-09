@@ -39,6 +39,8 @@ namespace dnGREP.WPF
 
         public bool SearchListsCleared { get; private set; }
 
+        private bool originalUsingStringMap = false;
+
         public OptionsViewModel()
         {
             TaskLimit = Environment.ProcessorCount * 4;
@@ -138,6 +140,7 @@ namespace dnGREP.WPF
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_ContextShowLines), GrepSettings.Key.ShowContextLinesVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_Zoom), GrepSettings.Key.ZoomResultsTreeVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_WrapText), GrepSettings.Key.WrapTextResultsTreeVisible));
+            VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_ViewWhitespace), GrepSettings.Key.ViewWhitespaceResultsTreeVisible));
 
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_PreviewWindow), nameof(Resources.Preview_Zoom), GrepSettings.Key.PreviewZoomWndVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_PreviewWindow), nameof(Resources.Preview_WrapText), GrepSettings.Key.WrapTextPreviewWndVisible));
@@ -693,7 +696,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                return 
+                return
                 EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
                 EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
                 EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
@@ -962,13 +965,42 @@ namespace dnGREP.WPF
             }
         }
 
-        private static void ShowStringMap()
+        private void ShowStringMap()
         {
             StringMapWindow form = new()
             {
                 Owner = Application.Current.MainWindow
             };
-            form.ShowDialog();
+            var result = form.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                string oldUserCachePath = GrepSettings.Instance.Get<string>(GrepSettings.Key.CacheFilePath);
+                string oldCachePath = !Utils.IsValidPath(oldUserCachePath) ||
+                   GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ?
+                   Path.Combine(Path.GetTempPath(), Utils.defaultCacheFolderName) :
+                   oldUserCachePath;
+                bool usingStringMap = Plugins.Any(p => p.ApplyStringMap);
+
+                if (Directory.Exists(oldCachePath) && usingStringMap)
+                {
+                    if (MessageBoxResult.Yes == MessageBox.Show(
+                        Resources.MessageBox_TheStringMapSettingsHaveChanged, Resources.MessageBox_DnGrep,
+                        MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes,
+                        TranslationSource.Instance.FlowDirection))
+                    {
+                        PluginCacheCleared = true;
+                        try
+                        {
+                            Directory.Delete(oldCachePath, true);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error(ex, $"Failed to delete the plug-in cache folder '{oldCachePath}'");
+                        }
+                    }
+                }
+            }
         }
 
         private void ClearSearches()
@@ -1141,6 +1173,8 @@ namespace dnGREP.WPF
                     CustomEditors.Add(new CustomEditorViewModel(editor, idx == 0));
                 }
             }
+
+            originalUsingStringMap = Plugins.Any(p => p.ApplyStringMap);
         }
 
         private string ValueOrDefault(string settingsKey, string defaultValue)
@@ -1220,6 +1254,9 @@ namespace dnGREP.WPF
                 GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
 
             string oldKeyboardShortcut = GrepSettings.Instance.Get<string>(GrepSettings.Key.RestoreWindowKeyboardShortcut);
+
+            bool usingStringMap = Plugins.Any(p => p.ApplyStringMap);
+            bool usingStringMapChanged = originalUsingStringMap != usingStringMap;
 
             ApplicationFontFamily = EditApplicationFontFamily;
             MainFormFontSize = EditMainFormFontSize;
@@ -1354,6 +1391,25 @@ namespace dnGREP.WPF
             {
                 if (MessageBoxResult.Yes == MessageBox.Show(
                     Resources.MessageBox_ThePlugInCacheSettingsHaveChanged, Resources.MessageBox_DnGrep,
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes,
+                    TranslationSource.Instance.FlowDirection))
+                {
+                    PluginCacheCleared = true;
+                    try
+                    {
+                        Directory.Delete(oldCachePath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex, $"Failed to delete the plug-in cache folder '{oldCachePath}'");
+                    }
+                }
+            }
+
+            if (!PluginCacheCleared && Directory.Exists(oldCachePath) && usingStringMapChanged)
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show(
+                    Resources.MessageBox_TheStringMapSettingsHaveChanged, Resources.MessageBox_DnGrep,
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes,
                     TranslationSource.Instance.FlowDirection))
                 {

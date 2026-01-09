@@ -4059,4 +4059,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>문자열 맵 적용</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>공백 보기</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>맨 위로 이동</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>위로</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>아래로</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>맨 아래로 이동</value>
+  </data>
 </root>

@@ -431,7 +431,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>Substituir per</value>
+    <value>Substitueix per</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
@@ -731,7 +731,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
-    <value>Substituir per</value>
+    <value>Substitueix per</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
@@ -1289,7 +1289,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, search pattern text input box label (accel)</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>Substituir per:</value>
+    <value>Substitueix per:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
@@ -1637,7 +1637,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value>_Substituir</value>
+    <value>_Substitueix</value>
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
@@ -1665,7 +1665,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
-    <value>L'expressió booleana és correcte</value>
+    <value>L'expressió booleana és correcta</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
@@ -1761,7 +1761,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>La cadena de bytes es correcte</value>
+    <value>La cadena de bytes es correcta</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
@@ -1797,7 +1797,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>Proba l'expressió</value>
+    <value>Prova l'expressió</value>
     <comment>Main window, test search expression button label (accel)</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
@@ -1929,7 +1929,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
-    <value>Substituir Text</value>
+    <value>Substitueix Text</value>
     <comment>Replace window, window title</comment>
   </data>
   <data name="Replace_Undo" xml:space="preserve">
@@ -1937,7 +1937,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
-    <value>Substituir el text o cadena buida</value>
+    <value>Substitueix el text o cadena buida</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
@@ -2029,7 +2029,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Message box text for: Rename file</comment>
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
-    <value>Substituir</value>
+    <value>Substitueix</value>
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
@@ -2057,7 +2057,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
-    <value>Substituir al fitxer</value>
+    <value>Substitueix al fitxer</value>
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
@@ -2069,7 +2069,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>Substituir el patró de cerca amb una cadena buida?</value>
+    <value>Substitueix el patró de cerca amb una cadena buida?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
@@ -2121,11 +2121,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Keep modified date checkbox label</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
-    <value>_Substituir</value>
+    <value>_Substitueix</value>
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
-    <value>Substituir en tots els fitxers</value>
+    <value>Substitueix en tots els fitxers</value>
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
@@ -2185,7 +2185,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Substituir totes les coincidències en tots els fitxers, i aplica</value>
+    <value>Substitueix totes les coincidències en tots els fitxers, i aplica</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
@@ -2213,7 +2213,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>L'expressió regular és correcte</value>
+    <value>L'expressió regular és correcta</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
@@ -2237,11 +2237,11 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, Cancel button tooltip</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Substituir coincidència</value>
+    <value>Substitueix coincidència</value>
     <comment>Replace window, third color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value>Substituir coincidències marcades per a la substitució</value>
+    <value>Substitueix coincidències marcades per a la substitució</value>
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
@@ -2249,7 +2249,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="ScriptHint_replace" xml:space="preserve">
-    <value>Substituir les coincidències en els fitxers</value>
+    <value>Substitueix les coincidències en els fitxers</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
@@ -3057,5 +3057,29 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   </data>
   <data name="Keyboard_PageUpKey" xml:space="preserve">
     <value>Av Pàg</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>D'acord</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Mou al principi</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Mou amunt</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Mou avall</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Mou fins el final</value>
   </data>
 </root>

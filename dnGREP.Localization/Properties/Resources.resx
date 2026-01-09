@@ -4532,6 +4532,30 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Cancel</value>
     <comment>PasswordDialog, Cancel button label</comment>
   </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>The string map settings have changed. Delete the cache folder?</value>
+    <comment>Message box text for: delete cache files</comment>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>View Whitespace</value>
+    <comment>Main window, checkbox label</comment>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Move to top</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Move up</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Move down</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Move to bottom</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
   <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
     <value>Copy Search for to Replace with</value>
     <comment>Main window, copy search to replace string</comment>

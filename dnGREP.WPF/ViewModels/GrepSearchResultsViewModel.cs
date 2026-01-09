@@ -355,7 +355,7 @@ namespace dnGREP.WPF
                 bool showErrors = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults);
                 if (r.IsSuccess || showErrors)
                 {
-                    var fmtResult = new FormattedGrepResult(r, FolderPath)
+                    var fmtResult = new FormattedGrepResult(r, FolderPath, ViewWhitespace)
                     {
                         WrapText = WrapText
                     };
@@ -375,7 +375,7 @@ namespace dnGREP.WPF
         {
             foreach (var r in list)
             {
-                SearchResults.Add(new FormattedGrepResult(r, FolderPath));
+                SearchResults.Add(new FormattedGrepResult(r, FolderPath, false));
             }
         }
 
@@ -547,6 +547,17 @@ namespace dnGREP.WPF
             foreach (var item in SearchResults)
             {
                 item.WrapText = value;
+            }
+        }
+
+        [ObservableProperty]
+        private bool viewWhitespace;
+        partial void OnViewWhitespaceChanged(bool value)
+        {
+            foreach (var item in SearchResults)
+            {
+                item.ViewWhitespace = value;
+                item.SetLabel();
             }
         }
 
