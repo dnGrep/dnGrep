@@ -104,6 +104,7 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FolderBookmarkAddCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetOptionsCommand), "Main_ResetOptions", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FlipSearchAndReplaceCommand), "Main_FlipSearchAndReplaceStrings", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ShowLinesInContextCommand), "Main_ContextShowLines", string.Empty);
         }
 
         public MainViewModel()
@@ -807,6 +808,10 @@ namespace dnGREP.WPF
         private RelayCommand? flipSearchAndReplaceCommand;
         public RelayCommand FlipSearchAndReplaceCommand => flipSearchAndReplaceCommand ??= new RelayCommand(
             _ => (SearchFor, ReplaceWith) = (ReplaceWith, SearchFor));
+
+        private RelayCommand? showLinesInContextCommand;
+        public RelayCommand ShowLinesInContextCommand => showLinesInContextCommand ??= new RelayCommand(
+            _ => ShowLinesInContext = !ShowLinesInContext);
 
         #endregion
 
