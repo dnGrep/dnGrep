@@ -75,8 +75,9 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PreviousFileCommand), "Main_Results_PreviousFile", "Shift+F4");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ExpandAllCommand), "Main_Results_ExpandAll", "F6");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CollapseAllCommand), "Main_Results_CollapseAll", "Shift+F6");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleExpandAllCommand), string.Empty, string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetZoomCommand), "Main_Results_ResetZoom", string.Empty);
-            
+
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyCommand), "", "Control+C");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectAllCommand), "", "Control+A");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToStartCommand), "", "Control+Home");
@@ -725,6 +726,10 @@ namespace dnGREP.WPF
         private RelayCommand? collapseAllCommand;
         public RelayCommand CollapseAllCommand => collapseAllCommand ??= new RelayCommand(
             p => CollapseAll());
+
+        private RelayCommand? toggleExpandAllCommand;
+        public RelayCommand ToggleExpandAllCommand => toggleExpandAllCommand ??= new RelayCommand(
+            p => ToggleExpandAll());
 
         private RelayCommand? resetZoomCommand;
         public RelayCommand ResetZoomCommand => resetZoomCommand ??= new RelayCommand(
@@ -1450,7 +1455,17 @@ namespace dnGREP.WPF
             }
         }
 
-
+        private void ToggleExpandAll()
+        {
+            if (TreeControl?.IsAnyExpanded() ?? false)
+            {
+                CollapseAll();
+            }
+            else
+            {
+                ExpandAll();
+            }
+        }
 
         #endregion
     }
