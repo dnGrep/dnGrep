@@ -4365,7 +4365,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>顯示密碼</value>
   </data>
   <data name="Main_ViewWhitespace" xml:space="preserve">
-    <value>檢視 Whitespace</value>
+    <value>檢視空白</value>
   </data>
   <data name="StringMap_MoveToTop" xml:space="preserve">
     <value>移到頂部</value>
@@ -4378,5 +4378,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>移到底部</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>字串對映設定已變更. 刪除快取資料夾?</value>
   </data>
 </root>
