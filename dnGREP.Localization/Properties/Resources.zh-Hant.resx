@@ -4382,4 +4382,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
     <value>字串對映設定已變更. 刪除快取資料夾?</value>
   </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>複製搜尋以替換為</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>複製替換為進行搜尋</value>
+  </data>
 </root>
