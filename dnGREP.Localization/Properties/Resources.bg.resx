@@ -4440,4 +4440,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
     <value>Списъкът със замествания е променен. Да бъде ли премахната помощната папка?</value>
   </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Копиране на Търсене като Заменяне</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Копиране на Заменяне като Търсене</value>
+  </data>
 </root>
