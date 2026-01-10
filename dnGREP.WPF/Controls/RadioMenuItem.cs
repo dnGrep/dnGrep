@@ -14,7 +14,7 @@ namespace dnGREP.WPF
             new UIPropertyMetadata(string.Empty));
 
         /// <summary>
-        /// Gets or sets the value of the <see cref="CaptionBackground" />
+        /// Gets or sets the value of the <see cref="GroupName" />
         /// property. This is a dependency property.
         /// </summary>
         public string GroupName
