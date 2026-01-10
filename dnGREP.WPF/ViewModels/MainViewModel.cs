@@ -107,6 +107,7 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FlipSearchAndReplaceCommand), "Main_FlipSearchAndReplaceStrings", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopySearchToReplaceCommand), "Main_CopySearchForToReplaceWith", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyReplaceToSearchCommand), "Main_CopyReplaceWithToSearchFor", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ShowLinesInContextCommand), "Main_ContextShowLines", string.Empty);
         }
 
         public MainViewModel()
@@ -853,6 +854,10 @@ namespace dnGREP.WPF
         private RelayCommand? copyReplaceToSearchCommand;
         public RelayCommand CopyReplaceToSearchCommand => copyReplaceToSearchCommand ??= new RelayCommand(
             _ => FlipSearchAndReplace(TypeOfSwap.CopyReplaceToSearch));
+
+        private RelayCommand? showLinesInContextCommand;
+        public RelayCommand ShowLinesInContextCommand => showLinesInContextCommand ??= new RelayCommand(
+            _ => ShowLinesInContext = !ShowLinesInContext);
 
         #endregion
 
