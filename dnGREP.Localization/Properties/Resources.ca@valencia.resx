@@ -1615,7 +1615,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Mostra text pla en la previsualització</value>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>Premeu F1 per a obtenir ajuda sobre les opcions</value>
+    <value>Premeu F1 per a obtindre ajuda sobre les opcions</value>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
     <value>Eina de previsualització per als traductors</value>
@@ -2266,7 +2266,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Mostra els fitxers amb errors de cerca al tauler de resultats</value>
   </data>
   <data name="ScriptHint_copy" xml:space="preserve">
-    <value>Copiar i canviar el nom dels resultat utilitzant expressions regulars</value>
+    <value>Copia i canvia el nom dels resultat utilitzant expressions regulars</value>
   </data>
   <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
     <value>Error: la ruta es obligatòria per a l'argument {0}</value>
@@ -2840,5 +2840,152 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
     <value>Posa en minúscula</value>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Cerca cancel·lada a {0}: s'han trobat {1} coincidències a {2} fitxers de {3} cercats.</value>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>Continua</value>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>Pausat</value>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>Pàgina</value>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>No configurat</value>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>Caràcters il·legals</value>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>Introduïu un valor en l'interval: {0}-{1}.</value>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>Tipus d'entrada no vàlid</value>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Reutilitza la finestra existent (instància única) *</value>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* Cal reiniciar quan es modifica</value>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Deixa que s'acabe o cancel·la-ho abans d'eixir.</value>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>S'està executant un script.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>Voleu aturar l'script i eixir?</value>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>No tornes a mostrar aquest missatge</value>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>La cerca està en marxa.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>Voleu aturar la cerca i eixir?</value>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>Els resultats de la cerca s'esborraran en eixir.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>Voleu eixir?</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>Demana confirmació en eixir quan s'està executant l'script</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>Demana confirmació en eixir quan la cerca s'executa durant més de</value>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>minuts</value>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Error en obrir el fitxer PDF</value>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Error en obrir un fitxer d'eixida</value>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Error relacionat amb els permisos del PDF</value>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>Altres errors</value>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext ha retornat '{0}' llegint '{1}'</value>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>No s'ha pogut cercar dins del fitxer '{0}'</value>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Error en extreure el fitxer '{0}' del fitxer '{1}'</value>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>Error en llegir el document</value>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>En obrir el fitxer, obri tot el fitxer per a aquestes extensions:</value>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>Extrau notes a peu de pàgina</value>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>Caràcters de referència de notes a peu de pàgina:</value>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>No es mostra</value>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Superíndex</value>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>Caràcter de mida completa</value>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>Caràcter de mida completa entre parèntesis</value>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Extrau capçaleres</value>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>Extrau peus de pàgina</value>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>Posició de la capçalera i el peu de pàgina extrets:</value>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>Inici de la secció</value>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>Final del document</value>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>Extrau comentaris</value>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>Subíndex</value>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>Número de mida completa entre parèntesis</value>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>Comentari dels números de referència:</value>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>No s'han pogut cercar els fitxers {0} a causa de permisos, bloquejos o errors: vegeu el fitxer de registre dnGrep per obtindre més informació</value>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>Missatge de resultats de cerca de la finestra principal</value>
   </data>
 </root>
