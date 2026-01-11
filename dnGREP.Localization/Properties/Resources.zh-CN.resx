@@ -4440,4 +4440,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>移到底部</value>
   </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>复制搜索词到替代词</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>复制替代词到搜索词</value>
+  </data>
 </root>
