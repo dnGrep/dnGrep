@@ -3541,7 +3541,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Ganzes Archiv löschen</value>
   </data>
   <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
-    <value>'Suchen nach' und 'Ersetzen durch' tauschen</value>
+    <value>'Suchen nach' und 'Ersetzen mit' tauschen</value>
   </data>
   <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
     <value>/s* [Suchmuster]
@@ -3728,5 +3728,11 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ViewWhitespace" xml:space="preserve">
     <value>Leerzeichen anzeigen</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Kopieren 'Suchen nach' in 'Ersetzen mit'</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Kopieren 'Ersetzen mit' in 'Suchen nach'</value>
   </data>
 </root>
