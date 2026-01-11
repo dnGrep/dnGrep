@@ -412,7 +412,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Estableix la ruta a la carpeta de cerca. Pot ser una llista de rutes de carpeta separades per coma o punt i coma.</value>
   </data>
   <data name="Help_CmdLineHeader" xml:space="preserve">
-    <value>dnGrep:  Cerca en fitxers de text, documents de Word i Excel, PDF, i altres fitxers de text, expressions regulars, XPath, i consultes fonètiques.</value>
+    <value>dnGrep:  Cerca en fitxers de text, documents de Word i Excel, PDF, i altres fitxers comprimits de text, expressions regulars, XPath, i consultes fonètiques.</value>
   </data>
   <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
     <value>/sep [caràcter separador o text]
@@ -1234,7 +1234,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>No s'ha pogut copiar al porta-retalls. El porta-retalls està bloquejat per</value>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>No s'ha pogut extreure del fitxer. Comprova el registre d'error per a més detalls: </value>
+    <value>No s'ha pogut extraure del fitxer comprimit. Comprova el registre d'error per a més detalls: </value>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
     <value>S'han revertit els fitxers.</value>
@@ -1633,7 +1633,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Substitueix la disposició de la finestra</value>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>Mida del tipus de lletra de la finestra Substituir</value>
+    <value>Mida del tipus de lletra de la finestra Substitueix</value>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
     <value>Família del tipus de lletra dels resultats</value>
@@ -1990,7 +1990,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Multilínia</value>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
-    <value>Sense fitxers</value>
+    <value>Sense fitxers comprimits</value>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
     <value>Sense binari</value>
@@ -2923,16 +2923,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>pdftotext ha retornat '{0}' llegint '{1}'</value>
   </data>
   <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
-    <value>No s'ha pogut cercar dins del fitxer '{0}'</value>
+    <value>No s'ha pogut cercar dins del fitxer comprimit '{0}'</value>
   </data>
   <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
-    <value>Error en extreure el fitxer '{0}' del fitxer '{1}'</value>
+    <value>Error en extraure el fitxer '{0}' del fitxer comprimit '{1}'</value>
   </data>
   <data name="Error_DocumentReadFailed" xml:space="preserve">
     <value>Error en llegir el document</value>
   </data>
   <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
-    <value>En obrir el fitxer, obri tot el fitxer per a aquestes extensions:</value>
+    <value>En obrir el fitxer, obri tot el fitxer comprimit per a aquestes extensions:</value>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
     <value>Word (docx)</value>
@@ -2987,5 +2987,431 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
     <value>Missatge de resultats de cerca de la finestra principal</value>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext no ha pogut crear el fitxer de text</value>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext ha retornat '{0}'</value>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Error: cal un patró per a l'argument {0}</value>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Error: Cal que l'argument {0} siga Verdader o Fals</value>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Error: {0} per a l'argument {1}</value>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>No s'ha pogut crear el directori de destinació: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>El fitxer de destinació existeix i la sobreescriptura és falsa: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>El fitxer de destinació és el mateix que el fitxer d'origen: {0}</value>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>Error {0} en processar el fitxer '{1}'</value>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>S'ha copiat '{0}' a '{1}'</value>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>Cometes d'escapada a l'argument '{0}'</value>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>El patró de coincidència no ha pogut coincidir amb el nom de fitxer '{0}'</value>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>Línia actual</value>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>Mostra els botons de navegació</value>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>Mida del botó:</value>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>Menut</value>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>Mitjà</value>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>Gran</value>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>Damunt de l'arbre de resultats</value>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>Acoblat al costat de l'arbre de resultats:</value>
+  </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>Cerca multilínia</value>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>Cal un valor</value>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>Afig…</value>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>Editor personalitzat</value>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Extensions</value>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Estableix com a editor predeterminat per a tipus de fitxers no llistats</value>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>Edita…</value>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Suprimeix</value>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>A la finestra de previsualització, pregunta abans de carregar fitxers més grans que</value>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>Habilita el desplaçament fix a l'arbre de resultats</value>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>El connector {0} no ha pogut extraure cap text</value>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>El fitxer creat pel connector {0} no conté text que es puga cercar</value>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>L'ordre del complement {0} ha retornat l'error: {1}</value>
+  </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>Finestra principal, filtra els fitxers per etiqueta de la unitat de data i hora</value>
+  </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>minuts</value>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>mesos</value>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>anys</value>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>{0} data en el passat de {1} a {2} {3}</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>Copiar noms de fitxers amb recompte de coincidències</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>Només lectura</value>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>Ordena els resultats automàticament quan finalitza la cerca</value>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Menú contextual del Windows 11:</value>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>Requereix Windows 11</value>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>Menú original del botó dret:</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [ordres de cerca]
+-e [ordres de cerca]
+-everything [ordres de cerca]
+    Estableix el text de cerca de Tot.</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>Atura després de {0} coincidències</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>Pausa després de la primera coincidència</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>Pausa després de {0} coincidències</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>Nombre de coincidències amb la cerca amb aturada automàtica</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>Nombre de coincidències per a la pausa automàtica de la cerca</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>Activa l'autocompleció als quadres d'entrada de text</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>No global</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>No global</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>Totes les coincidències de cada fitxer</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Primera coincidència a cada fitxer</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>Després de la cerca, estableix el focus del teclat a</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Cerca d'entrada</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>Amb fitxers en fitxers comprimits</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>Copia tot el fitxer comprimit</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Extraure i copiar fitxers</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Desplaça tot el fitxer comprimit</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Extrau i desplaça fitxers</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Suprimeix tot el fitxer comprimit</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>No faces res</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Memòria cau del complement</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Fitxers extrets de la memòria cau</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Fitxers de memòria cau a la carpeta temporal</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Fitxers de memòria cau a</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Suprimeix els fitxers de la memòria cau si no s'utilitzen a</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>La configuració de la memòria cau del complement ha canviat. Voleu suprimir la carpeta de memòria cau antiga?</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>Veure espai en blanc</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Crea una clau de fitxer de memòria cau amb:</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Hash del fitxer complet</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Hash de la mida del fitxer i l'hora de modificació</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Utilitza el diàleg Substitueix</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Substitueix en els fitxers seleccionats</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>No hi ha fitxers seleccionats per substituir.</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>No s'ha pogut registrar la nova drecera de teclat. Està en ús?</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>Minimitza a l'àrea de notificacions *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>Drecera de teclat per restaurar la finestra dnGrep</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>Biblioteca .NET per generar diferències textuals</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Obre la comparació de fitxers</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Previsualització que mostra els reemplaçaments</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>Reenvia els arguments de la línia d'ordres a la finestra existent</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>Registres d'ap_licacions</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>No s'han pogut copiar alguns fitxers als nous directoris. Consulteu el registre d'errors per obtindre més informació: </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>El directori '{0}' pot contindre fitxers que no formen part de l'aplicació. Voleu utilitzar aquest directori de totes maneres?</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>Els directoris de l'aplicació han canviat. Voleu copiar els fitxers als nous directoris?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>El directori nou ja té un fitxer anomenat "{0}". Voleu substituir el fitxer existent?</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>Error:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>No s'han trobat coincidències!</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Pes de la lletra dels resultats</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Per al nom del fitxer als resultats de la cerca</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Finestra</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Drecera per a l'ordre seleccionada</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Prem les tecles de drecera:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>Drecera utilitzada actualment per:</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Restableix-ho tot als valors predeterminats</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Premeu F1 per obtenir ajuda sobre les dreceres de teclat</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Mostra la ruta relativa a la ruta de cerca</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Directoris</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Utilitza els directoris predeterminats</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Configuració i dades de l'aplicació:</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Fitxers de registre de l'aplicació:</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Troba</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [ordres de cerca]
+-e* [ordres de cerca]
+-everything* [ordres de cerca]
+    Estableix el text de cerca Everything. Ha de ser l'última opció de la línia d'ordres i copiarà la resta de la línia d'ordres literalment.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [searchFor]
+-s* [searchFor]
+-searchFor* [searchFor]
+Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser l'última opció de la línia d'ordres i copiarà la resta de la línia d'ordres literalment. Quan es defineix aquest argument, la cerca s'executarà automàticament.</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Intercanvia Cerca i Substitueix per</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Substitucions de cadenes</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Afig mapejat</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Caràcters originals</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Punts de codi Unicode</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>El valor original ja existeix.</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Caràcters de substitució</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Substitueix aquest caràcter o caràcters</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>Amb aquest caràcter o caràcters</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Punt de codi Unicode</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Substitut</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Mapa de cadenes…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Aplica el mapa de cadenes</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Sol·licita contrasenya per a fitxers PDF segurs</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Sol·licita una contrasenya per a fitxers comprimits segurs</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>La contrasenya introduïda és incorrecta.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Contrasenya per a:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Bloq Majúscules</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Mostra la contrasenya</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>La configuració del mapa de cadenes ha canviat. Voleu suprimir la carpeta de la memòria cau?</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Veure espai en blanc</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Copia Cerca en Substitueix per</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Copia Substitueix per en Cerca</value>
   </data>
 </root>
