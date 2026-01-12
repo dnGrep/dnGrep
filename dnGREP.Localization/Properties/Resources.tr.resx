@@ -3510,4 +3510,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>En alta taşı</value>
   </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>Dize eşleme ayarları değişti. Önbellek klasörü silinsin mi?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Değiştirilecek Aramayı Kopyala</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Aramak için Kopyala Değiştir</value>
+  </data>
 </root>
