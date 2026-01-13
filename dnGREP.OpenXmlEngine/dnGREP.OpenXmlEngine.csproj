@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>3.3.0</Version>
+      <Version>3.4.1</Version>
     </PackageReference>
     <PackageReference Include="ExcelDataReader">
       <Version>3.8.0</Version>
@@ -57,6 +57,6 @@
     <PackageReference Include="NLog">
       <Version>6.0.7</Version>
     </PackageReference>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.11" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.12" />
   </ItemGroup>
 </Project>
