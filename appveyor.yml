@@ -26,6 +26,7 @@ build:
   parallel: true
   verbosity: normal
 after_build:
+  - cmd: dir /B mscordaccore_*
   - 7z a %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@%APPVEYOR_BUILD_FOLDER%\excludeFiles_win-%PlATFORM%.txt
   - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\Bundle.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep*.msi %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep*.zip
 artifacts:
