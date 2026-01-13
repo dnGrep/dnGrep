@@ -41,6 +41,6 @@
     <PackageReference Include="NLog">
       <Version>6.0.7</Version>
     </PackageReference>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.11" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.12" />
   </ItemGroup>
 </Project>
