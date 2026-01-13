@@ -286,11 +286,9 @@
     <Copy SourceFiles="@(SparsePackageFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
     <!-- I don't know why this satellite assembly is not published the same as the others -->
     <Copy SourceFiles="@(ValencianFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\ca-ES-valencia" />
-  </Target>
-  <Target Name="CustomPostPublish" AfterTargets="Publish">
-    <Exec Command="echo 'Show version of mscordaccore'" />
     <Exec Command="&quot;dir /B $(SolutionDir)\publish\win-$(Platform)\mscordaccore_*&quot;" />
-  </Target>  <PropertyGroup>
+  </Target>
+  <PropertyGroup>
     <Authors>dnGrep Community Contributors</Authors>
     <Description>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</Description>
   </PropertyGroup>
