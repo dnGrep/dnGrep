@@ -29,7 +29,7 @@ namespace dnGREP.Localization
                 { "ar", "العربية" },
                 { "bg", "Български" },
                 { "ca", "català" },
-                { "ca-ES-valencia", "Valencià" },
+                { "ca-ES-VALENCIA", "Valencià" },
                 { "de", "Deutsch" },
                 { "en", "English" },
                 { "es", "español" },
