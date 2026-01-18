@@ -170,7 +170,7 @@ namespace dnGREP.Engines
             return searchPattern;
         }
 
-        private static string WrapPatternForWholeWord(string searchPattern)
+        public static string WrapPatternForWholeWord(string searchPattern)
         {
             // issue 813 && 1014
             // prevent multiple calls to on same pattern

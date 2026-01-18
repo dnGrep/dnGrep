@@ -7,6 +7,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
+using dnGREP.Localization.Properties;
 
 namespace dnGREP.Localization
 {
@@ -92,13 +93,24 @@ namespace dnGREP.Localization
 
         public bool LoadResxFile(string filePath)
         {
-            ResxFile resxFile = new();
-            resxFile.ReadFile(filePath);
-            if (resxFile.IsValid)
+            try
             {
-                ResourceManagerEx.Instance.FileResources = resxFile;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguageTag);
-                return true;
+                ResxFile resxFile = new();
+                resxFile.ReadFile(filePath);
+                if (resxFile.IsValid)
+                {
+                    ResourceManagerEx.Instance.FileResources = resxFile;
+                    CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguageTag);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ResourceManagerEx.Instance.FileResources = null;
+                MessageBox.Show(
+                        ex.Message, Resources.MessageBox_DnGrep,
+                        MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK,
+                        TranslationSource.Instance.FlowDirection);
             }
             return false;
         }

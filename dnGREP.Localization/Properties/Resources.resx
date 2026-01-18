@@ -4564,4 +4564,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Copy Replace with to Search for</value>
     <comment>Main window, copy search to replace string</comment>
   </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Find:</value>
+    <comment>Options dialog, search box label</comment>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Find previous (Shift+F3)</value>
+    <comment>Options dialog, find previous button tooltip</comment>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Find next (F3)</value>
+    <comment>Options dialog, find next button tooltip</comment>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Match case</value>
+    <comment>Options dialog, match case button tooltip</comment>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Match whole words</value>
+    <comment>Options dialog, match whole words button tooltip</comment>
+  </data>
 </root>

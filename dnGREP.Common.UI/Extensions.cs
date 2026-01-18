@@ -66,6 +66,33 @@ namespace dnGREP.Common.UI
         }
 
         /// <summary>
+        /// Finds all child elements of a given type in the visual tree.
+        /// </summary>
+        /// <typeparam name="T">The type of the child elements to find.</typeparam>
+        /// <param name="parent">The parent element to start the search from.</param>
+        /// <returns>An IEnumerable of child elements of the specified type.</returns>
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject parent) where T : DependencyObject
+        {
+            if (parent == null) yield break;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+                if (child is T typedChild)
+                {
+                    yield return typedChild;
+                }
+
+                // Recurse into the child's children
+                foreach (T nestedChild in FindVisualChildren<T>(child))
+                {
+                    yield return nestedChild;
+                }
+            }
+        }
+
+        /// <summary>
         /// Finds a parent of a given item on the visual tree.
         /// </summary>
         /// <typeparam name="T">The type of the queried item.</typeparam>
