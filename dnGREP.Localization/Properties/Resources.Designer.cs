@@ -5598,6 +5598,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find:.
+        /// </summary>
+        public static string Options_Find {
+            get {
+                return ResourceManager.GetString("Options_Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find next (F3).
+        /// </summary>
+        public static string Options_FindNext {
+            get {
+                return ResourceManager.GetString("Options_FindNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find previous (Shift+F3).
+        /// </summary>
+        public static string Options_FindPrevious {
+            get {
+                return ResourceManager.GetString("Options_FindPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results tree.
         /// </summary>
         public static string Options_FocusResultsTree {
@@ -5841,6 +5868,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match case.
+        /// </summary>
+        public static string Options_MatchCase {
+            get {
+                return ResourceManager.GetString("Options_MatchCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 0 – match everything; 1.0 – exact match.
         /// </summary>
         public static string Options_MatchEverythingToExactMatch {
@@ -5864,6 +5900,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_MatchTimeout {
             get {
                 return ResourceManager.GetString("Options_MatchTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match whole words.
+        /// </summary>
+        public static string Options_MatchWholeWords {
+            get {
+                return ResourceManager.GetString("Options_MatchWholeWords", resourceCulture);
             }
         }
         

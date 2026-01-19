@@ -64,7 +64,9 @@ namespace dnGREP.WPF
             }
 
             foreach (string name in AppTheme.Instance.ThemeNames)
+            {
                 ThemeNames.Add(name);
+            }
 
             CultureNames =
             [
@@ -198,14 +200,37 @@ namespace dnGREP.WPF
         {
             get
             {
-                return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source))
-                    .OrderBy(r => r.FamilyName).ToList();
+                return [.. Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source)).OrderBy(r => r.FamilyName)];
             }
         }
 
         public static IList<FontWeight> FontWeightList
         {
             get { return [FontWeights.Normal, FontWeights.SemiBold, FontWeights.Bold, FontWeights.Black]; }
+        }
+
+        public ObservableCollection<Marker> Markers { get; } = [];
+
+        internal void ClearPositionMarkers()
+        {
+            Markers.Clear();
+            OnPropertyChanged(nameof(Markers));
+        }
+
+        internal void BeginUpdateMarkers()
+        {
+            Markers.Clear();
+        }
+
+        internal void AddMarker(double linePosition, double documentHeight, double trackHeight, MarkerType markerType)
+        {
+            double position = (documentHeight < trackHeight) ? linePosition : linePosition * trackHeight / documentHeight;
+            Markers.Add(new Marker(position, markerType));
+        }
+
+        internal void EndUpdateMarkers()
+        {
+            OnPropertyChanged(nameof(Markers));
         }
 
         private void ApplyCompareApplicationTemplate(ConfigurationTemplate? template)
@@ -794,7 +819,7 @@ namespace dnGREP.WPF
             return plugins.Any(p => p.IsChanged);
         }
 
-        private bool IsChanged(IList<CustomEditorViewModel> customEditors)
+        private bool IsChanged(ObservableCollection<CustomEditorViewModel> customEditors)
         {
             return originalCustomEditors.Count != customEditors.Count ||
                 customEditors.Any(v => v.IsChanged);
@@ -1448,7 +1473,9 @@ namespace dnGREP.WPF
 
         public string Group => TranslationSource.Instance[GroupKey];
 
-        public string Label => TranslationSource.Instance[LabelKey].TrimEnd(':', '…');
+        public string Label => TranslationSource.Instance[LabelKey]
+            .Replace("_", string.Empty, StringComparison.Ordinal)
+            .TrimEnd(':', '…');
 
         public bool IsChanged => IsVisible != origIsVisible;
 

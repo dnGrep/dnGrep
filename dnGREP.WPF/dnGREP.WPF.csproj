@@ -64,6 +64,8 @@
     </Content>
     <Resource Include="Images\dnGrep48.png" />
     <Resource Include="Images\ExclamationPoint.png" />
+    <Resource Include="Images\next.png" />
+    <Resource Include="Images\prev.png" />
     <Resource Include="Images\SwapDark0.png" />
     <Resource Include="Images\SwapDark1.png" />
     <Resource Include="Images\SwapDark2.png" />

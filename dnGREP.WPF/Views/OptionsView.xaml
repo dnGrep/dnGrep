@@ -44,7 +44,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <Border x:Name="Header" Grid.Column="0" Margin="0,6,30,0"
+                            <Border x:Name="Header" Grid.Column="0" Margin="0,0,30,0"
                                     Padding="0">
                                 <ContentPresenter HorizontalAlignment="Right"
                                                   ContentTemplate="{TemplateBinding HeaderTemplate}"
@@ -74,17 +74,61 @@
     </Window.Resources>
 
 
-    <Grid Margin="12,0,0,0" Grid.IsSharedSizeScope="True">
+    <Grid Margin="0" Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" PanningMode="Both" HorizontalScrollBarVisibility="Auto">
+        
+        <Border Grid.Row="0" Margin="0" 
+                HorizontalAlignment="Stretch"
+                BorderBrush="{DynamicResource Control.Static.Border}"
+                BorderThickness="0,0,0,2"
+                Padding="6,1">
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                        Margin="0,0,24,6">
+                <TextBlock Text="{l:Loc Key='Options_Find'}" Margin="2"/>
+                <TextBox x:Name="findBox" Width="200" Margin="3"
+                         TextChanged="FindBox_TextChanged"/>
+                <TextBlock x:Name="matchStatus" Margin="2"
+                           Text="0/0"
+                           Width="40"/>
+                <Button Height="24" Width="24" Margin="2" 
+                        ToolTip="{l:Loc Key='Options_FindPrevious'}"
+                        Click="PreviousButton_Click">
+                    <Image Width="16" Height="16" Stretch="Fill" Source="/Images/prev.png" />
+                </Button>
+                <Button Height="24" Width="24" Margin="2" 
+                        ToolTip="{l:Loc Key='Options_FindNext'}"
+                        Click="NextButton_Click">
+                    <Image Width="16" Height="16" Stretch="Fill" Source="/Images/next.png" />
+                </Button>
+                <ToggleButton Width="24" Height="24" Margin="2"
+                              Content="aA" Cursor="Hand"
+                              FontFamily="Consolas,Courier New,Courier" FontWeight="Bold"
+                              Style="{DynamicResource ThemedToggleButton}"
+                              Click="MatchCase_Click"
+                              ToolTip="{l:Loc Key='Options_MatchCase'}"/>
+                <ToggleButton Width="24" Height="24" Margin="2"
+                              Content="Ab" Cursor="Hand"
+                              FontFamily="Consolas,Courier New,Courier" FontWeight="Bold"
+                              Style="{DynamicResource ThemedToggleButton}"
+                              Click="MatchWholeWords_Click"
+                              ToolTip="{l:Loc Key='Options_MatchWholeWords'}"/>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" x:Name="scrollViewer"
+                      Margin="12,0,0,0"
+                      Style="{StaticResource ThemedMarkerScrollViewer}"
+                      PanningMode="Both" HorizontalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Stretch">
 
                 <GroupBox Header="{l:Loc Key='Options_StartupOptions'}">
                     <StackPanel Orientation="Vertical">
-                        <Label Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
+                        <TextBlock Text="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
                                ToolTip="{l:Loc Key='Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu'}"/>
                         <Border ToolTip="{Binding EnableWindows11ShellMenuTooltip}" Margin="24,0,0,0">
                             <CheckBox Margin="0,3"
@@ -117,12 +161,11 @@
                                   IsEnabled="{Binding IsSingletonInstance}"/>
                         <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_MinimizeToNotificationArea'}"
                                   IsChecked="{Binding Path=MinimizeToNotificationArea}" />
-                        <Label Content="{l:Loc Key='Options_KeyboardShortcutToRestoreWindow'}"/>
+                        <TextBlock Text="{l:Loc Key='Options_KeyboardShortcutToRestoreWindow'}"/>
                         <TextBox Margin="24,0,0,3" Width="300" HorizontalAlignment="Left"
                                  Text="{Binding LocalizedRestoreWindowKeyboardShortcut}" 
                                  PreviewKeyDown="TextBox_PreviewKeyDown"/>
-                        <Label Margin="0,3" Content="{l:Loc Key='Options_RestartRequiredWhenChanged'}"
-                               Style="{StaticResource ThemedLabel}"/>
+                        <TextBlock Margin="0,3" Text="{l:Loc Key='Options_RestartRequiredWhenChanged'}"/>
                     </StackPanel>
                 </GroupBox>
 
@@ -151,7 +194,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Margin="1,0" Content="{l:Loc Key='Options_Minutes'}"/>
+                            <TextBlock Margin="1,0" Text="{l:Loc Key='Options_Minutes'}"/>
                         </StackPanel>
 
                     </StackPanel>
@@ -173,7 +216,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Margin="3,0" Content="{l:Loc Key='Options_CheckDays'}" />
+                            <TextBlock Margin="3,0" Text="{l:Loc Key='Options_CheckDays'}" />
                         </StackPanel>
                         <Border ToolTip="{Binding Path=PanelTooltip}" Margin="24,3">
                             <CheckBox Content="{l:Loc Key='Options_CheckForUpdatesWhenWindowsStarts'}"
@@ -185,7 +228,7 @@
 
                 <GroupBox Header="{l:Loc Key='Options_Theme'}">
                     <StackPanel>
-                        <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_FollowWindowsTheme'}"
+                        <CheckBox Margin="0,0,0,3" Content="{l:Loc Key='Options_FollowWindowsTheme'}"
                                   IsChecked="{Binding Path=FollowWindowsTheme}"
                                   IsEnabled="{Binding Path=HasWindowsThemes}" />
                         <StackPanel Orientation="Horizontal">
@@ -257,7 +300,7 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,6,0,3" Content="{l:Loc Key='Options_UseDefault'}"
+                        <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,3" Content="{l:Loc Key='Options_UseDefault'}"
                                   IsChecked="{Binding Path=UseDefaultFont}" />
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,3" 
                                    HorizontalAlignment="Right" Text="{l:Loc Key='Options_FontFamily'}" />
@@ -524,8 +567,9 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_SearchOptions'}">
-                    <StackPanel Margin="0,3,0,0">
-                        <CheckBox Content="{l:Loc Key='Options_EnableAutocompleteInTextInputBoxes'}" Margin="3"
+                    <StackPanel Margin="0">
+                        <CheckBox Content="{l:Loc Key='Options_EnableAutocompleteInTextInputBoxes'}" 
+                                  Margin="0,3,3,3"
                                   IsChecked="{Binding AutoCompleteEnabled}"/>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -536,8 +580,8 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" 
-                                   Content="{l:Loc Key='Options_NumberOfMatchesToAutoStopSearch'}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" 
+                                       Text="{l:Loc Key='Options_NumberOfMatchesToAutoStopSearch'}"/>
                             <TextBox Grid.Row="0" Grid.Column="1" Margin="3,0"
                                      HorizontalContentAlignment="Right">
                                 <TextBox.Text>
@@ -557,8 +601,8 @@
                                 </TextBox.Width>
                             </TextBox>
 
-                            <Label Grid.Row="1" Grid.Column="0"
-                                   Content="{l:Loc Key='Options_NumberOfMatchesToAutoPauseSearch'}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       Text="{l:Loc Key='Options_NumberOfMatchesToAutoPauseSearch'}"/>
                             <TextBox Grid.Row="1" Grid.Column="01" Margin="3,0"
                                      HorizontalContentAlignment="Right">
                                 <TextBox.Text>
@@ -579,7 +623,7 @@
                             </TextBox>
                         </Grid>
 
-                        <Label Content="{l:Loc Key='Options_MaximumNumberOfParallelSearches'}"/>
+                        <TextBlock Text="{l:Loc Key='Options_MaximumNumberOfParallelSearches'}"/>
                         <StackPanel Orientation="Horizontal">
                             <Slider Width="250" HorizontalAlignment="Left"
                                     Minimum="1" Maximum="{Binding TaskLimit}" 
@@ -591,7 +635,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical">
-                            <Label Content="{l:Loc Key='Options_SetKeyboardFocusTo'}"/>
+                            <TextBlock Text="{l:Loc Key='Options_SetKeyboardFocusTo'}"/>
                             <RadioButton Content="{l:Loc Key='Options_FocusResultsTree'}" 
                                          Margin="18,3" GroupName="FocusElement"
                                          IsChecked="{Binding FocusElement, Converter={StaticResource ebc}, ConverterParameter=ResultsTree}" />
@@ -603,7 +647,7 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_ResultsOptions'}">
-                    <StackPanel Margin="0,3,0,0">
+                    <StackPanel Margin="0">
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_EnableStickyScrollInResultsTree'}"
                                   IsChecked="{Binding Path=StickyScroll}" />
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_SortResultsAutomaticallyWhenSearchCompletes'}"
@@ -631,7 +675,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Content="{l:Loc Key='Options_ContextBeforeAnd'}" />
+                            <TextBlock Text="{l:Loc Key='Options_ContextBeforeAnd'}" />
                             <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
@@ -641,7 +685,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Content="{l:Loc Key='Options_ContextAfter'}" />
+                            <TextBlock Text="{l:Loc Key='Options_ContextAfter'}" />
                         </StackPanel>
 
                         <CheckBox Name="cbSearchFileNameOnly" Margin="3" 
@@ -665,7 +709,7 @@
                                   IsChecked="{Binding Path=ShowFileInfoTooltips}" />
 
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="{l:Loc Key='Options_HexSearchResultLineLength'}"/>
+                            <TextBlock Text="{l:Loc Key='Options_HexSearchResultLineLength'}"/>
                             <ComboBox Margin="3"
                                 ItemsSource="{Binding Path=HexLengthOptions}"
                                 Width="60"
@@ -673,7 +717,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical">
-                            <Label Content="{l:Loc Key='Optionss_AskBeforeLoadingFiles'}"/>
+                            <TextBlock Text="{l:Loc Key='Optionss_AskBeforeLoadingFiles'}"/>
                             <StackPanel Orientation="Horizontal" Margin="16,0,0,3">
                                 <TextBox Margin="3,0,0,0" HorizontalContentAlignment="Right">
                                     <TextBox.Text>
@@ -693,14 +737,14 @@
                                         </MultiBinding>
                                     </TextBox.Width>
                                 </TextBox>
-                                <Label Content="{l:Loc Key='Options_KB'}"/>
+                                <TextBlock Text="{l:Loc Key='Options_KB'}"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_Directories'}">
-                    <Grid Margin="0,6,0,0">
+                    <Grid Margin="0">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
@@ -761,7 +805,7 @@
 
                 <GroupBox Header="{l:Loc Key='Options_Layout'}">
                     <StackPanel>
-                        <StackPanel Margin="0,6,0,0">
+                        <StackPanel Margin="0">
                             <TextBlock Text="{l:Loc Key='Options_ShowSearchOptions'}" />
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_OnMainPanel'}" GroupName="searchLocation"
                                          IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
@@ -845,45 +889,41 @@
                         <StackPanel  Margin="0,16,0,0">
                             <TextBlock Text="{l:Loc Key='Options_PersonalizeControlVisibility'}" 
                                        ToolTip="{l:Loc Key='Options_PersonalizeControlVisibility_Tooltip'}" />
-                            <ScrollViewer Height="280" Margin="18,3"
-                                          HorizontalAlignment="Left"
-                                          VerticalScrollBarVisibility="Auto"
-                                          HorizontalScrollBarVisibility="Disabled">
-                                <ItemsControl ItemsSource="{Binding Source={StaticResource mainWindowControlGroups}}">
-                                    <ItemsControl.GroupStyle>
-                                        <GroupStyle>
-                                            <GroupStyle.ContainerStyle>
-                                                <Style TargetType="{x:Type GroupItem}">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                                <StackPanel>
-                                                                    <TextBlock Text="{Binding Name}"/>
-                                                                    <ItemsPresenter Margin="18,3"/>
-                                                                </StackPanel>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </GroupStyle.ContainerStyle>
-                                        </GroupStyle>
-                                    </ItemsControl.GroupStyle>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Content="{Binding Label}" IsChecked="{Binding IsVisible}"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding Source={StaticResource mainWindowControlGroups}}"
+                                          Grid.IsSharedSizeScope="True">
+                                <ItemsControl.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.ContainerStyle>
+                                            <Style TargetType="{x:Type GroupItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                            <StackPanel>
+                                                                <TextBlock Text="{Binding Name}"/>
+                                                                <ItemsPresenter Margin="18,3"/>
+                                                            </StackPanel>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </GroupStyle.ContainerStyle>
+                                    </GroupStyle>
+                                </ItemsControl.GroupStyle>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Label}" IsChecked="{Binding IsVisible}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_CopyFiles'}">
                     <StackPanel>
-                        <CheckBox Margin="3,6,3,3" Content="{l:Loc Key='Options_PreserveSourceFolderLayout'}"
+                        <CheckBox Margin="0,0,3,3" Content="{l:Loc Key='Options_PreserveSourceFolderLayout'}"
                                   IsChecked="{Binding PreserveFolderLayoutOnCopy}"/>
-                        <Label Content="{l:Loc Key='Options_OnFileCopyOverwrite'}"/>
+                        <TextBlock Text="{l:Loc Key='Options_OnFileCopyOverwrite'}"/>
                         <StackPanel Orientation="Horizontal" Margin="12,0">
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Yes'}" GroupName="copyOverwrite"
                                          IsChecked="{Binding CopyOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Yes}"/>
@@ -892,7 +932,7 @@
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Ask'}" GroupName="copyOverwrite"
                                          IsChecked="{Binding CopyOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Prompt}"/>
                         </StackPanel>
-                        <Label Content="{l:Loc Key='Options_WithFilesInArchives'}"/>
+                        <TextBlock Text="{l:Loc Key='Options_WithFilesInArchives'}"/>
                         <StackPanel Orientation="Horizontal" Margin="12,0">
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_CopyTheWholeArchive'}" GroupName="copyArchive"
                                          IsChecked="{Binding ArchiveCopyOption, Converter={StaticResource ebc}, ConverterParameter=WholeArchive}"/>
@@ -904,9 +944,9 @@
 
                 <GroupBox Header="{l:Loc Key='Options_MoveFiles'}">
                     <StackPanel>
-                        <CheckBox Margin="3,6,3,3" Content="{l:Loc Key='Options_PreserveSourceFolderLayout'}"
+                        <CheckBox Margin="0,0,3,3" Content="{l:Loc Key='Options_PreserveSourceFolderLayout'}"
                                   IsChecked="{Binding PreserveFolderLayoutOnMove}"/>
-                        <Label Content="{l:Loc Key='Options_OnFileMoveOverwrite'}"/>
+                        <TextBlock Text="{l:Loc Key='Options_OnFileMoveOverwrite'}"/>
                         <StackPanel Orientation="Horizontal" Margin="12,0">
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Yes'}" GroupName="moveOverwrite"
                                          IsChecked="{Binding MoveOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Yes}"/>
@@ -915,7 +955,7 @@
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_Ask'}" GroupName="moveOverwrite"
                                          IsChecked="{Binding MoveOverwriteFileOption, Converter={StaticResource ebc}, ConverterParameter=Prompt}"/>
                         </StackPanel>
-                        <Label Content="{l:Loc Key='Options_WithFilesInArchives'}"/>
+                        <TextBlock Text="{l:Loc Key='Options_WithFilesInArchives'}"/>
                         <StackPanel Orientation="Horizontal" Margin="12,0">
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_MoveTheWholeArchive'}" GroupName="moveArchive"
                                          IsChecked="{Binding ArchiveMoveOption, Converter={StaticResource ebc}, ConverterParameter=WholeArchive}"/>
@@ -927,14 +967,14 @@
 
                 <GroupBox Header="{l:Loc Key='Options_DeleteFiles'}">
                     <StackPanel>
-                        <StackPanel Margin="0,6,0,0">
+                        <StackPanel Margin="0">
                             <TextBlock Text="{l:Loc Key='Options_WhenDeletingFiles'}" />
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_SendToRecycleBin'}" GroupName="deleteFiles"
                                          IsChecked="{Binding DeleteOption, Converter={StaticResource ebc}, ConverterParameter=Recycle}" />
                             <RadioButton Margin="18,3" Content="{l:Loc Key='Options_DeletePermanently'}" GroupName="deleteFiles"
                                          IsChecked="{Binding DeleteOption, Converter={StaticResource ebc}, ConverterParameter=Permanent}" />
                         </StackPanel>
-                        <Label Content="{l:Loc Key='Options_WithFilesInArchives'}"/>
+                        <TextBlock Text="{l:Loc Key='Options_WithFilesInArchives'}"/>
                         <StackPanel Orientation="Horizontal" Margin="12,0">
                             <RadioButton Margin="6,3" Content="{l:Loc Key='Options_DeleteTheWholeArchive'}" GroupName="deleteArchive"
                                          IsChecked="{Binding ArchiveDeleteOption, Converter={StaticResource ebc}, ConverterParameter=WholeArchive}"/>
@@ -1110,7 +1150,7 @@
 
                 <GroupBox Header="{l:Loc Key='Options_WordDocx'}">
                     <StackPanel Orientation="Vertical">
-                        <CheckBox Margin="0,3,0,3" Content="{l:Loc Key='Options_ExtractFootnotes'}"
+                        <CheckBox Margin="0,0,0,3" Content="{l:Loc Key='Options_ExtractFootnotes'}"
                                   IsChecked="{Binding WordExtractFootnotes}"/>
                         <StackPanel Margin="0,3,0,0">
                             <TextBlock Text="{l:Loc Key='Options_FootnoteReferenceCharacters'}" />
@@ -1163,7 +1203,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="252.333"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,3"
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,0,3"
                                    Text="{l:Loc Key='Options_PdfToTextExeCommandLineOptions'}"/>
                         <TextBox Grid.Row="1" Grid.Column="0" 
                                  Text="{Binding PdfToTextOptions, UpdateSourceTrigger=PropertyChanged}" 
@@ -1191,7 +1231,7 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_PlugInCache'}">
-                    <StackPanel Orientation="Vertical" Margin="0,6,0,0">
+                    <StackPanel Orientation="Vertical" Margin="0">
                         <CheckBox Content="{l:Loc Key='Options_CacheExtractedFiles'}"
                                   Margin="0,3"
                                   IsChecked="{Binding CacheExtractedFiles}"/>
@@ -1235,7 +1275,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Content="{l:Loc Key='Options_CheckDays'}"/>
+                            <TextBlock Text="{l:Loc Key='Options_CheckDays'}"/>
                         </StackPanel>
                         <TextBlock Text="{l:Loc Key='Options_CreateCacheFileKeyUsing'}"/>
                         <RadioButton Margin="18,3" Content="{l:Loc Key='Options_HashOfFullFile'}"
@@ -1251,7 +1291,7 @@
                     <StackPanel>
                         <Button Content="{l:Loc Key='Options_StringMap'}"
                                 HorizontalAlignment="Left"
-                                Margin="0,6"
+                                Margin="0"
                                 Padding="18,3"
                                 Command="{Binding ShowStringMapCommand}"/>
                         <ItemsControl ItemsSource="{Binding Path=Plugins}" Grid.IsSharedSizeScope="True">
@@ -1295,11 +1335,11 @@
 
         </ScrollViewer>
 
-        <WrapPanel Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Left"
+        <WrapPanel Grid.Row="2" Margin="12,8,0,0" HorizontalAlignment="Left"
                    VerticalAlignment="Center">
             <TextBlock Text="{l:Loc Key='Options_PressF1ForHelpOnOptions'}" HorizontalAlignment="Left"/>
         </WrapPanel>
-        <WrapPanel Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Right"
+        <WrapPanel Grid.Row="2" Margin="0,8,0,0" HorizontalAlignment="Right"
                    VerticalAlignment="Bottom">
             <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
                     IsDefault="True" Content="{l:Loc Key='Options_Save'}"
