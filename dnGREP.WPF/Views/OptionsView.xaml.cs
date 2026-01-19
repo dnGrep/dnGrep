@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using dnGREP.Common;
@@ -228,6 +229,39 @@ namespace dnGREP.WPF
                         e.Handled = true;
                     }
                 }
+            }
+
+            // Home - scroll to top
+            if (e.Key == Key.Home)
+            {
+                SmoothScrollTo(0);
+                e.Handled = true;
+                return;
+            }
+
+            // End - scroll to bottom
+            if (e.Key == Key.End)
+            {
+                SmoothScrollTo(scrollViewer.ScrollableHeight);
+                e.Handled = true;
+                return;
+            }
+
+            // Smooth PageUp and PageDown scrolling
+            if (e.Key == Key.PageUp)
+            {
+                double targetOffset = scrollViewer.VerticalOffset - scrollViewer.ViewportHeight;
+                SmoothScrollTo(targetOffset);
+                e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.PageDown)
+            {
+                double targetOffset = scrollViewer.VerticalOffset + scrollViewer.ViewportHeight;
+                SmoothScrollTo(targetOffset);
+                e.Handled = true;
+                return;
             }
         }
 
@@ -460,12 +494,29 @@ namespace dnGREP.WPF
             double matchY = match.Point.Y;
 
             // Only scroll if the match is outside the visible area
-            if (matchY < viewportTop || matchY > viewportBottom)
+            if (matchY < viewportTop || matchY + 40 > viewportBottom)
             {
                 // Put the match at 1/4 the way down in the viewport
                 double targetOffset = matchY - (scrollViewer.ViewportHeight / 4);
-                scrollViewer.ScrollToVerticalOffset(Math.Max(0, targetOffset));
+                SmoothScrollTo(targetOffset);
             }
+        }
+
+        private void SmoothScrollTo(double targetOffset, double duration = 600)
+        {
+            double clampedOffset = Math.Max(0, Math.Min(targetOffset, scrollViewer.ScrollableHeight));
+            
+            var animation = new DoubleAnimation
+            {
+                From = scrollViewer.VerticalOffset,
+                To = clampedOffset,
+                Duration = TimeSpan.FromMilliseconds(duration),
+                EasingFunction = new SineEase { EasingMode = EasingMode.EaseOut }
+            };
+
+            animation.Completed += (s, e) => scrollViewer.ScrollToVerticalOffset(clampedOffset);
+
+            scrollViewer.BeginAnimation(ScrollViewerBehavior.VerticalOffsetProperty, animation);
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
