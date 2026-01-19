@@ -251,6 +251,8 @@ namespace dnGREP.WPF
 
             RestoreOriginalTextBlocks();
 
+            viewModel.ClearPositionMarkers();
+
             if (string.IsNullOrEmpty(findBox.Text))
             {
                 return;
@@ -258,6 +260,9 @@ namespace dnGREP.WPF
 
             StringComparison stringComparison = isMatchCase ?
                 StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+
+            viewModel.BeginUpdateMarkers();
+            double trackHeight = scrollViewer.ActualHeight - 2 * SystemParameters.VerticalScrollBarButtonHeight;
 
             string searchText = findBox.Text;
 
@@ -291,6 +296,8 @@ namespace dnGREP.WPF
                                 continue;
                             }
 
+                            viewModel.AddMarker(relativePoint.Y, scrollViewer.ExtentHeight, trackHeight, MarkerType.Global);
+
                             matches.Add(new(relativePoint, run, index, searchText.Length));
                             break;
                         }
@@ -306,6 +313,8 @@ namespace dnGREP.WPF
                     searchMatches.AddRange(updatedMatches);
                 }
             }
+
+            viewModel.EndUpdateMarkers();
 
             var firstMatch = searchMatches.FirstOrDefault();
             if (firstMatch != null)

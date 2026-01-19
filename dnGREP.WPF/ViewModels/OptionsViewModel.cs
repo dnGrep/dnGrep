@@ -209,6 +209,30 @@ namespace dnGREP.WPF
             get { return [FontWeights.Normal, FontWeights.SemiBold, FontWeights.Bold, FontWeights.Black]; }
         }
 
+        public ObservableCollection<Marker> Markers { get; } = [];
+
+        internal void ClearPositionMarkers()
+        {
+            Markers.Clear();
+            OnPropertyChanged(nameof(Markers));
+        }
+
+        internal void BeginUpdateMarkers()
+        {
+            Markers.Clear();
+        }
+
+        internal void AddMarker(double linePosition, double documentHeight, double trackHeight, MarkerType markerType)
+        {
+            double position = (documentHeight < trackHeight) ? linePosition : linePosition * trackHeight / documentHeight;
+            Markers.Add(new Marker(position, markerType));
+        }
+
+        internal void EndUpdateMarkers()
+        {
+            OnPropertyChanged(nameof(Markers));
+        }
+
         private void ApplyCompareApplicationTemplate(ConfigurationTemplate? template)
         {
             if (template != null)
