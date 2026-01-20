@@ -2480,4 +2480,16 @@
   <data name="StringMap_Cancel" xml:space="preserve">
     <value>Avbryt</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Finn forrige (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Finn neste (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Match case</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Match whole words</value>
+  </data>
 </root>
