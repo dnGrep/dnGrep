@@ -2479,7 +2479,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
-    <value>_ביטול</value>
+    <value>ביטול</value>
     <comment>Report options dialog, close button</comment>
   </data>
   <data name="ReportOptionsWindow_Save" xml:space="preserve">
@@ -2587,11 +2587,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="Options_ArchiveReset" xml:space="preserve">
-    <value>איפוס</value>
+    <value>ערכים קבועים מראש</value>
     <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
   <data name="Options_PluginReset" xml:space="preserve">
-    <value>איפוס</value>
+    <value>ערכים קבועים מראש</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
@@ -2603,7 +2603,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="MessageBox_Cancel" xml:space="preserve">
-    <value>_ביטול</value>
+    <value>ביטול</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
@@ -2635,7 +2635,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Options_EditorCancel" xml:space="preserve">
-    <value>_ביטול</value>
+    <value>ביטול</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
@@ -2651,13 +2651,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Text shown on Windows shell context menu, and Options dialog, startup options checkbox label</comment>
   </data>
   <data name="NotiyIcon_Menu_Open" xml:space="preserve">
-    <value>פתח</value>
+    <value>...פתח</value>
   </data>
   <data name="Keyboard_CommandHeader" xml:space="preserve">
     <value>פקודה</value>
   </data>
   <data name="Keyboard_Remove" xml:space="preserve">
-    <value>הסר:</value>
+    <value>&amp;הסר</value>
   </data>
   <data name="Keyboard_Save" xml:space="preserve">
     <value>שמור</value>
@@ -2669,15 +2669,69 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>אישור</value>
   </data>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
-    <value>_ביטול</value>
+    <value>ביטול</value>
   </data>
   <data name="StringMap_Save" xml:space="preserve">
     <value>שמור</value>
   </data>
   <data name="StringMap_Cancel" xml:space="preserve">
-    <value>_ביטול</value>
+    <value>ביטול</value>
   </data>
   <data name="StringMap_Add" xml:space="preserve">
-    <value>הוסף:</value>
+    <value>&amp;הוסף</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>מחק קבצים</value>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>כן</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>גזור</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>גזור</value>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>מחק קבצים</value>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>הפסקה</value>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>הוקפא</value>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>בינוני</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>שגיאה:</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>מצא את הקודם (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>מצא הבא (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Match case</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>התאם מילים שלמות</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>סיסמה</value>
   </data>
 </root>
