@@ -4458,4 +4458,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Цели думи</value>
   </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Търсене:</value>
+  </data>
 </root>
