@@ -4446,4 +4446,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
     <value>复制替代词到搜索词</value>
   </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>查找：</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>查找上一个（Shift+F3）</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>查找下一个（F3）</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>匹配大小写</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>匹配完整单词</value>
+  </data>
 </root>
