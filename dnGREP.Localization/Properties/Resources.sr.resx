@@ -3454,4 +3454,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Премести као последње</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Пронађи претходни (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Пронађи следеће (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Пазити на слова</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Налази целу реч</value>
+  </data>
 </root>
