@@ -4388,4 +4388,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
     <value>複製替換為進行搜尋</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>搜尋上一個 (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>搜尋下一個 (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>符合大小寫</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>全字符合</value>
+  </data>
 </root>
