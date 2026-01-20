@@ -3016,4 +3016,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Mover para o fim</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Encontrar anterior (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Encontrar seguinte (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Correspondência exata</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Corresponder a todas as palavras</value>
+  </data>
 </root>
