@@ -4446,4 +4446,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
     <value>Копиране на Заменяне като Търсене</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Предишно съвпадение (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Следващо съвпадение (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Съвпадение на регистъра</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Цели думи</value>
+  </data>
 </root>
