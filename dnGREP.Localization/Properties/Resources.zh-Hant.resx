@@ -1845,7 +1845,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>符合大小寫</value>
+    <value>大小寫符合</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
@@ -4395,9 +4395,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜尋下一個 (F3)</value>
   </data>
   <data name="Options_MatchCase" xml:space="preserve">
-    <value>符合大小寫</value>
+    <value>大小寫符合</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>全字符合</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>搜尋:</value>
   </data>
 </root>
