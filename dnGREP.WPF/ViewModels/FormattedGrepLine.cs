@@ -16,7 +16,8 @@ namespace dnGREP.WPF
     public partial class FormattedGrepLine : CultureAwareViewModel, ITreeItem
     {
         private static readonly string enQuad = char.ConvertFromUtf32(0x2000);
-        private static readonly string space = char.ConvertFromUtf32(0X00B7);
+        private static readonly string middot = char.ConvertFromUtf32(0X00B7);
+        private static readonly string degree = char.ConvertFromUtf32(0X00B0);
         private static readonly string tab = char.ConvertFromUtf32(0x00BB) + "   ";
         private static readonly string newLine = char.ConvertFromUtf32(0x00B6);
 
@@ -339,9 +340,15 @@ namespace dnGREP.WPF
                     {
                         sb.Append(tab);
                     }
+                    else if (ch == ' ')
+                    {
+                        // simple space gets the middle dot
+                        sb.Append(middot);
+                    }
                     else if (char.IsWhiteSpace(ch))
                     {
-                        sb.Append(space);
+                        // all other whitespace get the degree sign
+                        sb.Append(degree);
                     }
                     else
                     {
