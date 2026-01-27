@@ -2756,4 +2756,10 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Liiguta kõige alla</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Leia eelmine (Tõstuklahv+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Leia järgmine (F3)</value>
+  </data>
 </root>

@@ -1384,7 +1384,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Sí a _tot</value>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value>Atenció, esteu a punt d'eliminar els fitxers trobats durant la cerca.</value>
+    <value>Atenció, esteu a punt de suprimir els fitxers trobats durant la cerca.</value>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
     <value>Llista fitxers utilitzant el patró del nom de fitxer quan el camp "Cerca" està buit</value>
@@ -3413,5 +3413,20 @@ Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser 
   </data>
   <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
     <value>Copia Substitueix per en Cerca</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Troba:</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Troba l'anterior (Maj+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Troba el següent (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Distingeix majúscules i minúscules</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Coincideix paraules senceres</value>
   </data>
 </root>

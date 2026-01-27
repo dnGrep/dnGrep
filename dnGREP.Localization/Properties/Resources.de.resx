@@ -3735,4 +3735,19 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
     <value>Kopieren 'Ersetzen mit' in 'Suchen nach'</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Rückwärts suchen (Umschalt+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Weitersuchen (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Groß-/Kleinbuchstaben beachten</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Suche ganze Wörter</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Suchen:</value>
+  </data>
 </root>

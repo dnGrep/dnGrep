@@ -4080,4 +4080,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>맨 아래로 이동</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>이전 찾기 (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>다음 찾기 (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>대소문자 일치</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>전체 단어 일치</value>
+  </data>
 </root>

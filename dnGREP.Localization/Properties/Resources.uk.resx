@@ -3547,4 +3547,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Перемістіть вниз</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Знайти попередній (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Знайти далі (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Відмінок сірника</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>З’єднайте цілі слова</value>
+  </data>
 </root>
