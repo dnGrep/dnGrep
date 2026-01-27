@@ -20,7 +20,8 @@ namespace dnGREP.WPF
 {
     public partial class FormattedGrepResult : CultureAwareViewModel, ITreeItem
     {
-        private static readonly string space = char.ConvertFromUtf32(0X00B7);
+        private static readonly string middot = char.ConvertFromUtf32(0X00B7);
+        private static readonly string degree = char.ConvertFromUtf32(0X00B0);
 
         public GrepSearchResult GrepResult { get; private set; } = new();
 
@@ -267,12 +268,20 @@ namespace dnGREP.WPF
                 StringBuilder sb = new(text.Length);
                 foreach (char ch in text)
                 {
-                    if (char.IsWhiteSpace(ch))
+                    if (ch == ' ')
                     {
-                        sb.Append(space);
+                        // simple space gets the middle dot
+                        sb.Append(middot);
+                    }
+                    else if (char.IsWhiteSpace(ch))
+                    {
+                        // all other whitespace gets the degree symbol
+                        sb.Append(degree);
                     }
                     else
+                    {
                         sb.Append(ch);
+                    }
                 }
                 return sb.ToString();
             }
