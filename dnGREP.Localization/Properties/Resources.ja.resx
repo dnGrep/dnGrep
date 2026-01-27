@@ -4333,4 +4333,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>一番下に移動</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>前を検索 (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>次を検索 (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>大文字と小文字を区別する</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>完全な単語に一致</value>
+  </data>
 </root>

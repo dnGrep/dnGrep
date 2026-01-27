@@ -3082,4 +3082,16 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Mou fins el final</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Cerca l'anterior (Maj+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Cerca el següent (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Coincidència entre majúscules i minúscules</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Coincideix paraules senceres</value>
+  </data>
 </root>

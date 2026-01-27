@@ -3519,4 +3519,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
     <value>Aramak için Kopyala Değiştir</value>
   </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Öncekini bul (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Sonrakini bul (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Eşleşme durumu</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Tüm kelimeleri eşleştir</value>
+  </data>
 </root>
