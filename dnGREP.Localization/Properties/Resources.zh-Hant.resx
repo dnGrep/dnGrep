@@ -1209,7 +1209,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>首次符合後停止</value>
+    <value>首個符合後停止</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
@@ -2153,7 +2153,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>首次符合後停止</value>
+    <value>首個符合後停止</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
@@ -2738,7 +2738,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
-    <value>首次符合後停止</value>
+    <value>首個符合後停止</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
