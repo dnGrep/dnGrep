@@ -43,8 +43,9 @@
     <SolidColorBrush x:Key="Splitter.Background" po:Freeze="true" Color="#FF989898" />
 
     <!--  Window Caption  -->
-    <SolidColorBrush x:Key="Window.Border.Active" po:Freeze="true" Color="#FF333333" />
-    <SolidColorBrush x:Key="Window.Border.Inactive" po:Freeze="true" Color="#FF404040" />
+    <Thickness x:Key="Window.Border.Thickness">1</Thickness>
+    <SolidColorBrush x:Key="Window.Border.Active" po:Freeze="true" Color="#FF404040" />
+    <SolidColorBrush x:Key="Window.Border.Inactive" po:Freeze="true" Color="#FF333333" />
     <SolidColorBrush x:Key="Caption.Background" po:Freeze="true" Color="#FF333333" />
     <SolidColorBrush x:Key="Caption.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Caption.Background.Inactive" po:Freeze="true" Color="#FF404040" />

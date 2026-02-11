@@ -29,6 +29,8 @@ namespace dnGREP.WPF
         private const string RegistryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         private const string RegistryValueName = "AppsUseLightTheme";
 
+        private const int ThemeDictionaryIndex = 1;
+
         public static AppTheme Instance { get; } = new();
 
         public event EventHandler? CurrentThemeChanging;
@@ -69,7 +71,7 @@ namespace dnGREP.WPF
 
                 if (CurrentThemeName == "Light" || CurrentThemeName == "Dark")
                 {
-                    Application.Current.Resources.MergedDictionaries[0].Source = new Uri($"/Themes/{CurrentThemeName}Brushes.xaml", UriKind.Relative);
+                    Application.Current.Resources.MergedDictionaries[ThemeDictionaryIndex].Source = new Uri($"/Themes/{CurrentThemeName}Brushes.xaml", UriKind.Relative);
                 }
                 else
                 {
@@ -80,7 +82,7 @@ namespace dnGREP.WPF
                         .FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
                     {
-                        Application.Current.Resources.MergedDictionaries[0].Source = new Uri(path, UriKind.Absolute);
+                        Application.Current.Resources.MergedDictionaries[ThemeDictionaryIndex].Source = new Uri(path, UriKind.Absolute);
                     }
                 }
 
@@ -256,6 +258,8 @@ namespace dnGREP.WPF
 
         private void LoadExternalThemes()
         {
+            var defaultsDict = Application.Current.Resources.MergedDictionaries[0];
+
             string dataFolder = DirectoryConfiguration.Instance.DataDirectory;
             foreach (string fileName in Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories))
             {
@@ -264,9 +268,13 @@ namespace dnGREP.WPF
                     using FileStream s = new(fileName, FileMode.Open);
                     string name = Path.GetFileNameWithoutExtension(fileName);
                     object obj = XamlReader.Load(s);
-                    if (obj is ResourceDictionary dict && IsValid(dict, name) && !themeNames.Contains(name))
+                    if (obj is ResourceDictionary dict && !themeNames.Contains(name))
                     {
-                        themeNames.Add(name);
+                        AddMissingDefaults(dict, defaultsDict, name);
+                        if (IsValid(dict, name))
+                        {
+                            themeNames.Add(name);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -276,10 +284,22 @@ namespace dnGREP.WPF
             }
         }
 
+        private static void AddMissingDefaults(ResourceDictionary themeDict, ResourceDictionary defaultsDict, string themeName)
+        {
+            foreach (var key in defaultsDict.Keys)
+            {
+                if (!themeDict.Contains(key))
+                {
+                    themeDict.Add(key, defaultsDict[key]);
+                    logger.Info($"Theme '{themeName}' is missing key '{key}', using default value");
+                }
+            }
+        }
+
         private static bool IsValid(ResourceDictionary dict2, string name)
         {
             bool valid = true;
-            var dict1 = Application.Current.Resources.MergedDictionaries[0];
+            var dict1 = Application.Current.Resources.MergedDictionaries[ThemeDictionaryIndex];
 
             if (dict1.Count > dict2.Count)
             {
