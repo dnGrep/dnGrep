@@ -4113,4 +4113,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_ShowPassword" xml:space="preserve">
     <value>비밀번호 표시</value>
   </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>문자열 맵 설정이 변경되었습니다. 캐시 폴더를 삭제하시겠습니까?</value>
+  </data>
 </root>
