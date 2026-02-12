@@ -4072,10 +4072,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>맨 위로 이동</value>
   </data>
   <data name="StringMap_MoveUp" xml:space="preserve">
-    <value>위로</value>
+    <value>위로 이동</value>
   </data>
   <data name="StringMap_MoveDown" xml:space="preserve">
-    <value>아래로</value>
+    <value>아래로 이동</value>
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>맨 아래로 이동</value>
