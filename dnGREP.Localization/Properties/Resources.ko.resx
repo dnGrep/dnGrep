@@ -4116,4 +4116,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
     <value>문자열 맵 설정이 변경되었습니다. 캐시 폴더를 삭제하시겠습니까?</value>
   </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>대체할 검색 복사</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>검색할 복사 대체 대상</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>찾기:</value>
+  </data>
 </root>
