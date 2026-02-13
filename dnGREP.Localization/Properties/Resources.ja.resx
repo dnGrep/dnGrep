@@ -4366,4 +4366,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_ShowPassword" xml:space="preserve">
     <value>パスワードを表示</value>
   </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>文字列マップの設定が変更されました。キャッシュフォルダーを削除しますか?</value>
+  </data>
 </root>
