@@ -67,7 +67,7 @@ namespace Tests
                 IgnoreFilePattern = "*.txt",
             };
 
-            Assert.False(b1 == null);
+            Assert.NotNull(b1);
             Assert.False(b1.Equals(null));
             Assert.False(Bookmark.Equals(null, b1));
             Assert.False(Bookmark.Equals(b1, null));
