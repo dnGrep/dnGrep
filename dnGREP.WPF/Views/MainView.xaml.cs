@@ -410,6 +410,10 @@ namespace dnGREP.WPF
             {
                 notifyIcon.Text = viewModel.NotificationTitle;
             }
+            else if (e.PropertyName == nameof(viewModel.ShowLinesInContext))
+            {
+                resultsTree.TreeView.DeselectAllItems();
+            }
         }
 
         #region UI fixes

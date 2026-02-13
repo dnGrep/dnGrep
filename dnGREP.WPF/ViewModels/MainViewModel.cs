@@ -529,6 +529,8 @@ namespace dnGREP.WPF
         partial void OnShowLinesInContextChanged(bool value)
         {
             Settings.Set(GrepSettings.Key.ShowLinesInContext, value);
+
+            ResultsViewModel.ShowLinesInContext = value;
         }
 
         [ObservableProperty]
