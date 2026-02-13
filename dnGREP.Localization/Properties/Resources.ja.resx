@@ -4369,4 +4369,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
     <value>文字列マップの設定が変更されました。キャッシュフォルダーを削除しますか?</value>
   </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>検索文字列を置換文字列にコピー</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>置換文字列を検索文字列にコピー</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>検索 :</value>
+  </data>
 </root>
