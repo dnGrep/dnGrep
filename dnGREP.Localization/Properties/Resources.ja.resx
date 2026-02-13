@@ -4343,7 +4343,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>大文字と小文字を区別する</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
-    <value>完全な単語に一致</value>
+    <value>単語に完全一致</value>
   </data>
   <data name="Options_RequestPDFPassword" xml:space="preserve">
     <value>セキュリティで保護されたPDFファイルのパスワードを要求する</value>
