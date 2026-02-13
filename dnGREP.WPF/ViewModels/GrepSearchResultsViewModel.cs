@@ -147,7 +147,14 @@ namespace dnGREP.WPF
             {
                 if (item.IsSelected && !SelectedNodes.Contains(item))
                 {
-                    SelectedNodes.Insert(0, item);
+                    if (ShowLinesInContext || item is FormattedGrepResult)
+                    {
+                        SelectedNodes.Insert(0, item);
+                    }
+                    else if (item is FormattedGrepLine line && !line.GrepLine.IsContext)
+                    {
+                        SelectedNodes.Insert(0, item);
+                    }
                 }
                 else
                 {
@@ -214,6 +221,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool contextGrepResultVisible;
+
+        [ObservableProperty]
+        private bool showLinesInContext;
 
         /// <summary>
         /// Gets the collection of Selected tree nodes, in the order they were selected
