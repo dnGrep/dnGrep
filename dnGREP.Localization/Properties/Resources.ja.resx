@@ -4345,4 +4345,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>完全な単語に一致</value>
   </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>セキュリティで保護されたPDFファイルのパスワードを要求する</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>セキュリティで保護されたアーカイブのパスワードを要求する</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>入力されたパスワードが正しくありません。</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>パスワード :</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>パスワードを表示</value>
+  </data>
 </root>
