@@ -43,7 +43,7 @@ namespace dnGREP.Engines.OpenXml
             // Open a given Word document as readonly
             using (WordprocessingDocument doc = WordprocessingDocument.Open(stream, false))
             {
-                var body = doc.MainDocumentPart?.Document.Body;
+                var body = doc.MainDocumentPart?.Document?.Body;
                 var docStyles = doc.MainDocumentPart?.StyleDefinitionsPart?.Styles?
                     .Where(r => r is Style).Select(r => r as Style);
                 var sectionMap = GetSectionMap(body);
@@ -201,7 +201,7 @@ namespace dnGREP.Engines.OpenXml
                         {
                             completedReferences.Add(id);
 
-                            if (headerPart.Header.Descendants<Run>().Any())
+                            if (headerPart?.Header?.Descendants<Run>().Any() == true)
                             {
                                 sb.AppendLine(@"▲───────────");
                                 foreach (Paragraph hp in headerPart.Header.Elements<Paragraph>())
@@ -237,7 +237,7 @@ namespace dnGREP.Engines.OpenXml
                         {
                             completedReferences.Add(id);
 
-                            if (footerPart.Footer.Descendants<Run>().Any())
+                            if (footerPart?.Footer?.Descendants<Run>().Any() == true)
                             {
                                 sb.AppendLine(@"▼───────────");
                                 foreach (Paragraph hp in footerPart.Footer.Elements<Paragraph>())
@@ -295,6 +295,10 @@ namespace dnGREP.Engines.OpenXml
                 if (child is Text text)
                 {
                     sb.Append(text.Text);
+                }
+                else if (child is TabChar)
+                {
+                    sb.Append('\t');
                 }
                 else if (child is NoBreakHyphen)
                 {

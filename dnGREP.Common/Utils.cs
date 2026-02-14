@@ -40,6 +40,13 @@ namespace dnGREP.Common
         private static readonly object regexLock = new();
         private static readonly Dictionary<string, Regex> regexCache = [];
 
+        /// <summary>
+        /// The tab size used for whitespace visualization in the results tree
+        /// and the preview window. This size matches (as close as possible)
+        /// the default tab positions for the WPF TextBlock (which can't be changed)
+        /// </summary>
+        public const int WhitespaceTabSize = 7;
+
         static Utils()
         {
             tempFolderName = "dnGrep-temp-" + GetUniqueKey(12);
