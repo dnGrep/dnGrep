@@ -36,6 +36,8 @@ namespace dnGREP.WPF
 
             textEditor.ShowLineNumbers = false; // using custom line numbers
 
+            textEditor.TextArea.TextView.Options.IndentationSize = Utils.WhitespaceTabSize;
+
             lineNumberMargin = new PreviewLineNumberMargin();
             Line line = (Line)DottedLineMargin.Create();
             textEditor.TextArea.LeftMargins.Insert(0, lineNumberMargin);
