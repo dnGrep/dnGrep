@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using Xunit;
 
@@ -6,7 +7,10 @@ namespace Tests
 {
     public class IgnoreIfNotAdministratorTheory : TheoryAttribute
     {
-        public IgnoreIfNotAdministratorTheory()
+        public IgnoreIfNotAdministratorTheory(
+            [CallerFilePath] string? sourceFilePath = null,
+            [CallerLineNumber] int sourceLineNumber = 0)
+            : base(sourceFilePath, sourceLineNumber)
         {
             if (!IsUserAdministrator())
             {
