@@ -1069,7 +1069,7 @@ namespace Tests
             Assert.Equal(2, files.Length);
         }
 
-        [IgnoreIfNotAdministratorTheory] // must run as Administrator to create symbolic link
+        [IgnoreIfNotAdministratorTheory(nameof(UtilsTest), 1072)] // must run as Administrator to create symbolic link
         [InlineData(false)]
         [InlineData(true)]
         public void GetSymlinkFilesTest(bool useLongPathLink)

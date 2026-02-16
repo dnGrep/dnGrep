@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <LangVersion>12</LangVersion>
-    <TargetFrameworks>net9.0-windows</TargetFrameworks>
+    <LangVersion>14</LangVersion>
+    <TargetFrameworks>net10.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <DefineConstants>TRACE</DefineConstants>
@@ -35,7 +35,7 @@
     <AnalysisLevel>none</AnalysisLevel>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net9.0-windows' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net10.0-windows' ">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
@@ -60,7 +60,7 @@
     <Page Remove="docs\**" />
     <EmbeddedResource Remove="Highlighting\Resources\Resources.cs" />
     <Resource Include="Highlighting\Resources\Resources.cs" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.103">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
