@@ -4496,4 +4496,92 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Apply string map</value>
     <comment>Options dialog, check box label</comment>
   </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Request password for secure PDF files</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Request password for secure archive files</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Password</value>
+    <comment>PasswordDialog, title</comment>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>The password entered is incorrect.</value>
+    <comment>PasswordDialog, error messagae</comment>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Password for:</value>
+    <comment>PasswordDialog, file label</comment>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+    <comment>PasswordDialog, warning message</comment>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Show password</value>
+    <comment>PasswordDialog, checkbox label</comment>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>PasswordDialog, OK button label</comment>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>PasswordDialog, Cancel button label</comment>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>The string map settings have changed. Delete the cache folder?</value>
+    <comment>Message box text for: delete cache files</comment>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>View Whitespace</value>
+    <comment>Main window, checkbox label</comment>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Move to top</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Move up</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Move down</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Move to bottom</value>
+    <comment>String replacements dialog, context menu text</comment>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Copy Search for to Replace with</value>
+    <comment>Main window, copy search to replace string</comment>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Copy Replace with to Search for</value>
+    <comment>Main window, copy search to replace string</comment>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Find:</value>
+    <comment>Options dialog, search box label</comment>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Find previous (Shift+F3)</value>
+    <comment>Options dialog, find previous button tooltip</comment>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Find next (F3)</value>
+    <comment>Options dialog, find next button tooltip</comment>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Match case</value>
+    <comment>Options dialog, match case button tooltip</comment>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Match whole words</value>
+    <comment>Options dialog, match whole words button tooltip</comment>
+  </data>
 </root>

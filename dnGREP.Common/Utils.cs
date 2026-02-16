@@ -40,6 +40,13 @@ namespace dnGREP.Common
         private static readonly object regexLock = new();
         private static readonly Dictionary<string, Regex> regexCache = [];
 
+        /// <summary>
+        /// The tab size used for whitespace visualization in the results tree
+        /// and the preview window. This size matches (as close as possible)
+        /// the default tab positions for the WPF TextBlock (which can't be changed)
+        /// </summary>
+        public const int WhitespaceTabSize = 7;
+
         static Utils()
         {
             tempFolderName = "dnGrep-temp-" + GetUniqueKey(12);
@@ -1749,6 +1756,25 @@ namespace dnGREP.Common
                     }
                 }
                 logger.Info($"Deleted {count} files from cache in {sw.ElapsedMilliseconds} ms");
+            }
+        }
+
+        private static readonly List<string> passwordProtectedCacheFiles = [];
+
+        public static void AddPasswordProtectedCacheFile(string file)
+        {
+            passwordProtectedCacheFiles.Add(file);
+        }
+
+        public static void DeletePasswordProtectedCacheFiles()
+        {
+            foreach (var file in passwordProtectedCacheFiles)
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch { }
             }
         }
 

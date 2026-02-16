@@ -157,6 +157,8 @@ namespace dnGREP.Common
             [DefaultValue(false)]
             public const string ResultsTreeWrap = "ResultsTreeWrap";
             [DefaultValue(false)]
+            public const string ResultsTreeViewWhitespace = "ResultsTreeViewWhitespace";
+            [DefaultValue(false)]
             public const string HighlightCaptureGroups = "HighlightCaptureGroups";
             [DefaultValue(true)]
             public const string UseDefaultFont = "UseDefaultFont";
@@ -265,6 +267,8 @@ namespace dnGREP.Common
             public const string ZoomResultsTreeVisible = "ZoomResultsTreeVisible";
             [DefaultValue(true)]
             public const string WrapTextResultsTreeVisible = "WrapTextResultsTreeVisible";
+            [DefaultValue(true)]
+            public const string ViewWhitespaceResultsTreeVisible = "ViewWhitespaceResultsTreeVisible";
             [DefaultValue(true)]
             public const string PreviewZoomWndVisible = "PreviewZoomWndVisible";
             [DefaultValue(true)]
@@ -384,6 +388,10 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string PreviewShowingReplacements = "PreviewShowingReplacements";
             public const string SubstitutionStrings = "SubstitutionStrings";
+            [DefaultValue(false)]
+            public const string RequestArchivePassword = "RequestArchivePassword";
+            [DefaultValue(false)]
+            public const string RequestPDFPassword = "RequestPDFPassword";
         }
 
         public static class ObsoleteKey
@@ -990,13 +998,14 @@ namespace dnGREP.Common
                 XElement root = XElement.Parse(xmlContent, LoadOptions.PreserveWhitespace);
                 if (root != null)
                 {
-                    foreach (var elem in root.Descendants("pair"))
+                    foreach (var elem in root.Descendants("keyValuePair"))
                     {
-                        if (!string.IsNullOrEmpty(elem.Value) &&
-                            elem.Attribute("value") is XAttribute attr &&
-                            attr.Value != null)
+                        if (elem.Attribute("key") is XAttribute keyAttr &&
+                            keyAttr.Value != null &&
+                            elem.Attribute("value") is XAttribute valueAttr &&
+                            valueAttr.Value != null)
                         {
-                            map.Add(elem.Value, attr.Value);
+                            map.Add(keyAttr.Value, valueAttr.Value);
                         }
                     }
                 }
@@ -1685,10 +1694,17 @@ namespace dnGREP.Common
                     stringMap.Map.Add("”", "\"");
                     stringMap.Map.Add("–", "-");
                     stringMap.Map.Add(char.ConvertFromUtf32(0x2011), "-");
-                    stringMap.SaveToSettings(GrepSettings.Key.SubstitutionStrings);
+                    Set(Key.SubstitutionStrings, stringMap.Map);
                 }
             }
             return stringMap;
+        }
+
+        public void SaveSubstitutionStrings(StringMap stringMap)
+        {
+            this.stringMap = stringMap;
+            Set(Key.SubstitutionStrings, stringMap.Map);
+            Save();
         }
     }
 

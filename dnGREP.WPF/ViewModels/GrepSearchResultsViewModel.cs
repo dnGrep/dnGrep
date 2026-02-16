@@ -75,8 +75,9 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(PreviousFileCommand), "Main_Results_PreviousFile", "Shift+F4");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ExpandAllCommand), "Main_Results_ExpandAll", "F6");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CollapseAllCommand), "Main_Results_CollapseAll", "Shift+F6");
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleExpandAllCommand), string.Empty, string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetZoomCommand), "Main_Results_ResetZoom", string.Empty);
-            
+
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyCommand), "", "Control+C");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectAllCommand), "", "Control+A");
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SelectToStartCommand), "", "Control+Home");
@@ -146,7 +147,14 @@ namespace dnGREP.WPF
             {
                 if (item.IsSelected && !SelectedNodes.Contains(item))
                 {
-                    SelectedNodes.Insert(0, item);
+                    if (ShowLinesInContext || item is FormattedGrepResult)
+                    {
+                        SelectedNodes.Insert(0, item);
+                    }
+                    else if (item is FormattedGrepLine line && !line.GrepLine.IsContext)
+                    {
+                        SelectedNodes.Insert(0, item);
+                    }
                 }
                 else
                 {
@@ -213,6 +221,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool contextGrepResultVisible;
+
+        [ObservableProperty]
+        private bool showLinesInContext;
 
         /// <summary>
         /// Gets the collection of Selected tree nodes, in the order they were selected
@@ -355,7 +366,7 @@ namespace dnGREP.WPF
                 bool showErrors = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults);
                 if (r.IsSuccess || showErrors)
                 {
-                    var fmtResult = new FormattedGrepResult(r, FolderPath)
+                    var fmtResult = new FormattedGrepResult(r, FolderPath, ViewWhitespace)
                     {
                         WrapText = WrapText
                     };
@@ -375,7 +386,7 @@ namespace dnGREP.WPF
         {
             foreach (var r in list)
             {
-                SearchResults.Add(new FormattedGrepResult(r, FolderPath));
+                SearchResults.Add(new FormattedGrepResult(r, FolderPath, false));
             }
         }
 
@@ -551,6 +562,17 @@ namespace dnGREP.WPF
         }
 
         [ObservableProperty]
+        private bool viewWhitespace;
+        partial void OnViewWhitespaceChanged(bool value)
+        {
+            foreach (var item in SearchResults)
+            {
+                item.ViewWhitespace = value;
+                item.SetLabel();
+            }
+        }
+
+        [ObservableProperty]
         private bool isResultsTreeFocused;
 
         public event EventHandler<GrepLineEventArgs>? OpenFileLineRequest;
@@ -714,6 +736,10 @@ namespace dnGREP.WPF
         private RelayCommand? collapseAllCommand;
         public RelayCommand CollapseAllCommand => collapseAllCommand ??= new RelayCommand(
             p => CollapseAll());
+
+        private RelayCommand? toggleExpandAllCommand;
+        public RelayCommand ToggleExpandAllCommand => toggleExpandAllCommand ??= new RelayCommand(
+            p => ToggleExpandAll());
 
         private RelayCommand? resetZoomCommand;
         public RelayCommand ResetZoomCommand => resetZoomCommand ??= new RelayCommand(
@@ -1439,7 +1465,17 @@ namespace dnGREP.WPF
             }
         }
 
-
+        private void ToggleExpandAll()
+        {
+            if (TreeControl?.IsAnyExpanded() ?? false)
+            {
+                CollapseAll();
+            }
+            else
+            {
+                ExpandAll();
+            }
+        }
 
         #endregion
     }

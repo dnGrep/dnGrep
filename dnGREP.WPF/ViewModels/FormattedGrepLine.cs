@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,7 +15,11 @@ namespace dnGREP.WPF
 {
     public partial class FormattedGrepLine : CultureAwareViewModel, ITreeItem
     {
-        private readonly string enQuad = char.ConvertFromUtf32(0x2000);
+        private static readonly string enQuad = char.ConvertFromUtf32(0x2000);
+        private static readonly string middot = char.ConvertFromUtf32(0X00B7);
+        private static readonly string degree = char.ConvertFromUtf32(0X00B0);
+        private static readonly string tab = char.ConvertFromUtf32(0x00BB);
+        private static readonly string newLine = char.ConvertFromUtf32(0x00B6);
 
         public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
         {
@@ -24,6 +29,7 @@ namespace dnGREP.WPF
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
+            ViewWhitespace = Parent.ViewWhitespace;
             int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
             var pdfNumberStyle = GrepSettings.Instance.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
@@ -145,6 +151,18 @@ namespace dnGREP.WPF
 
         public int MaxLineLength { get; private set; } = 500;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FormattedText))]
+        private bool viewWhitespace;
+
+        partial void OnViewWhitespaceChanging(bool value)
+        {
+            if (formattedText != null)
+            {
+                formattedText = null;
+            }
+        }
+
         public int Level => 1;
 
         public IEnumerable<ITreeItem> Children => [];
@@ -159,9 +177,11 @@ namespace dnGREP.WPF
                 fullLine = line.LineText[..MaxLineLength];
             }
 
+            int column = 0;
+
             if (line.Matches.Count == 0)
             {
-                Run mainRun = new(fullLine);
+                Run mainRun = new(MarkWhitespace(fullLine, ref column));
                 paragraph.Inlines.Add(mainRun);
             }
             else
@@ -207,18 +227,18 @@ namespace dnGREP.WPF
 
                         if (regLine != null)
                         {
-                            Run regularRun = new(regLine);
+                            Run regularRun = new(MarkWhitespace(regLine, ref column));
                             paragraph.Inlines.Add(regularRun);
                         }
                         if (fmtLine != null)
                         {
                             if (HighlightCaptureGroups && m.Groups.Count > 0)
                             {
-                                FormatCaptureGroups(paragraph, m, fmtLine);
+                                FormatCaptureGroups(paragraph, m, fmtLine, ref column);
                             }
                             else
                             {
-                                Run run = new(fmtLine);
+                                Run run = new(MarkWhitespace(fmtLine, ref column));
                                 run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                                 run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
                                 paragraph.Inlines.Add(run);
@@ -233,7 +253,8 @@ namespace dnGREP.WPF
                     {
                         // on error show the whole line with no highlights
                         paragraph.Inlines.Clear();
-                        Run regularRun = new(fullLine);
+                        column = 0;
+                        Run regularRun = new(MarkWhitespace(fullLine, ref column));
                         paragraph.Inlines.Add(regularRun);
                         // set position to end of line
                         matchStartLocation = fullLine.Length;
@@ -250,12 +271,13 @@ namespace dnGREP.WPF
                     try
                     {
                         string regLine = fullLine[counter..];
-                        Run regularRun = new(regLine);
+                        Run regularRun = new(MarkWhitespace(regLine, ref column));
                         paragraph.Inlines.Add(regularRun);
                     }
                     catch
                     {
-                        Run regularRun = new(fullLine);
+                        column = 0;
+                        Run regularRun = new(MarkWhitespace(fullLine, ref column));
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
@@ -286,7 +308,10 @@ namespace dnGREP.WPF
                         {
                             paragraph.Inlines.Add(new Run(enQuad));
                             string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
-                            var run = new Run(fmtLine);
+                            // hidden matches are shown out of line context, so column tracking
+                            // is not meaningful here; use a separate column starting at 0
+                            int hiddenCol = 0;
+                            var run = new Run(MarkWhitespace(fmtLine, ref hiddenCol));
                             run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                             run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
                             paragraph.Inlines.Add(run);
@@ -304,10 +329,55 @@ namespace dnGREP.WPF
                     }
                 }
             }
+            if (ViewWhitespace)
+            {
+                Run lastRun = new(newLine);
+                paragraph.Inlines.Add(lastRun);
+            }
             return paragraph.Inlines;
         }
 
-        private void FormatCaptureGroups(Paragraph paragraph, GrepMatch match, string fmtLine)
+        private string MarkWhitespace(string text, ref int column)
+        {
+            if (ViewWhitespace && !string.IsNullOrEmpty(text))
+            {
+                StringBuilder sb = new(text.Length);
+                foreach (char ch in text)
+                {
+                    if (ch == '\t')
+                    {
+                        int spacesToNextTab = Utils.WhitespaceTabSize - (column % Utils.WhitespaceTabSize);
+                        // Use the glyph as the first character, then pad with spaces
+                        // to reach the same position a real tab would have landed on
+                        sb.Append(tab);
+                        sb.Append(' ', spacesToNextTab - 1);
+                        column += spacesToNextTab;
+                    }
+                    else if (ch == ' ')
+                    {
+                        // simple space gets the middle dot
+                        sb.Append(middot);
+                        column++;
+                    }
+                    else if (char.IsWhiteSpace(ch))
+                    {
+                        // all other whitespace get the degree sign
+                        sb.Append(degree);
+                        column++;
+                    }
+                    else
+                    {
+                        sb.Append(ch);
+                        column++;
+                    }
+                }
+                return sb.ToString();
+            }
+            column += text.Length;
+            return text;
+        }
+
+        private void FormatCaptureGroups(Paragraph paragraph, GrepMatch match, string fmtLine, ref int column)
         {
             if (paragraph == null || match == null || string.IsNullOrEmpty(fmtLine))
                 return;
@@ -315,7 +385,7 @@ namespace dnGREP.WPF
             GroupMap map = new(match, fmtLine);
             foreach (var range in map.Ranges.Where(r => r.Length > 0))
             {
-                var run = new Run(range.RangeText);
+                var run = new Run(MarkWhitespace(range.RangeText, ref column));
                 if (range.Group == null)
                 {
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
@@ -337,6 +407,11 @@ namespace dnGREP.WPF
                         Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, range.Group.Name, range.Group.FullValue.TrimEnd('\r', '\n'));
                     paragraph.Inlines.Add(run);
                 }
+            }
+
+            if (ViewWhitespace && paragraph.Inlines.Last() is Run last)
+            {
+                last.Text += newLine;
             }
         }
 

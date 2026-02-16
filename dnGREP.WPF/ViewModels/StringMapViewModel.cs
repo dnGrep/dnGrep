@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using dnGREP.Common;
 
@@ -13,9 +16,19 @@ namespace dnGREP.WPF
 {
     public partial class StringMapViewModel : CultureAwareViewModel
     {
+        public event EventHandler<DataEventArgs<GridLocation>>? SetFocus;
         public event EventHandler? RequestClose;
+
+        private readonly List<StringSubstitutionViewModel> _items = [];
         private bool itemAdded = false;
         private bool itemDeleted = false;
+        private bool isReordered = false;
+        private static bool beenInitialized;
+
+        static StringMapViewModel()
+        {
+            Initialize();
+        }
 
         public StringMapViewModel()
         {
@@ -23,14 +36,45 @@ namespace dnGREP.WPF
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
 
             StringMap stringMap = GrepSettings.Instance.GetSubstitutionStrings();
+
+            _items.Clear();
+
             foreach (var item in stringMap.Map)
             {
-                MapItems.Add(new StringSubstitutionViewModel(this,
-                    item.Key, item.Value));
+                _items.Add(new StringSubstitutionViewModel(this,
+                    item.Key, item.Value, _items.Count));
 
                 MapKeys.Add(item.Key);
             }
+            MapItems = CollectionViewSource.GetDefaultView(_items);
+
+            InitializeInputBindings();
         }
+
+        public static void Initialize()
+        {
+            if (beenInitialized) return;
+
+            beenInitialized = true;
+            KeyBindingManager.RegisterCommand(KeyCategory.StringMap, nameof(MoveToTopCommand), "StringMap_MoveToTop", "Shift+Alt+Up");
+            KeyBindingManager.RegisterCommand(KeyCategory.StringMap, nameof(MoveUpCommand), "StringMap_MoveUp", "Alt+Up");
+            KeyBindingManager.RegisterCommand(KeyCategory.StringMap, nameof(MoveDownCommand), "StringMap_MoveDown", "Alt+Down");
+            KeyBindingManager.RegisterCommand(KeyCategory.StringMap, nameof(MoveToBottomCommand), "StringMap_MoveToBottom", "Shift+Alt+Down");
+        }
+
+        private void InitializeInputBindings()
+        {
+            foreach (KeyBindingInfo kbi in KeyBindingManager.GetCommandGestures(KeyCategory.StringMap))
+            {
+                PropertyInfo? pi = GetType().GetProperty(kbi.CommandName, BindingFlags.Instance | BindingFlags.Public);
+                if (pi != null && pi.GetValue(this) is RelayCommand cmd)
+                {
+                    InputBindings.Add(KeyBindingManager.CreateKeyBinding(cmd, kbi.KeyGesture));
+                }
+            }
+        }
+
+        public ObservableCollectionEx<InputBinding> InputBindings { get; } = [];
 
         [ObservableProperty]
         private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
@@ -38,33 +82,40 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double dialogFontSize;
 
-        public ObservableCollection<StringSubstitutionViewModel> MapItems { get; } = [];
+        [ObservableProperty]
+        private StringSubstitutionViewModel? selectedItem = null;
+
+        [ObservableProperty]
+        private int selectedColumn = 1;
+
+        public ICollectionView MapItems { get; private set; }
 
         public HashSet<string> MapKeys { get; } = [];
 
         private RelayCommand? saveCommand;
         public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(
             p => SaveMap(),
-            q => itemAdded || itemDeleted);
+            q => itemAdded || itemDeleted || isReordered);
 
         private void SaveMap()
         {
             StringMap stringMap = new();
 
-            foreach (var item in MapItems)
+            foreach (var item in _items.OrderBy(i => i.Ordinal))
             {
                 stringMap.Map.Add(item.MapKey, item.MapValue);
             }
-            stringMap.SaveToSettings(GrepSettings.Key.SubstitutionStrings);
+            GrepSettings.Instance.SaveSubstitutionStrings(stringMap);
 
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         internal void DeleteMapping(StringSubstitutionViewModel item)
         {
-            MapItems.Remove(item);
+            _items.Remove(item);
             MapKeys.Remove(item.MapKey);
             itemDeleted = true;
+            MapItems.Refresh();
         }
 
         // properties for Add Mapping:
@@ -76,7 +127,7 @@ namespace dnGREP.WPF
         {
             fromOnMapKeyChanged = true;
 
-            bool duplicate = MapItems.Any(r => r.MapKeyName.Equals(value, StringComparison.Ordinal));
+            bool duplicate = _items.Any(r => r.MapKeyName.Equals(value, StringComparison.Ordinal));
 
             MapKeyName = StringMap.Describe(value);
             if (!fromOnMapKeyCodePointChanged)
@@ -152,11 +203,32 @@ namespace dnGREP.WPF
             q => !string.IsNullOrEmpty(MapKey) || !string.IsNullOrEmpty(MapValue) ||
                 !string.IsNullOrEmpty(MapKeyCodePoint) || string.IsNullOrEmpty(MapValueCodePoint));
 
+        private RelayCommand? moveToTopCommand;
+        public RelayCommand MoveToTopCommand => moveToTopCommand ??= new RelayCommand(
+            p => MoveToTop(),
+            q => SelectedItem != null && SelectedItem.Ordinal > 0);
+
+        private RelayCommand? moveUpCommand;
+        public RelayCommand MoveUpCommand => moveUpCommand ??= new RelayCommand(
+            p => MoveUp(),
+            q => SelectedItem != null && SelectedItem.Ordinal > 0);
+
+        private RelayCommand? moveDownCommand;
+        public RelayCommand MoveDownCommand => moveDownCommand ??= new RelayCommand(
+            p => MoveDown(),
+            q => SelectedItem != null && SelectedItem.Ordinal < _items.Count - 1);
+
+        private RelayCommand? moveToBottomCommand;
+        public RelayCommand MoveToBottomCommand => moveToBottomCommand ??= new RelayCommand(
+            p => MoveToBottom(),
+            q => SelectedItem != null && SelectedItem.Ordinal < _items.Count - 1);
+
         private void AddMapping()
         {
-            MapItems.Add(new StringSubstitutionViewModel(this,
-                MapKey, MapValue));
+            _items.Add(new StringSubstitutionViewModel(this,
+                MapKey, MapValue, _items.Count));
             MapKeys.Add(MapKey);
+            MapItems.Refresh();
 
             itemAdded = true;
         }
@@ -171,7 +243,7 @@ namespace dnGREP.WPF
             MapValueCodePoint = string.Empty;
         }
 
-        private string CodePointsToString(string codePoints)
+        private static string CodePointsToString(string codePoints)
         {
             Match m = CodePointRegex().Match(codePoints);
             if (m != null && m.Success)
@@ -195,7 +267,7 @@ namespace dnGREP.WPF
             return string.Empty;
         }
 
-        private string StringToCodePoints(string value)
+        private static string StringToCodePoints(string value)
         {
             string codePoints = string.Empty;
             foreach (Rune r in value.EnumerateRunes())
@@ -205,6 +277,96 @@ namespace dnGREP.WPF
             return codePoints;
         }
 
+
+        private void UpdateOrder()
+        {
+            isReordered = true;
+            Sort();
+            MapItems.Refresh();
+            if (SelectedItem != null)
+            {
+                int idx = _items.IndexOf(SelectedItem);
+                SetFocus?.Invoke(this, new DataEventArgs<GridLocation>(new(idx, SelectedColumn)));
+            }
+        }
+
+        public void Sort()
+        {
+            _items.Sort((x, y) => x.Ordinal.CompareTo(y.Ordinal));
+        }
+
+        private void MoveToTop()
+        {
+            if (SelectedItem != null)
+            {
+                int idx = SelectedItem.Ordinal;
+                if (idx > 0)
+                {
+                    SelectedItem.Ordinal = 0;
+                    foreach (StringSubstitutionViewModel item in MapItems)
+                    {
+                        if (item != SelectedItem && item.Ordinal < idx)
+                        {
+                            item.Ordinal++;
+                        }
+                    }
+                    UpdateOrder();
+                }
+            }
+        }
+
+        private void MoveUp()
+        {
+            if (SelectedItem != null)
+            {
+                int idx = SelectedItem.Ordinal;
+                if (idx > 0)
+                {
+                    var prev = _items.Where(b => b.Ordinal == idx - 1).First();
+                    SelectedItem.Ordinal = prev.Ordinal;
+                    prev.Ordinal = idx;
+                    UpdateOrder();
+                }
+            }
+        }
+
+        private static readonly char[] newlines = ['\n', '\r'];
+
+        private void MoveDown()
+        {
+            if (SelectedItem != null)
+            {
+                int idx = SelectedItem.Ordinal;
+                if (idx < _items.Count - 1)
+                {
+                    var next = _items.Where(b => b.Ordinal == idx + 1).First();
+                    SelectedItem.Ordinal = next.Ordinal;
+                    next.Ordinal = idx;
+                    UpdateOrder();
+                }
+            }
+        }
+
+        private void MoveToBottom()
+        {
+            if (SelectedItem != null)
+            {
+                int idx = SelectedItem.Ordinal;
+                if (idx < _items.Count - 1)
+                {
+                    SelectedItem.Ordinal = _items.Count - 1;
+                    foreach (StringSubstitutionViewModel item in MapItems)
+                    {
+                        if (item != SelectedItem && item.Ordinal > idx)
+                        {
+                            item.Ordinal--;
+                        }
+                    }
+                    UpdateOrder();
+                }
+            }
+        }
+
         [GeneratedRegex("(?i)^(u\\+[0-9a-fA-F]{4,5})(?:\\s(u\\+[0-9a-fA-F]{4,5}))*$")]
         private static partial Regex CodePointRegex();
     }
@@ -212,12 +374,13 @@ namespace dnGREP.WPF
     public partial class StringSubstitutionViewModel : CultureAwareViewModel
     {
         public StringSubstitutionViewModel(StringMapViewModel parent,
-            string key, string value)
+            string key, string value, int ordinal)
         {
             this.parent = parent;
 
             MapKey = key;
             MapValue = value;
+            Ordinal = ordinal;
 
             string codePoints = string.Empty;
             foreach (Rune r in MapKey.EnumerateRunes())
@@ -238,6 +401,9 @@ namespace dnGREP.WPF
         }
 
         private readonly StringMapViewModel parent;
+
+        [ObservableProperty]
+        private int ordinal = 0;
 
         [ObservableProperty]
         private string mapKey;

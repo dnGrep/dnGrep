@@ -85,4 +85,16 @@
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
     <value>Zrušit</value>
   </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Sdružené složky:</value>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Název záložky:</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Obsah</value>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Popis:</value>
+  </data>
 </root>

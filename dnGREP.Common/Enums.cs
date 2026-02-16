@@ -189,4 +189,11 @@ namespace dnGREP.Common
         SizeTimestamp,
     }
 
+    public enum TypeOfSwap
+    {
+        SwapSearchAndReplace,
+        CopySearchToReplace,
+        CopyReplaceToSearch,
+    }
+
 }

@@ -19,39 +19,6 @@ namespace dnGREP.Common
                 map[item.Key] = item.Value;
             }
         }
-
-        public void SaveToSettings(string key)
-        {
-            GrepSettings.Instance.Set(key, map);
-        }
-
-        //public string this[string key]
-        //{
-        //    get => map[key];
-        //    set => map[key] = value;
-        //}
-
-        //public void Add(string key, string value)
-        //{
-        //    map.Add(key, value);
-        //}
-
-        //public bool ContainsKey(string key)
-        //{
-        //    return map.ContainsKey(key);
-        //}
-
-        //public bool TryGetValue(string key, out string value)
-        //{
-        //    if (map.TryGetValue(key, out var result) && result is not null)
-        //    {
-        //        value = result;
-        //        return true;
-        //    }
-        //    value = string.Empty;
-        //    return false;
-        //}
-
         public static string Describe(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -61,6 +28,18 @@ namespace dnGREP.Common
             if (text.Length == 1)
             {
                 UnicodeCharInfo uci = UnicodeInfo.GetCharInfo(text[0]);
+                if (string.IsNullOrEmpty(uci.Name))
+                {
+                    if (uci.NameAliases.FirstOrDefault() is UnicodeNameAlias alias &&
+                        !string.IsNullOrEmpty(alias.Name))
+                    {
+                        return alias.Name;
+                    }
+                    else
+                    {
+                        return uci.OldName;
+                    }
+                }
                 return uci.Name;
             }
             else

@@ -40,6 +40,7 @@ namespace dnGREP.WPF
             TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
             {
                 bool resetCurrentSyntax = CurrentSyntax == SyntaxItems[0].Header;
+                SyntaxItems[0].Header = Resources.Preview_SyntaxNone;
                 if (resetCurrentSyntax)
                 {
                     CurrentSyntax = Resources.Preview_SyntaxNone;

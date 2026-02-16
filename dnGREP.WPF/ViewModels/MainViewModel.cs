@@ -103,7 +103,11 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(BookmarkAddCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FolderBookmarkAddCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ResetOptionsCommand), "Main_ResetOptions", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FlipSelectedActionCommand), "", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(FlipSearchAndReplaceCommand), "Main_FlipSearchAndReplaceStrings", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopySearchToReplaceCommand), "Main_CopySearchForToReplaceWith", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyReplaceToSearchCommand), "Main_CopyReplaceWithToSearchFor", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ShowLinesInContextCommand), "Main_ContextShowLines", string.Empty);
         }
 
         public MainViewModel()
@@ -142,6 +146,7 @@ namespace dnGREP.WPF
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
                 ToggleHighlights();
+                OnSwapTypeChanged(SwapType);
 
                 AppTheme.Instance.CurrentThemeChanging += (s, e) =>
                 {
@@ -154,6 +159,7 @@ namespace dnGREP.WPF
                     highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
                     highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
                     ToggleHighlights();
+                    OnSwapTypeChanged(SwapType);
                 };
 
                 TranslationSource.Instance.CurrentCultureChanged += CurrentCultureChanged;
@@ -231,6 +237,8 @@ namespace dnGREP.WPF
             OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
             OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
             OnPropertyChanged(nameof(PauseResumeButtonLabel));
+
+            OnSwapTypeChanged(SwapType);
 
             StatusMessage = string.Empty;
             ClearMatchCountStatus();
@@ -521,6 +529,8 @@ namespace dnGREP.WPF
         partial void OnShowLinesInContextChanged(bool value)
         {
             Settings.Set(GrepSettings.Key.ShowLinesInContext, value);
+
+            ResultsViewModel.ShowLinesInContext = value;
         }
 
         [ObservableProperty]
@@ -598,6 +608,33 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private bool autoCompleteEnabled = false;
+
+        [ObservableProperty]
+        private TypeOfSwap swapType = TypeOfSwap.SwapSearchAndReplace;
+
+        partial void OnSwapTypeChanged(TypeOfSwap value)
+        {
+            bool darkColor = (bool)Application.Current.Resources["ToggleButton.DarkImages"];
+
+            string color = darkColor ? "Dark" : "Light";
+            int intValue = (int)value;
+            SwapButtonImagePath = $@"pack://application:,,,/dnGREP;component/Images/swap{color}{intValue}.png";
+
+            SwapButtonToolTip = value switch
+            {
+                TypeOfSwap.CopyReplaceToSearch => Resources.Main_CopyReplaceWithToSearchFor,
+                TypeOfSwap.CopySearchToReplace => Resources.Main_CopySearchForToReplaceWith,
+                _ => Resources.Main_FlipSearchAndReplaceStrings,
+            };
+        }
+
+        [ObservableProperty]
+        private string swapButtonImagePath = $"pack://application:,,,/dnGREP;component/Images/swapLight0.png";
+
+        [ObservableProperty]
+        private string swapButtonToolTip = string.Empty;
+
+
 
         private void ClearMatchCountStatus()
         {
@@ -804,9 +841,25 @@ namespace dnGREP.WPF
         public RelayCommand FilterComboBoxDropDownCommand => filterComboBoxDropDownCommand ??= new RelayCommand(
             p => PopulateIgnoreFilters(false));
 
+        private RelayCommand? flipSelectedActionCommand;
+        public RelayCommand FlipSelectedActionCommand => flipSelectedActionCommand ??= new RelayCommand(
+            _ => FlipSearchAndReplace(SwapType));
+
         private RelayCommand? flipSearchAndReplaceCommand;
         public RelayCommand FlipSearchAndReplaceCommand => flipSearchAndReplaceCommand ??= new RelayCommand(
-            _ => (SearchFor, ReplaceWith) = (ReplaceWith, SearchFor));
+            _ => FlipSearchAndReplace(TypeOfSwap.SwapSearchAndReplace));
+
+        private RelayCommand? copySearchToReplaceCommand;
+        public RelayCommand CopySearchToReplaceCommand => copySearchToReplaceCommand ??= new RelayCommand(
+            _ => FlipSearchAndReplace(TypeOfSwap.CopySearchToReplace));
+
+        private RelayCommand? copyReplaceToSearchCommand;
+        public RelayCommand CopyReplaceToSearchCommand => copyReplaceToSearchCommand ??= new RelayCommand(
+            _ => FlipSearchAndReplace(TypeOfSwap.CopyReplaceToSearch));
+
+        private RelayCommand? showLinesInContextCommand;
+        public RelayCommand ShowLinesInContextCommand => showLinesInContextCommand ??= new RelayCommand(
+            _ => ShowLinesInContext = !ShowLinesInContext);
 
         #endregion
 
@@ -914,6 +967,7 @@ namespace dnGREP.WPF
             NaturalSort = GrepSettings.Instance.Get<bool>(GrepSettings.Key.NaturalSort);
             ResultsViewModel.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
             ResultsViewModel.WrapText = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeWrap);
+            ResultsViewModel.ViewWhitespace = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ResultsTreeViewWhitespace);
             IsResultOptionsExpanded = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowResultOptions);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -963,6 +1017,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
             Settings.Set(GrepSettings.Key.ResultsTreeScale, ResultsViewModel.ResultsScale);
             Settings.Set(GrepSettings.Key.ResultsTreeWrap, ResultsViewModel.WrapText);
+            Settings.Set(GrepSettings.Key.ResultsTreeViewWhitespace, ResultsViewModel.ViewWhitespace);
             Settings.Set(GrepSettings.Key.HighlightMatches, HighlightsOn);
             Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
@@ -2554,6 +2609,7 @@ namespace dnGREP.WPF
             BookmarkListViewModel.Initialize();
             ReplaceViewModel.Initialize();
             ScriptViewModel.Initialize();
+            StringMapViewModel.Initialize();
 
             KeyboardShortcutWindow keyboardForm = new()
             {
@@ -3856,6 +3912,24 @@ namespace dnGREP.WPF
                 else
                     return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
             }
+        }
+
+        private void FlipSearchAndReplace(TypeOfSwap type)
+        {
+            switch (type)
+            {
+                default:
+                case TypeOfSwap.SwapSearchAndReplace:
+                    (SearchFor, ReplaceWith) = (ReplaceWith, SearchFor);
+                    break;
+                case TypeOfSwap.CopyReplaceToSearch:
+                    SearchFor = ReplaceWith;
+                    break;
+                case TypeOfSwap.CopySearchToReplace:
+                    ReplaceWith = SearchFor;
+                    break;
+            }
+
         }
         #endregion
     }

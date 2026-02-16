@@ -201,7 +201,7 @@ namespace Tests
             GrepEnginePlainText engine = new();
             var encoding = Encoding.UTF8;
             using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, 
+            var results = engine.Search(inputStream, new FileData("test.txt"), pattern,
                 SearchType.Regex, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, encoding);
 
             Assert.Single(results);
@@ -242,7 +242,7 @@ namespace Tests
             GrepEnginePlainText engine = new();
             var encoding = Encoding.UTF8;
             using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, 
+            var results = engine.Search(inputStream, new FileData("test.txt"), pattern,
                 SearchType.Regex, GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.SingleLine, encoding);
 
             Assert.Single(results);
@@ -1822,20 +1822,29 @@ namespace Tests
         [InlineData("a and b and (c or d)", true, true, false, null, null)]
         [InlineData("a or b or c or d or e or f or g", false, false, null, null, null, null, null, null)]
         [InlineData("a and (b or c) and (d or e) or (f and g)", false, false, null, null, null, null, null, null)] // too many operands to check
-        public void TestShortCircuitResult(string input, bool expectedResult, params bool?[] values)
+        public void TestShortCircuitResult(params object?[] data)
         {
-            BooleanExpression exp = new();
-            bool success = exp.TryParse(input);
-            Assert.True(success);
-
-            var operands = exp.Operands.ToList();
-            for (int i = 0; i < values.Length; i++)
+            if (data is [string input, bool expectedResult, .. var rest])
             {
-                operands[i].EvaluatedResult = values[i];
-            }
+                bool?[] values = [.. rest.Cast<bool?>()];
 
-            var result = exp.IsShortCircuitFalse();
-            Assert.Equal(expectedResult, result);
+                BooleanExpression exp = new();
+                bool success = exp.TryParse(input);
+                Assert.True(success);
+
+                var operands = exp.Operands.ToList();
+                for (int i = 0; i < values.Length; i++)
+                {
+                    operands[i].EvaluatedResult = values[i];
+                }
+
+                var result = exp.IsShortCircuitFalse();
+                Assert.Equal(expectedResult, result);
+            }
+            else
+            {
+                Assert.Fail("Parameters not as expected");
+            }
         }
 
         [Theory]

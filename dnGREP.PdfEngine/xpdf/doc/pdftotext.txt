@@ -4,7 +4,7 @@ pdftotext(1)                General Commands Manual               pdftotext(1)
 
 NAME
        pdftotext  -  Portable Document Format (PDF) to text converter (version
-       4.05)
+       4.06)
 
 SYNOPSIS
        pdftotext [options] [PDF-file [text-file]]
@@ -173,7 +173,7 @@ EXIT CODES
        99     Other error.
 
 AUTHOR
-       The  pdftotext software and documentation are copyright 1996-2024 Glyph
+       The  pdftotext software and documentation are copyright 1996-2025 Glyph
        & Cog, LLC.
 
 SEE ALSO
@@ -183,4 +183,4 @@ SEE ALSO
 
 
 
-                                  08 Feb 2024                     pdftotext(1)
+                                  14 Nov 2025                     pdftotext(1)

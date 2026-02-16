@@ -1,6 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <!-- Adding variable -->
   <?include ..\Variables.wxi ?>
 
@@ -8,7 +6,7 @@
   <?define App.PlatformShort="64" ?>
   <?else?>
   <?define App.PlatformShort="32" ?>
-  <?endif ?>
+  <?endif?>
 
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
@@ -20,7 +18,7 @@
       </Component>
       <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{293480D3-64A1-4D5D-A953-4C3F6694BC52}">
         <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.dll" />
-      </Component>     
+      </Component>
       <Component Id="cmp78E7869DE0E547A9BB91AAD5C21A80CF" Guid="{745E7676-66B5-424E-9CE5-B46371BAF593}">
         <File Id="fil477E00E09208424D90EC0C5D4FA79B55" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.Common.pdb" />
       </Component>
@@ -64,8 +62,9 @@
            be installed separately by the user. -->
       <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{B7C5DBF9-8740-4677-8D55-E9C01BF58028}">
         <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.PublishDir)\dnGREP.exe" />
+        <Shortcut Name="dnGrep" Description="dnGrep application" Advertise="yes" Directory="ProgramMenuFolder" Icon="nGREP.exe"/>
         <!-- Store the installation dir for future updates -->
-        <RegistryKey Root="HKLM" Key="Software\dnGrep" >
+        <RegistryKey Root="HKLM" Key="Software\dnGrep">
           <RegistryValue Name="InstallDir" Type="string" Value="[INSTALLDIR]" />
         </RegistryKey>
       </Component>
@@ -117,7 +116,7 @@
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.PublishDir)\UtfUnknown.dll" />
       </Component>
-      
+
       <Directory Id="dir57F39F5A14EB4F319994BBE7AE3AD5D1" Name="ar">
         <Component Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" Guid="{C99A747D-B9BB-4C0B-A27A-BF289C329A34}">
           <File Id="fil2082C100A2E5453B8604C907342B6BF5" KeyPath="yes" Source="$(var.PublishDir)\ar\dnGREP.Localization.resources.dll" />
@@ -131,6 +130,11 @@
       <Directory Id="dir0A93866056C6439A9EB985DA75A1F720" Name="ca">
         <Component Id="cmp155BCEB308F549C586212E8A93923933" Guid="{47DC7307-9AD7-4A7D-9465-F6E4084B8504}">
           <File Id="fil7C054418F70543799A44694FD77B7DA9" KeyPath="yes" Source="$(var.PublishDir)\ca\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dirBDD949803A304BACB7834AC063423A18" Name="ca-ES-valencia">
+        <Component Id="cmp846FA63D921F48E49DAF0405259BC700" Guid="{3D4629A4-050C-4028-985B-DFB5AF728648}">
+          <File Id="fil3A92D234D00B4B569EB7ABAF961171DF" KeyPath="yes" Source="$(var.PublishDir)\ca-ES-valencia\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dirFEDF38D3805A4CD3B0EDB1085F8C162C" Name="de">
@@ -289,10 +293,11 @@
       <ComponentRef Id="cmpF80D34B512294E6DAAB9CE30E531C5D7" />
       <ComponentRef Id="cmp1F76D796AA5540D599331612BF19E0F3" />
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
-      
+
       <ComponentRef Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" />
       <ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />
       <ComponentRef Id="cmp155BCEB308F549C586212E8A93923933" />
+      <ComponentRef Id="cmp846FA63D921F48E49DAF0405259BC700" />
       <ComponentRef Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" />
       <ComponentRef Id="cmp48F018EF814747AA81FDB804DEBA6026" />
       <ComponentRef Id="cmpB67B9A0C0E674C2198464730DFA07683" />

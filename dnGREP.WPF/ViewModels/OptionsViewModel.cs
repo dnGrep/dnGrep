@@ -39,6 +39,8 @@ namespace dnGREP.WPF
 
         public bool SearchListsCleared { get; private set; }
 
+        private bool originalUsingStringMap = false;
+
         public OptionsViewModel()
         {
             TaskLimit = Environment.ProcessorCount * 4;
@@ -62,7 +64,9 @@ namespace dnGREP.WPF
             }
 
             foreach (string name in AppTheme.Instance.ThemeNames)
+            {
                 ThemeNames.Add(name);
+            }
 
             CultureNames =
             [
@@ -138,6 +142,7 @@ namespace dnGREP.WPF
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_ContextShowLines), GrepSettings.Key.ShowContextLinesVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_Zoom), GrepSettings.Key.ZoomResultsTreeVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_WrapText), GrepSettings.Key.WrapTextResultsTreeVisible));
+            VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_ResultsTree), nameof(Resources.Main_ViewWhitespace), GrepSettings.Key.ViewWhitespaceResultsTreeVisible));
 
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_PreviewWindow), nameof(Resources.Preview_Zoom), GrepSettings.Key.PreviewZoomWndVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_PreviewWindow), nameof(Resources.Preview_WrapText), GrepSettings.Key.WrapTextPreviewWndVisible));
@@ -195,14 +200,37 @@ namespace dnGREP.WPF
         {
             get
             {
-                return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source))
-                    .OrderBy(r => r.FamilyName).ToList();
+                return [.. Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source)).OrderBy(r => r.FamilyName)];
             }
         }
 
         public static IList<FontWeight> FontWeightList
         {
             get { return [FontWeights.Normal, FontWeights.SemiBold, FontWeights.Bold, FontWeights.Black]; }
+        }
+
+        public ObservableCollection<Marker> Markers { get; } = [];
+
+        internal void ClearPositionMarkers()
+        {
+            Markers.Clear();
+            OnPropertyChanged(nameof(Markers));
+        }
+
+        internal void BeginUpdateMarkers()
+        {
+            Markers.Clear();
+        }
+
+        internal void AddMarker(double linePosition, double documentHeight, double trackHeight, MarkerType markerType)
+        {
+            double position = (documentHeight < trackHeight) ? linePosition : linePosition * trackHeight / documentHeight;
+            Markers.Add(new Marker(position, markerType));
+        }
+
+        internal void EndUpdateMarkers()
+        {
+            OnPropertyChanged(nameof(Markers));
         }
 
         private void ApplyCompareApplicationTemplate(ConfigurationTemplate? template)
@@ -572,6 +600,12 @@ namespace dnGREP.WPF
         private PdfNumberType pdfNumberStyle = PdfNumberType.PageNumber;
 
         [ObservableProperty]
+        private bool requestPDFPassword;
+
+        [ObservableProperty]
+        private bool requestArchivePassword;
+
+        [ObservableProperty]
         private bool wordExtractComments = false;
 
         [ObservableProperty]
@@ -687,7 +721,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                return 
+                return
                 EnableWindowsIntegration != RegistryOperations.IsShellRegistered("Directory") ||
                 EnableWindows11ShellMenu != enableWindows11ShellMenuOriginalValue ||
                 EnableRunAtStartup != RegistryOperations.IsStartupRegistered() ||
@@ -763,6 +797,8 @@ namespace dnGREP.WPF
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 PdfJoinLines != Settings.Get<bool>(GrepSettings.Key.PdfJoinLines) ||
                 PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
+                RequestPDFPassword != Settings.Get<bool>(GrepSettings.Key.RequestPDFPassword) ||
+                RequestArchivePassword != Settings.Get<bool>(GrepSettings.Key.RequestArchivePassword) ||
                 WordExtractFootnotes != Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes) ||
                 WordFootnoteReference != Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference) ||
                 WordExtractComments != Settings.Get<bool>(GrepSettings.Key.WordExtractComments) ||
@@ -783,7 +819,7 @@ namespace dnGREP.WPF
             return plugins.Any(p => p.IsChanged);
         }
 
-        private bool IsChanged(IList<CustomEditorViewModel> customEditors)
+        private bool IsChanged(ObservableCollection<CustomEditorViewModel> customEditors)
         {
             return originalCustomEditors.Count != customEditors.Count ||
                 customEditors.Any(v => v.IsChanged);
@@ -954,13 +990,42 @@ namespace dnGREP.WPF
             }
         }
 
-        private static void ShowStringMap()
+        private void ShowStringMap()
         {
             StringMapWindow form = new()
             {
                 Owner = Application.Current.MainWindow
             };
-            form.ShowDialog();
+            var result = form.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                string oldUserCachePath = GrepSettings.Instance.Get<string>(GrepSettings.Key.CacheFilePath);
+                string oldCachePath = !Utils.IsValidPath(oldUserCachePath) ||
+                   GrepSettings.Instance.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ?
+                   Path.Combine(Path.GetTempPath(), Utils.defaultCacheFolderName) :
+                   oldUserCachePath;
+                bool usingStringMap = Plugins.Any(p => p.ApplyStringMap);
+
+                if (Directory.Exists(oldCachePath) && usingStringMap)
+                {
+                    if (MessageBoxResult.Yes == MessageBox.Show(
+                        Resources.MessageBox_TheStringMapSettingsHaveChanged, Resources.MessageBox_DnGrep,
+                        MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes,
+                        TranslationSource.Instance.FlowDirection))
+                    {
+                        PluginCacheCleared = true;
+                        try
+                        {
+                            Directory.Delete(oldCachePath, true);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error(ex, $"Failed to delete the plug-in cache folder '{oldCachePath}'");
+                        }
+                    }
+                }
+            }
         }
 
         private void ClearSearches()
@@ -1089,6 +1154,8 @@ namespace dnGREP.WPF
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
             PdfJoinLines = Settings.Get<bool>(GrepSettings.Key.PdfJoinLines);
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
+            RequestPDFPassword = Settings.Get<bool>(GrepSettings.Key.RequestPDFPassword);
+            RequestArchivePassword = Settings.Get<bool>(GrepSettings.Key.RequestArchivePassword);
 
             WordExtractFootnotes = Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes);
             WordFootnoteReference = Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference);
@@ -1131,6 +1198,8 @@ namespace dnGREP.WPF
                     CustomEditors.Add(new CustomEditorViewModel(editor, idx == 0));
                 }
             }
+
+            originalUsingStringMap = Plugins.Any(p => p.ApplyStringMap);
         }
 
         private string ValueOrDefault(string settingsKey, string defaultValue)
@@ -1211,6 +1280,9 @@ namespace dnGREP.WPF
 
             string oldKeyboardShortcut = GrepSettings.Instance.Get<string>(GrepSettings.Key.RestoreWindowKeyboardShortcut);
 
+            bool usingStringMap = Plugins.Any(p => p.ApplyStringMap);
+            bool usingStringMapChanged = originalUsingStringMap != usingStringMap;
+
             ApplicationFontFamily = EditApplicationFontFamily;
             MainFormFontSize = EditMainFormFontSize;
             ReplaceFormFontSize = EditReplaceFormFontSize;
@@ -1287,6 +1359,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
             Settings.Set(GrepSettings.Key.PdfJoinLines, PdfJoinLines);
             Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
+            Settings.Set(GrepSettings.Key.RequestPDFPassword, RequestPDFPassword);
+            Settings.Set(GrepSettings.Key.RequestArchivePassword, RequestArchivePassword);
             Settings.Set(GrepSettings.Key.WordExtractFootnotes, WordExtractFootnotes);
             Settings.Set(GrepSettings.Key.WordFootnoteReference, WordFootnoteReference);
             Settings.Set(GrepSettings.Key.WordExtractComments, WordExtractComments);
@@ -1356,6 +1430,25 @@ namespace dnGREP.WPF
                     }
                 }
             }
+
+            if (!PluginCacheCleared && Directory.Exists(oldCachePath) && usingStringMapChanged)
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show(
+                    Resources.MessageBox_TheStringMapSettingsHaveChanged, Resources.MessageBox_DnGrep,
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes,
+                    TranslationSource.Instance.FlowDirection))
+                {
+                    PluginCacheCleared = true;
+                    try
+                    {
+                        Directory.Delete(oldCachePath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex, $"Failed to delete the plug-in cache folder '{oldCachePath}'");
+                    }
+                }
+            }
         }
 
         public bool PluginCacheCleared { get; private set; }
@@ -1380,7 +1473,9 @@ namespace dnGREP.WPF
 
         public string Group => TranslationSource.Instance[GroupKey];
 
-        public string Label => TranslationSource.Instance[LabelKey].TrimEnd(':', '…');
+        public string Label => TranslationSource.Instance[LabelKey]
+            .Replace("_", string.Empty, StringComparison.Ordinal)
+            .TrimEnd(':', '…');
 
         public bool IsChanged => IsVisible != origIsVisible;
 

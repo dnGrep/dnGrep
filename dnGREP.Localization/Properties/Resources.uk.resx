@@ -3529,4 +3529,70 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>Застосувати карту рядків</value>
   </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Переглянути пробіли</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Перейти вгору</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Рухатися вгору</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Рухатися вниз</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Перемістіть вниз</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Знайти попередній (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Знайти далі (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Відмінок сірника</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>З’єднайте цілі слова</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Запитувати пароль для захищених PDF-файлів</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Запит пароля для захищених архівів</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>Введено неправильний пароль.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Пароль для:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Відобразити пароль</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>Налаштування мапи рядків змінилися. Видалити папку кешу?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Копіювати «Пошук» у «Заміна»</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Скопіювати «Замінити на» в «Пошук»</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Знайти:</value>
+  </data>
 </root>

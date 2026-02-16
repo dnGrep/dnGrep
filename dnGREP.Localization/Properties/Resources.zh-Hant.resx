@@ -1209,7 +1209,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>首次符合後停止</value>
+    <value>首個符合後停止</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
@@ -1845,7 +1845,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>符合大小寫</value>
+    <value>大小寫符合</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
@@ -2153,7 +2153,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>首次符合後停止</value>
+    <value>首個符合後停止</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
@@ -2738,7 +2738,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
-    <value>首次符合後停止</value>
+    <value>首個符合後停止</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
@@ -4336,5 +4336,71 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>套用字串對映</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>請求安全 PDF 檔案的密碼</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>請求安全壓縮檔案的密碼</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>輸入的密碼不正確.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>密碼:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>大寫鎖定</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>顯示密碼</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>檢視空白</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>移到頂部</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>移到底部</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>字串對映設定已變更. 刪除快取資料夾?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>複製搜尋以替換為</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>複製替換為進行搜尋</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>搜尋上一個 (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>搜尋下一個 (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>大小寫符合</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>全字符合</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>搜尋:</value>
   </data>
 </root>

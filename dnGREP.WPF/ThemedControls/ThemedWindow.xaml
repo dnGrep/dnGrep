@@ -118,6 +118,7 @@
         <Style.Resources>
             <local:ResizeModeConverter x:Key="ResizeModeConverter" />
             <local:ChromeButtonVisibilityConverter x:Key="ButtonVisibilityConverter"/>
+            <local:BottomCornerClipConverter x:Key="BottomCornerClipConverter"/>
         </Style.Resources>
         <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
@@ -130,8 +131,16 @@
                 <ControlTemplate TargetType="local:ThemedWindow">
                     <Border x:Name="root" Padding="0"
                             BorderBrush="{DynamicResource Window.Border.Inactive}"
-                            BorderThickness="1" UseLayoutRounding="True">
+                            BorderThickness="{DynamicResource Window.Border.Thickness}" 
+                            CornerRadius="6" UseLayoutRounding="True">
                         <DockPanel x:Name="innerRoot" Background="{TemplateBinding Background}">
+                            <DockPanel.Clip>
+                                <MultiBinding Converter="{StaticResource BottomCornerClipConverter}">
+                                    <Binding Path="ActualWidth" ElementName="innerRoot"/>
+                                    <Binding Path="ActualHeight" ElementName="innerRoot"/>
+                                    <Binding Path="CornerRadius" ElementName="root"/>
+                                </MultiBinding>
+                            </DockPanel.Clip>
                             <DockPanel x:Name="titleBar"
                                        Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(shell:WindowChrome.WindowChrome).CaptionHeight, Mode=OneWay}"
                                        Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CaptionBackground, Mode=OneWay}"

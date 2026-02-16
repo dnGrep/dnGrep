@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,7 +10,7 @@ using NLog;
 
 namespace dnGREP.Engines
 {
-    public class GrepEngineFactory
+    public static class GrepEngineFactory
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -22,11 +23,14 @@ namespace dnGREP.Engines
         private static readonly Dictionary<string, string> failedEngines = [];
         private static readonly object lockObj = new();
 
+        public static IPassword? PasswordService { get; private set; }
+
         /// <summary>
         /// Method to load plugins and initialize plugin configuration
         /// </summary>
-        public static void InitializePlugins()
+        public static void InitializePlugins(IPassword passwordService)
         {
+            PasswordService = passwordService;
             LoadPlugins();
         }
 
@@ -215,7 +219,7 @@ namespace dnGREP.Engines
                 IGrepEngine? poolEngine = FetchFromPool(fileExtension);
                 if (poolEngine != null)
                 {
-                    poolEngine.Initialize(param, filter);
+                    poolEngine.Initialize(param, filter, PasswordService);
                     return poolEngine;
                 }
 
@@ -227,7 +231,7 @@ namespace dnGREP.Engines
                 if (fileTypeEngines.TryGetValue(fileExtension, out GrepPlugin? plugin))
                 {
                     IGrepEngine? engine = plugin.CreateEngine();
-                    if (engine != null && engine.Initialize(param, filter))
+                    if (engine != null && engine.Initialize(param, filter, PasswordService))
                     {
                         if (engine is IGrepPluginEngine pluginEngine)
                         {
@@ -265,7 +269,7 @@ namespace dnGREP.Engines
                 if (fileTypeEngines.TryGetValue(fileExtension, out GrepPlugin? plugin) && !plugin.IsSearchOnly)
                 {
                     IGrepEngine? engine = plugin.CreateEngine();
-                    if (engine != null && engine.Initialize(param, filter))
+                    if (engine != null && engine.Initialize(param, filter, PasswordService))
                     {
                         loadedEngines.Add(engine);
                         return engine;
@@ -287,13 +291,13 @@ namespace dnGREP.Engines
             IGrepEngine? poolEngine = FetchFromPool(fileExtension);
             if (poolEngine != null)
             {
-                poolEngine.Initialize(param, filter);
+                poolEngine.Initialize(param, filter, PasswordService);
                 return poolEngine;
             }
 
             var engine = new GrepEnginePlainText();
             loadedEngines.Add(engine);
-            engine.Initialize(param, filter);
+            engine.Initialize(param, filter, PasswordService);
             return engine;
         }
 
@@ -303,13 +307,13 @@ namespace dnGREP.Engines
             IGrepEngine? poolEngine = FetchFromPool(fileExtension);
             if (poolEngine != null)
             {
-                poolEngine.Initialize(param, filter);
+                poolEngine.Initialize(param, filter, PasswordService);
                 return poolEngine;
             }
 
             var engine = new ArchiveEngine();
             loadedEngines.Add(engine);
-            engine.Initialize(param, filter);
+            engine.Initialize(param, filter, PasswordService);
             return engine;
         }
 
@@ -317,7 +321,7 @@ namespace dnGREP.Engines
         {
             var engine = new GrepEngineHex();
             loadedEngines.Add(engine);
-            engine.Initialize(param, filter);
+            engine.Initialize(param, filter, PasswordService);
             return engine;
         }
 

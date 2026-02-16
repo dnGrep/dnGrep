@@ -4258,4 +4258,91 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
     <value>検索対象と置換対象を入れ替え</value>
   </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>文字列の置換</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>マッピングを追加</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>置換文字</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>元の文字</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Unicode コードポイント</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>元の値は既に存在します。</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>消去</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>置き換え対象の文字</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>置き換える文字</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Unicode コードポイント</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>元の文字</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>置き換え文字</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>文字列マップ…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>文字列マップを適用</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>空白を表示</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>一番上に移動</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>上に移動</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>下へ移動</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>一番下に移動</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>前を検索 (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>次を検索 (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>大文字と小文字を区別する</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>完全な単語に一致</value>
+  </data>
 </root>

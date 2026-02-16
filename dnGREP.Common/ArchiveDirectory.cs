@@ -49,6 +49,54 @@ namespace dnGREP.Common
                 ExtensionsSet.Add('.' + ext);
         }
 
+        private static IPassword? passwordService;
+
+        public static void InitializePasswordService(IPassword password)
+        {
+            passwordService = password;
+        }
+
+        public static string GetArchivePassword(string filePath)
+        {
+            ArgumentNullException.ThrowIfNull(filePath);
+
+            string password = string.Empty;
+
+            bool requestPassword = GrepSettings.Instance.Get<bool>(GrepSettings.Key.RequestArchivePassword);
+            if (requestPassword)
+            {
+                while (!CheckArchive(filePath, password))
+                {
+                    var name = Path.GetFileName(filePath);
+                    var path = Path.GetDirectoryName(filePath) ?? string.Empty;
+                    bool retry = !string.IsNullOrEmpty(password);
+
+                    if (passwordService?.RequestPassword(name, path, retry) is string newPassword &&
+                        !string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        password = newPassword;
+                    }
+                    else
+                    {
+                        password = string.Empty;
+                        break;
+                    }
+                }
+            }
+            return password;
+        }
+
+
+        public static bool CheckArchive(string file, string password)
+        {
+            //Stopwatch sp = Stopwatch.StartNew();
+            SevenZipExtractor extractor = new(file, password);
+            bool result = extractor.Check();
+            //sp.Stop();
+            //Debug.WriteLine($"Archive check for '{file}' pw = '{password}' is {result} in {sp.ElapsedMilliseconds} ms");
+            return result;
+        }
+
         public static IEnumerable<FileData> EnumerateFiles(string file, FileFilter filter,
             PauseCancelToken pauseCancelToken)
         {
@@ -121,7 +169,9 @@ namespace dnGREP.Common
             List<Regex> includeShebangPatterns, HashSet<string> hiddenDirectories,
             PauseCancelToken pauseCancelToken)
         {
-            using SevenZipExtractor extractor = new(input, true);
+            string password = GetArchivePassword(fileName);
+
+            using SevenZipExtractor extractor = new(input, password, true);
             foreach (var fileInfo in extractor.ArchiveFileData)
             {
                 FileData fileData = new(fileName, fileInfo);
@@ -476,16 +526,19 @@ namespace dnGREP.Common
                 zipFile = @"\\?\" + zipFile;
             }
 
+            string password = GetArchivePassword(zipFile);
+
             using FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            return GetLinesWithContext(input, searchResult, linesBefore, linesAfter, innerFileName, intermediateFiles, inHexFormat);
+            return GetLinesWithContext(input, password, searchResult, linesBefore, linesAfter, innerFileName, intermediateFiles, inHexFormat);
         }
 
-        private static List<GrepLine> GetLinesWithContext(Stream input, GrepSearchResult searchResult, int linesBefore, int linesAfter,
+        private static List<GrepLine> GetLinesWithContext(Stream input, string password,
+            GrepSearchResult searchResult, int linesBefore, int linesAfter,
             string innerFileName, string[] intermediateFiles, bool inHexFormat)
         {
             List<GrepLine> results = [];
 
-            using (SevenZipExtractor extractor = new(input, true))
+            using (SevenZipExtractor extractor = new(input, password, true))
             {
                 if (intermediateFiles.Length > 0)
                 {
@@ -510,7 +563,7 @@ namespace dnGREP.Common
                         extractor.ExtractFile(index, stream);
                         string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 
-                        results = GetLinesWithContext(stream, searchResult, linesBefore, linesAfter, innerFileName, newIntermediateFiles, inHexFormat);
+                        results = GetLinesWithContext(stream, password, searchResult, linesBefore, linesAfter, innerFileName, newIntermediateFiles, inHexFormat);
                     }
                 }
                 else
@@ -614,7 +667,8 @@ namespace dnGREP.Common
 
         private static void ExtractToTempFile(Stream input, string filePath, string diskFile, string innerFileName, string[] intermediateFiles)
         {
-            using SevenZipExtractor extractor = new(input, true);
+            string password = GetArchivePassword(filePath);
+            using SevenZipExtractor extractor = new(input, password, true);
             if (intermediateFiles.Length > 0)
             {
                 int index = -1;

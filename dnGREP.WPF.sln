@@ -358,9 +358,8 @@ Global
 		{8312CAE2-B208-4186-B711-815593FEBB94} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_Rules = {"EnabledRules":["StringFormat","WhiteSpaceLead","WhiteSpaceTail","PunctuationLead","PunctuationTail"]}
-		RESX_ResXSortingComparison = InvariantCulture
 		SolutionGuid = {835B141D-24DE-4FDA-805E-B7871861B348}
+		RESX_ResXSortingComparison = InvariantCulture
 	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2

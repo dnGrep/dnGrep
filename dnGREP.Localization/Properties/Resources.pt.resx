@@ -2989,4 +2989,43 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Keyborard_LeftArrowKey" xml:space="preserve">
     <value>Esq</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Mover para o topo</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Mover para cima</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Mover para baixo</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Mover para o fim</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Encontrar anterior (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Encontrar seguinte (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Correspondência exata</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Corresponder a todas as palavras</value>
+  </data>
 </root>

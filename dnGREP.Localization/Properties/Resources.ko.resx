@@ -3736,7 +3736,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/e [검색 명령어]
 -e [검색 명령어]
 -everything [검색 명령어]
-    Everything 텍스트를 설정합니다. 명령줄의 마지막 옵션이어야 하며 나머지 명령줄을 복사합니다.</value>
+    모든 항목 검색 텍스트를 지정합니다.</value>
   </data>
   <data name="Main_StopAfter0Matches" xml:space="preserve">
     <value>{0}개의 일치 후 중지</value>
@@ -4058,5 +4058,38 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_ApplyStringMap" xml:space="preserve">
     <value>문자열 맵 적용</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>공백 보기</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>맨 위로 이동</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>위로</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>아래로</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>맨 아래로 이동</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>이전 찾기 (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>다음 찾기 (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>대소문자 일치</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>전체 단어 일치</value>
   </data>
 </root>

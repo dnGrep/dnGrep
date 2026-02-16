@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Pipes;
 using System.Reflection;
+using System.Text;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -9,6 +10,7 @@ using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
 using dnGREP.WPF.MVHelpers;
+using dnGREP.WPF.Services;
 using NLog;
 using Windows.Win32;
 
@@ -111,7 +113,9 @@ namespace dnGREP.WPF
                 if (MainWindow == null)
                 {
                     KeyBindingManager.LoadBindings();
-                    GrepEngineFactory.InitializePlugins();
+                    var passwordSvc = new PasswordService();
+                    ArchiveDirectory.InitializePasswordService(passwordSvc);
+                    GrepEngineFactory.InitializePlugins(passwordSvc);
                     MainWindow = new MainForm();
                     Utils.DeleteTempFolder();
                     Utils.DeleteUndoFolder();
@@ -234,6 +238,7 @@ namespace dnGREP.WPF
                 Utils.DeleteTempFolder();
                 Utils.DeleteUndoFolder();
                 Utils.CleanCacheFiles();
+                Utils.DeletePasswordProtectedCacheFiles();
 
                 if (singletonMutex != null)
                 {
