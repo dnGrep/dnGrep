@@ -3148,4 +3148,46 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
     <value>Recherche annulée en {0} - {1} correspondance(s) in {2} fichier(s) parmis {3} fichier(s) analysés.</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Dossier de destination</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>déplacer en haut</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Monter</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>descendre</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>déplacer en bas</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Trouver le précédent (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Trouver le suivant (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Cas de correspondance</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Faites correspondre des mots entiers</value>
+  </data>
 </root>

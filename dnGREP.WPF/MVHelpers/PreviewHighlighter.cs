@@ -67,11 +67,15 @@ namespace dnGREP.WPF
                 {
                     var grepMatch = lineResult.Matches[i];
 
-                    int startOffset = grepMatch.StartLocation;
-                    // match may include the non-printing newline chars at the end of the line, don't overflow the length
-                    int endOffset = Math.Min(visLine.VisualLength, grepMatch.StartLocation + grepMatch.Length);
+                    // Convert document text offsets to visual columns.
+                    // This accounts for elements like TabTextElement that have
+                    // a visual length (2) different from their document length (1).
+                    int startVC = visLine.GetVisualColumn(grepMatch.StartLocation);
+                    int endVC = Math.Min(visLine.VisualLength,
+                        visLine.GetVisualColumn(Math.Min(grepMatch.StartLocation + grepMatch.Length,
+                            line.Length)));
 
-                    var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
+                    var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startVC, endVC);
                     if (rects.Any())
                     {
                         BackgroundGeometryBuilder geoBuilder = new()

@@ -2088,6 +2088,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Replace with to Search for.
+        /// </summary>
+        public static string Main_CopyReplaceWithToSearchFor {
+            get {
+                return ResourceManager.GetString("Main_CopyReplaceWithToSearchFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Search for to Replace with.
+        /// </summary>
+        public static string Main_CopySearchForToReplaceWith {
+            get {
+                return ResourceManager.GetString("Main_CopySearchForToReplaceWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created.
         /// </summary>
         public static string Main_Created {
@@ -4068,6 +4086,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View Whitespace.
+        /// </summary>
+        public static string Main_ViewWhitespace {
+            get {
+                return ResourceManager.GetString("Main_ViewWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Whole word.
         /// </summary>
         public static string Main_WholeWord {
@@ -4811,6 +4838,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_TheSearchIsRunning {
             get {
                 return ResourceManager.GetString("MessageBox_TheSearchIsRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The string map settings have changed. Delete the cache folder?.
+        /// </summary>
+        public static string MessageBox_TheStringMapSettingsHaveChanged {
+            get {
+                return ResourceManager.GetString("MessageBox_TheStringMapSettingsHaveChanged", resourceCulture);
             }
         }
         
@@ -5562,6 +5598,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find:.
+        /// </summary>
+        public static string Options_Find {
+            get {
+                return ResourceManager.GetString("Options_Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find next (F3).
+        /// </summary>
+        public static string Options_FindNext {
+            get {
+                return ResourceManager.GetString("Options_FindNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find previous (Shift+F3).
+        /// </summary>
+        public static string Options_FindPrevious {
+            get {
+                return ResourceManager.GetString("Options_FindPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results tree.
         /// </summary>
         public static string Options_FocusResultsTree {
@@ -5805,6 +5868,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match case.
+        /// </summary>
+        public static string Options_MatchCase {
+            get {
+                return ResourceManager.GetString("Options_MatchCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 0 – match everything; 1.0 – exact match.
         /// </summary>
         public static string Options_MatchEverythingToExactMatch {
@@ -5828,6 +5900,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_MatchTimeout {
             get {
                 return ResourceManager.GetString("Options_MatchTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match whole words.
+        /// </summary>
+        public static string Options_MatchWholeWords {
+            get {
+                return ResourceManager.GetString("Options_MatchWholeWords", resourceCulture);
             }
         }
         
@@ -6300,6 +6381,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request password for secure archive files.
+        /// </summary>
+        public static string Options_RequestArchivePassword {
+            get {
+                return ResourceManager.GetString("Options_RequestArchivePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request password for secure PDF files.
+        /// </summary>
+        public static string Options_RequestPDFPassword {
+            get {
+                return ResourceManager.GetString("Options_RequestPDFPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requires Windows 11.
         /// </summary>
         public static string Options_RequiresWindows11 {
@@ -6683,6 +6782,69 @@ namespace dnGREP.Localization.Properties {
         public static string Optionss_AskBeforeLoadingFiles {
             get {
                 return ResourceManager.GetString("Optionss_AskBeforeLoadingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string PasswordDialog_Cancel {
+            get {
+                return ResourceManager.GetString("PasswordDialog_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caps Lock.
+        /// </summary>
+        public static string PasswordDialog_CapsLock {
+            get {
+                return ResourceManager.GetString("PasswordDialog_CapsLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string PasswordDialog_OK {
+            get {
+                return ResourceManager.GetString("PasswordDialog_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password for:.
+        /// </summary>
+        public static string PasswordDialog_PasswordFor {
+            get {
+                return ResourceManager.GetString("PasswordDialog_PasswordFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show password.
+        /// </summary>
+        public static string PasswordDialog_ShowPassword {
+            get {
+                return ResourceManager.GetString("PasswordDialog_ShowPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password entered is incorrect..
+        /// </summary>
+        public static string PasswordDialog_ThePasswordEnteredIsIncorrect {
+            get {
+                return ResourceManager.GetString("PasswordDialog_ThePasswordEnteredIsIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string PasswordDialog_Title {
+            get {
+                return ResourceManager.GetString("PasswordDialog_Title", resourceCulture);
             }
         }
         
@@ -9257,6 +9419,42 @@ namespace dnGREP.Localization.Properties {
         public static string StringMap_Delete {
             get {
                 return ResourceManager.GetString("StringMap_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move down.
+        /// </summary>
+        public static string StringMap_MoveDown {
+            get {
+                return ResourceManager.GetString("StringMap_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to bottom.
+        /// </summary>
+        public static string StringMap_MoveToBottom {
+            get {
+                return ResourceManager.GetString("StringMap_MoveToBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to top.
+        /// </summary>
+        public static string StringMap_MoveToTop {
+            get {
+                return ResourceManager.GetString("StringMap_MoveToTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up.
+        /// </summary>
+        public static string StringMap_MoveUp {
+            get {
+                return ResourceManager.GetString("StringMap_MoveUp", resourceCulture);
             }
         }
         

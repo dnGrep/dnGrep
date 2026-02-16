@@ -48,6 +48,6 @@
     <EmbeddedResource Include="arch\Test.zip" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.11" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.13" />
   </ItemGroup>
 </Project>

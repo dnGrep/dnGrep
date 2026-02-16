@@ -2890,3 +2890,128 @@ Fix a deadlock when an object stream's length field is contained in
   the bug report.]
 Correctly handle tiling patterns with negative step values.
 Ignore overprint in soft masks (to match Adobe's behavior).
+
+4.06 (2025-nov-14)
+------------------
+Added the reverseVideoMode, normalVideoMode, and toggleVideoMode
+  commands; added the view -> reverse video menu item.
+Added a '%t' escape to include the currently selected text in the
+  argument to xpdf's 'run' command.
+Added the '-listonly' flag to pdfimages.
+Changed the default from Level 2 to Level 3 PostScript.
+Use the XDG config and state file directories on Linux. This means
+  that ~/.config/xpdf/xpdfrc will be checked first, but ~/.xpdfrc will
+  still be checked. The session and pages file will *only* be used if
+  they are in ~/.local/state/xpdf/session and
+  ~/.local/state/xpdf/pages. (XDG support can be disabled at compile
+  time with 'cmake -DUSE_XDG=OFF'.)
+Added the '-u' option to pdfimages.
+Added the 'initialMaximized' xpdfrc setting.
+Added the 'discardCoveredText' xpdfrc setting.
+Added a file:close menu item to Xpdf.
+Added the 'preferXFAFieldValues' xpdfrc setting.
+Added the '-J' option to pdfimages to dump JPEG 2000 images.
+Modified pdftohtml to generate a nicer index page; add the '-noframe'
+  option to generate the previous-style index page.
+Added support to pdftohtml for internal links (i.e., links to pages in
+  the same document).
+Tweaked the antialiasing code to make the output look a little
+  lighter, and hopefully nicer.
+The command line tools should print version info ('pdftotext -v' etc)
+  to stdout, not stderr.
+Added support for AIS (alpha is shape) for soft masked images drawn in
+  knockout transparency groups.
+Tweaked the code that determines a font's ascent metric, trying (yet
+  again) to make it a little more robust to bogus values in the
+  FontDescriptor.
+On Linux systems (and anything else that uses fontconfig) look for the
+  Base-14 fonts under the newer Nimbus names via fontconfig (in
+  addition to checking for the older gs font names in 'standard'
+  directories).
+Pdftohtml now treats text drawn before a full-page fill as invisible.
+Added Thai.unicodeRemap to the Thai language support packge: it maps
+  old Microsoft private use area Thai diacritics to correct Unicode
+  values.
+Tweak the way invisible (OCR) text is handled in the output from
+  pdftohtml.
+Tweaked the appearance of the tab pane in the sidebar.
+Fixed a missing bounds check (not exploitable) in
+  GfxFont::readFontDescriptor(). [Thanks to Sangbin Kim for the bug
+  report.]
+Don't allow negative object or generation numbers in indirect
+  references. (CVE-2024-2971) [Thanks to Song Jiaxuan (Huazhong
+  University of Science and Technology) for the bug report.]
+Extended the XRef/Parser object loop detector to catch loops that
+  involve object streams. (CVE-2024-3247) [Thanks to Zhijie Zhang,
+  from Institute of Information Engineering, Chinese Academy of
+  Sciences for the bug report.]
+Extended the Catalog::readFileAttachmentAnnots object loop detector to
+  handle another case. (CVE-2024-3248) [Thanks to Wang Dawei and Zhou
+  Geng, from Zhongguancun Laboratory for the bug report.]
+Added a missing zero check to the size argument in
+  UnicodeRemapping::map(). (CVE-2024-3900) [Thanks to Sangbin Kim,
+  from Korea University Sejong campus for the bug report.]
+Fixed a bounds check in FoFiType1::parse() that was being optimized
+  away by modern compilers. (CVE-2024-4141) [Thanks to Wu JieCong for
+  the bug report.]
+If the XRefStm link in the trailer is invalid, just ignore it rather
+  than triggering the repair code.
+Extended the resource object loop detector in PSOutputDev to handle
+  another case. (CVE-2024-4568) [Thanks to Ximing Fan, from School of
+  Cyber Science and Engineering, Sichuan University, China for the bug
+  report.]
+Fixed a missing object type check that could lead to an out-of-bounds
+  array write in Annots::loadFormFieldRefs(). (CVE-2024-4976) [Thanks
+  to Vladislav Shevchenko (HSE university, Moscow) for the bug
+  report.]
+Increased the size of the inter-packet data buffer for the arithmetic
+  decoder used by the JPX decoder.
+Added another object loop check for patterns. (CVE-2024-7866) [Thanks
+  to xiaobaozidi for the bug report.]
+Check for unreasoanbly large page box coordinates, to avoid integer
+  overflows. (CVE-2024-7867) [Thanks to xiaobaozidi for the bug
+  report.]
+DCTStream::getBlock() was missing a check for the case where
+  DCTStream::prepare() failed due to invalid headers. (CVE-2024-7868)
+  [Thanks to KMFL for the bug report.]
+Added a check for the case where a stream has a large number of
+  invalid filters, which was causing a stack overflow. [Thanks to
+  Michael Lynch of mtlynch.io for the bug report.]
+Fixed a bug in WebFont.cc that caused a read of one element past the
+  end of an array. [Thanks to Mohammad Hussam Alzeyyat / mhzcyber for
+  the bug report.]
+Added a missing mutex to protect the Annots object when using
+  multithreaded rendering in Xpdf.
+Fixed incorrect integer overflow checking in
+  PostScriptFunction::exec(), which led to an out-of-bounds array
+  write. (CVE-2025-2574) [Thanks to Erik Viken for the bug report.]
+Fixed the object loop check in AcroForm::scanField(). [Thanks to Erik
+  Viken for the bug report.]
+Fixed the object loop check in Catalog::readPageLabelTree2(). [Thanks
+  to Erik Viken for the bug report.]
+Added a missing bounds check in JBIG2Stream::readHalftoneRegionSeg().
+  [Thanks to Erik Viken for the bug report.]
+Added a missing parsed value check in
+  GfxGouraudTriangleShading::parse(). (CVE-2025-3154) [Thanks to Erik
+  Viken for the bug report.]
+Added a cache for the tiling pattern tile, to handle the case where
+  the same tiling pattern is used multiple times in different fill
+  operations.
+Ignore a bogus encoding for non-embedded Symbol and ZapfDingbats
+  fonts.
+Fixed an signed/unsigned conversion problem in Splash::fillChar().
+  [Thanks to Erik Viken for the bug report.]
+Fixed the object loop check in Catalog::countPageTree(). [Thanks to
+  Gipoco for the bug report.]
+Added some checking for the annotation matrix in Gfx::drawAnnot().
+  [Thanks to Sofia Aberegg for the bug report.]
+Removed Qt4 support from the cmake scripts. Xpdf has required Qt5/6
+  for a while, but the cmake scripts weren't properly updated.
+Added an object loop check for CMaps. (CVE-2025-11896) [Thanks
+  to landw (GitHub: Landw-hub) for the bug report.]
+Fixed two uninitialized fields in StandardSecurityHandler - this is
+  not an exploitable bug. [Thanks to Aldo Ristori (GitHub: Kaldreic)
+  for the bug report.]
+Fixed an unitialized value bug in JBIG2Stream::readSymbolDictSeg -
+  this is not an exploitable bug. [Thanks to Aldo Ristori (GitHub:
+  Kaldreic) for the bug report.]

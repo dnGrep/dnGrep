@@ -1,4 +1,4 @@
-Subject: ANNOUNCE: Xpdf 4.05 - a PDF viewer and related tools
+Subject: ANNOUNCE: Xpdf 4.06 - a PDF viewer and related tools
 
 Glyph & Cog, LLC is pleased to announce a new version of Xpdf, the
 open source Portable Document Format (PDF) viewer.  The Xpdf project
@@ -10,29 +10,32 @@ non-graphical components (pdftops, pdftotext, etc.) run on Linux,
 Unix, Windows, MacOSX, and pretty much any other system with a decent
 C++ compiler.
 
-4.05 is primarily a bug fix release.  There are some new features:
+4.06 is primarily a bug fix release.  There are some new features:
 
 * New command line options/features:
-  - Added the '-overwrite' option to pdftohtml.
-  - Added the '-custom' flag to pdfinfo.
-  - Added the '-meta' flag to pdftohtml.
-  - Added the 'uses JavaScript' output to pdfinfo.
+  - Added the '-listonly' flag to pdfimages.
+  - Added the '-u' option to pdfimages.
+  - Added the '-J' option to pdfimages to dump JPEG 2000 images.
+  - Modified pdftohtml to generate a nicer index page; add the
+    '-noframe' option to generate the previous-style index page.
 
 * New configuration options:
-  - Added the 'ignoreWrongSizeToUnicode' xpdfrc setting.
-  - Added the zoomScaleFactor xpdfrc setting.
-  - Added the zoomValues xpdfrc setting.
-  - Added the separateRotatedText xpdfrc setting.
-  - Added the allowLinksToChangeZoom xpdfrc setting.
+  - Added the 'initialMaximized' xpdfrc setting.
+  - Added the 'discardCoveredText' xpdfrc setting.
+  - Added the 'preferXFAFieldValues' xpdfrc setting.
 
 * XpdfReader improvements:
-  - Added the loadSession and saveSession commands, and the 'Load last
-    session' menu item.
-  - Added code to automatically save and restore the xpdf session
-    under control of a session manager.  (This has not been thoroughly
-    tested yet.)
-  - Added a 'smart case' option for search in xpdf.
-  - Added a color/gray/mono switch to the 'save image' dialog.
+  - Added the reverseVideoMode, normalVideoMode, and toggleVideoMode
+    commands; added the view -> reverse video menu item.
+  - Added a '%t' escape to include the currently selected text in the
+    argument to xpdf's 'run' command.
+  - Use the XDG config and state file directories on Linux.
+  - Added a file:close menu item to Xpdf.
+
+* Misc changes:
+  - Changed the default from Level 2 to Level 3 PostScript.
+  - Added support to pdftohtml for internal links (i.e., links to
+    pages in the same document).
 
 See the `CHANGES' file for a complete list of changes.
 

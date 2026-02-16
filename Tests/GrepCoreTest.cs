@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Unicode;
-using System.Windows.Forms;
 using dnGREP.Common;
 using dnGREP.Common.IO;
 using dnGREP.Engines;
@@ -17,7 +15,6 @@ namespace Tests
 {
     public partial class GrepCoreTest : TestBase, IDisposable
     {
-#pragma warning disable SYSLIB1045
         private readonly string sourceFolder;
         private string destinationFolder;
         private static readonly char[] newlines = ['\r', '\n'];
@@ -1511,10 +1508,10 @@ namespace Tests
             Assert.Equal(length, match.Length);
 
             Regex regex2 = new(pattern, RegexOptions.Multiline | RegexOptions.Singleline);
-            Match match2 = regex.Match(content);
+            Match match2 = regex2.Match(content);
             Assert.True(match2.Success);
             Assert.Equal(start, match2.Index);
-            Assert.Equal(length, match2.Length);
+            Assert.Equal(length + 1, match2.Length);
         }
 
         [Theory]
@@ -2153,8 +2150,5 @@ namespace Tests
             UnicodeCharInfo ciNBSpace = UnicodeInfo.GetCharInfo(0xA0);
 
         }
-
-#pragma warning restore SYSLIB1045
-
     }
 }

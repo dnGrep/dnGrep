@@ -7,6 +7,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
+using dnGREP.Localization.Properties;
 
 namespace dnGREP.Localization
 {
@@ -29,6 +30,7 @@ namespace dnGREP.Localization
                 { "ar", "العربية" },
                 { "bg", "Български" },
                 { "ca", "català" },
+                { "ca-ES-VALENCIA", "Valencià" },
                 { "de", "Deutsch" },
                 { "en", "English" },
                 { "es", "español" },
@@ -58,7 +60,7 @@ namespace dnGREP.Localization
             if (!string.IsNullOrWhiteSpace(ietfLanguageTag) && AppCultures.ContainsKey(ietfLanguageTag))
             {
                 ResourceManagerEx.Instance.FileResources = null;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(ietfLanguageTag);
+                CurrentCulture = CultureInfo.GetCultureInfo(ietfLanguageTag);
             }
         }
 
@@ -91,13 +93,24 @@ namespace dnGREP.Localization
 
         public bool LoadResxFile(string filePath)
         {
-            ResxFile resxFile = new();
-            resxFile.ReadFile(filePath);
-            if (resxFile.IsValid)
+            try
             {
-                ResourceManagerEx.Instance.FileResources = resxFile;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguageTag);
-                return true;
+                ResxFile resxFile = new();
+                resxFile.ReadFile(filePath);
+                if (resxFile.IsValid)
+                {
+                    ResourceManagerEx.Instance.FileResources = resxFile;
+                    CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguageTag);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ResourceManagerEx.Instance.FileResources = null;
+                MessageBox.Show(
+                        ex.Message, Resources.MessageBox_DnGrep,
+                        MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK,
+                        TranslationSource.Instance.FlowDirection);
             }
             return false;
         }

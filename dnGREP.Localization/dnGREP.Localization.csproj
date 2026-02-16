@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" InitialTargets="CopyIncorrectResxFiles">
   <PropertyGroup>
     <TargetFramework>net9.0-windows</TargetFramework>
     <LangVersion>12</LangVersion>
@@ -19,6 +19,9 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="Properties\Resources.ca%40valencia.resx" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="..\AssemblyInfoCommon.cs">
       <Link>Properties\AssemblyInfoCommon.cs</Link>
     </Compile>
@@ -27,8 +30,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\Resources.ca@valencia.resx" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="NLog">
-      <Version>6.0.6</Version>
+      <Version>6.1.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -44,4 +50,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <Target Name="CopyIncorrectResxFiles">
+    <Message Text="Copying Resources.ca@valencia.resx to Resources.ca-ES-valencia.resx" Importance="High" />
+    <Copy SourceFiles="Properties\Resources.ca@valencia.resx" DestinationFiles="Properties\Resources.ca-ES-valencia.resx" OverwriteReadOnlyFiles="True" SkipUnchangedFiles="True" />
+  </Target>
 </Project>

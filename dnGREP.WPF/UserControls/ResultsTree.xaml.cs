@@ -389,6 +389,16 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        internal bool IsAnyExpanded()
+        {
+            foreach (FormattedGrepResult result in treeView.Items)
+            {
+                if (result.IsExpanded)
+                    return true;
+            }
+            return false;
+        }
+
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is TreeViewItem item)

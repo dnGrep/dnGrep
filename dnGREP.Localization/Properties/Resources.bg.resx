@@ -4395,4 +4395,70 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
     <value>Кодова точка на Уникод</value>
   </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Искане на паролата на защитените файлове на PDF</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Искане на паролата на защитените архивни файлове</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>Въведената парола е невярна.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Парола за:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Главни букви</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Показване на паролата</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Преглед на интервали</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Преместване най-горе</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Преместване нагоре</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Преместване надолу</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Преместване накрая</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>Списъкът със замествания е променен. Да бъде ли премахната помощната папка?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Копиране на Търсене като Заменяне</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Копиране на Заменяне като Търсене</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Предишно съвпадение (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Следващо съвпадение (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Съвпадение на регистъра</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Цели думи</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Търсене:</value>
+  </data>
 </root>

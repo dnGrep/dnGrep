@@ -132,6 +132,11 @@
           <File Id="fil7C054418F70543799A44694FD77B7DA9" KeyPath="yes" Source="$(var.PublishDir)\ca\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
+      <Directory Id="dirBDD949803A304BACB7834AC063423A18" Name="ca-ES-valencia">
+        <Component Id="cmp846FA63D921F48E49DAF0405259BC700" Guid="{3D4629A4-050C-4028-985B-DFB5AF728648}">
+          <File Id="fil3A92D234D00B4B569EB7ABAF961171DF" KeyPath="yes" Source="$(var.PublishDir)\ca-ES-valencia\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dirFEDF38D3805A4CD3B0EDB1085F8C162C" Name="de">
         <Component Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" Guid="{A0CE09E4-4B7E-406F-942A-C02C672C8B9F}">
           <File Id="fil9AFBB24F44D84772869B72F56738B572" KeyPath="yes" Source="$(var.PublishDir)\de\dnGREP.Localization.resources.dll" />
@@ -292,6 +297,7 @@
       <ComponentRef Id="cmp63DEE4C5F578466584D0F5A92A1CAFC7" />
       <ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />
       <ComponentRef Id="cmp155BCEB308F549C586212E8A93923933" />
+      <ComponentRef Id="cmp846FA63D921F48E49DAF0405259BC700" />
       <ComponentRef Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" />
       <ComponentRef Id="cmp48F018EF814747AA81FDB804DEBA6026" />
       <ComponentRef Id="cmpB67B9A0C0E674C2198464730DFA07683" />

@@ -157,6 +157,8 @@ namespace dnGREP.Common
             [DefaultValue(false)]
             public const string ResultsTreeWrap = "ResultsTreeWrap";
             [DefaultValue(false)]
+            public const string ResultsTreeViewWhitespace = "ResultsTreeViewWhitespace";
+            [DefaultValue(false)]
             public const string HighlightCaptureGroups = "HighlightCaptureGroups";
             [DefaultValue(true)]
             public const string UseDefaultFont = "UseDefaultFont";
@@ -265,6 +267,8 @@ namespace dnGREP.Common
             public const string ZoomResultsTreeVisible = "ZoomResultsTreeVisible";
             [DefaultValue(true)]
             public const string WrapTextResultsTreeVisible = "WrapTextResultsTreeVisible";
+            [DefaultValue(true)]
+            public const string ViewWhitespaceResultsTreeVisible = "ViewWhitespaceResultsTreeVisible";
             [DefaultValue(true)]
             public const string PreviewZoomWndVisible = "PreviewZoomWndVisible";
             [DefaultValue(true)]
@@ -384,6 +388,10 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string PreviewShowingReplacements = "PreviewShowingReplacements";
             public const string SubstitutionStrings = "SubstitutionStrings";
+            [DefaultValue(false)]
+            public const string RequestArchivePassword = "RequestArchivePassword";
+            [DefaultValue(false)]
+            public const string RequestPDFPassword = "RequestPDFPassword";
         }
 
         public static class ObsoleteKey
