@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Runtime.InteropServices;
+using System.Xml.Linq;
 
 namespace dnGREP.Setup.FileCheck
 {
@@ -17,17 +18,16 @@ namespace dnGREP.Setup.FileCheck
             {
                 string solutionDir = args[0];
 
-                string[] platforms = ["win-x64", "win-x86"];
+                string[] platforms = ["win-ARM64", "win-x64", "win-x86"];
 
                 foreach (string platform in platforms)
                 {
-                    bool is32bit = platform.EndsWith("x86");
                     string publishDir = Path.Combine(solutionDir, "publish", platform);
                     string fragmentsDir = Path.Combine(solutionDir, "dnGREP.Setup", "Fragments");
 
                     List<string> allFiles = GetAllFiles(publishDir);
                     List<string> includeFiles = GetIncludeFiles(publishDir);
-                    List<string> components = ReadFragmentFiles(fragmentsDir, publishDir, is32bit);
+                    List<string> components = ReadFragmentFiles(fragmentsDir, publishDir, platform);
 
                     var list1 = components.Except(includeFiles).ToList();
                     var list2 = includeFiles.Except(components).ToList();
@@ -85,6 +85,11 @@ namespace dnGREP.Setup.FileCheck
         {
             {"$(var.App.PlatformShort)",  "64" },
             {"$(var.Platform.Id)", "amd64" },
+        };
+        private static readonly Dictionary<string, string> arm64Map = new()
+        {
+            {"$(var.App.PlatformShort)",  "64" },
+            {"$(var.Platform.Id)", "arm64" },
         };
         private static readonly string wixFormat =
             @"<Component Id=""{0}"" Guid=""{1}"">
@@ -157,10 +162,10 @@ namespace dnGREP.Setup.FileCheck
             return files;
         }
 
-        private static List<string> ReadFragmentFiles(string fragmentsDir, string publishDir, bool is32bit)
+        private static List<string> ReadFragmentFiles(string fragmentsDir, string publishDir, string platform)
         {
             XNamespace wi = "http://schemas.microsoft.com/wix/2006/wi";
-            var map = is32bit ? x86Map : x64Map;
+            var map = platform.Contains("ARM") ? arm64Map : platform.Contains("64") ? x64Map : x86Map;
             List<string> components = [];
             var root = Directory.GetFiles(fragmentsDir, "*.wxs", SearchOption.TopDirectoryOnly);
             foreach (var file in root)

@@ -4,8 +4,12 @@
 
   <?if $(var.Platform) = x64 ?>
   <?define App.PlatformShort="64" ?>
-  <?else?>
+  <?endif?>
+  <?if $(var.Platform) = x86 ?>
   <?define App.PlatformShort="32" ?>
+  <?endif?>
+  <?if $(var.Platform) = ARM64 ?>
+  <?define App.PlatformShort="Arm64" ?>
   <?endif?>
 
   <Fragment>

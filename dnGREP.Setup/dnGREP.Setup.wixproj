@@ -6,25 +6,17 @@
     <Name>dnGREP.Setup</Name>
     <OutputName>dnGREP.X.X.X.X.$(Platform)</OutputName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
-    <OutputPath>..\Release\$(Platform)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
     <OutputPath>..\Release\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
     <OutputPath>..\Release\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-    <SuppressSpecificWarnings></SuppressSpecificWarnings>
-    <SuppressAllWarnings>True</SuppressAllWarnings>
-    <Pedantic>False</Pedantic>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM64' ">
     <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
     <OutputPath>..\Release\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>

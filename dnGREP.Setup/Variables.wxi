@@ -3,13 +3,13 @@
   <?ifndef appIncludeVars?>
   <?define appIncludeVars=1 ?>
   <?if $(var.Platform) = x64 ?>
-  <?define Win64 = "yes" ?>
-  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
   <?define PublishDir = "$(var.SolutionDir)\publish\win-x64\" ?>
-  <?else ?>
-  <?define Win64 = "no" ?>
-  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?endif ?>
+  <?if $(var.Platform) = x86 ?>
   <?define PublishDir = "$(var.SolutionDir)\publish\win-x86\" ?>
+  <?endif ?>
+  <?if $(var.Platform) = ARM64 ?>
+  <?define PublishDir = "$(var.SolutionDir)\publish\win-ARM64\" ?>
   <?endif ?>
   <!-- Version number. Should be overwritten during build. Revision is NOT used by Windows Installer during upgrade procedure. -->
   <?define MajorVersion="4" ?>
