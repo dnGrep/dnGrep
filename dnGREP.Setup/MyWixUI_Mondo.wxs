@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (c) .NET Foundation and contributors. All rights reserved. Licensed under the Microsoft Reciprocal License. See LICENSE.TXT file in the project root for full license information. -->
-
-
+﻿<!-- Copyright (c) .NET Foundation and contributors. All rights reserved. Licensed under the Microsoft Reciprocal License. See LICENSE.TXT file in the project root for full license information. -->
 
 <!--
 First-time install dialog sequence:
@@ -24,56 +21,96 @@ Patch dialog sequence:
  - WixUI_VerifyReadyDlg
 -->
 
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Fragment>
-        <UI Id="MyWixUI_Mondo">
-            <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
-            <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
-            <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <?foreach WIXUIARCH in X86;X64;A64 ?>
+  <Fragment>
+    <UI Id="WixUI_Mondo_$(WIXUIARCH)">
+      <Publish Dialog="BrowseDlg" Control="OK" Event="CheckTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1" />
+    </UI>
 
-            <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
-            <Property Id="WixUI_Mode" Value="Mondo" />
+    <UIRef Id="MyWixUI_Mondo" />
+  </Fragment>
+  <?endforeach?>
 
-            <DialogRef Id="ErrorDlg" />
-            <DialogRef Id="FatalError" />
-            <DialogRef Id="FilesInUse" />
-            <DialogRef Id="MsiRMFilesInUse" />
-            <DialogRef Id="PrepareDlg" />
-            <DialogRef Id="ProgressDlg" />
-            <DialogRef Id="ResumeDlg" />
-            <DialogRef Id="UserExit" />
+  <?foreach WIXUIARCH in X86;X64;A64 ?>
+  <Fragment>
+    <UI Id="WixUI_Mondo_ExtendedPathValidation_$(WIXUIARCH)">
+      <Publish Dialog="BrowseDlg" Control="OK" Event="DoAction" Value="WixUIValidatePath_$(WIXUIARCH)" Order="1" />
+      <Publish Dialog="BrowseDlg" Control="OK" Event="SpawnDialog" Value="InvalidDirDlg" Order="2" Condition="WIXUI_INSTALLDIR_VALID&lt;&gt;&quot;1&quot;" />
+    </UI>
 
-            <Publish Dialog="MyExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+    <UIRef Id="MyWixUI_Mondo" />
+  </Fragment>
+  <?endforeach?>
 
-            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg">NOT Installed AND NOT PATCH</Publish>
-            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">Installed AND PATCH</Publish>
+  <Fragment>
+    <UI Id="MyWixUI_Mondo">
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
 
-            <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
-            <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="SetupTypeDlg" Order="2">LicenseAccepted = "1"</Publish>
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+      <Property Id="WixUI_Mode" Value="Mondo" />
 
-            <Publish Dialog="SetupTypeDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg">1</Publish>
-            <Publish Dialog="SetupTypeDlg" Control="TypicalButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-            <Publish Dialog="SetupTypeDlg" Control="CustomButton" Event="NewDialog" Value="CustomizeDlg">1</Publish>
-            <Publish Dialog="SetupTypeDlg" Control="CompleteButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="MsiRMFilesInUse" />
+      <DialogRef Id="PrepareDlg" />
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ResumeDlg" />
+      <DialogRef Id="UserExit" />
 
-            <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="1">WixUI_InstallMode = "Change"</Publish>
-            <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="SetupTypeDlg" Order="2">WixUI_InstallMode = "InstallCustom"</Publish>
-            <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="MyExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999"/>
+      <!--<Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999" />-->
 
-            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="1">WixUI_InstallMode = "InstallCustom"</Publish>
-            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="SetupTypeDlg" Order="2">WixUI_InstallMode = "InstallTypical" OR WixUI_InstallMode = "InstallComplete"</Publish>
-            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="3">WixUI_InstallMode = "Change"</Publish>
-            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="4">WixUI_InstallMode = "Repair" OR WixUI_InstallMode = "Remove"</Publish>
-            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">WixUI_InstallMode = "Update"</Publish>
+      <!-- Magic trickery here: In WIX 3 the default scope was perUser, but allowed installing in
+           ProgramFiles. In WIX 4+ the scope must be perMachine to install to ProgamFiles. 
+           But FindRelatedProducts perMachine won't find the previous installion made as perUser.
+           If a previous perUser installation is found, this will prevent the perMachine install from
+           over-writing the old perUser version without uninstalling the old version.
+           
+           Temporarily switch to perUser install scope: ALLUSERS=null
+           Run the FindRelatedProducts a second time to find perUser installations
+           Then switch back to per-machine install scope: ALLUSERS=1
+           Source - https://stackoverflow.com/a/35064434
+      -->
+      <Publish Dialog="WelcomeDlg" Control="Next" Order="1" Property="ALLUSERS" Value="{}" Condition="1"/>
+      <Publish Dialog="WelcomeDlg" Control="Next" Order="2" Event="DoAction" Value="FindRelatedProducts" Condition="1"/>
+      <Publish Dialog="WelcomeDlg" Control="Next" Order="4" Property="ALLUSERS" Value="1" Condition="1"/>
 
-            <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Order="5" Event="NewDialog" Value="LicenseAgreementDlg" Condition="NOT Installed AND NOT PATCH" />
+      <Publish Dialog="WelcomeDlg" Control="Next" Order="6" Event="NewDialog" Value="VerifyReadyDlg" Condition="Installed AND PATCH" />
 
-            <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Event="NewDialog" Value="CustomizeDlg">1</Publish>
-            <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-            <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-            <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
-        </UI>
+      <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" />
+      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="SetupTypeDlg" Order="2" Condition="LicenseAccepted = &quot;1&quot;" />
 
-        <UIRef Id="WixUI_Common" />
-    </Fragment>
+      <Publish Dialog="SetupTypeDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" />
+      <Publish Dialog="SetupTypeDlg" Control="TypicalButton" Event="NewDialog" Value="VerifyReadyDlg" />
+      <Publish Dialog="SetupTypeDlg" Control="CustomButton" Event="NewDialog" Value="CustomizeDlg" />
+      <Publish Dialog="SetupTypeDlg" Control="CompleteButton" Event="NewDialog" Value="VerifyReadyDlg" />
+
+      <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="1" Condition="WixUI_InstallMode = &quot;Change&quot;" />
+      <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="SetupTypeDlg" Order="2" Condition="WixUI_InstallMode = &quot;InstallCustom&quot;" />
+      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" />
+
+      <Publish Dialog="BrowseDlg" Control="OK" Event="SetTargetPath" Value="[_BrowseProperty]" Order="3" />
+      <Publish Dialog="BrowseDlg" Control="OK" Event="EndDialog" Value="Return" Order="4" />
+
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="1" Condition="WixUI_InstallMode = &quot;InstallCustom&quot;" />
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="SetupTypeDlg" Order="2" Condition="WixUI_InstallMode = &quot;InstallTypical&quot; OR WixUI_InstallMode = &quot;InstallComplete&quot;" />
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="3" Condition="WixUI_InstallMode = &quot;Change&quot;" />
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="4" Condition="WixUI_InstallMode = &quot;Repair&quot; OR WixUI_InstallMode = &quot;Remove&quot;" />
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2" Condition="WixUI_InstallMode = &quot;Update&quot;" />
+
+      <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg" />
+
+      <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Event="NewDialog" Value="CustomizeDlg" />
+      <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg" />
+      <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg" />
+      <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg" />
+    </UI>
+
+    <UIRef Id="WixUI_Common" />
+  </Fragment>
 </Wix>

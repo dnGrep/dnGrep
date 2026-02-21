@@ -1,26 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
+﻿<Include xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <!-- Old NSIS installation -->
   <Property Id="OLDINSTALLER">
-    <RegistrySearch Id="OldInstaller"
-                    Root="HKLM"
-                    Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\dnGREP"
-                    Name="DisplayName"
-                    Win64="no"
-                    Type="raw" />
+    <RegistrySearch Id="OldInstaller" 
+                    Root="HKLM" 
+                    Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\dnGREP" 
+                    Name="DisplayName" 
+                    Type="raw" 
+                    Bitness="always32" />
   </Property>
-  <Condition Message="A previous version of [OLDINSTALLER] is installed. Please un-install it manually before proceeding.">
-    <![CDATA[OLDINSTALLER <> "dnGREP"]]>
-  </Condition>
+  <Launch Condition="OLDINSTALLER &lt;&gt; &quot;dnGREP&quot;" 
+          Message="A previous version of [OLDINSTALLER] is installed. Please un-install it manually before proceeding." />
+  
   <Property Id="OLDINSTALLER64">
-    <RegistrySearch Id="OldInstaller64"
-                    Root="HKLM"
-                    Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\dnGREP"
-                    Name="DisplayName"
-                    Win64="yes"
-                    Type="raw" />
+    <RegistrySearch Id="OldInstaller64" 
+                    Root="HKLM" 
+                    Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\dnGREP" 
+                    Name="DisplayName" 
+                    Type="raw" 
+                    Bitness="always64" />
   </Property>
-  <Condition Message="A previous version of [OLDINSTALLER64] is installed. Please un-install it manually before proceeding.">
-    <![CDATA[OLDINSTALLER64 <> "dnGREP"]]>
-  </Condition>
+  <Launch Condition="OLDINSTALLER64 &lt;&gt; &quot;dnGREP&quot;" 
+          Message="A previous version of [OLDINSTALLER64] is installed. Please un-install it manually before proceeding." />
 </Include>

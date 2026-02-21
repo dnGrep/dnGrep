@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Common.IO;
@@ -23,7 +24,9 @@ namespace Tests
             destinationFolder = Path.Combine(Path.GetTempPath(), "dnGrepTest", Guid.NewGuid().ToString());
             Directory.CreateDirectory(destinationFolder);
 
-            if (Environment.Is64BitProcess)
+            if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7zArm64.dll"));
+            else if (Environment.Is64BitProcess)
                 SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7z64.dll"));
             else
                 SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7z32.dll"));
@@ -1069,7 +1072,7 @@ namespace Tests
             Assert.Equal(2, files.Length);
         }
 
-        [IgnoreIfNotAdministratorTheory] // must run as Administrator to create symbolic link
+        [IgnoreIfNotAdministratorTheory()] // must run as Administrator to create symbolic link
         [InlineData(false)]
         [InlineData(true)]
         public void GetSymlinkFilesTest(bool useLongPathLink)

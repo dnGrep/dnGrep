@@ -14,9 +14,19 @@
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='ARM64'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Properties\Resources.ca%40valencia.resx" />

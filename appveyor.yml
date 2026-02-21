@@ -1,14 +1,16 @@
-version: 4.6.{build}.0
+version: 5.0.{build}.0
 branches:
   only:
   - master
   - DraftPrereleaseToGitHub
+  - 1389-arm
 skip_tags: true
 image: Visual Studio 2022
 configuration: Release
 platform:
 - x86
 - x64
+- ARM64
 assembly_info:
   patch: true
   file: AssemblyVersionCommon.cs
@@ -33,13 +35,15 @@ artifacts:
   name: 32-bit Bundle ZIP
 - path: Release\x64\*.zip
   name: 64-bit Bundle ZIP
+- path: Release\ARM64\*.zip
+  name: arm64 Bundle ZIP
 deploy:
 - provider: Webhook
   url: https://app.signpath.io/API/v1/736ab30b-dc3e-41ee-800d-c5674d702ed8/Integrations/AppVeyor?ProjectSlug=dnGrep&SigningPolicySlug=release-signing
   authorization:
      secure: +b4UCV2LUyweG3/0jfhRHXzKYGdSbwb4ZZ2roGLdbuIuu3tGHNZppkiVSCBEHRTtoBnhI7K+j0vuRmRhUcMkrQ==
   on:
-    branch: DraftPrereleaseToGitHub
+    branch: 1389-arm
     configuration: Release
 - provider: GitHub
   tag: v$(appveyor_build_version)

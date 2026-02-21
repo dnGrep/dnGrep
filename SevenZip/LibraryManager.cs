@@ -47,6 +47,9 @@ namespace SevenZip
                 return null;
             }
 
+            if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "7zArm64.dll");
+            
             return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), Environment.Is64BitProcess ? "7z64.dll" : "7z.dll");
         }
 

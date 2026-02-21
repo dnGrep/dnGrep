@@ -1,55 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project>
+  <Import Project="Sdk.props" Sdk="WixToolset.Sdk" Version="6.0.2" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
-    <WIX Condition=" '$(WIX)' == '' ">C:\Program Files (x86)\WiX Toolset v3.11\</WIX>
     <SourcePath Condition=" '$(SourcePath)' == '' ">.</SourcePath>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <Name>dnGREP.Setup</Name>
-    <ProjectGuid>{9a5ee640-e3ee-4985-bd96-64b63a1b0062}</ProjectGuid>
-    <SchemaVersion>2.0</SchemaVersion>
     <OutputName>dnGREP.X.X.X.X.$(Platform)</OutputName>
-    <OutputType>Package</OutputType>
-    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
-    <WixVariables>SourcePathApp=$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone);SourcePathPdf=$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins;SourcePathWord=$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins;SourcePathArchive=$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins</WixVariables>
-    <OutputPath>..\Release\$(Platform)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
-    <WixVariables>SourcePathApp=$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone);SourcePathPdf=$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins;SourcePathWord=$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins;SourcePathArchive=$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins</WixVariables>
     <OutputPath>..\Release\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
-    <WixVariables>SourcePathApp=$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone);SourcePathPdf=$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins;SourcePathWord=$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins;SourcePathArchive=$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins</WixVariables>
-    <OutputPath>..\Release\$(Platform)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-    <SuppressSpecificWarnings>
-    </SuppressSpecificWarnings>
-    <SuppressAllWarnings>True</SuppressAllWarnings>
-    <Pedantic>False</Pedantic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
-    <WixVariables>SourcePathApp=$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone);SourcePathPdf=$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins;SourcePathWord=$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins;SourcePathArchive=$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins</WixVariables>
+    <OutputPath>..\Release\$(Platform)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM64' ">
+    <DefineConstants>Debug;SourcePath=$(SourcePath)</DefineConstants>
     <OutputPath>..\Release\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Fragments\AppFragment.wxs" />
-    <Compile Include="Fragments\Dotnet.wxs" />
-    <Compile Include="Fragments\PluginFragmentOpenXml.wxs" />
-    <Compile Include="Fragments\PluginFragmentPdf.wxs" />
-    <Compile Include="Fragments\PluginFragmentWord.wxs" />
-    <Compile Include="MyExitDialog.wxs" />
-    <Compile Include="MyWixUI_Mondo.wxs" />
-    <Compile Include="Product.wxs" />
     <Content Include="Conditions.wxi" />
     <Content Include="Variables.wxi" />
   </ItemGroup>
@@ -57,18 +29,9 @@
     <Folder Include="Fragments\" />
   </ItemGroup>
   <ItemGroup>
-    <WixExtension Include="WixUtilExtension">
-      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
-      <Name>WixUtilExtension</Name>
-    </WixExtension>
-    <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
-      <Name>WixUIExtension</Name>
-    </WixExtension>
-    <WixExtension Include="WixNetFxExtension">
-      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
-      <Name>WixNetFxExtension</Name>
-    </WixExtension>
+    <PackageReference Include="WixToolset.Util.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.NetFx.wixext" Version="6.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
@@ -144,21 +107,7 @@
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\wix.targets') " />
-  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
-    <Error Text="The WiX Toolset v3.11 build tools must be installed to build this project. To download the WiX Toolset, see https://wixtoolset.org/releases/v3.11/stable" />
-  </Target>
-  <PropertyGroup>
-    <PreBuildEvent>powershell -executionpolicy bypass -file "$(ProjectDir)PreBuild_dnGrepSetup.ps1" "$(SolutionDir)AssemblyVersionCommon.cs" "$(ProjectDir)Variables.wxi"</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>powershell -executionpolicy bypass -file "$(ProjectDir)PostBuild_dnGrepSetup.ps1" "$(SolutionDir)AssemblyVersionCommon.cs" "!(TargetPath)" "!(TargetPdbPath)"</PostBuildEvent>
-  </PropertyGroup>
-  <!--
-  To modify your build process, add your task inside one of the targets below and uncomment it.
-  Other similar extension points exist, see Wix.targets.
-  -->
+  <Import Project="Sdk.targets" Sdk="WixToolset.Sdk" Version="6.0.2" />
   <Target Name="BeforeBuild">
     <Exec Command="dotnet publish $(ProjectDir)..\dnGrep.WPF\dnGREP.WPF.csproj -p:PublishProfile=win-$(Platform)FolderProfile.pubxml /p:Platform=$(Platform)" />
   </Target>
@@ -166,4 +115,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="powershell -executionpolicy bypass -file &quot;$(ProjectDir)PreBuild_dnGrepSetup.ps1&quot; &quot;$(SolutionDir)AssemblyVersionCommon.cs&quot; &quot;$(ProjectDir)Variables.wxi&quot;" />
+  </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell -executionpolicy bypass -file &quot;$(ProjectDir)PostBuild_dnGrepSetup.ps1&quot; &quot;$(SolutionDir)AssemblyVersionCommon.cs&quot; &quot;$(OutputPath)$(OutputName).msi&quot; &quot;$(OutputPath)$(OutputName).wixpdb&quot;" />
+  </Target>
 </Project>

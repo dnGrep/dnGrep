@@ -1,14 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <!-- Adding variable -->
   <?include ..\Variables.wxi ?>
 
   <?if $(var.Platform) = x64 ?>
   <?define Platform.Id="amd64" ?>
-  <?else?>
+  <?endif?>
+  <?if $(var.Platform) = x86 ?>
   <?define Platform.Id="x86" ?>
-  <?endif ?>
+  <?endif?>
+  <?if $(var.Platform) = ARM64 ?>
+  <?define Platform.Id="arm64" ?>
+  <?endif?>
 
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
@@ -25,7 +27,7 @@
       <Component Id="cmpCB85EF404A6F4275832293FC73A147A7" Guid="{A205E376-39EA-4B96-BF55-CF5E1B6695F1}">
         <File Id="fil5C6413D4186F436EB33F2D9C46F6181B" KeyPath="yes" Source="$(var.PublishDir)\clrgcexp.dll" />
       </Component>
-      <?endif ?>
+      <?endif?>
       <Component Id="cmp990AE3383455059B02B09DC3CE89CC08" Guid="{14BA7B2A-C903-4876-A340-DF25E3C63565}">
         <File Id="fil6717DE22B2F74B1321973F09459C7203" KeyPath="yes" Source="$(var.PublishDir)\clrjit.dll" />
       </Component>
@@ -35,9 +37,12 @@
       <Component Id="cmpFEE3217F06F768AD8FEE60E26A47E2B6" Guid="{7F9AB6D0-A22A-41F0-93D4-A41995B2B7AB}">
         <File Id="fil9D63ED8D631A39280690189BD1AF2704" KeyPath="yes" Source="$(var.PublishDir)\createdump.exe" />
       </Component>
+      <?if $(var.Platform) = x64 OR $(var.Platform) = x86 ?>
+      <!-- for arm64 it should rely on the version in the system32 folder -->
       <Component Id="cmpBE4D4F1A4918AD5A4788547A707E08B4" Guid="{72BFE612-FADB-4250-95AB-78EBC105B4F0}">
         <File Id="fil054EA8C907F4314F7049772CA08C0F0E" KeyPath="yes" Source="$(var.PublishDir)\D3DCompiler_47_cor3.dll" />
       </Component>
+      <?endif?>
       <Component Id="cmp2D49C38D19E9AA3F4DD3B30216A6AACF" Guid="{D2E1839B-10A7-408F-82AE-179E85A3D997}">
         <File Id="fil3AB8531E963508A557184271F7C9DE1D" KeyPath="yes" Source="$(var.PublishDir)\DirectWriteForwarder.dll" />
       </Component>
@@ -756,7 +761,9 @@
       <ComponentRef Id="cmp990AE3383455059B02B09DC3CE89CC08" />
       <ComponentRef Id="cmp4410589F2152A3FF5251828C30D54D74" />
       <ComponentRef Id="cmpFEE3217F06F768AD8FEE60E26A47E2B6" />
+      <?if $(var.Platform) = x64 OR $(var.Platform) = x86 ?>
       <ComponentRef Id="cmpBE4D4F1A4918AD5A4788547A707E08B4" />
+      <?endif?>
       <ComponentRef Id="cmp2D49C38D19E9AA3F4DD3B30216A6AACF" />
       <ComponentRef Id="cmp874E81D33C3769A0B4CB22338C418A9B" />
       <ComponentRef Id="cmp66BA23AD1045B9EEC11EA61276B6FA75" />

@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Reflection;
 using System.Text;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using dnGREP.Common;
@@ -60,7 +61,9 @@ namespace dnGREP.WPF
                 if (thisAssembly != null)
                 {
                     var path = Path.GetDirectoryName(thisAssembly.Location) ?? string.Empty;
-                    if (Environment.Is64BitProcess)
+                    if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                        SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7zArm64.dll"));
+                    else if (Environment.Is64BitProcess)
                         SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z64.dll"));
                     else
                         SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z32.dll"));
