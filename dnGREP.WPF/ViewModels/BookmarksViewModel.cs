@@ -567,7 +567,7 @@ namespace dnGREP.WPF
 
         public BookmarkViewModel(Bookmark bk)
         {
-            IsEverythingAvailable = EverythingSearch.IsAvailable;
+            IsEverythingAvailable = EverythingSearchFactory.IsAvailable;
             IsGitInstalled = Utils.IsGitInstalled;
 
             Id = bk.Id;
@@ -619,7 +619,7 @@ namespace dnGREP.WPF
 
         public BookmarkViewModel(BookmarkViewModel toCopy)
         {
-            IsEverythingAvailable = EverythingSearch.IsAvailable;
+            IsEverythingAvailable = EverythingSearchFactory.IsAvailable;
             IsGitInstalled = Utils.IsGitInstalled;
 
             Id = toCopy.Id;
