@@ -37,7 +37,7 @@ namespace dnGREP.WPF
             LoadSettings();
             SetToolTipText();
 
-            IsEverythingAvailable = EverythingSearch.IsAvailable;
+            IsEverythingAvailable = EverythingSearchFactory.IsAvailable;
         }
 
         #region Private Variables and Properties

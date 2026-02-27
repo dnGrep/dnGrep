@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace dnGREP.Everything
 {
-    internal static class NativeMethods
+    internal static unsafe partial class NativeMethods
     {
-#pragma warning disable SYSLIB1054
-
         // Do not include the Everything32.dll or Everything64.dll in the project,
         // MSI or portable zip, it must be installed separately by the user.
 #if x86
@@ -32,13 +30,17 @@ namespace dnGREP.Everything
         /// Retrieves the last-error code value.
         /// </summary>
         /// <returns>Error Code: 0 for OK, otherwise an error</returns>
-        [DllImport(EverythingDLL)]
-        internal static extern uint Everything_GetLastError();
+        [LibraryImport(EverythingDLL)]
+        internal static partial uint Everything_GetLastError();
 
         internal static string Everything_GetLastErrorString()
         {
             uint code = Everything_GetLastError();
+            return GetErrorString(code);
+        }
 
+        internal static string GetErrorString(uint code)
+        {
             return code switch
             {
                 EVERYTHING_OK => "The operation completed successfully.",
@@ -51,9 +53,42 @@ namespace dnGREP.Everything
                 EVERYTHING_ERROR_INVALIDCALL => "Invalid call.",
                 EVERYTHING_ERROR_INVALIDREQUEST => "Invalid request data, request data first.",
                 EVERYTHING_ERROR_INVALIDPARAMETER => "Bad parameter.",
-                _ => "Unknown error code.",
+                _ => $"Unknown error code: {code}.",
             };
         }
+
+        #region Error handling helpers
+
+        /// <summary>
+        /// Checks the Everything last error and throws an <see cref="EverythingException"/> if it is not OK.
+        /// </summary>
+        /// <param name="callerName">Automatically populated with the calling method name.</param>
+        internal static void ThrowIfError([CallerMemberName] string? callerName = null)
+        {
+            uint code = Everything_GetLastError();
+            if (code != EVERYTHING_OK)
+            {
+                throw new EverythingException(code,
+                    $"{callerName} failed: {GetErrorString(code)}");
+            }
+        }
+
+        /// <summary>
+        /// If <paramref name="result"/> is false, checks the Everything last error and throws.
+        /// </summary>
+        internal static void ThrowIfFalse(bool result, [CallerMemberName] string? callerName = null)
+        {
+            if (!result)
+            {
+                uint code = Everything_GetLastError();
+                throw new EverythingException(code,
+                    $"{callerName} returned false: {GetErrorString(code)}");
+            }
+        }
+
+        #endregion
+
+        #region Raw P/Invoke declarations
 
         /// <summary>
         /// Checks if the database has been fully loaded.
@@ -61,30 +96,31 @@ namespace dnGREP.Everything
         /// <returns>returns true if the Everything database is fully loaded; Otherwise, false. 
         /// To get extended error information, call Everything_GetLastError
         /// </returns>
-        [DllImport(EverythingDLL)]
-        internal static extern bool Everything_IsDBLoaded();
+        [LibraryImport(EverythingDLL)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static partial bool Everything_IsDBLoaded();
 
         /// <summary>
         /// Sets the search string for the IPC Query.
         /// </summary>
         /// <param name="searchString">The new search text</param>
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        internal static extern void Everything_SetSearchW(string searchString);
+        [LibraryImport(EverythingDLL, StringMarshalling = StringMarshalling.Utf16)]
+        internal static partial void Everything_SetSearchW(string searchString);
 
         /// <summary>
         /// Sets the desired result data.
         /// </summary>
         /// <param name="requestFlags">The request flags, can be zero or more of the following flags</param>
-        [DllImport(EverythingDLL)]
-        internal static extern void Everything_SetRequestFlags(uint requestFlags);
+        [LibraryImport(EverythingDLL)]
+        internal static partial void Everything_SetRequestFlags(uint requestFlags);
 
 
         /// <summary>
         /// Enables or disables Regular Expression searching.
         /// </summary>
         /// <param name="enable">True to enable regex searching, false to disable</param>
-        [DllImport(EverythingDLL)]
-        internal static extern void Everything_SetRegex(bool enable);
+        [LibraryImport(EverythingDLL)]
+        internal static partial void Everything_SetRegex([MarshalAs(UnmanagedType.Bool)] bool enable);
 
 
 
@@ -92,8 +128,8 @@ namespace dnGREP.Everything
         /// Sets how the results should be ordered.
         /// </summary>
         /// <param name="sortType">The sort type</param>
-        [DllImport(EverythingDLL)]
-        internal static extern void Everything_SetSort(uint sortType);
+        [LibraryImport(EverythingDLL)]
+        internal static partial void Everything_SetSort(uint sortType);
 
 
 
@@ -121,8 +157,9 @@ namespace dnGREP.Everything
         /// The search state is not modified from a call to Everything_Query.
         /// The default state is as follows: See Everything_Reset for the default search state.
         /// </remarks>
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        internal static extern bool Everything_QueryW(bool wait);
+        [LibraryImport(EverythingDLL, StringMarshalling = StringMarshalling.Utf16)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static partial bool Everything_QueryW([MarshalAs(UnmanagedType.Bool)] bool wait);
 
 
         /// <summary>
@@ -134,8 +171,8 @@ namespace dnGREP.Everything
         /// Call Everything_Query to retrieve the result list prior to a call to Everything_SortResultsByPath.
         /// For improved performance, use Everything_SetSort
         /// </remarks>
-        [DllImport(EverythingDLL)]
-        internal static extern void Everything_SortResultsByPath();
+        [LibraryImport(EverythingDLL)]
+        internal static partial void Everything_SortResultsByPath();
 
 
         /// <summary>
@@ -144,12 +181,12 @@ namespace dnGREP.Everything
         /// <returns>
         /// If the function fails the return value is 0. To get extended error information, call Everything_GetLastError.
         /// </returns>
-        [DllImport(EverythingDLL)]
-        internal static extern uint Everything_GetNumResults();
+        [LibraryImport(EverythingDLL)]
+        internal static partial uint Everything_GetNumResults();
 
 
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern void Everything_GetResultFullPathNameW(uint nIndex, StringBuilder lpString, uint nMaxCount);
+        [LibraryImport(EverythingDLL, StringMarshalling = StringMarshalling.Utf16)]
+        private static partial void Everything_GetResultFullPathNameW(uint nIndex, char* lpString, uint nMaxCount);
 
         /// <summary>
         /// Retrieves the full path and file name of the visible result.
@@ -157,11 +194,12 @@ namespace dnGREP.Everything
         /// <param name="index">Zero based index of the visible result</param>
         /// <param name="maxCount">Specifies the maximum number of characters to copy to the buffer, including the NULL character. If the text exceeds this limit, it is truncated.</param>
         /// <returns>The full path</returns>
-        internal static string Everything_GetResultFullPathName(uint index, int maxCount)
+        internal static unsafe string Everything_GetResultFullPathName(uint index, int maxCount)
         {
-            StringBuilder sb = new(maxCount);
-            Everything_GetResultFullPathNameW(index, sb, (uint)maxCount);
-            return sb.ToString();
+            char* buffer = stackalloc char[maxCount];
+            Everything_GetResultFullPathNameW(index, buffer, (uint)maxCount);
+            int length = new ReadOnlySpan<char>(buffer, maxCount).IndexOf('\0');
+            return length >= 0 ? new string(buffer, 0, length) : new string(buffer, 0, maxCount);
         }
 
         /// <summary>
@@ -169,12 +207,13 @@ namespace dnGREP.Everything
         /// </summary>
         /// <param name="nIndex"></param>
         /// <returns></returns>
-        [DllImport(EverythingDLL)]
-        internal static extern uint Everything_GetResultAttributes(uint nIndex);
+        [LibraryImport(EverythingDLL)]
+        internal static partial uint Everything_GetResultAttributes(uint nIndex);
 
 
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetResultSize(uint nIndex, out long lpFileSize);
+        [LibraryImport(EverythingDLL)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static partial bool Everything_GetResultSize(uint nIndex, out long lpFileSize);
 
         /// <summary>
         /// Retrieves the size of a visible result.
@@ -190,8 +229,9 @@ namespace dnGREP.Everything
 
 
 
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetResultDateModified(uint nIndex, out long lpFileTime);
+        [LibraryImport(EverythingDLL)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static partial bool Everything_GetResultDateModified(uint nIndex, out long lpFileTime);
 
         /// <summary>
         /// Retrieves the modified date of a visible result, in local time
@@ -208,8 +248,9 @@ namespace dnGREP.Everything
             return result;
         }
 
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetResultDateCreated(uint nIndex, out long lpFileTime);
+        [LibraryImport(EverythingDLL)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static partial bool Everything_GetResultDateCreated(uint nIndex, out long lpFileTime);
 
         /// <summary>
         /// Retrieves the created date of a visible result, in local time
@@ -235,8 +276,8 @@ namespace dnGREP.Everything
         /// Calling Everything_Query frees the old result list and allocates the new result list.
         /// Calling Everything_Reset frees the current search and current result list.
         /// </remarks>
-        [DllImport(EverythingDLL)]
-        internal static extern void Everything_Reset();
+        [LibraryImport(EverythingDLL)]
+        internal static partial void Everything_Reset();
 
 
 
@@ -249,8 +290,8 @@ namespace dnGREP.Everything
         /// major.minor.revision.build
         /// The build part is incremental and unique for all Everything versions.
         /// </remarks>
-        [DllImport(EverythingDLL)]
-        internal static extern uint Everything_GetMajorVersion();
+        [LibraryImport(EverythingDLL)]
+        internal static partial uint Everything_GetMajorVersion();
 
         /// <summary>
         /// Retrieves the minor version number of Everything.
@@ -261,8 +302,8 @@ namespace dnGREP.Everything
         /// major.minor.revision.build
         /// The build part is incremental and unique for all Everything versions.
         /// </remarks>
-        [DllImport(EverythingDLL)]
-        internal static extern uint Everything_GetMinorVersion();
+        [LibraryImport(EverythingDLL)]
+        internal static partial uint Everything_GetMinorVersion();
 
         /// <summary>
         /// Retrieves the revision number of Everything.
@@ -273,8 +314,8 @@ namespace dnGREP.Everything
         /// major.minor.revision.build
         /// The build part is incremental and unique for all Everything versions.
         /// </remarks>
-        [DllImport(EverythingDLL)]
-        internal static extern uint Everything_GetRevision();
+        [LibraryImport(EverythingDLL)]
+        internal static partial uint Everything_GetRevision();
 
         /// <summary>
         /// Retrieves the build number of Everything.
@@ -285,8 +326,8 @@ namespace dnGREP.Everything
         /// major.minor.revision.build
         /// The build part is incremental and unique for all Everything versions.
         /// </remarks>
-        [DllImport(EverythingDLL)]
-        internal static extern uint Everything_GetBuildNumber();
+        [LibraryImport(EverythingDLL)]
+        internal static partial uint Everything_GetBuildNumber();
 
         /// <summary>
         /// Requests Everything to rescan all folder indexes.
@@ -295,130 +336,58 @@ namespace dnGREP.Everything
         /// The function returns non-zero if the request to rescan all folder indexes was successful.
         /// The function returns 0 if an error occurred.To get extended error information, call Everything_GetLastError
         /// </returns>
-        [DllImport(EverythingDLL)]
-        internal static extern bool Everything_UpdateAllFolderIndexes();
+        [LibraryImport(EverythingDLL)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static partial bool Everything_UpdateAllFolderIndexes();
+
+        #endregion
+
+        #region Checked wrapper methods
 
         /// <summary>
-        /// Requests Everything to forcefully rebuild the Everything index.
+        /// Sets the search text.
         /// </summary>
         /// <remarks>
-        /// Requesting a rebuild will mark all indexes as dirty and start the rebuild process.
-        /// Use Everything_IsDBLoaded to determine if the database has been rebuilt before performing a query.
+        /// The underlying SDK function is void and does not set an error code.
+        /// Errors will surface when <see cref="QueryOrThrow"/> is called.
         /// </remarks>
-        /// <returns></returns>
-        [DllImport(EverythingDLL)]
-        internal static extern bool Everything_RebuildDB();
+        internal static void SetSearch(string searchString)
+        {
+            Everything_SetSearchW(searchString);
+        }
 
+        /// <summary>
+        /// Sets the sort order.
+        /// </summary>
+        internal static void SetSort(uint sortType)
+        {
+            Everything_SetSort(sortType);
+        }
 
-        // not used at this time:
+        /// <summary>
+        /// Sets the request flags.
+        /// </summary>
+        internal static void SetRequestFlags(uint requestFlags)
+        {
+            Everything_SetRequestFlags(requestFlags);
+        }
 
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_SetReplyID(uint id);
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetReplyID();
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_SetReplyWindow(IntPtr hWnd);
-        [DllImport(EverythingDLL)]
-        private static extern IntPtr Everything_GetReplyWindow();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsQueryReply(uint message, IntPtr wParam, IntPtr lParam, uint dwId);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetResultFileNameW(uint nIndex);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetResultPathW(uint nIndex);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsFastSort(uint sortType);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsFileInfoIndexed(uint fileInfoType);
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_SetMatchPath(bool bEnable);
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_SetMatchCase(bool bEnable);
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_SetMatchWholeWord(bool bEnable);
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_SetMax(uint dwMax);
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_SetOffset(uint dwOffset);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetMatchPath();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetMatchCase();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetMatchWholeWord();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetMax();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetOffset();
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetSearchW();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetNumFileResults();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetNumFolderResults();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetTotFileResults();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetTotFolderResults();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetTotResults();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsVolumeResult(uint nIndex);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsFolderResult(uint nIndex);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsFileResult(uint nIndex);
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetSort();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetResultListSort();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetRequestFlags();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetResultListRequestFlags();
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetResultExtensionW(uint nIndex);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetResultDateAccessed(uint nIndex, out long lpFileTime);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetResultFileListFileNameW(uint nIndex);
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetResultRunCount(uint nIndex);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetResultDateRun(uint nIndex, out long lpFileTime);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetResultDateRecentlyChanged(uint nIndex, out long lpFileTime);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetResultHighlightedFileNameW(uint nIndex);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetResultHighlightedPathW(uint nIndex);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern string Everything_GetResultHighlightedFullPathAndFileNameW(uint nIndex);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern uint Everything_GetRunCountFromFileNameW(string lpFileName);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern bool Everything_SetRunCountFromFileNameW(string lpFileName, uint dwRunCount);
-        [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-        private static extern uint Everything_IncRunCountFromFileNameW(string lpFileName);
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_GetRegex();
-        [DllImport(EverythingDLL)]
-        private static extern void Everything_CleanUp();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_Exit();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsAdmin();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_IsAppData();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_SaveDB();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_SaveRunHistory();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_DeleteRunHistory();
-        [DllImport(EverythingDLL)]
-        private static extern uint Everything_GetTargetMachine();
+        /// <summary>
+        /// Executes a query. Throws <see cref="EverythingException"/> on failure.
+        /// </summary>
+        internal static void QueryOrThrow(bool wait)
+        {
+            ThrowIfFalse(Everything_QueryW(wait), nameof(Everything_QueryW));
+        }
 
-#pragma warning restore SYSLIB1054
+        /// <summary>
+        /// Requests Everything to rescan all folder indexes. Throws <see cref="EverythingException"/> on failure.
+        /// </summary>
+        internal static void UpdateAllFolderIndexesOrThrow()
+        {
+            ThrowIfFalse(Everything_UpdateAllFolderIndexes(), nameof(Everything_UpdateAllFolderIndexes));
+        }
+
+        #endregion
     }
 }
