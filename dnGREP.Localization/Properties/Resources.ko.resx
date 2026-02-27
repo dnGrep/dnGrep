@@ -4072,10 +4072,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>맨 위로 이동</value>
   </data>
   <data name="StringMap_MoveUp" xml:space="preserve">
-    <value>위로</value>
+    <value>위로 이동</value>
   </data>
   <data name="StringMap_MoveDown" xml:space="preserve">
-    <value>아래로</value>
+    <value>아래로 이동</value>
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>맨 아래로 이동</value>
@@ -4091,5 +4091,38 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>전체 단어 일치</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>보안 PDF 파일에 대한 비밀번호 요청</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>보안 압축 파일에 대한 비밀번호 요청</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>비밀번호</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>입력한 비밀번호가 잘못되었습니다.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>비밀번호 대상:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>비밀번호 표시</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>문자열 맵 설정이 변경되었습니다. 캐시 폴더를 삭제하시겠습니까?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>대체할 검색 복사</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>검색할 복사 대체 대상</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>찾기:</value>
   </data>
 </root>
