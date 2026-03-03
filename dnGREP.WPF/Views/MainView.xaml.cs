@@ -154,6 +154,8 @@ namespace dnGREP.WPF
             if (isVisible)
             {
                 base.OnSourceInitialized(e);
+                // cloak and uncloak to fix the white/accent color flash when the window is first shown
+                Native.CloakWindow(this, true);
             }
 
             if (!isVisible)
@@ -165,6 +167,13 @@ namespace dnGREP.WPF
                     Visibility = Visibility.Hidden;
                 }
             }
+        }
+
+        protected override void OnContentRendered(EventArgs e)
+        {
+            base.OnContentRendered(e);
+            // window rendered, now uncloak
+            Native.CloakWindow(this, false);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
