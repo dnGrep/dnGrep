@@ -4343,6 +4343,39 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>大文字と小文字を区別する</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
-    <value>完全な単語に一致</value>
+    <value>単語に完全一致</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>セキュリティで保護されたPDFファイルのパスワードを要求する</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>セキュリティで保護されたアーカイブのパスワードを要求する</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>入力されたパスワードが正しくありません。</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>パスワード :</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>パスワードを表示</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>文字列マップの設定が変更されました。キャッシュフォルダーを削除しますか?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>検索文字列を置換文字列にコピー</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>置換文字列を検索文字列にコピー</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>検索 :</value>
   </data>
 </root>
