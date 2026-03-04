@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-windows</TargetFramework>
-    <LangVersion>12</LangVersion>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <LangVersion>14</LangVersion>
     <OutputType>Library</OutputType>
     <Platforms>x86;x64</Platforms>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -23,7 +23,7 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <NoWarn>$(NoWarn);WFAC010;CA1416</NoWarn>
+    <NoWarn>$(NoWarn);WFAC010;CA1416;MC3074</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>

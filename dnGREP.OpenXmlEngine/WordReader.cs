@@ -397,7 +397,7 @@ namespace dnGREP.Engines.OpenXml
         private static void ExtractFootnotes(MainDocumentPart mainDoc, SectionProperties lastSectionProps,
             StringBuilder sb, PauseCancelToken pauseCancelToken)
         {
-            if (mainDoc.FootnotesPart != null &&
+            if (mainDoc.FootnotesPart != null && mainDoc.FootnotesPart.Footnotes != null &&
                 mainDoc.FootnotesPart.Footnotes.Cast<Footnote>().Any(fn => fn.Id?.Value > 0))
             {
                 sb.AppendLine(@"────────────");
@@ -415,7 +415,7 @@ namespace dnGREP.Engines.OpenXml
                 }
             }
 
-            if (mainDoc.EndnotesPart != null &&
+            if (mainDoc.EndnotesPart != null && mainDoc.EndnotesPart.Endnotes != null &&
                 mainDoc.EndnotesPart.Endnotes.Cast<Endnote>().Any(en => en.Id?.Value > 0))
             {
                 sb.AppendLine(@"────────────");
@@ -437,18 +437,17 @@ namespace dnGREP.Engines.OpenXml
         private static void ExtractComments(MainDocumentPart? mainDoc, SectionProperties lastSectionProps, StringBuilder sb, PauseCancelToken pauseCancelToken)
         {
             if (mainDoc != null &&
-                mainDoc.WordprocessingCommentsPart != null)
+                mainDoc.WordprocessingCommentsPart != null &&
+                mainDoc.WordprocessingCommentsPart.Comments != null &&
+                mainDoc.WordprocessingCommentsPart.Comments.Any())
             {
-                if (mainDoc.WordprocessingCommentsPart.Comments.Any())
+                sb.AppendLine(@"────────────");
+                foreach (Comment comment in mainDoc.WordprocessingCommentsPart.Comments.Cast<Comment>())
                 {
-                    sb.AppendLine(@"────────────");
-                    foreach (Comment comment in mainDoc.WordprocessingCommentsPart.Comments.Cast<Comment>())
+                    sb.AppendLine($"({comment.Id}) {comment.Author}:");
+                    foreach (Paragraph para in comment.Elements<Paragraph>())
                     {
-                        sb.AppendLine($"({comment.Id}) {comment.Author}:");
-                        foreach (Paragraph para in comment.Elements<Paragraph>())
-                        {
-                            sb.AppendLine(GetText(para, lastSectionProps, 0, pauseCancelToken));
-                        }
+                        sb.AppendLine(GetText(para, lastSectionProps, 0, pauseCancelToken));
                     }
                 }
             }
@@ -465,7 +464,9 @@ namespace dnGREP.Engines.OpenXml
                     {
                         pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                        if (headerPart.Header.Descendants<Run>().Any())
+                        if (headerPart != null &&
+                            headerPart.Header != null &&
+                            headerPart.Header.Descendants<Run>().Any())
                         {
                             sb.AppendLine(@"▲───────────");
                             foreach (Paragraph hp in headerPart.Header.Elements<Paragraph>())
@@ -483,7 +484,9 @@ namespace dnGREP.Engines.OpenXml
                     {
                         pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                        if (footerPart.Footer.Descendants<Run>().Any())
+                        if (footerPart != null &&
+                            footerPart.Footer != null &&
+                            footerPart.Footer.Descendants<Run>().Any())
                         {
                             sb.AppendLine(@"▼───────────");
                             foreach (Paragraph hp in footerPart.Footer.Elements<Paragraph>())
