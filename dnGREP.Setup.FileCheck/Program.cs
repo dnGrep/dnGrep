@@ -88,7 +88,7 @@ namespace dnGREP.Setup.FileCheck
         };
         private static readonly Dictionary<string, string> arm64Map = new()
         {
-            {"$(var.App.PlatformShort)",  "64" },
+            {"$(var.App.PlatformShort)",  "Arm64" },
             {"$(var.Platform.Id)", "arm64" },
         };
         private static readonly string wixFormat =
@@ -164,7 +164,7 @@ namespace dnGREP.Setup.FileCheck
 
         private static List<string> ReadFragmentFiles(string fragmentsDir, string publishDir, string platform)
         {
-            XNamespace wi = "http://schemas.microsoft.com/wix/2006/wi";
+            XNamespace wi = "http://wixtoolset.org/schemas/v4/wxs";
             var map = platform.Contains("ARM") ? arm64Map : platform.Contains("64") ? x64Map : x86Map;
             List<string> components = [];
             var root = Directory.GetFiles(fragmentsDir, "*.wxs", SearchOption.TopDirectoryOnly);
