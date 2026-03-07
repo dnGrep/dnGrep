@@ -23,7 +23,7 @@
       <Component Id="cmp0665EA8F89AE953035FB42E60E8DA949" Guid="{62CDF258-668B-4B28-BC26-294914EF72B2}">
         <File Id="filCCF63115946B9CDBF7315B7812C19810" KeyPath="yes" Source="$(var.PublishDir)\clrgc.dll" />
       </Component>
-      <?if $(var.Platform) = x64 ?>
+      <?if $(var.Platform) = x64 OR $(var.Platform) = ARM64 ?>
       <Component Id="cmpCB85EF404A6F4275832293FC73A147A7" Guid="{A205E376-39EA-4B96-BF55-CF5E1B6695F1}">
         <File Id="fil5C6413D4186F436EB33F2D9C46F6181B" KeyPath="yes" Source="$(var.PublishDir)\clrgcexp.dll" />
       </Component>
@@ -755,7 +755,7 @@
       <ComponentRef Id="cmp4E0CBB6220EDAD3DDB2DBECF551B23C6" />
       <ComponentRef Id="cmp11B148E5E82347FA62201680298CA435" />
       <ComponentRef Id="cmp0665EA8F89AE953035FB42E60E8DA949" />
-      <?if $(var.Platform) = x64 ?>
+      <?if $(var.Platform) = x64  OR $(var.Platform) = ARM64 ?>
       <ComponentRef Id="cmpCB85EF404A6F4275832293FC73A147A7" />
       <?endif?>
       <ComponentRef Id="cmp990AE3383455059B02B09DC3CE89CC08" />
