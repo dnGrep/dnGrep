@@ -1176,7 +1176,7 @@ namespace dnGREP.Common
                 searchString = AddEverythingDateFilters(filter, searchString);
             }
 
-            foreach (var fileInfo in EverythingSearch.FindFiles(searchString, filter.IncludeHidden))
+            foreach (var fileInfo in EverythingSearchFactory.Instance.FindFiles(searchString, filter.IncludeHidden))
             {
                 FileData fileData = new(fileInfo);
 

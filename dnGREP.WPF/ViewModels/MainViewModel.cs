@@ -1686,9 +1686,9 @@ namespace dnGREP.WPF
                                 duration.GetPrettyString(), totalMatchCount, successFileCount, filesSearched);
                         }
 
-                        if (IsEverythingSearchMode && Everything.EverythingSearch.CountMissingFiles > 0)
+                        if (IsEverythingSearchMode && Everything.EverythingSearchFactory.Instance.CountMissingFiles > 0)
                         {
-                            StatusMessage += enQuad + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
+                            StatusMessage += enQuad + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearchFactory.Instance.CountMissingFiles);
                         }
                         logger.Info($"{StatusMessage} {Resources.Main_SearchFor.Replace("_", "", StringComparison.Ordinal)} {SearchFor}\t{duration.GetPrettyString()}\t{totalMatchCount}\t{successFileCount}\t{filesSearched}");
                     }

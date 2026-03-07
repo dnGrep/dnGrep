@@ -99,7 +99,7 @@ namespace dnGREP.Common.UI
                     string cleaned = part.Trim();
                     while (cleaned.Length > 2)
                     {
-                        cleaned = EverythingSearch.RemovePrefixes(cleaned);
+                        cleaned = EverythingSearchFactory.Instance.RemovePrefixes(cleaned);
 
                         if (cleaned.StartsWith('"') || cleaned.EndsWith('"') ||
                             cleaned.StartsWith('(') || cleaned.EndsWith(')'))
