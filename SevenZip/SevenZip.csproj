@@ -3,7 +3,7 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <LangVersion>12</LangVersion>
     <OutputType>Library</OutputType>
-    <Platforms>x86;x64</Platforms>
+    <Platforms>x86;x64;ARM64</Platforms>
     <AssemblyName>SevenZipSharp</AssemblyName>
     <AssemblyTitle>SevenZipSharp</AssemblyTitle>
     <Company>Markovtsev Vadim</Company>
@@ -18,8 +18,16 @@
     <PlatformTarget>x64</PlatformTarget>
     <DefineConstants>$(DefineConstants);UNMANAGED</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
+    <DefineConstants>$(DefineConstants);UNMANAGED</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>$(DefineConstants);UNMANAGED</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
     <DefineConstants>$(DefineConstants);UNMANAGED</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">

@@ -66,53 +66,58 @@ namespace dnGREP.Engines.OpenXml
             PresentationPart? part = ppt.PresentationPart;
             if (part == null) return string.Empty;
 
-            OpenXmlElementList? slideIds = part.Presentation.SlideIdList?.ChildElements;
+            OpenXmlElementList? slideIds = part?.Presentation?.SlideIdList?.ChildElements;
             if (slideIds == null) return string.Empty;
 
             string? relId = (slideIds.Value[idx] as SlideId)?.RelationshipId;
             if (relId == null) return string.Empty;
 
             // Get the slide part from the relationship ID.
-            SlidePart slidePart = (SlidePart)part.GetPartById(relId);
+            SlidePart? slidePart = part?.GetPartById(relId) as SlidePart;
 
             StringBuilder sb = new();
 
-            var paragraphs = slidePart.Slide.Descendants<Paragraph>();
-            foreach (Paragraph paragraph in paragraphs)
+            var paragraphs = slidePart?.Slide?.Descendants<Paragraph>();
+            if (paragraphs != null)
             {
-                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
-
-                var elements = paragraph.Descendants();
-                foreach (OpenXmlElement element in elements)
-                {
-                    if (element is Break)
-                    {
-                        sb.Append(Environment.NewLine);
-                    }
-                    else if (element is Text text)
-                    {
-                        sb.Append(text.Text);
-                    }
-                }
-                sb.Append(Environment.NewLine);
-            }
-
-
-            if (slidePart.NotesSlidePart != null)
-            {
-                sb.Append(Environment.NewLine);
-                var texts = slidePart.NotesSlidePart.NotesSlide.Descendants<Text>();
-                foreach (Text text in texts)
+                foreach (Paragraph paragraph in paragraphs)
                 {
                     pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                    if (text.Parent is Field field && (field.Type?.HasValue is true) && field.Type.Value == "slidenum")
+                    var elements = paragraph.Descendants();
+                    foreach (OpenXmlElement element in elements)
                     {
-                        continue;
+                        if (element is Break)
+                        {
+                            sb.Append(Environment.NewLine);
+                        }
+                        else if (element is Text text)
+                        {
+                            sb.Append(text.Text);
+                        }
                     }
-
-                    sb.Append(bar).Append(text.Text);
                     sb.Append(Environment.NewLine);
+                }
+            }
+
+            if (slidePart?.NotesSlidePart != null)
+            {
+                sb.Append(Environment.NewLine);
+                var texts = slidePart?.NotesSlidePart?.NotesSlide?.Descendants<Text>();
+                if (texts != null)
+                {
+                    foreach (Text text in texts)
+                    {
+                        pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
+                        if (text.Parent is Field field && (field.Type?.HasValue is true) && field.Type.Value == "slidenum")
+                        {
+                            continue;
+                        }
+
+                        sb.Append(bar).Append(text.Text);
+                        sb.Append(Environment.NewLine);
+                    }
                 }
             }
 

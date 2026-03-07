@@ -19,6 +19,12 @@ namespace dnGREP.Everything
         {
             get
             {
+                if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                {
+                    // there is no Everything SDK dll for Arm64
+                    return false;
+                }
+
                 if (!isAvailable.HasValue)
                 {
                     try
@@ -28,8 +34,8 @@ namespace dnGREP.Everything
                         // Check if the Everything DLL is available in the same directory as the executable.
                         // It is not included with dnGrep, it must be installed separately by the user.
                         var dllFile = Path.Combine(
-                            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty,
-                            NativeMethods.EverythingDLL);
+                        Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty,
+                        NativeMethods.EverythingDLL);
 
                         if (File.Exists(dllFile))
                         {
