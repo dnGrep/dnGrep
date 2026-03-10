@@ -207,11 +207,11 @@
       <PrivateAssets>all</PrivateAssets>
       <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
     </PackageReference>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
     <PackageReference Include="NLog">
-      <Version>6.1.0</Version>
+      <Version>6.1.1</Version>
     </PackageReference>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.13" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.14" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="Properties\DesignTimeResources.xaml" />
