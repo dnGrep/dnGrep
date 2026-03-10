@@ -51,7 +51,7 @@
       <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>6.1.0</Version>
+      <Version>6.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
