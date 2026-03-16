@@ -2662,7 +2662,7 @@ namespace dnGREP.Common
         {
             try
             {
-                using var stream = File.OpenRead(file);
+                using var stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 return Convert.ToHexString(SHA256.HashData(stream));
             }
             catch (Exception) // cannot open file for reading
