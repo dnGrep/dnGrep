@@ -561,6 +561,9 @@ namespace dnGREP.WPF
         private long previewLargeFileLimit = 4000L;
 
         [ObservableProperty]
+        private string everythingInstanceName = string.Empty;
+
+        [ObservableProperty]
         private bool cacheExtractedFiles;
 
         [ObservableProperty]
@@ -789,6 +792,7 @@ namespace dnGREP.WPF
                 ResultsFileNameWeight != Settings.Get<FontWeight>(GrepSettings.Key.ResultsFileNameWeight) ||
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PreviewLargeFileLimit != Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit) ||
+                EverythingInstanceName != Settings.Get<string>(GrepSettings.Key.EverythingInstanceName) ||
                 CacheExtractedFiles != Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles) ||
                 CacheFileHashType != Settings.Get<HashOption>(GrepSettings.Key.CacheFileHashType) ||
                 CacheFilesInTempFolder != Settings.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder) ||
@@ -1145,6 +1149,7 @@ namespace dnGREP.WPF
 
             HexResultByteLength = Settings.Get<int>(GrepSettings.Key.HexResultByteLength);
             PreviewLargeFileLimit = Settings.Get<long>(GrepSettings.Key.PreviewLargeFileLimit);
+            EverythingInstanceName = Settings.Get<string>(GrepSettings.Key.EverythingInstanceName);
             CacheExtractedFiles = Settings.Get<bool>(GrepSettings.Key.CacheExtractedFiles);
             CacheFileHashType = Settings.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
             CacheFilesInTempFolder = Settings.Get<bool>(GrepSettings.Key.CacheFilesInTempFolder);
@@ -1351,6 +1356,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ResultsFileNameWeight, ResultsFileNameWeight);
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PreviewLargeFileLimit, PreviewLargeFileLimit);
+            Settings.Set(GrepSettings.Key.EverythingInstanceName, EverythingInstanceName);
             Settings.Set(GrepSettings.Key.CacheExtractedFiles, CacheExtractedFiles);
             Settings.Set(GrepSettings.Key.CacheFileHashType, CacheFileHashType);
             Settings.Set(GrepSettings.Key.CacheFilesInTempFolder, CacheFilesInTempFolder);

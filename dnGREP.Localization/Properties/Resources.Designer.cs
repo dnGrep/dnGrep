@@ -1204,6 +1204,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Everything instance name.
+        /// </summary>
+        public static string EverythingInstanceName {
+            get {
+                return ResourceManager.GetString("EverythingInstanceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arguments:.
         /// </summary>
         public static string Help_CmdLineArguments {

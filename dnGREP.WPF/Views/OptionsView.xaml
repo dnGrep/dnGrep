@@ -643,6 +643,20 @@
                                          Margin="18,3" GroupName="FocusElement"
                                          IsChecked="{Binding FocusElement, Converter={StaticResource ebc}, ConverterParameter=SearchFor}" />
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                            <TextBlock Text="{l:Loc Key='EverythingInstanceName'}"/>
+                            <TextBox Margin="8,3,3,3"
+                                     Text="{Binding Path=EverythingInstanceName, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="160" FallbackValue="160">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
+
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 

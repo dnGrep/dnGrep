@@ -6,7 +6,7 @@ namespace dnGREP.Everything
 {
     internal static unsafe partial class NativeMethods3
     {
-        // Do not include the Everything32.dll or Everything64.dll in the project,
+        // Do not include the Everything3 dlls in the project,
         // MSI or portable zip, it must be installed separately by the user.
 #if x86
         internal const string EverythingDLL = "Everything3_x86.dll";
