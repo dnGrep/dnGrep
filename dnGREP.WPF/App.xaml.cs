@@ -2,12 +2,12 @@
 using System.IO;
 using System.IO.Pipes;
 using System.Reflection;
-using System.Text;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using dnGREP.Common;
 using dnGREP.Engines;
+using dnGREP.Everything;
 using dnGREP.Localization;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.Services;
@@ -102,7 +102,7 @@ namespace dnGREP.WPF
                 }
                 else if (AppArgs.ShowHelp)
                 {
-                    MainWindow = new HelpWindow(CommandLineArgs.GetHelpString(), 
+                    MainWindow = new HelpWindow(CommandLineArgs.GetHelpString(),
                         AppArgs.InvalidArgument, AppArgs.CommandLine);
                 }
                 else
@@ -112,6 +112,8 @@ namespace dnGREP.WPF
 
                 if (MainWindow == null)
                 {
+                    EverythingSearchFactory.InstanceNameProvider = () =>
+                        GrepSettings.Instance.Get<string>(GrepSettings.Key.EverythingInstanceName);
                     KeyBindingManager.LoadBindings();
                     var passwordSvc = new PasswordService();
                     ArchiveDirectory.InitializePasswordService(passwordSvc);

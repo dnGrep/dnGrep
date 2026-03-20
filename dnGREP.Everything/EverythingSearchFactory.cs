@@ -1,3 +1,5 @@
+using System;
+
 namespace dnGREP.Everything
 {
     /// <summary>
@@ -8,6 +10,13 @@ namespace dnGREP.Everything
     {
         private static IEverythingSearch? instance;
         private static readonly object lockObj = new();
+
+        /// <summary>
+        /// Gets or sets a callback that provides the Everything instance name.
+        /// Set this before accessing <see cref="Instance"/> to supply the value
+        /// from GrepSettings without creating a circular reference.
+        /// </summary>
+        public static Func<string>? InstanceNameProvider { get; set; }
 
         /// <summary>
         /// Gets the current IEverythingSearch instance, creating it on first access.
@@ -35,7 +44,9 @@ namespace dnGREP.Everything
         /// </summary>
         private static IEverythingSearch Create()
         {
-            var search3 = new EverythingSearch3();
+            string instanceName = InstanceNameProvider?.Invoke() ?? string.Empty;
+
+            var search3 = new EverythingSearch3(instanceName);
             if (search3.IsAvailable)
                 return search3;
 

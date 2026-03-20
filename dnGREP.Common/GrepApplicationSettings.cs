@@ -392,6 +392,8 @@ namespace dnGREP.Common
             public const string RequestArchivePassword = "RequestArchivePassword";
             [DefaultValue(false)]
             public const string RequestPDFPassword = "RequestPDFPassword";
+            [DefaultValue("")]
+            public const string EverythingInstanceName = "EverythingInstanceName";
         }
 
         public static class ObsoleteKey

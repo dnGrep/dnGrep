@@ -16,6 +16,18 @@ namespace dnGREP.Everything
 
         private bool? isAvailable;
 
+        private string instanceName = string.Empty;
+
+        private readonly List<string> instanceNames = [string.Empty, "1.5a", "1.5"];
+
+        public EverythingSearch3(string instanceName)
+        {
+            if (!string.IsNullOrEmpty(instanceName))
+            {
+                instanceNames.Insert(0, instanceName);
+            }
+        }
+
         public bool IsAvailable
         {
             get
@@ -34,32 +46,36 @@ namespace dnGREP.Everything
 
                         if (File.Exists(dllFile))
                         {
-                            IntPtr client = NativeMethods3.ConnectOrThrow("1.5a");
-                            try
+                            foreach (var name in instanceNames)
                             {
-                                uint major = NativeMethods3.Everything3_GetMajorVersion(client);
-                                uint minor = NativeMethods3.Everything3_GetMinorVersion(client);
-                                uint revision = NativeMethods3.Everything3_GetRevision(client);
-
-                                // we need version 1.5.0 or higher
-                                if (major < 1)
-                                    isAvailable = false;
-                                else if (major > 1)
-                                    isAvailable = true;
-                                else
+                                IntPtr client = NativeMethods3.Everything3_ConnectW(name);
+                                if (client != IntPtr.Zero)
                                 {
-                                    if (minor < 5)
-                                        isAvailable = false;
-                                    else
-                                        isAvailable = true;
+                                    try
+                                    {
+                                        uint major = NativeMethods3.Everything3_GetMajorVersion(client);
+                                        uint minor = NativeMethods3.Everything3_GetMinorVersion(client);
+
+                                        if (major == 1 && minor >= 5)
+                                        {
+                                            isAvailable = true;
+                                            instanceName = name;
+                                            break;
+                                        }
+                                    }
+                                    finally
+                                    {
+                                        // Disconnect and free the client.
+                                        NativeMethods3.Everything3_ShutdownClient(client);
+                                        NativeMethods3.Everything3_DestroyClient(client);
+                                    }
                                 }
                             }
-                            finally
-                            {
-                                // Disconnect and free the client.
-                                NativeMethods3.Everything3_ShutdownClient(client);
-                                NativeMethods3.Everything3_DestroyClient(client);
-                            }
+                        }
+                        else
+                        {
+                            // no file exists, not expecting to connect
+                            return isAvailable.Value;
                         }
                     }
                     catch (EverythingException ex)
@@ -73,6 +89,12 @@ namespace dnGREP.Everything
                         isAvailable = false;
                     }
                 }
+
+                if (!isAvailable.Value)
+                {
+                    logger.Info($"Failed to connect to Everything using instance names: {string.Join(", ", instanceNames)}");
+                }
+
                 return isAvailable.Value;
             }
         }
@@ -95,7 +117,7 @@ namespace dnGREP.Everything
 
             try
             {
-                client = NativeMethods3.ConnectOrThrow("1.5a");
+                client = NativeMethods3.ConnectOrThrow(instanceName);
 
                 if (!NativeMethods3.Everything3_IsDBLoaded(client))
                 {

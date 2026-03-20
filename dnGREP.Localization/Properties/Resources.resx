@@ -4584,4 +4584,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Match whole words</value>
     <comment>Options dialog, match whole words button tooltip</comment>
   </data>
+  <data name="EverythingInstanceName" xml:space="preserve">
+    <value>Everything instance name</value>
+    <comment>Options dialog, label for text entry box</comment>
+  </data>
 </root>
