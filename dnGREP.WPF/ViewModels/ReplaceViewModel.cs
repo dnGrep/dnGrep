@@ -205,9 +205,6 @@ namespace dnGREP.WPF
 
         private void SelectNextMatch()
         {
-            if (SelectedGrepMatch != null)
-                SelectedGrepMatch = null;
-
             if (SelectedSearchResult != null && IndividualReplaceEnabled)
             {
                 if (matchIndex < SelectedSearchResult.Matches.Count - 1)
