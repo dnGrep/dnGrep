@@ -644,7 +644,7 @@
                                          IsChecked="{Binding FocusElement, Converter={StaticResource ebc}, ConverterParameter=SearchFor}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
-                            <TextBlock Text="{l:Loc Key='EverythingInstanceName'}"/>
+                            <TextBlock Text="{l:Loc Key='Options_EverythingInstanceName'}"/>
                             <TextBox Margin="8,3,3,3"
                                      Text="{Binding Path=EverythingInstanceName, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.Width>
