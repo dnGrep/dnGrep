@@ -4588,4 +4588,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Everything instance name</value>
     <comment>Options dialog, label for text entry box</comment>
   </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Everything instance name</value>
+    <comment>Options dialog, label for text entry box</comment>
+  </data>
 </root>
