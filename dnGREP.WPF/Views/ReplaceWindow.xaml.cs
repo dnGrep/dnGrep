@@ -192,6 +192,7 @@ namespace dnGREP.WPF
             if (ViewModel.IndividualReplaceEnabled && ViewModel.SelectedSearchResult != null)
             {
                 highlighter = new ReplaceViewHighlighter(ViewModel.SelectedSearchResult);
+                highlighter.SelectedGrepMatch = ViewModel.SelectedGrepMatch;
                 highlighter.LineNumbers.AddRange(ViewModel.LineNumbers);
                 if (ViewModel.DiffModel != null && ViewModel.DiffModel.Lines.Count > 0)
                 {
