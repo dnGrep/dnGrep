@@ -3750,4 +3750,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Options_Find" xml:space="preserve">
     <value>Suchen:</value>
   </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Everything Instanzname</value>
+  </data>
 </root>
