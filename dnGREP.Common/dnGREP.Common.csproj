@@ -54,7 +54,7 @@
       <Version>13.0.4</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>6.1.1</Version>
+      <Version>6.1.2</Version>
     </PackageReference>
     <PackageReference Include="UnicodeInformation" Version="2.7.1" />
     <PackageReference Include="UTF.Unknown">

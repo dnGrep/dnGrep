@@ -49,8 +49,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />
     <PackageReference Include="NLog">
-      <Version>6.1.1</Version>
+      <Version>6.1.2</Version>
     </PackageReference>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.14" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.15" />
   </ItemGroup>
 </Project>
