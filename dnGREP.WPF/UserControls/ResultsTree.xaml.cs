@@ -13,8 +13,6 @@ using dnGREP.Common;
 
 namespace dnGREP.WPF.UserControls
 {
-    public enum SearchDirection { Down = 0, Up };
-
     /// <summary>
     /// Interaction logic for ResultsTree.xaml
     /// </summary>
@@ -216,7 +214,7 @@ namespace dnGREP.WPF.UserControls
                 }
                 else if (firstResult != null)
                 {
-                    var tvi = GetTreeViewItem(treeView, firstResult, null, SearchDirection.Down, 1);
+                    var tvi = GetContainerForItem(treeView, firstResult);
                     if (tvi != null)
                     {
                         tvi.IsSelected = true;
@@ -262,7 +260,7 @@ namespace dnGREP.WPF.UserControls
                 }
                 else if (firstResult != null)
                 {
-                    var tvi = GetTreeViewItem(treeView, firstResult, null, SearchDirection.Down, 1);
+                    var tvi = GetContainerForItem(treeView, firstResult);
                     if (tvi != null)
                     {
                         tvi.IsSelected = true;
@@ -304,7 +302,7 @@ namespace dnGREP.WPF.UserControls
                 }
                 else if (lastResult != null)
                 {
-                    var tvi = GetTreeViewItem(treeView, lastResult, null, SearchDirection.Down, 1);
+                    var tvi = GetContainerForItem(treeView, lastResult);
                     if (tvi != null)
                     {
                         tvi.IsSelected = true;
@@ -350,7 +348,7 @@ namespace dnGREP.WPF.UserControls
                 }
                 else if (lastResult != null)
                 {
-                    var tvi = GetTreeViewItem(treeView, lastResult, null, SearchDirection.Down, 1);
+                    var tvi = GetContainerForItem(treeView, lastResult);
                     if (tvi != null)
                     {
                         tvi.IsSelected = true;
@@ -686,13 +684,14 @@ namespace dnGREP.WPF.UserControls
             var firstLine = grepResult.FormattedLines.Where(l => !l.GrepLine.IsContext).FirstOrDefault();
             if (firstLine != null)
             {
-                var parent = GetTreeViewItem(treeView, grepResult, null, SearchDirection.Down, 1);
-                ItemsControl container = parent as ItemsControl ?? treeView;
-                int depth = parent != null ? 1 : 2;
-                var tvi = GetTreeViewItem(container, firstLine, null, SearchDirection.Down, depth);
-                if (tvi != null)
+                var parent = GetContainerForItem(treeView, grepResult);
+                if (parent != null)
                 {
-                    tvi.IsSelected = true;
+                    var tvi = GetContainerForItem(parent, firstLine);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                    }
                 }
             }
         }
@@ -705,7 +704,7 @@ namespace dnGREP.WPF.UserControls
             if (idx >= viewModel.SearchResults.Count) idx = 0;
 
             var nextResult = viewModel.SearchResults[idx];
-            var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
+            var tvi = GetContainerForItem(treeView, nextResult);
             if (tvi != null)
             {
                 tvi.IsSelected = true;
@@ -734,13 +733,14 @@ namespace dnGREP.WPF.UserControls
             if (nextLine != null)
             {
                 var parent = GetTreeViewItemParent(treeView, currentLine);
-                ItemsControl container = parent as ItemsControl ?? treeView;
-                int depth = parent != null ? 1 : 2;
-                var tvi = GetTreeViewItem(container, nextLine, currentLine, SearchDirection.Down, depth);
-                if (tvi != null)
+                if (parent != null)
                 {
-                    tvi.IsSelected = true;
-                    return true;
+                    var tvi = GetContainerForItem(parent, nextLine);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                        return true;
+                    }
                 }
             }
             return false;
@@ -755,13 +755,14 @@ namespace dnGREP.WPF.UserControls
             var lastLine = grepResult.FormattedLines.Where(l => !l.GrepLine.IsContext).LastOrDefault();
             if (lastLine != null)
             {
-                var parent = GetTreeViewItem(treeView, grepResult, null, SearchDirection.Up, 1);
-                ItemsControl container = parent as ItemsControl ?? treeView;
-                int depth = parent != null ? 1 : 2;
-                var tvi = GetTreeViewItem(container, lastLine, null, SearchDirection.Up, depth);
-                if (tvi != null)
+                var parent = GetContainerForItem(treeView, grepResult);
+                if (parent != null)
                 {
-                    tvi.IsSelected = true;
+                    var tvi = GetContainerForItem(parent, lastLine);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                    }
                 }
             }
         }
@@ -774,7 +775,7 @@ namespace dnGREP.WPF.UserControls
             if (idx < 0) idx = viewModel.SearchResults.Count - 1;
 
             var previousResult = viewModel.SearchResults[idx];
-            var tvi = GetTreeViewItem(treeView, previousResult, null, SearchDirection.Down, 1);
+            var tvi = GetContainerForItem(treeView, previousResult);
             if (tvi != null)
             {
                 tvi.IsSelected = true;
@@ -814,135 +815,74 @@ namespace dnGREP.WPF.UserControls
             if (previousLine != null)
             {
                 var parent = GetTreeViewItemParent(treeView, currentLine);
-                ItemsControl container = parent as ItemsControl ?? treeView;
-                int depth = parent != null ? 1 : 2;
-                var tvi = GetTreeViewItem(container, previousLine, currentLine, SearchDirection.Up, depth);
-                if (tvi != null)
+                if (parent != null)
                 {
-                    tvi.IsSelected = true;
-                    return true;
+                    var tvi = GetContainerForItem(parent, previousLine);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                        return true;
+                    }
                 }
             }
             return false;
         }
 
-        // this method is based on and modified from: 
-        // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-find-a-treeviewitem-in-a-treeview
-
         /// <summary>
-        /// Recursively search for an item in this subtree.
+        /// Gets the TreeViewItem container for a known data item by looking up its index in the data model and
+        /// materializing only that single item via BringIntoView on the virtualizing panel. This avoids iterating
+        /// through all items in the container.
         /// </summary>
-        /// <param name="container">
-        /// The parent ItemsControl. This can be a TreeView or a TreeViewItem.
-        /// </param>
-        /// <param name="item">
-        /// The item to search for.
-        /// </param>
-        /// <returns>
-        /// The TreeViewItem that contains the specified item.
-        /// </returns>
-        internal static TreeViewItem? GetTreeViewItem(ItemsControl container, object item, object? selectedItem, SearchDirection dir, int depth)
+        internal static TreeViewItem? GetContainerForItem(ItemsControl container, object item)
         {
-            if (container != null)
+            if (container == null)
+                return null;
+
+            // Look up the index from the data model - this works even for virtualized items
+            int index = container.Items.IndexOf(item);
+            if (index < 0)
+                return null;
+
+            // Expand the container if needed
+            if (container is TreeViewItem tvi && !tvi.IsExpanded)
             {
-                if (container.DataContext == item)
-                {
-                    return container as TreeViewItem;
-                }
-                else if (depth <= 0)
-                {
-                    return null;
-                }
+                container.SetValue(TreeViewItem.IsExpandedProperty, true);
+            }
 
-                // Expand the current container
-                if (container is TreeViewItem item1 && !item1.IsExpanded)
+            container.ApplyTemplate();
+            ItemsPresenter? itemsPresenter =
+                (ItemsPresenter)container.Template.FindName("ItemsHost", container);
+            if (itemsPresenter != null)
+            {
+                itemsPresenter.ApplyTemplate();
+            }
+            else
+            {
+                itemsPresenter = FindVisualChild<ItemsPresenter>(container);
+                if (itemsPresenter == null)
                 {
-                    container.SetValue(TreeViewItem.IsExpandedProperty, true);
-                }
-
-                // Try to generate the ItemsPresenter and the ItemsPanel.
-                // by calling ApplyTemplate.  Note that in the
-                // virtualizing case even if the item is marked
-                // expanded we still need to do this step in order to
-                // regenerate the visuals because they may have been virtualized away.
-
-                container.ApplyTemplate();
-                ItemsPresenter? itemsPresenter =
-                    (ItemsPresenter)container.Template.FindName("ItemsHost", container);
-                if (itemsPresenter != null)
-                {
-                    itemsPresenter.ApplyTemplate();
-                }
-                else
-                {
-                    // The Tree template has not named the ItemsPresenter,
-                    // so walk the descendants and find the child.
+                    container.UpdateLayout();
                     itemsPresenter = FindVisualChild<ItemsPresenter>(container);
-                    if (itemsPresenter == null)
-                    {
-                        container.UpdateLayout();
-
-                        itemsPresenter = FindVisualChild<ItemsPresenter>(container);
-                    }
-                }
-
-                Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
-
-                // Ensure that the generator for this panel has been created.
-                _ = itemsHostPanel.Children;
-
-                int startIndex = -1;
-                if (selectedItem != null)
-                {
-                    startIndex = IndexForItem(container.ItemContainerGenerator, selectedItem);
-                }
-
-                int count = container.Items.Count;
-                int inc = dir == SearchDirection.Down ? 1 : -1;
-                int idx = startIndex > -1 ? startIndex : dir == SearchDirection.Down ? 0 : count - 1;
-                for (; idx < count && idx >= 0; idx += inc)
-                {
-                    TreeViewItem subContainer;
-                    if (itemsHostPanel is MyVirtualizingStackPanel virtualizingPanel)
-                    {
-                        // Bring the item into view so
-                        // that the container will be generated.
-                        virtualizingPanel.BringIntoView(idx);
-
-                        subContainer =
-                            (TreeViewItem)container.ItemContainerGenerator.
-                            ContainerFromIndex(idx);
-                    }
-                    else
-                    {
-                        subContainer =
-                            (TreeViewItem)container.ItemContainerGenerator.
-                            ContainerFromIndex(idx);
-
-                        // Bring the item into view to maintain the
-                        // same behavior as with a virtualizing panel.
-                        subContainer?.BringIntoView();
-                    }
-
-                    if (subContainer != null)
-                    {
-                        // Search the next level for the object.
-                        TreeViewItem? resultContainer = GetTreeViewItem(subContainer, item, selectedItem, dir, depth - 1);
-                        if (resultContainer != null)
-                        {
-                            return resultContainer;
-                        }
-                        else
-                        {
-                            // The object is not under this TreeViewItem
-                            // so collapse it.
-                            subContainer.IsExpanded = false;
-                        }
-                    }
                 }
             }
 
-            return null;
+            if (itemsPresenter == null)
+                return null;
+
+            Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
+            _ = itemsHostPanel.Children;
+
+            // Always ask the virtualizing panel to bring the index into view.
+            // This ensures the item is scrolled into the visible area, even if
+            // the container was already realized but just outside the viewport.
+            if (itemsHostPanel is MyVirtualizingStackPanel virtualizingPanel)
+            {
+                virtualizingPanel.BringIntoView(index);
+            }
+
+            var result = container.ItemContainerGenerator.ContainerFromIndex(index) as TreeViewItem;
+            result?.BringIntoView();
+            return result;
         }
 
         /// <summary>
@@ -972,17 +912,6 @@ namespace dnGREP.WPF.UserControls
             }
 
             return null;
-        }
-
-        private static int IndexForItem(ItemContainerGenerator root, object item)
-        {
-            if (root.ContainerFromItem(item) is TreeViewItem treeViewItem)
-            {
-                int index = root.IndexFromContainer(treeViewItem);
-                return index;
-            }
-
-            return -1;
         }
 
         private static TreeViewItem? GetTreeViewItemParent(TreeView treeView, object item)

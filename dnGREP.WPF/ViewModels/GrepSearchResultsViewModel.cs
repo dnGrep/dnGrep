@@ -976,7 +976,7 @@ namespace dnGREP.WPF
                         if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
 
                         var nextResult = SearchResults[idx];
-                        var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                        var tvi = ResultsTree.GetContainerForItem(TreeControl.TreeView, nextResult);
                         if (tvi != null)
                         {
                             tvi.IsSelected = false;
@@ -1016,7 +1016,7 @@ namespace dnGREP.WPF
                         if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
 
                         var nextResult = SearchResults[idx];
-                        var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                        var tvi = ResultsTree.GetContainerForItem(TreeControl.TreeView, nextResult);
                         if (tvi != null)
                         {
                             tvi.IsSelected = false;
@@ -1050,7 +1050,7 @@ namespace dnGREP.WPF
                 if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
 
                 var nextResult = SearchResults[idx];
-                var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                var tvi = ResultsTree.GetContainerForItem(TreeControl.TreeView, nextResult);
                 if (tvi != null)
                 {
                     tvi.IsSelected = false;
@@ -1305,7 +1305,7 @@ namespace dnGREP.WPF
                 if (idx >= SearchResults.Count) idx = SearchResults.Count - 1;
 
                 var nextResult = SearchResults[idx];
-                var tvi = ResultsTree.GetTreeViewItem(TreeControl.TreeView, nextResult, null, SearchDirection.Down, 1);
+                var tvi = ResultsTree.GetContainerForItem(TreeControl.TreeView, nextResult);
                 if (tvi != null)
                 {
                     tvi.IsSelected = false;
