@@ -25,6 +25,14 @@ namespace dnGREP.WPF
 
         public GrepSearchResult GrepResult { get; private set; } = new();
 
+        public string FileSize => GrepResult.FileSize;
+
+        public string FileType => GrepResult.FileType;
+
+        public string DateModified => GrepResult.FileInfo.LastWriteTimeString;
+
+        public bool IsReadOnly => GrepResult.IsReadOnly;
+
         public int Matches
         {
             get { return GrepResult.Matches.Count; }
@@ -66,10 +74,16 @@ namespace dnGREP.WPF
             get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips); }
         }
 
+        public static bool IsTreeListViewEnabled
+        {
+            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.TreeListViewEnabled); }
+        }
+
         // some settings have changed, raise property changed events to update the UI
         public void RaiseSettingsPropertiesChanged()
         {
             OnPropertyChanged(nameof(ShowFileInfoTooltips));
+            OnPropertyChanged(nameof(IsTreeListViewEnabled));
         }
 
         public async Task ExpandTreeNode()
@@ -195,12 +209,12 @@ namespace dnGREP.WPF
                     additionalInfo = string.Format(Resources.Main_ResultList_CountMatches, additionalInfo, matchCount);
                 }
             }
-            if (isFileReadOnly)
-            {
-                additionalInfo = additionalInfo + " " + Resources.Main_ResultList_ReadOnly;
-            }
-
             FileInfo = additionalInfo;
+
+            if (!IsTreeListViewEnabled && isFileReadOnly)
+            {
+                FileInfo = FileInfo + " " + Resources.Main_ResultList_ReadOnly;
+            }
 
             Style = string.Empty;
             if (isFileReadOnly)

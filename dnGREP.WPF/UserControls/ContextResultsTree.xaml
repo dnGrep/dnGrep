@@ -12,29 +12,62 @@
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
         <my:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
+        <my:BoolToCheckConverter x:Key="BoolToCheckConverter"/>
         <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
             <Setter Property="FontFamily" Value="{Binding Path=DataContext.ApplicationFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Setter Property="FontSize" Value="{Binding Path=DataContext.MainFormFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </Style>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ThemedTextBlock}"/>
     </UserControl.Resources>
 
     <Border BorderBrush="{DynamicResource TreeView.Border}"
             BorderThickness="1">
 
         <Grid Grid.IsSharedSizeScope="True">
+            <Grid.LayoutTransform>
+                <ScaleTransform ScaleX="{Binding ResultsScale}" ScaleY="{Binding ResultsScale}" />
+            </Grid.LayoutTransform>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <Border Grid.Row="0" Grid.Column="0"
+                    Background="{DynamicResource TreeView.Background}"
+                    BorderBrush="{DynamicResource TreeView.Border}"
+                    BorderThickness="0,0,0,1"
+                    Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid Margin="22,4,0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="ICON"/>
+                        <ColumnDefinition Width="2*" SharedSizeGroup="PATH"/>
+                        <ColumnDefinition Width="*" SharedSizeGroup="NAME"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="SIZE"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="TYPE"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="DATE"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="READONLY"/>
+                        <ColumnDefinition Width="*" SharedSizeGroup="MATCHES"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Margin="6,0,0,0" Text="{l:Loc Key='Main_ResultsHeader_Path'}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Column="2" Margin="6,0,0,0" Text="{l:Loc Key='Main_ResultsHeader_Name'}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Column="3" Margin="12,0,0,0" Text="{l:Loc Key='Main_ResultsHeader_Size'}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Column="4" Margin="12,0,0,0" Text="{l:Loc Key='Main_ResultsHeader_Type'}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Column="5" Margin="12,0,0,0" Text="{l:Loc Key='Main_ResultsHeader_DateModified'}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Column="6" Margin="12,0,0,0" Text="{l:Loc Key='Main_ResultsHeader_ReadOnly'}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Column="7" Margin="12,0,0,0" Text="{l:Loc Key='Main_ResultsHeader_Matches'}" FontWeight="SemiBold"/>
+                </Grid>
+            </Border>
+
             <uc:ResultsTree x:Name="resultsTree"
-                            Grid.Row="0" Grid.Column="0"/>
+                            Grid.Row="1" Grid.Column="0"/>
 
             <Border x:Name="contextRoot" 
-                    Grid.Row="0" Grid.Column="0" 
+                    Grid.Row="1" Grid.Column="0" 
                     Margin="0,0,26,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
@@ -45,71 +78,164 @@
 
                 <Grid x:Name="contextControl" DataContext="{Binding ContextGrepResult}"
                       Margin="22,3,0,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="ICON"/>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                    <Image Grid.Column="0" 
-                           Height="16" Source="{Binding Icon}" />
+                    <!-- Classic single-line layout -->
+                    <Grid Grid.Row="0" Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="ICON"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="1" 
-                               Margin="6,0,0,0"
-                               Style="{StaticResource ThemedTextBlock}"
-                               Background="{DynamicResource TreeView.Background}"
-                               HorizontalAlignment="Stretch"
-                               TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
-                        <Run Text="{Binding FilePath}"/><Run Text="{Binding FileName}" FontWeight="{Binding FileNameFontWeight}"/> <Run Text="{Binding FileInfo}"/>
-                        <TextBlock.ToolTip>
-                            <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_File'}"/>
-                                        <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                        <Image Grid.Column="0" 
+                               Height="16" Source="{Binding Icon}" />
+
+                        <TextBlock Grid.Column="1" 
+                                   Margin="6,0,0,0"
+                                   Style="{StaticResource ThemedTextBlock}"
+                                   Background="{DynamicResource TreeView.Background}"
+                                   HorizontalAlignment="Stretch"
+                                   TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
+                            <Run Text="{Binding FilePath}"/><Run Text="{Binding FileName}" FontWeight="{Binding FileNameFontWeight}"/> <Run Text="{Binding FileInfo}"/>
+                            <TextBlock.ToolTip>
+                                <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_File'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Type'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Encoding'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Size'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Type'}"/>
-                                        <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
+                                </ToolTip>
+                            </TextBlock.ToolTip>
+                            <TextBlock.ContextMenu>
+                                <ContextMenu x:Name="contextMenuClassic">
+                                    <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
+                                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
+                                              ItemsSource="{Binding Path=DataContext.EditorMenuItems, ElementName=contextRoot, UpdateSourceTrigger=PropertyChanged}">
+                                        <MenuItem.ItemContainerStyle>
+                                            <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
+                                                <Setter Property="Header" Value="{Binding Header}"/>
+                                                <Setter Property="Command" Value="{Binding Command}"/>
+                                                <Setter Property="InputGestureText" Value="{Binding Command.KeyGestureText}"/>
+                                            </Style>
+                                        </MenuItem.ItemContainerStyle>
+                                    </MenuItem>
+                                    <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Command="{Binding OpenContainingFolderCommand}" InputGestureText="{Binding OpenContainingFolderCommand.KeyGestureText}"/>
+                                    <Separator />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_ShowExplorerMenu'}" Command="{Binding OpenExplorerMenuCommand}" InputGestureText="{Binding OpenExplorerMenuCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Command="{Binding ShowFilePropertiesCommand}" InputGestureText="{Binding ShowFilePropertiesCommand.KeyGestureText}" />
+                                    <Separator />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Command="{Binding CopyFileNamesCommand}" InputGestureText="{Binding CopyFileNamesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Command="{Binding CopyFullFilePathsCommand}" InputGestureText="{Binding CopyFullFilePathsCommand.KeyGestureText}" />
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                    </Grid>
+
+                    <!-- Tree list view with columns -->
+                    <Grid Grid.Row="1" Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="ICON"/>
+                            <ColumnDefinition Width="2*" SharedSizeGroup="PATH"/>
+                            <ColumnDefinition Width="*" SharedSizeGroup="NAME"/>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="SIZE"/>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="TYPE"/>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="DATE"/>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="READONLY"/>
+                            <ColumnDefinition Width="*" SharedSizeGroup="MATCHES"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" 
+                               Height="16" Source="{Binding Icon}" />
+
+                        <TextBlock Grid.Column="1" 
+                                       Margin="6,0,0,0"
+                                       Text="{Binding FilePath}"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
+                        <TextBlock Grid.Column="2" 
+                                       Margin="6,0,0,0"
+                                       Text="{Binding FileName}"
+                                       FontWeight="{Binding FileNameFontWeight}"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
+                            <TextBlock.ToolTip>
+                                <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_File'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Type'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Encoding'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Size'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Encoding'}"/>
-                                        <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
-                                        <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Size'}"/>
-                                        <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
-                                        <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </ToolTip>
-                        </TextBlock.ToolTip>
-                        <TextBlock.ContextMenu>
-                            <ContextMenu x:Name="contextMenu">
-                                <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
-                                <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
-                                          ItemsSource="{Binding Path=DataContext.EditorMenuItems, ElementName=contextRoot, UpdateSourceTrigger=PropertyChanged}">
-                                    <MenuItem.ItemContainerStyle>
-                                        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
-                                            <Setter Property="Header" Value="{Binding Header}"/>
-                                            <Setter Property="Command" Value="{Binding Command}"/>
-                                            <Setter Property="InputGestureText" Value="{Binding Command.KeyGestureText}"/>
-                                        </Style>
-                                    </MenuItem.ItemContainerStyle>
-                                </MenuItem>
-                                <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Command="{Binding OpenContainingFolderCommand}" InputGestureText="{Binding OpenContainingFolderCommand.KeyGestureText}"/>
-                                <Separator />
-                                <MenuItem Header="{l:Loc Key='Main_Results_ShowExplorerMenu'}" Command="{Binding OpenExplorerMenuCommand}" InputGestureText="{Binding OpenExplorerMenuCommand.KeyGestureText}" />
-                                <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Command="{Binding ShowFilePropertiesCommand}" InputGestureText="{Binding ShowFilePropertiesCommand.KeyGestureText}" />
-                                <Separator />
-                                <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Command="{Binding CopyFileNamesCommand}" InputGestureText="{Binding CopyFileNamesCommand.KeyGestureText}" />
-                                <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Command="{Binding CopyFullFilePathsCommand}" InputGestureText="{Binding CopyFullFilePathsCommand.KeyGestureText}" />
-                            </ContextMenu>
-                        </TextBlock.ContextMenu>
-                    </TextBlock>
+                                </ToolTip>
+                            </TextBlock.ToolTip>
+                            <TextBlock.ContextMenu>
+                                <ContextMenu x:Name="contextMenu">
+                                    <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
+                                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
+                                              ItemsSource="{Binding Path=DataContext.EditorMenuItems, ElementName=contextRoot, UpdateSourceTrigger=PropertyChanged}">
+                                        <MenuItem.ItemContainerStyle>
+                                            <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
+                                                <Setter Property="Header" Value="{Binding Header}"/>
+                                                <Setter Property="Command" Value="{Binding Command}"/>
+                                                <Setter Property="InputGestureText" Value="{Binding Command.KeyGestureText}"/>
+                                            </Style>
+                                        </MenuItem.ItemContainerStyle>
+                                    </MenuItem>
+                                    <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Command="{Binding OpenContainingFolderCommand}" InputGestureText="{Binding OpenContainingFolderCommand.KeyGestureText}"/>
+                                    <Separator />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_ShowExplorerMenu'}" Command="{Binding OpenExplorerMenuCommand}" InputGestureText="{Binding OpenExplorerMenuCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Command="{Binding ShowFilePropertiesCommand}" InputGestureText="{Binding ShowFilePropertiesCommand.KeyGestureText}" />
+                                    <Separator />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Command="{Binding CopyFileNamesCommand}" InputGestureText="{Binding CopyFileNamesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Command="{Binding CopyFullFilePathsCommand}" InputGestureText="{Binding CopyFullFilePathsCommand.KeyGestureText}" />
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                        <TextBlock Grid.Column="3" Margin="12,0,0,0" Text="{Binding FileSize}" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Column="4" Margin="12,0,0,0" Text="{Binding FileType}" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Column="5" Margin="12,0,0,0" Text="{Binding DateModified}" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Column="6" Margin="12,0,0,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" TextTrimming="CharacterEllipsis" 
+                                       HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"/>
+                        <TextBlock Grid.Column="7" Margin="12,0,0,0" Text="{Binding FileInfo}" TextTrimming="CharacterEllipsis"/>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

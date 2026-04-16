@@ -421,12 +421,18 @@ namespace dnGREP.WPF
             }
         }
 
+        public static bool IsTreeListViewEnabled
+        {
+            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.TreeListViewEnabled); }
+        }
+
         // some settings have changed, raise property changed events to update the UI
         public void RaiseSettingsPropertiesChanged()
         {
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomEditorConfigured)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(CompareApplicationConfigured)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(StickyScrollEnabled)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsTreeListViewEnabled)));
 
             foreach (var item in SearchResults)
             {

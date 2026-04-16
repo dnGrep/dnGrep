@@ -19,7 +19,7 @@ namespace dnGREP.Localization.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -3398,6 +3398,69 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Results_Tooltip_NotConfigured {
             get {
                 return ResourceManager.GetString("Main_Results_Tooltip_NotConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date modified.
+        /// </summary>
+        public static string Main_ResultsHeader_DateModified {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_DateModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matches.
+        /// </summary>
+        public static string Main_ResultsHeader_Matches {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Matches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Main_ResultsHeader_Name {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string Main_ResultsHeader_Path {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read-only.
+        /// </summary>
+        public static string Main_ResultsHeader_ReadOnly {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_ReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Main_ResultsHeader_Size {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Main_ResultsHeader_Type {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Type", resourceCulture);
             }
         }
         
