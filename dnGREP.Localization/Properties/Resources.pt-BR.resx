@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,534 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>Sobre o dnGrep</value>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Agradecimentos</value>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Baseado em</value>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Converte arquivos PDF em texto simples</value>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Indexação do sistema de arquivos, localize arquivos instantaneamente</value>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>Framework JSON para .NET</value>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Biblioteca para leitura de arquivos compactados</value>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>Framework de log para .NET</value>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>Biblioteca .NET para 7-Zip</value>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep no GitHub</value>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>Biblioteca .NET para detecção de conjunto de caracteres</value>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>Biblioteca .NET para caminhos de comprimento estendido</value>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>Biblioteca .NET para leitura de arquivos do Microsoft Excel</value>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>Biblioteca .NET para processar números ECMA-376</value>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>Biblioteca .NET para trabalhar com documentos Word e Excel</value>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>Componente de editor de texto WPF para .NET</value>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Versão</value>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Pastas associadas:</value>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Nome do favorito:</value>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>_Diferenciar maiúsculas/minúsculas</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Conteúdo</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Incluir propriedades da pesquisa de conteúdo no favorito</value>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Descrição:</value>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>Ponto como nova linha</value>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Codificação:</value>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Serviço de indexação Everything</value>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Tipo de padrão de arquivo</value>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Fonte do arquivo</value>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Incluir propriedades da fonte do arquivo no favorito</value>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Filtros de arquivo</value>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Incluir propriedades do filtro de arquivo no favorito</value>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Seguir links simbólicos</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Por exemplo: .txt;.xml</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>Por exemplo: arquivo[0-9]{1,2}\\.txt</value>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Incluir arquivos binários</value>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Incluir pastas ocultas</value>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Incluir subpastas</value>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Profundidade máxima</value>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_Multilinha</value>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Padrões a excluir:</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>Padrões a corresponder:</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Curinga</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Expressão regular</value>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Substituir por:</value>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Pesquisar por:</value>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>_Pesquisar em arquivos</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonética</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Pesquisa fonética</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Pesquisa em texto simples</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Pesquisa de byte: ler arquivo como binário e pesquisar por bytes como dígitos hexadecimais: 68 65 78 20</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Expressão regular</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Pesquisa por expressão regular</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Texto</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Pesquisa XPath (apenas para documentos XML)</value>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Ignorar arquivos em armazenamento em nuvem remota</value>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>Este marcador já existe</value>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Detalhes do marcador</value>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Tipo de pesquisa</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Usar .gitignore</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Usar .gitignore para filtrar arquivos</value>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Palavra inteira</value>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Adicionar</value>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Fechar</value>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Excluir</value>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Duplicar</value>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Editar</value>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Padrão de arquivo</value>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filtro:</value>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Mover para baixo</value>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Mover para o final</value>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Mover para o topo</value>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Mover para cima</value>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Outras propriedades</value>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Substituir por</value>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Pesquisar por</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Seções</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Diferenciar maiúsculas/minúsculas</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Multilinha</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Profundidade máxima de pasta: {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>Nenhum arquivo binário</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Nenhuma pasta oculta</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Nenhuma subpasta</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Nenhum link simbólico</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Palavra inteira</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Marcadores</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Usar</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argumentos:</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Pesquisar em arquivos compactados</value>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Define o sinalizador de pesquisa de operadores booleanos – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Define o sinalizador de diferenciação de maiúsculas/minúsculas – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
+-csv [filePath]
+    Cria um arquivo de resultados no formato CSV após a conclusão da pesquisa.</value>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Quaisquer argumentos não especificados usarão, por padrão, as últimas configurações salvas do usuário.</value>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Define o sinalizador de pesquisa de ponto como nova linha – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [argumentos]
+Utilize qualquer combinação de argumentos da lista abaixo..
+Examplo:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [caminhoDaPasta] [pesquisarPor]
+Um ou dois argumentos sem sinalizadores: o primeiro argumento é a pasta para pesquisar, o segundo a expressão regular a ser pesquisada.
+Examplo:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Sai do dnGrep após a conclusão das operações de linha de comando.</value>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Define o sinalizador para incluir informações de arquivo e linha na saída do relatório – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [caminhoDaPasta]
+-f [caminhoDaPasta]
+-folder [caminhoDaPasta]
+    Define o caminho da pasta para pesquisar.  Pode ser uma lista de caminhos de pasta separada por vírgulas ou pontos e vírgulas.</value>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Pesquise em arquivos de texto, documentos Word e Excel, PDFs e arquivos compactados usando texto, expressões regulares, XPath e consultas fonéticas.</value>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [caractere ou texto separador]
+-sep [caractere ou texto separador]
+-listItemSeparator [caractere ou texto separador]
+    Define o caractere ou a string para separar itens de lista em uma linha na saída do relatório.</value>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Define o sinalizador de pesquisa multilinha – True ou False.</value>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [padrão]
+-pi [padrão]
+-pathToIgnore [padrão]
+    Define o padrão de nome de arquivo ou diretório para excluir arquivos ou pastas no caminho de pesquisa. Pode ser uma lista de padrões separada por vírgulas ou pontos e vírgulas.</value>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [padrão]
+-pm [padrão]
+-pathToMatch [padrão]
+    Define o padrão de nome de arquivo para corresponder a arquivos no caminho de pesquisa. Pode ser uma lista de padrões separada por vírgulas ou pontos e vírgulas.</value>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [tipo]
+-pt [tipo]
+-patternType [tipo]
+    Define o tipo de padrão de correspondência e de exclusão – deve ser um dos seguintes: "Asterisk" (curinga), "Regex" (expressão regular) ou "Everything" (se a ferramenta de pesquisa Everything estiver instalada).</value>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [caminhoDoArquivo]
+-rpt [caminhoDoArquivo]
+-report [caminhoDoArquivo]
+    Cria um arquivo de resultados no formato de relatório após a conclusão da pesquisa.</value>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [modo]
+-rm [modo]
+-reportMode [modo]
+    Define o modo de saída do relatório para relatórios de expressões regulares – deve ser um dos seguintes: "FullLine", "Matches" ou "Groups".</value>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [chaveDoScript]
+-sc [chaveDoScript]
+-script [chaveDoScript]
+    Executa o script identificado pela chave do script.</value>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [/s [pesquisarPor]]
+-s [/s [pesquisarPor]]
+-searchFor [/s [pesquisarPor]]
+    Define o padrão ou texto a ser pesquisado no conjunto de arquivos.  uando este argumento é definido, a pesquisa será executada automaticamente.</value>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [tipo]
+-st [tipo]
+-searchType [tipo]
+    Define o tipo de pesquisa – deve ser um dos seguintes: "PlainText", "Regex" (expressão regular), "XPath" ou "Soundex" (fonética).</value>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Define o sinalizador para exibir cada correspondência ou grupo em uma linha separada na saída do relatório de expressões regulares – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [caminhoDoArquivo]
+-txt [caminhoDoArquivo]
+-text [caminhoDoArquivo]
+    Cria um arquivo de resultados no formato de texto após a conclusão da pesquisa.</value>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Define o sinalizador para remover espaços em branco na saída do relatório – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [escopo]
+-scope [escopo]
+-uniqueScope [escopo]
+    Define o sinalizador para definir o escopo de valores exclusivos na saída do relatório de expressões regulares – deve ser um dos seguintes: "Global" ou "PerFile".</value>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Define o sinalizador para exibir valores exclusivos de correspondência ou grupo na saída do relatório de expressões regulares – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Uso:</value>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Versão {0} compilada em {1}</value>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Define o sinalizador de pesquisa de palavra inteira – True ou False.</value>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>Ajuda do dnGrep</value>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Um ou mais argumentos não são válidos.</value>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Adicionar padrão de pesquisa aos favoritos</value>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Todas as datas</value>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Todas os tamanhos</value>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Associar favorito à pasta</value>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Data de modificação:</value>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Codificação:</value>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Arquivo:</value>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Tamanho:</value>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Tipo:</value>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Posição automática</value>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Procurar pasta ou arquivos</value>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_Cancelar</value>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>Pesquisa de grupo de captura</value>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>_Diferenciar maiúsculas de minúsculas</value>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Altera o nível de zoom da árvore de resultados</value>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Limpar favorito</value>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Combinar vários padrões de pesquisa usando 'AND' ou 'OR'</value>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>depois</value>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>antes e</value>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>As alterações nas linhas de contexto serão aplicadas na próxima pesquisa</value>
+  </data>
 </root>
