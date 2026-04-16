@@ -10,6 +10,7 @@ SendMessage
 SetWindowLong
 SHGetStockIconInfo
 SHGetFileInfo
+DwmSetWindowAttribute
 
 ICON_BIG
 ICON_SMALL

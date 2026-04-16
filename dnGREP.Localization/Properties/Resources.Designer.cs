@@ -5508,6 +5508,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Everything instance name.
+        /// </summary>
+        public static string Options_EverythingInstanceName {
+            get {
+                return ResourceManager.GetString("Options_EverythingInstanceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string Options_Exit {

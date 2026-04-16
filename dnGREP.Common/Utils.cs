@@ -1176,7 +1176,7 @@ namespace dnGREP.Common
                 searchString = AddEverythingDateFilters(filter, searchString);
             }
 
-            foreach (var fileInfo in EverythingSearch.FindFiles(searchString, filter.IncludeHidden))
+            foreach (var fileInfo in EverythingSearchFactory.Instance.FindFiles(searchString, filter.IncludeHidden))
             {
                 FileData fileData = new(fileInfo);
 
@@ -2662,7 +2662,7 @@ namespace dnGREP.Common
         {
             try
             {
-                using var stream = File.OpenRead(file);
+                using var stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 return Convert.ToHexString(SHA256.HashData(stream));
             }
             catch (Exception) // cannot open file for reading

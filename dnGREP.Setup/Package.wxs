@@ -1,0 +1,177 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <!-- Adding variable -->
+  <?include Variables.wxi ?>
+  <Package Name="dnGrep $(var.MajorVersion).$(var.MinorVersion).$(var.BuildVersion) ($(var.Platform))"
+           Scope="perMachine"
+           Language="1033"
+           Version="$(var.ProductVersion)"
+           Manufacturer="dnGrep Community Contributors"
+           UpgradeCode="4CF55558-B642-482E-9FBF-06EA5AEC8276"
+           InstallerVersion="500">
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <!-- Perform conditional checks -->
+    <?include Conditions.wxi ?>
+
+    <!-- Prevent modification/repair -->
+    <Property Id="ARPNOREPAIR" Value="1" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+
+    <!-- Properties -->
+    <Property Id="INSTALLDIR">
+      <RegistrySearch Id="dnGrepRegistry" Type="raw" Root="HKLM" Key="Software\dnGrep" Name="InstallDir" />
+    </Property>
+    <Property Id="INSTALLLEVEL" Value="3" />
+    <Property Id="REINSTALLMODE" Value="amus" />
+    <Property Id="WINDOWSBUILDNUM" Secure="yes">
+      <RegistrySearch Id="CurrentBuild" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion" Name="CurrentBuild" Type="raw" />
+    </Property>
+
+    <!-- uncomment the next line to write verbose logs to %temp%\MSIxxxxx.LOG -->
+    <!--<Property Id="MsiLogging" Value="v" />-->
+
+    <!-- Icon -->
+    <Icon Id="nGREP.exe" SourceFile="nGREP.ico" />
+    <Property Id="ARPPRODUCTICON" Value="nGREP.ico" />
+
+    <!-- ========================== UI =============================-->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <Property Id="INSTALL_MODE" Value="Custom" />
+    <Property Id="LAUNCHAPPONEXIT" Value="1" />
+    <UI>
+      <UIRef Id="MyWixUI_Mondo" />
+      <Publish Dialog="MyExitDialog" Control="Finish" Order="1" Event="DoAction" Value="LaunchApplication" Condition="LAUNCHAPPONEXIT"/>
+    </UI>
+    <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="header.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="intro.bmp" />
+    <!-- ===========================================================-->
+
+    <!-- ================== Custom Actions =========================-->
+    <CustomAction Id="PreventDowngrading" Error="A newer version of dnGrep is already installed." />
+    <CustomAction Id="PreventReInstalling" Error="dnGrep version $(var.ProductVersion) is already installed." />
+
+    <CustomAction Id="LaunchApplication"
+                  Directory="INSTALLDIR"
+                  Execute="immediate"
+                  Impersonate="yes"
+                  Return="asyncNoWait"
+                  ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot;" />
+
+    <!-- for the new dnGrep.msix context menu -->
+    <CustomAction Id="RegisterShellContextMenu"
+                  Directory="INSTALLDIR"
+                  Execute="commit"
+                  Impersonate="yes"
+                  Return="asyncWait"
+                  ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot; /registerContextMenu" />
+
+    <!-- for the new dnGrep.msix context menu -->
+    <CustomAction Id="RemoveShellContextMenu"
+                  Directory="INSTALLDIR"
+                  Execute="immediate"
+                  Impersonate="yes"
+                  Return="check"
+                  ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot; /removeContextMenu" />
+    <!-- ===========================================================-->
+
+    <Upgrade Id="4CF55558-B642-482E-9FBF-06EA5AEC8276">
+      <!--Will prevent reinstalling the same version IF MSI with the same version but different Product ID has been previously installed-->
+      <UpgradeVersion OnlyDetect="yes" Property="SELFFOUND" Minimum="$(var.ProductVersion)" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="yes" />
+      <UpgradeVersion OnlyDetect="yes" Property="NEWERFOUND" Minimum="$(var.ProductVersion)" IncludeMinimum="no" />
+      <UpgradeVersion OnlyDetect="no" Property="PREVIOUSFOUND" Minimum="0.0.0.0" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="no" />
+    </Upgrade>
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLDIR" Name="dnGrep">
+        <Directory Id="PluginsDir" Name="Plugins" />
+      </Directory>
+    </StandardDirectory>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="RegistryCleanup" Guid="C2E069E5-717B-4523-92B9-65802DD86774" KeyPath="yes" Condition="WINDOWSBUILDNUM &gt;= 22000">
+
+        <RemoveRegistryKey Root="HKCR" Key="Directory\shell\dnGREP" Action="removeOnUninstall" />
+        <RemoveRegistryKey Root="HKCR" Key="Directory\shell\dnGREP\command" Action="removeOnUninstall" />
+        <RemoveRegistryKey Root="HKCR" Key="Drive\shell\dnGREP" Action="removeOnUninstall" />
+        <RemoveRegistryKey Root="HKCR" Key="Drive\shell\dnGREP\command" Action="removeOnUninstall" />
+        <RemoveRegistryKey Root="HKCR" Key="*\shell\dnGREP" Action="removeOnUninstall" />
+        <RemoveRegistryKey Root="HKCR" Key="*\shell\dnGREP\command" Action="removeOnUninstall" />
+        <RemoveRegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP" Action="removeOnUninstall" />
+        <RemoveRegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP\command" Action="removeOnUninstall" />
+      </Component>
+
+      <Component Id="ShellIntegration" Guid="8B727769-A7FF-49D9-B685-8DBDA51F81F7" Condition="WINDOWSBUILDNUM &lt; 22000">
+
+        <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP">
+          <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe" />
+          <RegistryValue Type="string" Value="dnGrep..." />
+        </RegistryKey>
+        <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP\command">
+          <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%1&quot;" />
+        </RegistryKey>
+        <RegistryKey Root="HKCR" Key="Drive\shell\dnGREP">
+          <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe" />
+          <RegistryValue Type="string" Value="dnGrep..." />
+        </RegistryKey>
+        <RegistryKey Root="HKCR" Key="Drive\shell\dnGREP\command">
+          <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%1&quot;" />
+        </RegistryKey>
+        <RegistryKey Root="HKCR" Key="*\shell\dnGREP">
+          <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe" />
+          <RegistryValue Type="string" Value="dnGrep..." />
+        </RegistryKey>
+        <RegistryKey Root="HKCR" Key="*\shell\dnGREP\command">
+          <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%1&quot;" />
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP">
+          <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe" />
+          <RegistryValue Type="string" Value="dnGrep..." />
+        </RegistryKey>
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP\command">
+          <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%V&quot;" />
+        </RegistryKey>
+      </Component>
+
+      <Component Id="Dummy" Guid="595484D3-6E27-48F9-BEDE-008518B1029E" Location="local" />
+    </DirectoryRef>
+
+    <Feature Id="CoreFiles" Title="dnGrep" Display="expand" AllowAdvertise="no" Description="Core dnGrep application." Level="1" ConfigurableDirectory="INSTALLDIR" AllowAbsent="no">
+      <ComponentGroupRef Id="dnGREPAppFiles" />
+      <ComponentGroupRef Id="dotnet" />
+      <ComponentRef Id="RegistryCleanup" />
+      <Feature Id="ShellIntegration" Title="Windows Explorer menu" AllowAdvertise="no" InstallDefault="local" Description="Add dnGrep to Windows Explorer right-click menu." Level="2">
+        <ComponentRef Id="ShellIntegration" />
+      </Feature>
+      <Feature Id="Plugins" Title="Plugins" Level="2" Display="expand">
+        <ComponentRef Id="Dummy" />
+        <Feature Id="PdfPlugin" Title="PDF Search" AllowAdvertise="no" Description="PDF Search plugin" Level="2">
+          <ComponentGroupRef Id="dnGREPPluginFilesPdf" />
+        </Feature>
+        <Feature Id="WordPlugin" Title="Word Search" AllowAdvertise="no" Description="MS Word Search plugin" Level="2">
+          <ComponentGroupRef Id="dnGREPPluginFilesWord" />
+        </Feature>
+        <Feature Id="OpenXmlPlugin" Title="Excel and Word Search" AllowAdvertise="no" Description="Open XML Search plugin" Level="2">
+          <ComponentGroupRef Id="dnGREPPluginFilesOpenXml" />
+        </Feature>
+      </Feature>
+    </Feature>
+
+    <!-- Sequences -->
+    <InstallExecuteSequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts" Condition="NEWERFOUND" />
+      <Custom Action="PreventReInstalling" After="FindRelatedProducts" Condition="SELFFOUND" />
+      <RemoveExistingProducts After="InstallInitialize" />
+      <Custom Action="RegisterShellContextMenu" Before="InstallFinalize" Condition="(&amp;ShellIntegration=3) AND (WINDOWSBUILDNUM &gt;= 22000)" />
+      <Custom Action="RemoveShellContextMenu" Before="RemoveFiles" Condition="(NOT UPGRADINGPRODUCTCODE) AND (REMOVE ~= &quot;ALL&quot;) AND (WINDOWSBUILDNUM &gt;= 22000)" />
+    </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <!-- see comment in MyWixUI_Mondo.wxs on FindRelatedProducts -->
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts" Condition="NEWERFOUND" />
+      <Custom Action="PreventReInstalling" After="FindRelatedProducts" Condition="SELFFOUND" />
+    </InstallUISequence>
+
+  </Package>
+</Wix>

@@ -200,7 +200,7 @@ namespace dnGREP.WPF
 
         private static string GetSHA(string filename)
         {
-            using var stream = File.OpenRead(filename);
+            using var stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using var sha = SHA256.Create();
             return Convert.ToHexString(sha.ComputeHash(stream));
         }

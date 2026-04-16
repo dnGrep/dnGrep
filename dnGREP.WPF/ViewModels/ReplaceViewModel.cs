@@ -205,9 +205,6 @@ namespace dnGREP.WPF
 
         private void SelectNextMatch()
         {
-            if (SelectedGrepMatch != null)
-                SelectedGrepMatch = null;
-
             if (SelectedSearchResult != null && IndividualReplaceEnabled)
             {
                 if (matchIndex < SelectedSearchResult.Matches.Count - 1)
@@ -963,7 +960,7 @@ namespace dnGREP.WPF
                 engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
                     SearchOptions, Encoding, replaceItems);
                 writeStream.Position = 0;
-                using StreamReader reader = new(writeStream);
+                using StreamReader reader = new(writeStream, Encoding, false);
                 string newText = reader.ReadToEnd();
 
                 bool isMultiline = SearchOptions.HasFlag(GrepSearchOption.Multiline) ||

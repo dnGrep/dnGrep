@@ -4461,4 +4461,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_Find" xml:space="preserve">
     <value>Търсене:</value>
   </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Име на екземпляра на Everything</value>
+  </data>
 </root>

@@ -3429,4 +3429,7 @@ Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser 
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Coincideix paraules senceres</value>
   </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Nom de la instància de tot</value>
+  </data>
 </root>

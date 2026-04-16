@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Interop;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.Graphics.Dwm;
 
 namespace dnGREP.Common.UI
 {
@@ -14,6 +18,14 @@ namespace dnGREP.Common.UI
             int x = unchecked((short)xy);
             int y = unchecked((short)(xy >> 16));
             return new Point(x, y);
+        }
+
+        public static unsafe void CloakWindow(Window window, bool cloak)
+        {
+            HWND hwnd = new(new WindowInteropHelper(window).Handle);
+            BOOL cloaked = new(cloak); // 1 to enable cloaking, 0 to disable
+            PInvoke.DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE.DWMWA_CLOAK,
+                &cloaked, sizeof(int));
         }
     }
 }
