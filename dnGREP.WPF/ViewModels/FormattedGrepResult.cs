@@ -14,7 +14,6 @@ using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.UserControls;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace dnGREP.WPF
 {
@@ -48,6 +47,12 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private string fileInfo = string.Empty;
+
+        [ObservableProperty]
+        private string additionalInfo = string.Empty;
+
+        [ObservableProperty]
+        private string matchInfo = string.Empty;
 
         [ObservableProperty]
         private FontWeight fileNameFontWeight = FontWeights.Normal;
@@ -159,7 +164,7 @@ namespace dnGREP.WPF
             string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath;
             FileName = MarkWhitespace(Path.GetFileName(GrepResult.FileNameDisplayed));
             FileNameFontWeight = GrepSettings.Instance.Get<FontWeight>(GrepSettings.Key.ResultsFileNameWeight);
-            string additionalInfo = string.Empty;
+            string infoText = string.Empty;
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
                 GrepResult.FileNameDisplayed.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
@@ -193,7 +198,8 @@ namespace dnGREP.WPF
             }
             if (!string.IsNullOrWhiteSpace(GrepResult.AdditionalInformation))
             {
-                additionalInfo += " " + GrepResult.AdditionalInformation + " ";
+                infoText += " " + GrepResult.AdditionalInformation + " ";
+                AdditionalInfo = GrepResult.AdditionalInformation;
             }
             int matchCount = GrepResult.Matches == null ? 0 : GrepResult.Matches.Count;
             if (matchCount > 0)
@@ -202,14 +208,16 @@ namespace dnGREP.WPF
                 {
                     var lineCount = GrepResult.Matches?.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count() ?? 0;
-                    additionalInfo = TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, additionalInfo, matchCount, lineCount);
+                    infoText = TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, infoText, matchCount, lineCount);
+                    MatchInfo = TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, string.Empty, matchCount, lineCount).Trim().TrimStart('(').TrimEnd(')');
                 }
                 else
                 {
-                    additionalInfo = string.Format(Resources.Main_ResultList_CountMatches, additionalInfo, matchCount);
+                    infoText = string.Format(Resources.Main_ResultList_CountMatches, infoText, matchCount);
+                    MatchInfo = string.Format(Resources.Main_ResultList_CountMatches, string.Empty, matchCount).Trim().TrimStart('(').TrimEnd(')');
                 }
             }
-            FileInfo = additionalInfo;
+            FileInfo = infoText;
 
             if (!IsTreeListViewEnabled && isFileReadOnly)
             {

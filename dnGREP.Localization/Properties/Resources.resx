@@ -1203,6 +1203,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Name</value>
     <comment>Main window, results list, column header label</comment>
   </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Info</value>
+    <comment>Main window, results list, column header label for additional information</comment>
+  </data>
   <data name="Main_ResultsHeader_Path" xml:space="preserve">
     <value>Path</value>
     <comment>Main window, results list, column header label</comment>

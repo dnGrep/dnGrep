@@ -469,6 +469,9 @@ namespace dnGREP.WPF
         private double columnNameWidth = 150;
 
         [ObservableProperty]
+        private double columnInfoWidth = 100;
+
+        [ObservableProperty]
         private double columnSizeWidth = 70;
 
         [ObservableProperty]

@@ -35,6 +35,7 @@ namespace dnGREP.WPF.UserControls
                 new GridViewColumn { Header = "", Width = 22 },
                 new GridViewColumn { Header = Res.Main_ResultsHeader_Path, Width = 200 },
                 new GridViewColumn { Header = Res.Main_ResultsHeader_Name, Width = 150 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_Info, Width = 100 },
                 new GridViewColumn { Header = Res.Main_ResultsHeader_Size, Width = 70 },
                 new GridViewColumn { Header = Res.Main_ResultsHeader_Type, Width = 70 },
                 new GridViewColumn { Header = Res.Main_ResultsHeader_DateModified, Width = 120 },
@@ -106,11 +107,12 @@ namespace dnGREP.WPF.UserControls
                 vm.ColumnIconWidth = TreeListViewColumns[0].ActualWidth;
                 vm.ColumnPathWidth = TreeListViewColumns[1].ActualWidth;
                 vm.ColumnNameWidth = TreeListViewColumns[2].ActualWidth;
-                vm.ColumnSizeWidth = TreeListViewColumns[3].ActualWidth;
-                vm.ColumnTypeWidth = TreeListViewColumns[4].ActualWidth;
-                vm.ColumnDateWidth = TreeListViewColumns[5].ActualWidth;
-                vm.ColumnReadOnlyWidth = TreeListViewColumns[6].ActualWidth;
-                vm.ColumnMatchesWidth = TreeListViewColumns[7].ActualWidth;
+                vm.ColumnInfoWidth = TreeListViewColumns[3].ActualWidth;
+                vm.ColumnSizeWidth = TreeListViewColumns[4].ActualWidth;
+                vm.ColumnTypeWidth = TreeListViewColumns[5].ActualWidth;
+                vm.ColumnDateWidth = TreeListViewColumns[6].ActualWidth;
+                vm.ColumnReadOnlyWidth = TreeListViewColumns[7].ActualWidth;
+                vm.ColumnMatchesWidth = TreeListViewColumns[8].ActualWidth;
             }
         }
 
