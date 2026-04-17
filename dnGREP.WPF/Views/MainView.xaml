@@ -1210,7 +1210,7 @@
                 <uc:NavigationButtons DataContext="{Binding NavTools}"
                                       DockPanel.Dock="{Binding BorderDock}" 
                                       Visibility="{Binding TreePanelVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                <uc:ContextResultsTree x:Name="resultsTree" DataContext="{Binding ResultsViewModel}" TabIndex="90" />
+                <uc:ResultsTree x:Name="resultsTree" DataContext="{Binding ResultsViewModel}" TabIndex="90" />
             </DockPanel>
         </DockPanel>
     </DockPanel>
