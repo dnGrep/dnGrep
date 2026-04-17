@@ -122,6 +122,7 @@
                                     <ColumnDefinition Width="{Binding DataContext.ColumnIconWidth, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                                     <ColumnDefinition Width="{Binding DataContext.ColumnPathWidth, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                                     <ColumnDefinition Width="{Binding DataContext.ColumnNameWidth, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                    <ColumnDefinition Width="{Binding DataContext.ColumnInfoWidth, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                                     <ColumnDefinition Width="{Binding DataContext.ColumnSizeWidth, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                                     <ColumnDefinition Width="{Binding DataContext.ColumnTypeWidth, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                                     <ColumnDefinition Width="{Binding DataContext.ColumnDateWidth, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Converter={StaticResource DoubleToGridLengthConverter}}"/>
@@ -169,17 +170,19 @@
                                         </ToolTip>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBlock Grid.Column="3" Margin="12,0,0,0" Text="{Binding FileSize}"
+                                <TextBlock Grid.Column="3" Margin="12,0,0,0" Text="{Binding AdditionalInfo}" 
+                                           TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Grid.Column="4" Margin="12,0,0,0" Text="{Binding FileSize}"
                                            TextTrimming="CharacterEllipsis"
                                            HorizontalAlignment="Right"/>
-                                <TextBlock Grid.Column="4" Margin="12,0,0,0" Text="{Binding FileType}" 
+                                <TextBlock Grid.Column="5" Margin="12,0,0,0" Text="{Binding FileType}" 
                                            TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Grid.Column="5" Margin="12,0,0,0" Text="{Binding DateModified}" 
+                                <TextBlock Grid.Column="6" Margin="12,0,0,0" Text="{Binding DateModified}" 
                                            TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Grid.Column="6" Margin="12,0,0,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" 
+                                <TextBlock Grid.Column="7" Margin="12,0,0,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" 
                                            TextTrimming="CharacterEllipsis" 
                                            HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"/>
-                                <TextBlock Grid.Column="7" Margin="12,0,0,0" Text="{Binding FileInfo}" 
+                                <TextBlock Grid.Column="8" Margin="12,0,0,0" Text="{Binding MatchInfo}" 
                                            TextTrimming="CharacterEllipsis"/>
                             </Grid>
                             <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -493,6 +496,7 @@
                             <ColumnDefinition Width="{Binding DataContext.ColumnIconWidth, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                             <ColumnDefinition Width="{Binding DataContext.ColumnPathWidth, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                             <ColumnDefinition Width="{Binding DataContext.ColumnNameWidth, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                            <ColumnDefinition Width="{Binding DataContext.ColumnInfoWidth, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                             <ColumnDefinition Width="{Binding DataContext.ColumnSizeWidth, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                             <ColumnDefinition Width="{Binding DataContext.ColumnTypeWidth, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
                             <ColumnDefinition Width="{Binding DataContext.ColumnDateWidth, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
@@ -566,20 +570,23 @@
                                 </ContextMenu>
                             </TextBlock.ContextMenu>
                         </TextBlock>
-                        <TextBlock Grid.Column="3" Margin="12,0,0,0" Text="{Binding FileSize}" 
+                        <TextBlock Grid.Column="3" Margin="12,0,0,0" Text="{Binding AdditionalInfo}" 
+                                   TextTrimming="CharacterEllipsis"
+                                   Style="{StaticResource ContextOverlayTextBlockStyle}"/>
+                        <TextBlock Grid.Column="4" Margin="12,0,0,0" Text="{Binding FileSize}" 
                                    TextTrimming="CharacterEllipsis"
                                    HorizontalAlignment="Right"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="4" Margin="12,0,0,0" Text="{Binding FileType}" 
+                        <TextBlock Grid.Column="5" Margin="12,0,0,0" Text="{Binding FileType}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="5" Margin="12,0,0,0" Text="{Binding DateModified}" 
+                        <TextBlock Grid.Column="6" Margin="12,0,0,0" Text="{Binding DateModified}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="6" Margin="12,0,0,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" TextTrimming="CharacterEllipsis" 
+                        <TextBlock Grid.Column="7" Margin="12,0,0,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" TextTrimming="CharacterEllipsis" 
                                    HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="7" Margin="12,0,0,0" Text="{Binding FileInfo}" 
+                        <TextBlock Grid.Column="8" Margin="12,0,0,0" Text="{Binding MatchInfo}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
                     </Grid>

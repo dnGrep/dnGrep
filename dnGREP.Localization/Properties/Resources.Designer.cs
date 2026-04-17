@@ -3427,7 +3427,16 @@ namespace dnGREP.Localization.Properties {
                 return ResourceManager.GetString("Main_ResultsHeader_Name", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Main_ResultsHeader_Info {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Info", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Path.
         /// </summary>
