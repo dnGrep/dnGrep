@@ -2,29 +2,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using dnGREP.Common;
+using Res = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF.UserControls
 {
     /// <summary>
     /// Interaction logic for ResultsTree.xaml
     /// </summary>
-    public partial class ResultsTree : UserControl
+    public partial class ResultsTree : UserControl, INameScope
     {
         private GrepSearchResultsViewModel? viewModel;
         private bool skipScrollOnExpand;
+        private bool inNextPrevious;
+        private bool stickyScrollEnabled;
+
+        public GridViewColumnCollection TreeListViewColumns { get; }
 
         public ResultsTree()
         {
+            TreeListViewColumns =
+            [
+                new GridViewColumn { Header = "", Width = 22 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_Path, Width = 200 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_Name, Width = 150 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_Size, Width = 70 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_Type, Width = 70 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_DateModified, Width = 120 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_ReadOnly, Width = 70 },
+                new GridViewColumn { Header = Res.Main_ResultsHeader_Matches, Width = 100 },
+            ];
+
             InitializeComponent();
             DataContextChanged += ResultsTree_DataContextChanged;
+
+            // used to map the editor menu items on the TextBlock context menu
+            NameScope.SetNameScope(contextMenu, this);
+            NameScope.SetNameScope(contextMenuClassic, this);
+
+            stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
+
+            // Listen for column width changes from header resize and sync to view model
+            var widthDescriptor = DependencyPropertyDescriptor.FromProperty(
+                GridViewColumn.WidthProperty, typeof(GridViewColumn));
+
+            foreach (var column in TreeListViewColumns)
+            {
+                widthDescriptor?.AddValueChanged(column, (s, e) => SyncColumnWidthsToViewModel());
+            }
 
             treeView.PreviewMouseWheel += TreeView_PreviewMouseWheel;
             treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
@@ -32,7 +66,74 @@ namespace dnGREP.WPF.UserControls
             treeView.PreviewTouchUp += TreeView_PreviewTouchUp;
 
             GrepSearchResultsViewModel.SearchResultsMessenger.Register("FormattedLinesLoaded", ScrollExpandedItemToTop);
+
+            Loaded += (s, e) =>
+            {
+                SyncColumnWidthsToViewModel();
+                contextRoot.Margin = new Thickness(0, 0, SystemParameters.VerticalScrollBarWidth, 0);
+
+                if (treeView.Template.FindName("_tv_scrollviewer_", treeView) is ScrollViewer scrollViewer)
+                {
+                    scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
+                }
+
+                if (DataContext is GrepSearchResultsViewModel vm)
+                {
+                    vm.PropertyChanged += (s, e) =>
+                    {
+                        if (e.PropertyName == nameof(GrepSearchResultsViewModel.StickyScrollEnabled))
+                        {
+                            stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
+                            if (stickyScrollEnabled)
+                            {
+                                ResetContextItemVisible();
+                            }
+                            else
+                            {
+                                vm.ContextGrepResult = null;
+                                vm.ContextGrepResultVisible = false;
+                            }
+                        }
+                    };
+                }
+            };
         }
+
+        private void SyncColumnWidthsToViewModel()
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                vm.ColumnIconWidth = TreeListViewColumns[0].ActualWidth;
+                vm.ColumnPathWidth = TreeListViewColumns[1].ActualWidth;
+                vm.ColumnNameWidth = TreeListViewColumns[2].ActualWidth;
+                vm.ColumnSizeWidth = TreeListViewColumns[3].ActualWidth;
+                vm.ColumnTypeWidth = TreeListViewColumns[4].ActualWidth;
+                vm.ColumnDateWidth = TreeListViewColumns[5].ActualWidth;
+                vm.ColumnReadOnlyWidth = TreeListViewColumns[6].ActualWidth;
+                vm.ColumnMatchesWidth = TreeListViewColumns[7].ActualWidth;
+            }
+        }
+
+        #region INameScope Members
+
+        private readonly Dictionary<string, object> items = [];
+
+        object INameScope.FindName(string name)
+        {
+            return items[name];
+        }
+
+        void INameScope.RegisterName(string name, object scopedElement)
+        {
+            items.Add(name, scopedElement);
+        }
+
+        void INameScope.UnregisterName(string name)
+        {
+            items.Remove(name);
+        }
+
+        #endregion
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -42,6 +143,72 @@ namespace dnGREP.WPF.UserControls
         }
 
         internal MultiSelectTreeView TreeView => treeView;
+
+        internal async Task Next()
+        {
+            inNextPrevious = true;
+            try
+            {
+                Cursor = Cursors.Wait;
+                await NextLineMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                inNextPrevious = false;
+            }
+        }
+
+        internal async Task NextFile()
+        {
+            inNextPrevious = true;
+            try
+            {
+                Cursor = Cursors.Wait;
+                await NextFileMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                inNextPrevious = false;
+            }
+        }
+
+        internal async Task Previous()
+        {
+            inNextPrevious = true;
+            try
+            {
+                // when moving backward, do not scroll to the top of the expanded item
+                skipScrollOnExpand = true;
+                Cursor = Cursors.Wait;
+                await PreviousLineMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                skipScrollOnExpand = false;
+                inNextPrevious = false;
+            }
+        }
+
+        internal async Task PreviousFile()
+        {
+            inNextPrevious = true;
+            try
+            {
+                // when moving backward, do not scroll to the top of the expanded item
+                skipScrollOnExpand = true;
+                Cursor = Cursors.Wait;
+                await PreviousFileMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                skipScrollOnExpand = false;
+                inNextPrevious = false;
+            }
+        }
 
         private void SelectedNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
@@ -133,64 +300,6 @@ namespace dnGREP.WPF.UserControls
             {
                 treeView.Focus();
             }), System.Windows.Threading.DispatcherPriority.Normal);
-        }
-
-        internal async Task Next()
-        {
-            try
-            {
-                Cursor = Cursors.Wait;
-                await NextLineMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-            }
-        }
-
-        internal async Task NextFile()
-        {
-            try
-            {
-                Cursor = Cursors.Wait;
-                await NextFileMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-            }
-        }
-
-        internal async Task Previous()
-        {
-            try
-            {
-                // when moving backward, do not scroll to the top of the expanded item
-                skipScrollOnExpand = true;
-                Cursor = Cursors.Wait;
-                await PreviousLineMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-                skipScrollOnExpand = false;
-            }
-        }
-
-        internal async Task PreviousFile()
-        {
-            try
-            {
-                // when moving backward, do not scroll to the top of the expanded item
-                skipScrollOnExpand = true;
-                Cursor = Cursors.Wait;
-                await PreviousFileMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-                skipScrollOnExpand = false;
-            }
         }
 
         private async Task NextLineMatch()
@@ -951,6 +1060,110 @@ namespace dnGREP.WPF.UserControls
             }
             return null;
         }
+        #endregion
+
+        #region Sticky Scroll
+
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (stickyScrollEnabled && !inNextPrevious && e.VerticalChange != 0)
+            {
+                ResetContextItemVisible();
+            }
+        }
+
+        private void ResetContextItemVisible()
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                FormattedGrepResult? item = GetTopVisibleLine(treeView);
+                if (!ReferenceEquals(item, vm.ContextGrepResult))
+                {
+                    vm.ContextGrepResult = item;
+                    vm.ContextGrepResultVisible = item != null;
+                    return;
+                }
+
+                bool newValue = false, currentValue = vm.ContextGrepResultVisible;
+
+                if (contextControl.DataContext is FormattedGrepResult result)
+                {
+                    if (treeView.ItemContainerGenerator.ContainerFromItem(result) is
+                            TreeViewItem treeViewItem)
+                    {
+                        newValue = !IsUserVisible(treeView, treeViewItem);
+                    }
+                }
+                else
+                {
+                    newValue = false;
+                }
+
+                if (newValue != currentValue)
+                {
+                    vm.ContextGrepResultVisible = newValue;
+                }
+            }
+        }
+
+        private static bool IsUserVisible(TreeView treeView, TreeViewItem treeViewItem)
+        {
+            if (!treeViewItem.IsVisible)
+            {
+                return false;
+            }
+
+            // a TreeViewItem Actual Height includes all of its children
+            Rect tviRect = new(0.0, 0.0, treeViewItem.ActualWidth, treeViewItem.ActualHeight);
+            var header = GetHeaderControl(treeViewItem);
+            if (header != null)
+            {
+                tviRect = new(0.0, 0.0, header.ActualWidth, header.ActualHeight);
+            }
+
+            Rect ItemBounds = treeViewItem.TransformToAncestor(treeView).TransformBounds(tviRect);
+            Rect containerRect = new(0.0, 0.0, treeView.ActualWidth, treeView.ActualHeight);
+            bool visible = ItemBounds.Top + 5 >= containerRect.Top && ItemBounds.Bottom <= containerRect.Bottom;
+            return visible;
+        }
+
+        private static FrameworkElement GetHeaderControl(TreeViewItem item)
+        {
+            return (FrameworkElement)item.Template.FindName("PART_Header", item);
+        }
+
+        private static FormattedGrepResult? GetTopVisibleLine(TreeView treeView)
+        {
+            if (treeView.Items.Count > 0)
+            {
+                foreach (FormattedGrepResult node in treeView.Items.Cast<FormattedGrepResult>())
+                {
+                    if (node.IsExpanded)
+                    {
+                        if (treeView.ItemContainerGenerator.ContainerFromItem(node) is TreeViewItem container)
+                        {
+                            if (IsUserVisible(treeView, container))
+                            {
+                                return null;
+                            }
+                            else
+                            {
+                                foreach (FormattedGrepLine childNode in node.Children.Cast<FormattedGrepLine>())
+                                {
+                                    if (container.ItemContainerGenerator.ContainerFromItem(childNode) is TreeViewItem treeViewItem &&
+                                        IsUserVisible(treeView, treeViewItem))
+                                    {
+                                        return node;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         #endregion
     }
 }

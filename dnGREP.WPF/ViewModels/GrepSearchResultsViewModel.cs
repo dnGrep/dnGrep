@@ -458,6 +458,31 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double resultsScale = 1.0;
 
+        // Tree list view column widths (bound from GridViewHeaderRowPresenter and data template)
+        [ObservableProperty]
+        private double columnIconWidth = 22;
+
+        [ObservableProperty]
+        private double columnPathWidth = 200;
+
+        [ObservableProperty]
+        private double columnNameWidth = 150;
+
+        [ObservableProperty]
+        private double columnSizeWidth = 70;
+
+        [ObservableProperty]
+        private double columnTypeWidth = 70;
+
+        [ObservableProperty]
+        private double columnDateWidth = 120;
+
+        [ObservableProperty]
+        private double columnReadOnlyWidth = 70;
+
+        [ObservableProperty]
+        private double columnMatchesWidth = 100;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasFailures))]
         [NotifyPropertyChangedFor(nameof(FileReadErrors))]
