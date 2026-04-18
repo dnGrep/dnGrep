@@ -396,6 +396,10 @@ namespace dnGREP.Common
             public const string EverythingInstanceName = "EverythingInstanceName";
             [DefaultValue (true)]
             public const string TreeListViewEnabled = "TreeListViewEnabled";
+            [DefaultValue("0,1,2,3,4,5,6,7,8")]
+            public const string TreeListViewColumnOrder = "TreeListViewColumnOrder";
+            [DefaultValue("22,150,200,200,70,70,150,80,120")]
+            public const string TreeListViewColumnWidths = "TreeListViewColumnWidths";
         }
 
         public static class ObsoleteKey
