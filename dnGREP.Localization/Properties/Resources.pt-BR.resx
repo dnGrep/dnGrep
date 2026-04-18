@@ -1641,4 +1641,295 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ResultsFontSize" xml:space="preserve">
     <value>Tamanho da fonte dos resultados</value>
   </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Fonte usada nos resultados da pesquisa, geralmente uma fonte de largura fixa</value>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Resultados da pesquisa</value>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>Texto de exemplo</value>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Tema selecionado</value>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Enviar para a lixeira</value>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Mostrar o dnGrep no menu de contexto do Windows Explorer</value>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>Mostrar dicas de ferramenta com informações do arquivo</value>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Mostrar caminho do arquivo no painel de resultados</value>
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value>Mostrar linhas de resultado em contexto</value>
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Mostrar árvore de resultados expandida</value>
+  </data>
+  <data name="Options_ShowSearchOptions" xml:space="preserve">
+    <value>Mostrar opções de pesquisa</value>
+  </data>
+  <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
+    <value>Mostrar detalhes adicionais sobre as correspondências encontradas</value>
+  </data>
+  <data name="Options_StartupOptions" xml:space="preserve">
+    <value>Inicialização</value>
+  </data>
+  <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
+    <value>O tempo limite de correspondência limita o tempo que o mecanismo de expressão regular tenta resolver uma expressão regular antes de expirar. Isso evita o processamento de expressões e strings de entrada que exigem retrocesso excessivo.</value>
+  </data>
+  <data name="Options_Theme" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Options_TimeoutSeconds" xml:space="preserve">
+    <value>segundos</value>
+  </data>
+  <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>Execute o dnGrep como Administrador para alterar esta configuração.</value>
+  </data>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value>Usar fonte padrão</value>
+  </data>
+  <data name="Options_WantADifferentLanguage" xml:space="preserve">
+    <value>Deseja um idioma diferente?</value>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>Ao excluir arquivos</value>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Altera o zoom do editor de texto</value>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Localizar próximo (F3)</value>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Localizar anterior (Shift+F3)</value>
+  </data>
+  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>Os realces não estão sendo exibidos porque muitas correspondências foram encontradas.</value>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>Diferenciar maiúsculas de minúsculas</value>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>Corresponder a palavras inteiras</value>
+  </data>
+  <data name="Preview_PreviewAnyway" xml:space="preserve">
+    <value>Visualizar mesmo assim</value>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Sintaxe</value>
+  </data>
+  <data name="Preview_SyntaxNone" xml:space="preserve">
+    <value>Nenhuma</value>
+  </data>
+  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>Este arquivo é binário ou muito grande para ser exibido.</value>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(como texto)</value>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Usar expressões regulares</value>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>Quebrar texto</value>
+  </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>O nome do arquivo já existe neste diretório</value>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>O nome do arquivo contém caracteres inválidos</value>
+  </data>
+  <data name="Rename_NewName" xml:space="preserve">
+    <value>Novo nome:</value>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>Renomear arquivo</value>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>Cancelar todas as substituições</value>
+  </data>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Altera o zoom do editor de texto</value>
+  </data>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Erro: este é um arquivo binário</value>
+  </data>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value>Arquivo {0} de {1}: {2} ({3} correspondência(s) em {4} linha(s))</value>
+  </data>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>Arquivos</value>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Manter a data de modificação anterior do arquivo</value>
+  </data>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Marcar todas as correspondências neste arquivo para substituição</value>
+  </data>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value>Marcar correspondência para substituição</value>
+  </data>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value>Correspondências</value>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Mover para a próxima correspondência neste arquivo</value>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Mover para a correspondência anterior neste arquivo</value>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>_Próximo</value>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>Próximo _arquivo</value>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} de {1} correspondência(s) marcada(s) para substituição</value>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>_Anterior</value>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Arquivo anterior</value>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[somente leitura]</value>
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Substituir todas as correspondências em todos os arquivos e aplicar</value>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Substituir</value>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>Substituir em todos os arquivos</value>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>Substituir no arquivo</value>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>texto</value>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Correspondência selecionada</value>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Substituir correspondência</value>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Ignorar correspondência</value>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Substituir correspondências marcadas para substituição</value>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Substituir por:</value>
+  </data>
+  <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Redefinir e ignorar todas as correspondências neste arquivo</value>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Pesquisar por:</value>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value>Mostrar o próximo arquivo</value>
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value>Mostrar o arquivo anterior</value>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>Nenhuma</value>
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>Este arquivo contém muitas correspondências para substituição individual. Clique em 'Substituir no arquivo' para substituir todas elas.</value>
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value>Substituir Texto</value>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Desfazer</value>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value>Desfazer arquivo</value>
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Desfazer marcação de substituição nesta correspondência</value>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Quando marcado, a 'Data de modificação' não será alterada na substituição</value>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Quebrar texto</value>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value>Nome do Arquivo,Número da Linha,String</value>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>Resultados da Pesquisa do dnGrep</value>
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[Arquivo não encontrado: foi excluído ou movido?]</value>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>Encontrada(s) {0} correspondência(s) em {1} linha(s) em {2} arquivo(s)</value>
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value>Encontradas correspondências para </value>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>Nenhuma correspondência encontrada para </value>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>tem {0} correspondência(s) em {1} linha(s):</value>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Apenas grupos de captura</value>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Filtrar por valores únicos</value>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Linhas completas</value>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
 </root>
