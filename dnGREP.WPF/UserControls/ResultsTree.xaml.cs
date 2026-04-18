@@ -28,20 +28,50 @@ namespace dnGREP.WPF.UserControls
 
         public GridViewColumnCollection TreeListViewColumns { get; }
 
+        // Logical column identifiers
+        internal const int ColIcon = 0;
+        internal const int ColPath = 1;
+        internal const int ColName = 2;
+        internal const int ColMatches = 3;
+        internal const int ColSize = 4;
+        internal const int ColType = 5;
+        internal const int ColDate = 6;
+        internal const int ColReadOnly = 7;
+        internal const int ColInfo = 8;
+
+        // Default column order and widths
+        private static readonly double[] DefaultColumnWidths = [22, 150, 200, 200, 70, 70, 150, 80, 120];
+
+        // Map from GridViewColumn to its logical column id
+        private readonly Dictionary<GridViewColumn, int> columnIds = [];
+
+        private int GetColumnId(GridViewColumn col) => columnIds.TryGetValue(col, out int id) ? id : -1;
+
         public ResultsTree()
         {
-            TreeListViewColumns =
-            [
-                new GridViewColumn { Header = "", Width = 22 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_Path, Width = 150 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_Name, Width = 200 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_Matches, Width = 200 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_Size, Width = 70 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_Type, Width = 70 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_DateModified, Width = 150 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_ReadOnly, Width = 80 },
-                new GridViewColumn { Header = Res.Main_ResultsHeader_Info, Width = 120 },
-            ];
+            var columns = new (string header, double width, int id)[]
+            {
+                ("", 22, ColIcon),
+                (Res.Main_ResultsHeader_Path, 150, ColPath),
+                (Res.Main_ResultsHeader_Name, 200, ColName),
+                (Res.Main_ResultsHeader_Matches, 200, ColMatches),
+                (Res.Main_ResultsHeader_Size, 70, ColSize),
+                (Res.Main_ResultsHeader_Type, 70, ColType),
+                (Res.Main_ResultsHeader_DateModified, 150, ColDate),
+                (Res.Main_ResultsHeader_ReadOnly, 80, ColReadOnly),
+                (Res.Main_ResultsHeader_Info, 120, ColInfo),
+            };
+
+            TreeListViewColumns = [];
+            foreach (var (header, width, id) in columns)
+            {
+                var col = new GridViewColumn { Header = header, Width = width };
+                TreeListViewColumns.Add(col);
+                columnIds[col] = id;
+            }
+
+            // Restore saved column order and widths
+            RestoreColumnLayout();
 
             InitializeComponent();
             DataContextChanged += ResultsTree_DataContextChanged;
@@ -58,8 +88,12 @@ namespace dnGREP.WPF.UserControls
 
             foreach (var column in TreeListViewColumns)
             {
-                widthDescriptor?.AddValueChanged(column, (s, e) => SyncColumnWidthsToViewModel());
+                widthDescriptor?.AddValueChanged(column, (s, e) => OnColumnLayoutChanged());
             }
+
+            // Listen for column reorder (Move action in the collection)
+            ((System.Collections.Specialized.INotifyCollectionChanged)TreeListViewColumns)
+                .CollectionChanged += TreeListViewColumns_CollectionChanged;
 
             treeView.PreviewMouseWheel += TreeView_PreviewMouseWheel;
             treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
@@ -70,7 +104,7 @@ namespace dnGREP.WPF.UserControls
 
             Loaded += (s, e) =>
             {
-                SyncColumnWidthsToViewModel();
+                OnColumnLayoutChanged();
                 contextRoot.Margin = new Thickness(0, 0, SystemParameters.VerticalScrollBarWidth, 0);
 
                 if (treeView.Template.FindName("_tv_scrollviewer_", treeView) is ScrollViewer scrollViewer)
@@ -100,20 +134,149 @@ namespace dnGREP.WPF.UserControls
             };
         }
 
+        private void TreeListViewColumns_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Move ||
+                e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                OnColumnLayoutChanged();
+            }
+        }
+
+        private void RestoreColumnLayout()
+        {
+            try
+            {
+                var orderStr = GrepSettings.Instance.Get<string>(GrepSettings.Key.TreeListViewColumnOrder);
+                var widthsStr = GrepSettings.Instance.Get<string>(GrepSettings.Key.TreeListViewColumnWidths);
+
+                int[]? order = null;
+                double[]? widths = null;
+
+                if (!string.IsNullOrEmpty(orderStr))
+                {
+                    order = orderStr.Split(',').Select(s => int.Parse(s, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
+                }
+                if (!string.IsNullOrEmpty(widthsStr))
+                {
+                    widths = widthsStr.Split(',').Select(s => double.Parse(s, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
+                }
+
+                if (order != null && order.Length == TreeListViewColumns.Count &&
+                    widths != null && widths.Length == TreeListViewColumns.Count)
+                {
+                    // Build a lookup from logical column id to GridViewColumn
+                    var columnById = new Dictionary<int, GridViewColumn>();
+                    foreach (var col in TreeListViewColumns)
+                    {
+                        int id = GetColumnId(col);
+                        if (id >= 0)
+                            columnById[id] = col;
+                    }
+
+                    // Set widths by logical column tag (order[i] is the logical column at position i)
+                    for (int i = 0; i < order.Length; i++)
+                    {
+                        if (columnById.TryGetValue(order[i], out var col))
+                        {
+                            col.Width = widths[i];
+                        }
+                    }
+
+                    // Reorder the collection to match saved order
+                    // Build desired sequence
+                    var desired = new GridViewColumn[order.Length];
+                    for (int i = 0; i < order.Length; i++)
+                    {
+                        if (columnById.TryGetValue(order[i], out var col))
+                        {
+                            desired[i] = col;
+                        }
+                    }
+
+                    // Move columns into position
+                    for (int i = 0; i < desired.Length; i++)
+                    {
+                        int currentIndex = TreeListViewColumns.IndexOf(desired[i]);
+                        if (currentIndex != i)
+                        {
+                            TreeListViewColumns.Move(currentIndex, i);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // If anything goes wrong, keep defaults
+            }
+        }
+
+        private void OnColumnLayoutChanged()
+        {
+            SyncColumnWidthsToViewModel();
+            SaveColumnLayout();
+        }
+
         private void SyncColumnWidthsToViewModel()
         {
             if (DataContext is GrepSearchResultsViewModel vm)
             {
-                vm.ColumnIconWidth = TreeListViewColumns[0].ActualWidth;
-                vm.ColumnPathWidth = TreeListViewColumns[1].ActualWidth;
-                vm.ColumnNameWidth = TreeListViewColumns[2].ActualWidth;
-                vm.ColumnMatchesWidth = TreeListViewColumns[3].ActualWidth;
-                vm.ColumnSizeWidth = TreeListViewColumns[4].ActualWidth;
-                vm.ColumnTypeWidth = TreeListViewColumns[5].ActualWidth;
-                vm.ColumnDateWidth = TreeListViewColumns[6].ActualWidth;
-                vm.ColumnReadOnlyWidth = TreeListViewColumns[7].ActualWidth;
-                vm.ColumnInfoWidth = TreeListViewColumns[8].ActualWidth;
+                // Update positional widths (Column0Width..Column8Width)
+                for (int i = 0; i < TreeListViewColumns.Count; i++)
+                {
+                    double w = TreeListViewColumns[i].ActualWidth;
+                    switch (i)
+                    {
+                        case 0: vm.Column0Width = w; break;
+                        case 1: vm.Column1Width = w; break;
+                        case 2: vm.Column2Width = w; break;
+                        case 3: vm.Column3Width = w; break;
+                        case 4: vm.Column4Width = w; break;
+                        case 5: vm.Column5Width = w; break;
+                        case 6: vm.Column6Width = w; break;
+                        case 7: vm.Column7Width = w; break;
+                        case 8: vm.Column8Width = w; break;
+                    }
+                }
+
+                // Update column indices (which display position each logical column is at)
+                for (int i = 0; i < TreeListViewColumns.Count; i++)
+                {
+                    int colId = GetColumnId(TreeListViewColumns[i]);
+                    if (colId >= 0)
+                    {
+                        switch (colId)
+                        {
+                            case ColIcon: vm.IconColumnIndex = i; break;
+                            case ColPath: vm.PathColumnIndex = i; break;
+                            case ColName: vm.NameColumnIndex = i; break;
+                            case ColMatches: vm.MatchesColumnIndex = i; break;
+                            case ColSize: vm.SizeColumnIndex = i; break;
+                            case ColType: vm.TypeColumnIndex = i; break;
+                            case ColDate: vm.DateColumnIndex = i; break;
+                            case ColReadOnly: vm.ReadOnlyColumnIndex = i; break;
+                            case ColInfo: vm.InfoColumnIndex = i; break;
+                        }
+                    }
+                }
             }
+        }
+
+        private void SaveColumnLayout()
+        {
+            var order = new int[TreeListViewColumns.Count];
+            var widths = new double[TreeListViewColumns.Count];
+
+            for (int i = 0; i < TreeListViewColumns.Count; i++)
+            {
+                order[i] = GetColumnId(TreeListViewColumns[i]);
+                widths[i] = TreeListViewColumns[i].ActualWidth;
+            }
+
+            GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewColumnOrder,
+                string.Join(",", order.Select(o => o.ToString(System.Globalization.CultureInfo.InvariantCulture))));
+            GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewColumnWidths,
+                string.Join(",", widths.Select(w => w.ToString(System.Globalization.CultureInfo.InvariantCulture))));
         }
 
         #region INameScope Members

@@ -458,33 +458,61 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private double resultsScale = 1.0;
 
-        // Tree list view column widths (bound from GridViewHeaderRowPresenter and data template)
+        // Tree list view column widths, indexed by display position (0..8)
         [ObservableProperty]
-        private double columnIconWidth = 22;
+        private double column0Width = 22;
 
         [ObservableProperty]
-        private double columnPathWidth = 200;
+        private double column1Width = 150;
 
         [ObservableProperty]
-        private double columnNameWidth = 150;
+        private double column2Width = 200;
 
         [ObservableProperty]
-        private double columnInfoWidth = 100;
+        private double column3Width = 200;
 
         [ObservableProperty]
-        private double columnSizeWidth = 70;
+        private double column4Width = 70;
 
         [ObservableProperty]
-        private double columnTypeWidth = 70;
+        private double column5Width = 70;
 
         [ObservableProperty]
-        private double columnDateWidth = 120;
+        private double column6Width = 150;
 
         [ObservableProperty]
-        private double columnReadOnlyWidth = 70;
+        private double column7Width = 80;
 
         [ObservableProperty]
-        private double columnMatchesWidth = 100;
+        private double column8Width = 120;
+
+        // Tree list view column display indices, per logical column
+        [ObservableProperty]
+        private int iconColumnIndex = 0;
+
+        [ObservableProperty]
+        private int pathColumnIndex = 1;
+
+        [ObservableProperty]
+        private int nameColumnIndex = 2;
+
+        [ObservableProperty]
+        private int matchesColumnIndex = 3;
+
+        [ObservableProperty]
+        private int sizeColumnIndex = 4;
+
+        [ObservableProperty]
+        private int typeColumnIndex = 5;
+
+        [ObservableProperty]
+        private int dateColumnIndex = 6;
+
+        [ObservableProperty]
+        private int readOnlyColumnIndex = 7;
+
+        [ObservableProperty]
+        private int infoColumnIndex = 8;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasFailures))]
