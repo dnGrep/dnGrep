@@ -1231,6 +1231,20 @@ namespace dnGREP.WPF.UserControls
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
+            if (sender is ScrollViewer sv)
+            {
+                if (e.HorizontalChange != 0 || e.ExtentWidthChange != 0)
+                {
+                    // Ensure header and context have enough width to scroll the full extent
+                    headerRowPresenter.MinWidth = sv.ExtentWidth;
+                    contextControl.MinWidth = sv.ExtentWidth - 22; // account for the 22px left margin
+
+                    // Keep the header row and context overlay aligned with the horizontal scroll
+                    headerScrollViewer.ScrollToHorizontalOffset(sv.HorizontalOffset);
+                    contextScrollViewer.ScrollToHorizontalOffset(sv.HorizontalOffset);
+                }
+            }
+
             if (stickyScrollEnabled && !inNextPrevious && e.VerticalChange != 0)
             {
                 ResetContextItemVisible();

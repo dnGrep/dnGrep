@@ -47,9 +47,13 @@
                     BorderBrush="{DynamicResource TreeView.Border}"
                     BorderThickness="0,0,0,1"
                     Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <GridViewHeaderRowPresenter x:Name="headerRowPresenter" Margin="22,0,0,0"
-                                            Columns="{Binding TreeListViewColumns, RelativeSource={RelativeSource AncestorType={x:Type Controls:ResultsTree}}}"
-                                            ColumnHeaderContainerStyle="{StaticResource TreeListViewColumnHeader}"/>
+                <ScrollViewer x:Name="headerScrollViewer"
+                              HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Disabled">
+                    <GridViewHeaderRowPresenter x:Name="headerRowPresenter" Margin="22,0,0,0"
+                                                Columns="{Binding TreeListViewColumns, RelativeSource={RelativeSource AncestorType={x:Type Controls:ResultsTree}}}"
+                                                ColumnHeaderContainerStyle="{StaticResource TreeListViewColumnHeader}"/>
+                </ScrollViewer>
             </Border>
 
             <Controls:MultiSelectTreeView x:Name="treeView" Grid.Row="1" Grid.Column="0"
@@ -132,12 +136,12 @@
                                 <Image Grid.Column="{Binding DataContext.IconColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" 
                                        Height="16" Source="{Binding Icon}" />
                                 <TextBlock Grid.Column="{Binding DataContext.PathColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" 
-                                           Margin="6,0,0,0"
+                                           Margin="3,0"
                                            Text="{Binding FilePath}"
                                            TextTrimming="CharacterEllipsis"
                                            TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
                                 <TextBlock Grid.Column="{Binding DataContext.NameColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" 
-                                           Margin="6,0,0,0"
+                                           Margin="3,0"
                                            Text="{Binding FileName}"
                                            FontWeight="{Binding FileNameFontWeight}"
                                            TextTrimming="CharacterEllipsis"
@@ -170,19 +174,19 @@
                                         </ToolTip>
                                     </TextBlock.ToolTip>
                                 </TextBlock>
-                                <TextBlock Grid.Column="{Binding DataContext.MatchesColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="12,0,0,0" Text="{Binding MatchInfo}" 
+                                <TextBlock Grid.Column="{Binding DataContext.MatchesColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding MatchInfo}" 
                                            TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Grid.Column="{Binding DataContext.SizeColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="12,0,0,0" Text="{Binding FileSize}"
+                                <TextBlock Grid.Column="{Binding DataContext.SizeColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding FileSize}"
                                            TextTrimming="CharacterEllipsis"
                                            HorizontalAlignment="Right"/>
-                                <TextBlock Grid.Column="{Binding DataContext.TypeColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="12,0,0,0" Text="{Binding FileType}" 
+                                <TextBlock Grid.Column="{Binding DataContext.TypeColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding FileType}" 
                                            TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Grid.Column="{Binding DataContext.DateColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="12,0,0,0" Text="{Binding DateModified}" 
+                                <TextBlock Grid.Column="{Binding DataContext.DateColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding DateModified}" 
                                            TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="12,0,0,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" 
+                                <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" 
                                            TextTrimming="CharacterEllipsis" 
                                            HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"/>
-                                <TextBlock Grid.Column="{Binding DataContext.InfoColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="12,0,0,0" Text="{Binding AdditionalInfo}" 
+                                <TextBlock Grid.Column="{Binding DataContext.InfoColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding AdditionalInfo}" 
                                            TextTrimming="CharacterEllipsis"/>
                             </Grid>
                             <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -414,57 +418,60 @@
                     BorderThickness="0,0,0,1"
                     Visibility="{Binding ContextGrepResultVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-                <Grid x:Name="contextControl" DataContext="{Binding ContextGrepResult}"
+                <ScrollViewer x:Name="contextScrollViewer"
+                              HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Disabled">
+                    <Grid x:Name="contextControl" DataContext="{Binding ContextGrepResult}"
                       Margin="22,3,0,3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- Classic single-line layout -->
-                    <Grid Grid.Row="0" Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="ICON"/>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                        <!-- Classic single-line layout -->
+                        <Grid Grid.Row="0" Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="ICON"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0" 
+                            <Image Grid.Column="0" 
                                Height="16" Source="{Binding Icon}" />
 
-                        <TextBlock Grid.Column="1" 
+                            <TextBlock Grid.Column="1" 
                                    Margin="6,0,0,0"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"
                                    Background="{DynamicResource TreeView.Background}"
                                    HorizontalAlignment="Stretch"
                                    TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
                             <Run Text="{Binding FilePath}"/><Run Text="{Binding FileName}" FontWeight="{Binding FileNameFontWeight}"/> <Run Text="{Binding FileInfo}"/>
-                            <TextBlock.ToolTip>
-                                <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_File'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                                <TextBlock.ToolTip>
+                                    <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_File'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Type'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Encoding'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Size'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Type'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Encoding'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Size'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </ToolTip>
-                            </TextBlock.ToolTip>
+                                    </ToolTip>
+                                </TextBlock.ToolTip>
                             <TextBlock.ContextMenu>
                                 <ContextMenu x:Name="contextMenuClassic">
                                     <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
@@ -488,65 +495,65 @@
                                 </ContextMenu>
                             </TextBlock.ContextMenu>
                         </TextBlock>
-                    </Grid>
+                        </Grid>
 
-                    <!-- Tree list view with columns -->
-                    <Grid Grid.Row="1" Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding DataContext.Column0Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column1Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column2Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column3Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column4Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column5Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column6Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column7Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                            <ColumnDefinition Width="{Binding DataContext.Column8Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
-                        </Grid.ColumnDefinitions>
+                        <!-- Tree list view with columns -->
+                        <Grid Grid.Row="1" Visibility="{Binding IsTreeListViewEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{Binding DataContext.Column0Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column1Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column2Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column3Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column4Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column5Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column6Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column7Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                                <ColumnDefinition Width="{Binding DataContext.Column8Width, ElementName=contextRoot, Converter={StaticResource DoubleToGridLengthConverter}}"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="{Binding DataContext.IconColumnIndex, ElementName=contextRoot}" 
+                            <Image Grid.Column="{Binding DataContext.IconColumnIndex, ElementName=contextRoot}" 
                                Height="16" Source="{Binding Icon}" />
 
-                        <TextBlock Grid.Column="{Binding DataContext.PathColumnIndex, ElementName=contextRoot}" 
-                                   Margin="6,0,0,0"
+                            <TextBlock Grid.Column="{Binding DataContext.PathColumnIndex, ElementName=contextRoot}" 
+                                   Margin="3,0"
                                    Text="{Binding FilePath}"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"
                                    TextTrimming="CharacterEllipsis"
                                    TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
-                        <TextBlock Grid.Column="{Binding DataContext.NameColumnIndex, ElementName=contextRoot}" 
-                                   Margin="6,0,0,0"
+                            <TextBlock Grid.Column="{Binding DataContext.NameColumnIndex, ElementName=contextRoot}" 
+                                   Margin="3,0"
                                    Text="{Binding FileName}"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"
                                    FontWeight="{Binding FileNameFontWeight}"
                                    TextTrimming="CharacterEllipsis"
                                    TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
-                            <TextBlock.ToolTip>
-                                <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_File'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                                <TextBlock.ToolTip>
+                                    <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_File'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Type'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Encoding'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Size'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
+                                                <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Type'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Encoding'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_Size'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Main_Attributes_DateModified'}"/>
-                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTimeString}"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </ToolTip>
-                            </TextBlock.ToolTip>
+                                    </ToolTip>
+                                </TextBlock.ToolTip>
                             <TextBlock.ContextMenu>
                                 <ContextMenu x:Name="contextMenu">
                                     <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
@@ -570,27 +577,28 @@
                                 </ContextMenu>
                             </TextBlock.ContextMenu>
                         </TextBlock>
-                        <TextBlock Grid.Column="{Binding DataContext.MatchesColumnIndex, ElementName=contextRoot}" Margin="12,0,0,0" Text="{Binding MatchInfo}" 
+                            <TextBlock Grid.Column="{Binding DataContext.MatchesColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding MatchInfo}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="{Binding DataContext.SizeColumnIndex, ElementName=contextRoot}" Margin="12,0,0,0" Text="{Binding FileSize}" 
+                            <TextBlock Grid.Column="{Binding DataContext.SizeColumnIndex, ElementName=contextRoot}" Margin="0,0,3,0" Text="{Binding FileSize}" 
                                    TextTrimming="CharacterEllipsis"
                                    HorizontalAlignment="Right"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="{Binding DataContext.TypeColumnIndex, ElementName=contextRoot}" Margin="12,0,0,0" Text="{Binding FileType}" 
+                            <TextBlock Grid.Column="{Binding DataContext.TypeColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding FileType}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="{Binding DataContext.DateColumnIndex, ElementName=contextRoot}" Margin="12,0,0,0" Text="{Binding DateModified}" 
+                            <TextBlock Grid.Column="{Binding DataContext.DateColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding DateModified}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, ElementName=contextRoot}" Margin="12,0,0,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" TextTrimming="CharacterEllipsis" 
+                            <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" TextTrimming="CharacterEllipsis" 
                                    HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                        <TextBlock Grid.Column="{Binding DataContext.InfoColumnIndex, ElementName=contextRoot}" Margin="12,0,0,0" Text="{Binding AdditionalInfo}" 
+                            <TextBlock Grid.Column="{Binding DataContext.InfoColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding AdditionalInfo}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </ScrollViewer>
             </Border>
         </Grid>
     </Border>
