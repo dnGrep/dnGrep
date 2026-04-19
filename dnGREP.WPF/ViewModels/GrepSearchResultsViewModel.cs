@@ -126,6 +126,7 @@ namespace dnGREP.WPF
         {
             SearchResults.Clear();
             FailureCount = 0;
+            ClearSortIndicator();
         }
 
         public void Clear(List<GrepSearchResult> list)
@@ -520,6 +521,15 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private ListSortDirection sortColumnDirection = ListSortDirection.Ascending;
+
+        public void ClearSortIndicator()
+        {
+            SortColumnId = -1;
+            if (TreeControl is UserControls.ResultsTree tree)
+            {
+                tree.UpdateSortIndicator(-1, ListSortDirection.Ascending);
+            }
+        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasFailures))]
