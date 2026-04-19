@@ -1408,7 +1408,7 @@ namespace dnGREP.WPF.UserControls
                 {
                     // Ensure header and context have enough width to scroll the full extent
                     headerRowPresenter.MinWidth = sv.ExtentWidth;
-                    contextControl.MinWidth = sv.ExtentWidth - 22; // account for the 22px left margin
+                    contextControl.MinWidth = Math.Max(0, sv.ExtentWidth - 22); // account for the 22px left margin
 
                     // Keep the header row and context overlay aligned with the horizontal scroll
                     headerScrollViewer.ScrollToHorizontalOffset(sv.HorizontalOffset);
