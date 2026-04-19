@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <LangVersion>14</LangVersion>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <LangVersion>12</LangVersion>
     <OutputType>WinExe</OutputType>
     <Platforms>x86;x64;ARM64</Platforms>
     <AssemblyName>dnGREP</AssemblyName>
@@ -20,7 +20,6 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <WarningsAsErrors>$(WarningsAsErrors);CA1307;CA1309;CA1310</WarningsAsErrors>
-    <NoWarn>$(NoWarn);MC3074;NU1510</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -204,7 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.275">
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.269">
       <PrivateAssets>all</PrivateAssets>
       <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
     </PackageReference>
@@ -212,7 +211,7 @@
     <PackageReference Include="NLog">
       <Version>6.1.2</Version>
     </PackageReference>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.6" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.15" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="Properties\DesignTimeResources.xaml" />
@@ -291,7 +290,7 @@
     <Copy SourceFiles="@(XPDFFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf" />
     <Copy SourceFiles="@(XPDFDocFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\PdfSearch\xpdf\doc" />
     <Copy SourceFiles="@(WordPluginFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\Plugins\MsWordSearch" />
-    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net10.0\" />
+    <Copy SourceFiles="@(RuntimeFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\runtimes\win\lib\net9.0\" />
     <Copy SourceFiles="@(SparsePackageFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)" />
     <!-- I don't know why this satellite assembly is not published the same as the others -->
     <Copy SourceFiles="@(ValencianFiles)" DestinationFolder="$(SolutionDir)\publish\win-$(Platform)\ca-ES-valencia" />

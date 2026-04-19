@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <LangVersion>14</LangVersion>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <LangVersion>12</LangVersion>
     <OutputType>Library</OutputType>
     <Platforms>x86;x64;ARM64</Platforms>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -46,7 +46,7 @@
     <ProjectReference Include="..\SevenZip\SevenZip.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.275">
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.269">
       <PrivateAssets>all</PrivateAssets>
       <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
     </PackageReference>

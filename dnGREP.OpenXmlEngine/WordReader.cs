@@ -396,7 +396,8 @@ namespace dnGREP.Engines.OpenXml
         private static void ExtractFootnotes(MainDocumentPart mainDoc, SectionProperties lastSectionProps,
             StringBuilder sb, PauseCancelToken pauseCancelToken)
         {
-            if (mainDoc.FootnotesPart != null && mainDoc.FootnotesPart.Footnotes != null &&
+            if (mainDoc.FootnotesPart != null &&
+                mainDoc.FootnotesPart.Footnotes != null &&
                 mainDoc.FootnotesPart.Footnotes.Cast<Footnote>().Any(fn => fn.Id?.Value > 0))
             {
                 sb.AppendLine(@"────────────");
@@ -414,7 +415,8 @@ namespace dnGREP.Engines.OpenXml
                 }
             }
 
-            if (mainDoc.EndnotesPart != null && mainDoc.EndnotesPart.Endnotes != null &&
+            if (mainDoc.EndnotesPart != null &&
+                mainDoc.EndnotesPart.Endnotes != null &&
                 mainDoc.EndnotesPart.Endnotes.Cast<Endnote>().Any(en => en.Id?.Value > 0))
             {
                 sb.AppendLine(@"────────────");
