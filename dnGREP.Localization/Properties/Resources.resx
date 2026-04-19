@@ -4620,4 +4620,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Everything instance name</value>
     <comment>Options dialog, label for text entry box</comment>
   </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Enable details view in results tree</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
 </root>

@@ -662,6 +662,8 @@
 
                 <GroupBox Header="{l:Loc Key='Options_ResultsOptions'}">
                     <StackPanel Margin="0">
+                        <CheckBox Margin="3" Content="{l:Loc Key='Options_EnableDetailsViewInResultsTree'}"
+                                  IsChecked="{Binding Path=TreeListViewEnabled}" />
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_EnableStickyScrollInResultsTree'}"
                                   IsChecked="{Binding Path=StickyScroll}" />
                         <CheckBox Margin="3" Content="{l:Loc Key='Options_SortResultsAutomaticallyWhenSearchCompletes'}"

@@ -79,7 +79,7 @@ namespace dnGREP.WPF
             get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips); }
         }
 
-        public static bool IsTreeListViewEnabled
+        public bool IsTreeListViewEnabled
         {
             get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.TreeListViewEnabled); }
         }
