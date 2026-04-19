@@ -367,12 +367,15 @@ namespace dnGREP.WPF.UserControls
             if (!columnSortTypeMap.TryGetValue(colId, out SortType sortType))
                 return;
 
-            // Toggle direction if clicking the same column
+            // Toggle direction only if the list is currently sorted on this column;
+            // otherwise reuse the last saved direction
             var currentSortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
             var currentDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
 
+            bool isSorted = DataContext is GrepSearchResultsViewModel vm2 && vm2.SortColumnId >= 0;
+
             ListSortDirection newDirection;
-            if (currentSortType == sortType)
+            if (isSorted && currentSortType == sortType)
             {
                 newDirection = currentDirection == ListSortDirection.Ascending
                     ? ListSortDirection.Descending
@@ -380,7 +383,7 @@ namespace dnGREP.WPF.UserControls
             }
             else
             {
-                newDirection = ListSortDirection.Ascending;
+                newDirection = currentDirection;
             }
 
             GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues(
