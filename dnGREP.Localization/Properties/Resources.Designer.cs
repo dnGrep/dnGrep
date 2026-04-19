@@ -3411,6 +3411,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Main_ResultsHeader_Info {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Matches.
         /// </summary>
         public static string Main_ResultsHeader_Matches {
@@ -3427,16 +3436,7 @@ namespace dnGREP.Localization.Properties {
                 return ResourceManager.GetString("Main_ResultsHeader_Name", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Info.
-        /// </summary>
-        public static string Main_ResultsHeader_Info {
-            get {
-                return ResourceManager.GetString("Main_ResultsHeader_Info", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Path.
         /// </summary>
@@ -5549,6 +5549,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_EnableAutomaticCheckingEvery {
             get {
                 return ResourceManager.GetString("Options_EnableAutomaticCheckingEvery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable details view in results tree.
+        /// </summary>
+        public static string Options_EnableDetailsViewInResultsTree {
+            get {
+                return ResourceManager.GetString("Options_EnableDetailsViewInResultsTree", resourceCulture);
             }
         }
         
