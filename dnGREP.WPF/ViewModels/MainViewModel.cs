@@ -171,6 +171,9 @@ namespace dnGREP.WPF
 
                 App.Messenger.Register<MRUViewModel>("IsPinnedChanged", OnMRUPinChanged);
                 App.Messenger.Register<KeyCategory>("KeyGestureChanged", OnKeyGestureChanged);
+
+                GrepSearchResultsViewModel.SearchResultsMessenger.Register<SortColumnRequest>(
+                    "SortColumn", OnSortColumnRequested);
             }
         }
 
@@ -502,16 +505,19 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private SortType sortType;
+        private bool suppressSort;
         partial void OnSortTypeChanged(SortType value)
         {
-            SortResults();
+            GrepSettings.Instance.Set(GrepSettings.Key.TypeOfSort, value);
+            if (!suppressSort) SortResults();
         }
 
         [ObservableProperty]
         private ListSortDirection sortDirection;
         partial void OnSortDirectionChanged(ListSortDirection value)
         {
-            SortResults();
+            GrepSettings.Instance.Set(GrepSettings.Key.SortDirection, value);
+            if (!suppressSort) SortResults();
         }
 
         [ObservableProperty]
@@ -3288,38 +3294,77 @@ namespace dnGREP.WPF
                 ClearMatchCountStatus();
                 ResultsViewModel.SearchResults.Clear();
 
-                switch (SortType)
-                {
-                    case SortType.FileNameOnly:
-                        list.Sort(new FileNameOnlyComparer(SortDirection, NaturalSort));
-                        break;
-                    case SortType.FileTypeAndName:
-                        list.Sort(new FileTypeAndNameComparer(SortDirection, NaturalSort));
-                        break;
-                    case SortType.FileNameDepthFirst:
-                    default:
-                        list.Sort(new FileNameDepthFirstComparer(SortDirection, NaturalSort));
-                        break;
-                    case SortType.FileNameBreadthFirst:
-                        list.Sort(new FileNameBreadthFirstComparer(SortDirection, NaturalSort));
-                        break;
-                    case SortType.Size:
-                        list.Sort(new FileSizeComparer(SortDirection));
-                        break;
-                    case SortType.Date:
-                        list.Sort(new FileDateComparer(SortDirection));
-                        break;
-                    case SortType.MatchCount:
-                        list.Sort(new MatchCountComparer(SortDirection));
-                        break;
-                    case SortType.ReadOnly:
-                        list.Sort(new ReadOnlyComparer(SortDirection));
-                        break;
-                }
+                SortResultsList(list);
 
                 ResultsViewModel.AddRange(list);
             }
             ResultsViewModel.SelectItems(selections);
+            UpdateSortIndicator();
+        }
+
+        private void SortResultsList(List<FormattedGrepResult> list)
+        {
+            switch (SortType)
+            {
+                case SortType.FileNameOnly:
+                    list.Sort(new FileNameOnlyComparer(SortDirection, NaturalSort));
+                    break;
+                case SortType.FileTypeAndName:
+                    list.Sort(new FileTypeAndNameComparer(SortDirection, NaturalSort));
+                    break;
+                case SortType.FileNameDepthFirst:
+                default:
+                    list.Sort(new FileNameDepthFirstComparer(SortDirection, NaturalSort));
+                    break;
+                case SortType.FileNameBreadthFirst:
+                    list.Sort(new FileNameBreadthFirstComparer(SortDirection, NaturalSort));
+                    break;
+                case SortType.Size:
+                    list.Sort(new FileSizeComparer(SortDirection));
+                    break;
+                case SortType.Date:
+                    list.Sort(new FileDateComparer(SortDirection));
+                    break;
+                case SortType.MatchCount:
+                    list.Sort(new MatchCountComparer(SortDirection));
+                    break;
+                case SortType.ReadOnly:
+                    list.Sort(new ReadOnlyComparer(SortDirection));
+                    break;
+            }
+        }
+
+        private static readonly Dictionary<SortType, int> sortTypeToColumnId = new()
+        {
+            { SortType.FileNameDepthFirst, UserControls.ResultsTree.ColPath },
+            { SortType.FileNameBreadthFirst, UserControls.ResultsTree.ColPath },
+            { SortType.FileNameOnly, UserControls.ResultsTree.ColName },
+            { SortType.MatchCount, UserControls.ResultsTree.ColMatches },
+            { SortType.Size, UserControls.ResultsTree.ColSize },
+            { SortType.FileTypeAndName, UserControls.ResultsTree.ColType },
+            { SortType.Date, UserControls.ResultsTree.ColDate },
+            { SortType.ReadOnly, UserControls.ResultsTree.ColReadOnly },
+        };
+
+        private void OnSortColumnRequested(SortColumnRequest request)
+        {
+            if (!CanSortResults) return;
+
+            suppressSort = true;
+            SortType = request.SortType;
+            SortDirection = request.Direction;
+            suppressSort = false;
+
+            SortResults();
+        }
+
+        private void UpdateSortIndicator()
+        {
+            if (ResultsViewModel.TreeControl is UserControls.ResultsTree tree)
+            {
+                int colId = sortTypeToColumnId.TryGetValue(SortType, out int id) ? id : -1;
+                tree.UpdateSortIndicator(colId, SortDirection);
+            }
         }
 
         private string GetSearchOptions()

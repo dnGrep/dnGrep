@@ -95,6 +95,10 @@ namespace dnGREP.WPF.UserControls
             ((System.Collections.Specialized.INotifyCollectionChanged)TreeListViewColumns)
                 .CollectionChanged += TreeListViewColumns_CollectionChanged;
 
+            // Listen for column header clicks for sorting
+            headerRowPresenter.PreviewMouseLeftButtonDown += HeaderRowPresenter_PreviewMouseLeftButtonDown;
+            headerRowPresenter.PreviewMouseLeftButtonUp += HeaderRowPresenter_PreviewMouseLeftButtonUp;
+
             treeView.PreviewMouseWheel += TreeView_PreviewMouseWheel;
             treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
             treeView.PreviewTouchMove += TreeView_PreviewTouchMove;
@@ -277,6 +281,173 @@ namespace dnGREP.WPF.UserControls
                 string.Join(",", order.Select(o => o.ToString(System.Globalization.CultureInfo.InvariantCulture))));
             GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewColumnWidths,
                 string.Join(",", widths.Select(w => w.ToString(System.Globalization.CultureInfo.InvariantCulture))));
+        }
+
+        private static readonly Dictionary<int, SortType> columnSortTypeMap = new()
+        {
+            { ColPath, SortType.FileNameDepthFirst },
+            { ColName, SortType.FileNameOnly },
+            { ColMatches, SortType.MatchCount },
+            { ColSize, SortType.Size },
+            { ColType, SortType.FileTypeAndName },
+            { ColDate, SortType.Date },
+            { ColReadOnly, SortType.ReadOnly },
+        };
+
+        private Point headerMouseDownPos;
+        private bool headerMouseDownOnHeader;
+
+        private void HeaderRowPresenter_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            headerMouseDownPos = e.GetPosition(headerRowPresenter);
+
+            // Check if the mouse is over a column header (not a gripper/thumb)
+            DependencyObject? current = e.OriginalSource as DependencyObject;
+            headerMouseDownOnHeader = false;
+            while (current != null && current != headerRowPresenter)
+            {
+                if (current is System.Windows.Controls.Primitives.Thumb)
+                {
+                    // Clicking on the resize gripper, not a header click
+                    return;
+                }
+                if (current is GridViewColumnHeader)
+                {
+                    headerMouseDownOnHeader = true;
+                    break;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+        }
+
+        private void HeaderRowPresenter_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!headerMouseDownOnHeader)
+                return;
+
+            // Check for drag (resize or reorder) — if the mouse moved significantly, ignore
+            Point upPos = e.GetPosition(headerRowPresenter);
+            if (Math.Abs(upPos.X - headerMouseDownPos.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(upPos.Y - headerMouseDownPos.Y) > SystemParameters.MinimumVerticalDragDistance)
+            {
+                return;
+            }
+
+            // Walk up the visual tree from the clicked element to find the GridViewColumnHeader
+            DependencyObject? current = e.OriginalSource as DependencyObject;
+            GridViewColumnHeader? header = null;
+            while (current != null && current != headerRowPresenter)
+            {
+                if (current is GridViewColumnHeader h)
+                {
+                    header = h;
+                    break;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+
+            if (header == null || header.Role == GridViewColumnHeaderRole.Padding)
+                return;
+
+            // Find which column this header belongs to by matching header content
+            GridViewColumn? column = null;
+            foreach (var col in TreeListViewColumns)
+            {
+                if (Equals(col.Header, header.Content))
+                {
+                    column = col;
+                    break;
+                }
+            }
+
+            if (column == null)
+                return;
+
+            int colId = GetColumnId(column);
+            if (!columnSortTypeMap.TryGetValue(colId, out SortType sortType))
+                return;
+
+            // Toggle direction if clicking the same column
+            var currentSortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
+            var currentDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+
+            ListSortDirection newDirection;
+            if (currentSortType == sortType)
+            {
+                newDirection = currentDirection == ListSortDirection.Ascending
+                    ? ListSortDirection.Descending
+                    : ListSortDirection.Ascending;
+            }
+            else
+            {
+                newDirection = ListSortDirection.Ascending;
+            }
+
+            GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues(
+                "SortColumn", new SortColumnRequest(sortType, newDirection));
+        }
+
+        internal void UpdateSortIndicator(int sortColumnId, ListSortDirection direction)
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                vm.SortColumnId = sortColumnId;
+                vm.SortColumnDirection = direction;
+            }
+
+            // Update the sort arrow on each column header
+            foreach (var column in TreeListViewColumns)
+            {
+                int colId = GetColumnId(column);
+                var header = FindColumnHeader(column);
+                if (header != null)
+                {
+                    var sortArrow = FindSortArrow(header);
+                    if (sortArrow != null)
+                    {
+                        if (colId == sortColumnId)
+                        {
+                            sortArrow.Visibility = Visibility.Visible;
+                            sortArrow.Data = direction == ListSortDirection.Ascending
+                                ? System.Windows.Media.Geometry.Parse("M 0,6 L 4,0 L 8,6 Z")
+                                : System.Windows.Media.Geometry.Parse("M 0,0 L 4,6 L 8,0 Z");
+                        }
+                        else
+                        {
+                            sortArrow.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                }
+            }
+        }
+
+        private GridViewColumnHeader? FindColumnHeader(GridViewColumn column)
+        {
+            // Walk the visual tree of the headerRowPresenter to find the header for this column
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(headerRowPresenter); i++)
+            {
+                if (VisualTreeHelper.GetChild(headerRowPresenter, i) is GridViewColumnHeader header &&
+                    Equals(header.Content, column.Header))
+                {
+                    return header;
+                }
+            }
+            return null;
+        }
+
+        private static System.Windows.Shapes.Path? FindSortArrow(DependencyObject parent)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is System.Windows.Shapes.Path path && path.Name == "sortArrow")
+                {
+                    return path;
+                }
+                var result = FindSortArrow(child);
+                if (result != null) return result;
+            }
+            return null;
         }
 
         #region INameScope Members

@@ -514,6 +514,13 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private int infoColumnIndex = 8;
 
+        // Sort state for tree list view column header indicators
+        [ObservableProperty]
+        private int sortColumnId = -1;
+
+        [ObservableProperty]
+        private ListSortDirection sortColumnDirection = ListSortDirection.Ascending;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasFailures))]
         [NotifyPropertyChangedFor(nameof(FileReadErrors))]

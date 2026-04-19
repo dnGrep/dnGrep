@@ -32,10 +32,17 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter x:Name="content"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <DockPanel>
+                                <Path x:Name="sortArrow" DockPanel.Dock="Right"
+                                      Margin="4,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Visibility="Collapsed"/>
+                                <ContentPresenter x:Name="content"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </DockPanel>
                         </Border>
                         <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right"
                                Style="{StaticResource TreeListViewColumnHeaderGripperStyle}" />
