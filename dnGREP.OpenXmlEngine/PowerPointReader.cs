@@ -73,7 +73,7 @@ namespace dnGREP.Engines.OpenXml
             if (relId == null) return string.Empty;
 
             // Get the slide part from the relationship ID.
-            SlidePart? slidePart = part?.GetPartById(relId) as SlidePart;
+            var slidePart = part?.GetPartById(relId) as SlidePart;
 
             StringBuilder sb = new();
 
