@@ -52,7 +52,14 @@
                               VerticalScrollBarVisibility="Disabled">
                     <GridViewHeaderRowPresenter x:Name="headerRowPresenter" Margin="22,0,0,0"
                                                 Columns="{Binding TreeListViewColumns, RelativeSource={RelativeSource AncestorType={x:Type Controls:ResultsTree}}}"
-                                                ColumnHeaderContainerStyle="{StaticResource TreeListViewColumnHeader}"/>
+                                                ColumnHeaderContainerStyle="{StaticResource TreeListViewColumnHeader}">
+                        <GridViewHeaderRowPresenter.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{l:Loc Key='Main_Results_SizeAllColumnsToFit'}" Command="{Binding SizeToFitCommand}" InputGestureText="{Binding SizeToFitCommand.KeyGestureText}" />
+                            </ContextMenu>
+                        </GridViewHeaderRowPresenter.ContextMenu>
+                         
+                    </GridViewHeaderRowPresenter>
                 </ScrollViewer>
             </Border>
 

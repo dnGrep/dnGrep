@@ -266,6 +266,164 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        internal void SizeToFit()
+        {
+            // Ensure called on UI thread
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(SizeToFit);
+                return;
+            }
+
+            if (DataContext is not GrepSearchResultsViewModel vm)
+                return;
+
+            int colCount = TreeListViewColumns.Count;
+            var required = new double[colCount];
+
+            // small helper: find first descendant of type T
+            static T? FindDescendantOfType<T>(DependencyObject root) where T : DependencyObject
+            {
+                if (root == null) return null;
+                int count = VisualTreeHelper.GetChildrenCount(root);
+                for (int i = 0; i < count; i++)
+                {
+                    var child = VisualTreeHelper.GetChild(root, i);
+                    if (child is T t) return t;
+                    var res = FindDescendantOfType<T>(child);
+                    if (res != null) return res;
+                }
+                return null;
+            }
+
+            // 1) Measure header text + sort indicator
+            for (int i = 0; i < colCount; i++)
+            {
+                double headerWidth = 0.0;
+                var gvCol = TreeListViewColumns[i];
+                var header = FindColumnHeader(gvCol);
+                if (header != null)
+                {
+                    // first try to find a TextBlock inside the header visual and measure it
+                    var headerTextBlock = FindDescendantOfType<TextBlock>(header);
+                    if (headerTextBlock != null)
+                    {
+                        headerTextBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                        headerWidth = headerTextBlock.DesiredSize.Width + headerTextBlock.Margin.Left + headerTextBlock.Margin.Right;
+                    }
+                    else if (gvCol.Header is string s && !string.IsNullOrEmpty(s))
+                    {
+                        // fallback: measure string with headerRowPresenter font
+                        var typeface = new Typeface(
+                            header.FontFamily ?? SystemFonts.MessageFontFamily,
+                            header.FontStyle,
+                            header.FontWeight,
+                            header.FontStretch);
+
+                        var ft = new FormattedText(
+                            s,
+                            System.Globalization.CultureInfo.CurrentCulture,
+                            headerRowPresenter.FlowDirection,
+                            typeface,
+                            header.FontSize,
+                            Brushes.Black,
+                            VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
+                        headerWidth = ft.WidthIncludingTrailingWhitespace;
+                    }
+
+                    // include space for header padding and draggable gripper area (approx)
+                    headerWidth += 12;
+
+                    // include sort arrow if present in header template (reserve small width)
+                    if (HasVisibleSortArrow(header))
+                    {
+                        headerWidth += 16;
+                    }
+                }
+                required[i] = headerWidth;
+            }
+
+            // 2) Measure visible root-level nodes content for each column
+            var colMap = new Dictionary<int, TextBlock>(colCount);
+            foreach (FormattedGrepResult node in treeView.Items.Cast<FormattedGrepResult>())
+            {
+                var container = treeView.ItemContainerGenerator.ContainerFromItem(node) as TreeViewItem;
+                if (container == null || !container.IsVisible)
+                    continue;
+
+                var headerControl = GetHeaderControl(container);
+                if (headerControl == null)
+                    continue;
+
+                colMap.Clear();
+                CollectTextBlocksByColumn(headerControl, colMap);
+
+                foreach (var (col, tb) in colMap)
+                {
+                    if (col < colCount)
+                    {
+                        tb.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                        double w = tb.DesiredSize.Width + tb.Margin.Left + tb.Margin.Right;
+                        if (w > required[col])
+                            required[col] = w;
+                    }
+                }
+            }
+
+            // 3) Apply a small padding and enforce minimum sensible widths (use defaults for icon if empty)
+            for (int i = 0; i < colCount; i++)
+            {
+                const double pad = 8;
+                double finalWidth = required[i] + pad;
+
+                if (double.IsNaN(finalWidth) || finalWidth <= 0)
+                    finalWidth = DefaultColumnWidths.Length > i ? DefaultColumnWidths[i] : 50;
+
+                TreeListViewColumns[i].Width = finalWidth;
+            }
+
+            // sync to view model and save layout
+            OnColumnLayoutChanged();
+        }
+
+        private static bool HasVisibleSortArrow(DependencyObject parent)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is System.Windows.Shapes.Path { Name: "sortArrow", Visibility: Visibility.Visible })
+                    return true;
+                if (HasVisibleSortArrow(child))
+                    return true;
+            }
+            return false;
+        }
+
+        // helper: walk the visual tree once, mapping Grid.Column index → TextBlock
+        private static void CollectTextBlocksByColumn(DependencyObject root,
+            Dictionary<int, TextBlock> result)
+        {
+            if (root == null) return;
+            int count = VisualTreeHelper.GetChildrenCount(root);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(root, i);
+                if (child is FrameworkElement fe && fe.Visibility == Visibility.Collapsed)
+                    continue;
+
+                if (child is TextBlock tb)
+                {
+                    int col = Grid.GetColumn(tb);
+                    result.TryAdd(col, tb);
+                }
+                else
+                {
+                    CollectTextBlocksByColumn(child, result);
+                }
+            }
+        }
+
         private void SaveColumnLayout()
         {
             var order = new int[TreeListViewColumns.Count];
@@ -426,11 +584,10 @@ namespace dnGREP.WPF.UserControls
 
         private GridViewColumnHeader? FindColumnHeader(GridViewColumn column)
         {
-            // Walk the visual tree of the headerRowPresenter to find the header for this column
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(headerRowPresenter); i++)
             {
                 if (VisualTreeHelper.GetChild(headerRowPresenter, i) is GridViewColumnHeader header &&
-                    Equals(header.Content, column.Header))
+                    header.Column == column)
                 {
                     return header;
                 }

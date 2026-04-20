@@ -55,6 +55,7 @@ namespace dnGREP.WPF
                 }
             }
 
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SizeToFitCommand), "Main_Results_SizeAllColumnsToFit", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenContainingFolderCommand), "Main_Results_OpenContainingFolder", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(RenameFileCommand), "Main_Results_RenameFile", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_Results_CopyFiles", string.Empty);
@@ -686,6 +687,11 @@ namespace dnGREP.WPF
         }
 
         #region Commands
+
+        private RelayCommand? sizeToFitCommand;
+        public RelayCommand SizeToFitCommand => sizeToFitCommand ??= new RelayCommand(
+            p => TreeControl?.SizeToFit(),
+            q => SearchResults.Count > 0);
 
         private RelayCommand? openContainingFolderCommand;
         public RelayCommand OpenContainingFolderCommand => openContainingFolderCommand ??= new RelayCommand(

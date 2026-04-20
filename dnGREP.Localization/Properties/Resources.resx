@@ -4624,4 +4624,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Enable details view in results tree</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Size all columns to fit</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
 </root>
