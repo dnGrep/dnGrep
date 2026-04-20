@@ -58,7 +58,10 @@ namespace dnGREP.Common
 
             foreach (var item in map)
             {
-                text = text.Replace(item.Key, item.Value, StringComparison.Ordinal);
+                if (!string.IsNullOrEmpty(item.Key) && item.Value != null)
+                {
+                    text = text.Replace(item.Key, item.Value, StringComparison.Ordinal);
+                }
             }
 
             return text;
