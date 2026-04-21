@@ -1932,4 +1932,97 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReportOptionsWindow_Global" xml:space="preserve">
     <value>Global</value>
   </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Incluir informações de arquivo e linha</value>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Apenas correspondências</value>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>Por arquivo</value>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Pressione F1 para obter ajuda</value>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Visualização:</value>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Opções de Relatório</value>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Separador para várias correspondências ou grupos em uma linha</value>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Mostrar cada correspondência ou grupo em linha separada</value>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Remover espaços em branco</value>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Diferenciar maiúsculas e minúsculas</value>
+  </data>
+  <data name="ReportSummary_DotAsNewline" xml:space="preserve">
+    <value>Ponto como nova linha</value>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Codificação:</value>
+  </data>
+  <data name="ReportSummary_ExcludePattern" xml:space="preserve">
+    <value>Padrão de exclusão de arquivo:</value>
+  </data>
+  <data name="ReportSummary_FilePattern" xml:space="preserve">
+    <value>Padrão de inclusão de arquivo:</value>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Profundidade máxima de pastas: {0}</value>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Multilinha</value>
+  </data>
+  <data name="ReportSummary_NoArchives" xml:space="preserve">
+    <value>Nenhum arquivo compactado</value>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Nenhum binário</value>
+  </data>
+  <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
+    <value>Nenhum arquivo binário</value>
+  </data>
+  <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
+    <value>Nenhum arquivo oculto</value>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Nenhuma subpasta</value>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Nenhum link simbólico</value>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Pesquisar por:</value>
+  </data>
+  <data name="ReportSummary_SearchIn" xml:space="preserve">
+    <value>Pesquisar em:</value>
+  </data>
+  <data name="ReportSummary_SearchInResults" xml:space="preserve">
+    <value>Pesquisar nos resultados</value>
+  </data>
+  <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
+    <value>Tamanho de {0} a {1} KB</value>
+  </data>
+  <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
+    <value>Parar após a primeira correspondência</value>
+  </data>
+  <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
+    <value>Data de {0} de {1} a {2}</value>
+  </data>
 </root>
