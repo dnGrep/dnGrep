@@ -16,9 +16,13 @@ namespace dnGREP.Common
             map.Clear();
             foreach (var item in dictionary)
             {
-                map[item.Key] = item.Value;
+                if (!string.IsNullOrEmpty(item.Key))
+                {
+                    map[item.Key] = item.Value;
+                }
             }
         }
+
         public static string Describe(string text)
         {
             if (string.IsNullOrEmpty(text))
