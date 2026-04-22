@@ -4381,4 +4381,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>すべてのインスタンス名</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>読み取り専用</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>一致項目</value>
+  </data>
 </root>
