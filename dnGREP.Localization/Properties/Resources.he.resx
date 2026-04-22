@@ -2734,4 +2734,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="PasswordDialog_Title" xml:space="preserve">
     <value>סיסמה</value>
   </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>סוג</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>התאמות</value>
+  </data>
 </root>
