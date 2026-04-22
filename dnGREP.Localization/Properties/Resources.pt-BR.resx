@@ -65,7 +65,7 @@
     <value>Agradecimentos</value>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value>Baseado em</value>
+    <value>Compilado em</value>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
     <value>Converte arquivos PDF em texto simples</value>
@@ -212,7 +212,7 @@
     <value>Pesquisar por:</value>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>_Pesquisar em arquivos</value>
+    <value>Pesquisar em ar_quivos</value>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
@@ -248,7 +248,7 @@
     <value>Ignorar arquivos em armazenamento em nuvem remota</value>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
-    <value>Este marcador já existe</value>
+    <value>Este favorito já existe</value>
   </data>
   <data name="BookmarkDetails_Title" xml:space="preserve">
     <value>Detalhes do marcador</value>
@@ -317,7 +317,7 @@
     <value>Seções</value>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
-    <value>Diferenciar maiúsculas/minúsculas</value>
+    <value>Diferenciar maiúsculas de minúsculas</value>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
     <value>Multilinha</value>
@@ -341,7 +341,7 @@
     <value>Palavra inteira</value>
   </data>
   <data name="Bookmarks_Title" xml:space="preserve">
-    <value>Marcadores</value>
+    <value>Favoritos</value>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
     <value>Tipo</value>
@@ -568,7 +568,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Pesquisa de grupo de captura</value>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>_Diferenciar maiúsculas de minúsculas</value>
+    <value>D_iferenciar maiúsculas de minúsculas</value>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
     <value>Altera o nível de zoom da árvore de resultados</value>
@@ -745,7 +745,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Scripts</value>
   </data>
   <data name="Main_Menu_Settings" xml:space="preserve">
-    <value>Confi_gurações</value>
+    <value>Configuraçõ_es</value>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
     <value>_Desfazer</value>
@@ -955,7 +955,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Pesquisar arquivos em múltiplas threads</value>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value>Pesquisar_por:</value>
+    <value>Pesquisar _por:</value>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
     <value>Pesquisa</value>
@@ -1153,7 +1153,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>O XPath está OK</value>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>_ Palavra inteira</value>
+    <value>_Palavra inteira</value>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
     <value>{0} em "{1}" – dnGrep</value>
@@ -1381,7 +1381,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Sim</value>
   </data>
   <data name="MessageBox_YesToAll" xml:space="preserve">
-    <value>Sim para _Todos</value>
+    <value>Sim para _todos</value>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
     <value>Atenção, você está prestes a excluir arquivos encontrados durante a pesquisa.</value>
@@ -1720,7 +1720,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Os realces não estão sendo exibidos porque muitas correspondências foram encontradas.</value>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>Diferenciar maiúsculas de minúsculas</value>
+    <value>Coincidir maiúsculas de minúsculas</value>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
     <value>Corresponder a palavras inteiras</value>
@@ -3151,7 +3151,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Shift</value>
   </data>
   <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
-    <value>.NET library to generate textual differences</value>
+    <value>Biblioteca .NET para gerar diferenças textuais</value>
   </data>
   <data name="Replace_OpenFileCompare" xml:space="preserve">
     <value>Abrir comparação de arquivos</value>
