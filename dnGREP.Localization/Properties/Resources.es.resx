@@ -2593,4 +2593,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Ir hasta abajo</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
 </root>
