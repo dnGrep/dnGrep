@@ -1090,4 +1090,10 @@
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
     <value>Sadržaj datoteke</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Tip</value>
+  </data>
 </root>
