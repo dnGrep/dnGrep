@@ -3753,4 +3753,13 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything Instanzname</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Fundstellen</value>
+  </data>
 </root>
