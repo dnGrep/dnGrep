@@ -208,7 +208,7 @@
                                             Style="{StaticResource ThemedTextBlock}" />
                     </ScrollViewer>
                     <Border.ContextMenu>
-                        <ContextMenu>
+                        <ContextMenu my:MenuProperties.ShowIconColumn="False">
                             <MenuItem Header="{l:Loc Key='Test_CopyToClipboard'}" Click="BtnCopyFile_Click"
                                       IsEnabled="{Binding ReplaceOutputText, Converter={StaticResource notNullOrEmpty}}" />
                         </ContextMenu>

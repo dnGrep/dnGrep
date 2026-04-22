@@ -71,6 +71,11 @@
                 <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
+        
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
     </Window.Resources>
 
 

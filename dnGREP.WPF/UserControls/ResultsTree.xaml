@@ -54,7 +54,7 @@
                                                 Columns="{Binding TreeListViewColumns, RelativeSource={RelativeSource AncestorType={x:Type Controls:ResultsTree}}}"
                                                 ColumnHeaderContainerStyle="{StaticResource TreeListViewColumnHeader}">
                         <GridViewHeaderRowPresenter.ContextMenu>
-                            <ContextMenu>
+                            <ContextMenu my:MenuProperties.ShowIconColumn="False">
                                 <MenuItem Header="{l:Loc Key='Main_Results_SizeAllColumnsToFit'}" Command="{Binding SizeToFitCommand}" InputGestureText="{Binding SizeToFitCommand.KeyGestureText}" />
                             </ContextMenu>
                         </GridViewHeaderRowPresenter.ContextMenu>
@@ -258,7 +258,7 @@
                     </DataTemplate>
                 </TreeView.Resources>
                 <TreeView.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu my:MenuProperties.ShowIconColumn="False">
                         <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
 
                         <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
@@ -480,7 +480,8 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                             <TextBlock.ContextMenu>
-                                <ContextMenu x:Name="contextMenuClassic">
+                                <ContextMenu x:Name="contextMenuClassic"
+                                             my:MenuProperties.ShowIconColumn="False">
                                     <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
                                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
                                               ItemsSource="{Binding Path=DataContext.EditorMenuItems, ElementName=contextRoot, UpdateSourceTrigger=PropertyChanged}">
@@ -562,7 +563,8 @@
                                     </ToolTip>
                                 </TextBlock.ToolTip>
                             <TextBlock.ContextMenu>
-                                <ContextMenu x:Name="contextMenu">
+                                <ContextMenu x:Name="contextMenu"
+                                             my:MenuProperties.ShowIconColumn="False">
                                     <MenuItem Header="{l:Loc Key='Main_Results_Open'}" Command="{Binding OpenFilesCommand}" InputGestureText="{Binding OpenFilesCommand.KeyGestureText}" />
                                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Results_OpenWith'}"
                                               ItemsSource="{Binding Path=DataContext.EditorMenuItems, ElementName=contextRoot, UpdateSourceTrigger=PropertyChanged}">

@@ -78,6 +78,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
     </Window.Resources>
 
     <DockPanel MinWidth="450" Margin="8" Grid.IsSharedSizeScope="True">
