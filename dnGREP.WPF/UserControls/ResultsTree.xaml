@@ -183,6 +183,9 @@
                                 </TextBlock>
                                 <TextBlock Grid.Column="{Binding DataContext.MatchesColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding MatchInfo}" 
                                            TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" 
+                                           TextTrimming="CharacterEllipsis" 
+                                           HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"/>
                                 <TextBlock Grid.Column="{Binding DataContext.SizeColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding FileSize}"
                                            TextTrimming="CharacterEllipsis"
                                            HorizontalAlignment="Right"/>
@@ -190,9 +193,6 @@
                                            TextTrimming="CharacterEllipsis"/>
                                 <TextBlock Grid.Column="{Binding DataContext.DateColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding DateModified}" 
                                            TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" 
-                                           TextTrimming="CharacterEllipsis" 
-                                           HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"/>
                                 <TextBlock Grid.Column="{Binding DataContext.InfoColumnIndex, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Margin="3,0" Text="{Binding AdditionalInfo}" 
                                            TextTrimming="CharacterEllipsis"/>
                             </Grid>
@@ -589,6 +589,10 @@
                             <TextBlock Grid.Column="{Binding DataContext.MatchesColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding MatchInfo}" 
                                    TextTrimming="CharacterEllipsis"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
+                            <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" 
+                                   TextTrimming="CharacterEllipsis" 
+                                   HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"
+                                   Style="{StaticResource ContextOverlayTextBlockStyle}"/>
                             <TextBlock Grid.Column="{Binding DataContext.SizeColumnIndex, ElementName=contextRoot}" Margin="0,0,3,0" Text="{Binding FileSize}" 
                                    TextTrimming="CharacterEllipsis"
                                    HorizontalAlignment="Right"
@@ -598,9 +602,6 @@
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
                             <TextBlock Grid.Column="{Binding DataContext.DateColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding DateModified}" 
                                    TextTrimming="CharacterEllipsis"
-                                   Style="{StaticResource ContextOverlayTextBlockStyle}"/>
-                            <TextBlock Grid.Column="{Binding DataContext.ReadOnlyColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding IsReadOnly, Converter={StaticResource BoolToCheckConverter}}" TextTrimming="CharacterEllipsis" 
-                                   HorizontalAlignment="Center" FontFamily="Segoe UI Symbol"
                                    Style="{StaticResource ContextOverlayTextBlockStyle}"/>
                             <TextBlock Grid.Column="{Binding DataContext.InfoColumnIndex, ElementName=contextRoot}" Margin="3,0" Text="{Binding AdditionalInfo}" 
                                    TextTrimming="CharacterEllipsis"

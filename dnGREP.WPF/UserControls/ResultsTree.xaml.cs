@@ -33,14 +33,14 @@ namespace dnGREP.WPF.UserControls
         internal const int ColPath = 1;
         internal const int ColName = 2;
         internal const int ColMatches = 3;
-        internal const int ColSize = 4;
-        internal const int ColType = 5;
-        internal const int ColDate = 6;
-        internal const int ColReadOnly = 7;
+        internal const int ColReadOnly = 4;
+        internal const int ColSize = 5;
+        internal const int ColType = 6;
+        internal const int ColDate = 7;
         internal const int ColInfo = 8;
 
         // Default column order and widths
-        private static readonly double[] DefaultColumnWidths = [22, 150, 200, 200, 70, 70, 150, 80, 120];
+        private static readonly double[] DefaultColumnWidths = [22, 150, 200, 200, 100, 100, 100, 160, 100];
 
         // Map from GridViewColumn to its logical column id
         private readonly Dictionary<GridViewColumn, int> columnIds = [];
@@ -55,11 +55,11 @@ namespace dnGREP.WPF.UserControls
                 (Res.Main_ResultsHeader_Path, 150, ColPath),
                 (Res.Main_ResultsHeader_Name, 200, ColName),
                 (Res.Main_ResultsHeader_Matches, 200, ColMatches),
-                (Res.Main_ResultsHeader_Size, 70, ColSize),
-                (Res.Main_ResultsHeader_Type, 70, ColType),
-                (Res.Main_ResultsHeader_DateModified, 150, ColDate),
-                (Res.Main_ResultsHeader_ReadOnly, 80, ColReadOnly),
-                (Res.Main_ResultsHeader_Info, 120, ColInfo),
+                (Res.Main_ResultsHeader_ReadOnly, 100, ColReadOnly),
+                (Res.Main_ResultsHeader_Size, 100, ColSize),
+                (Res.Main_ResultsHeader_Type, 100, ColType),
+                (Res.Main_ResultsHeader_DateModified, 160, ColDate),
+                (Res.Main_ResultsHeader_Info, 100, ColInfo),
             };
 
             TreeListViewColumns = [];
@@ -255,10 +255,10 @@ namespace dnGREP.WPF.UserControls
                             case ColPath: vm.PathColumnIndex = i; break;
                             case ColName: vm.NameColumnIndex = i; break;
                             case ColMatches: vm.MatchesColumnIndex = i; break;
+                            case ColReadOnly: vm.ReadOnlyColumnIndex = i; break;
                             case ColSize: vm.SizeColumnIndex = i; break;
                             case ColType: vm.TypeColumnIndex = i; break;
                             case ColDate: vm.DateColumnIndex = i; break;
-                            case ColReadOnly: vm.ReadOnlyColumnIndex = i; break;
                             case ColInfo: vm.InfoColumnIndex = i; break;
                         }
                     }
@@ -438,7 +438,7 @@ namespace dnGREP.WPF.UserControls
             GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewColumnOrder,
                 string.Join(",", order.Select(o => o.ToString(System.Globalization.CultureInfo.InvariantCulture))));
             GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewColumnWidths,
-                string.Join(",", widths.Select(w => w.ToString(System.Globalization.CultureInfo.InvariantCulture))));
+                string.Join(",", widths.Select(w => w.ToString("f2", System.Globalization.CultureInfo.InvariantCulture))));
         }
 
         private static readonly Dictionary<int, SortType> columnSortTypeMap = new()
@@ -446,10 +446,10 @@ namespace dnGREP.WPF.UserControls
             { ColPath, SortType.FileNameDepthFirst },
             { ColName, SortType.FileNameOnly },
             { ColMatches, SortType.MatchCount },
+            { ColReadOnly, SortType.ReadOnly },
             { ColSize, SortType.Size },
             { ColType, SortType.FileTypeAndName },
             { ColDate, SortType.Date },
-            { ColReadOnly, SortType.ReadOnly },
         };
 
         private Point headerMouseDownPos;

@@ -502,16 +502,16 @@ namespace dnGREP.WPF
         private int matchesColumnIndex = 3;
 
         [ObservableProperty]
-        private int sizeColumnIndex = 4;
+        private int readOnlyColumnIndex = 4;
 
         [ObservableProperty]
-        private int typeColumnIndex = 5;
+        private int sizeColumnIndex = 5;
 
         [ObservableProperty]
-        private int dateColumnIndex = 6;
+        private int typeColumnIndex = 6;
 
         [ObservableProperty]
-        private int readOnlyColumnIndex = 7;
+        private int dateColumnIndex = 7;
 
         [ObservableProperty]
         private int infoColumnIndex = 8;
