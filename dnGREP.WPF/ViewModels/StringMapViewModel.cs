@@ -41,10 +41,13 @@ namespace dnGREP.WPF
 
             foreach (var item in stringMap.Map)
             {
-                _items.Add(new StringSubstitutionViewModel(this,
-                    item.Key, item.Value, _items.Count));
+                if (!string.IsNullOrEmpty(item.Key) && item.Value != null)
+                {
+                    _items.Add(new StringSubstitutionViewModel(this,
+                        item.Key, item.Value, _items.Count));
 
-                MapKeys.Add(item.Key);
+                    MapKeys.Add(item.Key);
+                }
             }
             MapItems = CollectionViewSource.GetDefaultView(_items);
 
@@ -103,7 +106,10 @@ namespace dnGREP.WPF
 
             foreach (var item in _items.OrderBy(i => i.Ordinal))
             {
-                stringMap.Map.Add(item.MapKey, item.MapValue);
+                if (!string.IsNullOrEmpty(item.MapKey) && item.MapValue != null)
+                {
+                    stringMap.Map.Add(item.MapKey, item.MapValue);
+                }
             }
             GrepSettings.Instance.SaveSubstitutionStrings(stringMap);
 

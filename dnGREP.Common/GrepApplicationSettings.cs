@@ -979,10 +979,13 @@ namespace dnGREP.Common
                 XElement root = new("keyValuePairArray");
                 foreach (var pair in map)
                 {
-                    var elem = new XElement("keyValuePair");
-                    elem.SetAttributeValue("key", pair.Key);
-                    elem.SetAttributeValue("value", pair.Value);
-                    root.Add(elem);
+                    if (!string.IsNullOrWhiteSpace(pair.Key) && pair.Value != null)
+                    {
+                        var elem = new XElement("keyValuePair");
+                        elem.SetAttributeValue("key", pair.Key);
+                        elem.SetAttributeValue("value", pair.Value);
+                        root.Add(elem);
+                    }
                 }
 
                 string xmlString = root.ToString();
@@ -1003,7 +1006,7 @@ namespace dnGREP.Common
                     foreach (var elem in root.Descendants("keyValuePair"))
                     {
                         if (elem.Attribute("key") is XAttribute keyAttr &&
-                            keyAttr.Value != null &&
+                            !string.IsNullOrEmpty(keyAttr.Value) &&
                             elem.Attribute("value") is XAttribute valueAttr &&
                             valueAttr.Value != null)
                         {
