@@ -20,6 +20,10 @@
 
     <Window.Resources>
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
     </Window.Resources>
 
     <DockPanel Margin="8" LastChildFill="True">

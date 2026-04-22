@@ -12,7 +12,6 @@
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
         <Setter Property="Background" Value="{DynamicResource Control.Static.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Control.Static.Border}" />
-        <!--<Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />-->
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="2,1,1,1" />
         <Setter Property="AllowDrop" Value="true" />
@@ -101,7 +100,7 @@
         </Setter>
         <Setter Property="ContextMenu">
             <Setter.Value>
-                <ContextMenu>
+                <ContextMenu my:MenuProperties.ShowIconColumn="False">
                     <MenuItem Header="{l:Loc Key='TextBox_Command_Cut'}" 
                               InputGestureText="{x:Static my:TextBoxCommands.CutGesture}" 
                               Command="{x:Static ApplicationCommands.Cut}"/>

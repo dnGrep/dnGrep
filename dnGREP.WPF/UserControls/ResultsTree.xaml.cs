@@ -2,29 +2,102 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using dnGREP.Common;
+using Res = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF.UserControls
 {
     /// <summary>
     /// Interaction logic for ResultsTree.xaml
     /// </summary>
-    public partial class ResultsTree : UserControl
+    public partial class ResultsTree : UserControl, INameScope
     {
         private GrepSearchResultsViewModel? viewModel;
         private bool skipScrollOnExpand;
+        private bool inNextPrevious;
+        private bool stickyScrollEnabled;
+
+        public GridViewColumnCollection TreeListViewColumns { get; }
+
+        // Logical column identifiers
+        internal const int ColIcon = 0;
+        internal const int ColPath = 1;
+        internal const int ColName = 2;
+        internal const int ColMatches = 3;
+        internal const int ColReadOnly = 4;
+        internal const int ColSize = 5;
+        internal const int ColType = 6;
+        internal const int ColDate = 7;
+        internal const int ColInfo = 8;
+
+        // Default column order and widths
+        private static readonly double[] DefaultColumnWidths = [22, 150, 200, 200, 100, 100, 100, 160, 100];
+
+        // Map from GridViewColumn to its logical column id
+        private readonly Dictionary<GridViewColumn, int> columnIds = [];
+
+        private int GetColumnId(GridViewColumn col) => columnIds.TryGetValue(col, out int id) ? id : -1;
 
         public ResultsTree()
         {
+            var columns = new (string header, double width, int id)[]
+            {
+                ("", 22, ColIcon),
+                (Res.Main_ResultsHeader_Path, 150, ColPath),
+                (Res.Main_ResultsHeader_Name, 200, ColName),
+                (Res.Main_ResultsHeader_Matches, 200, ColMatches),
+                (Res.Main_ResultsHeader_ReadOnly, 100, ColReadOnly),
+                (Res.Main_ResultsHeader_Size, 100, ColSize),
+                (Res.Main_ResultsHeader_Type, 100, ColType),
+                (Res.Main_ResultsHeader_DateModified, 160, ColDate),
+                (Res.Main_ResultsHeader_Info, 100, ColInfo),
+            };
+
+            TreeListViewColumns = [];
+            foreach (var (header, width, id) in columns)
+            {
+                var col = new GridViewColumn { Header = header, Width = width };
+                TreeListViewColumns.Add(col);
+                columnIds[col] = id;
+            }
+
+            // Restore saved column order and widths
+            RestoreColumnLayout();
+
             InitializeComponent();
             DataContextChanged += ResultsTree_DataContextChanged;
+
+            // used to map the editor menu items on the TextBlock context menu
+            NameScope.SetNameScope(contextMenu, this);
+            NameScope.SetNameScope(contextMenuClassic, this);
+
+            stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
+
+            // Listen for column width changes from header resize and sync to view model
+            var widthDescriptor = DependencyPropertyDescriptor.FromProperty(
+                GridViewColumn.WidthProperty, typeof(GridViewColumn));
+
+            foreach (var column in TreeListViewColumns)
+            {
+                widthDescriptor?.AddValueChanged(column, (s, e) => OnColumnLayoutChanged());
+            }
+
+            // Listen for column reorder (Move action in the collection)
+            ((System.Collections.Specialized.INotifyCollectionChanged)TreeListViewColumns)
+                .CollectionChanged += TreeListViewColumns_CollectionChanged;
+
+            // Listen for column header clicks for sorting
+            headerRowPresenter.PreviewMouseLeftButtonDown += HeaderRowPresenter_PreviewMouseLeftButtonDown;
+            headerRowPresenter.PreviewMouseLeftButtonUp += HeaderRowPresenter_PreviewMouseLeftButtonUp;
 
             treeView.PreviewMouseWheel += TreeView_PreviewMouseWheel;
             treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
@@ -32,7 +105,531 @@ namespace dnGREP.WPF.UserControls
             treeView.PreviewTouchUp += TreeView_PreviewTouchUp;
 
             GrepSearchResultsViewModel.SearchResultsMessenger.Register("FormattedLinesLoaded", ScrollExpandedItemToTop);
+
+            Loaded += (s, e) =>
+            {
+                OnColumnLayoutChanged();
+                contextRoot.Margin = new Thickness(0, 0, SystemParameters.VerticalScrollBarWidth, 0);
+
+                if (treeView.Template.FindName("_tv_scrollviewer_", treeView) is ScrollViewer scrollViewer)
+                {
+                    scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
+                }
+
+                if (DataContext is GrepSearchResultsViewModel vm)
+                {
+                    vm.PropertyChanged += (s, e) =>
+                    {
+                        if (e.PropertyName == nameof(GrepSearchResultsViewModel.StickyScrollEnabled))
+                        {
+                            stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
+                            if (stickyScrollEnabled)
+                            {
+                                ResetContextItemVisible();
+                            }
+                            else
+                            {
+                                vm.ContextGrepResult = null;
+                                vm.ContextGrepResultVisible = false;
+                            }
+                        }
+                    };
+                }
+            };
         }
+
+        private void TreeListViewColumns_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Move ||
+                e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                OnColumnLayoutChanged();
+            }
+        }
+
+        private void RestoreColumnLayout()
+        {
+            try
+            {
+                var orderStr = GrepSettings.Instance.Get<string>(GrepSettings.Key.TreeListViewColumnOrder);
+                var widthsStr = GrepSettings.Instance.Get<string>(GrepSettings.Key.TreeListViewColumnWidths);
+
+                int[]? order = null;
+                double[]? widths = null;
+
+                if (!string.IsNullOrEmpty(orderStr))
+                {
+                    order = orderStr.Split(',').Select(s => int.Parse(s, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
+                }
+                if (!string.IsNullOrEmpty(widthsStr))
+                {
+                    widths = widthsStr.Split(',').Select(s => double.Parse(s, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
+                }
+
+                if (order != null && order.Length == TreeListViewColumns.Count &&
+                    widths != null && widths.Length == TreeListViewColumns.Count)
+                {
+                    // Build a lookup from logical column id to GridViewColumn
+                    var columnById = new Dictionary<int, GridViewColumn>();
+                    foreach (var col in TreeListViewColumns)
+                    {
+                        int id = GetColumnId(col);
+                        if (id >= 0)
+                            columnById[id] = col;
+                    }
+
+                    // Set widths by logical column tag (order[i] is the logical column at position i)
+                    for (int i = 0; i < order.Length; i++)
+                    {
+                        if (columnById.TryGetValue(order[i], out var col))
+                        {
+                            col.Width = widths[i];
+                        }
+                    }
+
+                    // Reorder the collection to match saved order
+                    // Build desired sequence
+                    var desired = new GridViewColumn[order.Length];
+                    for (int i = 0; i < order.Length; i++)
+                    {
+                        if (columnById.TryGetValue(order[i], out var col))
+                        {
+                            desired[i] = col;
+                        }
+                    }
+
+                    // Move columns into position
+                    for (int i = 0; i < desired.Length; i++)
+                    {
+                        int currentIndex = TreeListViewColumns.IndexOf(desired[i]);
+                        if (currentIndex != i)
+                        {
+                            TreeListViewColumns.Move(currentIndex, i);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // If anything goes wrong, keep defaults
+            }
+        }
+
+        private void OnColumnLayoutChanged()
+        {
+            SyncColumnWidthsToViewModel();
+            SaveColumnLayout();
+        }
+
+        private void SyncColumnWidthsToViewModel()
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                // Update positional widths (Column0Width..Column8Width)
+                for (int i = 0; i < TreeListViewColumns.Count; i++)
+                {
+                    double w = TreeListViewColumns[i].ActualWidth;
+                    switch (i)
+                    {
+                        case 0: vm.Column0Width = w; break;
+                        case 1: vm.Column1Width = w; break;
+                        case 2: vm.Column2Width = w; break;
+                        case 3: vm.Column3Width = w; break;
+                        case 4: vm.Column4Width = w; break;
+                        case 5: vm.Column5Width = w; break;
+                        case 6: vm.Column6Width = w; break;
+                        case 7: vm.Column7Width = w; break;
+                        case 8: vm.Column8Width = w; break;
+                    }
+                }
+
+                // Update column indices (which display position each logical column is at)
+                for (int i = 0; i < TreeListViewColumns.Count; i++)
+                {
+                    int colId = GetColumnId(TreeListViewColumns[i]);
+                    if (colId >= 0)
+                    {
+                        switch (colId)
+                        {
+                            case ColIcon: vm.IconColumnIndex = i; break;
+                            case ColPath: vm.PathColumnIndex = i; break;
+                            case ColName: vm.NameColumnIndex = i; break;
+                            case ColMatches: vm.MatchesColumnIndex = i; break;
+                            case ColReadOnly: vm.ReadOnlyColumnIndex = i; break;
+                            case ColSize: vm.SizeColumnIndex = i; break;
+                            case ColType: vm.TypeColumnIndex = i; break;
+                            case ColDate: vm.DateColumnIndex = i; break;
+                            case ColInfo: vm.InfoColumnIndex = i; break;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void SizeToFit()
+        {
+            // Ensure called on UI thread
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(SizeToFit);
+                return;
+            }
+
+            if (DataContext is not GrepSearchResultsViewModel vm)
+                return;
+
+            int colCount = TreeListViewColumns.Count;
+            var required = new double[colCount];
+
+            // small helper: find first descendant of type T
+            static T? FindDescendantOfType<T>(DependencyObject root) where T : DependencyObject
+            {
+                if (root == null) return null;
+                int count = VisualTreeHelper.GetChildrenCount(root);
+                for (int i = 0; i < count; i++)
+                {
+                    var child = VisualTreeHelper.GetChild(root, i);
+                    if (child is T t) return t;
+                    var res = FindDescendantOfType<T>(child);
+                    if (res != null) return res;
+                }
+                return null;
+            }
+
+            // 1) Measure header text + sort indicator
+            for (int i = 0; i < colCount; i++)
+            {
+                double headerWidth = 0.0;
+                var gvCol = TreeListViewColumns[i];
+                var header = FindColumnHeader(gvCol);
+                if (header != null)
+                {
+                    // first try to find a TextBlock inside the header visual and measure it
+                    var headerTextBlock = FindDescendantOfType<TextBlock>(header);
+                    if (headerTextBlock != null)
+                    {
+                        headerTextBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                        headerWidth = headerTextBlock.DesiredSize.Width + headerTextBlock.Margin.Left + headerTextBlock.Margin.Right;
+                    }
+                    else if (gvCol.Header is string s && !string.IsNullOrEmpty(s))
+                    {
+                        // fallback: measure string with headerRowPresenter font
+                        var typeface = new Typeface(
+                            header.FontFamily ?? SystemFonts.MessageFontFamily,
+                            header.FontStyle,
+                            header.FontWeight,
+                            header.FontStretch);
+
+                        var ft = new FormattedText(
+                            s,
+                            System.Globalization.CultureInfo.CurrentCulture,
+                            headerRowPresenter.FlowDirection,
+                            typeface,
+                            header.FontSize,
+                            Brushes.Black,
+                            VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
+                        headerWidth = ft.WidthIncludingTrailingWhitespace;
+                    }
+
+                    // include space for header padding and draggable gripper area (approx)
+                    headerWidth += 12;
+
+                    // include sort arrow if present in header template (reserve small width)
+                    if (HasVisibleSortArrow(header))
+                    {
+                        headerWidth += 16;
+                    }
+                }
+                required[i] = headerWidth;
+            }
+
+            // 2) Measure visible root-level nodes content for each column
+            var colMap = new Dictionary<int, TextBlock>(colCount);
+            foreach (FormattedGrepResult node in treeView.Items.Cast<FormattedGrepResult>())
+            {
+                var container = treeView.ItemContainerGenerator.ContainerFromItem(node) as TreeViewItem;
+                if (container == null || !container.IsVisible)
+                    continue;
+
+                var headerControl = GetHeaderControl(container);
+                if (headerControl == null)
+                    continue;
+
+                colMap.Clear();
+                CollectTextBlocksByColumn(headerControl, colMap);
+
+                foreach (var (col, tb) in colMap)
+                {
+                    if (col < colCount)
+                    {
+                        tb.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                        double w = tb.DesiredSize.Width + tb.Margin.Left + tb.Margin.Right;
+                        if (w > required[col])
+                            required[col] = w;
+                    }
+                }
+            }
+
+            // 3) Apply a small padding and enforce minimum sensible widths (use defaults for icon if empty)
+            for (int i = 0; i < colCount; i++)
+            {
+                const double pad = 8;
+                double finalWidth = required[i] + pad;
+
+                if (double.IsNaN(finalWidth) || finalWidth <= 0)
+                    finalWidth = DefaultColumnWidths.Length > i ? DefaultColumnWidths[i] : 50;
+
+                TreeListViewColumns[i].Width = finalWidth;
+            }
+
+            // sync to view model and save layout
+            OnColumnLayoutChanged();
+        }
+
+        private static bool HasVisibleSortArrow(DependencyObject parent)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is System.Windows.Shapes.Path { Name: "sortArrow", Visibility: Visibility.Visible })
+                    return true;
+                if (HasVisibleSortArrow(child))
+                    return true;
+            }
+            return false;
+        }
+
+        // helper: walk the visual tree once, mapping Grid.Column index → TextBlock
+        private static void CollectTextBlocksByColumn(DependencyObject root,
+            Dictionary<int, TextBlock> result)
+        {
+            if (root == null) return;
+            int count = VisualTreeHelper.GetChildrenCount(root);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(root, i);
+                if (child is FrameworkElement fe && fe.Visibility == Visibility.Collapsed)
+                    continue;
+
+                if (child is TextBlock tb)
+                {
+                    int col = Grid.GetColumn(tb);
+                    result.TryAdd(col, tb);
+                }
+                else
+                {
+                    CollectTextBlocksByColumn(child, result);
+                }
+            }
+        }
+
+        private void SaveColumnLayout()
+        {
+            var order = new int[TreeListViewColumns.Count];
+            var widths = new double[TreeListViewColumns.Count];
+
+            for (int i = 0; i < TreeListViewColumns.Count; i++)
+            {
+                order[i] = GetColumnId(TreeListViewColumns[i]);
+                widths[i] = TreeListViewColumns[i].ActualWidth;
+            }
+
+            GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewColumnOrder,
+                string.Join(",", order.Select(o => o.ToString(System.Globalization.CultureInfo.InvariantCulture))));
+            GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewColumnWidths,
+                string.Join(",", widths.Select(w => w.ToString("f2", System.Globalization.CultureInfo.InvariantCulture))));
+        }
+
+        private static readonly Dictionary<int, SortType> columnSortTypeMap = new()
+        {
+            { ColPath, SortType.FileNameDepthFirst },
+            { ColName, SortType.FileNameOnly },
+            { ColMatches, SortType.MatchCount },
+            { ColReadOnly, SortType.ReadOnly },
+            { ColSize, SortType.Size },
+            { ColType, SortType.FileTypeAndName },
+            { ColDate, SortType.Date },
+        };
+
+        private Point headerMouseDownPos;
+        private bool headerMouseDownOnHeader;
+
+        private void HeaderRowPresenter_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            headerMouseDownPos = e.GetPosition(headerRowPresenter);
+
+            // Check if the mouse is over a column header (not a gripper/thumb)
+            DependencyObject? current = e.OriginalSource as DependencyObject;
+            headerMouseDownOnHeader = false;
+            while (current != null && current != headerRowPresenter)
+            {
+                if (current is System.Windows.Controls.Primitives.Thumb)
+                {
+                    // Clicking on the resize gripper, not a header click
+                    return;
+                }
+                if (current is GridViewColumnHeader)
+                {
+                    headerMouseDownOnHeader = true;
+                    break;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+        }
+
+        private void HeaderRowPresenter_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!headerMouseDownOnHeader)
+                return;
+
+            // Check for drag (resize or reorder) — if the mouse moved significantly, ignore
+            Point upPos = e.GetPosition(headerRowPresenter);
+            if (Math.Abs(upPos.X - headerMouseDownPos.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(upPos.Y - headerMouseDownPos.Y) > SystemParameters.MinimumVerticalDragDistance)
+            {
+                return;
+            }
+
+            // Walk up the visual tree from the clicked element to find the GridViewColumnHeader
+            DependencyObject? current = e.OriginalSource as DependencyObject;
+            GridViewColumnHeader? header = null;
+            while (current != null && current != headerRowPresenter)
+            {
+                if (current is GridViewColumnHeader h)
+                {
+                    header = h;
+                    break;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+
+            if (header == null || header.Role == GridViewColumnHeaderRole.Padding)
+                return;
+
+            // Find which column this header belongs to by matching header content
+            GridViewColumn? column = null;
+            foreach (var col in TreeListViewColumns)
+            {
+                if (Equals(col.Header, header.Content))
+                {
+                    column = col;
+                    break;
+                }
+            }
+
+            if (column == null)
+                return;
+
+            int colId = GetColumnId(column);
+            if (!columnSortTypeMap.TryGetValue(colId, out SortType sortType))
+                return;
+
+            // Toggle direction only if the list is currently sorted on this column;
+            // otherwise reuse the last saved direction
+            var currentSortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
+            var currentDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+
+            bool isSorted = DataContext is GrepSearchResultsViewModel vm2 && vm2.SortColumnId >= 0;
+
+            ListSortDirection newDirection;
+            if (isSorted && currentSortType == sortType)
+            {
+                newDirection = currentDirection == ListSortDirection.Ascending
+                    ? ListSortDirection.Descending
+                    : ListSortDirection.Ascending;
+            }
+            else
+            {
+                newDirection = currentDirection;
+            }
+
+            GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues(
+                "SortColumn", new SortColumnRequest(sortType, newDirection));
+        }
+
+        internal void UpdateSortIndicator(int sortColumnId, ListSortDirection direction)
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                vm.SortColumnId = sortColumnId;
+                vm.SortColumnDirection = direction;
+            }
+
+            // Update the sort arrow on each column header
+            foreach (var column in TreeListViewColumns)
+            {
+                int colId = GetColumnId(column);
+                var header = FindColumnHeader(column);
+                if (header != null)
+                {
+                    var sortArrow = FindSortArrow(header);
+                    if (sortArrow != null)
+                    {
+                        if (colId == sortColumnId)
+                        {
+                            sortArrow.Visibility = Visibility.Visible;
+                            sortArrow.Data = direction == ListSortDirection.Ascending
+                                ? System.Windows.Media.Geometry.Parse("M 0,6 L 4,0 L 8,6 Z")
+                                : System.Windows.Media.Geometry.Parse("M 0,0 L 4,6 L 8,0 Z");
+                        }
+                        else
+                        {
+                            sortArrow.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                }
+            }
+        }
+
+        private GridViewColumnHeader? FindColumnHeader(GridViewColumn column)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(headerRowPresenter); i++)
+            {
+                if (VisualTreeHelper.GetChild(headerRowPresenter, i) is GridViewColumnHeader header &&
+                    header.Column == column)
+                {
+                    return header;
+                }
+            }
+            return null;
+        }
+
+        private static System.Windows.Shapes.Path? FindSortArrow(DependencyObject parent)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is System.Windows.Shapes.Path path && path.Name == "sortArrow")
+                {
+                    return path;
+                }
+                var result = FindSortArrow(child);
+                if (result != null) return result;
+            }
+            return null;
+        }
+
+        #region INameScope Members
+
+        private readonly Dictionary<string, object> items = [];
+
+        object INameScope.FindName(string name)
+        {
+            return items[name];
+        }
+
+        void INameScope.RegisterName(string name, object scopedElement)
+        {
+            items.Add(name, scopedElement);
+        }
+
+        void INameScope.UnregisterName(string name)
+        {
+            items.Remove(name);
+        }
+
+        #endregion
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -42,6 +639,72 @@ namespace dnGREP.WPF.UserControls
         }
 
         internal MultiSelectTreeView TreeView => treeView;
+
+        internal async Task Next()
+        {
+            inNextPrevious = true;
+            try
+            {
+                Cursor = Cursors.Wait;
+                await NextLineMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                inNextPrevious = false;
+            }
+        }
+
+        internal async Task NextFile()
+        {
+            inNextPrevious = true;
+            try
+            {
+                Cursor = Cursors.Wait;
+                await NextFileMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                inNextPrevious = false;
+            }
+        }
+
+        internal async Task Previous()
+        {
+            inNextPrevious = true;
+            try
+            {
+                // when moving backward, do not scroll to the top of the expanded item
+                skipScrollOnExpand = true;
+                Cursor = Cursors.Wait;
+                await PreviousLineMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                skipScrollOnExpand = false;
+                inNextPrevious = false;
+            }
+        }
+
+        internal async Task PreviousFile()
+        {
+            inNextPrevious = true;
+            try
+            {
+                // when moving backward, do not scroll to the top of the expanded item
+                skipScrollOnExpand = true;
+                Cursor = Cursors.Wait;
+                await PreviousFileMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+                skipScrollOnExpand = false;
+                inNextPrevious = false;
+            }
+        }
 
         private void SelectedNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
@@ -133,64 +796,6 @@ namespace dnGREP.WPF.UserControls
             {
                 treeView.Focus();
             }), System.Windows.Threading.DispatcherPriority.Normal);
-        }
-
-        internal async Task Next()
-        {
-            try
-            {
-                Cursor = Cursors.Wait;
-                await NextLineMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-            }
-        }
-
-        internal async Task NextFile()
-        {
-            try
-            {
-                Cursor = Cursors.Wait;
-                await NextFileMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-            }
-        }
-
-        internal async Task Previous()
-        {
-            try
-            {
-                // when moving backward, do not scroll to the top of the expanded item
-                skipScrollOnExpand = true;
-                Cursor = Cursors.Wait;
-                await PreviousLineMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-                skipScrollOnExpand = false;
-            }
-        }
-
-        internal async Task PreviousFile()
-        {
-            try
-            {
-                // when moving backward, do not scroll to the top of the expanded item
-                skipScrollOnExpand = true;
-                Cursor = Cursors.Wait;
-                await PreviousFileMatch();
-            }
-            finally
-            {
-                Cursor = Cursors.Arrow;
-                skipScrollOnExpand = false;
-            }
         }
 
         private async Task NextLineMatch()
@@ -951,6 +1556,124 @@ namespace dnGREP.WPF.UserControls
             }
             return null;
         }
+        #endregion
+
+        #region Sticky Scroll
+
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (sender is ScrollViewer sv)
+            {
+                if (e.HorizontalChange != 0 || e.ExtentWidthChange != 0)
+                {
+                    // Ensure header and context have enough width to scroll the full extent
+                    headerRowPresenter.MinWidth = sv.ExtentWidth;
+                    contextControl.MinWidth = Math.Max(0, sv.ExtentWidth - 22); // account for the 22px left margin
+
+                    // Keep the header row and context overlay aligned with the horizontal scroll
+                    headerScrollViewer.ScrollToHorizontalOffset(sv.HorizontalOffset);
+                    contextScrollViewer.ScrollToHorizontalOffset(sv.HorizontalOffset);
+                }
+            }
+
+            if (stickyScrollEnabled && !inNextPrevious && e.VerticalChange != 0)
+            {
+                ResetContextItemVisible();
+            }
+        }
+
+        private void ResetContextItemVisible()
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                FormattedGrepResult? item = GetTopVisibleLine(treeView);
+                if (!ReferenceEquals(item, vm.ContextGrepResult))
+                {
+                    vm.ContextGrepResult = item;
+                    vm.ContextGrepResultVisible = item != null;
+                    return;
+                }
+
+                bool newValue = false, currentValue = vm.ContextGrepResultVisible;
+
+                if (contextControl.DataContext is FormattedGrepResult result)
+                {
+                    if (treeView.ItemContainerGenerator.ContainerFromItem(result) is
+                            TreeViewItem treeViewItem)
+                    {
+                        newValue = !IsUserVisible(treeView, treeViewItem);
+                    }
+                }
+                else
+                {
+                    newValue = false;
+                }
+
+                if (newValue != currentValue)
+                {
+                    vm.ContextGrepResultVisible = newValue;
+                }
+            }
+        }
+
+        private static bool IsUserVisible(TreeView treeView, TreeViewItem treeViewItem)
+        {
+            if (!treeViewItem.IsVisible)
+            {
+                return false;
+            }
+
+            // a TreeViewItem Actual Height includes all of its children
+            Rect tviRect = new(0.0, 0.0, treeViewItem.ActualWidth, treeViewItem.ActualHeight);
+            var header = GetHeaderControl(treeViewItem);
+            if (header != null)
+            {
+                tviRect = new(0.0, 0.0, header.ActualWidth, header.ActualHeight);
+            }
+
+            Rect ItemBounds = treeViewItem.TransformToAncestor(treeView).TransformBounds(tviRect);
+            Rect containerRect = new(0.0, 0.0, treeView.ActualWidth, treeView.ActualHeight);
+            bool visible = ItemBounds.Top + 5 >= containerRect.Top && ItemBounds.Bottom <= containerRect.Bottom;
+            return visible;
+        }
+
+        private static FrameworkElement GetHeaderControl(TreeViewItem item)
+        {
+            return (FrameworkElement)item.Template.FindName("PART_Header", item);
+        }
+
+        private static FormattedGrepResult? GetTopVisibleLine(TreeView treeView)
+        {
+            if (treeView.Items.Count > 0)
+            {
+                foreach (FormattedGrepResult node in treeView.Items.Cast<FormattedGrepResult>())
+                {
+                    if (node.IsExpanded)
+                    {
+                        if (treeView.ItemContainerGenerator.ContainerFromItem(node) is TreeViewItem container)
+                        {
+                            if (IsUserVisible(treeView, container))
+                            {
+                                return null;
+                            }
+                            else
+                            {
+                                foreach (FormattedGrepLine childNode in node.Children.Cast<FormattedGrepLine>())
+                                {
+                                    if (container.ItemContainerGenerator.ContainerFromItem(childNode) is TreeViewItem treeViewItem &&
+                                        IsUserVisible(treeView, treeViewItem))
+                                    {
+                                        return node;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         #endregion
     }
 }

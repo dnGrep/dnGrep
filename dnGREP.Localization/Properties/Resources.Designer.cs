@@ -3393,11 +3393,92 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Size all columns to fit.
+        /// </summary>
+        public static string Main_Results_SizeAllColumnsToFit {
+            get {
+                return ResourceManager.GetString("Main_Results_SizeAllColumnsToFit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not configured.
         /// </summary>
         public static string Main_Results_Tooltip_NotConfigured {
             get {
                 return ResourceManager.GetString("Main_Results_Tooltip_NotConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date modified.
+        /// </summary>
+        public static string Main_ResultsHeader_DateModified {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_DateModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Main_ResultsHeader_Info {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matches.
+        /// </summary>
+        public static string Main_ResultsHeader_Matches {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Matches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Main_ResultsHeader_Name {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string Main_ResultsHeader_Path {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read-only.
+        /// </summary>
+        public static string Main_ResultsHeader_ReadOnly {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_ReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Main_ResultsHeader_Size {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Main_ResultsHeader_Type {
+            get {
+                return ResourceManager.GetString("Main_ResultsHeader_Type", resourceCulture);
             }
         }
         
@@ -5477,6 +5558,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_EnableAutomaticCheckingEvery {
             get {
                 return ResourceManager.GetString("Options_EnableAutomaticCheckingEvery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable details view in results tree.
+        /// </summary>
+        public static string Options_EnableDetailsViewInResultsTree {
+            get {
+                return ResourceManager.GetString("Options_EnableDetailsViewInResultsTree", resourceCulture);
             }
         }
         

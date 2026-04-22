@@ -55,6 +55,7 @@ namespace dnGREP.WPF
                 }
             }
 
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(SizeToFitCommand), "Main_Results_SizeAllColumnsToFit", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(OpenContainingFolderCommand), "Main_Results_OpenContainingFolder", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(RenameFileCommand), "Main_Results_RenameFile", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyFilesCommand), "Main_Results_CopyFiles", string.Empty);
@@ -126,6 +127,7 @@ namespace dnGREP.WPF
         {
             SearchResults.Clear();
             FailureCount = 0;
+            ClearSortIndicator();
         }
 
         public void Clear(List<GrepSearchResult> list)
@@ -421,12 +423,18 @@ namespace dnGREP.WPF
             }
         }
 
+        public bool IsTreeListViewEnabled
+        {
+            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.TreeListViewEnabled); }
+        }
+
         // some settings have changed, raise property changed events to update the UI
         public void RaiseSettingsPropertiesChanged()
         {
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomEditorConfigured)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(CompareApplicationConfigured)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(StickyScrollEnabled)));
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsTreeListViewEnabled)));
 
             foreach (var item in SearchResults)
             {
@@ -451,6 +459,78 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private double resultsScale = 1.0;
+
+        // Tree list view column widths, indexed by display position (0..8)
+        [ObservableProperty]
+        private double column0Width = 22;
+
+        [ObservableProperty]
+        private double column1Width = 150;
+
+        [ObservableProperty]
+        private double column2Width = 200;
+
+        [ObservableProperty]
+        private double column3Width = 200;
+
+        [ObservableProperty]
+        private double column4Width = 70;
+
+        [ObservableProperty]
+        private double column5Width = 70;
+
+        [ObservableProperty]
+        private double column6Width = 150;
+
+        [ObservableProperty]
+        private double column7Width = 80;
+
+        [ObservableProperty]
+        private double column8Width = 120;
+
+        // Tree list view column display indices, per logical column
+        [ObservableProperty]
+        private int iconColumnIndex = 0;
+
+        [ObservableProperty]
+        private int pathColumnIndex = 1;
+
+        [ObservableProperty]
+        private int nameColumnIndex = 2;
+
+        [ObservableProperty]
+        private int matchesColumnIndex = 3;
+
+        [ObservableProperty]
+        private int readOnlyColumnIndex = 4;
+
+        [ObservableProperty]
+        private int sizeColumnIndex = 5;
+
+        [ObservableProperty]
+        private int typeColumnIndex = 6;
+
+        [ObservableProperty]
+        private int dateColumnIndex = 7;
+
+        [ObservableProperty]
+        private int infoColumnIndex = 8;
+
+        // Sort state for tree list view column header indicators
+        [ObservableProperty]
+        private int sortColumnId = -1;
+
+        [ObservableProperty]
+        private ListSortDirection sortColumnDirection = ListSortDirection.Ascending;
+
+        public void ClearSortIndicator()
+        {
+            SortColumnId = -1;
+            if (TreeControl is UserControls.ResultsTree tree)
+            {
+                tree.UpdateSortIndicator(-1, ListSortDirection.Ascending);
+            }
+        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasFailures))]
@@ -607,6 +687,11 @@ namespace dnGREP.WPF
         }
 
         #region Commands
+
+        private RelayCommand? sizeToFitCommand;
+        public RelayCommand SizeToFitCommand => sizeToFitCommand ??= new RelayCommand(
+            p => TreeControl?.SizeToFit(),
+            q => SearchResults.Count > 0);
 
         private RelayCommand? openContainingFolderCommand;
         public RelayCommand OpenContainingFolderCommand => openContainingFolderCommand ??= new RelayCommand(

@@ -1199,6 +1199,38 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>[read-only]</value>
     <comment>Main window, search results text</comment>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Info</value>
+    <comment>Main window, results list, column header label for additional information</comment>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Path</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Read-only</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Size</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Type</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Date modified</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Matches</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
     <value>Collapse all</value>
     <comment>Main window, results list, context menu item label</comment>
@@ -4587,5 +4619,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything instance name</value>
     <comment>Options dialog, label for text entry box</comment>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Enable details view in results tree</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Size all columns to fit</value>
+    <comment>Main window, results list context menu item label</comment>
   </data>
 </root>
