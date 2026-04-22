@@ -1,0 +1,3435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>Sobre o dnGrep</value>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Agradecimentos</value>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Compilado em</value>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Converte arquivos PDF em texto simples</value>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Indexação do sistema de arquivos, localize arquivos instantaneamente</value>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>Framework JSON para .NET</value>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Biblioteca para leitura de arquivos compactados</value>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>Framework de log para .NET</value>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>Biblioteca .NET para 7-Zip</value>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep no GitHub</value>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>Biblioteca .NET para detecção de conjunto de caracteres</value>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>Biblioteca .NET para caminhos de comprimento estendido</value>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>Biblioteca .NET para leitura de arquivos do Microsoft Excel</value>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>Biblioteca .NET para processar números ECMA-376</value>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>Biblioteca .NET para trabalhar com documentos Word e Excel</value>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>Componente de editor de texto WPF para .NET</value>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Versão</value>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Pastas associadas:</value>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Nome do favorito:</value>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>_Diferenciar maiúsculas/minúsculas</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Conteúdo</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Incluir propriedades da pesquisa de conteúdo no favorito</value>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Descrição:</value>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>_Ponto como nova linha</value>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Codificação:</value>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Serviço de indexação Everything</value>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Tipo de padrão de arquivo</value>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Fonte do arquivo</value>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Incluir propriedades da fonte do arquivo no favorito</value>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Filtros de arquivo</value>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Incluir propriedades do filtro de arquivo no favorito</value>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Seguir links simbólicos</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Por exemplo: .txt;.xml</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>Por exemplo: arquivo[0-9]{1,2}\\.txt</value>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Incluir arquivos binários</value>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Incluir pastas ocultas</value>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Incluir subpastas</value>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Profundidade máxima</value>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_Multilinha</value>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Padrões a excluir:</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>Padrões a corresponder:</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Curinga</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Expressão regular</value>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Substituir por:</value>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Pesquisar por:</value>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>Pesquisar em ar_quivos</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonética</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Pesquisa fonética</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Pesquisa em texto simples</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Pesquisa de byte: ler arquivo como binário e pesquisar por bytes como dígitos hexadecimais: 68 65 78 20</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Expressão regular</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Pesquisa por expressão regular</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Texto</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Pesquisa XPath (apenas para documentos XML)</value>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Ignorar arquivos em armazenamento em nuvem remota</value>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>Este favorito já existe</value>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Detalhes do marcador</value>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Tipo de pesquisa</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Usar .gitignore</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Usar .gitignore para filtrar arquivos</value>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Palavra inteira</value>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Adicionar</value>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Fechar</value>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Excluir</value>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Duplicar</value>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Editar</value>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Padrão de arquivo</value>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filtro:</value>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Mover para baixo</value>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Mover para o final</value>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Mover para o topo</value>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Mover para cima</value>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Outras propriedades</value>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Substituir por</value>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Pesquisar por</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Seções</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Diferenciar maiúsculas de minúsculas</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Multilinha</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Profundidade máxima de pasta: {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>Nenhum binário</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Nenhuma pasta oculta</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Nenhuma subpasta</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Nenhum link simbólico</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Palavra inteira</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Favoritos</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Usar</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argumentos:</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Pesquisar em arquivos compactados</value>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Define o sinalizador de pesquisa de operadores booleanos – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Define o sinalizador de diferenciação de maiúsculas/minúsculas – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
+-csv [filePath]
+    Cria um arquivo de resultados no formato CSV após a conclusão da pesquisa.</value>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Quaisquer argumentos não especificados usarão, por padrão, as últimas configurações salvas do usuário.</value>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Define o sinalizador de pesquisa de ponto como nova linha – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [argumentos]
+Utilize qualquer combinação de argumentos da lista abaixo..
+Examplo:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [caminhoDaPasta] [pesquisarPor]
+Um ou dois argumentos sem sinalizadores: o primeiro argumento é a pasta para pesquisar, o segundo a expressão regular a ser pesquisada.
+Examplo:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Sai do dnGrep após a conclusão das operações de linha de comando.</value>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Define o sinalizador para incluir informações de arquivo e linha na saída do relatório – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [caminhoDaPasta]
+-f [caminhoDaPasta]
+-folder [caminhoDaPasta]
+    Define o caminho da pasta para pesquisar.  Pode ser uma lista de caminhos de pasta separada por vírgulas ou pontos e vírgulas.</value>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Pesquise em arquivos de texto, documentos Word e Excel, PDFs e arquivos compactados usando texto, expressões regulares, XPath e consultas fonéticas.</value>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [caractere ou texto separador]
+-sep [caractere ou texto separador]
+-listItemSeparator [caractere ou texto separador]
+    Define o caractere ou a string para separar itens de lista em uma linha na saída do relatório.</value>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Define o sinalizador de pesquisa multilinha – True ou False.</value>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [padrão]
+-pi [padrão]
+-pathToIgnore [padrão]
+    Define o padrão de nome de arquivo ou diretório para excluir arquivos ou pastas no caminho de pesquisa. Pode ser uma lista de padrões separada por vírgulas ou pontos e vírgulas.</value>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [padrão]
+-pm [padrão]
+-pathToMatch [padrão]
+    Define o padrão de nome de arquivo para corresponder a arquivos no caminho de pesquisa. Pode ser uma lista de padrões separada por vírgulas ou pontos e vírgulas.</value>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [tipo]
+-pt [tipo]
+-patternType [tipo]
+    Define o tipo de padrão de correspondência e de exclusão – deve ser um dos seguintes: "Asterisk" (curinga), "Regex" (expressão regular) ou "Everything" (se a ferramenta de pesquisa Everything estiver instalada).</value>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [caminhoDoArquivo]
+-rpt [caminhoDoArquivo]
+-report [caminhoDoArquivo]
+    Cria um arquivo de resultados no formato de relatório após a conclusão da pesquisa.</value>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [modo]
+-rm [modo]
+-reportMode [modo]
+    Define o modo de saída do relatório para relatórios de expressões regulares – deve ser um dos seguintes: "FullLine", "Matches" ou "Groups".</value>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [chaveDoScript]
+-sc [chaveDoScript]
+-script [chaveDoScript]
+    Executa o script identificado pela chave do script.</value>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [/s [pesquisarPor]]
+-s [/s [pesquisarPor]]
+-searchFor [/s [pesquisarPor]]
+    Define o padrão ou texto a ser pesquisado no conjunto de arquivos.  uando este argumento é definido, a pesquisa será executada automaticamente.</value>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [tipo]
+-st [tipo]
+-searchType [tipo]
+    Define o tipo de pesquisa – deve ser um dos seguintes: "PlainText", "Regex" (expressão regular), "XPath" ou "Soundex" (fonética).</value>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Define o sinalizador para exibir cada correspondência ou grupo em uma linha separada na saída do relatório de expressões regulares – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [caminhoDoArquivo]
+-txt [caminhoDoArquivo]
+-text [caminhoDoArquivo]
+    Cria um arquivo de resultados no formato de texto após a conclusão da pesquisa.</value>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Define o sinalizador para remover espaços em branco na saída do relatório – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [escopo]
+-scope [escopo]
+-uniqueScope [escopo]
+    Define o sinalizador para definir o escopo de valores exclusivos na saída do relatório de expressões regulares – deve ser um dos seguintes: "Global" ou "PerFile".</value>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Define o sinalizador para exibir valores exclusivos de correspondência ou grupo na saída do relatório de expressões regulares – True ou False.</value>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Uso:</value>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Versão {0} compilada em {1}</value>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Define o sinalizador de pesquisa de palavra inteira – True ou False.</value>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>Ajuda do dnGrep</value>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Um ou mais argumentos não são válidos.</value>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Adicionar padrão de pesquisa aos favoritos</value>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Todas as datas</value>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Todas os tamanhos</value>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Associar favorito à pasta</value>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Data de modificação:</value>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Codificação:</value>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Arquivo:</value>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Tamanho:</value>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Tipo:</value>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Posição automática</value>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Procurar pasta ou arquivos</value>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_Cancelar</value>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>Pesquisa de grupo de captura</value>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>D_iferenciar maiúsculas de minúsculas</value>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Altera o nível de zoom da árvore de resultados</value>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Limpar favorito</value>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Combinar vários padrões de pesquisa usando 'AND' ou 'OR'</value>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>depois</value>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>antes e</value>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>As alterações nas linhas de contexto serão aplicadas na próxima pesquisa</value>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Mostrar linhas de contexto</value>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Criado</value>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>Últimas</value>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>horas</value>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>até</value>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>Ancorar na parte inferior</value>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>Ancorar à direita</value>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>_Ponto como nova linha</value>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Vazio</value>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Codificação:</value>
+  </data>
+  <data name="Main_EncodingAutoDetection" xml:space="preserve">
+    <value>Detecção automática (padrão)</value>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Serviço de índice do Everything</value>
+  </data>
+  <data name="Main_EverythingSearch" xml:space="preserve">
+    <value>Pesquisa do Ever_ything:</value>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>Planilha [{0}]</value>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>Todos os arquivos</value>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>Por data de criação</value>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>Por data de modificação</value>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>Por tamanho</value>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Profundidade máxima da pasta: {0}</value>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>Nenhum binário</value>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Nenhum arquivo oculto</value>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>Nenhuma subpasta</value>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>Nenhum link simbólico</value>
+  </data>
+  <data name="Main_Folder" xml:space="preserve">
+    <value>P_asta:</value>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Seguir links simbólicos</value>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Por exemplo: *.txt;*.xml</value>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>Por exemplo: file[0-9]{1,2}\\.txt</value>
+  </data>
+  <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
+    <value>do início do dia</value>
+  </data>
+  <data name="Main_HideResultOptions" xml:space="preserve">
+    <value>Ocultar opções de resultado</value>
+  </data>
+  <data name="Main_HighlightGroups" xml:space="preserve">
+    <value>Destacar grupos</value>
+  </data>
+  <data name="Main_HighlightMatches" xml:space="preserve">
+    <value>Destacar correspondências</value>
+  </data>
+  <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Destacar grupos de expressões regulares. As alterações serão aplicadas na próxima pesquisa.</value>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>Incluir arquivos binários</value>
+  </data>
+  <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Incluir arquivos por nome ou tipo</value>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Incluir pastas ocultas</value>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Incluir subpastas</value>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>Profundidade máxima</value>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Maximizar resultados (F7)</value>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>_Sobre</value>
+  </data>
+  <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
+    <value>_Sobre o dnGrep…</value>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Dados do _aplicativo</value>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Verificar atualizações</value>
+  </data>
+  <data name="Main_Menu_About_Help" xml:space="preserve">
+    <value>_Ajuda</value>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>_Favoritos…</value>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Cancelar script</value>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Editar script…</value>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Novo script…</value>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>_Opções…</value>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Personalizar</value>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Scripts</value>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Configuraçõ_es</value>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>_Desfazer</value>
+  </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>Modificado</value>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>Mai_s…</value>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>_Mais</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>Copiar nomes dos arquivos</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Copiar arquivos…</value>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Copiar resultados</value>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Excluir arquivos…</value>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Mover arquivos…</value>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Opções de relatório…</value>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>Resultados em CSV</value>
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value>Relatório</value>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>Resultados em texto</value>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>Salvar resultados</value>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_Multilinha</value>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>até</value>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Padrões para excluir:</value>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>Padrões para corresponder:</value>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>Curinga</value>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>_Expressão regular</value>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Slide {0}</value>
+  </data>
+  <data name="Main_PreviewFile" xml:space="preserve">
+    <value>_Visualizar arquivo</value>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Remover pasta da associação de favorito</value>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>_Substituir</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Nenhuma correspondência para substituir</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>Nenhum arquivo gravável nos resultados</value>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Substituir usando operadores booleanos apenas com pesquisa de texto</value>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Os parâmetros de pesquisa foram alterados</value>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>Su_bstituir por:</value>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>CSV (separado por vírgulas)</value>
+  </data>
+  <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
+    <value>Formato de relatório</value>
+  </data>
+  <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
+    <value>Arquivo de texto</value>
+  </data>
+  <data name="Main_ResetOptions" xml:space="preserve">
+    <value>Redefinir filtros</value>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Restaurar resultados (F7)</value>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>correspondências adicionais:</value>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value>(no final da linha)</value>
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value>na posição {0}</value>
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value>...(+{0:n0} caracteres)</value>
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} correspondências)</value>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} correspondências em {2} linhas)</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value>Correspondência {0}{1}{2}</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value>Correspondência {0}{1}Grupo {2}: {3}</value>
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, mais +{0} correspondências</value>
+  </data>
+  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
+    <value>[somente leitura]</value>
+  </data>
+  <data name="Main_Results_CollapseAll" xml:space="preserve">
+    <value>Recolher tudo</value>
+  </data>
+  <data name="Main_Results_CompareFiles" xml:space="preserve">
+    <value>Comparar arquivos</value>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Copiar nomes dos arquivos</value>
+  </data>
+  <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
+    <value>Copiar caminhos completos dos arquivos</value>
+  </data>
+  <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
+    <value>Copiar linhas de texto</value>
+  </data>
+  <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
+    <value>Excluir dos resultados</value>
+  </data>
+  <data name="Main_Results_ExpandAll" xml:space="preserve">
+    <value>Expandir tudo</value>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Tornar gravável</value>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Mover arquivos para a Lixeira</value>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Próximo arquivo</value>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>Próxima correspondência</value>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>Abrir local do arquivo</value>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>Abrir com editor personalizado</value>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Arquivo anterior</value>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>Correspondência anterior</value>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>Renomear arquivo</value>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>Redefinir zoom</value>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Mostrar Menu do Explorer</value>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>Mostrar propriedades do arquivo</value>
+  </data>
+  <data name="Main_SavingResultsToFile" xml:space="preserve">
+    <value>Salvando resultados em arquivo…</value>
+  </data>
+  <data name="Main_SearchButton" xml:space="preserve">
+    <value>_Pesquisar</value>
+  </data>
+  <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Pesquisar arquivos em múltiplas threads</value>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>Pesquisar _por:</value>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Pesquisa</value>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Pesquisar em arquivos co_mpactados</value>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Pesquisar em</value>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Pesquisar _nos resultados</value>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>Pesquisa parale_la</value>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonética</value>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Pesquisa fonética</value>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Pesquisa de texto simples</value>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Pesquisa de byte: ler arquivo como binário e pesquisar por bytes como dígitos hexadecimais: 68 65 78 20</value>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>_Expressão regular</value>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Pesquisa por expressão regular</value>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Texto</value>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Pesquisa XPath (apenas para documentos XML)</value>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>Selecionar uma data</value>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>Mostrar opções de resultado</value>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>Tamanho é</value>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>até</value>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Ignorar arquivos remotos de armazenamento em nuvem</value>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>Classificar</value>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>Crescente</value>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>Decrescente</value>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>Apenas nome do arquivo</value>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>Tamanho do arquivo</value>
+  </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>Tipo e nome do arquivo</value>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>Hora da última gravação</value>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>Contagem de correspondências</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Caminho e nome do arquivo, busca em largura</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Caminho e nome do arquivo, busca em profundidade</value>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>Excluídos {0} arquivo(s) ausente(s).</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>Substituição cancelada</value>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Substituição concluída – texto substituído em {0} arquivo(s).</value>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>Falha na substituição</value>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>Substituindo…</value>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>Pesquisa cancelada</value>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>Pesquisa cancelada ou com falha</value>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Pesquisa concluída em {0} - {1} correspondência(s) encontrada(s) em {2} arquivo(s) de {3} pesquisado(s).</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>Pesquisado(s) {0} arquivo(s), encontrado(s) {1} arquivo(s) correspondente(s).</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Pesquisados {0} arquivo(s), encontrado(s) {1} arquivo(s) correspondente(s) – processando {2}</value>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>Pesquisando…</value>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Pesquisando por .gitignore</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Contagem de correspondências na linha</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Número da correspondência/contagem de correspondências no arquivo</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Número da correspondência/contagem de correspondências no total</value>
+  </data>
+  <data name="Main_StopAfterFirstMatch" xml:space="preserve">
+    <value>Parar após a primeira correspondência</value>
+  </data>
+  <data name="Main_TestExpression" xml:space="preserve">
+    <value>Testar expressão</value>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>até o final do dia</value>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Usar grupos de captura de 'Padrões para corresponder' no padrão 'Pesquisar por'</value>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Usar .gitignore</value>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Usar .gitignore para filtrar arquivos</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>A expressão booleana contém um token desconhecido</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>A expressão booleana tem um erro desconhecido</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>A expressão booleana possui parênteses desbalanceados</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>A expressão booleana não possui um operador booleano</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>A expressão booleana não possui um padrão de pesquisa</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>A expressão booleana não é válida</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>A expressão booleana está OK</value>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>A string de bytes não é válida!</value>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>A string de bytes está OK</value>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>A expressão regular não é válida!</value>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>A expressão regular está OK</value>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>O XPath não é válido!</value>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>O XPath está OK</value>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_Palavra inteira</value>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>{0} em "{1}" – dnGrep</value>
+  </data>
+  <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Excluir arquivos por tipo e pastas por nome</value>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>Quebrar texto</value>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Substituir o padrão de pesquisa por uma string vazia?</value>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>Verificar o caminho do editor via "Opções...".</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Limpar este favorito também limpa aquele favorito.</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Limpar este favorito também remove aqueles favoritos.</value>
+  </data>
+  <data name="MessageBox_CopyFiles" xml:space="preserve">
+    <value>Copiar Arquivos</value>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>Não foi possível carregar o arquivo de recursos '{0}' </value>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>Não foi possível carregar o arquivo de recursos '{0}'. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>{0} arquivo(s) copiado(s).</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} arquivo(s) excluído(s).</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>{0} arquivo(s) movido(s).</value>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>Não foi possível abrir o arquivo com o editor personalizado.</value>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>O mecanismo padrão foi usado em vez disso.</value>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>Excluir Arquivos</value>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>O dnGrep está atualizado.</value>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>Não perguntar novamente</value>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Erro: </value>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>Não foi possível abrir o arquivo. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Não foi possível definir o texto da área de transferência. A área de transferência está bloqueada por</value>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>Não foi possível extrair o arquivo do pacote compactado. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>Os arquivos foram revertidos.</value>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>Padrão incorreto: </value>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>Carregar Recursos</value>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>Mover Arquivos</value>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>Nova Versão</value>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>Uma nova versão do dnGrep ({0}) está disponível para download.</value>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_Não</value>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>Não para t_odos</value>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Por favor, selecione outro diretório e tente novamente.</value>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Erros de Plug-in</value>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>Não foi possível renomear o arquivo: </value>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Renomear Arquivo</value>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Substituir</value>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>Não foi possível substituir o texto nos arquivos. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>O arquivo de recursos '{0}' não é um arquivo resx.</value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Execute o dnGrep como Administrador para alterar a exibição do dnGrep no menu de contexto do Windows Explorer</value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Execute o dnGrep como Administrador para alterar a opção de inicialização do aplicativo.</value>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>O script {0} tem alterações não salvas. Salvar agora?</value>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>O Script {0} tem erros de validação. Salvar mesmo assim?</value>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>Não foi possível concluir a pesquisa. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>Não foi possível concluir a pesquisa ou substituição. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>O caminho de pesquisa no campo '{0}' não é válido, pesquisa cancelada.</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Atenção, alguns dos arquivos estão localizados no diretório selecionado.</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Alguns dos arquivos não podem ser modificados. Se você continuar, esses arquivos serão ignorados.</value>
+  </data>
+  <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Algo deu errado no dnGrep. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>O arquivo '{0}' já existe em {1}. Substituir o existente?</value>
+  </data>
+  <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>O padrão de arquivo '{0}' não é uma expressão regular válida:{1}{2}</value>
+  </data>
+  <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>Não foi possível carregar os seguintes plug-ins:</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>Não foi possível adicionar o dnGrep ao menu de contexto do Windows Explorer. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>Não foi possível copiar os arquivos. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>Não foi possível criar o arquivo. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>Não foi possível excluir os arquivos. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>Não foi possível mover os arquivos. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>Não foi possível registrar a inicialização automática. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>Não foi possível remover o dnGrep do menu de contexto do Windows Explorer. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>Não foi possível reverter os arquivos. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>Não foi possível abrir a janela de teste. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>Não foi possível salvar as opções. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>Não foi possível cancelar o registro da inicialização automática. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>Este favorito está associado a {0} outras pastas.</value>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>Este favorito está associado a uma outra pasta.</value>
+  </data>
+  <data name="MessageBox_Undo" xml:space="preserve">
+    <value>Desfazer</value>
+  </data>
+  <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>Desfazer reverterá o(s) arquivo(s) modificado(s) para seu estado original. Quaisquer alterações feitas no(s) arquivo(s) após a substituição serão sobrescritas. Continuar?</value>
+  </data>
+  <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
+    <value>Título da janela: {0}</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>Continuar?</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Fazer o download agora?</value>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_Sim</value>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>Sim para _todos</value>
+  </data>
+  <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>Atenção, você está prestes a excluir arquivos encontrados durante a pesquisa.</value>
+  </data>
+  <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Listar arquivos usando o padrão de nome de arquivo quando o campo 'Pesquisar por' estiver vazio</value>
+  </data>
+  <data name="Options_ApplicationFonts" xml:space="preserve">
+    <value>Fontes do aplicativo</value>
+  </data>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>Extensões:</value>
+  </data>
+  <data name="Options_ArchiveOptions" xml:space="preserve">
+    <value>Arquivos compactados</value>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Redefinir</value>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>Perguntar</value>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+  </data>
+  <data name="Options_CheckDays" xml:space="preserve">
+    <value>dias</value>
+  </data>
+  <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>Verificar novas versões quando o Windows iniciar</value>
+  </data>
+  <data name="Options_CheckingForUpdates" xml:space="preserve">
+    <value>Novas versões</value>
+  </data>
+  <data name="Options_ClearOldSearches" xml:space="preserve">
+    <value>Limpar pesquisas antigas</value>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Fechar</value>
+  </data>
+  <data name="Options_CompareApplication" xml:space="preserve">
+    <value>Aplicativo de comparação</value>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Argumentos</value>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>Comando</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>depois</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>antes e</value>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>Copiar arquivos</value>
+  </data>
+  <data name="Options_CustomEditor" xml:space="preserve">
+    <value>Editor personalizado</value>
+  </data>
+  <data name="Options_CustomEditorHelp" xml:space="preserve">
+    <value>Use as palavras-chave '{0}' para o local do arquivo, '{5}' para o número da página, '{1}' para o número da linha, '{2}' para o padrão de pesquisa, '{3}' para o primeiro texto correspondente na linha e '{4}' para o número da coluna da primeira correspondência na linha.</value>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Excluir arquivos</value>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Excluir permanentemente</value>
+  </data>
+  <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Detectar codificação do arquivo ao listar arquivos usando o padrão de nome de arquivo</value>
+  </data>
+  <data name="Options_DialogFontSize" xml:space="preserve">
+    <value>Tamanho da fonte de outras janelas</value>
+  </data>
+  <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>O dnGrep adicionará os arquivos selecionados ao final da linha de comando.</value>
+  </data>
+  <data name="Options_EditorArguments" xml:space="preserve">
+    <value>Argumentos</value>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>Comando</value>
+  </data>
+  <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
+    <value>Verificar automaticamente a cada</value>
+  </data>
+  <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
+    <value>Permite iniciar o dnGrep a partir do menu de contexto do Windows Explorer.</value>
+  </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>arquivos e correspondências individuais</value>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>apenas arquivos</value>
+  </data>
+  <data name="Options_FollowWindowsTheme" xml:space="preserve">
+    <value>Seguir o tema do Windows</value>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Família de fontes</value>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>Ajude a traduzir o dnGrep.</value>
+  </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Comprimento da linha de resultado da pesquisa de byte</value>
+  </data>
+  <data name="Options_HistoryLists" xml:space="preserve">
+    <value>Listas de histórico</value>
+  </data>
+  <data name="Options_InOptionsExpander" xml:space="preserve">
+    <value>no expansor de opções</value>
+  </data>
+  <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>itens mostrados nas listas de histórico de filtros de arquivo</value>
+  </data>
+  <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>itens mostrados na lista de histórico de caminhos</value>
+  </data>
+  <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>itens mostrados nas listas de histórico de pesquisa e substituição</value>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Options_Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Números de Linha</value>
+  </data>
+  <data name="Options_LoadFromFile" xml:space="preserve">
+    <value>Carregar do arquivo…</value>
+  </data>
+  <data name="Options_MainFontSize" xml:space="preserve">
+    <value>Tamanho da fonte da janela principal</value>
+  </data>
+  <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
+    <value>0 – corresponder a tudo; 1.0 – correspondência exata</value>
+  </data>
+  <data name="Options_MatchThreshold" xml:space="preserve">
+    <value>Limite de correspondência (de 0 a 1.0)</value>
+  </data>
+  <data name="Options_MatchTimeout" xml:space="preserve">
+    <value>Tempo limite de correspondência</value>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Maximizar painel de resultados na pesquisa</value>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>Mover arquivos</value>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>Ao copiar, substituir o arquivo de destino se ele já existir?</value>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>Ao mover, substituir o arquivo de destino se ele já existir?</value>
+  </data>
+  <data name="Options_OnMainPanel" xml:space="preserve">
+    <value>no painel principal</value>
+  </data>
+  <data name="Options_OptionsTitle" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Números de Página</value>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>Estilo de numeração do PDF:</value>
+  </data>
+  <data name="Options_PDFToText" xml:space="preserve">
+    <value>PDF para texto</value>
+  </data>
+  <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>Opções de linha de comando do PdfToText.exe:</value>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Redefinir</value>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Recursos</value>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Filtro de arquivo</value>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Janela de visualização</value>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Opções de resultado</value>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Árvore de resultados</value>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Opções de pesquisa</value>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Tipo de pesquisa</value>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Opções especiais</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Personalizar visibilidade dos controles</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Mostrar ou ocultar controles quando Personalizar estiver ativado</value>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Pesquisa fonética</value>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Ativado</value>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Extensões:</value>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Redefinir</value>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Mostrar texto simples na visualização</value>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Pressione F1 para obter ajuda sobre as opções</value>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>Ferramenta de visualização para tradutores</value>
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>Expressões regulares</value>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Recarregar</value>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Recarregar o arquivo de tema atual</value>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Layout da janela de substituição</value>
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value>Tamanho da fonte da janela de substituição</value>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Família de fontes dos resultados</value>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Tamanho da fonte dos resultados</value>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Fonte usada nos resultados da pesquisa, geralmente uma fonte de largura fixa</value>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Resultados da pesquisa</value>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>Texto de exemplo</value>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Tema selecionado</value>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Enviar para a lixeira</value>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Mostrar o dnGrep no menu de contexto do Windows Explorer</value>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>Mostrar dicas de ferramenta com informações do arquivo</value>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Mostrar caminho do arquivo no painel de resultados</value>
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value>Mostrar linhas de resultado em contexto</value>
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Mostrar árvore de resultados expandida</value>
+  </data>
+  <data name="Options_ShowSearchOptions" xml:space="preserve">
+    <value>Mostrar opções de pesquisa</value>
+  </data>
+  <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
+    <value>Mostrar detalhes adicionais sobre as correspondências encontradas</value>
+  </data>
+  <data name="Options_StartupOptions" xml:space="preserve">
+    <value>Inicialização</value>
+  </data>
+  <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
+    <value>O tempo limite de correspondência limita o tempo que o mecanismo de expressão regular tenta resolver uma expressão regular antes de expirar. Isso evita o processamento de expressões e strings de entrada que exigem retrocesso excessivo.</value>
+  </data>
+  <data name="Options_Theme" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Options_TimeoutSeconds" xml:space="preserve">
+    <value>segundos</value>
+  </data>
+  <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>Execute o dnGrep como Administrador para alterar esta configuração.</value>
+  </data>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value>Usar fonte padrão</value>
+  </data>
+  <data name="Options_WantADifferentLanguage" xml:space="preserve">
+    <value>Deseja um idioma diferente?</value>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>Ao excluir arquivos</value>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Altera o zoom do editor de texto</value>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Localizar próximo (F3)</value>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Localizar anterior (Shift+F3)</value>
+  </data>
+  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>Os realces não estão sendo exibidos porque muitas correspondências foram encontradas.</value>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>Coincidir maiúsculas de minúsculas</value>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>Corresponder a palavras inteiras</value>
+  </data>
+  <data name="Preview_PreviewAnyway" xml:space="preserve">
+    <value>Visualizar mesmo assim</value>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Sintaxe</value>
+  </data>
+  <data name="Preview_SyntaxNone" xml:space="preserve">
+    <value>Nenhuma</value>
+  </data>
+  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>Este arquivo é binário ou muito grande para ser exibido.</value>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(como texto)</value>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Usar expressões regulares</value>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>Quebrar texto</value>
+  </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>O nome do arquivo já existe neste diretório</value>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>O nome do arquivo contém caracteres inválidos</value>
+  </data>
+  <data name="Rename_NewName" xml:space="preserve">
+    <value>Novo nome:</value>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>Renomear arquivo</value>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>Cancelar todas as substituições</value>
+  </data>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Altera o zoom do editor de texto</value>
+  </data>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Erro: este é um arquivo binário</value>
+  </data>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value>Arquivo {0} de {1}: {2} ({3} correspondência(s) em {4} linha(s))</value>
+  </data>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>Arquivos</value>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Manter a data de modificação anterior do arquivo</value>
+  </data>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Marcar todas as correspondências neste arquivo para substituição</value>
+  </data>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value>Marcar correspondência para substituição</value>
+  </data>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value>Correspondências</value>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Mover para a próxima correspondência neste arquivo</value>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Mover para a correspondência anterior neste arquivo</value>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>_Próximo</value>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>Próximo _arquivo</value>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} de {1} correspondência(s) marcada(s) para substituição</value>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>_Anterior</value>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Arquivo anterior</value>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[somente leitura]</value>
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Substituir todas as correspondências em todos os arquivos e aplicar</value>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Substituir</value>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>Substituir em todos os arquivos</value>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>Substituir no arquivo</value>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>texto</value>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Correspondência selecionada</value>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Substituir correspondência</value>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Ignorar correspondência</value>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Substituir correspondências marcadas para substituição</value>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Substituir por:</value>
+  </data>
+  <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Redefinir e ignorar todas as correspondências neste arquivo</value>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Pesquisar por:</value>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value>Mostrar o próximo arquivo</value>
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value>Mostrar o arquivo anterior</value>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>Nenhuma</value>
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>Este arquivo contém muitas correspondências para substituição individual. Clique em 'Substituir no arquivo' para substituir todas elas.</value>
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value>Substituir Texto</value>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Desfazer</value>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value>Desfazer arquivo</value>
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Desfazer marcação de substituição nesta correspondência</value>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Quando marcado, a 'Data de modificação' não será alterada na substituição</value>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Quebrar texto</value>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value>Nome do Arquivo,Número da Linha,String</value>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>Resultados da Pesquisa do dnGrep</value>
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[Arquivo não encontrado: foi excluído ou movido?]</value>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>Encontrada(s) {0} correspondência(s) em {1} linha(s) em {2} arquivo(s)</value>
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value>Encontradas correspondências para </value>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>Nenhuma correspondência encontrada para </value>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>tem {0} correspondência(s) em {1} linha(s):</value>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Apenas grupos de captura</value>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Filtrar por valores únicos</value>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Linhas completas</value>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Incluir informações de arquivo e linha</value>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Apenas correspondências</value>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>Por arquivo</value>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Pressione F1 para obter ajuda</value>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Visualização:</value>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Opções de Relatório</value>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Separador para várias correspondências ou grupos em uma linha</value>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Mostrar cada correspondência ou grupo em linha separada</value>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Remover espaços em branco</value>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Diferenciar maiúsculas e minúsculas</value>
+  </data>
+  <data name="ReportSummary_DotAsNewline" xml:space="preserve">
+    <value>Ponto como nova linha</value>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Codificação:</value>
+  </data>
+  <data name="ReportSummary_ExcludePattern" xml:space="preserve">
+    <value>Padrão de exclusão de arquivo:</value>
+  </data>
+  <data name="ReportSummary_FilePattern" xml:space="preserve">
+    <value>Padrão de inclusão de arquivo:</value>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Profundidade máxima de pastas: {0}</value>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Multilinha</value>
+  </data>
+  <data name="ReportSummary_NoArchives" xml:space="preserve">
+    <value>Nenhum arquivo compactado</value>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Nenhum binário</value>
+  </data>
+  <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
+    <value>Nenhum arquivo binário</value>
+  </data>
+  <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
+    <value>Nenhum arquivo oculto</value>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Nenhuma subpasta</value>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Nenhum link simbólico</value>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Pesquisar por:</value>
+  </data>
+  <data name="ReportSummary_SearchIn" xml:space="preserve">
+    <value>Pesquisar em:</value>
+  </data>
+  <data name="ReportSummary_SearchInResults" xml:space="preserve">
+    <value>Pesquisar nos resultados</value>
+  </data>
+  <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
+    <value>Tamanho de {0} a {1} KB</value>
+  </data>
+  <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
+    <value>Parar após a primeira correspondência</value>
+  </data>
+  <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
+    <value>Data de {0} de {1} a {2}</value>
+  </data>
+  <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
+    <value>Data de {0} nas últimas {1} a {2} horas</value>
+  </data>
+  <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
+    <value>Usando a pesquisa de índice do Everything</value>
+  </data>
+  <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
+    <value>Usando padrão de arquivo de expressão regular</value>
+  </data>
+  <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
+    <value>Usando pesquisa {0}</value>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Palavra inteira</value>
+  </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Fechar</value>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>_Copiar</value>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Re_cortar</value>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Excluir</value>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>Excluir _linha</value>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Editar</value>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_Arquivo</value>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>_Ajuda</value>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Mover linhas selecionadas para baixo</value>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Mover linhas selecionadas para cima</value>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_Novo…</value>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>_Colar</value>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>_Refazer</value>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_Executar script</value>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Salvar</value>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Salvar _como…</value>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_Comandos de script</value>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Sugerir</value>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Editor de Scripts</value>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Ferramentas</value>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Desfazer</value>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>Va_lidar</value>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Validação</value>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Linha</value>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Mensagem</value>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>O comando não é válido</value>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>A chave do script não foi encontrada</value>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>O nome de destino não é válido</value>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>O valor não pode ser convertido a partir da string</value>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>O valor não pôde ser convertido para o tipo correto</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>Este comando não permite um valor nulo</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>Este comando não precisa de um parâmetro de valor</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>Este comando requer um valor booleano</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>Este comando requer um valor de string</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>Este comando requer um parâmetro de destino</value>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Favorito</value>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Adicionar um novo favorito</value>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>O nome para o novo favorito, ou vazio</value>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Adicionar um novo favorito associado à pasta de pesquisa atual</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Remover um favorito</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>O nome do favorito a ser removido, ou vazio para o favorito atual</value>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Remover um favorito de pasta</value>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Aplicar configurações de favorito</value>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>O nome de um favorito</value>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Copiar nomes de arquivos nos resultados para a área de transferência</value>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Copiar os arquivos de resultado para um novo local</value>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>O caminho da pasta de destino</value>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Copiar o texto do resultado para a área de transferência</value>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>Excluir os arquivos de resultado permanentemente</value>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>Fechar todas as janelas e sair do dnGrep</value>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Expandir ou ocultar a seção de filtros de arquivos</value>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Expandir ou ocultar a seção de opções de resultados</value>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Importar dados</value>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>Incluir os comandos de outro script no script atual</value>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>A chave/nome do arquivo do script</value>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>Maximizar ou restaurar a árvore de resultados de pesquisa</value>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>Sempre mostrar a janela de mensagens do script quando o script terminar</value>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>Mover os arquivos de resultado para um novo local</value>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>O caminho da pasta de destino</value>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Substituir correspondências nos arquivos</value>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Escrever um relatório</value>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>O caminho e o nome de arquivo para o relatório</value>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>O relatório de resultados como um arquivo csv</value>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>O relatório completo</value>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>O relatório de resultados apenas em texto</value>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>O caminho e o nome de arquivo para o relatório</value>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>Redefinir os filtros de arquivos para seus valores padrão</value>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Executar um comando externo</value>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Executar um script de comando</value>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>O caminho completo e o nome de arquivo de um arquivo cmd ou em lote</value>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Executar um script PowerShell</value>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>O caminho completo e o nome do arquivo de script .ps1</value>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Iniciar pesquisa</value>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>Definir um valor em uma propriedade de destino</value>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Pesquisa de grupo de captura</value>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Diferenciar maiúsculas de minúsculas</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>Linhas de contexto depois (número)</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>Linhas de contexto antes (número)</value>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Ponto como nova linha</value>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>Codificação, como um número de página de código</value>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>Defina o número da página de código ou -1 para detecção automática</value>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>Filtro de data e hora 'Até'</value>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>Seleção de filtro de data</value>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>Incluir informações do arquivo no relatório</value>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>Seleção de filtro de intervalo de tempo</value>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>Ativar filtragem por tamanho de arquivo</value>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>Local da pesquisa: pasta ou caminho do arquivo</value>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>A pasta, caminho do arquivo ou lista de pastas ou arquivos separados por vírgula</value>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Seguir links simbólicos</value>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Realçar grupos</value>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>Realçar correspondências</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>Filtro de horas 'Passadas' de data e hora</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Limite inferior do filtro de horas passadas (número)</value>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>Filtro de horas 'Passadas' de data e hora</value>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Limite superior do filtro de horas passadas (número)</value>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Incluir arquivos binários</value>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Incluir pastas ocultas</value>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Incluir subpastas</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>Separador de relatório entre itens na mesma linha</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>Caractere ou caracteres como vírgula ou vírgula e espaço</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>Profundidade máxima de subpastas</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>Limite de profundidade da pasta (número)</value>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Multilinha</value>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>Tipo do padrão de filtro de arquivos</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>Filtro de padrões para excluir</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>Padrão do filtro de arquivos, como test\\*, ou lista de filtros</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>Filtro de padrões para corresponder</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>Padrão do filtro de arquivos, como *.txt, ou lista de filtros</value>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Visualizar arquivo</value>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Substituir por</value>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>Texto de substituição ou string vazia</value>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>Configuração de saída do relatório</value>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>Nível de zoom para a árvore de resultados (número)</value>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Pesquisar por</value>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>Padrão de pesquisa ou string vazia</value>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Pesquisar em arquivos compactados</value>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>Pesquisar nos resultados</value>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>Pesquisar em paralelo</value>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>Tipo do padrão de pesquisa</value>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>Saída do relatório em linhas separadas</value>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Mostrar linhas de contexto</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>Tamanho (De)</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>Limite inferior do filtro de tamanho (número)</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>Tamanho (Até)</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>Limite superior do filtro de tamanho (número)</value>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Ignorar arquivos de armazenamento em nuvem remota</value>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>Direção da classificação</value>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>Configuração do tipo de classificação</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>Filtro de data e hora 'De'</value>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>Usar formato ISO 8601 ou formato local de data e hora</value>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Parar após a primeira correspondência</value>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>Remover espaços em branco no relatório</value>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>Escopo de valores únicos do relatório: por arquivo ou todos os arquivos</value>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>Filtrar relatório por valores únicos</value>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Usar .gitignore</value>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Palavra inteira</value>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Quebrar texto</value>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>Ordenar resultados</value>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>Desfazer a última operação de substituição</value>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>Na linha</value>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Falha ao copiar arquivos: </value>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>Falha ao excluir arquivos: </value>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>O arquivo {0} '{1}' não foi encontrado</value>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>A extensão do arquivo {0} deve ser {1}</value>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>Falha ao mover arquivos: </value>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>Novo script</value>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>O comando de execução encerrou com erro: </value>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>O comando de execução não é válido</value>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>script cancelado</value>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>script concluído</value>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>Arquivos de script</value>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>Mensagens do script</value>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Operadores booleanos</value>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>D_iferenciar maiúsculas de minúsculas</value>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>_Fechar</value>
+  </data>
+  <data name="Test_CopyToClipboard" xml:space="preserve">
+    <value>Copiar para a área de transferência</value>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>_Ponto como nova linha</value>
+  </data>
+  <data name="Test_HighlightGroups" xml:space="preserve">
+    <value>Realçar Grupos</value>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Multilinha</value>
+  </data>
+  <data name="Test_NoMatchesFound" xml:space="preserve">
+    <value>Nenhuma correspondência encontrada</value>
+  </data>
+  <data name="Test_ReplaceResult" xml:space="preserve">
+    <value>Resultado da substituição:</value>
+  </data>
+  <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>O texto de substituição não é um XML válido!</value>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Substituir por:</value>
+  </data>
+  <data name="Test_SampleInputText" xml:space="preserve">
+    <value>Texto de entrada de amostra:</value>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Pesquisar por:</value>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="Test_SearchResult" xml:space="preserve">
+    <value>Resultado da pesquisa:</value>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonético</value>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>_Expressão regular</value>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_Texto</value>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="Test_Title" xml:space="preserve">
+    <value>Teste</value>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>_Palavra inteira</value>
+  </data>
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
+    <value>. corresponde a todos os caracteres</value>
+  </data>
+  <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
+    <value>\w corresponde a alfanuméricos</value>
+  </data>
+  <data name="TTA3_MatchesDigits" xml:space="preserve">
+    <value>\d corresponde a dígitos</value>
+  </data>
+  <data name="TTA4_MatchesSpace" xml:space="preserve">
+    <value>\s corresponde a espaço</value>
+  </data>
+  <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
+    <value>* corresponde a qualquer número de caracteres</value>
+  </data>
+  <data name="TTA6_Matches1To3Characters" xml:space="preserve">
+    <value>{1,3} corresponde a 1 a 3 caracteres</value>
+  </data>
+  <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
+    <value>Pressione F1 para ver mais padrões de expressões regulares</value>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t insere tabulação, \\r insere retorno de linha, \\n insere nova linha</value>
+  </data>
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
+    <value>$&amp; substitui a expressão regular inteira</value>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3, etc… inserem o texto capturado pelos parênteses no texto de substituição</value>
+  </data>
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+    <value>$$ insere um símbolo de cifrão único no texto de substituição</value>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Acoplar este pop-up de volta à janela principal</value>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>Maximizar</value>
+  </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>Minimizar</value>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Destacar este painel em sua própria janela</value>
+  </data>
+  <data name="Window_RestoreDown" xml:space="preserve">
+    <value>Restaurar Tamanho</value>
+  </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>Opções de pesquisa</value>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>Número máximo de pesquisas paralelas</value>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>Sem limite fixo</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>Definir uma variável de ambiente</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>Variável=string (a string pode estar vazia para limpar uma variável)</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>Gravar uma string ou o tempo decorrido no arquivo de log</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>String de mensagem ou 'time' para registrar o tempo decorrido</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>Recortar</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>Colar</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>Converter para Maiúsculas</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>Converter para Minúsculas</value>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>Copiar arquiovs…</value>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>Mover arquivos…</value>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>Excluir arquivos</value>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Pesquisa cancelada em {0} – {1} correspondência(s) encontrada(s)em {2} arquivo(s) de {3} pesquisado(s).</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>Substituição cancelada – texto substituído em {0} arquivo(s).</value>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>Retomar</value>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>Pausar</value>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>Pausado</value>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>Página</value>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>Não configurado</value>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>Preservar o layout da pasta de origem</value>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>Caracteres inválidos</value>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>Insira um valor no intervalo: {0}-{1}.</value>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>Tipo de entrada inválido</value>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>Filtro:</value>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>Filtro:</value>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Reutilizar a janela existente (instância única) *</value>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* Reinicialização necessária após alteração</value>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>A substituição em arquivos está em execução.</value>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Aguarde a conclusão ou cancele antes de sair.</value>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>Um script está em execução.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>Deseja parar o script e sair?</value>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>Sim, sair mesmo assim</value>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Não mostrar esta mensagem novamente</value>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>A pesquisa está em execução.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>Deseja parar a pesquisa e sair?</value>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>Os resultados da pesquisa serão limpos ao sair.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>Deseja sair?</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>Pedir confirmação ao sair quando um script estiver em execução</value>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>Pedir confirmação ao sair quando a Pesquisa durar mais de</value>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>minutos</value>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>Erro ao abrir o arquivo PDF</value>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>Erro ao abrir um arquivo de saída</value>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>Erro relacionado a permissões de PDF</value>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>Outro erro</value>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext retornou '{0}' ao ler '{1}'</value>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Falha ao pesquisar no arquivo compactado '{0}'</value>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>Falha ao extrair o arquivo '{0}' do arquivo compactado '{1}'</value>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>Falha na leitura do documento</value>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>Ao abrir o arquivo, abrir o arquivo compactado inteiro para estas extensões:</value>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>Word (docx)</value>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>Extrair notas de rodapé</value>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>Caracteres de referência de notas de rodapé:</value>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>Não mostrado</value>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>Sobrescrito</value>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>Pode não ter suporte em todas as fontes</value>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>Caractere em tamanho normal</value>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>Caractere em tamanho normal entre parênteses</value>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>Extrair cabeçalhos</value>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>Extrair rodapés</value>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>Posição dos cabeçalhos e rodapés extraídos:</value>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>Início da seção</value>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>Fim do documento</value>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>Extrair comentários</value>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>Subscrito</value>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>Número em tamanho normal entre parênteses</value>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>Números de referência de comentários:</value>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>Mostrar arquivos com erros de pesquisa no painel de resultados</value>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>Não foi possível pesquisar {0} arquivo(s) devido a permissões, bloqueios ou erros: consulte o arquivo de log do dnGrep para obter detalhes</value>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>Este arquivo PDF não contém texto</value>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>Falha do pdftotext ao criar o arquivo de texto</value>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>O pdftotext retornou '{0}'</value>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>Copiar e renomear arquivos de resultado usando expressões regulares</value>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>Erro: um padrão é necessário para o argumento {0}</value>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>Erro: True ou False é necessário para o argumento {0}</value>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>Erro: o caminho é necessário para o argumento {0}</value>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>Erro: {0} para o argumento {1}</value>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>Não foi possível criar o diretório de destino: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>O arquivo de destino já existe e a opção de sobrescrever é false: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>O arquivo de destino é igual ao arquivo de origem: {0}</value>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>Erro {0} ao processar o arquivo '{1}'</value>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>Copiado '{0}' para '{1}'</value>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>Escapar aspas no argumento '{0}'</value>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>Ordem de classificação natural</value>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>Ordene os dígitos em ordem numérica</value>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>O padrão de correspondência não coincidiu com o nome do arquivo '{0}'</value>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>Linha atual</value>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>Mostrar botões de navegação</value>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>Tamanho do botão:</value>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>Pequeno</value>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>Médio</value>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>Grande</value>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>Posição do painel:</value>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>Acima da árvore de resultados</value>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>Acoplado ao lado da árvore de resultados:</value>
+  </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>Pesquisa multilinha</value>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>O valor é obrigatório</value>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>O caminho deve ser válido</value>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>Adicionar…</value>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>Editor Personalizado</value>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>Rótulo</value>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>Extensões</value>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>Definir como editor padrão para tipos de arquivos não listados</value>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>Editar…</value>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>Abrir com</value>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>Na janela de visualização, perguntar antes de carregar arquivos maiores que</value>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>Ativar rolagem fixa na árvore de resultados</value>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>O plugin {0} falhou ao extrair qualquer texto</value>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>O arquivo criado pelo plugin {0} não possui texto pesquisável</value>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>O comando do plugin {0} retornou o erro: {1}</value>
+  </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>semanas</value>
+  </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>minutos</value>
+  </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>dias</value>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>meses</value>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>anos</value>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>Data de {0} nos últimos {1} a {2} {3}</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>Copiar nomes de arquivos com a contagem de correspondências</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>Somente leitura</value>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>Classificar automaticamente os resultados quando a pesquisa for concluída</value>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>Menu de contexto do Windows 11:</value>
+  </data>
+  <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
+    <value>Pesquisar com o dnGrep</value>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>Necessário o Windows 11</value>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>Menu de contexto original:</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/e [comandos de pesquisa]
+-e [comandos de pesquisa]
+-everything [comandos de pesquisa]
+    Define o texto de pesquisa do Everything.</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>Parar após {0} correspondências</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>Pausar após a primeira correspondência</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>Pausar após {0} correspondências</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>Número de correspondências para parar a pesquisa automaticamente</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>Número de correspondências para pausar a pesquisa automaticamente</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>Ativar preenchimento automático nas caixas de texto</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>Não global</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>Não global</value>
+  </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>Todas as correspondências em cada arquivo</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>Primeira correspondência em cada arquivo</value>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>Após pesquisar, definir o foco do teclado para</value>
+  </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>Árvore de resultados</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>Campo "Pesquisar por"</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>Com arquivos dentro de arquivos compactados</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>Copiar o arquivo compactado inteiro</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>Extrair e copiar arquivos</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>Mover o arquivo compactado inteiro</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>Extrair e mover arquivos</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>Excluir o arquivo compactado inteiro</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>Não fazer nada</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>Cache de plug-ins</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>Armazenar arquivos extraídos em cache</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>Armazenar arquivos em cache na pasta Temp</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>Armazenar arquivos em cache em</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>Excluir arquivos do cache se não utilizados em</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>As configurações de cache do plug-in foram alteradas. Deseja excluir a pasta de cache antiga?</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>Exibir espaços em branco</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>Criar chave de arquivo de cache usando:</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>Hash do arquivo completo</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>Hash do tamanho e data de modificação do arquivo</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>Usar caixa de diálogo Substituir</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>Substituir nos arquivos selecionados</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>Não há arquivos selecionados para substituição.</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Não foi possível registrar o novo atalho de teclado - ele está em uso?</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>Minimizar para a área de notificação *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>Atalho de teclado para restaurar a janela do dnGrep</value>
+  </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>Biblioteca .NET para gerar diferenças textuais</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>Abrir comparação de arquivos</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>Visualização mostrando substituições</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>Encaminhar argumentos de linha de comando para a janela existente</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>_Logs do aplicativo</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>Não foi possível copiar alguns arquivos para os novos diretórios. Verifique o log de erros para obter detalhes: </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>O diretório '{0}' pode conter arquivos que não fazem parte do aplicativo. Usar este diretório mesmo assim?</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>Os diretórios do aplicativo foram alterados. Deseja copiar os arquivos para os novos diretórios?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>O novo diretório já possui um arquivo com o nome "{0}". Substituir o arquivo existente?</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>Erro:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>Nenhuma correspondência encontrada!</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>Peso da fonte dos resultados</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>Para o nome do arquivo nos resultados da pesquisa</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>Atalhos de Teclado</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>Janela</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>Rótulo</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>Comando</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>Tecla de atalho</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>Atalho para o comando selecionado</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>Pressione as teclas de atalho:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>Atalho atualmente em uso por:</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>Atribuir</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>Redefinir tudo para os padrões</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>Pressione F1 para obter ajuda sobre atalhos de teclado</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_Teclado…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>Seta para cima</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>Seta para baixo</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>Seta para a esquerda</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>Seta para a direita</value>
+  </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>Spaço</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Mostrar caminho relativo ao caminho de pesquisa</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Diretórios</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Caractere(s) de substituição</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Substituir este(s) caractere(s)</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>Com este(s) caractere(s)</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Usar diretórios padrão</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Configurações e dados do aplicativo:</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Arquivos de log do aplicativo:</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Localizar</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [comandos de pesquisa]
+-e* [comandos de pesquisa]
+-everything* [comandos de pesquisa]
+    Define o texto de pesquisa do Everything. Deve ser a última opção na linha de comando e copiará o restante da linha de comando literalmente.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [pesquisarPor]
+-s* [pesquisarPor]
+-searchFor* [pesquisarPor]
+    Define o padrão ou texto a ser pesquisado dentro do conjunto de arquivos. Deve ser a última opção na linha de comando e copiará o restante da linha de comando literalmente. Quando este argumento for definido, a pesquisa será executada automaticamente.</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Inverter "Pesquisar por" e "Substituir por"</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Substituições de String</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Adicionar mapeamento</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Caractere(s) original(is)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Ponto(s) de código Unicode</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>O valor original já existe.</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Ponto de código Unicode</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Substituição</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Mapa de strings…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Aplicar mapa de strings</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Solicitar senha para arquivos PDF protegidos</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Solicitar senha para arquivos compactados protegidos</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>A senha inserida está incorreta.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Senha para:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Mostrar senha</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>As configurações do mapa de strings foram alteradas. Deseja excluir a pasta de cache?</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>Exibir espaços em branco</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>Mover para o topo</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>Mover para cima</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>Mover para baixo</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>Mover para o final</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Copiar "Pesquisar por" para "Substituir por"</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Copiar "Substituir por" para "Pesquisar por"</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Localizar:</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>Localizar anterior (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>Localizar próxima (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>Coincidir maiúsculas e minúsculas</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>Coincidir palavras inteiras</value>
+  </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Nome da instância do Everything</value>
+  </data>
+</root>
