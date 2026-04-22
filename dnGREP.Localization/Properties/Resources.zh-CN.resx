@@ -4464,4 +4464,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything 实例名</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>只读</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>搜索类型</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>匹配</value>
+  </data>
 </root>
