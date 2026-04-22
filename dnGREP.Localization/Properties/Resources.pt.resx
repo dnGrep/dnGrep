@@ -3028,4 +3028,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Corresponder a todas as palavras</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Correspondências</value>
+  </data>
 </root>
