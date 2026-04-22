@@ -548,7 +548,7 @@
     <value>_Točka kao nova linija</value>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value>Osjetljiv na velika i mala slova</value>
+    <value>Osjetljiv na vrstu slova</value>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
     <value>_Točka kao nova linija</value>
@@ -1083,5 +1083,11 @@
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Pomakni na dno</value>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Vrsta uzorka datoteke</value>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Sadržaj datoteke</value>
   </data>
 </root>
