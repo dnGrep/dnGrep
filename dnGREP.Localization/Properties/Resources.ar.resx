@@ -814,4 +814,7 @@
   <data name="PasswordDialog_OK" xml:space="preserve">
     <value>حسنا</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
 </root>
