@@ -4471,9 +4471,27 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>只读</value>
   </data>
   <data name="Main_ResultsHeader_Type" xml:space="preserve">
-    <value>搜索类型</value>
+    <value>类型</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>匹配</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>已更改的数据</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>在结果树中启用详细视图</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>所有列适配的尺寸</value>
   </data>
 </root>
