@@ -4427,4 +4427,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ResultsHeader_Size" xml:space="preserve">
     <value>大小</value>
   </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>修改日期</value>
+  </data>
 </root>
