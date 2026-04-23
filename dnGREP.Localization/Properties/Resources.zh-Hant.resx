@@ -4418,4 +4418,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>符合項</value>
   </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>資訊</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>路徑</value>
+  </data>
 </root>
