@@ -4077,7 +4077,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>從快取中刪除檔案, 若未使用</value>
   </data>
   <data name="Preview_ViewWhitespace" xml:space="preserve">
-    <value>檢視 Whitespace</value>
+    <value>檢視空白</value>
   </data>
   <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
     <value>建立快取檔案金鑰時, 使用:</value>
@@ -4429,5 +4429,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
     <value>修改日期</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>在結果樹狀圖中啟用詳細資訊視圖</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>調整所有的大小以適合欄寬</value>
   </data>
 </root>
