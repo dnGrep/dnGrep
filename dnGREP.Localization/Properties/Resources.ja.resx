@@ -4388,9 +4388,27 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>読み取り専用</value>
   </data>
   <data name="Main_ResultsHeader_Type" xml:space="preserve">
-    <value>タイプ</value>
+    <value>種類</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
-    <value>一致項目</value>
+    <value>一致</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>情報</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>更新日時</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>結果ツリーで詳細表示を有効にする</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>すべての列のサイズを合わせる</value>
   </data>
 </root>
