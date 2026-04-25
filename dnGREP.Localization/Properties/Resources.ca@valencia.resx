@@ -1012,7 +1012,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Mostra opcions dels resultats</value>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>Mida</value>
+    <value>Mida de</value>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
     <value>KB</value>
@@ -3431,5 +3431,35 @@ Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser 
   </data>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Nom de la instància de tot</value>
+  </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Només lectura</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Mida</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Tipus</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Data de modificació</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Coincidències</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Habilita la vista de detalls a l'arbre de resultats</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Redimensiona totes les columnes perquè encaixen</value>
   </data>
 </root>
