@@ -3762,4 +3762,16 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>Fundstellen</value>
   </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Pfad</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Schreibgeschützt</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Größe</value>
+  </data>
 </root>
