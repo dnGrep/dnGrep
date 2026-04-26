@@ -289,7 +289,7 @@
     <value>Leisezeichendetails</value>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value>Type</value>
+    <value>Suchtyp</value>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
     <value>benutze .gitignore</value>
@@ -3757,7 +3757,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Name</value>
   </data>
   <data name="Main_ResultsHeader_Type" xml:space="preserve">
-    <value>Type</value>
+    <value>Typ</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>Fundstellen</value>
@@ -3776,5 +3776,11 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
     <value>Änderungsdatum</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Detailansicht im Ergebnisbaum aktivieren</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Spaltenbreite automatisch anpassen</value>
   </data>
 </root>
