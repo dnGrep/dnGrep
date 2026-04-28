@@ -3432,4 +3432,34 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Nome da instância do Everything</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Informações</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Caminho</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Somente leitura</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Data de modificação</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Correspondências</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Ativar exibição de detalhes na árvore de resultados</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Ajustar largura de todas as colunas</value>
+  </data>
 </root>
