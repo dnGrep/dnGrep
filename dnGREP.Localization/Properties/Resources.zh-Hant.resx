@@ -4077,7 +4077,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>從快取中刪除檔案, 若未使用</value>
   </data>
   <data name="Preview_ViewWhitespace" xml:space="preserve">
-    <value>檢視 Whitespace</value>
+    <value>檢視空白</value>
   </data>
   <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
     <value>建立快取檔案金鑰時, 使用:</value>
@@ -4405,5 +4405,35 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything 實例名稱</value>
+  </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>唯讀</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>符合項</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>資訊</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>路徑</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>修改日期</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>在結果樹狀圖中啟用詳細資訊視圖</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>調整所有的大小以適合欄寬</value>
   </data>
 </root>

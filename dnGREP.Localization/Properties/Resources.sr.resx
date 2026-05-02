@@ -3466,4 +3466,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Налази целу реч</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Налажења</value>
+  </data>
 </root>

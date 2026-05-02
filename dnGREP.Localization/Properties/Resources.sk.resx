@@ -1063,4 +1063,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Presunúť na koniec</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
 </root>
