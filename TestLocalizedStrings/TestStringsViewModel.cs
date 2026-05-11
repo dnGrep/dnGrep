@@ -36,6 +36,7 @@ namespace dnGREP.TestLocalizedStrings
                 { "nb-NO", "norsk (bokmål)" },
                 { "pl", "polski" },
                 { "pt", "Português" },
+                { "pt-BR", "Português brasileiro" },
                 { "ru", "pусский" },
                 { "sk", "slovenčina" },
                 { "sr", "српски" },
