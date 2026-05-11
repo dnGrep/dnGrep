@@ -2492,4 +2492,10 @@
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Match whole words</value>
   </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Treff</value>
+  </data>
 </root>

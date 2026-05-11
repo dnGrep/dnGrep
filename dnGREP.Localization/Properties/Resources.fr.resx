@@ -3190,4 +3190,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Faites correspondre des mots entiers</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Correspondances</value>
+  </data>
 </root>

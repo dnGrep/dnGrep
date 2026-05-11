@@ -3595,4 +3595,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_Find" xml:space="preserve">
     <value>Знайти:</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Тільки для читання</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Сірники</value>
+  </data>
 </root>

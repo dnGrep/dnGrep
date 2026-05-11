@@ -3094,4 +3094,13 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Coincideix paraules senceres</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Tipus</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Coincidències</value>
+  </data>
 </root>

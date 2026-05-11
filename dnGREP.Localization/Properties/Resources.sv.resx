@@ -927,4 +927,10 @@
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Gå till botten</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
 </root>

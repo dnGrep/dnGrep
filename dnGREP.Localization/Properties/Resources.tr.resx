@@ -3537,4 +3537,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything örnek adı</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Yer İmi Adı</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Salt okunur</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Tür</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Eşleşmeler</value>
+  </data>
 </root>
