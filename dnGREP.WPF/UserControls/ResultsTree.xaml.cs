@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using dnGREP.Common;
+using dnGREP.Localization;
 using Res = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF.UserControls
@@ -76,6 +77,8 @@ namespace dnGREP.WPF.UserControls
             InitializeComponent();
             DataContextChanged += ResultsTree_DataContextChanged;
 
+            TranslationSource.Instance.CurrentCultureChanged += UpdateColumnHeaders;
+
             // used to map the editor menu items on the TextBlock context menu
             NameScope.SetNameScope(contextMenu, this);
             NameScope.SetNameScope(contextMenuClassic, this);
@@ -136,6 +139,25 @@ namespace dnGREP.WPF.UserControls
                     };
                 }
             };
+        }
+
+        private void UpdateColumnHeaders(object? sender, EventArgs e)
+        {
+            foreach (var (col, id) in columnIds)
+            {
+                col.Header = id switch
+                {
+                    ColPath => Res.Main_ResultsHeader_Path,
+                    ColName => Res.Main_ResultsHeader_Name,
+                    ColMatches => Res.Main_ResultsHeader_Matches,
+                    ColReadOnly => Res.Main_ResultsHeader_ReadOnly,
+                    ColSize => Res.Main_ResultsHeader_Size,
+                    ColType => Res.Main_ResultsHeader_Type,
+                    ColDate => Res.Main_ResultsHeader_DateModified,
+                    ColInfo => Res.Main_ResultsHeader_Info,
+                    _ => col.Header  // ColIcon — leave empty
+                };
+            }
         }
 
         private void TreeListViewColumns_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
