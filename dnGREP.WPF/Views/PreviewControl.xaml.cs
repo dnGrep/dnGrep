@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Editing;
+using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Search;
 
 namespace dnGREP.WPF
@@ -47,6 +48,10 @@ namespace dnGREP.WPF
             lineNumberMargin.SetBinding(Control.ForegroundProperty, lineNumbersForeground);
 
             textEditor.TextArea.TextView.ElementGenerators.Add(new TruncateLongLines());
+
+            // Replace the default case-sensitive MailLinkElementGenerator with a case-insensitive one
+            textEditor.TextArea.TextView.Options.EnableEmailHyperlinks = false;
+            textEditor.TextArea.TextView.ElementGenerators.Add(new ModernMailLinkElementGenerator());
 
             ViewModel.ShowPreview += ViewModel_ShowPreview;
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
@@ -365,5 +370,31 @@ namespace dnGREP.WPF
 
         [GeneratedRegex("\f")]
         private static partial Regex FormFeedRegex();
+    }
+
+    /// <summary>
+    /// A mail link element generator that allows symbols in names, longer top level domains, and 
+    /// uses a case-insensitive regex and , replacing the built-in <c>MailLinkElementGenerator</c> 
+    /// which is case-sensitive and does not recognize modern email addresses.
+    /// </summary>
+    internal partial class ModernMailLinkElementGenerator : LinkElementGenerator
+    {
+        private static readonly Regex caseInsensitiveMailRegex = EmailRegex();
+
+        public ModernMailLinkElementGenerator()
+            : base(caseInsensitiveMailRegex)
+        {
+        }
+
+        protected override Uri? GetUriFromMatch(System.Text.RegularExpressions.Match match)
+        {
+            string targetUrl = "mailto:" + match.Value;
+            if (Uri.IsWellFormedUriString(targetUrl, UriKind.Absolute))
+                return new Uri(targetUrl);
+            return null;
+        }
+
+        [GeneratedRegex(@"\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b", RegexOptions.IgnoreCase, "en-US")]
+        private static partial Regex EmailRegex();
     }
 }
