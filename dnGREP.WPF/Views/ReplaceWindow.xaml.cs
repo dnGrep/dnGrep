@@ -65,6 +65,10 @@ namespace dnGREP.WPF
 
                 textEditor.ShowLineNumbers = false; // using custom line numbers
 
+                // Replace the default case-sensitive MailLinkElementGenerator with a case-insensitive one
+                textEditor.TextArea.TextView.Options.EnableEmailHyperlinks = false;
+                textEditor.TextArea.TextView.ElementGenerators.Add(new ModernMailLinkElementGenerator());
+
                 textEditor.TextArea.TextView.ElementGenerators.Add(new TruncateLongLines());
                 textEditor.TextArea.TextView.LineTransformers.Add(new BigEllipsisColorizer());
 
