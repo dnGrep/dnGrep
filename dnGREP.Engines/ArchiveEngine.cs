@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -135,10 +135,24 @@ namespace dnGREP.Engines
         }
 
         private IEnumerable<List<GrepSearchResult>> SearchInsideArchive(Stream input, string fileName,
-            string password, string searchPattern, SearchType searchType, GrepSearchOption searchOptions,
-            Encoding encoding, PauseCancelToken pauseCancelToken)
+    string password, string searchPattern, SearchType searchType, GrepSearchOption searchOptions,
+    Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            using SevenZipExtractor extractor = new(input, password, true);
+            InArchiveFormat format;
+            try
+            {
+                format = FileChecker.CheckSignature(input, out _, out _);
+            }
+            catch (ArgumentException)
+            {
+                // Stream signature not recognized — fall back to the file name extension,
+                // mirroring the behavior of the SevenZipExtractor(string) constructor.
+                format = Formats.FormatByFileName(fileName, true);
+            }
+
+            using SevenZipExtractor extractor = string.IsNullOrEmpty(password)
+                ? new SevenZipExtractor(input, format, true)
+                : new SevenZipExtractor(input, password, format, true);
             foreach (var fileInfo in extractor.ArchiveFileData)
             {
                 FileData fileData = new(fileName, fileInfo);
