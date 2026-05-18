@@ -138,7 +138,7 @@ namespace dnGREP.Engines
             string password, string searchPattern, SearchType searchType, GrepSearchOption searchOptions,
             Encoding encoding, PauseCancelToken pauseCancelToken)
         {
-            using SevenZipExtractor extractor = new(input, password, true);
+            using SevenZipExtractor extractor = new(fileName, input, password, true);
             foreach (var fileInfo in extractor.ArchiveFileData)
             {
                 FileData fileData = new(fileName, fileInfo);
