@@ -171,7 +171,7 @@ namespace dnGREP.Common
         {
             string password = GetArchivePassword(fileName);
 
-            using SevenZipExtractor extractor = new(input, password, true);
+            using SevenZipExtractor extractor = new(fileName, input, password, true);
             foreach (var fileInfo in extractor.ArchiveFileData)
             {
                 FileData fileData = new(fileName, fileInfo);
@@ -529,16 +529,16 @@ namespace dnGREP.Common
             string password = GetArchivePassword(zipFile);
 
             using FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            return GetLinesWithContext(input, password, searchResult, linesBefore, linesAfter, innerFileName, intermediateFiles, inHexFormat);
+            return GetLinesWithContext(zipFile, input, password, searchResult, linesBefore, linesAfter, innerFileName, intermediateFiles, inHexFormat);
         }
 
-        private static List<GrepLine> GetLinesWithContext(Stream input, string password,
+        private static List<GrepLine> GetLinesWithContext(string archiveFile, Stream input, string password,
             GrepSearchResult searchResult, int linesBefore, int linesAfter,
             string innerFileName, string[] intermediateFiles, bool inHexFormat)
         {
             List<GrepLine> results = [];
 
-            using (SevenZipExtractor extractor = new(input, password, true))
+            using (SevenZipExtractor extractor = new(archiveFile, input, password, true))
             {
                 if (intermediateFiles.Length > 0)
                 {
@@ -563,7 +563,7 @@ namespace dnGREP.Common
                         extractor.ExtractFile(index, stream);
                         string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 
-                        results = GetLinesWithContext(stream, password, searchResult, linesBefore, linesAfter, innerFileName, newIntermediateFiles, inHexFormat);
+                        results = GetLinesWithContext(archiveFile, stream, password, searchResult, linesBefore, linesAfter, innerFileName, newIntermediateFiles, inHexFormat);
                     }
                 }
                 else
@@ -659,16 +659,16 @@ namespace dnGREP.Common
                 }
 
                 using FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                ExtractToTempFile(input, filePath, searchResult.FileNameReal, innerFileName, intermediateFiles);
+                ExtractToTempFile(zipFile, input, filePath, searchResult.FileNameReal, innerFileName, intermediateFiles);
             }
 
             return filePath;
         }
 
-        private static void ExtractToTempFile(Stream input, string filePath, string diskFile, string innerFileName, string[] intermediateFiles)
+        private static void ExtractToTempFile(string archiveFile, Stream input, string filePath, string diskFile, string innerFileName, string[] intermediateFiles)
         {
             string password = GetArchivePassword(filePath);
-            using SevenZipExtractor extractor = new(input, password, true);
+            using SevenZipExtractor extractor = new(archiveFile, input, password, true);
             if (intermediateFiles.Length > 0)
             {
                 int index = -1;
@@ -692,7 +692,7 @@ namespace dnGREP.Common
                     extractor.ExtractFile(index, stream);
                     string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 
-                    ExtractToTempFile(stream, filePath, diskFile, innerFileName, newIntermediateFiles);
+                    ExtractToTempFile(archiveFile, stream, filePath, diskFile, innerFileName, newIntermediateFiles);
                 }
             }
             else
