@@ -2982,7 +2982,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
-    <value>Durant la copie du fichier, lorsque le fichier existe deja, écraser le fichier existant ?</value>
+    <value>Durant la copie du fichier, lorsque le fichier existe dejà, écraser le fichier existant?</value>
     <comment>Options dialog, overwrite on copy options label</comment>
   </data>
   <data name="Options_PageNumbers" xml:space="preserve">
