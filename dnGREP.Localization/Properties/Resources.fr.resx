@@ -2890,7 +2890,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script validation list header</comment>
   </data>
   <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
-    <value>Cette commande ne requiert pas de valeur de paramètre</value>
+    <value>Cette commande ne requiert pas de valeur pour paramètre</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="ScriptHint_bookmark" xml:space="preserve">
@@ -2902,7 +2902,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
-    <value>{0} à des erreurs de validation. Sauver quand même ?</value>
+    <value>{0} Contient des erreurs de validation. Sauvegarder malgré les erreurs ?</value>
     <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
   </data>
   <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
@@ -2930,7 +2930,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script validation list header</comment>
   </data>
   <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
-    <value>la valeur ne peut être convertie depuis la chaine de caractère</value>
+    <value>la valeur ne peut être convertie par la chaîne</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
@@ -2938,7 +2938,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Options_DeleteFiles" xml:space="preserve">
-    <value>Supprimer les fichiers</value>
+    <value>Effacer les fichiers</value>
     <comment>Options dialog, delete files group header label</comment>
   </data>
   <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
@@ -2946,7 +2946,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Options_DeletePermanently" xml:space="preserve">
-    <value>Supprimer pour toujours</value>
+    <value>Effacer définitivement</value>
     <comment>Options dialog, delete option label (accel)</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
@@ -2954,7 +2954,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
-    <value>Le nom de fichier existe déjà dans le dossier</value>
+    <value>Le nom de fichier existe déjà dans ce dossier</value>
     <comment>Rename file dialog error message</comment>
   </data>
   <data name="ScriptHint_bookmark_add" xml:space="preserve">
@@ -2966,7 +2966,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
-    <value>Ne pas redemander</value>
+    <value>Ne plus demander</value>
     <comment>Message box check box label</comment>
   </data>
   <data name="Options_Ask" xml:space="preserve">
@@ -2974,7 +2974,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Options_LineNumbers" xml:space="preserve">
-    <value>Numéros de ligne</value>
+    <value>Numérotation de ligne</value>
     <comment>Options dialog, PDF numbering option</comment>
   </data>
   <data name="Options_No" xml:space="preserve">
@@ -2982,15 +2982,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, radio button label (Yes/No/Ask)</comment>
   </data>
   <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
-    <value>Durant la copie du fichier, lorsque le fichier existe dejà, écraser le fichier existant?</value>
+    <value>Lors d'une copie, si le fichier existe déjà voulez vous remplacer le fichier ?</value>
     <comment>Options dialog, overwrite on copy options label</comment>
   </data>
   <data name="Options_PageNumbers" xml:space="preserve">
-    <value>Numéros de page</value>
+    <value>Numérotation de pages</value>
     <comment>Options dialog, PDF numbering option</comment>
   </data>
   <data name="Options_WhenDeletingFiles" xml:space="preserve">
-    <value>Pendant la suppression des fichiers</value>
+    <value>A l'effacement de fichier</value>
     <comment>Options dialog, delete option label</comment>
   </data>
   <data name="Options_Yes" xml:space="preserve">
@@ -3034,11 +3034,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
-    <value>Le nom voulu n'est pas valide</value>
+    <value>Le nom cible n'est pas valide</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
-    <value>La valeur n'a pas pu être convertie dans le type voulu</value>
+    <value>La valeur n'a pas pu être convertie dans le type correct</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
@@ -3209,7 +3209,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Info</value>
   </data>
   <data name="Main_ResultsHeader_Path" xml:space="preserve">
-    <value>Chemin d'accès</value>
+    <value>Chemin</value>
   </data>
   <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
     <value>Lecture seule</value>
@@ -3224,10 +3224,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Date de modification</value>
   </data>
   <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
-    <value>Numéro de correspondance/nombre de correspondances dans le fichier</value>
+    <value>Correspondances/Nombre de correspondances dans le fichier</value>
   </data>
   <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
-    <value>Numéro de correspondance/nombre de correspondances au total</value>
+    <value>Correspondances/Total des correspondances trouvées</value>
   </data>
   <data name="MessageBox_No" xml:space="preserve">
     <value>_Non</value>
@@ -3236,88 +3236,88 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Non pour tout</value>
   </data>
   <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
-    <value>{0} contient des modifications non enregistrées. Enregistrer maintenant ?</value>
+    <value>{0} N'a aucune sauvegarde. Sauvegarder maintenant ?</value>
   </data>
   <data name="MessageBox_Yes" xml:space="preserve">
-    <value>Oui</value>
+    <value>_Oui</value>
   </data>
   <data name="MessageBox_YesToAll" xml:space="preserve">
-    <value>Oui à tout</value>
+    <value>Oui pour tout</value>
   </data>
   <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
-    <value>Lors du déplacement d'un fichier, si le fichier de destination existe, écraser le fichier existant ?</value>
+    <value>Lors d'un déplacement, souhaitez vous remplacer le fichier existant ?</value>
   </data>
   <data name="Options_PDFNumberStyle" xml:space="preserve">
-    <value>Style de numérotation des PDF :</value>
+    <value>Style de chiffres PDF :</value>
   </data>
   <data name="Script_Editor_Copy" xml:space="preserve">
     <value>_Copier</value>
   </data>
   <data name="Script_Editor_Cut" xml:space="preserve">
-    <value>Couper</value>
+    <value>_Couper</value>
   </data>
   <data name="Script_Editor_DeleteLine" xml:space="preserve">
-    <value>Supprimer la ligne</value>
+    <value>Effacer _ligne</value>
   </data>
   <data name="Script_Editor_Validate" xml:space="preserve">
     <value>Valider</value>
   </data>
   <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
-    <value>Cette commande nécessite un paramètre cible</value>
+    <value>Cette commande requiert un paramètre cible</value>
   </data>
   <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
-    <value>Le nom du nouveau signet, ou laisser vide</value>
+    <value>Nom du nouveau marque-page, ou vide</value>
   </data>
   <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
-    <value>Ajouter un nouveau signet associé au dossier de recherche actuel</value>
+    <value>Ajouter un nouveau marque-page associé au présent dossier de recherche</value>
   </data>
   <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
-    <value>Le nom du signet à supprimer, ou laisser vide pour le signet actuel</value>
+    <value>Nom du marque-page à supprimer, ou supprimer le présent marque-page</value>
   </data>
   <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
-    <value>Supprimer un signet de dossier</value>
+    <value>Supprimer un raccourcis de dossier</value>
   </data>
   <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
-    <value>Le nom d'un signet</value>
+    <value>Nom du marque-page</value>
   </data>
   <data name="ScriptHint_copyfilenames" xml:space="preserve">
-    <value>Copier les noms de fichiers des résultats dans le presse-papiers</value>
+    <value>Copier les noms de fichiers du résultat dans le presse-papier</value>
   </data>
   <data name="ScriptHint_copyfiles" xml:space="preserve">
-    <value>Copier les fichiers de résultats vers un nouvel emplacement</value>
+    <value>Copier les fichiers du résultat vers un nouveau dossier</value>
   </data>
   <data name="ScriptHint_copyresults" xml:space="preserve">
-    <value>Copier le texte des résultats dans le presse-papiers</value>
+    <value>Copier le résultat vers le presse-papier</value>
   </data>
   <data name="ScriptHint_deletefiles" xml:space="preserve">
-    <value>Supprimer définitivement les fichiers de résultats</value>
+    <value>Effacer définitivement les fichiers</value>
   </data>
   <data name="ScriptHint_exit" xml:space="preserve">
     <value>Fermer toutes les fenêtres et quitter dnGrep</value>
   </data>
   <data name="ScriptHint_expandfilefilters" xml:space="preserve">
-    <value>Développer ou masquer la section des filtres de fichiers</value>
+    <value>Etendre ou masquer la zone de filtres</value>
   </data>
   <data name="ScriptHint_expandresultoptions" xml:space="preserve">
-    <value>Développer ou masquer la section des options de résultats</value>
+    <value>Etendre ou masquer la zone de résultats optionnels</value>
   </data>
   <data name="ScriptHint_include" xml:space="preserve">
     <value>Importer des données</value>
   </data>
   <data name="ScriptHint_include_script" xml:space="preserve">
-    <value>Inclure les commandes d'un autre script dans le script actuel</value>
+    <value>Inclure les commandes d'un autre script dans celui-ci</value>
   </data>
   <data name="ScriptHint_include_script_value" xml:space="preserve">
-    <value>La clé/le nom de fichier du script</value>
+    <value>La clé/nom de fichier du script</value>
   </data>
   <data name="ScriptHint_maximizeresults" xml:space="preserve">
-    <value>Agrandir ou rétablir l'arborescence des résultats de recherche</value>
+    <value>Maximiser ou restorer l'arbre de résultat</value>
   </data>
   <data name="ScriptHint_messages" xml:space="preserve">
-    <value>Toujours afficher la fenêtre de message du script à la fin de l'exécution</value>
+    <value>Toujours afficher la fenêtre d'alerte quand le script se termine</value>
   </data>
   <data name="ScriptHint_movefiles" xml:space="preserve">
-    <value>Déplacer les fichiers de résultats vers un nouvel emplacement</value>
+    <value>Déplacer les fichiers trouvés vers un nouveau dossier</value>
   </data>
   <data name="ScriptHint_report_text" xml:space="preserve">
     <value>Le rapport des résultats au format texte uniquement</value>
