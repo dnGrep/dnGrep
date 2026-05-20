@@ -9,11 +9,13 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
+using System.Windows.Resources;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.DockFloat;
 using dnGREP.Localization;
 using dnGREP.WPF.Properties;
+using NLog;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 
@@ -24,6 +26,7 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class MainForm : ThemedWindow
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly MainViewModel viewModel;
         private readonly bool isVisible = true;
         private const double UpperThreshold = 1.4;
@@ -61,18 +64,31 @@ namespace dnGREP.WPF
             {
                 if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.MinimizeToNotificationArea))
                 {
-                    notifyIcon = new()
+                    try
                     {
-                        Text = Localization.Properties.Resources.Main_DnGREP_Title,
-                        Icon = new System.Drawing.Icon("nGREP.ico")
-                    };
-                    notifyIcon.MouseClick += NotifyIcon_MouseClick;
-                    notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-                    notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
-                        Localization.Properties.Resources.NotiyIcon_Menu_Open, null, OnOpen_Click));
-                    notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
-                        Localization.Properties.Resources.NotifyIcon_Menu_Exit, null, OnExit_Click));
-                    notifyIcon.Visible = true;
+                        Uri iconUri = new("pack://application:,,,/dnGrep;component/nGREP.ico");
+                        StreamResourceInfo? resourceInfo = Application.GetResourceStream(iconUri);
+
+                        if (resourceInfo?.Stream != null)
+                        {
+                            notifyIcon = new()
+                            {
+                                Text = Localization.Properties.Resources.Main_DnGREP_Title,
+                                Icon = new System.Drawing.Icon(resourceInfo.Stream)
+                            };
+                            notifyIcon.MouseClick += NotifyIcon_MouseClick;
+                            notifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+                            notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                                Localization.Properties.Resources.NotiyIcon_Menu_Open, null, OnOpen_Click));
+                            notifyIcon.ContextMenuStrip.Items.Add(new System.Windows.Forms.ToolStripMenuItem(
+                                Localization.Properties.Resources.NotifyIcon_Menu_Exit, null, OnExit_Click));
+                            notifyIcon.Visible = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error($"Failed to load notification icon: {ex.Message}");
+                    }
 
                     StateChanged += OnStateChanged;
                 }
