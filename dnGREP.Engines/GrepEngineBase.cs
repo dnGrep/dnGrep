@@ -18,7 +18,7 @@ namespace dnGREP.Engines
         private readonly string KEYWORD_GUID_UPPER = "$(GUID)";
         private readonly string KEYWORD_GUIDX = "$(guidx)";
         protected GrepEngineInitParams initParams = GrepEngineInitParams.Default;
-        private GoogleMatch? fuzzyMatchEngine;
+        private FuzzyMatch? fuzzyMatchEngine;
 
         protected IPassword? PasswordService { get; private set; }
 
@@ -932,8 +932,9 @@ namespace dnGREP.Engines
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : string.Empty, pauseCancelToken);
 
-            fuzzyMatchEngine ??= new GoogleMatch();
+            fuzzyMatchEngine ??= new FuzzyMatch();
             fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
+            fuzzyMatchEngine.IsCaseSensitive = searchOptions.HasFlag(GrepSearchOption.CaseSensitive);
 
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
 
@@ -942,17 +943,11 @@ namespace dnGREP.Engines
             {
                 pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
-                int matchLocation = fuzzyMatchEngine.MatchMain(text[counter..], searchPattern, counter);
+                int matchLocation = fuzzyMatchEngine.MatchMain(text[counter..], searchPattern, 0, isWholeWord);
                 if (matchLocation == -1)
                     break;
 
-                if (isWholeWord && !Utils.IsValidBeginText(text[counter..][..matchLocation]))
-                {
-                    counter = counter + matchLocation + searchPattern.Length;
-                    continue;
-                }
-
-                int matchLength = GoogleMatch.MatchLength(text[counter..], searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
+                int matchLength = fuzzyMatchEngine.MatchLengthInstance(text[counter..], searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
 
                 if (matchLength == -1)
                 {
@@ -982,7 +977,7 @@ namespace dnGREP.Engines
         {
             LinesBefore = 0;
             LinesAfter = 0;
-            FuzzyMatchThreshold = 0.5f;
+            FuzzyMatchThreshold = 0.7f;
             VerboseMatchCount = false;
             // keep the default false for unit tests 
             SearchParallel = false;
