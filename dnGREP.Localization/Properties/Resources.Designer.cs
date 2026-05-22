@@ -79,6 +79,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build tools for Windows Installer packages.
+        /// </summary>
+        public static string About_BuildToolsForWindowsInstallerPackages {
+            get {
+                return ResourceManager.GetString("About_BuildToolsForWindowsInstallerPackages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Built on.
         /// </summary>
         public static string About_BuiltOn {
@@ -165,15 +174,6 @@ namespace dnGREP.Localization.Properties {
         public static string About_NETLibraryForCharacterSetDetection {
             get {
                 return ResourceManager.GetString("About_NETLibraryForCharacterSetDetection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .NET library for extended length paths.
-        /// </summary>
-        public static string About_NETLibraryForExtendedLengthPaths {
-            get {
-                return ResourceManager.GetString("About_NETLibraryForExtendedLengthPaths", resourceCulture);
             }
         }
         

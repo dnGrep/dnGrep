@@ -165,10 +165,6 @@
     <value>.NET library for character set detection</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET library for extended length paths</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>.NET library for reading Microsoft Excel files</value>
     <comment>About dialog acknowledgments</comment>
@@ -4627,5 +4623,9 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>Size all columns to fit</value>
     <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Build tools for Windows Installer packages</value>
+    <comment>About dialog acknowledgments</comment>
   </data>
 </root>
