@@ -190,11 +190,11 @@ namespace Tests
         [Fact]
         public void CaseSensitive_TypoMatch_OnlyMatchesSameCaseBase()
         {
-            // "recieve" (typo, 1 edit from "receive", 7-char token, floor(0.25*7)=1 allowed).
+            // "recieve" (typo, 1 edit from "receive", 7-char token, floor(0.2*7)=1 allowed).
             // CaseSensitive=true: "Recieve" (capital R) does not match "receive" (lower r).
             string text = "I recieve and Recieve letters";
             var results = RunSearch(text, "receive",
-                GrepSearchOption.Global | GrepSearchOption.CaseSensitive, 0.75);
+                GrepSearchOption.Global | GrepSearchOption.CaseSensitive, 0.8);
 
             Assert.Single(results);
             Assert.Single(results[0].Matches);
@@ -284,7 +284,7 @@ namespace Tests
         public void FuzzyMatch_OneTransposition_4CharToken_Threshold07()
         {
             // "tset" vs "test": 1 OSA edit (adjacent swap e/s).
-            // 4-char token: floor((1-0.7f)*4) = floor(1.2f) = 1 edit allowed.
+            // 4-char token: floor((1-0.7) * 4) = floor(1.2) = 1 edit allowed.
             string text = "tset this";
             var results = RunSearch(text, "test", GrepSearchOption.Global, 0.7);
 
@@ -294,14 +294,12 @@ namespace Tests
         }
 
         [Fact]
-        public void FuzzyMatch_OneTransposition_5CharToken_Threshold075()
+        public void FuzzyMatch_OneTransposition_5CharToken_Threshold08()
         {
             // "brwon" vs "brown": 1 OSA edit (transposition w/o).
-            // 5-char token: floor((1-0.75f)*5) = floor(1.25f) = 1 edit allowed.
-            // NOTE: threshold 0.8f is unreliable for 5-char tokens due to float precision:
-            //   (1-0.8f)*5 ˜ 0.9999999f ? floor = 0.
+            // 5-char token: floor((1-0.8) * 5) = floor(1.0) = 1 edit allowed.
             string text = "the brwon fox";
-            var results = RunSearch(text, "brown", GrepSearchOption.Global, 0.75);
+            var results = RunSearch(text, "brown", GrepSearchOption.Global, 0.8);
 
             Assert.Single(results);
             Assert.Single(results[0].Matches);
@@ -309,12 +307,12 @@ namespace Tests
         }
 
         [Fact]
-        public void FuzzyMatch_OneTransposition_7CharToken_Threshold075()
+        public void FuzzyMatch_OneTransposition_7CharToken_Threshold08()
         {
             // "recieve" vs "receive": 1 OSA edit (transposition ei/ie).
-            // 7-char token: floor((1-0.75f)*7) = floor(1.75f) = 1 edit allowed.
+            // 7-char token: floor((1-0.8) * 7) = floor(1.4) = 1 edit allowed.
             string text = "I recieve the letter";
-            var results = RunSearch(text, "receive", GrepSearchOption.Global, 0.75);
+            var results = RunSearch(text, "receive", GrepSearchOption.Global, 0.8);
 
             Assert.Single(results);
             Assert.Single(results[0].Matches);
@@ -325,9 +323,9 @@ namespace Tests
         public void FuzzyMatch_OneDeletion_LongerToken()
         {
             // "programed" (9 chars) vs "programmed" (10 chars): 1 deletion.
-            // floor((1-0.75f)*10) = floor(2.5f) = 2 edits allowed. Should match.
+            // floor((1-0.8) * 10) = floor(2.0) = 2 edits allowed. Should match.
             string text = "the programed version";
-            var results = RunSearch(text, "programmed", GrepSearchOption.Global, 0.75);
+            var results = RunSearch(text, "programmed", GrepSearchOption.Global, 0.8);
 
             Assert.Single(results);
             Assert.Single(results[0].Matches);
@@ -337,9 +335,9 @@ namespace Tests
         [Fact]
         public void FuzzyMatch_MultiWordPattern_OneTypo()
         {
-            // "brwon fox": "brwon" costs 1 edit (threshold 0.75, 5-char ? 1 allowed); "fox" exact.
+            // "brwon fox": "brwon" costs 1 edit (threshold 0.8, 5-char ? floor(0.2*5)=1 allowed); "fox" exact.
             string text = "the brwon fox jumps";
-            var results = RunSearch(text, "brown fox", GrepSearchOption.Global, 0.75);
+            var results = RunSearch(text, "brown fox", GrepSearchOption.Global, 0.8);
 
             Assert.Single(results);
             Assert.Single(results[0].Matches);
@@ -349,8 +347,8 @@ namespace Tests
         [Fact]
         public void FuzzyMatch_MultiWordPattern_BothTokensTypo_LowerThreshold()
         {
-            // "brwon fxo": "brwon" costs 1 edit (5-char, 0.75 ? 1 allowed ?).
-            // "fxo" vs "fox": 1 edit (transposition). 3-char at 0.75: floor(0.25*3)=0 — not enough.
+            // "brwon fxo": "brwon" costs 1 edit (5-char, 0.8 ? floor(0.2*5)=1 allowed ?).
+            // "fxo" vs "fox": 1 edit (transposition). 3-char at 0.8: floor(0.2*3)=0 — not enough.
             // Lower to 0.6: floor(0.4*3)=1 edit on 3-char tokens. ?
             string text = "the brwon fxo jumps";
             var results = RunSearch(text, "brown fox", GrepSearchOption.Global, 0.6);
@@ -391,8 +389,8 @@ namespace Tests
         public void Threshold_StrictVsLoose_4CharToken()
         {
             // "tset" (4 chars, 1 edit from "test"):
-            //   threshold 0.8f: (1-0.8f)*4 ˜ 0.8f ? floor = 0 ? no match.
-            //   threshold 0.7f: (1-0.7f)*4 ˜ 1.2f ? floor = 1 ? match.
+            //   threshold 0.8: (1-0.8)*4 = 0.8 ? floor = 0 ? no match.
+            //   threshold 0.7: (1-0.7)*4 = 1.2 ? floor = 1 ? match.
             string text = "tset is misspelled";
 
             var strict = RunSearch(text, "test", GrepSearchOption.Global, 0.8);
@@ -434,10 +432,10 @@ namespace Tests
         [Fact]
         public void Threshold_MultiWordBothTokensMustIndependentlyMatch()
         {
-            // "brwon fox" at 0.75: "brwon" (5-char, 1 edit, floor(0.25*5)=1 ?), "fox" exact ? ? match.
-            // "brown xyz" at 0.75: "xyz" costs 3 edits from "fox", floor(0.25*3)=0 ? no match.
-            var r1 = RunSearch("the brwon fox", "brown fox", GrepSearchOption.Global, 0.75);
-            var r2 = RunSearch("the brown xyz", "brown fox", GrepSearchOption.Global, 0.75);
+            // "brwon fox" at 0.8: "brwon" (5-char, 1 edit, floor(0.2*5)=1 ?), "fox" exact ? ? match.
+            // "brown xyz" at 0.8: "xyz" costs 3 edits from "fox", floor(0.2*3)=0 ? no match.
+            var r1 = RunSearch("the brwon fox", "brown fox", GrepSearchOption.Global, 0.8);
+            var r2 = RunSearch("the brown xyz", "brown fox", GrepSearchOption.Global, 0.8);
 
             Assert.Single(r1);
             Assert.Empty(r2);

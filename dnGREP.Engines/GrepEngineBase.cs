@@ -977,7 +977,7 @@ namespace dnGREP.Engines
         {
             LinesBefore = 0;
             LinesAfter = 0;
-            FuzzyMatchThreshold = 0.7f;
+            FuzzyMatchThreshold = 0.7;
             VerboseMatchCount = false;
             // keep the default false for unit tests 
             SearchParallel = false;
@@ -987,14 +987,14 @@ namespace dnGREP.Engines
         {
             LinesBefore = linesBefore;
             LinesAfter = linesAfter;
-            FuzzyMatchThreshold = (float)fuzzyMatchThreshold;
+            FuzzyMatchThreshold = fuzzyMatchThreshold;
             VerboseMatchCount = verboseMatchCount;
             SearchParallel = searchParallel;
         }
 
         public int LinesBefore { get; private set; }
         public int LinesAfter { get; private set; }
-        public float FuzzyMatchThreshold { get; private set; }
+        public double FuzzyMatchThreshold { get; private set; }
         public bool VerboseMatchCount { get; private set; }
         public bool SearchParallel { get; private set; }
     }

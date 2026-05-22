@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using dnGREP.Common;
@@ -12,24 +12,24 @@ namespace dnGREP.Engines
     /// meaningful typo tolerance for multi-word patterns (e.g. "brown fox") without the
     /// false positives that arise from character-level sliding-window approaches.
     ///
-    /// Threshold semantics (0.0�1.0, higher = stricter):
-    ///   1.0  ? exact match only (0 edits allowed per token)
-    ///   0.8  ? 1 edit allowed per 5-char token
-    ///   0.6  ? 1 edit per 2�3 chars (e.g. "recieve" matches "receive")
-    ///   0.5  ? roughly 1 edit per 2 chars
+    /// Threshold semantics (0.0–1.0, higher = stricter):
+    ///   1.0  → exact match only (0 edits allowed per token)
+    ///   0.8  → 1 edit allowed per 5-char token  (floor((1-0.8)*5) = 1)
+    ///   0.6  → 1 edit per 2–3 chars (e.g. "recieve" matches "receive")
+    ///   0.5  → roughly 1 edit per 2 chars
     /// </summary>
     public partial class FuzzyMatch
     {
-        private float match_Threshold = 0.7f;
+        private double match_Threshold = 0.7;
 
         /// <summary>
-        /// Gets or sets the match threshold (0.0�1.0). 1.0 = exact only; lower values
+        /// Gets or sets the match threshold (0.0–1.0). 1.0 = exact only; lower values
         /// permit more edit operations per token.
         /// </summary>
-        public float Match_Threshold
+        public double Match_Threshold
         {
             get => match_Threshold;
-            set => match_Threshold = Math.Clamp(value, 0f, 1f);
+            set => match_Threshold = Math.Clamp(value, 0.0, 1.0);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace dnGREP.Engines
         /// <summary>
         /// Finds the start character position of the next fuzzy match for
         /// <paramref name="pattern"/> in <paramref name="text"/>.
-        /// <paramref name="loc"/> is accepted for interface compatibility but is unused �
+        /// <paramref name="loc"/> is accepted for interface compatibility but is unused —
         /// callers always pass a pre-sliced string with loc=0.
         /// Returns -1 if no match is found.
         /// </summary>
@@ -56,7 +56,7 @@ namespace dnGREP.Engines
 
             string[] patternTokens = Tokenize(pattern);
 
-            // Pattern has no word characters (e.g. "@", "://") � fall back to literal search.
+            // Pattern has no word characters (e.g. "@", "://") — fall back to literal search.
             if (patternTokens.Length == 0)
             {
                 var comp = IsCaseSensitive ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
@@ -89,7 +89,7 @@ namespace dnGREP.Engines
 
             string[] patternTokens = Tokenize(pattern);
 
-            // Pattern has no word characters � literal match, length is always pattern.Length.
+            // Pattern has no word characters — literal match, length is always pattern.Length.
             if (patternTokens.Length == 0)
             {
                 if (loc + pattern.Length > text.Length) return -1;
@@ -156,12 +156,17 @@ namespace dnGREP.Engines
         /// Maximum number of edit operations allowed for a token of
         /// <paramref name="tokenLength"/> characters at the current threshold.
         /// Derived as floor((1 - threshold) * tokenLength).
-        /// Examples at threshold 0.7: 3-char ? 0, 4-char ? 1, 7-char ? 2.
-        /// Examples at threshold 0.6: 3-char ? 1, 5-char ? 2.
+        /// Examples at threshold 0.8: 4-char → 0, 5-char → 1, 7-char → 1.
+        /// Examples at threshold 0.7: 3-char → 0, 4-char → 1, 7-char → 2.
+        /// Examples at threshold 0.6: 3-char → 1, 5-char → 2.
         /// </summary>
         private int AllowedEdits(int tokenLength)
         {
-            double tolerance = 1.0 - Match_Threshold;
+            // Round to 10 significant decimal places before flooring to avoid binary
+            // floating-point artifacts where a "nice" threshold such as 0.8 cannot be
+            // represented exactly (1.0 - 0.8 evaluates to 0.19999...96 rather than 0.2,
+            // so without rounding, (1.0-0.8)*5 = 0.9999...978 and floor gives 0 instead of 1).
+            double tolerance = Math.Round(1.0 - Match_Threshold, 10);
             return (int)Math.Floor(tolerance * tokenLength);
         }
 
@@ -204,7 +209,7 @@ namespace dnGREP.Engines
         /// Counts insertions, deletions, substitutions, and transpositions of adjacent
         /// characters, each at cost 1. This means common adjacent-swap typos such as
         /// "teh"/"the", "recieve"/"receive", and "brwon"/"brown" each cost 1 edit.
-        /// Uses an (|a|+1)�(|b|+1) DP matrix � O(|a|�|b|) time and space.
+        /// Uses an (|a|+1)×(|b|+1) DP matrix — O(|a|·|b|) time and space.
         /// </summary>
         private static int OsaDistance(string a, string b)
         {

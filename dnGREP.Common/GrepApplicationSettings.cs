@@ -63,7 +63,7 @@ namespace dnGREP.Common
             public const string SizeFrom = "SizeFrom";
             [DefaultValue(100)]
             public const string SizeTo = "SizeTo";
-            [DefaultValue(0.5)]
+            [DefaultValue(0.7)]
             public const string FuzzyMatchThreshold = "FuzzyMatchThreshold";
             [DefaultValue(true)]
             public const string ShowLinesInContext = "ShowLinesInContext";
