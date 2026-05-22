@@ -71,7 +71,7 @@ namespace dnGREP.Engines.OpenXml
             return searchType switch
             {
                 SearchType.Regex => DoRegexSearch,
-                SearchType.Soundex => DoFuzzySearch,
+                SearchType.Fuzzy => DoFuzzySearch,
                 _ => DoTextSearch,
             };
         }

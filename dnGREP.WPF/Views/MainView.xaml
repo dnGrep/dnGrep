@@ -161,8 +161,7 @@
                               Command="{Binding UndoCommand}" InputGestureText="{Binding UndoCommand.KeyGestureText}"
                               TabIndex="0" 
                               Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Settings'}" TabIndex="1"
-                              my:MenuProperties.ShowIconColumn="False">
+                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Settings'}" TabIndex="1" >
                         <MenuItem Header="{l:Loc Key='Main_Menu_Personalize'}" IsCheckable="True" IsChecked="{Binding PersonalizationOn, Mode=OneWay}"
                                   Command="{Binding PersonalizationCommand}" InputGestureText="{Binding PersonalizationCommand.KeyGestureText}"/>
                         <MenuItem Header="{l:Loc Key='Main_Menu_Options'}" 
@@ -868,10 +867,10 @@
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_PlainTextSearch'}" TabIndex="52" 
                                              Visibility="{Binding SearchTypeTextVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Phonetic'}" GroupName="SearchType"
-                                             IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
-                                             ToolTip="{l:Loc Key='Main_SearchType_PhoneticSearch'}" TabIndex="53" 
-                                             Visibility="{Binding SearchTypePhoneticVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Fuzzy'}" GroupName="SearchType"
+                                             IsChecked="{Binding TypeOfSearch, ConverterParameter=Fuzzy, Converter={StaticResource ebc}}"
+                                             ToolTip="{l:Loc Key='Main_SearchType_ApproximateStringMatching'}" TabIndex="53" 
+                                             Visibility="{Binding SearchTypeFuzzyVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Hex'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_ReadFileAsBinaryAndSearchForBytes'}" TabIndex="54" 

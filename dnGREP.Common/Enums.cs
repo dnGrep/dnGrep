@@ -7,7 +7,7 @@ namespace dnGREP.Common
         PlainText,
         Regex,
         XPath,
-        Soundex,
+        Fuzzy,
         Hex
     }
 

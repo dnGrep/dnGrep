@@ -246,7 +246,7 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string SearchTypeTextVisible = "SearchTypeTextVisible";
             [DefaultValue(true)]
-            public const string SearchTypePhoneticVisible = "SearchTypePhoneticVisible";
+            public const string SearchTypeFuzzyVisible = "SearchTypeFuzzyVisible";
             [DefaultValue(true)]
             public const string SearchTypeByteVisible = "SearchTypeByteVisible";
             [DefaultValue(true)]
@@ -413,6 +413,7 @@ namespace dnGREP.Common
             public const string HoursFrom = "HoursFrom";
             public const string HoursTo = "HoursTo";
             public const string PassSearchFolderToSingleton = "PassSearchFolderToSingleton";
+            public const string SearchTypePhoneticVisible = "SearchTypePhoneticVisible";
         }
 
 
@@ -751,6 +752,11 @@ namespace dnGREP.Common
             {
                 Set(Key.PassCommandLineToSingleton, Get<bool>(ObsoleteKey.PassSearchFolderToSingleton));
                 settings.Remove(ObsoleteKey.PassSearchFolderToSingleton);
+            }
+            if (ContainsKey(ObsoleteKey.SearchTypePhoneticVisible))
+            {
+                Set(Key.SearchTypeFuzzyVisible, Get<bool>(ObsoleteKey.SearchTypePhoneticVisible));
+                settings.Remove(ObsoleteKey.SearchTypePhoneticVisible);
             }
         }
 

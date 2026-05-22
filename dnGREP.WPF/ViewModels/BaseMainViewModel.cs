@@ -746,17 +746,16 @@ namespace dnGREP.WPF
                     Global = true;
                     Singleline = false;
                 }
-                else if (TypeOfSearch == SearchType.Soundex)
+                else if (TypeOfSearch == SearchType.Fuzzy)
                 {
                     IsGlobalEnabled = false;
                     IsMultilineEnabled = true;
-                    IsCaseSensitiveEnabled = false;
+                    IsCaseSensitiveEnabled = true;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = false;
                     IsHighlightGroupsEnabled = false;
                     Global = true;
-                    CaseSensitive = false;
                     Singleline = false;
                     BooleanOperators = false;
                 }
@@ -1046,7 +1045,7 @@ namespace dnGREP.WPF
             switch (TypeOfSearch)
             {
                 case SearchType.PlainText:
-                case SearchType.Soundex:
+                case SearchType.Fuzzy:
                     SearchToolTip = string.Empty;
                     ReplaceToolTip = Resources.TTB0_InsertsTabNewline;
                     break;

@@ -773,8 +773,8 @@ namespace Tests
         [InlineData(SearchType.Regex, false)]
         [InlineData(SearchType.PlainText, true)]
         [InlineData(SearchType.PlainText, false)]
-        [InlineData(SearchType.Soundex, true)]
-        [InlineData(SearchType.Soundex, false)]
+        [InlineData(SearchType.Fuzzy, true)]
+        [InlineData(SearchType.Fuzzy, false)]
         public void TestReplaceWithPattern(SearchType type, bool useLongPath)
         {
             string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
@@ -960,7 +960,6 @@ namespace Tests
         [InlineData(SearchType.Regex, GrepSearchOption.Global, "(<\\w+>)\\d+3(</\\w+>)$", "${1}2002${2}")]
         [InlineData(SearchType.Regex, GrepSearchOption.Global | GrepSearchOption.Multiline, "(<\\w+>)\\d+3(</\\w+>)$", "${1}2002${2}")]
         [InlineData(SearchType.XPath, GrepSearchOption.Global, "//book[year = 2003]/year", "2002")]
-        [InlineData(SearchType.Soundex, GrepSearchOption.Global, "03", "02")]
         public void TestSearchAndFilteredReplace(SearchType type, GrepSearchOption option, string searchFor, string replaceWith)
         {
             Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase15"), Path.Combine(destinationFolder, "TestCase15"), null, null);

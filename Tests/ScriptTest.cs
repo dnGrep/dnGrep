@@ -60,7 +60,7 @@ namespace Tests
         [InlineData("set searchtype PlainText")]
         [InlineData("set searchtype Regex")]
         [InlineData("set searchtype XPath")]
-        [InlineData("set searchtype Soundex")]
+        [InlineData("set searchtype Fuzzy")]
         [InlineData("set searchtype Hex")]
         [InlineData("set searchfor the quick brown dog")]
         [InlineData("set searchfor")]

@@ -1094,7 +1094,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="{l:Loc Key='Options_PhoneticSearch'}">
+                <GroupBox Header="{l:Loc Key='Options_FuzzySearch'}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.Resources>

@@ -128,7 +128,7 @@ namespace dnGREP.WPF
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Regex), GrepSettings.Key.SearchTypeRegexVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_XPath), GrepSettings.Key.SearchTypeXPathVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Text), GrepSettings.Key.SearchTypeTextVisible));
-            VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Phonetic), GrepSettings.Key.SearchTypePhoneticVisible));
+            VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Fuzzy), GrepSettings.Key.SearchTypeFuzzyVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Hex), GrepSettings.Key.SearchTypeByteVisible));
 
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchOptions), nameof(Resources.Main_BooleanOperators), GrepSettings.Key.BooleanOperatorsVisible));

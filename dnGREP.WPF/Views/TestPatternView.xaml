@@ -68,9 +68,9 @@
                         <RadioButton Content="{l:Loc Key='Test_SearchType_Text'}" Margin="3,4,3,3" GroupName="SearchType"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                      ConverterParameter=PlainText}"/>
-                        <RadioButton Content="{l:Loc Key='Test_SearchType_Phonetic'}" Margin="3,4,3,3" GroupName="SearchType"
+                        <RadioButton Content="{l:Loc Key='Test_SearchType_Fuzzy'}" Margin="3,4,3,3" GroupName="SearchType"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
-                                     ConverterParameter=Soundex}"/>
+                                     ConverterParameter=Fuzzy}"/>
                         <RadioButton Content="{l:Loc Key='Test_SearchType_Hex'}" Margin="3,4,3,3" GroupName="SearchType"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                      ConverterParameter=Hex}"/>

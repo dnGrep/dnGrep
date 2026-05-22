@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,7 +32,7 @@ namespace Tests
             var engine = CreateEngine(fuzzyThreshold);
             var encoding = Encoding.UTF8;
             using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-            return engine.Search(inputStream, new FileData("test.txt"), pattern, SearchType.Soundex, searchOptions, encoding);
+            return engine.Search(inputStream, new FileData("test.txt"), pattern, SearchType.Fuzzy, searchOptions, encoding);
         }
 
         #region Exact Match Tests
@@ -179,10 +179,16 @@ another test";
         }
 
         [Fact]
-        public void FuzzySearch_NoWholeWord_MatchesPartialWords()
+        public void FuzzySearch_NoWholeWord_MatchesTokens()
         {
+            // The token-based matcher compares the pattern against whole text tokens using
+            // edit distance. "john" matches "John" (case-insensitive, 0 edits) and "Johny"
+            // (1 edit) but NOT the interior of "Johnson" (3 edits, exceeds budget).
+            // WholeWord=false means word-boundary checks are skipped; it does not enable
+            // substring matching inside a longer token.
+
             // Arrange
-            string text = "John is a person. Johnson works here.";
+            string text = "John is here. Johny was too.";
             string pattern = "john";
 
             // Act
@@ -190,8 +196,8 @@ another test";
 
             // Assert
             Assert.Single(results);
-            // Should find both "John" and "Johnson"
-            Assert.True(results[0].Matches.Count >= 2);
+            // Should fuzzy-match "John" (exact) and "Johny" (1 edit)
+            Assert.Equal(2, results[0].Matches.Count);
         }
 
         [Fact]
@@ -267,7 +273,7 @@ another test";
         [Fact]
         public void FuzzySearch_InexactMatch_Transposition()
         {
-            // "teh" vs "the" � adjacent swap costs 1 OSA edit.
+            // "teh" vs "the" — adjacent swap costs 1 OSA edit.
             // 3-char token at threshold 0.6 allows floor(0.4 * 3) = 1 edit.
             string text = "teh quick brown fox";
             string pattern = "teh";
@@ -282,7 +288,7 @@ another test";
         [Fact]
         public void FuzzySearch_InexactMatch_OneSubstitution()
         {
-            // "brwon" vs "brown" � 1 transposition (adjacent swap r?w).
+            // "brwon" vs "brown" — 1 transposition (adjacent swap r↔w).
             // 5-char token at threshold 0.8 allows floor(0.2 * 5) = 1 edit.
             string text = "the brwon fox";
             string pattern = "brown";
@@ -298,7 +304,7 @@ another test";
         [Fact]
         public void FuzzySearch_InexactMatch_SwappedCharacters()
         {
-            // "recieve" vs "receive" � 1 transposition (ei?ie).
+            // "recieve" vs "receive" — 1 transposition (ei↔ie).
             // 7-char token at threshold 0.8 allows floor(0.2 * 7) = 1 edit.
             string text = "I recieve the letter daily";
             string pattern = "receive";
@@ -314,7 +320,7 @@ another test";
         [Fact]
         public void FuzzySearch_InexactMatch_MultiWord()
         {
-            // "brown fox" � both tokens must match consecutively.
+            // "brown fox" — both tokens must match consecutively.
             // "brwon" costs 1 edit (transposition), "fox" is exact.
             // 5-char "brown" at threshold 0.8 allows 1 edit; 3-char "fox" at 0.8 allows 0.
             string text = "the brwon fox jumps";
@@ -331,7 +337,7 @@ another test";
         [Fact]
         public void FuzzySearch_InexactMatch_MultiWord_BothTokensTypo()
         {
-            // "brwon fxo" � both tokens have 1 transposition each.
+            // "brwon fxo" — both tokens have 1 transposition each.
             // At threshold 0.8: "brown" (5 chars) allows 1 edit, "fox" (3 chars) allows 0.
             // At threshold 0.6: "fox" (3 chars) allows floor(0.4*3)=1 edit.
             string text = "the brwon fxo jumps";
@@ -348,7 +354,7 @@ another test";
         [Fact]
         public void FuzzySearch_InexactMatch_ExactTokenNoMatch_AboveThreshold()
         {
-            // "xyz" has 3 edits from "fox" � should NOT match at any reasonable threshold.
+            // "xyz" has 3 edits from "fox" — should NOT match at any reasonable threshold.
             string text = "the xyz jumps";
             string pattern = "fox";
 
@@ -379,8 +385,8 @@ another test";
         public void FuzzySearch_Threshold_AllowsOneEdit()
         {
             // "tset" is a 1-edit transposition of "test" (4 chars).
-            // floor((1 - 0.8) * 4) = floor(0.8) = 0  ? not enough
-            // floor((1 - 0.7) * 4) = floor(1.2) = 1  ? allowed
+            // floor((1 - 0.8) * 4) = floor(0.8) = 0  → not enough
+            // floor((1 - 0.7) * 4) = floor(1.2) = 1  → allowed
             string text = "tset is wrong spelling";
             string pattern = "test";
 
@@ -396,8 +402,8 @@ another test";
         public void FuzzySearch_Threshold_MultiWordBothTokensMustMatch()
         {
             // For "brown fox", both tokens must independently meet their edit budgets.
-            // "brwon fox": "brwon" costs 1 edit (5 chars, threshold 0.8 ? 1 allowed). ?
-            // "brown xyz": "xyz" costs 3 edits from "fox" (3 chars, threshold 0.8 ? 0). ?
+            // "brwon fox": "brwon" costs 1 edit (5 chars, threshold 0.8 → 1 allowed). ✓
+            // "brown xyz": "xyz" costs 3 edits from "fox" (3 chars, threshold 0.8 → 0). ✗
             string text1 = "the brwon fox";
             string text2 = "the brown xyz";
             string pattern = "brown fox";
@@ -453,7 +459,7 @@ another test";
         [Fact]
         public void FuzzySearch_PatternLongerThanText()
         {
-            // More pattern tokens than text words ? cannot match.
+            // More pattern tokens than text words → cannot match.
             string text = "cat";
             string pattern = "catastrophe happened today";
 
@@ -493,7 +499,7 @@ another test";
         [Fact]
         public void FuzzySearch_NoMatchWhenPatternTotallyDifferent()
         {
-            // "xyz" has max distance from "fox" � no threshold should match.
+            // "xyz" has max distance from "fox" — no threshold should match.
             string text = "The quick brown xyz jumps";
             string pattern = "fox";
 
@@ -519,7 +525,7 @@ John James
             var engine = CreateEngine(0.7);
             var encoding = Encoding.UTF8;
             using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, SearchType.Soundex, GrepSearchOption.Global, encoding);
+            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, SearchType.Fuzzy, GrepSearchOption.Global, encoding);
 
             Assert.Single(results);
             Assert.Equal(2, results[0].Matches.Count);
