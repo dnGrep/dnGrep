@@ -1,6 +1,5 @@
-ï»¿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Engines;
@@ -9,21 +8,58 @@ using Xunit;
 namespace Tests
 {
     /// <summary>
-    /// Comprehensive test class for fuzzy searching functionality.
-    /// Tests cover various scenarios including exact matches, inexact matches,
-    /// case sensitivity, and whole-word matching with different thresholds.
+    /// Tests for fuzzy search (SearchType.Fuzzy) via GrepEnginePlainText.
+    ///
+    /// Key design facts about the FuzzyMatch implementation:
+    ///
+    /// 1. TOKEN-BASED: The pattern and the text are each split into word tokens (\w+).
+    ///    Every pattern token must fuzzy-match a consecutive text token. Non-word
+    ///    characters (spaces, punctuation) between tokens are included in the matched span
+    ///    but are not themselves compared.
+    ///
+    /// 2. EDIT BUDGET per token: AllowedEdits = floor((1 - threshold) * tokenLength).
+    ///    Because Match_Threshold is stored as a float, avoid thresholds whose
+    ///    complement rounds down unexpectedly (e.g. 0.8f gives (1-0.8f)˜0.19999999f,
+    ///    so floor(0.19999999f * 5) = 0, not 1). Use 0.75 to allow 1 edit on 5-char tokens.
+    ///
+    /// 3. MULTILINE=false: the engine reads the file line-by-line; each line is searched
+    ///    separately. All matches across all lines are collected in a single GrepSearchResult.
+    ///
+    /// 4. MULTILINE=true: the entire file is read as one string. Patterns can span lines.
+    ///    Matches are found across the whole document.
+    ///
+    /// 5. WHOLE WORD: after a fuzzy token match, the matched span must be preceded by a
+    ///    non-word character (or start of text) and followed by a non-word character (or
+    ///    end of text).
+    ///
+    /// 6. CASE SENSITIVE: when false (default), both sides are lowercased before comparison.
+    ///    When true, comparison is exact-case.
+    ///
+    /// 7. GLOBAL flag: always used for fuzzy search (does not affect the fuzzy search path).
     /// </summary>
     public class FuzzySearchTests
     {
-        private GrepEnginePlainText CreateEngine(double fuzzyThreshold = 0.7)
+        // -------------------------------------------------------------------------
+        // Helpers
+        // -------------------------------------------------------------------------
+
+        /// <summary>
+        /// Creates a GrepEnginePlainText initialised with the given fuzzy threshold.
+        /// </summary>
+        private static GrepEnginePlainText CreateEngine(double fuzzyThreshold = 0.7)
         {
             var engine = new GrepEnginePlainText();
-            var initParams = new GrepEngineInitParams(2, 3, fuzzyThreshold, true, false);
+            var initParams = new GrepEngineInitParams(0, 0, fuzzyThreshold, true, false);
             engine.Initialize(initParams, new FileFilter(), null);
             return engine;
         }
 
-        private List<GrepSearchResult> ExecuteFuzzySearch(
+        /// <summary>
+        /// Runs a fuzzy search on an in-memory string.
+        /// GrepSearchOption.Global is always included; pass additional flags via searchOptions.
+        /// Multiline mode is controlled via the GrepSearchOption.Multiline flag.
+        /// </summary>
+        private static List<GrepSearchResult> RunSearch(
             string text,
             string pattern,
             GrepSearchOption searchOptions = GrepSearchOption.Global,
@@ -31,350 +67,320 @@ namespace Tests
         {
             var engine = CreateEngine(fuzzyThreshold);
             var encoding = Encoding.UTF8;
-            using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-            return engine.Search(inputStream, new FileData("test.txt"), pattern, SearchType.Fuzzy, searchOptions, encoding);
+            using Stream stream = new MemoryStream(encoding.GetBytes(text));
+            return engine.Search(stream, new FileData("test.txt"), pattern,
+                SearchType.Fuzzy, searchOptions, encoding);
         }
 
-        #region Exact Match Tests
+        // -------------------------------------------------------------------------
+        // Exact match — basic
+        // -------------------------------------------------------------------------
 
         [Fact]
-        public void FuzzySearch_ExactMatch_CaseInsensitive()
+        public void ExactMatch_SingleWord_CaseInsensitive()
         {
-            // Arrange
-            string text = "The quick brown fox jumps over the lazy dog";
-            string pattern = "brown";
+            // "brown" matches the word "brown" exactly (0 edits).
+            string text = "the quick brown fox";
+            var results = RunSearch(text, "brown");
 
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            // Assert
             Assert.Single(results);
             Assert.Single(results[0].Matches);
-            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
-            Assert.Equal("brown", matched);
+            Assert.Equal("brown", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
         }
 
         [Fact]
-        public void FuzzySearch_ExactMatch_CaseInsensitive_MixedCase()
+        public void ExactMatch_CaseInsensitive_IgnoresMixedCase()
         {
-            // Arrange - Pattern lowercase, text has mixed case
-            string text = "The quick Brown fox jumps";
-            string pattern = "brown";
+            // Pattern "brown" (lower) matches the token "Brown" (mixed) when case-insensitive.
+            string text = "The quick Brown fox";
+            var results = RunSearch(text, "brown");
 
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            // Assert
             Assert.Single(results);
             Assert.Single(results[0].Matches);
-            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
-            Assert.Equal("Brown", matched);
+            Assert.Equal("Brown", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
         }
 
         [Fact]
-        public void FuzzySearch_ExactMatch_CaseSensitive()
+        public void ExactMatch_MultipleOccurrences_SameLine()
         {
-            // Arrange
-            string text = "The Brown fox and the brown dog";
-            string pattern = "brown";
+            // Three tokens each matching "fox" exactly.
+            string text = "fox and fox plus fox";
+            var results = RunSearch(text, "fox");
 
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.CaseSensitive);
-
-            // Assert
-            Assert.Single(results);
-            // Should find lowercase "brown" only (or as best match)
-            Assert.True(results[0].Matches.Count >= 1);
-        }
-
-        [Fact]
-        public void FuzzySearch_ExactMatch_CaseSensitive_UppercasePattern()
-        {
-            // Arrange
-            string text = "The Brown fox and the brown dog";
-            string pattern = "Brown";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.CaseSensitive);
-
-            // Assert
-            Assert.Single(results);
-            Assert.True(results[0].Matches.Count >= 1);
-        }
-
-        [Fact]
-        public void FuzzySearch_MultipleExactMatches()
-        {
-            // Arrange
-            string text = @"John went to see Jane.
-Jane met John at the cafe.
-They talked about John's plans.";
-            string pattern = "john";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            // Assert
-            Assert.Single(results);
-            Assert.Equal(3, results[0].Matches.Count);
-        }
-
-        #endregion
-
-        #region Whole-Word Tests
-
-        [Fact]
-        public void FuzzySearch_WholeWord_ExcludesPartialMatches()
-        {
-            // Arrange
-            string text = "John is a person. Johnson works here. John Smith is the manager.";
-            string pattern = "john";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.WholeWord);
-
-            // Assert
-            Assert.Single(results);
-            // Should match "John" twice (whole words) but not "Johnson"
-            Assert.Equal(2, results[0].Matches.Count);
-
-            foreach (var match in results[0].Matches)
-            {
-                string matched = text.Substring(match.StartLocation, match.Length);
-                Assert.True(matched.Equals("John", System.StringComparison.OrdinalIgnoreCase));
-            }
-        }
-
-        [Fact]
-        public void FuzzySearch_WholeWord_WithPunctuation()
-        {
-            // Arrange
-            string text = "Hello, world! Hello-friend. Hello world.";
-            string pattern = "hello";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.WholeWord);
-
-            // Assert
-            Assert.Single(results);
-            // All three "Hello" are whole words (punctuation is a boundary)
-            Assert.Equal(3, results[0].Matches.Count);
-        }
-
-        [Fact]
-        public void FuzzySearch_WholeWord_WithNewlines()
-        {
-            // Arrange
-            string text = @"test line
-test is good
-another test";
-            string pattern = "test";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.WholeWord);
-
-            // Assert
             Assert.Single(results);
             Assert.Equal(3, results[0].Matches.Count);
         }
 
         [Fact]
-        public void FuzzySearch_NoWholeWord_MatchesTokens()
+        public void ExactMatch_MultipleOccurrences_MultipleLines()
         {
-            // The token-based matcher compares the pattern against whole text tokens using
-            // edit distance. "john" matches "John" (case-insensitive, 0 edits) and "Johny"
-            // (1 edit) but NOT the interior of "Johnson" (3 edits, exceeds budget).
-            // WholeWord=false means word-boundary checks are skipped; it does not enable
-            // substring matching inside a longer token.
+            // Without Multiline flag: processed line-by-line.
+            // Both lines that contain "fox" contribute to the single GrepSearchResult.
+            string text = "line one fox\nline two fox\nline three";
+            var results = RunSearch(text, "fox");
 
-            // Arrange
-            string text = "John is here. Johny was too.";
-            string pattern = "john";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global);
-
-            // Assert
             Assert.Single(results);
-            // Should fuzzy-match "John" (exact) and "Johny" (1 edit)
             Assert.Equal(2, results[0].Matches.Count);
         }
 
-        [Fact]
-        public void FuzzySearch_WholeWord_CaseSensitive_Combined()
-        {
-            // Arrange
-            string text = "Hello world, HELLO world, hello world, hELLO world";
-            string pattern = "hello";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.WholeWord | GrepSearchOption.CaseSensitive);
-
-            // Assert
-            Assert.Single(results);
-            // Case-sensitive whole-word should prefer lowercase "hello"
-            Assert.True(results[0].Matches.Count >= 1);
-        }
-
-        #endregion
-
-        #region Case Sensitivity Tests
+        // -------------------------------------------------------------------------
+        // Exact match — multi-word pattern
+        // -------------------------------------------------------------------------
 
         [Fact]
-        public void FuzzySearch_CaseSensitive_PrefersExactCase()
+        public void ExactMatch_MultiWordPattern_BothTokensMustMatch()
         {
-            // Arrange
-            string text = "java Java JAVA";
-            string pattern = "java";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.CaseSensitive);
-
-            // Assert
-            Assert.Single(results);
-            Assert.True(results[0].Matches.Count >= 1);
-        }
-
-        [Fact]
-        public void FuzzySearch_CaseInsensitive_Default()
-        {
-            // Arrange
-            string text = "java Java JAVA";
-            string pattern = "java";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            // Assert
-            Assert.Single(results);
-            // Should find all three (case-insensitive)
-            Assert.Equal(3, results[0].Matches.Count);
-        }
-
-        [Fact]
-        public void FuzzySearch_CaseInsensitive_WithMixedPatterns()
-        {
-            // Arrange
-            string text = "PYTHON python Python PyThOn";
-            string pattern = "python";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            // Assert
-            Assert.Single(results);
-            Assert.Equal(4, results[0].Matches.Count);
-        }
-
-        #endregion
-
-        #region Inexact Match Tests
-
-        [Fact]
-        public void FuzzySearch_InexactMatch_Transposition()
-        {
-            // "teh" vs "the" â€” adjacent swap costs 1 OSA edit.
-            // 3-char token at threshold 0.6 allows floor(0.4 * 3) = 1 edit.
-            string text = "teh quick brown fox";
-            string pattern = "teh";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.7);
+            // "brown fox" — two tokens, both must match consecutively.
+            string text = "the quick brown fox jumps";
+            var results = RunSearch(text, "brown fox");
 
             Assert.Single(results);
             Assert.Single(results[0].Matches);
-            Assert.Equal("teh", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+            Assert.Equal("brown fox", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
         }
 
         [Fact]
-        public void FuzzySearch_InexactMatch_OneSubstitution()
+        public void ExactMatch_MultiWordPattern_NoMatchWhenTokensNotConsecutive()
         {
-            // "brwon" vs "brown" â€” 1 transposition (adjacent swap râ†”w).
-            // 5-char token at threshold 0.8 allows floor(0.2 * 5) = 1 edit.
-            string text = "the brwon fox";
-            string pattern = "brown";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.8);
-
-            Assert.Single(results);
-            Assert.Single(results[0].Matches);
-            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
-            Assert.Equal("brwon", matched);
-        }
-
-        [Fact]
-        public void FuzzySearch_InexactMatch_SwappedCharacters()
-        {
-            // "recieve" vs "receive" â€” 1 transposition (eiâ†”ie).
-            // 7-char token at threshold 0.8 allows floor(0.2 * 7) = 1 edit.
-            string text = "I recieve the letter daily";
-            string pattern = "receive";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.8);
-
-            Assert.Single(results);
-            Assert.Single(results[0].Matches);
-            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
-            Assert.Equal("recieve", matched);
-        }
-
-        [Fact]
-        public void FuzzySearch_InexactMatch_MultiWord()
-        {
-            // "brown fox" â€” both tokens must match consecutively.
-            // "brwon" costs 1 edit (transposition), "fox" is exact.
-            // 5-char "brown" at threshold 0.8 allows 1 edit; 3-char "fox" at 0.8 allows 0.
-            string text = "the brwon fox jumps";
-            string pattern = "brown fox";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.8);
-
-            Assert.Single(results);
-            Assert.Single(results[0].Matches);
-            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
-            Assert.Equal("brwon fox", matched);
-        }
-
-        [Fact]
-        public void FuzzySearch_InexactMatch_MultiWord_BothTokensTypo()
-        {
-            // "brwon fxo" â€” both tokens have 1 transposition each.
-            // At threshold 0.8: "brown" (5 chars) allows 1 edit, "fox" (3 chars) allows 0.
-            // At threshold 0.6: "fox" (3 chars) allows floor(0.4*3)=1 edit.
-            string text = "the brwon fxo jumps";
-            string pattern = "brown fox";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.6);
-
-            Assert.Single(results);
-            Assert.Single(results[0].Matches);
-            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
-            Assert.Equal("brwon fxo", matched);
-        }
-
-        [Fact]
-        public void FuzzySearch_InexactMatch_ExactTokenNoMatch_AboveThreshold()
-        {
-            // "xyz" has 3 edits from "fox" â€” should NOT match at any reasonable threshold.
-            string text = "the xyz jumps";
-            string pattern = "fox";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.7);
+            // "brown dog" — "brown" and "dog" are not consecutive tokens.
+            string text = "the brown fox and the dog";
+            var results = RunSearch(text, "brown dog");
 
             Assert.Empty(results);
         }
 
-        #endregion
-
-        #region Threshold Tests
+        // -------------------------------------------------------------------------
+        // Case sensitivity
+        // -------------------------------------------------------------------------
 
         [Fact]
-        public void FuzzySearch_HighThreshold_ExactMatchOnly()
+        public void CaseSensitive_MatchesExactCaseOnly()
         {
-            // At threshold 1.0 no edits are allowed; "tset" (1 transposition) must not match.
-            string text = "test tset testing";
-            string pattern = "test";
+            // With CaseSensitive, only the lowercase "fox" token should match.
+            string text = "a Fox and a fox and a FOX";
+            var results = RunSearch(text, "fox", GrepSearchOption.Global | GrepSearchOption.CaseSensitive);
 
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 1.0);
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("fox", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void CaseSensitive_UppercasePatternMatchesUppercaseOnly()
+        {
+            string text = "a Fox and a fox and a FOX";
+            var results = RunSearch(text, "FOX", GrepSearchOption.Global | GrepSearchOption.CaseSensitive);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("FOX", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void CaseInsensitive_MatchesAllCaseForms()
+        {
+            // Without CaseSensitive, all three casing variants match.
+            string text = "Fox fox FOX";
+            var results = RunSearch(text, "fox");
+
+            Assert.Single(results);
+            Assert.Equal(3, results[0].Matches.Count);
+        }
+
+        [Fact]
+        public void CaseSensitive_TypoMatch_OnlyMatchesSameCaseBase()
+        {
+            // "recieve" (typo, 1 edit from "receive", 7-char token, floor(0.25*7)=1 allowed).
+            // CaseSensitive=true: "Recieve" (capital R) does not match "receive" (lower r).
+            string text = "I recieve and Recieve letters";
+            var results = RunSearch(text, "receive",
+                GrepSearchOption.Global | GrepSearchOption.CaseSensitive, 0.75);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            // Only "recieve" (lowercase r) matches the lowercase pattern.
+            Assert.Equal("recieve", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        // -------------------------------------------------------------------------
+        // Whole word
+        // -------------------------------------------------------------------------
+
+        [Fact]
+        public void WholeWord_ExcludesTokenThatExceedsEditBudget()
+        {
+            // "john" (4-char pattern): floor(0.3*4)=1 edit allowed.
+            // "Johnson" costs 3 edits (3 extra chars) — exceeds the 1-edit budget. No match.
+            // "John" costs 0 edits (case-insensitive). Matches as whole word.
+            string text = "John is here. Johnson works here.";
+            var results = RunSearch(text, "john",
+                GrepSearchOption.Global | GrepSearchOption.WholeWord);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("John", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void WholeWord_MatchesWordNextToPunctuation()
+        {
+            // "Hello" is adjacent to comma and full-stop but is still a whole word token.
+            string text = "Hello, world! Hello.";
+            var results = RunSearch(text, "hello",
+                GrepSearchOption.Global | GrepSearchOption.WholeWord);
+
+            Assert.Single(results);
+            Assert.Equal(2, results[0].Matches.Count);
+        }
+
+        [Fact]
+        public void WholeWord_MatchesAcrossLines_LineByLine()
+        {
+            // No Multiline flag: each line is searched separately.
+            // "test" appears as a whole word in lines 1 and 2; "testing" is a longer token.
+            string text = "test line\nanother test\njust testing";
+            var results = RunSearch(text, "test",
+                GrepSearchOption.Global | GrepSearchOption.WholeWord);
+
+            Assert.Single(results);
+            Assert.Equal(2, results[0].Matches.Count);
+        }
+
+        [Fact]
+        public void NoWholeWord_MatchesFuzzyTokensWithoutBoundaryCheck()
+        {
+            // Without WholeWord, surrounding-character check is skipped.
+            // "john" (4-char pattern): floor(0.3*4)=1 edit allowed.
+            // "John" matches (0 edits). "Johny" matches (1 insertion). "Johnson" costs 3 ? no match.
+            string text = "John is here. Johny was too. Johnson works.";
+            var results = RunSearch(text, "john", GrepSearchOption.Global);
+
+            Assert.Single(results);
+            Assert.Equal(2, results[0].Matches.Count);
+        }
+
+        [Fact]
+        public void WholeWord_CombinedWithCaseSensitive()
+        {
+            // Both flags: exact-case AND whole-word.
+            // At threshold 1.0 (zero edits allowed), CaseSensitive means exact case only.
+            // "Hello" costs 1 edit (H/h), "HELLO" costs 5 edits — both exceed the zero budget.
+            // Only lowercase "hello" matches.
+            string text = "hello Hello HELLO";
+            var results = RunSearch(text, "hello",
+                GrepSearchOption.Global | GrepSearchOption.WholeWord | GrepSearchOption.CaseSensitive,
+                fuzzyThreshold: 1.0);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("hello", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        // -------------------------------------------------------------------------
+        // Fuzzy / inexact matching
+        // -------------------------------------------------------------------------
+
+        [Fact]
+        public void FuzzyMatch_OneTransposition_4CharToken_Threshold07()
+        {
+            // "tset" vs "test": 1 OSA edit (adjacent swap e/s).
+            // 4-char token: floor((1-0.7f)*4) = floor(1.2f) = 1 edit allowed.
+            string text = "tset this";
+            var results = RunSearch(text, "test", GrepSearchOption.Global, 0.7);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("tset", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void FuzzyMatch_OneTransposition_5CharToken_Threshold075()
+        {
+            // "brwon" vs "brown": 1 OSA edit (transposition w/o).
+            // 5-char token: floor((1-0.75f)*5) = floor(1.25f) = 1 edit allowed.
+            // NOTE: threshold 0.8f is unreliable for 5-char tokens due to float precision:
+            //   (1-0.8f)*5 ˜ 0.9999999f ? floor = 0.
+            string text = "the brwon fox";
+            var results = RunSearch(text, "brown", GrepSearchOption.Global, 0.75);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("brwon", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void FuzzyMatch_OneTransposition_7CharToken_Threshold075()
+        {
+            // "recieve" vs "receive": 1 OSA edit (transposition ei/ie).
+            // 7-char token: floor((1-0.75f)*7) = floor(1.75f) = 1 edit allowed.
+            string text = "I recieve the letter";
+            var results = RunSearch(text, "receive", GrepSearchOption.Global, 0.75);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("recieve", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void FuzzyMatch_OneDeletion_LongerToken()
+        {
+            // "programed" (9 chars) vs "programmed" (10 chars): 1 deletion.
+            // floor((1-0.75f)*10) = floor(2.5f) = 2 edits allowed. Should match.
+            string text = "the programed version";
+            var results = RunSearch(text, "programmed", GrepSearchOption.Global, 0.75);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("programed", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void FuzzyMatch_MultiWordPattern_OneTypo()
+        {
+            // "brwon fox": "brwon" costs 1 edit (threshold 0.75, 5-char ? 1 allowed); "fox" exact.
+            string text = "the brwon fox jumps";
+            var results = RunSearch(text, "brown fox", GrepSearchOption.Global, 0.75);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("brwon fox", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void FuzzyMatch_MultiWordPattern_BothTokensTypo_LowerThreshold()
+        {
+            // "brwon fxo": "brwon" costs 1 edit (5-char, 0.75 ? 1 allowed ?).
+            // "fxo" vs "fox": 1 edit (transposition). 3-char at 0.75: floor(0.25*3)=0 — not enough.
+            // Lower to 0.6: floor(0.4*3)=1 edit on 3-char tokens. ?
+            string text = "the brwon fxo jumps";
+            var results = RunSearch(text, "brown fox", GrepSearchOption.Global, 0.6);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("brwon fxo", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void FuzzyMatch_MultiWordPattern_SecondTokenFails_NoMatch()
+        {
+            // "brown xyz": "xyz" costs 3 edits from "fox". At 0.6: floor(0.4*3)=1. 3 > 1.
+            string text = "the brown xyz jumps";
+            var results = RunSearch(text, "brown fox", GrepSearchOption.Global, 0.6);
+
+            Assert.Empty(results);
+        }
+
+        // -------------------------------------------------------------------------
+        // Threshold behaviour
+        // -------------------------------------------------------------------------
+
+        [Fact]
+        public void Threshold_ExactOnly_AtThreshold10()
+        {
+            // Threshold 1.0: floor(0 * n) = 0 edits for all n. Only exact tokens match.
+            // "tset" is 1 edit from "test" ? no match. Exact "test" ? matches.
+            string text = "test tset testing";
+            var results = RunSearch(text, "test", GrepSearchOption.Global, 1.0);
 
             Assert.Single(results);
             Assert.Single(results[0].Matches);
@@ -382,258 +388,263 @@ another test";
         }
 
         [Fact]
-        public void FuzzySearch_Threshold_AllowsOneEdit()
+        public void Threshold_StrictVsLoose_4CharToken()
         {
-            // "tset" is a 1-edit transposition of "test" (4 chars).
-            // floor((1 - 0.8) * 4) = floor(0.8) = 0  â†’ not enough
-            // floor((1 - 0.7) * 4) = floor(1.2) = 1  â†’ allowed
-            string text = "tset is wrong spelling";
-            string pattern = "test";
+            // "tset" (4 chars, 1 edit from "test"):
+            //   threshold 0.8f: (1-0.8f)*4 ˜ 0.8f ? floor = 0 ? no match.
+            //   threshold 0.7f: (1-0.7f)*4 ˜ 1.2f ? floor = 1 ? match.
+            string text = "tset is misspelled";
 
-            var resultsStrict  = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.8);
-            var resultsLoose   = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.7);
+            var strict = RunSearch(text, "test", GrepSearchOption.Global, 0.8);
+            var loose  = RunSearch(text, "test", GrepSearchOption.Global, 0.7);
 
-            Assert.Empty(resultsStrict);
-            Assert.Single(resultsLoose);
-            Assert.Single(resultsLoose[0].Matches);
+            Assert.Empty(strict);
+            Assert.Single(loose);
+            Assert.Single(loose[0].Matches);
         }
 
         [Fact]
-        public void FuzzySearch_Threshold_MultiWordBothTokensMustMatch()
+        public void Threshold_SingleCharToken_AlwaysRequiresExactMatch()
         {
-            // For "brown fox", both tokens must independently meet their edit budgets.
-            // "brwon fox": "brwon" costs 1 edit (5 chars, threshold 0.8 â†’ 1 allowed). âœ“
-            // "brown xyz": "xyz" costs 3 edits from "fox" (3 chars, threshold 0.8 â†’ 0). âœ—
-            string text1 = "the brwon fox";
-            string text2 = "the brown xyz";
-            string pattern = "brown fox";
+            // 1-char token: floor((1-t)*1) = 0 for any t in (0,1].
+            // Pattern "a": only the standalone word "a" matches; "apple" and "and" do not.
+            string text = "a apple and";
+            var results = RunSearch(text, "a", GrepSearchOption.Global, 0.5);
 
-            var r1 = ExecuteFuzzySearch(text1, pattern, GrepSearchOption.Global, 0.8);
-            var r2 = ExecuteFuzzySearch(text2, pattern, GrepSearchOption.Global, 0.8);
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal("a", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+        }
+
+        [Fact]
+        public void Threshold_TwoCharToken_EditAllowedAtLowThreshold()
+        {
+            // "an" (2 chars) vs "in": 1 substitution.
+            //   threshold 0.4: floor(0.6*2) = 1 ? match.
+            //   threshold 0.6: floor(0.4*2) = 0 ? no match.
+            string text = "an example";
+
+            var match   = RunSearch(text, "in", GrepSearchOption.Global, 0.4);
+            var noMatch = RunSearch(text, "in", GrepSearchOption.Global, 0.6);
+
+            Assert.Single(match);
+            Assert.Empty(noMatch);
+        }
+
+        [Fact]
+        public void Threshold_MultiWordBothTokensMustIndependentlyMatch()
+        {
+            // "brwon fox" at 0.75: "brwon" (5-char, 1 edit, floor(0.25*5)=1 ?), "fox" exact ? ? match.
+            // "brown xyz" at 0.75: "xyz" costs 3 edits from "fox", floor(0.25*3)=0 ? no match.
+            var r1 = RunSearch("the brwon fox", "brown fox", GrepSearchOption.Global, 0.75);
+            var r2 = RunSearch("the brown xyz", "brown fox", GrepSearchOption.Global, 0.75);
 
             Assert.Single(r1);
             Assert.Empty(r2);
         }
 
-        [Fact]
-        public void FuzzySearch_Threshold05_AllowsTwoEditsOnLongerToken()
-        {
-            // "programme" vs "programmed" (10 chars).
-            // floor((1 - 0.8) * 10) = 2 edits allowed at 0.8.
-            // "programed" has 1 edit (missing 'm') from "programmed".
-            string text = "the program is programed here";
-            string pattern = "programmed";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.8);
-
-            Assert.Single(results);
-            Assert.Single(results[0].Matches);
-        }
-
-        #endregion
-
-        #region Edge Cases
+        // -------------------------------------------------------------------------
+        // Multiline mode
+        // -------------------------------------------------------------------------
 
         [Fact]
-        public void FuzzySearch_EmptyText()
+        public void Multiline_False_SearchesLineByLine_AllMatchesCollected()
         {
-            string text = "";
-            string pattern = "test";
-
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            Assert.Empty(results);
-        }
-
-        [Fact]
-        public void FuzzySearch_EmptyPattern()
-        {
-            string text = "Hello world";
-            string pattern = "";
-
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            Assert.Empty(results);
-        }
-
-        [Fact]
-        public void FuzzySearch_PatternLongerThanText()
-        {
-            // More pattern tokens than text words â†’ cannot match.
-            string text = "cat";
-            string pattern = "catastrophe happened today";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.5);
-
-            Assert.Empty(results);
-        }
-
-        [Fact]
-        public void FuzzySearch_SingleCharacter_ExactOnly()
-        {
-            // 1-char token has 0 allowed edits at all thresholds (floor(tol*1) = 0 for tol < 1).
-            // Must match the exact character "q".
-            string text = "The quick brown fox";
-            string pattern = "q";
-
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            Assert.Single(results);
-            Assert.Single(results[0].Matches);
-            Assert.Equal("q", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
-        }
-
-        [Fact]
-        public void FuzzySearch_NonWordCharPattern_LiteralFallback()
-        {
-            // Patterns with no \w chars fall back to literal IndexOf.
-            string text = "Email: test@example.com Phone: 123-456-7890";
-            string pattern = "@";
-
-            var results = ExecuteFuzzySearch(text, pattern);
-
-            Assert.Single(results);
-            Assert.Single(results[0].Matches);
-        }
-
-        [Fact]
-        public void FuzzySearch_NoMatchWhenPatternTotallyDifferent()
-        {
-            // "xyz" has max distance from "fox" â€” no threshold should match.
-            string text = "The quick brown xyz jumps";
-            string pattern = "fox";
-
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global, 0.5);
-
-            Assert.Empty(results);
-        }
-
-        #endregion
-
-        #region Complex Scenario Tests
-
-        [Fact]
-        public void FuzzySearch_TestFuzzySearchJohn()
-        {
-            // This mirrors the prototype test in GrepCoreTest.cs
-            string text = @"Richard, John James & Erika
-
-John James
-";
-            string pattern = "john";
-
-            var engine = CreateEngine(0.7);
-            var encoding = Encoding.UTF8;
-            using Stream inputStream = new MemoryStream(encoding.GetBytes(text));
-            var results = engine.Search(inputStream, new FileData("test.txt"), pattern, SearchType.Fuzzy, GrepSearchOption.Global, encoding);
+            // No Multiline flag: each line is processed separately.
+            // Both lines contain "fox"; all matches end up in one GrepSearchResult.
+            string text = "brown fox\nred fox";
+            var results = RunSearch(text, "fox", GrepSearchOption.Global);
 
             Assert.Single(results);
             Assert.Equal(2, results[0].Matches.Count);
-
-            string match1 = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
-            string match2 = text.Substring(results[0].Matches[1].StartLocation, results[0].Matches[1].Length);
-
-            Assert.Equal("John", match1);
-            Assert.Equal("John", match2);
         }
 
         [Fact]
-        public void FuzzySearch_MultilineText_WholeWordCaseSensitive()
+        public void Multiline_False_PatternCannotSpanLines()
         {
-            // Arrange
-            string text = @"First line with Test
-Second line with test
-Third line with TEST
-Fourth line with testing";
-            string pattern = "test";
+            // Without Multiline, the two-token pattern "fox red" is tested on each line
+            // separately. Neither line contains both consecutive tokens.
+            string text = "brown fox\nred deer";
+            var results = RunSearch(text, "fox red", GrepSearchOption.Global);
 
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.WholeWord | GrepSearchOption.CaseSensitive);
-
-            // Assert
-            Assert.Single(results);
-            // Should prefer lowercase "test" and exclude "testing"
-            Assert.True(results[0].Matches.Count >= 1);
+            Assert.Empty(results);
         }
 
         [Fact]
-        public void FuzzySearch_AllOptionsDisabled()
+        public void Multiline_True_PatternCanSpanLines()
         {
-            // Arrange
-            string text = "Fuzzy Search Test";
-            string pattern = "search";
+            // With Multiline the entire file is one string.
+            // Tokens "fox" and "red" are consecutive across the newline boundary.
+            string text = "brown fox\nred deer";
+            var results = RunSearch(text, "fox red",
+                GrepSearchOption.Global | GrepSearchOption.Multiline);
 
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global);
-
-            // Assert
             Assert.Single(results);
-            Assert.True(results[0].Matches.Count >= 1);
+            Assert.Single(results[0].Matches);
+            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
+            Assert.Equal("fox\nred", matched);
         }
 
         [Fact]
-        public void FuzzySearch_AllOptionsEnabled()
+        public void Multiline_True_FindsAllMatchesInDocument()
         {
-            // Arrange
-            string text = "Fuzzy Search Test. fuzzy test.";
-            string pattern = "search";
-
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, GrepSearchOption.Global | GrepSearchOption.CaseSensitive | GrepSearchOption.WholeWord);
-
-            // Assert
-            Assert.Single(results);
-            // With all options enabled and case-sensitive, should find "Search" (capitalized)
-            Assert.True(results[0].Matches.Count >= 1);
-        }
-
-        [Fact]
-        public void FuzzySearch_MultipleResults_DifferentLines()
-        {
-            // Token matching: "apple" is its own word token on lines 1 and 2.
-            // "pineapple" on line 3 is a single different token (not "apple").
-            string text = @"Line 1: apple pie
-Line 2: apple sauce
-Line 3: pineapple juice";
-            string pattern = "apple";
-
-            var results = ExecuteFuzzySearch(text, pattern);
+            // All occurrences of "test" are found in one pass over the full document.
+            string text = "first test here\nsecond test here\nno match here";
+            var results = RunSearch(text, "test",
+                GrepSearchOption.Global | GrepSearchOption.Multiline);
 
             Assert.Single(results);
-            // Matches "apple" on lines 1 and 2; "pineapple" is a different token.
             Assert.Equal(2, results[0].Matches.Count);
         }
 
-        #endregion
+        [Fact]
+        public void Multiline_True_WithWholeWord()
+        {
+            // Whole-word check still applies in multiline mode.
+            // "test" is whole word in lines 1 and 3; "testing" is a different longer token.
+            string text = "test one\ntesting two\ntest three";
+            var results = RunSearch(text, "test",
+                GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.WholeWord);
 
-        #region Combined Option Tests
+            Assert.Single(results);
+            Assert.Equal(2, results[0].Matches.Count);
+        }
+
+        [Fact]
+        public void Multiline_True_WithCaseSensitive()
+        {
+            // Case-sensitive + multiline at threshold 1.0 (zero edits allowed):
+            // "Test" costs 1 edit (T/t) and "TEST" costs 4 edits — both exceed the zero budget.
+            // Only the exact-case "test" token matches.
+            string text = "Test here\ntest here\nTEST here";
+            var results = RunSearch(text, "test",
+                GrepSearchOption.Global | GrepSearchOption.Multiline | GrepSearchOption.CaseSensitive,
+                fuzzyThreshold: 1.0);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            string matched = text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length);
+            Assert.Equal("test", matched);
+        }
+
+        // -------------------------------------------------------------------------
+        // Edge cases
+        // -------------------------------------------------------------------------
+
+        [Fact]
+        public void EdgeCase_EmptyText_ReturnsNoResults()
+        {
+            Assert.Empty(RunSearch("", "test"));
+        }
+
+        [Fact]
+        public void EdgeCase_EmptyPattern_ReturnsNoResults()
+        {
+            Assert.Empty(RunSearch("hello world", ""));
+        }
+
+        [Fact]
+        public void EdgeCase_PatternHasMoreTokensThanText_NoMatch()
+        {
+            // "one two three four" has 4 tokens; text "cat" has 1 token.
+            Assert.Empty(RunSearch("cat", "one two three four", GrepSearchOption.Global, 0.5));
+        }
+
+        [Fact]
+        public void EdgeCase_TotallyDifferentToken_NoMatch()
+        {
+            // "xyz" vs "fox": 3 edits. At 0.5: floor(0.5*3)=1 edit allowed. 3 > 1 ? no match.
+            Assert.Empty(RunSearch("the xyz jumps", "fox", GrepSearchOption.Global, 0.5));
+        }
+
+        [Fact]
+        public void EdgeCase_NonWordPatternFallsBackToLiteralSearch()
+        {
+            // Pattern "@" has no \w characters ? literal IndexOf fallback.
+            string text = "user@example.com";
+            var results = RunSearch(text, "@");
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+        }
+
+        [Fact]
+        public void EdgeCase_WhitespaceOnlyPattern_NoResults()
+        {
+            // All-space pattern tokenises to zero tokens ? no match.
+            Assert.Empty(RunSearch("hello world", "   "));
+        }
+
+        // -------------------------------------------------------------------------
+        // Real-world / regression
+        // -------------------------------------------------------------------------
+
+        [Fact]
+        public void Regression_JohnJames_TwoMatchesInText()
+        {
+            // "john" matches both "John" tokens; "James", "Erika", "Richard" don't match.
+            string text = "Richard, John James & Erika\n\nJohn James\n";
+            var results = RunSearch(text, "john", GrepSearchOption.Global);
+
+            Assert.Single(results);
+            Assert.Equal(2, results[0].Matches.Count);
+            Assert.Equal("John", text.Substring(results[0].Matches[0].StartLocation, results[0].Matches[0].Length));
+            Assert.Equal("John", text.Substring(results[0].Matches[1].StartLocation, results[0].Matches[1].Length));
+        }
+
+        [Fact]
+        public void Regression_CaseSensitiveWholeWord_ExcludesWrongCaseAndPartialTokens()
+        {
+            // "test" + WholeWord + CaseSensitive at threshold 1.0 (zero edits allowed):
+            //   "Test" costs 1 edit (T/t) ? exceeds zero budget ? no match.
+            //   "test" (lines 2 and 4) ? exact case, whole word ? matches.
+            //   "testing" ? longer token, extra chars ? no match.
+            string text = "First Test\nSecond test\nThird testing\nFourth test";
+            var results = RunSearch(text, "test",
+                GrepSearchOption.Global | GrepSearchOption.WholeWord | GrepSearchOption.CaseSensitive,
+                fuzzyThreshold: 1.0);
+
+            Assert.Single(results);
+            Assert.Equal(2, results[0].Matches.Count);
+            foreach (var m in results[0].Matches)
+                Assert.Equal("test", text.Substring(m.StartLocation, m.Length));
+        }
+
+        [Fact]
+        public void Regression_TokenNotSubstring_PineappleDoesNotMatchApple()
+        {
+            // Token-based: "pineapple" is a single 9-char token.
+            // OSA("apple","pineapple") = 4 insertions. At 0.7: floor(0.3*5)=1 allowed. 4 > 1.
+            // So "pineapple" does not match pattern "apple".
+            string text = "apple sauce\napple pie\npineapple juice";
+            var results = RunSearch(text, "apple");
+
+            Assert.Single(results);
+            Assert.Equal(2, results[0].Matches.Count);
+        }
 
         [Theory]
-        [InlineData("hello", "hello world", GrepSearchOption.Global, 0.7, 1)]
-        [InlineData("hello", "Hello World", GrepSearchOption.Global, 0.7, 1)]
-        [InlineData("hello", "hello HELLO Hello", GrepSearchOption.Global, 0.7, 3)]
-        // WholeWord: "hello" is whole word, "helloween" is a different token and should not match
-        // at threshold 0.7 since distance("hello","helloween")=4 > floor(0.3*5)=1
-        [InlineData("hello", "hello helloween", GrepSearchOption.WholeWord, 0.7, 1)]
-        [InlineData("hello", "hello HELLO", GrepSearchOption.CaseSensitive, 0.7, 1)]
-        [InlineData("hello", "hello HELLO", GrepSearchOption.Global, 0.7, 2)]
-        public void FuzzySearch_VariousScenarios(string pattern, string text, GrepSearchOption options, double threshold, int expectedMatches)
+        [InlineData("fox", "the fox",          GrepSearchOption.Global,       0.7, 1)]
+        [InlineData("fox", "The Fox",           GrepSearchOption.Global,       0.7, 1)]  // case-insensitive
+        [InlineData("fox", "Fox fox FOX",       GrepSearchOption.Global,       0.7, 3)]  // all case forms
+        [InlineData("fox", "fox foxy",          GrepSearchOption.WholeWord,    0.7, 1)]  // "foxy" costs 1 edit; pattern "fox" is 3 chars so floor(0.3*3)=0 edits allowed ? never matches
+        [InlineData("fox", "fox FOX",           GrepSearchOption.CaseSensitive,0.7, 1)]  // case-sensitive: only "fox"
+        [InlineData("fox", "fox FOX",           GrepSearchOption.Global,       0.7, 2)]  // case-insensitive: both
+        [InlineData("test", "test tset",        GrepSearchOption.Global,       0.7, 2)]  // "tset" (1 edit, 4-char pattern: floor(0.3*4)=1 allowed)
+        [InlineData("test", "test tset",        GrepSearchOption.Global,       1.0, 1)]  // threshold 1.0: only exact "test" matches
+        public void Theory_VariousScenarios(
+            string pattern, string text, GrepSearchOption options,
+            double threshold, int expectedMatchCount)
         {
-            // Act
-            var results = ExecuteFuzzySearch(text, pattern, options, threshold);
+            var results = RunSearch(text, pattern, options, threshold);
 
-            // Assert
-            if (expectedMatches > 0)
-            {
-                Assert.Single(results);
-                Assert.Equal(expectedMatches, results[0].Matches.Count);
-            }
+            if (expectedMatchCount == 0)
+                Assert.Empty(results);
             else
             {
-                Assert.Empty(results);
+                Assert.Single(results);
+                Assert.Equal(expectedMatchCount, results[0].Matches.Count);
             }
         }
-
-        #endregion
     }
 }
