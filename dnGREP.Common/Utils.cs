@@ -2495,47 +2495,23 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Returns true if beginText end with a non-alphanumeric character. Copied from AstroGrep.
+        /// Returns true if <paramref name="beginText"/> ends with a character that cannot be
+        /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
+        /// consume: anything that is not a Unicode letter, decimal digit, or connector
+        /// punctuation (underscore and its Unicode equivalents).
+        /// An empty string also returns true, representing the start of the input.
         /// </summary>
-        /// <param name="beginText">Text to test</param>
-        /// <returns></returns>
         public static bool IsValidBeginText(string beginText)
         {
             if (beginText == null)
                 return false;
-
-            if (beginText.Equals(string.Empty, StringComparison.Ordinal) ||
-               beginText.EndsWith(' ') ||
-               beginText.EndsWith('<') ||
-               beginText.EndsWith('>') ||
-               beginText.EndsWith('$') ||
-               beginText.EndsWith('+') ||
-               beginText.EndsWith('*') ||
-               beginText.EndsWith('[') ||
-               beginText.EndsWith('{') ||
-               beginText.EndsWith('(') ||
-               beginText.EndsWith('.') ||
-               beginText.EndsWith('?') ||
-               beginText.EndsWith('!') ||
-               beginText.EndsWith(',') ||
-               beginText.EndsWith(':') ||
-               beginText.EndsWith(';') ||
-               beginText.EndsWith('-') ||
-               beginText.EndsWith('=') ||
-               beginText.EndsWith('\\') ||
-               beginText.EndsWith('/') ||
-               beginText.EndsWith('\'') ||
-               beginText.EndsWith('"') ||
-               beginText.EndsWith(Environment.NewLine, StringComparison.Ordinal) ||
-               beginText.EndsWith("\r\n", StringComparison.Ordinal) ||
-               beginText.EndsWith('\r') ||
-               beginText.EndsWith('\n') ||
-               beginText.EndsWith('\t'))
-            {
+            if (beginText.Length == 0)
                 return true;
-            }
 
-            return false;
+            char last = beginText[^1];
+            return !char.IsLetter(last)
+                && !char.IsDigit(last)
+                && char.GetUnicodeCategory(last) != System.Globalization.UnicodeCategory.ConnectorPunctuation;
         }
 
         public static string ReplaceSpecialCharacters(string input)
@@ -2555,50 +2531,23 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Returns true if endText starts with a non-alphanumeric character. Copied from AtroGrep.
+        /// Returns true if <paramref name="endText"/> starts with a character that cannot be
+        /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
+        /// consume: anything that is not a Unicode letter, decimal digit, or connector
+        /// punctuation (underscore and its Unicode equivalents).
+        /// An empty string also returns true, representing the end of the input.
         /// </summary>
-        /// <param name="endText"></param>
-        /// <returns></returns>
         public static bool IsValidEndText(string endText)
         {
             if (endText == null)
                 return false;
-
-            if (endText.Equals(string.Empty, StringComparison.Ordinal) ||
-               endText.StartsWith(' ') ||
-               endText.StartsWith('<') ||
-               endText.StartsWith('$') ||
-               endText.StartsWith('+') ||
-               endText.StartsWith('*') ||
-               endText.StartsWith('[') ||
-               endText.StartsWith('{') ||
-               endText.StartsWith('(') ||
-               endText.StartsWith('.') ||
-               endText.StartsWith('?') ||
-               endText.StartsWith('!') ||
-               endText.StartsWith(',') ||
-               endText.StartsWith(':') ||
-               endText.StartsWith(';') ||
-               endText.StartsWith('-') ||
-               endText.StartsWith('=') ||
-               endText.StartsWith('>') ||
-               endText.StartsWith(']') ||
-               endText.StartsWith('}') ||
-               endText.StartsWith(')') ||
-               endText.StartsWith('\\') ||
-               endText.StartsWith('/') ||
-               endText.StartsWith('\'') ||
-               endText.StartsWith('"') ||
-               endText.StartsWith(Environment.NewLine, StringComparison.Ordinal) ||
-               endText.StartsWith("\r\n", StringComparison.Ordinal) ||
-               endText.StartsWith('\r') ||
-               endText.StartsWith('\n') ||
-               endText.StartsWith('\t'))
-            {
+            if (endText.Length == 0)
                 return true;
-            }
 
-            return false;
+            char first = endText[0];
+            return !char.IsLetter(first)
+                && !char.IsDigit(first)
+                && char.GetUnicodeCategory(first) != System.Globalization.UnicodeCategory.ConnectorPunctuation;
         }
 
 
