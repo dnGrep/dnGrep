@@ -123,6 +123,7 @@ namespace dnGREP.WPF.UserControls
             treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
             treeView.PreviewTouchMove += TreeView_PreviewTouchMove;
             treeView.PreviewTouchUp += TreeView_PreviewTouchUp;
+            treeView.SelectedItemChanged += TreeView_SelectedItemChanged;
 
             GrepSearchResultsViewModel.SearchResultsMessenger.Register("FormattedLinesLoaded", ScrollExpandedItemToTop);
 
@@ -1603,6 +1604,47 @@ namespace dnGREP.WPF.UserControls
         #endregion
 
         #region Sticky Scroll
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (!stickyScrollEnabled || treeScrollViewer == null || contextRoot.Visibility != Visibility.Visible)
+                return;
+
+            if (e.NewValue is not FormattedGrepLine)
+                return;
+
+            // BringIntoView runs before SelectedItemChanged fires, so we need to defer
+            // the check until after layout has updated.
+            Dispatcher.InvokeAsync(() =>
+            {
+                if (treeScrollViewer == null || contextRoot.Visibility != Visibility.Visible)
+                    return;
+
+                if (treeView.SelectedItem is not FormattedGrepLine line)
+                    return;
+
+                var parentResult = line.Parent;
+                if (treeView.ItemContainerGenerator.ContainerFromItem(parentResult) is not TreeViewItem parentTvi)
+                    return;
+
+                if (parentTvi.ItemContainerGenerator.ContainerFromItem(line) is not TreeViewItem lineTvi)
+                    return;
+
+                // Get the position of the selected item relative to the treeView
+                var itemBounds = lineTvi.TransformToAncestor(treeView).TransformBounds(
+                    new Rect(0, 0, lineTvi.ActualWidth, lineTvi.ActualHeight));
+
+                // Get the height of the sticky context overlay
+                double contextHeight = contextRoot.ActualHeight;
+
+                // If the item's top is hidden behind the context overlay, scroll up enough to reveal it
+                if (itemBounds.Top < contextHeight)
+                {
+                    treeScrollViewer.ScrollToVerticalOffset(
+                        treeScrollViewer.VerticalOffset + itemBounds.Top - contextHeight);
+                }
+            }, System.Windows.Threading.DispatcherPriority.Loaded);
+        }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
