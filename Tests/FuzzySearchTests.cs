@@ -67,6 +67,7 @@ namespace Tests
         {
             var engine = CreateEngine(fuzzyThreshold);
             var encoding = Encoding.UTF8;
+            searchOptions |= GrepSearchOption.Global;
             using Stream stream = new MemoryStream(encoding.GetBytes(text));
             return engine.Search(stream, new FileData("test.txt"), pattern,
                 SearchType.Fuzzy, searchOptions, encoding);
