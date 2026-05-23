@@ -44,6 +44,9 @@ namespace dnGREP.WPF.UserControls
         // Default column order and widths
         private static readonly double[] DefaultColumnWidths = [22, 150, 200, 200, 100, 100, 100, 160, 100];
 
+        // Minimum column widths by logical column id
+        private static readonly double[] MinColumnWidths = [22, 30, 30, 30, 30, 30, 30, 30, 30];
+
         // Map from GridViewColumn to its logical column id
         private readonly Dictionary<GridViewColumn, int> columnIds = [];
 
@@ -92,7 +95,20 @@ namespace dnGREP.WPF.UserControls
 
             foreach (var column in TreeListViewColumns)
             {
-                widthDescriptor?.AddValueChanged(column, (s, e) => OnColumnLayoutChanged());
+                widthDescriptor?.AddValueChanged(column, (s, e) =>
+                {
+                    if (s is GridViewColumn col)
+                    {
+                        int id = GetColumnId(col);
+                        double minWidth = id >= 0 && id < MinColumnWidths.Length ? MinColumnWidths[id] : 20;
+                        if (col.Width < minWidth)
+                        {
+                            col.Width = minWidth;
+                            return; // setting Width fires the event again; skip this pass
+                        }
+                    }
+                    OnColumnLayoutChanged();
+                });
             }
 
             // Listen for column reorder (Move action in the collection)
