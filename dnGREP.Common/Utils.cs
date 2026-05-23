@@ -2495,10 +2495,36 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Returns true if <paramref name="c"/> is a word character under .NET <c>\w</c> semantics:
+        /// Unicode letters, decimal digits, connector punctuation (e.g. underscore),
+        /// combining marks (non-spacing, spacing-combining, enclosing), and
+        /// the Unicode Join Control characters U+200C and U+200D.
+        /// </summary>
+        private static bool IsWordChar(char c)
+        {
+            switch (char.GetUnicodeCategory(c))
+            {
+                case System.Globalization.UnicodeCategory.UppercaseLetter:
+                case System.Globalization.UnicodeCategory.LowercaseLetter:
+                case System.Globalization.UnicodeCategory.TitlecaseLetter:
+                case System.Globalization.UnicodeCategory.ModifierLetter:
+                case System.Globalization.UnicodeCategory.OtherLetter:
+                case System.Globalization.UnicodeCategory.DecimalDigitNumber:
+                case System.Globalization.UnicodeCategory.ConnectorPunctuation:
+                case System.Globalization.UnicodeCategory.NonSpacingMark:
+                case System.Globalization.UnicodeCategory.SpacingCombiningMark:
+                case System.Globalization.UnicodeCategory.EnclosingMark:
+                    return true;
+                default:
+                    // U+200C ZERO WIDTH NON-JOINER, U+200D ZERO WIDTH JOINER
+                    return c == '\u200C' || c == '\u200D';
+            }
+        }
+
+        /// <summary>
         /// Returns true if <paramref name="beginText"/> ends with a character that cannot be
         /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
-        /// consume: anything that is not a Unicode letter, decimal digit, or connector
-        /// punctuation (underscore and its Unicode equivalents).
+        /// consume.
         /// An empty string also returns true, representing the start of the input.
         /// </summary>
         public static bool IsValidBeginText(string beginText)
@@ -2508,10 +2534,7 @@ namespace dnGREP.Common
             if (beginText.Length == 0)
                 return true;
 
-            char last = beginText[^1];
-            return !char.IsLetter(last)
-                && !char.IsDigit(last)
-                && char.GetUnicodeCategory(last) != System.Globalization.UnicodeCategory.ConnectorPunctuation;
+            return !IsWordChar(beginText[^1]);
         }
 
         public static string ReplaceSpecialCharacters(string input)
@@ -2533,8 +2556,7 @@ namespace dnGREP.Common
         /// <summary>
         /// Returns true if <paramref name="endText"/> starts with a character that cannot be
         /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
-        /// consume: anything that is not a Unicode letter, decimal digit, or connector
-        /// punctuation (underscore and its Unicode equivalents).
+        /// consume.
         /// An empty string also returns true, representing the end of the input.
         /// </summary>
         public static bool IsValidEndText(string endText)
@@ -2544,10 +2566,7 @@ namespace dnGREP.Common
             if (endText.Length == 0)
                 return true;
 
-            char first = endText[0];
-            return !char.IsLetter(first)
-                && !char.IsDigit(first)
-                && char.GetUnicodeCategory(first) != System.Globalization.UnicodeCategory.ConnectorPunctuation;
+            return !IsWordChar(endText[0]);
         }
 
 
