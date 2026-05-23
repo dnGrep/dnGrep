@@ -226,7 +226,17 @@ namespace dnGREP.Common
         public string BookmarkName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
+        [XmlIgnore]
         public SearchType TypeOfSearch { get; set; } = SearchType.PlainText;
+
+        // Surrogate property for XML serialization: converts legacy "Soundex" value to "Fuzzy" on load.
+        [XmlElement(nameof(TypeOfSearch))]
+        public string TypeOfSearchXml
+        {
+            get => TypeOfSearch.ToString();
+            set => TypeOfSearch = value == "Soundex" ? SearchType.Fuzzy
+                : Enum.TryParse(value, out SearchType result) ? result : SearchType.PlainText;
+        }
         public string SearchPattern { get; set; } = string.Empty;
         public string ReplacePattern { get; set; } = string.Empty;
         public bool Global { get; set; }
