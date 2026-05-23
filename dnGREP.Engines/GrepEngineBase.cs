@@ -947,7 +947,7 @@ namespace dnGREP.Engines
                 if (matchLocation == -1)
                     break;
 
-                int matchLength = fuzzyMatchEngine.MatchLengthInstance(text[counter..], searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
+                int matchLength = fuzzyMatchEngine.MatchLengthInstance(text[counter..], searchPattern, matchLocation, isWholeWord);
 
                 if (matchLength == -1)
                 {

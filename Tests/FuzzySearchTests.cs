@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using dnGREP.Common;
@@ -19,7 +19,7 @@ namespace Tests
     ///
     /// 2. EDIT BUDGET per token: AllowedEdits = floor((1 - threshold) * tokenLength).
     ///    Because Match_Threshold is stored as a float, avoid thresholds whose
-    ///    complement rounds down unexpectedly (e.g. 0.8f gives (1-0.8f)˜0.19999999f,
+    ///    complement rounds down unexpectedly (e.g. 0.8f gives (1-0.8f)Ëœ0.19999999f,
     ///    so floor(0.19999999f * 5) = 0, not 1). Use 0.75 to allow 1 edit on 5-char tokens.
     ///
     /// 3. MULTILINE=false: the engine reads the file line-by-line; each line is searched
@@ -44,7 +44,7 @@ namespace Tests
         // -------------------------------------------------------------------------
 
         /// <summary>
-        /// Creates a GrepEnginePlainText initialised with the given fuzzy threshold.
+        /// Creates a GrepEnginePlainText initialized with the given fuzzy threshold.
         /// </summary>
         private static GrepEnginePlainText CreateEngine(double fuzzyThreshold = 0.7)
         {
@@ -74,7 +74,7 @@ namespace Tests
         }
 
         // -------------------------------------------------------------------------
-        // Exact match — basic
+        // Exact match â€” basic
         // -------------------------------------------------------------------------
 
         [Fact]
@@ -125,13 +125,13 @@ namespace Tests
         }
 
         // -------------------------------------------------------------------------
-        // Exact match — multi-word pattern
+        // Exact match â€” multi-word pattern
         // -------------------------------------------------------------------------
 
         [Fact]
         public void ExactMatch_MultiWordPattern_BothTokensMustMatch()
         {
-            // "brown fox" — two tokens, both must match consecutively.
+            // "brown fox" â€” two tokens, both must match consecutively.
             string text = "the quick brown fox jumps";
             var results = RunSearch(text, "brown fox");
 
@@ -143,7 +143,7 @@ namespace Tests
         [Fact]
         public void ExactMatch_MultiWordPattern_NoMatchWhenTokensNotConsecutive()
         {
-            // "brown dog" — "brown" and "dog" are not consecutive tokens.
+            // "brown dog" â€” "brown" and "dog" are not consecutive tokens.
             string text = "the brown fox and the dog";
             var results = RunSearch(text, "brown dog");
 
@@ -211,7 +211,7 @@ namespace Tests
         public void WholeWord_ExcludesTokenThatExceedsEditBudget()
         {
             // "john" (4-char pattern): floor(0.3*4)=1 edit allowed.
-            // "Johnson" costs 3 edits (3 extra chars) — exceeds the 1-edit budget. No match.
+            // "Johnson" costs 3 edits (3 extra chars) â€” exceeds the 1-edit budget. No match.
             // "John" costs 0 edits (case-insensitive). Matches as whole word.
             string text = "John is here. Johnson works here.";
             var results = RunSearch(text, "john",
@@ -265,7 +265,7 @@ namespace Tests
         {
             // Both flags: exact-case AND whole-word.
             // At threshold 1.0 (zero edits allowed), CaseSensitive means exact case only.
-            // "Hello" costs 1 edit (H/h), "HELLO" costs 5 edits — both exceed the zero budget.
+            // "Hello" costs 1 edit (H/h), "HELLO" costs 5 edits â€” both exceed the zero budget.
             // Only lowercase "hello" matches.
             string text = "hello Hello HELLO";
             var results = RunSearch(text, "hello",
@@ -349,7 +349,7 @@ namespace Tests
         public void FuzzyMatch_MultiWordPattern_BothTokensTypo_LowerThreshold()
         {
             // "brwon fxo": "brwon" costs 1 edit (5-char, 0.8 ? floor(0.2*5)=1 allowed ?).
-            // "fxo" vs "fox": 1 edit (transposition). 3-char at 0.8: floor(0.2*3)=0 — not enough.
+            // "fxo" vs "fox": 1 edit (transposition). 3-char at 0.8: floor(0.2*3)=0 â€” not enough.
             // Lower to 0.6: floor(0.4*3)=1 edit on 3-char tokens. ?
             string text = "the brwon fxo jumps";
             var results = RunSearch(text, "brown fox", GrepSearchOption.Global, 0.6);
@@ -370,7 +370,7 @@ namespace Tests
         }
 
         // -------------------------------------------------------------------------
-        // Threshold behaviour
+        // Threshold behavior
         // -------------------------------------------------------------------------
 
         [Fact]
@@ -513,7 +513,7 @@ namespace Tests
         public void Multiline_True_WithCaseSensitive()
         {
             // Case-sensitive + multiline at threshold 1.0 (zero edits allowed):
-            // "Test" costs 1 edit (T/t) and "TEST" costs 4 edits — both exceed the zero budget.
+            // "Test" costs 1 edit (T/t) and "TEST" costs 4 edits â€” both exceed the zero budget.
             // Only the exact-case "test" token matches.
             string text = "Test here\ntest here\nTEST here";
             var results = RunSearch(text, "test",

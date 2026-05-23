@@ -82,10 +82,10 @@ namespace dnGREP.Engines
         /// <paramref name="text"/>, returns the character length of the matched span.
         /// Returns -1 if no valid match is found at that position.
         /// </summary>
-        public int MatchLengthInstance(string text, string pattern, int loc, bool isWholeWord, double threshold)
+        public int MatchLengthInstance(string text, string pattern, int loc, bool isWholeWord)
         {
             if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(pattern))
-                return 0;
+                return -1;
 
             string[] patternTokens = Tokenize(pattern);
 
@@ -150,7 +150,7 @@ namespace dnGREP.Engines
             return true;
         }
 
-        // -- helpers ------------------------------------------------------------?
+        // -- helpers ------------------------------------------------------------
 
         /// <summary>
         /// Maximum number of edit operations allowed for a token of
