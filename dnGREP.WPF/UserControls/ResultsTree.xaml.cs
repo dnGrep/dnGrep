@@ -23,6 +23,7 @@ namespace dnGREP.WPF.UserControls
     public partial class ResultsTree : UserControl, INameScope
     {
         private GrepSearchResultsViewModel? viewModel;
+        private ScrollViewer? treeScrollViewer;
         private bool skipScrollOnExpand;
         private bool inNextPrevious;
         private bool stickyScrollEnabled;
@@ -116,6 +117,7 @@ namespace dnGREP.WPF.UserControls
 
                 if (treeView.Template.FindName("_tv_scrollviewer_", treeView) is ScrollViewer scrollViewer)
                 {
+                    treeScrollViewer = scrollViewer;
                     scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
                 }
 
@@ -123,6 +125,10 @@ namespace dnGREP.WPF.UserControls
                 {
                     vm.PropertyChanged += (s, e) =>
                     {
+                        if (e.PropertyName == nameof(GrepSearchResultsViewModel.WrapText))
+                        {
+                            UpdateWrapWidth(vm);
+                        }
                         if (e.PropertyName == nameof(GrepSearchResultsViewModel.StickyScrollEnabled))
                         {
                             stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
@@ -1586,6 +1592,11 @@ namespace dnGREP.WPF.UserControls
         {
             if (sender is ScrollViewer sv)
             {
+                if (e.ViewportWidthChange != 0 && DataContext is GrepSearchResultsViewModel vm)
+                {
+                    UpdateWrapWidth(vm);
+                }
+
                 if (e.HorizontalChange != 0 || e.ExtentWidthChange != 0)
                 {
                     // Ensure header and context have enough width to scroll the full extent
@@ -1602,6 +1613,22 @@ namespace dnGREP.WPF.UserControls
             {
                 ResetContextItemVisible();
             }
+        }
+
+        private void UpdateWrapWidth(GrepSearchResultsViewModel vm)
+        {
+            // Subtract the TreeViewItem indent offsets so the pixel column width
+            // fits exactly within the viewport:
+            //   19px  parent expander column (MinWidth)
+            //    1px  parent Border left border thickness
+            //    1px  parent Border left padding
+            //    1px  child Border left border thickness
+            //    6px  InlineTextBlock left margin
+            //   12px  breathing room to ensure the right most char is in the visible area
+            const double treeIndent = 40;
+            vm.WrapWidth = (vm.WrapText && treeScrollViewer != null)
+                ? Math.Max(1, treeScrollViewer.ViewportWidth - treeIndent)
+                : 0;
         }
 
         private void ResetContextItemVisible()

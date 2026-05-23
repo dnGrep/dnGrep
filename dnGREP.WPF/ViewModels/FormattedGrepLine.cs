@@ -29,6 +29,7 @@ namespace dnGREP.WPF
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
+            WrapWidth = Parent.WrapWidth;
             ViewWhitespace = Parent.ViewWhitespace;
             int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
             var pdfNumberStyle = GrepSettings.Instance.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
@@ -93,6 +94,7 @@ namespace dnGREP.WPF
                     ResultColumn2Width = "0";
                     ResultColumn1SharedSizeGroupName = null;
                 }
+                UpdateResultColumn1Width();
             }
         }
 
@@ -147,9 +149,30 @@ namespace dnGREP.WPF
         partial void OnWrapTextChanged(bool value)
         {
             MaxLineLength = value ? 10000 : 500;
+            UpdateResultColumn1Width();
         }
 
         public int MaxLineLength { get; private set; } = 500;
+
+        [ObservableProperty]
+        private double wrapWidth;
+        partial void OnWrapWidthChanged(double value)
+        {
+            UpdateResultColumn1Width();
+        }
+
+        private void UpdateResultColumn1Width()
+        {
+            if (WrapText && WrapWidth > 0)
+            {
+                double pixelWidth = Math.Max(1, WrapWidth - LineNumberColumnWidth);
+                ResultColumn1Width = pixelWidth.ToString("F0", System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                ResultColumn1Width = IsHexData ? "Auto" : "*";
+            }
+        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FormattedText))]

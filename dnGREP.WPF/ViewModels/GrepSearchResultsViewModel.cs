@@ -642,6 +642,16 @@ namespace dnGREP.WPF
         }
 
         [ObservableProperty]
+        private double wrapWidth;
+        partial void OnWrapWidthChanged(double value)
+        {
+            foreach (var item in SearchResults)
+            {
+                item.WrapWidth = value;
+            }
+        }
+
+        [ObservableProperty]
         private bool viewWhitespace;
         partial void OnViewWhitespaceChanged(bool value)
         {
