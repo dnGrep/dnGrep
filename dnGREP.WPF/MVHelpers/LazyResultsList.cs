@@ -53,7 +53,15 @@ namespace dnGREP.WPF.MVHelpers
 
             IsLoaded = true;
             IsLoading = false;
-            FormatAndLoadLines(linesWithContext);
+            try
+            {
+                FormatAndLoadLines(linesWithContext);
+            }
+            catch
+            {
+                IsLoaded = false;
+                throw;
+            }
             return true;
         }
 
@@ -74,7 +82,15 @@ namespace dnGREP.WPF.MVHelpers
 
             IsLoaded = true;
             IsLoading = false;
-            FormatAndLoadLines(linesWithContext);
+            try
+            {
+                FormatAndLoadLines(linesWithContext);
+            }
+            catch
+            {
+                IsLoaded = false;
+                throw;
+            }
             return true;
         }
 
