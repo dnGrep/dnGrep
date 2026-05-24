@@ -473,7 +473,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    Legt den Typ der Suche fest - muss einer der folgenden sein: PlainText, Regex, XPath, oder Soundex.</value>
+    Legt den Typ der Suche fest - muss einer der folgenden sein: PlainText, Regex, XPath, oder Fuzzy.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
