@@ -2523,7 +2523,7 @@ namespace dnGREP.Common
 
         /// <summary>
         /// Returns true if <paramref name="beginText"/> ends with a character that cannot be
-        /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
+        /// part of a word token â€” i.e. a character that the <c>\w+</c> tokenizer would not
         /// consume.
         /// An empty string also returns true, representing the start of the input.
         /// </summary>
@@ -2555,7 +2555,7 @@ namespace dnGREP.Common
 
         /// <summary>
         /// Returns true if <paramref name="endText"/> starts with a character that cannot be
-        /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
+        /// part of a word token â€” i.e. a character that the <c>\w+</c> tokenizer would not
         /// consume.
         /// An empty string also returns true, representing the end of the input.
         /// </summary>
