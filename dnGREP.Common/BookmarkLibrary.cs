@@ -234,8 +234,8 @@ namespace dnGREP.Common
         public string TypeOfSearchXml
         {
             get => TypeOfSearch.ToString();
-            set => TypeOfSearch = value == "Soundex" ? SearchType.Fuzzy
-                : Enum.TryParse(value, out SearchType result) ? result : SearchType.PlainText;
+            set => TypeOfSearch = string.Equals(value, "Soundex", StringComparison.OrdinalIgnoreCase) ? SearchType.Fuzzy
+                : Enum.TryParse(value, ignoreCase: true, out SearchType result) ? result : SearchType.PlainText;
         }
         public string SearchPattern { get; set; } = string.Empty;
         public string ReplacePattern { get; set; } = string.Empty;
