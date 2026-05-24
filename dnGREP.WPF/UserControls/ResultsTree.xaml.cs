@@ -157,28 +157,34 @@ namespace dnGREP.WPF.UserControls
                 if (DataContext is GrepSearchResultsViewModel vm)
                 {
                     UpdateWrapWidth(vm);
-                    vm.PropertyChanged += (s, e) =>
-                    {
-                        if (e.PropertyName == nameof(GrepSearchResultsViewModel.WrapText))
-                        {
-                            UpdateWrapWidth(vm);
-                        }
-                        if (e.PropertyName == nameof(GrepSearchResultsViewModel.StickyScrollEnabled))
-                        {
-                            stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
-                            if (stickyScrollEnabled)
-                            {
-                                ResetContextItemVisible();
-                            }
-                            else
-                            {
-                                vm.ContextGrepResult = null;
-                                vm.ContextGrepResultVisible = false;
-                            }
-                        }
-                    };
+                    vm.PropertyChanged -= ViewModel_PropertyChanged;
+                    vm.PropertyChanged += ViewModel_PropertyChanged;
                 }
             };
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                if (e.PropertyName == nameof(GrepSearchResultsViewModel.WrapText))
+                {
+                    UpdateWrapWidth(vm);
+                }
+                if (e.PropertyName == nameof(GrepSearchResultsViewModel.StickyScrollEnabled))
+                {
+                    stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
+                    if (stickyScrollEnabled)
+                    {
+                        ResetContextItemVisible();
+                    }
+                    else
+                    {
+                        vm.ContextGrepResult = null;
+                        vm.ContextGrepResultVisible = false;
+                    }
+                }
+            }
         }
 
         private void UpdateColumnHeaders(object? sender, EventArgs e)
