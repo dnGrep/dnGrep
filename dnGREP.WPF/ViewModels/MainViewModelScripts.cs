@@ -83,7 +83,11 @@ namespace dnGREP.WPF
                 {
                     string searchTypeValue = p.Equals("Soundex", StringComparison.OrdinalIgnoreCase) ? "Fuzzy" : p;
                     if (Enum.TryParse(searchTypeValue, true, out SearchType st) && Enum.IsDefined(st))
+                    {
                         TypeOfSearch = st;
+                        return;
+                    }
+                    throw new InvalidEnumArgumentException(nameof(p), -1, typeof(SearchType));
                 }));
                 SetCommandMap.Add("searchfor", new ScriptCommand<string>(p => SearchFor = p));
                 SetCommandMap.Add("replacewith", new ScriptCommand<string>(p => ReplaceWith = p));

@@ -272,6 +272,10 @@ namespace dnGREP.Common
         public bool ShouldSerializeIncludeHiddenFiles() { return Version > 1; }
         public bool ShouldSerializeIncludeBinaryFiles() { return Version > 1; }
         public bool ShouldSerializeTypeOfSearch() { return Version > 1; }
+        public bool ShouldSerializeTypeOfSearchXml()
+        {
+            return ShouldSerializeTypeOfSearch();
+        }
         public bool ShouldSerializeCaseSensitive() { return Version > 1; }
         public bool ShouldSerializeWholeWord() { return Version > 1; }
         public bool ShouldSerializeMultiline() { return Version > 1; }
