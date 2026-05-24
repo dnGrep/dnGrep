@@ -94,9 +94,6 @@
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
     <value>Llibreria .NET per a la detecció del joc de caràcters</value>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Llibreria .NET per a rutes de longitud estesa</value>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Llibreria .NET per llegir fitxers de Microsoft Excel</value>
   </data>
@@ -216,12 +213,6 @@
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Cerca text pla</value>
@@ -978,12 +969,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Cerca text pla</value>
   </data>
@@ -1596,9 +1581,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
     <value>Mostra o oculta els controls quan s'habilita Personalitza</value>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Habilitat</value>
   </data>
@@ -2204,9 +2186,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>Expressió _regular</value>

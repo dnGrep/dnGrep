@@ -106,10 +106,6 @@
     <value>바이트</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
   </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>음성 검색</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
-  </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
     <value>텍스트(_T)</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
@@ -329,10 +325,6 @@
   <data name="Main_SearchGroup" xml:space="preserve">
     <value>검색</value>
     <comment>Main window, search group heading</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>음성</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
     <value>크기는</value>
@@ -822,10 +814,6 @@
     <value>.7-Zip용 NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>확장 길이 경로를 위한 .NET 라이브러리</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Microsoft Excel 파일 읽기용 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
@@ -917,10 +905,6 @@
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
     <value>검색 대상:</value>
     <comment>Bookmark details dialog, search pattern text input box label</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>음성</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>일반 텍스트 검색</value>
@@ -1277,10 +1261,6 @@
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>바이트</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>음성 검색</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>일반 텍스트 검색</value>
@@ -1778,10 +1758,6 @@
     <value>재설정</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>음성 검색</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>사용함</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
@@ -2045,10 +2021,6 @@
   <data name="Test_SearchGroup" xml:space="preserve">
     <value>검색</value>
     <comment>Test window, search group box heading</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>음성</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
     <value>폴더 최대 깊이: {0}</value>

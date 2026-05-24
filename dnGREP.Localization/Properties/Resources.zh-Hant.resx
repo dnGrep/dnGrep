@@ -106,10 +106,6 @@
     <value>用於檢測字元集的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>用於擴展長度路徑的 .NET 函式庫</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>用於讀取 Microsoft Excel 檔案的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
@@ -241,14 +237,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>位元組</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>拼音</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>拼音搜尋</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>純文字搜尋</value>
@@ -1068,14 +1056,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>位元組</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>拼音</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>拼音搜尋</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>純文字搜尋</value>
     <comment>Main window, Text search type tooltip</comment>
@@ -1712,10 +1692,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>重置</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>拼音搜尋</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>啟用</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
@@ -2239,10 +2215,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>搜尋結果:</value>
     <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>拼音</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>正則運算式</value>

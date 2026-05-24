@@ -1119,9 +1119,6 @@
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
     <value>ECMA-376 Sayılarını Ayrıştırmak İçin .NET Kitaplığı</value>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Genişletilmiş Uzunluktaki Yollar İçin .NET Kitaplığı</value>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Microsoft Excel Dosyalarını Okumak İçin .NET Kitaplığı</value>
   </data>
@@ -1169,9 +1166,6 @@
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
     <value>Şunu ara:</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Fonetik arama</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Düz metin araması</value>
@@ -1329,12 +1323,6 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetik</value>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Fonetik arama</value>
-  </data>
   <data name="Help_CmdLineExample2" xml:space="preserve">
     <value>dnGrep [folderPath] [searchFor]
 Bayraksız bir veya iki bağımsız değişken: ilk argüman aranacak klasör, ikincisi aranacak düzenli ifadedir.
@@ -1457,9 +1445,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Şununla değiştir:</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetik</value>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
     <value>_Normal ifade</value>
@@ -1947,9 +1932,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SampleInputText" xml:space="preserve">
     <value>Örnek giriş metni:</value>
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetik</value>
-  </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Normal ifade</value>
   </data>
@@ -2234,9 +2216,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
     <value>Kontrol görünürlüğünü kişiselleştir</value>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Fonetik arama</value>
   </data>
   <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
     <value>Önizleme penceresinde, şu boyuttan büyük dosyaları yüklemeden önce sor</value>

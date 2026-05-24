@@ -106,10 +106,6 @@
     <value>Tipo de pesquisa</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Pesquisa fonética</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Cancelar</value>
     <comment>Rename file dialog button label</comment>
@@ -196,10 +192,6 @@
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonética</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
@@ -301,14 +293,6 @@
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonética</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Pesquisa fonética</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Pesquisar texto simples</value>
@@ -482,10 +466,6 @@
     <value>OK</value>
     <comment>Bookmark details dialog, button label</comment>
   </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Pesquisa fonética</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
-  </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
     <value>Pesquisar XPath (apenas para documentos XML)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
@@ -511,10 +491,6 @@
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
     <value>Framework JSON para .NET</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Biblioteca .NET para caminhos estendidos</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
@@ -544,10 +520,6 @@
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
     <value>Máscara</value>
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonética</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Pesquisa de texto simples</value>

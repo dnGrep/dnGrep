@@ -198,10 +198,6 @@
     <value>Llibreria .NET per a la detecció del joc de caràcters</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Llibreria .NET per a rutes de longitud estesa</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
     <value>Llibreria .NET per a treballar amb documents de Word i Excel</value>
     <comment>About dialog acknowledgments</comment>
@@ -326,17 +322,9 @@
     <value>Multi_línia</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
     <value>Cerca:</value>
     <comment>Bookmark details dialog, search pattern text input box label</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Cerca text pla</value>
@@ -826,14 +814,6 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Byte</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Cerca text pla</value>
     <comment>Main window, Text search type tooltip</comment>
@@ -853,10 +833,6 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
     <value>Tipus de cerca</value>
     <comment>Options dialog, Personalization group</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
     <value>Codificació:</value>
@@ -880,10 +856,6 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
