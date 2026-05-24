@@ -370,7 +370,8 @@ namespace dnGREP.WPF
                 {
                     var fmtResult = new FormattedGrepResult(r, FolderPath, ViewWhitespace)
                     {
-                        WrapText = WrapText
+                        WrapText = WrapText,
+                        WrapWidth = WrapWidth
                     };
                     SearchResults.Add(fmtResult);
 

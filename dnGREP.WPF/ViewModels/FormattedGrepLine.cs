@@ -130,6 +130,10 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private int lineNumberColumnWidth = 30;
+        partial void OnLineNumberColumnWidthChanged(int value)
+        {
+            UpdateResultColumn1Width();
+        }
 
         void Parent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {

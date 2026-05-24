@@ -140,6 +140,7 @@ namespace dnGREP.WPF.UserControls
 
                 if (DataContext is GrepSearchResultsViewModel vm)
                 {
+                    UpdateWrapWidth(vm);
                     vm.PropertyChanged += (s, e) =>
                     {
                         if (e.PropertyName == nameof(GrepSearchResultsViewModel.WrapText))
@@ -1744,6 +1745,28 @@ namespace dnGREP.WPF.UserControls
             return visible;
         }
 
+        /// <summary>
+        /// Returns true if a child TreeViewItem intersects the viewport, i.e. any part of it
+        /// is visible. Unlike <see cref="IsUserVisible"/> this does not require the item to fit
+        /// fully within the viewport, which is necessary for tall wrapped lines.
+        /// </summary>
+        private static bool IsChildVisible(TreeView treeView, TreeViewItem treeViewItem)
+        {
+            if (!treeViewItem.IsVisible)
+                return false;
+
+            var header = GetHeaderControl(treeViewItem);
+            Rect tviRect = header != null
+                ? new(0.0, 0.0, header.ActualWidth, header.ActualHeight)
+                : new(0.0, 0.0, treeViewItem.ActualWidth, treeViewItem.ActualHeight);
+
+            Rect itemBounds = treeViewItem.TransformToAncestor(treeView).TransformBounds(tviRect);
+            Rect containerRect = new(0.0, 0.0, treeView.ActualWidth, treeView.ActualHeight);
+            // Intersect: item is visible if its bottom is below the viewport top
+            // AND its top is above the viewport bottom.
+            return itemBounds.Bottom > containerRect.Top && itemBounds.Top < containerRect.Bottom;
+        }
+
         private static FrameworkElement GetHeaderControl(TreeViewItem item)
         {
             return (FrameworkElement)item.Template.FindName("PART_Header", item);
@@ -1765,16 +1788,16 @@ namespace dnGREP.WPF.UserControls
                             }
                             else
                             {
-                                foreach (FormattedGrepLine childNode in node.Children.Cast<FormattedGrepLine>())
-                                {
-                                    if (container.ItemContainerGenerator.ContainerFromItem(childNode) is TreeViewItem treeViewItem &&
-                                        IsUserVisible(treeView, treeViewItem))
+                                    foreach (FormattedGrepLine childNode in node.Children.Cast<FormattedGrepLine>())
                                     {
-                                        return node;
+                                        if (container.ItemContainerGenerator.ContainerFromItem(childNode) is TreeViewItem treeViewItem &&
+                                            IsChildVisible(treeView, treeViewItem))
+                                        {
+                                            return node;
+                                        }
                                     }
                                 }
                             }
-                        }
                     }
                 }
             }
