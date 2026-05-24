@@ -1814,16 +1814,16 @@ namespace dnGREP.WPF.UserControls
                             }
                             else
                             {
-                                    foreach (FormattedGrepLine childNode in node.Children.Cast<FormattedGrepLine>())
+                                foreach (FormattedGrepLine childNode in node.Children.Cast<FormattedGrepLine>())
+                                {
+                                    if (container.ItemContainerGenerator.ContainerFromItem(childNode) is TreeViewItem treeViewItem &&
+                                        IsChildVisible(treeView, treeViewItem))
                                     {
-                                        if (container.ItemContainerGenerator.ContainerFromItem(childNode) is TreeViewItem treeViewItem &&
-                                            IsChildVisible(treeView, treeViewItem))
-                                        {
-                                            return node;
-                                        }
+                                        return node;
                                     }
                                 }
                             }
+                        }
                     }
                 }
             }
