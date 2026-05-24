@@ -51,11 +51,9 @@ namespace dnGREP.WPF.MVHelpers
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
 
-            FormatAndLoadLines(linesWithContext);
-
             IsLoaded = true;
             IsLoading = false;
-            LoadFinished?.Invoke(this, EventArgs.Empty);
+            FormatAndLoadLines(linesWithContext);
             return true;
         }
 
@@ -74,11 +72,9 @@ namespace dnGREP.WPF.MVHelpers
                 return list;
             });
 
-            FormatAndLoadLines(linesWithContext);
-
             IsLoaded = true;
             IsLoading = false;
-            LoadFinished?.Invoke(this, EventArgs.Empty);
+            FormatAndLoadLines(linesWithContext);
             return true;
         }
 
@@ -125,6 +121,7 @@ namespace dnGREP.WPF.MVHelpers
                     {
                         Add(l);
                     }
+                    LoadFinished?.Invoke(this, EventArgs.Empty);
                 }
             ));
         }
