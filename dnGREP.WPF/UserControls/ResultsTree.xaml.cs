@@ -1712,7 +1712,7 @@ namespace dnGREP.WPF.UserControls
             //   12px  breathing room to ensure the right most char is in the visible area
             const double treeIndent = 40;
             vm.WrapWidth = (vm.WrapText && treeScrollViewer != null)
-                ? Math.Max(1, treeScrollViewer.ViewportWidth - treeIndent)
+                ? Math.Max(1, Math.Round(treeScrollViewer.ViewportWidth - treeIndent, 0))
                 : 0;
         }
 
