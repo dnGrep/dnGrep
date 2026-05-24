@@ -46,21 +46,23 @@ namespace dnGREP.WPF.MVHelpers
                 return false;
 
             IsLoading = true;
-
-            List<GrepLine> linesWithContext = result.GetLinesWithContext(
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-
-            IsLoaded = true;
-            IsLoading = false;
             try
             {
+                List<GrepLine> linesWithContext = result.GetLinesWithContext(
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
+
+                IsLoaded = true;
                 FormatAndLoadLines(linesWithContext);
             }
             catch
             {
                 IsLoaded = false;
                 throw;
+            }
+            finally
+            {
+                IsLoading = false;
             }
             return true;
         }
@@ -71,25 +73,27 @@ namespace dnGREP.WPF.MVHelpers
                 return false;
 
             IsLoading = true;
-
-            List<GrepLine> linesWithContext = await Task.Run(() =>
-            {
-                List<GrepLine> list = result.GetLinesWithContext(
-                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-                return list;
-            });
-
-            IsLoaded = true;
-            IsLoading = false;
             try
             {
+                List<GrepLine> linesWithContext = await Task.Run(() =>
+                {
+                    List<GrepLine> list = result.GetLinesWithContext(
+                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
+                    return list;
+                });
+
+                IsLoaded = true;
                 FormatAndLoadLines(linesWithContext);
             }
             catch
             {
                 IsLoaded = false;
                 throw;
+            }
+            finally
+            {
+                IsLoading = false;
             }
             return true;
         }

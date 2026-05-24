@@ -150,6 +150,7 @@ namespace dnGREP.WPF.UserControls
                 if (treeView.Template.FindName("_tv_scrollviewer_", treeView) is ScrollViewer scrollViewer)
                 {
                     treeScrollViewer = scrollViewer;
+                    scrollViewer.ScrollChanged -= ScrollViewer_ScrollChanged;
                     scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
                 }
 
@@ -244,7 +245,9 @@ namespace dnGREP.WPF.UserControls
                     {
                         if (columnById.TryGetValue(order[i], out var col))
                         {
-                            col.Width = widths[i];
+                            int id = order[i];
+                            double minWidth = id >= 0 && id < MinColumnWidths.Length ? MinColumnWidths[id] : 20;
+                            col.Width = Math.Max(widths[i], minWidth);
                         }
                     }
 
