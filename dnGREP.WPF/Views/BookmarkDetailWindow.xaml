@@ -262,9 +262,9 @@
                             <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Text'}" GroupName="SearchType"
                                          IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
                                          ToolTip="{l:Loc Key='BookmarkDetails_SearchType_PlainTextSearch'}" />
-                            <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Phonetic'}" GroupName="SearchType"
-                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
-                                         ToolTip="{l:Loc Key='BookmarkDetails_SearchType_PhoneticSearch'}" />
+                            <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Fuzzy'}" GroupName="SearchType"
+                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=Fuzzy, Converter={StaticResource ebc}}"
+                                         ToolTip="{l:Loc Key='BookmarkDetails_SearchType_ApproximateStringMatching'}" />
                             <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Hex'}" GroupName="SearchHex"
                                          IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
                                          ToolTip="{l:Loc Key='BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes'}" />

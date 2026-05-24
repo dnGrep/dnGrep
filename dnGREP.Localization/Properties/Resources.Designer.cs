@@ -79,6 +79,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build tools for Windows Installer packages.
+        /// </summary>
+        public static string About_BuildToolsForWindowsInstallerPackages {
+            get {
+                return ResourceManager.GetString("About_BuildToolsForWindowsInstallerPackages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Built on.
         /// </summary>
         public static string About_BuiltOn {
@@ -165,15 +174,6 @@ namespace dnGREP.Localization.Properties {
         public static string About_NETLibraryForCharacterSetDetection {
             get {
                 return ResourceManager.GetString("About_NETLibraryForCharacterSetDetection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .NET library for extended length paths.
-        /// </summary>
-        public static string About_NETLibraryForExtendedLengthPaths {
-            get {
-                return ResourceManager.GetString("About_NETLibraryForExtendedLengthPaths", resourceCulture);
             }
         }
         
@@ -556,29 +556,29 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approximate string matching.
+        /// </summary>
+        public static string BookmarkDetails_SearchType_ApproximateStringMatching {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_SearchType_ApproximateStringMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuzzy.
+        /// </summary>
+        public static string BookmarkDetails_SearchType_Fuzzy {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_SearchType_Fuzzy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Byte.
         /// </summary>
         public static string BookmarkDetails_SearchType_Hex {
             get {
                 return ResourceManager.GetString("BookmarkDetails_SearchType_Hex", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phonetic.
-        /// </summary>
-        public static string BookmarkDetails_SearchType_Phonetic {
-            get {
-                return ResourceManager.GetString("BookmarkDetails_SearchType_Phonetic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phonetic search.
-        /// </summary>
-        public static string BookmarkDetails_SearchType_PhoneticSearch {
-            get {
-                return ResourceManager.GetString("BookmarkDetails_SearchType_PhoneticSearch", resourceCulture);
             }
         }
         
@@ -1485,7 +1485,7 @@ namespace dnGREP.Localization.Properties {
         ///   Looks up a localized string similar to /st [type]
         ///-st [type]
         ///-searchType [type]
-        ///    Sets the type of search – must be one of: &quot;PlainText&quot;, &quot;Regex&quot; (regular expression), &quot;XPath&quot;, or &quot;Soundex&quot; (phonetic)..
+        ///    Sets the type of search – must be one of: &quot;PlainText&quot;, &quot;Regex&quot; (regular expression), &quot;XPath&quot;, or &quot;Fuzzy&quot;..
         /// </summary>
         public static string Help_CmdLineSearchType {
             get {
@@ -3573,29 +3573,29 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approximate string matching.
+        /// </summary>
+        public static string Main_SearchType_ApproximateStringMatching {
+            get {
+                return ResourceManager.GetString("Main_SearchType_ApproximateStringMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuzzy.
+        /// </summary>
+        public static string Main_SearchType_Fuzzy {
+            get {
+                return ResourceManager.GetString("Main_SearchType_Fuzzy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Byte.
         /// </summary>
         public static string Main_SearchType_Hex {
             get {
                 return ResourceManager.GetString("Main_SearchType_Hex", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phonetic.
-        /// </summary>
-        public static string Main_SearchType_Phonetic {
-            get {
-                return ResourceManager.GetString("Main_SearchType_Phonetic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phonetic search.
-        /// </summary>
-        public static string Main_SearchType_PhoneticSearch {
-            get {
-                return ResourceManager.GetString("Main_SearchType_PhoneticSearch", resourceCulture);
             }
         }
         
@@ -5814,6 +5814,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fuzzy search.
+        /// </summary>
+        public static string Options_FuzzySearch {
+            get {
+                return ResourceManager.GetString("Options_FuzzySearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hash of file size and modified time.
         /// </summary>
         public static string Options_HashOfFileSizeAndModifiedTime {
@@ -6341,15 +6350,6 @@ namespace dnGREP.Localization.Properties {
         public static string Options_PersonalizeControlVisibility_Tooltip {
             get {
                 return ResourceManager.GetString("Options_PersonalizeControlVisibility_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phonetic search.
-        /// </summary>
-        public static string Options_PhoneticSearch {
-            get {
-                return ResourceManager.GetString("Options_PhoneticSearch", resourceCulture);
             }
         }
         
@@ -9792,20 +9792,20 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fuzzy.
+        /// </summary>
+        public static string Test_SearchType_Fuzzy {
+            get {
+                return ResourceManager.GetString("Test_SearchType_Fuzzy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Byte.
         /// </summary>
         public static string Test_SearchType_Hex {
             get {
                 return ResourceManager.GetString("Test_SearchType_Hex", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phonetic.
-        /// </summary>
-        public static string Test_SearchType_Phonetic {
-            get {
-                return ResourceManager.GetString("Test_SearchType_Phonetic", resourceCulture);
             }
         }
         

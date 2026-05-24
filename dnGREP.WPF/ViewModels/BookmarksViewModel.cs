@@ -801,14 +801,13 @@ namespace dnGREP.WPF
                 IsSinglelineEnabled = false;
                 Singleline = false;
             }
-            else if (TypeOfSearch == SearchType.Soundex)
+            else if (TypeOfSearch == SearchType.Fuzzy)
             {
                 IsGlobalEnabled = false;
-                IsCaseSensitiveEnabled = false;
+                IsCaseSensitiveEnabled = true;
                 IsSinglelineEnabled = false;
                 IsBooleanOperatorsEnabled = false;
                 Global = true;
-                CaseSensitive = false;
                 Singleline = false;
                 BooleanOperators = false;
             }

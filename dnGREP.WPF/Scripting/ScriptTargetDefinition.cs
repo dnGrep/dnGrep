@@ -65,7 +65,7 @@ namespace dnGREP.WPF
                 Values.Add(new ScriptValueDefinition { Priority = 3, Value = SearchType.Regex.ToString() });
                 Values.Add(new ScriptValueDefinition { Priority = 4, Value = SearchType.PlainText.ToString() });
                 Values.Add(new ScriptValueDefinition { Priority = 2, Value = SearchType.XPath.ToString() });
-                Values.Add(new ScriptValueDefinition { Priority = 0, Value = SearchType.Soundex.ToString() });
+                Values.Add(new ScriptValueDefinition { Priority = 0, Value = SearchType.Fuzzy.ToString() });
                 Values.Add(new ScriptValueDefinition { Priority = 1, Value = SearchType.Hex.ToString() });
             }
             else if (ValueType == typeof(SortType))

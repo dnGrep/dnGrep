@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -371,12 +371,29 @@ namespace dnGREP.WPF
             textEditor.Document.TextChanged -= Document_TextChanged;
 
             ScriptFile = filePath;
-            textEditor.Load(filePath);
-            IsModified = false;
-            originalScript = textEditor.Text;
-            UpdateWindowTitle();
 
-            textEditor.Document.TextChanged += Document_TextChanged;
+            try
+            {
+                using (FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    using StreamReader reader = new(stream, Encoding.UTF8);
+                    var script = reader.ReadToEnd();
+
+                    bool migrated = script.Contains("set searchtype Soundex", StringComparison.OrdinalIgnoreCase);
+                    script = script.Replace("set searchtype Soundex", "set searchtype Fuzzy", StringComparison.OrdinalIgnoreCase);
+
+                    textEditor.Text = script;
+
+                    IsModified = migrated;
+                    originalScript = migrated ? string.Empty : textEditor.Text;
+                }
+
+                UpdateWindowTitle();
+            }
+            finally
+            {
+                textEditor.Document.TextChanged += Document_TextChanged;
+            }
         }
 
         private void NewScript()
