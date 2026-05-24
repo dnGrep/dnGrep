@@ -1485,7 +1485,7 @@ namespace dnGREP.Localization.Properties {
         ///   Looks up a localized string similar to /st [type]
         ///-st [type]
         ///-searchType [type]
-        ///    Sets the type of search – must be one of: &quot;PlainText&quot;, &quot;Regex&quot; (regular expression), &quot;XPath&quot;, or &quot;Fuzzy&quot;..
+        ///    Sets the type of search – must be one of: &quot;PlainText&quot;, &quot;Regex&quot; (regular expression), &quot;XPath&quot;, or &quot;Fuzzy&quot;. &quot;Soundex&quot; is also accepted as a deprecated alias for &quot;Fuzzy&quot;..
         /// </summary>
         public static string Help_CmdLineSearchType {
             get {
