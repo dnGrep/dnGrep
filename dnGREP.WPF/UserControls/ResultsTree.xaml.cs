@@ -11,7 +11,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Threading;
 using dnGREP.Common;
 using dnGREP.Localization;
 using Res = dnGREP.Localization.Properties.Resources;
@@ -28,8 +27,6 @@ namespace dnGREP.WPF.UserControls
         private bool skipScrollOnExpand;
         private bool inNextPrevious;
         private bool stickyScrollEnabled;
-        private readonly DispatcherTimer wrapWidthTimer;
-        private bool wrapWidthUpdatePending;
 
         public GridViewColumnCollection TreeListViewColumns { get; }
 
@@ -83,18 +80,6 @@ namespace dnGREP.WPF.UserControls
 
             InitializeComponent();
             DataContextChanged += ResultsTree_DataContextChanged;
-
-            wrapWidthTimer = new DispatcherTimer(DispatcherPriority.Background)
-            {
-                Interval = TimeSpan.FromMilliseconds(10)
-            };
-            wrapWidthTimer.Tick += (s, e) =>
-            {
-                wrapWidthTimer.Stop();
-                wrapWidthUpdatePending = false;
-                if (DataContext is GrepSearchResultsViewModel vm)
-                    UpdateWrapWidth(vm);
-            };
 
             TranslationSource.Instance.CurrentCultureChanged += UpdateColumnHeaders;
 
@@ -1677,15 +1662,7 @@ namespace dnGREP.WPF.UserControls
             {
                 if (e.ViewportWidthChange != 0 && DataContext is GrepSearchResultsViewModel vm)
                 {
-                    if (!wrapWidthUpdatePending)
-                    {
-                        // Throttle: apply immediately, then suppress further updates
-                        // until the timer fires to catch the final resize value.
-                        wrapWidthUpdatePending = true;
-                        UpdateWrapWidth(vm);
-                        wrapWidthTimer.Stop();
-                        wrapWidthTimer.Start();
-                    }
+                    UpdateWrapWidth(vm);
                 }
 
                 if (e.HorizontalChange != 0 || e.ExtentWidthChange != 0)
