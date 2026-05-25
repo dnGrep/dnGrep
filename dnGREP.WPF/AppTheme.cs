@@ -122,8 +122,16 @@ namespace dnGREP.WPF
                     string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ".";
                     string src = Path.Combine(dir, "Themes", file);
                     string dest = Path.Combine(DirectoryConfiguration.Instance.DataDirectory, file);
-                    if (File.Exists(dest) && FileChanged(src, dest))
+                    if (!File.Exists(src))
                     {
+                        logger.Warn($"Theme source file not found, skipping: {src}");
+                        continue;
+                    }
+
+                    bool fileChanged = File.Exists(dest) && FileChanged(src, dest);
+                    if (fileChanged)
+                    {
+                        bool backupSucceeded = false;
                         for (int idx = 1; idx < 40; idx++)
                         {
                             string baseName = Path.GetFileNameWithoutExtension(file);
@@ -133,13 +141,21 @@ namespace dnGREP.WPF
                                 try
                                 {
                                     File.Move(dest, temp);
+                                    backupSucceeded = true;
                                     break;
                                 }
                                 catch (Exception ex)
                                 {
                                     logger.Error(ex, $"Failure in initialize themes, backup {file}");
+                                    break;
                                 }
                             }
+                        }
+
+                        if (!backupSucceeded)
+                        {
+                            logger.Warn($"Could not back up theme file '{file}', skipping copy of new version.");
+                            continue;
                         }
                     }
 
