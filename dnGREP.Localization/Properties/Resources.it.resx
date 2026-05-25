@@ -142,10 +142,6 @@
     <value>Libreria .NET per rilevare il set di caratteri</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Libreria .NET per percorsi di lunghezza estesa</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
     <value>Libreria .NET per lavorare con documenti Word ed Excel</value>
     <comment>About dialog acknowledgments</comment>
@@ -417,14 +413,6 @@
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
     <value>Everything</value>
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetica</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Ricerca fonetica</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
@@ -965,10 +953,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Tipo di Ricerca</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Ricerca fonetica</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Replace_SearchFor" xml:space="preserve">
     <value>Cerca per:</value>
     <comment>Replace window, search pattern label</comment>
@@ -1053,10 +1037,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Cerca per:</value>
     <comment>Test window, search input label</comment>
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetica</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>Espressione _regolare</value>
     <comment>Test window, search type radio button label (accel)</comment>
@@ -1092,14 +1072,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetica</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Ricerca fonetica</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Ricerca testo semplice</value>

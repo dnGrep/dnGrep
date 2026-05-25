@@ -165,10 +165,6 @@
     <value>.NET-библиотека для определения набора символов</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET-библиотека для путей расширенной длины</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>.NET-библиотека для чтения Microsoft Excel-файлов</value>
     <comment>About dialog acknowledgments</comment>
@@ -300,14 +296,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Байтовый (Шестнадцатеричный)</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетический</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетический поиск</value>
-    <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Поиск обычного текста</value>
@@ -1123,14 +1111,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Байтовый (Шестнадцатеричный)</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетический</value>
-    <comment>Main window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетический поиск</value>
-    <comment>Main window, search type Phonetic tooltip</comment>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Поиск обычного текста</value>
     <comment>Main window, search type Text tooltip</comment>
@@ -1767,10 +1747,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Сброс</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Фонетический поиск</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Включен</value>
     <comment>Options dialog, plugins checkbox label</comment>
@@ -2294,10 +2270,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>Результат поиска:</value>
     <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетический</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Regex (Регулярное выражение)</value>

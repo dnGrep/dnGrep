@@ -165,10 +165,6 @@
     <value>ספריית .NET לאיתור ערכות תווים</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>ספריית .NET לנתיבים באורך מורחב</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>ספריית .NET לקריאת קבצי Microsoft Excel</value>
     <comment>About dialog acknowledgments</comment>
@@ -300,14 +296,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Hex</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>פונטי</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>חיפוש פונטי</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
@@ -566,7 +554,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    Sets the type of search - must be one of: PlainText, Regex, XPath, or Soundex.</value>
+    Sets the type of search - must be one of: PlainText, Regex, XPath, or Fuzzy.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -1122,14 +1110,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Hex</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>פונטי</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>חיפוש פונטי</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
@@ -1770,10 +1750,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>איפוס</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>חיפוש פונטי</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>מאופשר</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
@@ -2297,10 +2273,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>תוצאות חיפוש:</value>
     <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>פונטי</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Regex</value>

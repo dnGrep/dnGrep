@@ -94,9 +94,6 @@
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
     <value>Llibreria .NET per a la detecció del joc de caràcters</value>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Llibreria .NET per a rutes de longitud estesa</value>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Llibreria .NET per llegir fitxers de Microsoft Excel</value>
   </data>
@@ -216,12 +213,6 @@
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Cerca text pla</value>
@@ -472,7 +463,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [tipus]
 -st [tipus]
 -searchType [tipus]
-    Estableix el tipus de cerca - ha de ser un dels següents: "PlainText", "Regex" (expressió regular), "XPath", o "Soundex" (fonètic).</value>
+    Estableix el tipus de cerca - ha de ser un dels següents: "PlainText", "Regex" (expressió regular), "XPath", o "Soundex" (fonètic) aproximat.</value>
   </data>
   <data name="Help_CmdLineSeparateLines" xml:space="preserve">
     <value>/sl [Cert/Fals]
@@ -977,12 +968,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Cerca text pla</value>
@@ -1596,9 +1581,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
     <value>Mostra o oculta els controls quan s'habilita Personalitza</value>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Cerca fonètica</value>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Habilitat</value>
   </data>
@@ -2204,9 +2186,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonètica</value>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>Expressió _regular</value>
@@ -3461,5 +3440,26 @@ Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser 
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>Redimensiona totes les columnes perquè encaixen</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Eines de compilació per als paquets de Windows Installer</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Aproximat</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Coincidència aproximada de cadenes</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Cerca aproximada</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Aproximat</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Coincidència aproximada de cadenes</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Aproximat</value>
   </data>
 </root>

@@ -198,10 +198,6 @@
     <value>dnGrep на GitHub</value>
     <comment>About dialog text</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET библиотека за дугачке путање фајлова</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
     <value>.NET библиотека за 7-Zip</value>
     <comment>About dialog acknowledgments</comment>
@@ -317,10 +313,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Бајт</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетска претрага</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Претрага обичног текста</value>
@@ -932,10 +924,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Бајт</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетско</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
     <value>Регуларни израз</value>
     <comment>Main window, Regular expression search type radio button label (accel)</comment>
@@ -1035,10 +1023,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
     <value>Мења ниво зума од резултатног дрвета</value>
     <comment>Main window tooltip</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетско</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
     <value>сата</value>
@@ -1239,10 +1223,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchInResults" xml:space="preserve">
     <value>Тражити у резултате</value>
     <comment>Main window, search options checkbox label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетска претрага</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Претрага регуларног израза</value>
@@ -1588,10 +1568,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Приказати или сакрити контроле када је омогућена Персонализација</value>
     <comment>Options dialog, control tooltip</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Фонетска претрага</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
     <value>Притисните F1 за помоћ о опцијама</value>
     <comment>Options dialog, help label</comment>
@@ -1839,10 +1815,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>Резултат претраге:</value>
     <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетско</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>Регуларни израз</value>
