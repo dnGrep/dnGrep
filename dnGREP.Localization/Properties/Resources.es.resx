@@ -226,10 +226,6 @@
     <value>Byte</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonético</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
   <data name="Test_Title" xml:space="preserve">
     <value>Prueba</value>
     <comment>Test window title</comment>
@@ -288,10 +284,6 @@
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
     <value>biblioteca .NET para la detección de conjuntos de caracteres</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>biblioteca .NET para rutas de longitud extendida</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
@@ -433,14 +425,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonético</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Búsqueda fonética</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Búsqueda de texto sin formato</value>
@@ -1152,14 +1136,6 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Byte</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonético</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Búsqueda fonética</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Búsqueda de texto sin formato</value>
     <comment>Main window, Text search type tooltip</comment>
@@ -1679,10 +1655,6 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
   <data name="Options_PdfToTextReset" xml:space="preserve">
     <value>Restablecer</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Búsqueda fonética</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Activado</value>

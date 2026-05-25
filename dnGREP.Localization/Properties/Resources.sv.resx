@@ -138,10 +138,6 @@
     <value>Inga dolda</value>
     <comment>Main window, file filters summary</comment>
   </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Fonetiskt sök</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
-  </data>
   <data name="Rename_OK" xml:space="preserve">
     <value>OK</value>
     <comment>Rename file dialog button label</comment>
@@ -173,10 +169,6 @@
   <data name="Test_BooleanOperators" xml:space="preserve">
     <value>Booleska operatorer</value>
     <comment>Test window, search options checkbox label (accel)</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Fonetiskt sök</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
     <value>dnGrep</value>
@@ -266,10 +258,6 @@
     <value>Kopiera filer…</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetisk</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>…</value>
     <comment>Options dialog, browse for file button label</comment>
@@ -297,10 +285,6 @@
   <data name="ReportSummary_NoBinary" xml:space="preserve">
     <value>Inga binära</value>
     <comment>Main window options summary</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetisk</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filter" xml:space="preserve">
     <value>Filter:</value>
@@ -445,10 +429,6 @@
   <data name="Main_MaxDepth" xml:space="preserve">
     <value>Max djup</value>
     <comment>Main window, filter path depth text box label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetisk</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_Menu_EditScript" xml:space="preserve">
     <value>Editera script…</value>
@@ -773,10 +753,6 @@
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
     <value>Versalkänslig</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Fonetiskt sök</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
     <value>Max djup</value>

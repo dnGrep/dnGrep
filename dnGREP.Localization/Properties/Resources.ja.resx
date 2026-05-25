@@ -94,10 +94,6 @@
     <value>文字セット検出用の .NET ライブラリ</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>拡張長パス用の .NET ライブラリ</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Microsoft Excel ファイル読み込み用の .NET ライブラリ</value>
     <comment>About dialog acknowledgments</comment>
@@ -1046,10 +1042,6 @@
     <value>次を検索 (F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>音韻検索</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
-  </data>
   <data name="Scripts_ScriptCanceled" xml:space="preserve">
     <value>スクリプトがキャンセルされました</value>
     <comment>Script message for script canceled</comment>
@@ -1105,10 +1097,6 @@
   <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
     <value>宛先ファイルが存在し、上書きが false です : '{0}'</value>
     <comment>Script copy command error message. {0} is the destination path and file name.</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>音韻</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Options_NotShown" xml:space="preserve">
     <value>非表示</value>
@@ -1417,10 +1405,6 @@
   <data name="TextBox_Command_Copy" xml:space="preserve">
     <value>コピー</value>
     <comment>Menu item text for text box context menu</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>音韻検索</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
     <value>ファイルの削除に失敗しました : </value>
@@ -2838,10 +2822,6 @@
     <value>ファイルのコピー…</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>音韻</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>プレーン テキスト検索</value>
     <comment>Bookmark details dialog, Text search type tooltip</comment>
@@ -3042,10 +3022,6 @@
     <value>同じ行の項目間のレポート区切り文字</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>音韻検索</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
-  </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
     <value>次のプラグインを読み込めませんでした :</value>
     <comment>Message box text for: plug-in load errors</comment>
@@ -3209,10 +3185,6 @@
   <data name="Bookmarks_Duplicate" xml:space="preserve">
     <value>複製(_P)</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>音韻</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
     <value>更新の確認</value>
