@@ -108,7 +108,7 @@ namespace dnGREP.WPF
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopySearchToReplaceCommand), "Main_CopySearchForToReplaceWith", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(CopyReplaceToSearchCommand), "Main_CopyReplaceWithToSearchFor", string.Empty);
             KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ShowLinesInContextCommand), "Main_ContextShowLines", string.Empty);
-            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleDetailsViewCommand), "", string.Empty);
+            KeyBindingManager.RegisterCommand(KeyCategory.Main, nameof(ToggleDetailsViewCommand), "Options_EnableDetailsViewInResultsTree", string.Empty);
         }
 
         public MainViewModel()
@@ -3985,7 +3985,7 @@ namespace dnGREP.WPF
         private void ToggleDetailsView()
         {
             bool enabled = GrepSettings.Instance.Get<bool>(GrepSettings.Key.TreeListViewEnabled);
-            GrepSettings.Instance.Set<bool>(GrepSettings.Key.TreeListViewEnabled, !enabled);
+            GrepSettings.Instance.Set(GrepSettings.Key.TreeListViewEnabled, !enabled);
 
             ResultsViewModel.RaiseSettingsPropertiesChanged();
         }
