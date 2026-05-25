@@ -554,7 +554,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    搜索类型 - 必须为其一:  "PlainText", "Regex" (正则表达式), "XPath", 或 "Soundex" (注音).</value>
+    设置搜索类型 - 必须为下列之一:  "PlainText", "Regex" (正则表达式), "XPath" 或 "Fuzzy"。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -4465,5 +4465,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>所有列适配的尺寸</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Windows Installer 安装包构建工具</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>大致字符串匹配</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>模糊搜索</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>大致字符串匹配</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
   </data>
 </root>
