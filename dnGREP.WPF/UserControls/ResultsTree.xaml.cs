@@ -23,6 +23,7 @@ namespace dnGREP.WPF.UserControls
     public partial class ResultsTree : UserControl, INameScope
     {
         private GrepSearchResultsViewModel? viewModel;
+        private ScrollViewer? treeScrollViewer;
         private bool skipScrollOnExpand;
         private bool inNextPrevious;
         private bool stickyScrollEnabled;
@@ -42,6 +43,9 @@ namespace dnGREP.WPF.UserControls
 
         // Default column order and widths
         private static readonly double[] DefaultColumnWidths = [22, 150, 200, 200, 100, 100, 100, 160, 100];
+
+        // Minimum column widths by logical column id
+        private static readonly double[] MinColumnWidths = [22, 30, 30, 30, 30, 30, 30, 30, 30];
 
         // Map from GridViewColumn to its logical column id
         private readonly Dictionary<GridViewColumn, int> columnIds = [];
@@ -91,7 +95,20 @@ namespace dnGREP.WPF.UserControls
 
             foreach (var column in TreeListViewColumns)
             {
-                widthDescriptor?.AddValueChanged(column, (s, e) => OnColumnLayoutChanged());
+                widthDescriptor?.AddValueChanged(column, (s, e) =>
+                {
+                    if (s is GridViewColumn col)
+                    {
+                        int id = GetColumnId(col);
+                        double minWidth = id >= 0 && id < MinColumnWidths.Length ? MinColumnWidths[id] : 20;
+                        if (col.Width < minWidth)
+                        {
+                            col.Width = minWidth;
+                            return; // setting Width fires the event again; skip this pass
+                        }
+                    }
+                    OnColumnLayoutChanged();
+                });
             }
 
             // Listen for column reorder (Move action in the collection)
@@ -106,6 +123,7 @@ namespace dnGREP.WPF.UserControls
             treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
             treeView.PreviewTouchMove += TreeView_PreviewTouchMove;
             treeView.PreviewTouchUp += TreeView_PreviewTouchUp;
+            treeView.SelectedItemChanged += TreeView_SelectedItemChanged;
 
             GrepSearchResultsViewModel.SearchResultsMessenger.Register("FormattedLinesLoaded", ScrollExpandedItemToTop);
 
@@ -116,29 +134,42 @@ namespace dnGREP.WPF.UserControls
 
                 if (treeView.Template.FindName("_tv_scrollviewer_", treeView) is ScrollViewer scrollViewer)
                 {
+                    treeScrollViewer = scrollViewer;
+                    scrollViewer.ScrollChanged -= ScrollViewer_ScrollChanged;
                     scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
                 }
 
                 if (DataContext is GrepSearchResultsViewModel vm)
                 {
-                    vm.PropertyChanged += (s, e) =>
-                    {
-                        if (e.PropertyName == nameof(GrepSearchResultsViewModel.StickyScrollEnabled))
-                        {
-                            stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
-                            if (stickyScrollEnabled)
-                            {
-                                ResetContextItemVisible();
-                            }
-                            else
-                            {
-                                vm.ContextGrepResult = null;
-                                vm.ContextGrepResultVisible = false;
-                            }
-                        }
-                    };
+                    UpdateWrapWidth(vm);
+                    vm.PropertyChanged -= ViewModel_PropertyChanged;
+                    vm.PropertyChanged += ViewModel_PropertyChanged;
                 }
             };
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (DataContext is GrepSearchResultsViewModel vm)
+            {
+                if (e.PropertyName == nameof(GrepSearchResultsViewModel.WrapText))
+                {
+                    UpdateWrapWidth(vm);
+                }
+                if (e.PropertyName == nameof(GrepSearchResultsViewModel.StickyScrollEnabled))
+                {
+                    stickyScrollEnabled = GrepSearchResultsViewModel.StickyScrollEnabled;
+                    if (stickyScrollEnabled)
+                    {
+                        ResetContextItemVisible();
+                    }
+                    else
+                    {
+                        vm.ContextGrepResult = null;
+                        vm.ContextGrepResultVisible = false;
+                    }
+                }
+            }
         }
 
         private void UpdateColumnHeaders(object? sender, EventArgs e)
@@ -205,7 +236,9 @@ namespace dnGREP.WPF.UserControls
                     {
                         if (columnById.TryGetValue(order[i], out var col))
                         {
-                            col.Width = widths[i];
+                            int id = order[i];
+                            double minWidth = id >= 0 && id < MinColumnWidths.Length ? MinColumnWidths[id] : 20;
+                            col.Width = Math.Max(widths[i], minWidth);
                         }
                     }
 
@@ -1582,10 +1615,56 @@ namespace dnGREP.WPF.UserControls
 
         #region Sticky Scroll
 
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (!stickyScrollEnabled || treeScrollViewer == null || contextRoot.Visibility != Visibility.Visible)
+                return;
+
+            if (e.NewValue is not FormattedGrepLine)
+                return;
+
+            // BringIntoView runs before SelectedItemChanged fires, so we need to defer
+            // the check until after layout has updated.
+            Dispatcher.InvokeAsync(() =>
+            {
+                if (treeScrollViewer == null || contextRoot.Visibility != Visibility.Visible)
+                    return;
+
+                if (treeView.SelectedItem is not FormattedGrepLine line)
+                    return;
+
+                var parentResult = line.Parent;
+                if (treeView.ItemContainerGenerator.ContainerFromItem(parentResult) is not TreeViewItem parentTvi)
+                    return;
+
+                if (parentTvi.ItemContainerGenerator.ContainerFromItem(line) is not TreeViewItem lineTvi)
+                    return;
+
+                // Get the position of the selected item relative to the treeView
+                var itemBounds = lineTvi.TransformToAncestor(treeView).TransformBounds(
+                    new Rect(0, 0, lineTvi.ActualWidth, lineTvi.ActualHeight));
+
+                // Get the height of the sticky context overlay
+                double contextHeight = contextRoot.ActualHeight;
+
+                // If the item's top is hidden behind the context overlay, scroll up enough to reveal it
+                if (itemBounds.Top < contextHeight)
+                {
+                    treeScrollViewer.ScrollToVerticalOffset(
+                        treeScrollViewer.VerticalOffset + itemBounds.Top - contextHeight);
+                }
+            }, System.Windows.Threading.DispatcherPriority.Loaded);
+        }
+
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (sender is ScrollViewer sv)
             {
+                if (e.ViewportWidthChange != 0 && DataContext is GrepSearchResultsViewModel vm)
+                {
+                    UpdateWrapWidth(vm);
+                }
+
                 if (e.HorizontalChange != 0 || e.ExtentWidthChange != 0)
                 {
                     // Ensure header and context have enough width to scroll the full extent
@@ -1602,6 +1681,22 @@ namespace dnGREP.WPF.UserControls
             {
                 ResetContextItemVisible();
             }
+        }
+
+        private void UpdateWrapWidth(GrepSearchResultsViewModel vm)
+        {
+            // Subtract the TreeViewItem indent offsets so the pixel column width
+            // fits exactly within the viewport:
+            //   19px  parent expander column (MinWidth)
+            //    1px  parent Border left border thickness
+            //    1px  parent Border left padding
+            //    1px  child Border left border thickness
+            //    6px  InlineTextBlock left margin
+            //   12px  breathing room to ensure the right most char is in the visible area
+            const double treeIndent = 40;
+            vm.WrapWidth = (vm.WrapText && treeScrollViewer != null)
+                ? Math.Max(1, Math.Round(treeScrollViewer.ViewportWidth - treeIndent, 0))
+                : 0;
         }
 
         private void ResetContextItemVisible()
@@ -1659,6 +1754,28 @@ namespace dnGREP.WPF.UserControls
             return visible;
         }
 
+        /// <summary>
+        /// Returns true if a child TreeViewItem intersects the viewport, i.e. any part of it
+        /// is visible. Unlike <see cref="IsUserVisible"/> this does not require the item to fit
+        /// fully within the viewport, which is necessary for tall wrapped lines.
+        /// </summary>
+        private static bool IsChildVisible(TreeView treeView, TreeViewItem treeViewItem)
+        {
+            if (!treeViewItem.IsVisible)
+                return false;
+
+            var header = GetHeaderControl(treeViewItem);
+            Rect tviRect = header != null
+                ? new(0.0, 0.0, header.ActualWidth, header.ActualHeight)
+                : new(0.0, 0.0, treeViewItem.ActualWidth, treeViewItem.ActualHeight);
+
+            Rect itemBounds = treeViewItem.TransformToAncestor(treeView).TransformBounds(tviRect);
+            Rect containerRect = new(0.0, 0.0, treeView.ActualWidth, treeView.ActualHeight);
+            // Intersect: item is visible if its bottom is below the viewport top
+            // AND its top is above the viewport bottom.
+            return itemBounds.Bottom > containerRect.Top && itemBounds.Top < containerRect.Bottom;
+        }
+
         private static FrameworkElement GetHeaderControl(TreeViewItem item)
         {
             return (FrameworkElement)item.Template.FindName("PART_Header", item);
@@ -1683,7 +1800,7 @@ namespace dnGREP.WPF.UserControls
                                 foreach (FormattedGrepLine childNode in node.Children.Cast<FormattedGrepLine>())
                                 {
                                     if (container.ItemContainerGenerator.ContainerFromItem(childNode) is TreeViewItem treeViewItem &&
-                                        IsUserVisible(treeView, treeViewItem))
+                                        IsChildVisible(treeView, treeViewItem))
                                     {
                                         return node;
                                     }

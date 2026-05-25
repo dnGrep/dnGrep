@@ -246,6 +246,14 @@ namespace dnGREP.WPF
         {
             IsLoading = false;
 
+            if (WrapText && WrapWidth > 0)
+            {
+                foreach (var item in FormattedLines)
+                {
+                    item.WrapWidth = WrapWidth;
+                }
+            }
+
             GrepSearchResultsViewModel.SearchResultsMessenger.NotifyColleagues("FormattedLinesLoaded");
         }
 
@@ -266,6 +274,19 @@ namespace dnGREP.WPF
                 foreach (var item in FormattedLines)
                 {
                     item.WrapText = value;
+                }
+            }
+        }
+
+        [ObservableProperty]
+        private double wrapWidth;
+        partial void OnWrapWidthChanged(double value)
+        {
+            if (FormattedLines != null)
+            {
+                foreach (var item in FormattedLines)
+                {
+                    item.WrapWidth = value;
                 }
             }
         }
