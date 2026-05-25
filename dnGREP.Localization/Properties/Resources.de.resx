@@ -153,9 +153,6 @@
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
     <value>.NET Bibliothek für Zeichensatzerkennung</value>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET Bibliothek für erweiterte Pfadlänge</value>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>.NET Bibliothek für Microsoft Excel Dateien</value>
   </data>
@@ -254,12 +251,6 @@
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetisch</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>phonetische Suche</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>reine Textsuche</value>
@@ -482,7 +473,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    Legt den Typ der Suche fest - muss einer der folgenden sein: PlainText, Regex, XPath, oder Soundex.</value>
+    Legt den Typ der Suche fest - muss einer der folgenden sein: PlainText, Regex, XPath, oder Fuzzy.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -905,12 +896,6 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetisch</value>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Phonetische Suche</value>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Klartextsuche</value>
@@ -1380,9 +1365,6 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Options_PdfToTextReset" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Phonetische Suche</value>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Aktiviert</value>
   </data>
@@ -1769,9 +1751,6 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>Suchergebnis:</value>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetisch</value>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Regulären Ausdruck</value>

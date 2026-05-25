@@ -94,9 +94,6 @@
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
     <value>Biblioteca .NET para detecção de conjunto de caracteres</value>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Biblioteca .NET para caminhos de comprimento estendido</value>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Biblioteca .NET para leitura de arquivos do Microsoft Excel</value>
   </data>
@@ -216,12 +213,6 @@
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonética</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Pesquisa fonética</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Pesquisa em texto simples</value>
@@ -975,12 +966,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonética</value>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Pesquisa fonética</value>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Pesquisa de texto simples</value>
   </data>
@@ -1595,9 +1580,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
     <value>Mostrar ou ocultar controles quando Personalizar estiver ativado</value>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Pesquisa fonética</value>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Ativado</value>
@@ -2549,9 +2531,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonético</value>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Expressão regular</value>
