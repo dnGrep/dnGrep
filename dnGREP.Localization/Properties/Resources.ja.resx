@@ -3682,7 +3682,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    検索の種類の設定 – 次のいずれか : "PlainText"、"Regex"(正規表現)、"XPath"、または "Soundex" (音韻的)。</value>
+    検索の種類の設定 – 次のいずれか : "PlainText"、"Regex"(正規表現)、"XPath"、または "Fuzzy"。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExit" xml:space="preserve">
@@ -4382,5 +4382,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>すべての列のサイズを合わせる</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Windowsインストーラーパッケージ用のビルドツール</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>近似文字列一致</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Fuzzy 検索</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>近似文字列一致</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
   </data>
 </root>
