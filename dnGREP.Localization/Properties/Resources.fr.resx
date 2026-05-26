@@ -1801,7 +1801,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    Définit le type de recherche - doit être l'un des suivants : "PlainText", "Regex" (expression régulière), "XPath" ou "Soundex" (phonétique).</value>
+    Définit le type de recherche - doit être l'un des suivants : "PlainText", "Regex" (expression régulière), "XPath" ou "Fuzzy".</value>
   </data>
   <data name="Help_CmdLineSeparateLines" xml:space="preserve">
     <value>/sl [Vrai/Faux]
@@ -3770,5 +3770,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Faites correspondre des mots entiers</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Créer des outils pour les packages Windows Installer</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Recherche floue</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Comparaison approximative de chaînes de caractères</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Recherche floue</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Recherche floue</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Comparaison approximative de chaînes de caractères</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Recherche floue</value>
   </data>
 </root>
