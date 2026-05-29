@@ -463,7 +463,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [tipo]
 -st [tipo]
 -searchType [tipo]
-    Define o tipo de pesquisa – deve ser um dos seguintes: "PlainText", "Regex" (expressão regular), "XPath" ou "Soundex" (fonética).</value>
+    Define o tipo de pesquisa – deve ser um dos seguintes: "PlainText", "Regex" (expressão regular), "XPath" ou "Fuzzy".</value>
   </data>
   <data name="Help_CmdLineSeparateLines" xml:space="preserve">
     <value>/sl [True/False]
@@ -3440,5 +3440,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>Ajustar largura de todas as colunas</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Ferramentas de compilação para pacotes do Windows Installer</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Correspondência de strings por aproximação</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Pesquisa Fuzzy</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Correspondência de strings por aproximação</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
   </data>
 </root>
