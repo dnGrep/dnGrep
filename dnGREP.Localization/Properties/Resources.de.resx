@@ -1018,7 +1018,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
     <value>Byte-Zeichenfolge ist ungültig!</value>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Byte zeichenfolge ist OK</value>
+    <value>Byte Zeichenfolge ist OK</value>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
     <value>Regulärer Ausdruck ist nicht gültig!</value>
@@ -3761,5 +3761,26 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>Spaltenbreite automatisch anpassen</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Erstellungstools für Windows Installer-Pakete</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Unscharf (Fuzzy)</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Fuzzy Suche</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Unscharf (Fuzzy)</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Unscharf (Fuzzy)</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Unscharfe Suche - Findet auch ungefähre Textübereinstimmungen</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Unscharfe Suche - Findet auch ungefähre Textübereinstimmungen</value>
   </data>
 </root>
