@@ -27,6 +27,10 @@
         <my:InverseBooleanConverter x:Key="not" />
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelTextBlockStyle}" />
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
     </Window.Resources>
 
 

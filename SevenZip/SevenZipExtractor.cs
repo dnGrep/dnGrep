@@ -103,14 +103,15 @@ namespace SevenZip
         /// </summary>
         /// <param name="stream">The stream to read the archive from.</param>
         /// <param name="leaveOpen">true to leave the wrapped stream open after the ArchiveEmulationStreamProxy object is disposed; otherwise, false.</param>
-        private void Init(Stream stream, bool leaveOpen = false)
+        /// <param name="archiveFullName">The archive file name.</param>
+        private void Init(Stream stream, bool leaveOpen = false, string archiveFullName = null)
         {
             ValidateStream(stream);
             var isExecutable = false;
 
             if ((int)_format == -1)
             {
-                _format = FileChecker.CheckSignature(stream, out _offset, out isExecutable);
+                _format = FileChecker.CheckSignature(archiveFullName, stream, out _offset, out isExecutable);
             }
 
             PreserveDirectoryStructure = true;
@@ -236,6 +237,18 @@ namespace SevenZip
             : base(password)
         {
             Init(archiveStream, leaveOpen);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of SevenZipExtractor class.
+        /// </summary>
+        /// <param name="archiveFullName">The archive full file name.</param>
+        /// <param name="archiveStream">The stream to read the archive from.</param>
+        /// <param name="password">Password for an encrypted archive.</param>
+        /// <param name="leaveOpen">true to leave the wrapped stream open after the ArchiveEmulationStreamProxy object is disposed; otherwise, false.</param>
+        public SevenZipExtractor(string archiveFullName, Stream archiveStream, string password, bool leaveOpen = false)
+        {
+            Init(archiveStream, leaveOpen, archiveFullName);
         }
 
         /// <summary>

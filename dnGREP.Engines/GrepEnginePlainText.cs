@@ -40,7 +40,7 @@ namespace dnGREP.Engines
                 case SearchType.XPath:
                     searchMethod = DoXPathSearch;
                     break;
-                case SearchType.Soundex:
+                case SearchType.Fuzzy:
                     searchMethod = DoFuzzySearch;
                     break;
             }
@@ -74,7 +74,7 @@ namespace dnGREP.Engines
                 case SearchType.XPath:
                     replaceMethod = DoXPathReplace;
                     break;
-                case SearchType.Soundex:
+                case SearchType.Fuzzy:
                     replaceMethod = DoFuzzyReplace;
                     break;
             }

@@ -43,6 +43,10 @@
             <Setter Property="Margin" Value="3" />
         </Style>
 
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
     </Window.Resources>
 
     <DockPanel LastChildFill="True" Margin="8">

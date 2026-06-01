@@ -167,8 +167,8 @@ namespace dnGREP.Common
                 case SearchType.Regex:
                     result = Resources.Main_SearchType_Regex;
                     break;
-                case SearchType.Soundex:
-                    result = Resources.Main_SearchType_Phonetic;
+                case SearchType.Fuzzy:
+                    result = Resources.Main_SearchType_Fuzzy;
                     break;
             }
             return result.Replace("_", string.Empty, StringComparison.Ordinal);

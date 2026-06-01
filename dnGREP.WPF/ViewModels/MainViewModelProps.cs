@@ -56,7 +56,7 @@ namespace dnGREP.WPF
             SearchTypeRegexVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeRegexVisible);
             SearchTypeXPathVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeXPathVisible);
             SearchTypeTextVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeTextVisible);
-            SearchTypePhoneticVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypePhoneticVisible);
+            SearchTypeFuzzyVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeFuzzyVisible);
             SearchTypeByteVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.SearchTypeByteVisible);
 
             BooleanOperatorsVisible = !PersonalizationOn || GrepSettings.Instance.Get<bool>(GrepSettings.Key.BooleanOperatorsVisible);
@@ -150,7 +150,7 @@ namespace dnGREP.WPF
         private bool searchTypeTextVisible = true;
 
         [ObservableProperty]
-        private bool searchTypePhoneticVisible = true;
+        private bool searchTypeFuzzyVisible = true;
 
         [ObservableProperty]
         private bool searchTypeByteVisible = true;

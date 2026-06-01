@@ -4125,4 +4125,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_Find" xml:space="preserve">
     <value>찾기:</value>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>읽기 전용</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>유형</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>일치</value>
+  </data>
 </root>

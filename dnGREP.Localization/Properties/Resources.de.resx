@@ -289,7 +289,7 @@
     <value>Leisezeichendetails</value>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value>Type</value>
+    <value>Suchtyp</value>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
     <value>benutze .gitignore</value>
@@ -3752,5 +3752,35 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   </data>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything Instanzname</value>
+  </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Fundstellen</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Pfad</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Schreibgeschützt</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Größe</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Änderungsdatum</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Detailansicht im Ergebnisbaum aktivieren</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Spaltenbreite automatisch anpassen</value>
   </data>
 </root>

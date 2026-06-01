@@ -92,6 +92,15 @@
                             <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
 
+                        <!--  Hide the icon/glyph column when ShowIconColumn is False on the parent menu  -->
+                        <DataTrigger Binding="{Binding Path=(my:MenuProperties.ShowIconColumn), RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="VericalSeparator" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="GlyphPanel" Property="Visibility" Value="Collapsed" />
+                            <!-- Leave some width on column 0 for visual balance -->
+                            <Setter TargetName="Col0" Property="MinWidth" Value="4" />
+                            <Setter TargetName="Col0" Property="Width" Value="4" />
+                        </DataTrigger>
+
                         <!--  Header for top-level menus.  -->
                         <Trigger Property="Role" Value="TopLevelHeader">
                             <Setter Property="Padding" Value="6,0,6,2" />
@@ -124,20 +133,6 @@
                             <Setter TargetName="Border" Property="MinHeight" Value="22" />
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Menu.SubMenu.Item.Background}" />
                         </Trigger>
-                        <!--  Menu item in a submenu that can invoke commands -  using the style of a top level item -->
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Role" Value="SubmenuItem"/>
-                                <Condition Property="Tag" Value="Simple"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Padding" Value="6,0,6,2" />
-                            <Setter TargetName="Col0" Property="MinWidth" Value="0" />
-                            <Setter TargetName="Col3" Property="Width" Value="Auto" />
-                            <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="IGTHost" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ArrowPanel" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="VericalSeparator" Property="BorderThickness" Value="0" />
-                        </MultiTrigger>
                         <!--  Menu item in a submenu that can invoke commands  -->
                         <Trigger Property="Role" Value="SubmenuItem">
                             <Setter Property="DockPanel.Dock" Value="Top" />
@@ -217,12 +212,18 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Separator">
-                    <Border Margin="28,0,0,0" BorderBrush="{DynamicResource Menu.Separator.Border}" BorderThickness="1" />
+                    <Border x:Name="SeparatorBorder" Margin="28,0,0,0"
+                            BorderBrush="{DynamicResource Menu.Separator.Border}" BorderThickness="1" />
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=(my:MenuProperties.ShowIconColumn), RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="SeparatorBorder" Property="Margin" Value="3,0,0,0" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
+    
     <!--  Source: http://www.codeproject.com/Articles/442856/Visual-Studio-2012-Metro-Styles-for-WPF  -->
     <Style x:Key="ThemedMenu" TargetType="{x:Type Menu}">
         <Style.Resources>

@@ -63,7 +63,7 @@ namespace dnGREP.Common
             public const string SizeFrom = "SizeFrom";
             [DefaultValue(100)]
             public const string SizeTo = "SizeTo";
-            [DefaultValue(0.5)]
+            [DefaultValue(0.7)]
             public const string FuzzyMatchThreshold = "FuzzyMatchThreshold";
             [DefaultValue(true)]
             public const string ShowLinesInContext = "ShowLinesInContext";
@@ -246,7 +246,7 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string SearchTypeTextVisible = "SearchTypeTextVisible";
             [DefaultValue(true)]
-            public const string SearchTypePhoneticVisible = "SearchTypePhoneticVisible";
+            public const string SearchTypeFuzzyVisible = "SearchTypeFuzzyVisible";
             [DefaultValue(true)]
             public const string SearchTypeByteVisible = "SearchTypeByteVisible";
             [DefaultValue(true)]
@@ -394,6 +394,12 @@ namespace dnGREP.Common
             public const string RequestPDFPassword = "RequestPDFPassword";
             [DefaultValue("")]
             public const string EverythingInstanceName = "EverythingInstanceName";
+            [DefaultValue(true)]
+            public const string TreeListViewEnabled = "TreeListViewEnabled";
+            [DefaultValue("0,1,2,3,4,5,6,7,8")]
+            public const string TreeListViewColumnOrder = "TreeListViewColumnOrder";
+            [DefaultValue("22,150,200,200,100,100,100,160,100")]
+            public const string TreeListViewColumnWidths = "TreeListViewColumnWidths";
         }
 
         public static class ObsoleteKey
@@ -407,6 +413,7 @@ namespace dnGREP.Common
             public const string HoursFrom = "HoursFrom";
             public const string HoursTo = "HoursTo";
             public const string PassSearchFolderToSingleton = "PassSearchFolderToSingleton";
+            public const string SearchTypePhoneticVisible = "SearchTypePhoneticVisible";
         }
 
 
@@ -746,6 +753,11 @@ namespace dnGREP.Common
                 Set(Key.PassCommandLineToSingleton, Get<bool>(ObsoleteKey.PassSearchFolderToSingleton));
                 settings.Remove(ObsoleteKey.PassSearchFolderToSingleton);
             }
+            if (ContainsKey(ObsoleteKey.SearchTypePhoneticVisible))
+            {
+                Set(Key.SearchTypeFuzzyVisible, Get<bool>(ObsoleteKey.SearchTypePhoneticVisible));
+                settings.Remove(ObsoleteKey.SearchTypePhoneticVisible);
+            }
         }
 
         private static string LookupTemplate(string path)
@@ -979,10 +991,13 @@ namespace dnGREP.Common
                 XElement root = new("keyValuePairArray");
                 foreach (var pair in map)
                 {
-                    var elem = new XElement("keyValuePair");
-                    elem.SetAttributeValue("key", pair.Key);
-                    elem.SetAttributeValue("value", pair.Value);
-                    root.Add(elem);
+                    if (!string.IsNullOrWhiteSpace(pair.Key) && pair.Value != null)
+                    {
+                        var elem = new XElement("keyValuePair");
+                        elem.SetAttributeValue("key", pair.Key);
+                        elem.SetAttributeValue("value", pair.Value);
+                        root.Add(elem);
+                    }
                 }
 
                 string xmlString = root.ToString();
@@ -1003,7 +1018,7 @@ namespace dnGREP.Common
                     foreach (var elem in root.Descendants("keyValuePair"))
                     {
                         if (elem.Attribute("key") is XAttribute keyAttr &&
-                            keyAttr.Value != null &&
+                            !string.IsNullOrEmpty(keyAttr.Value) &&
                             elem.Attribute("value") is XAttribute valueAttr &&
                             valueAttr.Value != null)
                         {

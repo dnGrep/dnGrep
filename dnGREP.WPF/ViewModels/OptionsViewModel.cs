@@ -128,7 +128,7 @@ namespace dnGREP.WPF
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Regex), GrepSettings.Key.SearchTypeRegexVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_XPath), GrepSettings.Key.SearchTypeXPathVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Text), GrepSettings.Key.SearchTypeTextVisible));
-            VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Phonetic), GrepSettings.Key.SearchTypePhoneticVisible));
+            VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Fuzzy), GrepSettings.Key.SearchTypeFuzzyVisible));
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchType), nameof(Resources.Main_SearchType_Hex), GrepSettings.Key.SearchTypeByteVisible));
 
             VisibilityOptions.Add(new VisibilityOption(nameof(Resources.Options_Personalize_SearchOptions), nameof(Resources.Main_BooleanOperators), GrepSettings.Key.BooleanOperatorsVisible));
@@ -400,6 +400,9 @@ namespace dnGREP.WPF
 
         [ObservableProperty]
         private string compareApplicationArgs = string.Empty;
+
+        [ObservableProperty]
+        private bool treeListViewEnabled;
 
         [ObservableProperty]
         private bool showFilePathInResults;
@@ -742,6 +745,7 @@ namespace dnGREP.WPF
                 ContextLinesAfter != Settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
                 CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
                 CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
+                TreeListViewEnabled != Settings.Get<bool>(GrepSettings.Key.TreeListViewEnabled) ||
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
                 ShowRelativeFilePath != Settings.Get<bool>(GrepSettings.Key.ShowRelativeFilePath) ||
                 ShowFileErrorsInResults != Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults) ||
@@ -1086,6 +1090,7 @@ namespace dnGREP.WPF
             CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
             CompareApplicationPath = Settings.Get<string>(GrepSettings.Key.CompareApplication);
             CompareApplicationArgs = Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
+            TreeListViewEnabled = Settings.Get<bool>(GrepSettings.Key.TreeListViewEnabled);
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
             ShowRelativeFilePath = Settings.Get<bool>(GrepSettings.Key.ShowRelativeFilePath);
             ShowFileErrorsInResults = Settings.Get<bool>(GrepSettings.Key.ShowFileErrorsInResults);
@@ -1306,6 +1311,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
             Settings.Set(GrepSettings.Key.CompareApplication, CompareApplicationPath);
             Settings.Set(GrepSettings.Key.CompareApplicationArgs, CompareApplicationArgs);
+            Settings.Set(GrepSettings.Key.TreeListViewEnabled, TreeListViewEnabled);
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
             Settings.Set(GrepSettings.Key.ShowRelativeFilePath, ShowRelativeFilePath);
             Settings.Set(GrepSettings.Key.ShowFileErrorsInResults, ShowFileErrorsInResults);

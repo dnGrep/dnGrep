@@ -79,7 +79,16 @@ namespace dnGREP.WPF
                 SetCommandMap.Add("hoursfrom", new ScriptCommand<int>(p => TimeRangeFrom = p));
                 SetCommandMap.Add("hoursto", new ScriptCommand<int>(p => TimeRangeTo = p));
 
-                SetCommandMap.Add("searchtype", new ScriptCommand<SearchType>(p => TypeOfSearch = p));
+                SetCommandMap.Add("searchtype", new ScriptCommand<string>(p =>
+                {
+                    string searchTypeValue = p.Equals("Soundex", StringComparison.OrdinalIgnoreCase) ? "Fuzzy" : p;
+                    if (Enum.TryParse(searchTypeValue, true, out SearchType st) && Enum.IsDefined(st))
+                    {
+                        TypeOfSearch = st;
+                        return;
+                    }
+                    throw new InvalidEnumArgumentException(nameof(p), -1, typeof(SearchType));
+                }));
                 SetCommandMap.Add("searchfor", new ScriptCommand<string>(p => SearchFor = p));
                 SetCommandMap.Add("replacewith", new ScriptCommand<string>(p => ReplaceWith = p));
 

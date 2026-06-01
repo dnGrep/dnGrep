@@ -78,6 +78,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
     </Window.Resources>
 
     <DockPanel MinWidth="450" Margin="8" Grid.IsSharedSizeScope="True">
@@ -258,9 +262,9 @@
                             <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Text'}" GroupName="SearchType"
                                          IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
                                          ToolTip="{l:Loc Key='BookmarkDetails_SearchType_PlainTextSearch'}" />
-                            <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Phonetic'}" GroupName="SearchType"
-                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
-                                         ToolTip="{l:Loc Key='BookmarkDetails_SearchType_PhoneticSearch'}" />
+                            <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Fuzzy'}" GroupName="SearchType"
+                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=Fuzzy, Converter={StaticResource ebc}}"
+                                         ToolTip="{l:Loc Key='BookmarkDetails_SearchType_ApproximateStringMatching'}" />
                             <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Hex'}" GroupName="SearchHex"
                                          IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
                                          ToolTip="{l:Loc Key='BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes'}" />

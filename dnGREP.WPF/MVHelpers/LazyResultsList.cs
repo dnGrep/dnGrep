@@ -46,16 +46,24 @@ namespace dnGREP.WPF.MVHelpers
                 return false;
 
             IsLoading = true;
+            try
+            {
+                List<GrepLine> linesWithContext = result.GetLinesWithContext(
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
 
-            List<GrepLine> linesWithContext = result.GetLinesWithContext(
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-
-            FormatAndLoadLines(linesWithContext);
-
-            IsLoaded = true;
-            IsLoading = false;
-            LoadFinished?.Invoke(this, EventArgs.Empty);
+                IsLoaded = true;
+                FormatAndLoadLines(linesWithContext);
+            }
+            catch
+            {
+                IsLoaded = false;
+                throw;
+            }
+            finally
+            {
+                IsLoading = false;
+            }
             return true;
         }
 
@@ -65,20 +73,28 @@ namespace dnGREP.WPF.MVHelpers
                 return false;
 
             IsLoading = true;
-
-            List<GrepLine> linesWithContext = await Task.Run(() =>
+            try
             {
-                List<GrepLine> list = result.GetLinesWithContext(
-                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-                return list;
-            });
+                List<GrepLine> linesWithContext = await Task.Run(() =>
+                {
+                    List<GrepLine> list = result.GetLinesWithContext(
+                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
+                    return list;
+                });
 
-            FormatAndLoadLines(linesWithContext);
-
-            IsLoaded = true;
-            IsLoading = false;
-            LoadFinished?.Invoke(this, EventArgs.Empty);
+                IsLoaded = true;
+                FormatAndLoadLines(linesWithContext);
+            }
+            catch
+            {
+                IsLoaded = false;
+                throw;
+            }
+            finally
+            {
+                IsLoading = false;
+            }
             return true;
         }
 
@@ -125,6 +141,7 @@ namespace dnGREP.WPF.MVHelpers
                     {
                         Add(l);
                     }
+                    LoadFinished?.Invoke(this, EventArgs.Empty);
                 }
             ));
         }

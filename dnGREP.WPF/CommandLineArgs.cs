@@ -516,6 +516,11 @@ namespace dnGREP.WPF
                             case "/st":
                             case "-st":
                             case "-searchtype":
+                                if (value != null && value.Equals("Soundex", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    logger.Warn($"Using deprecated argument {arg} {value}. Use {arg} Fuzzy.");
+                                    value = "Fuzzy";
+                                }
                                 if (!string.IsNullOrWhiteSpace(value) &&
                                     Enum.TryParse(value, out SearchType tos) &&
                                     Enum.IsDefined(tos))

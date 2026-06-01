@@ -30,7 +30,8 @@
 
     <DockPanel Margin="8" LastChildFill="True">
 
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top"
+              my:MenuProperties.ShowIconColumn="False">
             <Menu.Resources>
                 <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}">
                     <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>

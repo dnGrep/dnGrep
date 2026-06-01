@@ -953,7 +953,7 @@
     <value>günün sonuna kadar</value>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>Boyut</value>
+    <value>Boyutu</value>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
     <value>KB</value>
@@ -3536,5 +3536,35 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything örnek adı</value>
+  </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Adı</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Salt okunur</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Tür</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Eşleşmeler</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Bilgi</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Yol</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Değiştirilme Tarihi</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Sonuç ağacında ayrıntılar görünümünü etkinleştir</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Tüm sütunları sığacak şekilde boyutlandır</value>
   </data>
 </root>

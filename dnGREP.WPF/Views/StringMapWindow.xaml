@@ -44,6 +44,10 @@
             <Setter Property="Margin" Value="3" />
         </Style>
 
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
     </Window.Resources>
 
     <DockPanel LastChildFill="True" Margin="8">
@@ -232,7 +236,7 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu my:MenuProperties.ShowIconColumn="False">
                         <MenuItem Header="{l:Loc Key='StringMap_MoveToTop'}" Command="{Binding MoveToTopCommand}" InputGestureText="{Binding MoveToTopCommand.KeyGestureText}"/>
                         <MenuItem Header="{l:Loc Key='StringMap_MoveUp'}" Command="{Binding MoveUpCommand}" InputGestureText="{Binding MoveUpCommand.KeyGestureText}"/>
                         <MenuItem Header="{l:Loc Key='StringMap_MoveDown'}" Command="{Binding MoveDownCommand}" InputGestureText="{Binding MoveDownCommand.KeyGestureText}"/>

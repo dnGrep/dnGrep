@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <LangVersion>14</LangVersion>
-    <TargetFrameworks>net10.0-windows</TargetFrameworks>
+    <LangVersion>12</LangVersion>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <DefineConstants>TRACE</DefineConstants>
@@ -35,7 +35,7 @@
     <AnalysisLevel>none</AnalysisLevel>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net10.0-windows' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net9.0-windows' ">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 

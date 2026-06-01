@@ -1827,7 +1827,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
-    <value>Дървото на резултатите да е разтворено</value>
+    <value>Дървото с резултати да е разтворено</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
@@ -2495,7 +2495,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Options_Personalize_ResultsTree" xml:space="preserve">
-    <value>Дърво с резултатите</value>
+    <value>Дърво с резултати от търсене</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Options_Personalize_SearchOptions" xml:space="preserve">
@@ -3882,11 +3882,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout radio button label</comment>
   </data>
   <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
-    <value>Закачен отстрани на дървото с резултатите:</value>
+    <value>Закачен отстрани на дървото с резултати:</value>
     <comment>Options dialog, layout radio group label</comment>
   </data>
   <data name="Options_AboveResultsTree" xml:space="preserve">
-    <value>Над дървото с резултатите</value>
+    <value>Над дървото с резултати</value>
     <comment>Options dialog, layout radio button label</comment>
   </data>
   <data name="Options_MultilineSearch" xml:space="preserve">
@@ -4061,7 +4061,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_FocusResultsTree" xml:space="preserve">
-    <value>Дървото с резултатите</value>
+    <value>Дърво с резултати от търсене</value>
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Main_GlobalTooltip_False" xml:space="preserve">
@@ -4463,5 +4463,35 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Име на екземпляра на Everything</value>
+  </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Само за четене</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Съвпадения</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Сведения</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Път</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Дата на промяна</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Преглед на подробности в дървото с резултати</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Побиране на всички колони</value>
   </data>
 </root>

@@ -240,6 +240,9 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(my:MultilineComboBox.AllowMultiline)}" Value="True">
                 <Setter Property="Template" Value="{StaticResource MultilineTemplate}" />
+                <Setter Property="MaxHeight" Value="120" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

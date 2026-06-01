@@ -2495,47 +2495,46 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Returns true if beginText end with a non-alphanumeric character. Copied from AstroGrep.
+        /// Returns true if <paramref name="c"/> is a word character under .NET <c>\w</c> semantics:
+        /// Unicode letters, decimal digits, connector punctuation (e.g. underscore),
+        /// combining marks (non-spacing, spacing-combining, enclosing), and
+        /// the Unicode Join Control characters U+200C and U+200D.
         /// </summary>
-        /// <param name="beginText">Text to test</param>
-        /// <returns></returns>
+        private static bool IsWordChar(char c)
+        {
+            switch (char.GetUnicodeCategory(c))
+            {
+                case System.Globalization.UnicodeCategory.UppercaseLetter:
+                case System.Globalization.UnicodeCategory.LowercaseLetter:
+                case System.Globalization.UnicodeCategory.TitlecaseLetter:
+                case System.Globalization.UnicodeCategory.ModifierLetter:
+                case System.Globalization.UnicodeCategory.OtherLetter:
+                case System.Globalization.UnicodeCategory.DecimalDigitNumber:
+                case System.Globalization.UnicodeCategory.ConnectorPunctuation:
+                case System.Globalization.UnicodeCategory.NonSpacingMark:
+                case System.Globalization.UnicodeCategory.SpacingCombiningMark:
+                case System.Globalization.UnicodeCategory.EnclosingMark:
+                    return true;
+                default:
+                    // U+200C ZERO WIDTH NON-JOINER, U+200D ZERO WIDTH JOINER
+                    return c == '\u200C' || c == '\u200D';
+            }
+        }
+
+        /// <summary>
+        /// Returns true if <paramref name="beginText"/> ends with a character that cannot be
+        /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
+        /// consume.
+        /// An empty string also returns true, representing the start of the input.
+        /// </summary>
         public static bool IsValidBeginText(string beginText)
         {
             if (beginText == null)
                 return false;
-
-            if (beginText.Equals(string.Empty, StringComparison.Ordinal) ||
-               beginText.EndsWith(' ') ||
-               beginText.EndsWith('<') ||
-               beginText.EndsWith('>') ||
-               beginText.EndsWith('$') ||
-               beginText.EndsWith('+') ||
-               beginText.EndsWith('*') ||
-               beginText.EndsWith('[') ||
-               beginText.EndsWith('{') ||
-               beginText.EndsWith('(') ||
-               beginText.EndsWith('.') ||
-               beginText.EndsWith('?') ||
-               beginText.EndsWith('!') ||
-               beginText.EndsWith(',') ||
-               beginText.EndsWith(':') ||
-               beginText.EndsWith(';') ||
-               beginText.EndsWith('-') ||
-               beginText.EndsWith('=') ||
-               beginText.EndsWith('\\') ||
-               beginText.EndsWith('/') ||
-               beginText.EndsWith('\'') ||
-               beginText.EndsWith('"') ||
-               beginText.EndsWith(Environment.NewLine, StringComparison.Ordinal) ||
-               beginText.EndsWith("\r\n", StringComparison.Ordinal) ||
-               beginText.EndsWith('\r') ||
-               beginText.EndsWith('\n') ||
-               beginText.EndsWith('\t'))
-            {
+            if (beginText.Length == 0)
                 return true;
-            }
 
-            return false;
+            return !IsWordChar(beginText[^1]);
         }
 
         public static string ReplaceSpecialCharacters(string input)
@@ -2555,50 +2554,19 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Returns true if endText starts with a non-alphanumeric character. Copied from AtroGrep.
+        /// Returns true if <paramref name="endText"/> starts with a character that cannot be
+        /// part of a word token — i.e. a character that the <c>\w+</c> tokenizer would not
+        /// consume.
+        /// An empty string also returns true, representing the end of the input.
         /// </summary>
-        /// <param name="endText"></param>
-        /// <returns></returns>
         public static bool IsValidEndText(string endText)
         {
             if (endText == null)
                 return false;
-
-            if (endText.Equals(string.Empty, StringComparison.Ordinal) ||
-               endText.StartsWith(' ') ||
-               endText.StartsWith('<') ||
-               endText.StartsWith('$') ||
-               endText.StartsWith('+') ||
-               endText.StartsWith('*') ||
-               endText.StartsWith('[') ||
-               endText.StartsWith('{') ||
-               endText.StartsWith('(') ||
-               endText.StartsWith('.') ||
-               endText.StartsWith('?') ||
-               endText.StartsWith('!') ||
-               endText.StartsWith(',') ||
-               endText.StartsWith(':') ||
-               endText.StartsWith(';') ||
-               endText.StartsWith('-') ||
-               endText.StartsWith('=') ||
-               endText.StartsWith('>') ||
-               endText.StartsWith(']') ||
-               endText.StartsWith('}') ||
-               endText.StartsWith(')') ||
-               endText.StartsWith('\\') ||
-               endText.StartsWith('/') ||
-               endText.StartsWith('\'') ||
-               endText.StartsWith('"') ||
-               endText.StartsWith(Environment.NewLine, StringComparison.Ordinal) ||
-               endText.StartsWith("\r\n", StringComparison.Ordinal) ||
-               endText.StartsWith('\r') ||
-               endText.StartsWith('\n') ||
-               endText.StartsWith('\t'))
-            {
+            if (endText.Length == 0)
                 return true;
-            }
 
-            return false;
+            return !IsWordChar(endText[0]);
         }
 
 

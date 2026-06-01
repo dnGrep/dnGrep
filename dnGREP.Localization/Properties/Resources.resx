@@ -165,10 +165,6 @@
     <value>.NET library for character set detection</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET library for extended length paths</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>.NET library for reading Microsoft Excel files</value>
     <comment>About dialog acknowledgments</comment>
@@ -328,14 +324,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetic</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Phonetic search</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
@@ -650,7 +638,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).</value>
+    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Fuzzy".</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineSeparateLines" xml:space="preserve">
@@ -1199,6 +1187,38 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>[read-only]</value>
     <comment>Main window, search results text</comment>
   </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Info</value>
+    <comment>Main window, results list, column header label for additional information</comment>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Path</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>Read-only</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Size</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>Type</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Date modified</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>Matches</value>
+    <comment>Main window, results list, column header label</comment>
+  </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
     <value>Collapse all</value>
     <comment>Main window, results list, context menu item label</comment>
@@ -1318,14 +1338,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Byte</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetic</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Phonetic search</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
@@ -2142,10 +2154,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
     <value>Show or hide controls when Personalize is enabled</value>
     <comment>Options dialog, control tooltip</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Phonetic search</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Enabled</value>
@@ -3415,10 +3423,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Byte</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetic</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Regular expression</value>
     <comment>Test window, search type radio button label (accel)</comment>
@@ -4587,5 +4591,41 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything instance name</value>
     <comment>Options dialog, label for text entry box</comment>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Enable details view in results tree</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Size all columns to fit</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Build tools for Windows Installer packages</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
+    <comment>Main window, Fuzzy search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Approximate string matching</value>
+    <comment>Main window, Fuzzy search type tooltip</comment>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Fuzzy search</value>
+    <comment>Options dialog, fuzzy search group header label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
+    <comment>Bookmark details dialog, Fuzzy search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Approximate string matching</value>
+    <comment>Bookmark details dialog, Fuzzy search type tooltip</comment>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy</value>
+    <comment>Test window, search type radio button label (accel)</comment>
   </data>
 </root>

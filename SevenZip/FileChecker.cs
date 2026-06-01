@@ -255,6 +255,32 @@
             }
         }
 
+        /// <summary>
+        /// Gets the InArchiveFormat for a specific extension.
+        /// </summary>
+        /// <param name="fileName">The archive file name (optional)</param>
+        /// <param name="stream">The stream to identify.</param>
+        /// <param name="offset">The archive beginning offset.</param>
+        /// <param name="isExecutable">True if the original format of the stream is PE; otherwise, false.</param>
+        /// <returns>Corresponding InArchiveFormat.</returns>
+        public static InArchiveFormat CheckSignature(string fileName, Stream stream, out int offset, out bool isExecutable)
+        {
+            try
+            {
+                return CheckSignature(stream, out offset, out isExecutable);
+            }
+            catch (ArgumentException)
+            {
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    offset = 0;
+                    isExecutable = false;
+                    return Formats.FormatByFileName(fileName, true);
+                }
+                throw;
+            }
+        }
+
         public static bool HasTarHeader(Stream stream)
         {
             // Pre-POSIX.1-1988 (i.e. v7) tar header without the 'ustar' signature
