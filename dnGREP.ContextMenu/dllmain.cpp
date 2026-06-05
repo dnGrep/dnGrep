@@ -26,10 +26,15 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	{
 	case DLL_PROCESS_ATTACH:
 		g_hModule = hModule;
+		// Disable thread attach/detach notifications for performance
+		DisableThreadLibraryCalls(hModule);
 		break;
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
+		// These should never be called due to DisableThreadLibraryCalls
+		break;
 	case DLL_PROCESS_DETACH:
+		g_hModule = nullptr;
 		break;
 	}
 	return TRUE;
