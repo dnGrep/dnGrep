@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using dnGREP.Common;
 using Windows.Win32;
 
 namespace dnGREP.WPF.MVHelpers
@@ -222,6 +221,47 @@ namespace dnGREP.WPF.MVHelpers
             var rightSort = Path.GetFileName(right?.GrepResult.FileNameDisplayed);
 
             return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+        }
+    }
+
+    public class ErrorMessageComparer(ListSortDirection direction)
+        : IComparer<FormattedGrepResult>
+    {
+        public int Compare(FormattedGrepResult? x, FormattedGrepResult? y)
+        {
+            var left = direction == ListSortDirection.Ascending ? x : y;
+            var right = direction == ListSortDirection.Ascending ? y : x;
+
+            bool isLeftFileError = left != null && !left.GrepResult.IsSuccess;
+            bool isRightFileError = right != null && !right.GrepResult.IsSuccess;
+
+            if (left != null && right != null)
+            {
+                if (isLeftFileError != isRightFileError)
+                    return isRightFileError.CompareTo(isLeftFileError);
+
+                if (isLeftFileError && isRightFileError)
+                {
+                    string leftMsg = left.GrepResult.SearchResults.Count > 0 ?
+                        left.GrepResult.SearchResults[0].LineText : string.Empty;
+                    string rightMsg = right.GrepResult.SearchResults.Count > 0 ?
+                        right.GrepResult.SearchResults[0].LineText : string.Empty;
+
+
+                    if (!string.IsNullOrEmpty(leftMsg) &&
+                        !string.IsNullOrEmpty(rightMsg) &&
+                        !leftMsg.Equals(rightMsg, StringComparison.Ordinal))
+                    {
+                        return string.Compare(leftMsg, rightMsg, StringComparison.Ordinal);
+                    }
+                }
+
+                var leftSort = Path.GetFileName(left.GrepResult.FileNameDisplayed);
+                var rightSort = Path.GetFileName(right.GrepResult.FileNameDisplayed);
+
+                return string.Compare(leftSort, rightSort, StringComparison.CurrentCulture);
+            }
+            return 0;
         }
     }
 #pragma warning restore CA1309

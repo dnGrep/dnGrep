@@ -3744,6 +3744,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error message.
+        /// </summary>
+        public static string Main_SortMenu_ErrorMessage {
+            get {
+                return ResourceManager.GetString("Main_SortMenu_ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File name only.
         /// </summary>
         public static string Main_SortMenu_FileNameOnly {
