@@ -165,10 +165,6 @@
     <value>Библиотека на .NET за разпознаване на знаци</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Библиотека на .NET за работа с дълги пътища</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Библиотека на .NET за прочитане на файлове на Microsoft Excel</value>
     <comment>About dialog acknowledgments</comment>
@@ -300,14 +296,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Шестнадесетично</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетично</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетично търсене</value>
-    <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Търсене на текст</value>
@@ -566,7 +554,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [вид]
 -st [вид]
 -searchType [вид]
-    Задава вида на търсенето – трябва да е едно от: „PlainText“, „Regex“ (регулярен израз), „XPath“, or „Soundex“ (фонетично).</value>
+    Задава вида на търсенето – трябва да е едно от: „PlainText“, „Regex“ (регулярен израз), „XPath“ или „Fuzzy“.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -1122,14 +1110,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Шестнадесетично</value>
     <comment>Main window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетично</value>
-    <comment>Main window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетично търсене</value>
-    <comment>Main window, search type Phonetic tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Търсене на текст</value>
@@ -1754,10 +1734,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Нулиране</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Фонетично търсене</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Включване</value>
     <comment>Options dialog, plugins checkbox label</comment>
@@ -2273,10 +2249,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>Резултат от търсенето:</value>
     <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетично</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Регулярен израз</value>
@@ -4493,5 +4465,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>Побиране на всички колони</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Инструменти за създаване на пакети на Windows Installer</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Размито търсене</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Размито търсене</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Размито търсене</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Приблизително съвпадение на низове</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Приблизително съвпадение на низове</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Размито търсене</value>
   </data>
 </root>

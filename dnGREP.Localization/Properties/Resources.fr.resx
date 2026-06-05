@@ -1438,9 +1438,6 @@
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
     <value>Librairie .NET pour détection des jeux de caractères</value>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Librairie .NET pour chemins de longueur étendue</value>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Librairie .NET pour lecture des fichiers Microsoft Excel</value>
   </data>
@@ -1560,12 +1557,6 @@
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Octet</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonétique</value>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Recherche phonétique</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>recherche de texte</value>
@@ -1810,7 +1801,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    Définit le type de recherche - doit être l'un des suivants : "PlainText", "Regex" (expression régulière), "XPath" ou "Soundex" (phonétique).</value>
+    Définit le type de recherche - doit être l'un des suivants : "PlainText", "Regex" (expression régulière), "XPath" ou "Fuzzy".</value>
   </data>
   <data name="Help_CmdLineSeparateLines" xml:space="preserve">
     <value>/sl [Vrai/Faux]
@@ -2321,12 +2312,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Octet</value>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonétique</value>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Recherche phonétique</value>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Recherche de texte</value>
@@ -2909,9 +2894,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
     <value>Afficher ou masquer les contrôles lorsque la fonction Personnaliser est activée</value>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Recherche phonétique</value>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Activé</value>
@@ -3609,9 +3591,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Octet</value>
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonétique</value>
-  </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>_Expression régulière</value>
   </data>
@@ -3791,5 +3770,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
     <value>Faites correspondre des mots entiers</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Créer des outils pour les packages Windows Installer</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Recherche floue</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Comparaison approximative de chaînes de caractères</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Recherche floue</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Recherche floue</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Comparaison approximative de chaînes de caractères</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Recherche floue</value>
   </data>
 </root>
