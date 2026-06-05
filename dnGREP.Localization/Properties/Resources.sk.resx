@@ -94,10 +94,6 @@
     <value>Knižnica .NET na detekciu znakovej sady</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Knižnica .NET pre dlhšie cesty</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
     <value>Knižnica .NET na analýzu čísel ECMA-376</value>
     <comment>About dialog acknowledgments</comment>
@@ -217,14 +213,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Bajt (hexadecimálny)</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetický</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Fonetické vyhľadávanie</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Hľadať v obyčajnom texte</value>
@@ -579,14 +567,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Bajt (hexadecimálny)</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetický</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Fonetické vyhľadávanie</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Hľadať v obyčajnom texte</value>
     <comment>Main window, Text search type tooltip</comment>
@@ -634,10 +614,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_OK" xml:space="preserve">
     <value>OK</value>
     <comment>Message box button text</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Fonetické vyhľadávanie</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Zrušiť</value>
@@ -717,10 +693,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Bajt (hexadecimálny)</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Fonetický</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">

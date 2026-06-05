@@ -94,10 +94,6 @@
     <value>Бібліотека .NET для виявлення набору символів</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Бібліотека .NET для розширених шляхів</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>Компонент текстового редактора .NET WPF</value>
     <comment>About dialog acknowledgments</comment>
@@ -274,14 +270,6 @@
     <value>Пошук в ар_хіві</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетичний</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетичний пошук</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
-  </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Пошук у звичайному тексті</value>
     <comment>Bookmark details dialog, Text search type tooltip</comment>
@@ -390,14 +378,6 @@
     <value>Байт</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетичний</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетичний пошук</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
-  </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Пошук у звичайному тексті</value>
     <comment>Main window, Text search type tooltip</comment>
@@ -421,10 +401,6 @@
   <data name="MessageBox_OK" xml:space="preserve">
     <value>OK</value>
     <comment>Message box button text</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Фонетичний пошук</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Скасувати</value>
@@ -508,10 +484,6 @@
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
     <value>Байт</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетичний</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">

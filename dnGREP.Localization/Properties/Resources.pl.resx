@@ -350,10 +350,6 @@
     <value>Biblioteka .NET do wykrywania zestawu znaków</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Biblioteka .NET dla dłuższych ścieżek</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>Biblioteka .NET do odczytu plików Microsoft Excel</value>
     <comment>About dialog acknowledgments</comment>

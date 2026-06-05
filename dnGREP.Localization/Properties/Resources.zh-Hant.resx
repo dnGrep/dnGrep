@@ -106,10 +106,6 @@
     <value>用於檢測字元集的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>用於擴展長度路徑的 .NET 函式庫</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>用於讀取 Microsoft Excel 檔案的 .NET 函式庫</value>
     <comment>About dialog acknowledgments</comment>
@@ -211,7 +207,7 @@
     <comment>Bookmark details dialog, Patterns to exclude label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
-    <value>符合樣式:</value>
+    <value>比對樣式:</value>
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
@@ -241,14 +237,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>位元組</value>
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>拼音</value>
-    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>拼音搜尋</value>
-    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>純文字搜尋</value>
@@ -486,7 +474,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/pt [type]
 -pt [type]
 -patternType [type]
-    設定符合或忽略樣式的類型 - 必須為其一: "星號" (萬用字元), "Regex" (正則運算式), 或 "Everything" (若 Everything 搜尋工具已安裝).</value>
+    設定比對或忽略樣式的類型 - 必須為其一: "星號" (萬用字元), "Regex" (正則運算式), 或 "Everything" (若 Everything 搜尋工具已安裝).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReport" xml:space="preserve">
@@ -507,7 +495,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    設定搜尋類型 - 必須為其一:  "純文字", "Regex" (正則運算式), "XPath", 或 "Soundex" (拼音).</value>
+    設定搜尋類型 - 必須為其一:  "純文字", "Regex" (正則運算式), "XPath", 或  "Fuzzy".</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -761,7 +749,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>醒目標示符合項</value>
+    <value>醒目標示相符項目</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
@@ -877,7 +865,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, Patterns to exclude label (accel)</comment>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
-    <value>符合樣式:</value>
+    <value>比對樣式:</value>
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
@@ -929,7 +917,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search options, reset button label (accel)</comment>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
-    <value>額外符合項:</value>
+    <value>額外相符項目:</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
@@ -945,11 +933,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value>{0} ({1} 個符合項)</value>
+    <value>{0} ({1} 個相符項目)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} 個符合項於 {2} 行)</value>
+    <value>{0} ({1} 個相符項目於 {2} 行)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
@@ -957,11 +945,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>符合 {0}{1}組名 {2}: {3}</value>
+    <value>符合 {0}{1}群組 {2}: {3}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value>, +{0} 個更多符合項</value>
+    <value>, +{0} 個更多相符項目</value>
     <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
   </data>
   <data name="Main_ResultList_ReadOnly" xml:space="preserve">
@@ -997,7 +985,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>下一個符合</value>
+    <value>下一個相符項目</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
@@ -1013,7 +1001,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>上一個符合</value>
+    <value>上一個相符項目</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
@@ -1067,14 +1055,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>位元組</value>
     <comment>Main window, Byte search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>拼音</value>
-    <comment>Main window, Phonetic search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>拼音搜尋</value>
-    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>純文字搜尋</value>
@@ -1153,7 +1133,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>符合項計數值</value>
+    <value>相符項目計數值</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
@@ -1193,7 +1173,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>搜尋 {0} 個檔案, 找到 {1} 個符合檔案.</value>
+    <value>搜尋 {0} 個檔案, 找到 {1} 個相符的檔案.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
@@ -1221,7 +1201,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>使用擷取組來自 '搜尋' 樣式中的 '符合樣式'</value>
+    <value>使用擷取組來自 '搜尋' 樣式中的 '比對樣式'</value>
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -1277,7 +1257,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>將符合項取代為空白字元?</value>
+    <value>將搜尋比對樣式取代為空白字元?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
@@ -1589,7 +1569,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>關鍵字: '{0}' 為檔案路徑,'{5}' 為頁碼, '{1}' 為行號, '{2}' 為搜尋樣式, '{3}' 為首個符合文字的所在行, '{4}' 為檔案中首個符合文字.</value>
+    <value>關鍵字: '{0}' 為檔案路徑,'{5}' 為頁碼, '{1}' 為行號, '{2}' 為搜尋樣式, '{3}' 為首個相符文字的所在行, '{4}' 為檔案中首個相符的文字.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -1621,7 +1601,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, explorer right-click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
-    <value>檔案和個別符合項</value>
+    <value>檔案和個別相符項目</value>
     <comment>Options dialog, Replace window layout option radio button label (accel)</comment>
   </data>
   <data name="Options_FilesOnly" xml:space="preserve">
@@ -1681,7 +1661,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 - 模糊符合; 1.0 - 精確符合</value>
+    <value>0 - 比對所有項目; 1.0 - 完全符合</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
@@ -1711,10 +1691,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PdfToTextReset" xml:space="preserve">
     <value>重置</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
-  </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>拼音搜尋</value>
-    <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>啟用</value>
@@ -1797,7 +1773,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>顯示符合項附加詳細資訊</value>
+    <value>顯示所找到相符項目的其他詳細資訊</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
@@ -1841,7 +1817,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>符合項過多, 強調顯示已禁用.</value>
+    <value>相符項目過多, 醒目顯示已禁用.</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
@@ -1909,7 +1885,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>檔案 {0} 之 {1}: {2} (在 {4} 行中找到 {3} 個符合項)</value>
+    <value>檔案 {0} 之 {1}: {2} (在 {4} 行中找到 {3} 個相符項目)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
@@ -1917,23 +1893,23 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>當前檔案中的全部符合項標記為取代</value>
+    <value>當前檔案中的全部相符項目標記為取代</value>
     <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>標記取代的符合項</value>
+    <value>標記取代的相符項目</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
-    <value>符合項</value>
+    <value>相符項目</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>移動到當前檔案的下一個符合項</value>
+    <value>移動到當前檔案的下一個相符項目</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>移動到當前檔案的上一個符合項</value>
+    <value>移動到當前檔案的上一個相符項目</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1945,7 +1921,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Next file button label (accel)</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
-    <value>{0} 個符合項被標記為取代, 共 {1} 個符合項</value>
+    <value>{0} / {1} 個相符項目被標記為取代</value>
     <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
@@ -1965,7 +1941,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>取代並套用全部檔案中的所有符合項</value>
+    <value>取代並套用全部檔案中的全部相符項目</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -1985,19 +1961,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>已選擇符合項</value>
+    <value>已選取的相符項目</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>取代符合項</value>
+    <value>取代相符項目</value>
     <comment>Replace window, third color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>跳過符合項</value>
+    <value>跳過相符項目</value>
     <comment>Replace window, fourth color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value>標記取代的符合項</value>
+    <value>標記取代的相符項目</value>
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
@@ -2005,7 +1981,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>重置並跳過該檔案中全部符合項</value>
+    <value>重置並跳過該檔案中全部相符項目</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -2025,7 +2001,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>此檔案包含了太多單個符合項, 點擊 '取代此檔案' 取代全部的符合項.</value>
+    <value>此檔案包含了太多單個相符項目, 點擊 [取代此檔案] 取代全部的相符項目.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -2041,7 +2017,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>撤銷標記取代的符合項</value>
+    <value>撤銷標記取代的相符項目</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
@@ -2065,7 +2041,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>找到 {0} 個符合項, {1} 行, 於 {2} 個檔案中</value>
+    <value>在 {2} 個檔案中的 {1} 行中找到 {0} 個相符項目</value>
     <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
@@ -2077,7 +2053,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
-    <value>{0} 個符合項, {1} 行:</value>
+    <value>在 {1} 行中有 {0} 個相符項目:</value>
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -2209,7 +2185,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
-    <value>無符合</value>
+    <value>無相符項目</value>
     <comment>Test window, results box message text</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
@@ -2239,10 +2215,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>搜尋結果:</value>
     <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>拼音</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>正則運算式</value>
@@ -2457,7 +2429,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
-    <value>以單獨行顯示每個符合項或組</value>
+    <value>以單獨行顯示每個相符項目或群組</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="Main_Menu_Settings" xml:space="preserve">
@@ -2473,7 +2445,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, option label</comment>
   </data>
   <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
-    <value>搜尋於 {0} 完成 – 共搜尋 {3} 個檔案, 在 {2} 個檔案中找到 {1} 個符合項.</value>
+    <value>搜尋於 {0} 完成 – 共搜尋 {3} 個檔案, 在 {2} 個檔案中找到 {1} 個相符項目.</value>
     <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
   </data>
   <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
@@ -2493,7 +2465,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, file label when binary file is shown as text</comment>
   </data>
   <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
-    <value>沒有可取代的符合項</value>
+    <value>沒有可取代的相符項目</value>
     <comment>Main window replace button tooltip</comment>
   </data>
   <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
@@ -2537,7 +2509,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
-    <value>僅符合項</value>
+    <value>僅相符項目</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
@@ -2601,14 +2573,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
-    <value>為一行中多個符合項或組的分隔字元</value>
+    <value>為一行中多個相符項目或組的分隔字元</value>
     <comment>Report options dialog, text box label</comment>
   </data>
   <data name="Help_CmdLineUniqueValues" xml:space="preserve">
     <value>/unique [True/False]
 -unique [True/False]
 -uniqueValues [True/False]
-    設定正則運算式輸出報告中輸出唯一符合值或組旗標 - True 或 False.</value>
+    設定旗標以在正則運算式報告中, 輸出不重複的符合項或群組值 - True 或 False.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
@@ -2636,7 +2608,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/sl [True/False]
 -sl [True/False]
 -separateLines [True/False]
-    設定正則運算式輸出報告中單行輸出每個符合項或組旗標 - True 或 False.</value>
+    設定正則運算式輸出報告中單行輸出每個相符項目或組旗標 - True 或 False.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
@@ -2978,7 +2950,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_replace" xml:space="preserve">
-    <value>取代檔案中的符合項</value>
+    <value>取代檔案中的相符項目</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_search" xml:space="preserve">
@@ -3002,7 +2974,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
-    <value>符合過濾器樣式</value>
+    <value>比對樣式過濾器</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_ScriptFiles" xml:space="preserve">
@@ -3102,7 +3074,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
-    <value>醒目標示符合項</value>
+    <value>醒目標示相符項目</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_folder_value" xml:space="preserve">
@@ -3393,15 +3365,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, search options group header label</comment>
   </data>
   <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
-    <value>檔案中的符合項計數值</value>
+    <value>檔案中的相符項目計數值</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
-    <value>符合項總計數值</value>
+    <value>相符項目總計數值</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
-    <value>行上的符合項計數值</value>
+    <value>行上的相符項目計數值</value>
     <comment>Main window, status bar tooltip</comment>
   </data>
   <data name="Options_Ask" xml:space="preserve">
@@ -3504,7 +3476,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
   <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
-    <value>搜尋於 {0} 取消 – 共搜尋 {3} 個檔案, 在 {2} 個檔案中找到了 {1} 個符合項.</value>
+    <value>已在 {0} 取消搜尋 – 在搜尋的 {3} 個檔案中, 有 {2} 個檔案找到 {1} 個相符項目.</value>
     <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
   </data>
   <data name="Main_PauseButton" xml:space="preserve">
@@ -3728,7 +3700,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, check box label</comment>
   </data>
   <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
-    <value>符合樣式無法符合檔案名稱 '{0}'</value>
+    <value>比對樣式無法符合檔案名稱 '{0}'</value>
     <comment>Script copy command error message.  {0} is the source file name.</comment>
   </data>
   <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
@@ -3932,7 +3904,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
-    <value>複製具有符合計數的檔案名稱</value>
+    <value>複製包含相符項目計數的檔案名稱</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
@@ -3960,19 +3932,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, startup options checkbox label</comment>
   </data>
   <data name="Main_StopAfter0Matches" xml:space="preserve">
-    <value>符合 {0} 項後停止</value>
+    <value>{0} 個符合後停止</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Main_PauseAfter0Matches" xml:space="preserve">
-    <value>符合 {0} 項後暫停</value>
+    <value>{0} 個符合後暫停</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
-    <value>自動停止搜尋的符合項數量</value>
+    <value>自動停止搜尋的相符項目數量</value>
     <comment>Options dialog, search options label</comment>
   </data>
   <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
-    <value>首個符合項後即暫停</value>
+    <value>首個符合後暫停</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
@@ -3980,7 +3952,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, search option checkbox label</comment>
   </data>
   <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
-    <value>自動暫停搜尋的符合項數量</value>
+    <value>自動暫停搜尋的相符項目數量</value>
     <comment>Options dialog, search options label</comment>
   </data>
   <data name="Help_CmdLineEverything" xml:space="preserve">
@@ -4003,11 +3975,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_GlobalTooltip_True" xml:space="preserve">
-    <value>每個檔案中的全部符合項</value>
+    <value>每個檔案中的全部相符項目</value>
     <comment>Main window, tooltip for the Global checkbox, when checked</comment>
   </data>
   <data name="Main_GlobalTooltip_False" xml:space="preserve">
-    <value>每個檔案中的首個符合項</value>
+    <value>每個檔案中的首個相符項目</value>
     <comment>Main window, tooltip for the Global checkbox, when not checked</comment>
   </data>
   <data name="ReportSummary_NotGlobal" xml:space="preserve">
@@ -4155,7 +4127,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>錯誤:</value>
   </data>
   <data name="Preview_NoMatchesFound" xml:space="preserve">
-    <value>未找到符合項!</value>
+    <value>未找到相符項目!</value>
   </data>
   <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
     <value>搜尋結果中的檔案名稱</value>
@@ -4416,7 +4388,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>類型</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
-    <value>符合項</value>
+    <value>相符項目</value>
   </data>
   <data name="Main_ResultsHeader_Info" xml:space="preserve">
     <value>資訊</value>
@@ -4435,5 +4407,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>調整所有的大小以適合欄寬</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>適用於 Windows Installer 套件的建置工具</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>近似字串比對</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>模糊搜尋</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>近似字串比對</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
   </data>
 </root>
