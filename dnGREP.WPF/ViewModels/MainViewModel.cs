@@ -3336,6 +3336,9 @@ namespace dnGREP.WPF
                 case SortType.ReadOnly:
                     list.Sort(new ReadOnlyComparer(SortDirection));
                     break;
+                case SortType.ErrorMessage:
+                    list.Sort(new ErrorMessageComparer(SortDirection));
+                    break;
             }
         }
 

@@ -1147,6 +1147,9 @@
                                     <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_ReadOnly'}"
                                                       GroupName="S1" 
                                                       IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=ReadOnly}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_ErrorMessage'}"
+                                                      GroupName="S1" 
+                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=ErrorMessage}"/>
                                     <Separator/>
                                     <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_Ascending'}"
                                                       GroupName="S2" 

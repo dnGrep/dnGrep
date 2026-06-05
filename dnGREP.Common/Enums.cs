@@ -89,10 +89,11 @@ namespace dnGREP.Common
         Date,
         MatchCount,
         ReadOnly,
+        ErrorMessage,
     }
 
     public enum ReplaceType
-    { 
+    {
         ReplaceDialog,
         SelectedFiles,
     }

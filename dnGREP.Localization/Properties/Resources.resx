@@ -4628,4 +4628,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Fuzzy</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>Error message</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
 </root>
