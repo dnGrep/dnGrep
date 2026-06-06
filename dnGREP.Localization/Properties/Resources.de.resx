@@ -3783,4 +3783,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
     <value>Unscharfe Suche - Findet auch ungefähre Textübereinstimmungen</value>
   </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>Fehlermeldung</value>
+  </data>
 </root>
