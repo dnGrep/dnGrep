@@ -151,7 +151,7 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為換行字元</value>
+    <value>點號(.)視為新行</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
@@ -283,7 +283,7 @@
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>使用 .gitignore 過濾檔案</value>
+    <value>使用 .gitignore 篩選檔案</value>
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
@@ -291,7 +291,7 @@
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
-    <value>增添</value>
+    <value>新增</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
@@ -319,7 +319,7 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
-    <value>過濾器:</value>
+    <value>篩選器:</value>
     <comment>Bookmarks dialog, filter input box label</comment>
   </data>
   <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
@@ -913,7 +913,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value>重置過濾器</value>
+    <value>重置篩選器</value>
     <comment>Main window, search options, reset button label (accel)</comment>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
@@ -1209,7 +1209,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>使用 .gitignore 過濾檔案</value>
+    <value>使用 .gitignore 篩選檔案</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
@@ -1429,7 +1429,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>將 dnGrep 增添到檔案總管右鍵功能表時發生錯誤. 日誌查看詳情: </value>
+    <value>將 dnGrep 加入到檔案總管右鍵功能表時發生錯誤. 日誌查看詳情: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
@@ -1581,7 +1581,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep 將增添選取的檔案到命令列末尾.</value>
+    <value>dnGrep 將加入選取的檔案到命令列末尾.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
@@ -1633,7 +1633,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>個檔案過濾歷程清單</value>
+    <value>個檔案篩選歷程清單</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
@@ -1809,11 +1809,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, zoom slider tooltip</comment>
   </data>
   <data name="Preview_FindNext" xml:space="preserve">
-    <value>搜尋下一個 (F3)</value>
+    <value>尋找下一個 (F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_FindPrevious" xml:space="preserve">
-    <value>搜尋上一個 (Shift+F3)</value>
+    <value>尋找上一個 (Shift+F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
@@ -2325,11 +2325,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
-    <value>檔案過濾器</value>
+    <value>檔案篩選器</value>
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>在書籤中包含檔案過濾器屬性</value>
+    <value>在書籤中包含檔案篩選器屬性</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Content_Group" xml:space="preserve">
@@ -2481,7 +2481,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="Options_Personalize_FileFilter" xml:space="preserve">
-    <value>檔案過濾器</value>
+    <value>檔案篩選器</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
@@ -2565,7 +2565,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout option checkbox label (accel)</comment>
   </data>
   <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
-    <value>過濾唯一值</value>
+    <value>篩選唯一值</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
@@ -2902,7 +2902,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
-    <value>依唯一值過濾報告</value>
+    <value>依唯一值篩選報告</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
@@ -2918,7 +2918,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
-    <value>排除過濾器樣式</value>
+    <value>排除篩選器樣式</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Script_Editor_MoveDown" xml:space="preserve">
@@ -2974,7 +2974,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
-    <value>比對樣式過濾器</value>
+    <value>比對樣式篩選器</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_ScriptFiles" xml:space="preserve">
@@ -3018,7 +3018,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_resetfilters" xml:space="preserve">
-    <value>重置檔案過濾器為預設值</value>
+    <value>重置檔案篩選器為預設值</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_report_csv" xml:space="preserve">
@@ -3030,7 +3030,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
-    <value>日期過濾器選擇</value>
+    <value>日期篩選選擇</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_MoveFilesFailed" xml:space="preserve">
@@ -3054,23 +3054,23 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
-    <value>Past 時數過濾器上限 (數字)</value>
+    <value>Past 時數篩選器上限 (數字)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
-    <value>Past 時數過濾器下限 (數字)</value>
+    <value>Past 時數篩選器下限 (數字)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
-    <value>日期時間 'Past' 時數過濾器</value>
+    <value>日期時間 'Past' 時數篩選器</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
-    <value>啟用過濾檔案大小</value>
+    <value>啟用檔案大小篩選</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_filetimerange" xml:space="preserve">
-    <value>時間範圍過濾器選擇</value>
+    <value>時間範圍篩選選擇</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
@@ -3082,7 +3082,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_enddate" xml:space="preserve">
-    <value>日期時間 'To' 過濾器</value>
+    <value>日期時間 'To' 篩選器</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_fileinformation" xml:space="preserve">
@@ -3146,7 +3146,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
-    <value>日期時間 'Past' 時數過濾器</value>
+    <value>日期時間 'Past' 時數篩選器</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_previewfile" xml:space="preserve">
@@ -3154,7 +3154,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
-    <value>檔案過濾器樣式, 如 *.txt, 或過濾器清單</value>
+    <value>檔案篩選器樣式, 如 *.txt, 或篩選器清單</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Help_CmdLineScript" xml:space="preserve">
@@ -3217,11 +3217,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
-    <value>檔案過濾器樣式, 如 test\\*, 或過濾器清單</value>
+    <value>檔案篩選器樣式, 如 test\\*, 或篩選器清單</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_paterntype" xml:space="preserve">
-    <value>檔案過濾器樣式類型</value>
+    <value>檔案篩選器樣式類型</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
@@ -3297,7 +3297,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_startdate" xml:space="preserve">
-    <value>日期時間 'From' 過濾器</value>
+    <value>日期時間 'From' 篩選器</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_undo" xml:space="preserve">
@@ -3305,11 +3305,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
-    <value>大小過濾器下限 (數字)</value>
+    <value>大小篩選器下限 (數字)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
-    <value>大小過濾器上限 (數字)</value>
+    <value>大小篩選器上限 (數字)</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Scripts_RunCommandError" xml:space="preserve">
@@ -3337,7 +3337,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_expandfilefilters" xml:space="preserve">
-    <value>展開或隱藏檔案過濾器部分</value>
+    <value>展開或隱藏檔案篩選器部分</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_copyfiles" xml:space="preserve">
@@ -3504,11 +3504,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results list, context menu item tooltip</comment>
   </data>
   <data name="Main_Filter" xml:space="preserve">
-    <value>過濾器:</value>
+    <value>篩選器:</value>
     <comment>Main window, ignore filter file selector label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filter" xml:space="preserve">
-    <value>過濾器:</value>
+    <value>篩選器:</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
@@ -3848,7 +3848,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results list context menu item label</comment>
   </data>
   <data name="Options_EditorAdd" xml:space="preserve">
-    <value>增添…</value>
+    <value>新增…</value>
     <comment>Options dialog, button label to add custom editor</comment>
   </data>
   <data name="Validation_PathMustBeValid" xml:space="preserve">
@@ -4238,7 +4238,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>應用程式配置和資料:</value>
   </data>
   <data name="Preview_Find" xml:space="preserve">
-    <value>搜尋</value>
+    <value>尋找</value>
   </data>
   <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
     <value>/e* [search commands]
@@ -4259,7 +4259,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>字串取代</value>
   </data>
   <data name="StringMap_AddMapping" xml:space="preserve">
-    <value>增添對映</value>
+    <value>新增對映</value>
   </data>
   <data name="StringMap_OriginalCharacters" xml:space="preserve">
     <value>原始字元</value>
@@ -4271,7 +4271,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>原始值已存在.</value>
   </data>
   <data name="StringMap_Add" xml:space="preserve">
-    <value>增添</value>
+    <value>新增</value>
   </data>
   <data name="StringMap_SubstituteCharacters" xml:space="preserve">
     <value>替代字元</value>
@@ -4361,10 +4361,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>複製 "取代為" 為 "搜尋"</value>
   </data>
   <data name="Options_FindPrevious" xml:space="preserve">
-    <value>搜尋上一個 (Shift+F3)</value>
+    <value>尋找上一個 (Shift+F3)</value>
   </data>
   <data name="Options_FindNext" xml:space="preserve">
-    <value>搜尋下一個 (F3)</value>
+    <value>尋找下一個 (F3)</value>
   </data>
   <data name="Options_MatchCase" xml:space="preserve">
     <value>大小寫符合</value>
@@ -4373,7 +4373,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>全字符合</value>
   </data>
   <data name="Options_Find" xml:space="preserve">
-    <value>搜尋:</value>
+    <value>尋找:</value>
   </data>
   <data name="Options_EverythingInstanceName" xml:space="preserve">
     <value>Everything 實例名稱</value>
@@ -4428,5 +4428,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Test_SearchType_Fuzzy" xml:space="preserve">
     <value>模糊</value>
+  </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>錯誤訊息</value>
   </data>
 </root>
