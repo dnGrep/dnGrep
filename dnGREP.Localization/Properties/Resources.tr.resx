@@ -1381,7 +1381,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    Arama türünü ayarlar – şunlardan biri olmalıdır: "PlainText", "Regex" (normal ifade), "XPath" veya "Soundex" (fonetik).</value>
+	Arama türünü ayarlar – şunlardan biri olmalıdır: "PlainText", "Regex" (normal ifade), "XPath" veya "Soundex" (fonetik).</value>
   </data>
   <data name="Help_CmdLineUniqueValues" xml:space="preserve">
     <value>/unique [True/False]
@@ -3545,5 +3545,29 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>Tüm sütunları sığacak şekilde boyutlandır</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Windows Installer paketleri için araçlar oluştur</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Bulanık</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Yaklaşık dize eşleşmesi</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Bulanık arama</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Bulanık</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Yaklaşık dize eşleşmesi</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Bulanık</value>
+  </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>Hata mesajı</value>
   </data>
 </root>
