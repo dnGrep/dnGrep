@@ -4404,4 +4404,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchType_Fuzzy" xml:space="preserve">
     <value>Fuzzy</value>
   </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>エラーメッセージ</value>
+  </data>
 </root>
