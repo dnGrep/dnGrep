@@ -83,7 +83,7 @@
         <File Id="filD101FC4DA814CAB2847D9DA443BA18C2" KeyPath="yes" Source="$(var.PublishDir)\mscordaccore.dll" />
       </Component>
       <Component Id="cmpE115ABDFD132AD880024EE2939D54BF1" Guid="{3060FE5D-6F21-43CB-A584-57BD23D9FDF9}">
-        <File Id="fil50ADE2B6BA6A9BAD2A38D1A83A3227E4" KeyPath="yes" Source="$(var.PublishDir)\mscordaccore_$(var.Platform.Id)_$(var.Platform.Id)_10.0.826.23019.dll" />
+        <File Id="fil50ADE2B6BA6A9BAD2A38D1A83A3227E4" KeyPath="yes" Source="$(var.PublishDir)\mscordaccore_$(var.Platform.Id)_$(var.Platform.Id)_10.0.926.27113.dll" />
       </Component>
       <Component Id="cmp8919AF6C6904B98D882508E0D18E868B" Guid="{FAC75B35-5646-4042-8BBB-B7FD5AEE4476}">
         <File Id="filA9E828B55293AF9546D153D082D8422A" KeyPath="yes" Source="$(var.PublishDir)\mscordbi.dll" />
@@ -748,6 +748,22 @@
       <Component Id="cmpE19CB7EFEEF435CA499E41D5837E75C5" Guid="{FB7AD1DC-791A-459C-912C-6CEB1C1E23C7}">
         <File Id="filF1442DCCE4E293CCE26C89DFFC9AF56B" KeyPath="yes" Source="$(var.PublishDir)\wpfgfx_cor3.dll" />
       </Component>
+      <!-- Added for .NET 10.0 -->
+      <Component Id="cmp9FFE05D8ABE54D8882309B0D8F3EDFBC" Guid="{7316B9FC-8AD4-4EEC-AD90-559581888253}">
+        <File Id="fil5E2035864B0C4982BF90B679B00D94F5" KeyPath="yes" Source="$(var.PublishDir)\Microsoft.CSharp.dll" />
+      </Component>
+      <Component Id="cmpB24EA8395F4F41BCA688C4A941F7CB98" Guid="{B1FFEA06-46AA-44A5-91AE-5D0C289E396F}">
+        <File Id="fil73993CCBE86742D4A0B787541BEAE540" KeyPath="yes" Source="$(var.PublishDir)\System.Linq.AsyncEnumerable.dll" />
+      </Component>
+      <Component Id="cmpDD61F204336C46A8AA2BF033F5B278E2" Guid="{226EDF57-2CE1-4B2C-9DBC-989EF6240865}">
+        <File Id="fil51CA9F5747984D0D8A2EA9C60ECD351C" KeyPath="yes" Source="$(var.PublishDir)\System.Net.ServerSentEvents.dll" />
+      </Component>
+      <Component Id="cmpC4262822DA494D318E3ED1804943E86D" Guid="{DEA21A2F-5BB4-43F8-BF27-8D2CF83BBC53}">
+        <File Id="fil64705C0883814547A1A02C0097EE93A5" KeyPath="yes" Source="$(var.PublishDir)\System.Private.Windows.GdiPlus.dll" />
+      </Component>
+      <Component Id="cmp901B0C324E43455FAADD210C97DBC1DC" Guid="{20C623BD-3DFB-43AC-84A7-8F6C8BAD6558}">
+        <File Id="fil3068579F7B6A47628CE418C7EF29F330" KeyPath="yes" Source="$(var.PublishDir)\System.Windows.Primitives.dll" />
+      </Component>
     </DirectoryRef>
   </Fragment>
   <Fragment>
@@ -999,6 +1015,11 @@
       <ComponentRef Id="cmp0DD066B4E78BC8C28C958D31C7982CD9" />
       <ComponentRef Id="cmpFE51DBE82E0C1921D93734B26AF404CD" />
       <ComponentRef Id="cmpE19CB7EFEEF435CA499E41D5837E75C5" />
+      <ComponentRef Id="cmp9FFE05D8ABE54D8882309B0D8F3EDFBC" />
+      <ComponentRef Id="cmpB24EA8395F4F41BCA688C4A941F7CB98" />
+      <ComponentRef Id="cmpDD61F204336C46A8AA2BF033F5B278E2" />
+      <ComponentRef Id="cmpC4262822DA494D318E3ED1804943E86D" />
+      <ComponentRef Id="cmp901B0C324E43455FAADD210C97DBC1DC" />
     </ComponentGroup>
   </Fragment>
 </Wix>
