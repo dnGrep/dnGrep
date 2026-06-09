@@ -165,10 +165,6 @@
     <value>用于检测字符集的 .NET 框架</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>用于扩展长度路径的 .NET 库</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
     <value>读取 Microsoft Excel 文件的 .NET 库</value>
     <comment>About dialog acknowledgments</comment>
@@ -300,14 +296,6 @@
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>16 进制</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>注音</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>注音搜索</value>
-    <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>纯文本搜索</value>
@@ -566,7 +554,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    搜索类型 - 必须为其一:  "PlainText", "Regex" (正则表达式), "XPath", 或 "Soundex" (注音).</value>
+    设置搜索类型 - 必须为下列之一:  "PlainText", "Regex" (正则表达式), "XPath" 或 "Fuzzy"。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -1122,14 +1110,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>16 进制</value>
     <comment>Main window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>注音</value>
-    <comment>Main window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>注音搜索</value>
-    <comment>Main window, search type Phonetic tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>纯文本搜索</value>
@@ -1754,10 +1734,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>重置</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
-  <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>注音搜索</value>
-    <comment>Options dialog, phonetic group header label</comment>
-  </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>已启用</value>
     <comment>Options dialog, plugins checkbox label</comment>
@@ -2273,10 +2249,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Test_SearchResult" xml:space="preserve">
     <value>搜索结果:</value>
     <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>注音</value>
-    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
     <value>正则(_R)</value>
@@ -4493,5 +4465,29 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>所有列适配的尺寸</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Windows Installer 安装包构建工具</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>大致字符串匹配</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>模糊搜索</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>大致字符串匹配</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>错误消息</value>
   </data>
 </root>
