@@ -1,0 +1,104 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Plugins/">
+    <Project Path="dnGREP.OpenXmlEngine/dnGREP.OpenXmlEngine.csproj">
+      <Platform Solution="*|Any CPU" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+    <Project Path="dnGREP.PdfEngine/dnGREP.PdfEngine.csproj">
+      <Platform Solution="*|Any CPU" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+    <Project Path="dnGREP.WordEngine/dnGREP.WordEngine.csproj">
+      <Platform Solution="*|Any CPU" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+    </Project>
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="dnGREP.ContextMenuPkg/AppxManifest.xml" />
+    <File Path="Performance1.psess" />
+    <File Path="vs.testsettings" />
+  </Folder>
+  <Project Path="dnGREP.Common.UI/dnGREP.Common.UI.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="dnGREP.Common/dnGREP.Common.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="dnGREP.ContextMenu/dnGREP.ContextMenu.vcxproj" Id="16746b0c-5840-4ed4-aedf-1abb617827fd" />
+  <Project Path="dnGREP.DockFloat/dnGREP.DockFloat.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="dnGREP.Engines/dnGREP.Engines.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="dnGREP.Everything/dnGREP.Everything.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="dnGREP.Localization/dnGREP.Localization.csproj" />
+  <Project Path="dnGREP.Setup.FileCheck/dnGREP.Setup.FileCheck.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="dnGREP.Setup/dnGREP.Setup.wixproj" Type="b7dd6f7e-def8-4e67-b5b7-07ef123db6f0">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="Debug|ARM64" Project="x64" />
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+  <Project Path="dnGREP.WPF/dnGREP.WPF.csproj">
+    <BuildDependency Project="dnGREP.OpenXmlEngine/dnGREP.OpenXmlEngine.csproj" />
+    <BuildDependency Project="dnGREP.PdfEngine/dnGREP.PdfEngine.csproj" />
+    <BuildDependency Project="dnGREP.WordEngine/dnGREP.WordEngine.csproj" />
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="ICSharpCode.AvalonEdit/ICSharpCode.AvalonEdit.csproj" />
+  <Project Path="NetDiff/NetDiff.csproj" />
+  <Project Path="SevenZip/SevenZip.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="TestLocalizedStrings/TestLocalizedStrings.csproj" />
+  <Project Path="Tests/Tests.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Build Solution="*|ARM64" Project="false" SkipBuild="true" />
+  </Project>
+  <Properties Name="SharpSetup">
+    <Property Name="Version" Value="1.2" />
+  </Properties>
+</Solution>

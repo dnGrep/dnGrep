@@ -23,7 +23,7 @@ before_build:
   - ps: ./make-msix.ps1
   - ps: ./patch-rc-version.ps1
 build:
-  project: dnGREP.WPF.sln
+  project: dnGREP.WPF.slnX
   parallel: true
   verbosity: normal
 after_build:
