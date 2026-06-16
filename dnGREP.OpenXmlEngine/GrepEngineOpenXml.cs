@@ -462,12 +462,6 @@ namespace dnGREP.Engines.OpenXml
             //Do nothing
         }
 
-        public override void OpenFile(OpenFileArgs args)
-        {
-            args.UseCustomEditor = false;
-            Utils.OpenFile(args);
-        }
-
         [GeneratedRegex(@"(.+)_([0-9a-fA-F]{64})")]
         private static partial Regex CacheFileNameRegex();
 
