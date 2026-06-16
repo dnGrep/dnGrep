@@ -427,10 +427,5 @@ namespace dnGREP.Engines.Pdf
         {
             //Do nothing
         }
-
-        public override void OpenFile(OpenFileArgs args)
-        {
-            Utils.OpenFile(args);
-        }
     }
 }

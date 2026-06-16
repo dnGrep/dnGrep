@@ -323,12 +323,6 @@ namespace dnGREP.Engines.Word
 
         public Version? FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine))?.GetName()?.Version;
 
-        public override void OpenFile(OpenFileArgs args)
-        {
-            args.UseCustomEditor = false;
-            Utils.OpenFile(args);
-        }
-
         #region Private Members
         /// <summary>
         /// Loads Microsoft Word.

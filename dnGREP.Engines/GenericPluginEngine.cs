@@ -399,10 +399,5 @@ namespace dnGREP.Engines
         {
             //Do nothing
         }
-
-        public override void OpenFile(OpenFileArgs args)
-        {
-            Utils.OpenFile(args);
-        }
     }
 }
