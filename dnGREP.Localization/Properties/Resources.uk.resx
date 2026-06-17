@@ -1018,7 +1018,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [тип]
 -st [тип]
 -searchType [тип]
-    Встановлює тип пошуку – має бути одним із таких: "PlainText", "Regex" (регулярний вираз), "XPath" або "Soundex" (фонетичний).</value>
+    Встановлює тип пошуку – має бути одним із таких: "PlainText", "Regex" (регулярний вираз), "XPath" або "Fuzzy".</value>
   </data>
   <data name="Help_CmdLineWholeWord" xml:space="preserve">
     <value>/ww [Правда/Невірно]
@@ -1255,7 +1255,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Наступний матч</value>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
-    <value>Відчинено</value>
+    <value>Відкрити</value>
   </data>
   <data name="Main_Results_PreviousFile" xml:space="preserve">
     <value>Попередній файл</value>
@@ -2482,7 +2482,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Ви хочете іншу мову?</value>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>Відмінок сірника</value>
+    <value>Враховувати регістр</value>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
     <value>Збільшити:</value>
@@ -2671,7 +2671,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Цей файл або двійковий, або завеликий для показу.</value>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
-    <value>Використовуйте регулярні вирази</value>
+    <value>Використати регулярні вирази</value>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
     <value>_Замінити</value>
@@ -3505,7 +3505,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Скасувати</value>
   </data>
   <data name="Main_ViewWhitespace" xml:space="preserve">
-    <value>Переглянути пробіли</value>
+    <value>Показувати пробіли</value>
   </data>
   <data name="StringMap_MoveToTop" xml:space="preserve">
     <value>Перейти вгору</value>
@@ -3568,7 +3568,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Знайти:</value>
   </data>
   <data name="Main_ResultsHeader_Name" xml:space="preserve">
-    <value>Ім'я</value>
+    <value>Назва</value>
   </data>
   <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
     <value>Тільки для читання</value>
@@ -3577,6 +3577,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Тип</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
-    <value>Сірники</value>
+    <value>Збіги</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Інші дані</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Шлях</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Розмір</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Остання зміна</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (нечіткий пошук)</value>
+  </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>Текст помилки</value>
   </data>
 </root>
