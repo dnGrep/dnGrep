@@ -3597,4 +3597,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
     <value>Текст помилки</value>
   </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Назва екземпляру Everything</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Показувати деталі в дереві результатів</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Автоматична ширина колонок</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (нечіткий пошук)</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Приблизне порівння рядків</value>
+  </data>
 </root>
