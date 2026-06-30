@@ -149,19 +149,15 @@ namespace dnGREP.WPF
                 ToggleHighlights();
                 OnSwapTypeChanged(SwapType);
 
-                AppTheme.Instance.CurrentThemeChanging += (s, e) =>
-                {
-                    Application.Current.Resources.Remove("Match.Highlight.Background");
-                    Application.Current.Resources.Remove("Match.Highlight.Foreground");
-                };
+                WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                    AppTheme.Instance,
+                    nameof(AppTheme.Instance.CurrentThemeChanging),
+                    OnCurrentThemeChanging);
 
-                AppTheme.Instance.CurrentThemeChanged += (s, e) =>
-                {
-                    highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
-                    highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
-                    ToggleHighlights();
-                    OnSwapTypeChanged(SwapType);
-                };
+                WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                    AppTheme.Instance,
+                    nameof(AppTheme.Instance.CurrentThemeChanged),
+                    OnCurrentThemeChanged);
 
                 WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
                     TranslationSource.Instance,
@@ -179,6 +175,20 @@ namespace dnGREP.WPF
                 GrepSearchResultsViewModel.SearchResultsMessenger.Register<SortColumnRequest>(
                     "SortColumn", OnSortColumnRequested);
             }
+        }
+
+        private void OnCurrentThemeChanging(object? sender, EventArgs e)
+        {
+            Application.Current.Resources.Remove("Match.Highlight.Background");
+            Application.Current.Resources.Remove("Match.Highlight.Foreground");
+        }
+
+        private void OnCurrentThemeChanged(object? sender, EventArgs e)
+        {
+            highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
+            highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush ?? Brushes.Black;
+            ToggleHighlights();
+            OnSwapTypeChanged(SwapType);
         }
 
         private void InitializeInputBindings()

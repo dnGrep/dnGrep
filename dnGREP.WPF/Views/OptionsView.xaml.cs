@@ -77,13 +77,10 @@ namespace dnGREP.WPF
             highlightBrush1 = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
             highlightBrush2 = Application.Current.Resources["Match.Group.1.Highlight.Background"] as Brush ?? Brushes.Orange;
 
-            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
-            {
-                highlightBrush1 = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
-                highlightBrush2 = Application.Current.Resources["Match.Group.1.Highlight.Background"] as Brush ?? Brushes.Orange;
-                if (currentMatchIndex > -1 && currentMatchIndex < searchMatches.Count)
-                    ScrollToMatch(searchMatches[currentMatchIndex]);
-            };
+            WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                AppTheme.Instance,
+                nameof(AppTheme.Instance.CurrentThemeChanged),
+                OnCurrentThemeChanged);
 
             WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
                TranslationSource.Instance,
@@ -91,6 +88,14 @@ namespace dnGREP.WPF
                OnCurrentCultureChanging);
 
             PreviewKeyDown += OptionsView_PreviewKeyDown;
+        }
+
+        private void OnCurrentThemeChanged(object? sender, EventArgs e)
+        {
+            highlightBrush1 = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
+            highlightBrush2 = Application.Current.Resources["Match.Group.1.Highlight.Background"] as Brush ?? Brushes.Orange;
+            if (currentMatchIndex > -1 && currentMatchIndex < searchMatches.Count)
+                ScrollToMatch(searchMatches[currentMatchIndex]);
         }
 
         private void OnCurrentCultureChanging(object? sender, EventArgs e)

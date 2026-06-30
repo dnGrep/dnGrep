@@ -78,10 +78,10 @@ namespace dnGREP.WPF
             HexLengthOptions = [8, 16, 32, 64, 128];
 
             hasWindowsThemes = AppTheme.HasWindowsThemes;
-            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
-            {
-                CurrentTheme = AppTheme.Instance.CurrentThemeName;
-            };
+            WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                AppTheme.Instance,
+                nameof(AppTheme.Instance.CurrentThemeChanged),
+                OnCurrentThemeChanged);
 
             WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
                 TranslationSource.Instance,
@@ -89,6 +89,11 @@ namespace dnGREP.WPF
                 OnCurrentCultureChanged);
 
             LoadVisibilityOptions();
+        }
+
+        private void OnCurrentThemeChanged(object? sender, EventArgs e)
+        {
+            CurrentTheme = AppTheme.Instance.CurrentThemeName;
         }
 
         private void OnCurrentCultureChanged(object? sender, EventArgs e)

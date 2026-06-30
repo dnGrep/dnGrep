@@ -44,16 +44,10 @@ namespace dnGREP.WPF
             selectionBorder.Freeze();
             textEditor.TextArea.SelectionBorder = selectionBorder;
 
-            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
-            {
-                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
-
-                textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
-                textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
-                Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
-                selectionBorder.Freeze();
-                textEditor.TextArea.SelectionBorder = selectionBorder;
-            };
+            WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                AppTheme.Instance,
+                nameof(AppTheme.Instance.CurrentThemeChanged),
+                OnCurrentThemeChanged);
 
             var definition = ThemedHighlightingManager.Instance.GetDefinitionByExtension(ScriptManager.ScriptExt);
             textEditor.SyntaxHighlighting = definition;
@@ -70,6 +64,16 @@ namespace dnGREP.WPF
             Application.Current.MainWindow.IsVisibleChanged += MainWindow_IsVisibleChanged;
         }
 
+        private void OnCurrentThemeChanged(object? sender, System.EventArgs e)
+        {
+            textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
+
+            textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
+            textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
+            Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
+            selectionBorder.Freeze();
+            textEditor.TextArea.SelectionBorder = selectionBorder;
+        }
         private void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (sender is Window mainWindow)
