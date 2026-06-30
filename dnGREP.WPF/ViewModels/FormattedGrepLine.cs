@@ -25,7 +25,12 @@ namespace dnGREP.WPF
         {
             Parent = parent;
             GrepLine = line;
-            Parent.PropertyChanged += Parent_PropertyChanged;
+
+            WeakEventManager<FormattedGrepResult, PropertyChangedEventArgs>.AddHandler(
+                Parent,
+                nameof(FormattedGrepResult.PropertyChanged),
+                Parent_PropertyChanged);
+
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;

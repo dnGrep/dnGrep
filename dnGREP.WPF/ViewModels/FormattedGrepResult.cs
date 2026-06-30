@@ -153,8 +153,15 @@ namespace dnGREP.WPF
             SetLabel();
 
             FormattedLines = new LazyResultsList(result, this);
-            FormattedLines.LineNumberColumnWidthChanged += FormattedLines_PropertyChanged;
-            FormattedLines.LoadFinished += FormattedLines_LoadFinished;
+            WeakEventManager<LazyResultsList, PropertyChangedEventArgs>.AddHandler(
+                FormattedLines,
+                nameof(LazyResultsList.LineNumberColumnWidthChanged),
+                FormattedLines_PropertyChanged);
+
+            WeakEventManager<LazyResultsList, System.EventArgs>.AddHandler(
+                FormattedLines,
+                nameof(LazyResultsList.LoadFinished),
+                FormattedLines_LoadFinished);
         }
 
         internal void SetLabel()
