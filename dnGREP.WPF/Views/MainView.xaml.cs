@@ -131,7 +131,10 @@ namespace dnGREP.WPF
                     this.ConstrainToScreen();
                 };
 
-                TranslationSource.Instance.CurrentCultureChanged += OnCurrentCultureChanged;
+                WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+                   TranslationSource.Instance,
+                   nameof(TranslationSource.Instance.CurrentCultureChanged),
+                   OnCurrentCultureChanged);
             }
             this.isVisible = isVisible;
 

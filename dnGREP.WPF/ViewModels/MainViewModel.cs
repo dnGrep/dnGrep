@@ -163,7 +163,10 @@ namespace dnGREP.WPF
                     OnSwapTypeChanged(SwapType);
                 };
 
-                TranslationSource.Instance.CurrentCultureChanged += CurrentCultureChanged;
+                WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+                    TranslationSource.Instance,
+                    nameof(TranslationSource.Instance.CurrentCultureChanged),
+                    CurrentCultureChanged);
 
                 PropertyChanged += OnMainViewModel_PropertyChanged;
 

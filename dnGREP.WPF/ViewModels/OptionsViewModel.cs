@@ -83,24 +83,29 @@ namespace dnGREP.WPF
                 CurrentTheme = AppTheme.Instance.CurrentThemeName;
             };
 
-            TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
-            {
-                PanelTooltip = IsAdministrator ? null : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
-                WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
-
-                // reload to reset the group and item text
-                LoadVisibilityOptions();
-
-                // call these to reformat decimal separators
-                OnPropertyChanged(nameof(EditMainFormFontSize));
-                OnPropertyChanged(nameof(EditReplaceFormFontSize));
-                OnPropertyChanged(nameof(EditDialogFontSize));
-                OnPropertyChanged(nameof(EditResultsFontSize));
-                OnPropertyChanged(nameof(MatchTimeout));
-                OnPropertyChanged(nameof(MatchThreshold));
-            };
+            WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+                TranslationSource.Instance,
+                nameof(TranslationSource.Instance.CurrentCultureChanged),
+                OnCurrentCultureChanged);
 
             LoadVisibilityOptions();
+        }
+
+        private void OnCurrentCultureChanged(object? sender, EventArgs e)
+        {
+            PanelTooltip = IsAdministrator ? null : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
+            WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
+
+            // reload to reset the group and item text
+            LoadVisibilityOptions();
+
+            // call these to reformat decimal separators
+            OnPropertyChanged(nameof(EditMainFormFontSize));
+            OnPropertyChanged(nameof(EditReplaceFormFontSize));
+            OnPropertyChanged(nameof(EditDialogFontSize));
+            OnPropertyChanged(nameof(EditResultsFontSize));
+            OnPropertyChanged(nameof(MatchTimeout));
+            OnPropertyChanged(nameof(MatchThreshold));
         }
 
         private void LoadVisibilityOptions()

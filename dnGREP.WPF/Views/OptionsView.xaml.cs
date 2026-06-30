@@ -85,18 +85,23 @@ namespace dnGREP.WPF
                     ScrollToMatch(searchMatches[currentMatchIndex]);
             };
 
-            TranslationSource.Instance.CurrentCultureChanging += (s, e) =>
-            {
-                currentMatchIndex = -1;
-                searchMatches.Clear();
-                matchStatus.Text = "0/0";
-                findBox.Text = string.Empty;
-
-                RestoreOriginalTextBlocks();
-                ClearTextBlockCache();
-            };
+            WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+               TranslationSource.Instance,
+               nameof(TranslationSource.Instance.CurrentCultureChanging),
+               OnCurrentCultureChanging);
 
             PreviewKeyDown += OptionsView_PreviewKeyDown;
+        }
+
+        private void OnCurrentCultureChanging(object? sender, EventArgs e)
+        {
+            currentMatchIndex = -1;
+            searchMatches.Clear();
+            matchStatus.Text = "0/0";
+            findBox.Text = string.Empty;
+
+            RestoreOriginalTextBlocks();
+            ClearTextBlockCache();
         }
 
         public bool SearchListsCleared => viewModel.SearchListsCleared;
@@ -505,7 +510,7 @@ namespace dnGREP.WPF
         private void SmoothScrollTo(double targetOffset, double duration = 600)
         {
             double clampedOffset = Math.Max(0, Math.Min(targetOffset, scrollViewer.ScrollableHeight));
-            
+
             var animation = new DoubleAnimation
             {
                 From = scrollViewer.VerticalOffset,
