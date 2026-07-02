@@ -2085,7 +2085,7 @@ namespace dnGREP.Common
                             if (beforeQueue.Count >= beforeLines + 1)
                                 beforeQueue.Dequeue();
 
-                            beforeQueue.Enqueue(line.TrimEndOfLine());
+                            beforeQueue.Enqueue(line);
                         }
                         if (startRecordingAfterLines && currentAfterLine < afterLines)
                         {
@@ -2119,7 +2119,7 @@ namespace dnGREP.Common
                                         beforeQueue.Dequeue();
                                     else
                                         contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                            beforeQueue.Dequeue(), true, null)
+                                            beforeQueue.Dequeue().TrimEndOfLine(), true, null)
                                         { PageNumber = pageNumber });
                                 }
                             }
@@ -2315,7 +2315,7 @@ namespace dnGREP.Common
                     if (beforeQueue.Count >= beforeLines + 1)
                         beforeQueue.Dequeue();
 
-                    beforeQueue.Enqueue(line.TrimEndOfLine());
+                    beforeQueue.Enqueue(line);
                 }
                 if (startRecordingAfterLines && currentAfterLine < afterLines)
                 {
@@ -2351,7 +2351,7 @@ namespace dnGREP.Common
                             else
                             {
                                 contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                    beforeQueue.Dequeue(), true, null)
+                                    beforeQueue.Dequeue().TrimEndOfLine(), true, null)
                                 {
                                     IsHexFile = true
                                 });
