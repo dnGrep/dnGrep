@@ -535,6 +535,7 @@ namespace dnGREP.Common
         {
             int fileCount = 0;
             HashSet<string> unique = [];
+            var uniqueLookup = unique.GetAlternateLookup<ReadOnlySpan<char>>();
             Dictionary<string, List<string>> resultSet = [];
             List<string> values = [];
 
@@ -558,13 +559,16 @@ namespace dnGREP.Common
                     {
                         foreach (GrepMatch match in line.Matches)
                         {
-                            string text = line.LineText.Substring(match.StartLocation, match.Length);
+                            ReadOnlySpan<char> span = line.LineText.AsSpan(match.StartLocation, match.Length);
                             if (options.TrimWhitespace)
                             {
-                                text = text.Trim();
+                                span = span.Trim();
                             }
-                            if (!unique.Contains(text))
+
+                            // check for uniqueness on the span, only allocate a string for genuinely new values
+                            if (!uniqueLookup.Contains(span))
                             {
+                                string text = span.ToString();
                                 unique.Add(text);
                                 values.Add(text);
 
@@ -600,6 +604,7 @@ namespace dnGREP.Common
         {
             int fileCount = 0;
             HashSet<string> unique = [];
+            var uniqueLookup = unique.GetAlternateLookup<ReadOnlySpan<char>>();
             Dictionary<string, List<string>> resultSet = [];
             List<string> values = [];
 
@@ -625,9 +630,14 @@ namespace dnGREP.Common
                         {
                             foreach (var group in match.Groups)
                             {
-                                string text = options.TrimWhitespace ? group.Value.Trim() : group.Value;
-                                if (!unique.Contains(text))
+                                ReadOnlySpan<char> span = options.TrimWhitespace ?
+                                    group.Value.AsSpan().Trim() : group.Value.AsSpan();
+
+                                // check for uniqueness on the span, only allocate a string for genuinely
+                                // new values, and reuse group.Value when trimming didn't change it
+                                if (!uniqueLookup.Contains(span))
                                 {
+                                    string text = span.Length == group.Value.Length ? group.Value : span.ToString();
                                     unique.Add(text);
                                     values.Add(text);
 
