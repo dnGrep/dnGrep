@@ -11,19 +11,6 @@ namespace dnGREP.Common
     {
         private static readonly string GLOBAL = "_global_";
 
-        private static string Quote(string text)
-        {
-            if (text.Contains(',', StringComparison.Ordinal))
-            {
-                if (text.Contains('"', StringComparison.Ordinal))
-                {
-                    text = text.Replace("\"", "\"\"", StringComparison.Ordinal);
-                }
-                return "\"" + text + "\"";
-            }
-            return text;
-        }
-
         public static string GetResultsAsText(List<GrepSearchResult> source, SearchType typeOfSearch)
         {
             return GetResultsAsText(source, new ReportOptions(typeOfSearch), -1);
@@ -688,7 +675,7 @@ namespace dnGREP.Common
             {
                 if (result.SearchResults == null)
                 {
-                    sb.AppendLine(Quote(result.FileNameDisplayed));
+                    sb.AppendLineQuoted(result.FileNameDisplayed);
                     lineCount++;
                 }
                 else
@@ -698,13 +685,13 @@ namespace dnGREP.Common
                         // column 1: file name
                         if (options.IncludeFileInformation)
                         {
-                            sb.Append(Quote(result.FileNameDisplayed)).Append(',');
+                            sb.AppendQuoted(result.FileNameDisplayed).Append(',');
 
                             // column 2: line number
                             sb.Append(line.LineNumber).Append(',');
                         }
 
-                        sb.AppendLine(Quote(options.TrimWhitespace ? line.LineText.Trim() : line.LineText));
+                        sb.AppendLineQuoted(options.TrimWhitespace ? line.LineText.Trim() : line.LineText);
                         lineCount++;
 
                         if (limit > -1 && lineCount > limit)
@@ -740,7 +727,7 @@ namespace dnGREP.Common
             {
                 if (result.SearchResults.Count == 0 && options.IncludeFileInformation)
                 {
-                    sb.AppendLine(Quote(result.FileNameDisplayed));
+                    sb.AppendLineQuoted(result.FileNameDisplayed);
                     lineCount++;
                 }
                 else
@@ -761,7 +748,7 @@ namespace dnGREP.Common
                                 // column 1: file name
                                 if (options.IncludeFileInformation)
                                 {
-                                    sb.Append(Quote(result.FileNameDisplayed)).Append(',');
+                                    sb.AppendQuoted(result.FileNameDisplayed).Append(',');
 
                                     // column 2: line number
                                     sb.Append(line.LineNumber).Append(',');
@@ -770,7 +757,7 @@ namespace dnGREP.Common
 
                             // column 3: data
                             string matchText = line.LineText.Substring(match.StartLocation, match.Length);
-                            sb.Append(Quote(options.TrimWhitespace ? matchText.Trim() : matchText));
+                            sb.AppendQuoted(options.TrimWhitespace ? matchText.Trim() : matchText);
                             count++;
 
                             if (options.OutputOnSeparateLines)
@@ -844,7 +831,7 @@ namespace dnGREP.Common
             {
                 if (result.SearchResults.Count == 0 && options.IncludeFileInformation)
                 {
-                    sb.AppendLine(Quote(result.FileNameDisplayed));
+                    sb.AppendLineQuoted(result.FileNameDisplayed);
                     lineCount++;
                 }
                 else
@@ -869,7 +856,7 @@ namespace dnGREP.Common
                                     // column 1: file name
                                     if (options.IncludeFileInformation)
                                     {
-                                        sb.Append(Quote(result.FileNameDisplayed)).Append(',');
+                                        sb.AppendQuoted(result.FileNameDisplayed).Append(',');
 
                                         // column 2: line number
                                         sb.Append(line.LineNumber).Append(',');
@@ -877,7 +864,7 @@ namespace dnGREP.Common
                                 }
 
                                 // column 3: data
-                                sb.Append(Quote(options.TrimWhitespace ? group.Value.Trim() : group.Value));
+                                sb.AppendQuoted(options.TrimWhitespace ? group.Value.Trim() : group.Value);
                                 count++;
 
                                 if (options.OutputOnSeparateLines)
@@ -961,7 +948,7 @@ namespace dnGREP.Common
                         // column 1: file name
                         if (file != GLOBAL && options.IncludeFileInformation)
                         {
-                            sb.Append(Quote(file));
+                            sb.AppendQuoted(file);
                         }
                         sb.Append(',');
 
@@ -970,7 +957,7 @@ namespace dnGREP.Common
                     }
 
                     // column 3: data
-                    sb.Append(Quote(value));
+                    sb.AppendQuoted(value);
                     count++;
 
                     if (options.OutputOnSeparateLines)
