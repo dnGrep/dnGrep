@@ -418,25 +418,27 @@ namespace dnGREP.WPF
             foreach (var range in map.Ranges.Where(r => r.Length > 0))
             {
                 var run = new Run(MarkWhitespace(range.RangeText, ref column));
-                if (range.Group == null)
+                var group = range.Group;
+                if (group == null)
                 {
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1, Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, match.RegexMatchValue.TrimEnd('\r', '\n'));
+                    SetLazyToolTip(run, () => TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1,
+                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, match.RegexMatchValue.TrimEnd('\r', '\n')));
                     paragraph.Inlines.Add(run);
                 }
                 else
                 {
-                    if (!Parent.GroupColors.TryGetValue(range.Group.Name, out string? bgColor))
+                    if (!Parent.GroupColors.TryGetValue(group.Name, out string? bgColor))
                     {
                         int groupIdx = Parent.GroupColors.Count % 10;
                         bgColor = $"Match.Group.{groupIdx}.Highlight.Background";
-                        Parent.GroupColors.Add(range.Group.Name, bgColor);
+                        Parent.GroupColors.Add(group.Name, bgColor);
                     }
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, bgColor);
-                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2,
-                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, range.Group.Name, range.Group.FullValue.TrimEnd('\r', '\n'));
+                    SetLazyToolTip(run, () => TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2,
+                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, group.Name, group.FullValue.TrimEnd('\r', '\n')));
                     paragraph.Inlines.Add(run);
                 }
             }
@@ -445,6 +447,27 @@ namespace dnGREP.WPF
             {
                 last.Text += newLine;
             }
+        }
+
+        // Sentinel placeholder assigned up front so WPF's tooltip service will raise
+        // ToolTipOpening for the run; a non-null ToolTip value is required for that
+        // event to fire at all.
+        private static readonly object ToolTipPlaceholder = new();
+
+        // Defers building the localized tooltip text until the user actually hovers
+        // the run. Most highlighted runs (matches and capture groups) are never
+        // hovered, so this avoids a TranslationSource.Format call - and its string
+        // allocations - for every run created while formatting a line.
+        private static void SetLazyToolTip(Run run, Func<string> getToolTipText)
+        {
+            run.ToolTip = ToolTipPlaceholder;
+            run.ToolTipOpening += (s, _) =>
+            {
+                if (s is Run r && ReferenceEquals(r.ToolTip, ToolTipPlaceholder))
+                {
+                    r.ToolTip = getToolTipText();
+                }
+            };
         }
 
         private string FormatHexValues(GrepLine grepLine)
