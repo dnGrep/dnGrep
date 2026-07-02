@@ -2147,7 +2147,7 @@ namespace dnGREP.Common
                                     string tempLine = lineQueue.Dequeue();
                                     lineStrings[i] = tempLine;
 
-                                    string fileMatchId = bodyMatchesClone[0].FileMatchId;
+                                    Guid fileMatchId = bodyMatchesClone[0].FileMatchId;
 
                                     List<GrepCaptureGroup> lineGroups;
                                     // for multiline regex, get just the groups on the current line
@@ -2378,7 +2378,7 @@ namespace dnGREP.Common
                             string tempLine = lineQueue.Dequeue();
                             lineStrings[i] = tempLine;
 
-                            string fileMatchId = bodyMatchesClone[0].FileMatchId;
+                            Guid fileMatchId = bodyMatchesClone[0].FileMatchId;
                             // First and only line
                             if (i == startLine && i == lineNumber)
                                 matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups, bodyMatchesClone[0].RegexMatchValue));

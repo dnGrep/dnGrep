@@ -13,10 +13,10 @@ namespace dnGREP.Common
             Length = length;
             RegexMatchValue = regexMatchValue;
 
-            FileMatchId = Guid.NewGuid().ToString();
+            FileMatchId = Guid.NewGuid();
         }
 
-        public GrepMatch(string fileMatchId, string searchPattern, int line, int start, int length, 
+        public GrepMatch(Guid fileMatchId, string searchPattern, int line, int start, int length, 
             IEnumerable<GrepCaptureGroup> toCopy, string regexMatchValue)
         {
             LineNumber = line;
@@ -40,7 +40,7 @@ namespace dnGREP.Common
             return copy;
         }
 
-        public string FileMatchId { get; }
+        public Guid FileMatchId { get; }
 
         public int LineNumber { get; } = 0;
 

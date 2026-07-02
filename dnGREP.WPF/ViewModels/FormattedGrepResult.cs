@@ -57,12 +57,12 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private FontWeight fileNameFontWeight = FontWeights.Normal;
 
-        private readonly List<string> matchIdx = [];
+        private readonly List<Guid> matchIdx = [];
 
         /// <summary>
         /// Returns an ordinal based on the match id
         /// </summary>
-        internal int GetMatchNumber(string id)
+        internal int GetMatchNumber(Guid id)
         {
             int index = matchIdx.IndexOf(id);
             if (index > -1)

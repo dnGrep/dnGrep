@@ -382,7 +382,7 @@ namespace dnGREP.WPF
         private bool needsClearUndo;
         private readonly List<ReplaceDef> undoList = [];
         private readonly DispatcherTimer idleTimer = new(DispatcherPriority.ContextIdle);
-        private readonly Dictionary<string, int> precedingMatches = [];
+        private readonly Dictionary<Guid, int> precedingMatches = [];
         private int totalMatchCount;
         private string latestStatusMessage = string.Empty;
 
