@@ -21,6 +21,7 @@ namespace dnGREP.WPF
     {
         private static readonly string middot = char.ConvertFromUtf32(0X00B7);
         private static readonly string degree = char.ConvertFromUtf32(0X00B0);
+        private static readonly string pathSeparator = Path.DirectorySeparatorChar.ToString();
 
         public GrepSearchResult GrepResult { get; private set; } = new();
 
@@ -185,9 +186,9 @@ namespace dnGREP.WPF
                 else
                 {
                     string? dirName = Path.GetDirectoryName(GrepResult.FileNameDisplayed) ?? string.Empty;
-                    if (basePath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.OrdinalIgnoreCase))
+                    if (basePath.EndsWith(Path.DirectorySeparatorChar))
                     {
-                        dirName += Path.DirectorySeparatorChar.ToString(); // ensure trailing separator for relative path calculation
+                        dirName += pathSeparator; // ensure trailing separator for relative path calculation
                     }
                     if (dirName.Equals(basePath, StringComparison.OrdinalIgnoreCase))
                     {
@@ -196,9 +197,9 @@ namespace dnGREP.WPF
                     else if (!string.IsNullOrEmpty(dirName) && dirName.Length > basePath.Length)
                     {
                         FilePath = MarkWhitespace(Path.GetRelativePath(basePath, dirName));
-                        if (!FilePath.EndsWith(Path.DirectorySeparatorChar))
+                        if (!FilePath.EndsWith(pathSeparator, StringComparison.Ordinal))
                         {
-                            FilePath += Path.DirectorySeparatorChar;
+                            FilePath += pathSeparator;
                         }
                     }
                 }
@@ -313,7 +314,7 @@ namespace dnGREP.WPF
 
         private string MarkWhitespace(string text)
         {
-            if (ViewWhitespace)
+            if (ViewWhitespace && !string.IsNullOrEmpty(text) && Utils.ContainsWhitespace(text))
             {
                 StringBuilder sb = new(text.Length);
                 foreach (char ch in text)

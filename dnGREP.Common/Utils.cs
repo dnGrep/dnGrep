@@ -34,6 +34,9 @@ namespace dnGREP.Common
         private static readonly char[] chars =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
 
+        private static readonly string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
+        private static readonly string[] eolList = ["\r\n", "\n", "\r"];
+
         private static readonly string tempFolderName;
         private static readonly string undoFolderName;
 
@@ -2037,8 +2040,6 @@ namespace dnGREP.Common
             List<int> lineNumbers = [];
             List<GrepMatch> matches = [];
 
-            string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
-
             // Context line (before)
             Queue<string> beforeQueue = new();
             // Context line (after)
@@ -2234,7 +2235,6 @@ namespace dnGREP.Common
 
         private static List<GrepMatch> CloneAndSplitGroups(List<GrepMatch> bodyMatches)
         {
-            string[] eolList = ["\r\n", "\n", "\r"];
             List<GrepMatch> bodyMatchesClone = new(bodyMatches);
 
             // split the capture groups by line to makes display formatting easier
@@ -2746,6 +2746,23 @@ namespace dnGREP.Common
                 return false;
             }
         }
+
+        public static bool ContainsWhitespace(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return false;
+
+            var span = text.AsSpan();  
+            for (int i = 0; i < span.Length; i++)
+            {
+                if (char.IsWhiteSpace(span[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         [GeneratedRegex("\\p{IsArabic}|\\p{IsHebrew}")]
         private static partial Regex RtlRegex();

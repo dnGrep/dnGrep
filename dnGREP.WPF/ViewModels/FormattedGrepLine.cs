@@ -371,7 +371,7 @@ namespace dnGREP.WPF
 
         private string MarkWhitespace(string text, ref int column)
         {
-            if (ViewWhitespace && !string.IsNullOrEmpty(text))
+            if (ViewWhitespace && !string.IsNullOrEmpty(text) && Utils.ContainsWhitespace(text))
             {
                 StringBuilder sb = new(text.Length);
                 foreach (char ch in text)
