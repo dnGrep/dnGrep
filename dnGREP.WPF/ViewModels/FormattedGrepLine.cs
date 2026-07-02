@@ -472,29 +472,48 @@ namespace dnGREP.WPF
 
         private string FormatHexValues(GrepLine grepLine)
         {
-            string[] parts = grepLine.LineText.TrimEnd().Split(' ');
+            // Tokenize on spans (no Split() array / substring allocations); byte.TryParse
+            // accepts a ReadOnlySpan<char> slice directly.
+            ReadOnlySpan<char> lineSpan = grepLine.LineText.AsSpan().TrimEnd();
             List<byte> list = [];
-            foreach (string num in parts)
+            int idx = 0;
+            while (idx < lineSpan.Length)
             {
-                if (byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
+                while (idx < lineSpan.Length && lineSpan[idx] == ' ')
+                {
+                    idx++;
+                }
+
+                int start = idx;
+                while (idx < lineSpan.Length && lineSpan[idx] != ' ')
+                {
+                    idx++;
+                }
+
+                if (idx > start &&
+                    byte.TryParse(lineSpan[start..idx], System.Globalization.NumberStyles.HexNumber, null, out byte result))
                 {
                     list.Add(result);
                 }
             }
+
             string text = Parent.GrepResult.Encoding.GetString(list.ToArray());
-            List<char> nonPrintableChars = [];
-            for (int idx = 0; idx < text.Length; idx++)
+
+            // Replace all non-printable characters in a single pass instead of looping
+            // .Replace() once per distinct bad character (which rescans the whole string
+            // and reallocates each time).
+            return string.Create(text.Length, text, static (span, s) =>
             {
-                if (!char.IsLetterOrDigit(text[idx]) && !char.IsPunctuation(text[idx]) && text[idx] != ' ')
+                s.CopyTo(span);
+                for (int i = 0; i < span.Length; i++)
                 {
-                    nonPrintableChars.Add(text[idx]);
+                    char c = span[i];
+                    if (!char.IsLetterOrDigit(c) && !char.IsPunctuation(c) && c != ' ')
+                    {
+                        span[i] = '.';
+                    }
                 }
-            }
-            foreach (char c in nonPrintableChars)
-            {
-                text = text.Replace(c, '.');
-            }
-            return text;
+            });
         }
 
         private class GroupMap

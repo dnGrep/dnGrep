@@ -2450,14 +2450,28 @@ namespace dnGREP.Common
 
         private static string GetHexText(byte[] buffer)
         {
-            StringBuilder sb = new();
+            if (buffer.Length == 0)
+                return string.Empty;
 
-            for (int idx = 0; idx < buffer.Length; idx++)
+            // 2 hex digits per byte, plus a separating space after each byte except the last
+            int length = buffer.Length * 3 - 1;
+
+            return string.Create(length, buffer, static (span, bytes) =>
             {
-                sb.AppendFormat("{0:x2}", buffer[idx]).Append(' ');
-            }
+                int pos = 0;
+                for (int idx = 0; idx < bytes.Length; idx++)
+                {
+                    if (idx > 0)
+                    {
+                        span[pos++] = ' ';
+                    }
 
-            return sb.ToString().TrimEnd();
+                    // Writes the 2 hex digits directly into the span, avoiding the
+                    // boxing and intermediate string allocation of AppendFormat("{0:x2}", ...).
+                    bytes[idx].TryFormat(span[pos..(pos + 2)], out int written, "x2");
+                    pos += written;
+                }
+            });
         }
 
         private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText, int pageNumber, bool isHexFile)
