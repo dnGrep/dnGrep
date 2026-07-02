@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
@@ -33,7 +34,18 @@ namespace dnGREP.Common
             return text;
         }
 
-        unsafe public static string GetFileTypeDescription(string fileNameOrExtension)
+        private static readonly Dictionary<string, string> fileTypeDescriptionCache = [];
+        public static string GetFileTypeDescription(string fileNameOrExtension)
+        {
+            if (!fileTypeDescriptionCache.TryGetValue(fileNameOrExtension, out string? description))
+            {
+                description = GetFileTypeDescriptionInternal(fileNameOrExtension);
+                fileTypeDescriptionCache[fileNameOrExtension] = description;
+            }
+            return description; 
+        }
+
+        private static unsafe string GetFileTypeDescriptionInternal(string fileNameOrExtension)
         {
             var fileInfoSize = Marshal.SizeOf<SHFILEINFOW>();
             var fileInfoPtr = Marshal.AllocHGlobal(fileInfoSize); // Allocate unmanaged memory

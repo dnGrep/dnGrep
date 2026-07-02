@@ -131,15 +131,10 @@ namespace dnGREP.Common
             set { fileInfo = value; }
         }
 
-        public string FileSize
-        {
-            get { return NativeMethods.StrFormatByteSize(FileInfo.Length); }
-        }
+        private string? fileSize;
+        public string FileSize => fileSize ??= NativeMethods.StrFormatByteSize(FileInfo.Length);
 
-        public string FileType
-        {
-            get { return NativeMethods.GetFileTypeDescription(Path.GetExtension(FileNameDisplayed)); }
-        }
+        public string FileType => NativeMethods.GetFileTypeDescription(Path.GetExtension(FileNameDisplayed));
 
         /// <summary>
         /// Gets or sets additional information about the file to show in the results header
