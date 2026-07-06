@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<!-- 
+Zig syntax highlighting
+Created from Zig vim syntax file
+Created 07/06/2026
+Version 1.0
+-->
+
+<SyntaxDefinition name="Zig" extensions=".zig" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+  <!-- Color Definitions -->
+  <Color name="Comment" foreground="#FF39A839" exampleText="// comment" />
+  <Color name="DocComment" foreground="#FF39A839" exampleText="/// doc comment" />
+  <Color name="String" foreground="#FFC45D18" exampleText="&quot;Hello, World!&quot;"/>
+  <Color name="Char" foreground="#FFC45D18" exampleText="'x'"/>
+  <Color name="Digits" foreground="#FF202020" exampleText="3.1415"/>
+  <Color name="Punctuation" foreground="#FF202020" exampleText="a(b.c);" />
+
+  <Color name="Keywords" foreground="#FF793A74" fontWeight="bold" exampleText="if else while"/>
+  <Color name="ControlFlow" foreground="#FF793A74" fontWeight="bold" exampleText="break continue return"/>
+  <Color name="Types" foreground="#FF016183" fontWeight="bold" exampleText="bool u32 f64"/>
+  <Color name="Constants" foreground="#FF0033CC" fontWeight="bold" exampleText="true false null"/>
+  <Color name="Builtins" foreground="#FF296FA9" fontWeight="bold" exampleText="@import @as"/>
+  <Color name="Modifiers" foreground="#FF0041A8" exampleText="pub const var"/>
+  <Color name="StorageKeywords" foreground="#FF0041A8" fontWeight="bold" exampleText="const var comptime"/>
+  <Color name="StructureKeywords" foreground="#FF0080FF" fontWeight="bold" exampleText="struct enum union"/>
+
+  <Color name="CommentMarkerSetTodo" foreground="#FFA83939" fontWeight="bold"/>
+  <Color name="CommentMarkerSetHackUndone" foreground="#FFB0A700" fontWeight="bold"/>
+
+  <!-- Comment Marker RuleSet -->
+  <RuleSet name="CommentMarkerSet">
+	<Keywords color="CommentMarkerSetTodo">
+	  <Word>TODO</Word>
+	  <Word>FIXME</Word>
+	</Keywords>
+	<Keywords color="CommentMarkerSetHackUndone">
+	  <Word>HACK</Word>
+	  <Word>NOTE</Word>
+	</Keywords>
+  </RuleSet>
+
+  <!-- Main RuleSet -->
+  <RuleSet>
+
+	<!-- Doc Comments -->
+	<Span color="DocComment" ruleSet="CommentMarkerSet">
+	  <Begin>///</Begin>
+	</Span>
+
+	<Span color="DocComment" ruleSet="CommentMarkerSet">
+	  <Begin>//!</Begin>
+	</Span>
+
+	<!-- Line Comments -->
+	<Span color="Comment" ruleSet="CommentMarkerSet">
+	  <Begin>//</Begin>
+	</Span>
+
+	<!-- Strings -->
+	<Span color="String">
+	  <Begin>"</Begin>
+	  <End>"</End>
+	  <RuleSet>
+		<!-- span for escape sequences -->
+		<Span begin="\\" end="."/>
+	  </RuleSet>
+	</Span>
+
+	<!-- C Strings -->
+	<Span color="String">
+	  <Begin>c"</Begin>
+	  <End>"</End>
+	  <RuleSet>
+		<!-- span for escape sequences -->
+		<Span begin="\\" end="."/>
+	  </RuleSet>
+	</Span>
+
+	<!-- Multiline Strings -->
+	<Span color="String">
+	  <Begin>\\\\</Begin>
+	</Span>
+
+	<!-- C Multiline Strings -->
+	<Span color="String">
+	  <Begin>c\\\\</Begin>
+	</Span>
+
+	<!-- Characters -->
+	<Span color="Char">
+	  <Begin>'</Begin>
+	  <End>'</End>
+	  <RuleSet>
+		<!-- span for escape sequences -->
+		<Span begin="\\" end="."/>
+	  </RuleSet>
+	</Span>
+
+	<!-- Constants -->
+	<Keywords color="Constants">
+	  <Word>true</Word>
+	  <Word>false</Word>
+	  <Word>null</Word>
+	  <Word>undefined</Word>
+	</Keywords>
+
+	<!-- Control Flow Keywords -->
+	<Keywords color="ControlFlow">
+	  <Word>break</Word>
+	  <Word>continue</Word>
+	  <Word>return</Word>
+	  <Word>unreachable</Word>
+	</Keywords>
+
+	<!-- Conditional and Loop Keywords -->
+	<Keywords color="Keywords">
+	  <Word>if</Word>
+	  <Word>else</Word>
+	  <Word>while</Word>
+	  <Word>for</Word>
+	  <Word>switch</Word>
+	  <Word>and</Word>
+	  <Word>or</Word>
+	  <Word>orelse</Word>
+	</Keywords>
+
+	<!-- Error Handling Keywords -->
+	<Keywords color="Keywords">
+	  <Word>catch</Word>
+	  <Word>try</Word>
+	  <Word>defer</Word>
+	  <Word>errdefer</Word>
+	  <Word>error</Word>
+	</Keywords>
+
+	<!-- Storage/Declaration Keywords -->
+	<Keywords color="StorageKeywords">
+	  <Word>const</Word>
+	  <Word>var</Word>
+	  <Word>comptime</Word>
+	  <Word>volatile</Word>
+	  <Word>allowzero</Word>
+	  <Word>noalias</Word>
+	</Keywords>
+
+	<!-- Function and Async Keywords -->
+	<Keywords color="Keywords">
+	  <Word>fn</Word>
+	  <Word>inline</Word>
+	  <Word>noinline</Word>
+	  <Word>async</Word>
+	  <Word>await</Word>
+	  <Word>suspend</Word>
+	  <Word>resume</Word>
+	  <Word>nosuspend</Word>
+	  <Word>anyframe</Word>
+	</Keywords>
+
+	<!-- Structure Keywords -->
+	<Keywords color="StructureKeywords">
+	  <Word>struct</Word>
+	  <Word>enum</Word>
+	  <Word>union</Word>
+	  <Word>opaque</Word>
+	  <Word>packed</Word>
+	</Keywords>
+
+	<!-- Visibility and Modifiers -->
+	<Keywords color="Modifiers">
+	  <Word>pub</Word>
+	  <Word>export</Word>
+	  <Word>extern</Word>
+	  <Word>threadlocal</Word>
+	  <Word>linksection</Word>
+	  <Word>callconv</Word>
+	  <Word>align</Word>
+	  <Word>addrspace</Word>
+	</Keywords>
+
+	<!-- Other Keywords -->
+	<Keywords color="Keywords">
+	  <Word>test</Word>
+	  <Word>usingnamespace</Word>
+	  <Word>asm</Word>
+	  <Word>anytype</Word>
+	</Keywords>
+
+	<!-- Types - Primitive Types -->
+	<Keywords color="Types">
+	  <Word>bool</Word>
+	  <Word>f16</Word>
+	  <Word>f32</Word>
+	  <Word>f64</Word>
+	  <Word>f80</Word>
+	  <Word>f128</Word>
+	  <Word>void</Word>
+	  <Word>noreturn</Word>
+	  <Word>type</Word>
+	  <Word>anyerror</Word>
+	  <Word>anyframe</Word>
+	  <Word>anyopaque</Word>
+	</Keywords>
+
+	<!-- Types - Integer Types -->
+	<Keywords color="Types">
+	  <Word>isize</Word>
+	  <Word>usize</Word>
+	  <Word>comptime_int</Word>
+	  <Word>comptime_float</Word>
+	</Keywords>
+
+	<!-- Types - C Types -->
+	<Keywords color="Types">
+	  <Word>c_char</Word>
+	  <Word>c_short</Word>
+	  <Word>c_int</Word>
+	  <Word>c_long</Word>
+	  <Word>c_longlong</Word>
+	  <Word>c_ushort</Word>
+	  <Word>c_uint</Word>
+	  <Word>c_ulong</Word>
+	  <Word>c_ulonglong</Word>
+	  <Word>c_longdouble</Word>
+	</Keywords>
+
+	<!-- Builtin Functions -->
+	<Keywords color="Builtins">
+	  <Word>@addrSpaceCast</Word>
+	  <Word>@addWithOverflow</Word>
+	  <Word>@alignCast</Word>
+	  <Word>@alignOf</Word>
+	  <Word>@as</Word>
+	  <Word>@asyncCall</Word>
+	  <Word>@atomicLoad</Word>
+	  <Word>@atomicRmw</Word>
+	  <Word>@atomicStore</Word>
+	  <Word>@bitCast</Word>
+	  <Word>@bitOffsetOf</Word>
+	  <Word>@bitReverse</Word>
+	  <Word>@bitSizeOf</Word>
+	  <Word>@breakpoint</Word>
+	  <Word>@byteSwap</Word>
+	  <Word>@call</Word>
+	  <Word>@cDefine</Word>
+	  <Word>@cImport</Word>
+	  <Word>@cInclude</Word>
+	  <Word>@clz</Word>
+	  <Word>@cmpxchgStrong</Word>
+	  <Word>@cmpxchgWeak</Word>
+	  <Word>@compileError</Word>
+	  <Word>@compileLog</Word>
+	  <Word>@constCast</Word>
+	  <Word>@ctz</Word>
+	  <Word>@cUndef</Word>
+	  <Word>@cVaArg</Word>
+	  <Word>@cVaCopy</Word>
+	  <Word>@cVaEnd</Word>
+	  <Word>@cVaStart</Word>
+	  <Word>@divExact</Word>
+	  <Word>@divFloor</Word>
+	  <Word>@divTrunc</Word>
+	  <Word>@embedFile</Word>
+	  <Word>@enumFromInt</Word>
+	  <Word>@errorFromInt</Word>
+	  <Word>@errorName</Word>
+	  <Word>@errorReturnTrace</Word>
+	  <Word>@errorCast</Word>
+	  <Word>@export</Word>
+	  <Word>@extern</Word>
+	  <Word>@fence</Word>
+	  <Word>@field</Word>
+	  <Word>@fieldParentPtr</Word>
+	  <Word>@floatCast</Word>
+	  <Word>@floatFromInt</Word>
+	  <Word>@frameAddress</Word>
+	  <Word>@hasDecl</Word>
+	  <Word>@hasField</Word>
+	  <Word>@import</Word>
+	  <Word>@inComptime</Word>
+	  <Word>@intCast</Word>
+	  <Word>@intFromBool</Word>
+	  <Word>@intFromEnum</Word>
+	  <Word>@intFromError</Word>
+	  <Word>@intFromFloat</Word>
+	  <Word>@intFromPtr</Word>
+	  <Word>@max</Word>
+	  <Word>@memcpy</Word>
+	  <Word>@memset</Word>
+	  <Word>@min</Word>
+	  <Word>@wasmMemorySize</Word>
+	  <Word>@wasmMemoryGrow</Word>
+	  <Word>@mod</Word>
+	  <Word>@mulAdd</Word>
+	  <Word>@mulWithOverflow</Word>
+	  <Word>@panic</Word>
+	  <Word>@popCount</Word>
+	  <Word>@prefetch</Word>
+	  <Word>@ptrCast</Word>
+	  <Word>@ptrFromInt</Word>
+	  <Word>@rem</Word>
+	  <Word>@returnAddress</Word>
+	  <Word>@select</Word>
+	  <Word>@setAlignStack</Word>
+	  <Word>@setCold</Word>
+	  <Word>@setEvalBranchQuota</Word>
+	  <Word>@setFloatMode</Word>
+	  <Word>@setRuntimeSafety</Word>
+	  <Word>@shlExact</Word>
+	  <Word>@shlWithOverflow</Word>
+	  <Word>@shrExact</Word>
+	  <Word>@shuffle</Word>
+	  <Word>@sizeOf</Word>
+	  <Word>@splat</Word>
+	  <Word>@reduce</Word>
+	  <Word>@src</Word>
+	  <Word>@sqrt</Word>
+	  <Word>@sin</Word>
+	  <Word>@cos</Word>
+	  <Word>@tan</Word>
+	  <Word>@exp</Word>
+	  <Word>@exp2</Word>
+	  <Word>@log</Word>
+	  <Word>@log2</Word>
+	  <Word>@log10</Word>
+	  <Word>@abs</Word>
+	  <Word>@floor</Word>
+	  <Word>@ceil</Word>
+	  <Word>@trunc</Word>
+	  <Word>@round</Word>
+	  <Word>@subWithOverflow</Word>
+	  <Word>@tagName</Word>
+	  <Word>@This</Word>
+	  <Word>@trap</Word>
+	  <Word>@truncate</Word>
+	  <Word>@Type</Word>
+	  <Word>@typeInfo</Word>
+	  <Word>@typeName</Word>
+	  <Word>@TypeOf</Word>
+	  <Word>@unionInit</Word>
+	  <Word>@Vector</Word>
+	  <Word>@volatileCast</Word>
+	  <Word>@workGroupId</Word>
+	  <Word>@workGroupSize</Word>
+	  <Word>@workItemId</Word>
+	</Keywords>
+
+	<!-- Integer types pattern: match i1-i65535 and u1-u65535 -->
+	<Rule color="Types">
+	  \b[iu][0-9]+\b
+	</Rule>
+
+	<!-- Numbers -->
+	<Rule color="Digits">
+	  \b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*  # hex number
+	  |
+	  \b0[oO][0-7](_?[0-7])*              # octal number
+	  |
+	  \b0[bB][01](_?[01])*                # binary number
+	  |
+	  (	\b\d(_?\d)*(\.\d(_?\d)*)?         # decimal number with optional floating point
+	  |	\.\d(_?\d)*                       # or just starting with floating point
+	  )
+	  ([eE][+-]?\d(_?\d)*)?               # optional exponent
+	</Rule>
+
+	<Rule color="Punctuation">
+	  [?,.;()\[\]{}+\-/%*&lt;&gt;^+~!|&amp;:=]+
+	</Rule>
+  </RuleSet>
+</SyntaxDefinition>
