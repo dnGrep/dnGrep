@@ -78,29 +78,39 @@ namespace dnGREP.WPF
             HexLengthOptions = [8, 16, 32, 64, 128];
 
             hasWindowsThemes = AppTheme.HasWindowsThemes;
-            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
-            {
-                CurrentTheme = AppTheme.Instance.CurrentThemeName;
-            };
+            WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                AppTheme.Instance,
+                nameof(AppTheme.Instance.CurrentThemeChanged),
+                OnCurrentThemeChanged);
 
-            TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
-            {
-                PanelTooltip = IsAdministrator ? null : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
-                WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
-
-                // reload to reset the group and item text
-                LoadVisibilityOptions();
-
-                // call these to reformat decimal separators
-                OnPropertyChanged(nameof(EditMainFormFontSize));
-                OnPropertyChanged(nameof(EditReplaceFormFontSize));
-                OnPropertyChanged(nameof(EditDialogFontSize));
-                OnPropertyChanged(nameof(EditResultsFontSize));
-                OnPropertyChanged(nameof(MatchTimeout));
-                OnPropertyChanged(nameof(MatchThreshold));
-            };
+            WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+                TranslationSource.Instance,
+                nameof(TranslationSource.Instance.CurrentCultureChanged),
+                OnCurrentCultureChanged);
 
             LoadVisibilityOptions();
+        }
+
+        private void OnCurrentThemeChanged(object? sender, EventArgs e)
+        {
+            CurrentTheme = AppTheme.Instance.CurrentThemeName;
+        }
+
+        private void OnCurrentCultureChanged(object? sender, EventArgs e)
+        {
+            PanelTooltip = IsAdministrator ? null : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
+            WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
+
+            // reload to reset the group and item text
+            LoadVisibilityOptions();
+
+            // call these to reformat decimal separators
+            OnPropertyChanged(nameof(EditMainFormFontSize));
+            OnPropertyChanged(nameof(EditReplaceFormFontSize));
+            OnPropertyChanged(nameof(EditDialogFontSize));
+            OnPropertyChanged(nameof(EditResultsFontSize));
+            OnPropertyChanged(nameof(MatchTimeout));
+            OnPropertyChanged(nameof(MatchThreshold));
         }
 
         private void LoadVisibilityOptions()

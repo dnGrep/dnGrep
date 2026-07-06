@@ -37,15 +37,20 @@ namespace dnGREP.WPF
 
             PropertyChanged += PreviewViewModel_PropertyChanged;
 
-            TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
+            WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+               TranslationSource.Instance,
+               nameof(TranslationSource.Instance.CurrentCultureChanged),
+               OnCurrentCultureChanged);
+        }
+
+        private void OnCurrentCultureChanged(object? sender, System.EventArgs e)
+        {
+            bool resetCurrentSyntax = CurrentSyntax == SyntaxItems[0].Header;
+            SyntaxItems[0].Header = Resources.Preview_SyntaxNone;
+            if (resetCurrentSyntax)
             {
-                bool resetCurrentSyntax = CurrentSyntax == SyntaxItems[0].Header;
-                SyntaxItems[0].Header = Resources.Preview_SyntaxNone;
-                if (resetCurrentSyntax)
-                {
-                    CurrentSyntax = Resources.Preview_SyntaxNone;
-                }
-            };
+                CurrentSyntax = Resources.Preview_SyntaxNone;
+            }
         }
 
         private void InitializeHighlighters()

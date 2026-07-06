@@ -25,7 +25,12 @@ namespace dnGREP.WPF
         {
             Parent = parent;
             GrepLine = line;
-            Parent.PropertyChanged += Parent_PropertyChanged;
+
+            WeakEventManager<FormattedGrepResult, PropertyChangedEventArgs>.AddHandler(
+                Parent,
+                nameof(FormattedGrepResult.PropertyChanged),
+                Parent_PropertyChanged);
+
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
@@ -366,7 +371,7 @@ namespace dnGREP.WPF
 
         private string MarkWhitespace(string text, ref int column)
         {
-            if (ViewWhitespace && !string.IsNullOrEmpty(text))
+            if (ViewWhitespace && !string.IsNullOrEmpty(text) && Utils.ContainsWhitespace(text))
             {
                 StringBuilder sb = new(text.Length);
                 foreach (char ch in text)
@@ -413,25 +418,27 @@ namespace dnGREP.WPF
             foreach (var range in map.Ranges.Where(r => r.Length > 0))
             {
                 var run = new Run(MarkWhitespace(range.RangeText, ref column));
-                if (range.Group == null)
+                var group = range.Group;
+                if (group == null)
                 {
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1, Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, match.RegexMatchValue.TrimEnd('\r', '\n'));
+                    SetLazyToolTip(run, () => TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1,
+                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, match.RegexMatchValue.TrimEnd('\r', '\n')));
                     paragraph.Inlines.Add(run);
                 }
                 else
                 {
-                    if (!Parent.GroupColors.TryGetValue(range.Group.Name, out string? bgColor))
+                    if (!Parent.GroupColors.TryGetValue(group.Name, out string? bgColor))
                     {
                         int groupIdx = Parent.GroupColors.Count % 10;
                         bgColor = $"Match.Group.{groupIdx}.Highlight.Background";
-                        Parent.GroupColors.Add(range.Group.Name, bgColor);
+                        Parent.GroupColors.Add(group.Name, bgColor);
                     }
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, bgColor);
-                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2,
-                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, range.Group.Name, range.Group.FullValue.TrimEnd('\r', '\n'));
+                    SetLazyToolTip(run, () => TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2,
+                        Parent.GetMatchNumber(match.FileMatchId), Environment.NewLine, group.Name, group.FullValue.TrimEnd('\r', '\n')));
                     paragraph.Inlines.Add(run);
                 }
             }
@@ -442,31 +449,71 @@ namespace dnGREP.WPF
             }
         }
 
+        // Sentinel placeholder assigned up front so WPF's tooltip service will raise
+        // ToolTipOpening for the run; a non-null ToolTip value is required for that
+        // event to fire at all.
+        private static readonly object ToolTipPlaceholder = new();
+
+        // Defers building the localized tooltip text until the user actually hovers
+        // the run. Most highlighted runs (matches and capture groups) are never
+        // hovered, so this avoids a TranslationSource.Format call - and its string
+        // allocations - for every run created while formatting a line.
+        private static void SetLazyToolTip(Run run, Func<string> getToolTipText)
+        {
+            run.ToolTip = ToolTipPlaceholder;
+            run.ToolTipOpening += (s, _) =>
+            {
+                if (s is Run r && ReferenceEquals(r.ToolTip, ToolTipPlaceholder))
+                {
+                    r.ToolTip = getToolTipText();
+                }
+            };
+        }
+
         private string FormatHexValues(GrepLine grepLine)
         {
-            string[] parts = grepLine.LineText.TrimEnd().Split(' ');
+            // Tokenize on spans (no Split() array / substring allocations); byte.TryParse
+            // accepts a ReadOnlySpan<char> slice directly.
+            ReadOnlySpan<char> lineSpan = grepLine.LineText.AsSpan().TrimEnd();
             List<byte> list = [];
-            foreach (string num in parts)
+            int idx = 0;
+            while (idx < lineSpan.Length)
             {
-                if (byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
+                while (idx < lineSpan.Length && lineSpan[idx] == ' ')
+                {
+                    idx++;
+                }
+
+                int start = idx;
+                while (idx < lineSpan.Length && lineSpan[idx] != ' ')
+                {
+                    idx++;
+                }
+
+                if (idx > start &&
+                    byte.TryParse(lineSpan[start..idx], System.Globalization.NumberStyles.HexNumber, null, out byte result))
                 {
                     list.Add(result);
                 }
             }
+
             string text = Parent.GrepResult.Encoding.GetString(list.ToArray());
-            List<char> nonPrintableChars = [];
-            for (int idx = 0; idx < text.Length; idx++)
+
+            // Replace all non-printable characters in a single pass instead of looping
+            // .Replace() once per distinct bad character (which rescans the whole string
+            // and reallocates each time).
+            return string.Create(text.Length, text, static (span, s) =>
             {
-                if (!char.IsLetterOrDigit(text[idx]) && !char.IsPunctuation(text[idx]) && text[idx] != ' ')
+                s.CopyTo(span);
+                for (int i = 0; i < span.Length; i++)
                 {
-                    nonPrintableChars.Add(text[idx]);
+                    char c = span[i];
+                    if (!char.IsLetterOrDigit(c) && !char.IsPunctuation(c) && c != ' ')
+                    {
+                        span[i] = '.';
+                    }
                 }
-            }
-            foreach (char c in nonPrintableChars)
-            {
-                text = text.Replace(c, '.');
-            }
-            return text;
+            });
         }
 
         private class GroupMap

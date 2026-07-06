@@ -72,36 +72,41 @@ namespace dnGREP.WPF
             currentLineBorder.Freeze();
             textEditor.TextArea.TextView.CurrentLineBorder = currentLineBorder;
 
-            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
+            WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                AppTheme.Instance,
+                nameof(AppTheme.Instance.CurrentThemeChanged),
+                OnCurrentThemeChanged);
+        }
+
+        private void OnCurrentThemeChanged(object? sender, EventArgs e)
+        {
+            textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
+            textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
+
+            textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
+            textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
+            Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
+            selectionBorder.Freeze();
+            textEditor.TextArea.SelectionBorder = selectionBorder;
+
+            textEditor.TextArea.TextView.CurrentLineBackground = Application.Current.Resources["PreviewText.CurrentLine.Background"] as Brush;
+            Pen border = new(Application.Current.Resources["PreviewText.CurrentLine.Border"] as Brush, 1.0);
+            border.Freeze();
+            textEditor.TextArea.TextView.CurrentLineBorder = border;
+
+            searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+
+            if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPluginFile &&
+                ViewModel.GrepResult != null)
             {
-                textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
-                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["PreviewText.Link"] as Brush;
-
-                textEditor.TextArea.SelectionForeground = Application.Current.Resources["PreviewText.Selection.Foreground"] as Brush;
-                textEditor.TextArea.SelectionBrush = Application.Current.Resources["PreviewText.Selection.Background"] as Brush;
-                Pen selectionBorder = new(Application.Current.Resources["PreviewText.Selection.Border"] as Brush, 1.0);
-                selectionBorder.Freeze();
-                textEditor.TextArea.SelectionBorder = selectionBorder;
-
-                textEditor.TextArea.TextView.CurrentLineBackground = Application.Current.Resources["PreviewText.CurrentLine.Background"] as Brush;
-                Pen border = new(Application.Current.Resources["PreviewText.CurrentLine.Border"] as Brush, 1.0);
-                border.Freeze();
-                textEditor.TextArea.TextView.CurrentLineBorder = border;
-
-                searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
-
-                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPluginFile &&
-                    ViewModel.GrepResult != null)
+                for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
                 {
-                    for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
-                    {
-                        if (textEditor.TextArea.TextView.BackgroundRenderers[i] is PreviewHighlighter)
-                            textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
-                    }
-
-                    textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+                    if (textEditor.TextArea.TextView.BackgroundRenderers[i] is PreviewHighlighter)
+                        textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
                 }
-            };
+
+                textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+            }
         }
 
         private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)

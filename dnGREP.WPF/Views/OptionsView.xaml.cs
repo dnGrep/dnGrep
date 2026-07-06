@@ -77,26 +77,36 @@ namespace dnGREP.WPF
             highlightBrush1 = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
             highlightBrush2 = Application.Current.Resources["Match.Group.1.Highlight.Background"] as Brush ?? Brushes.Orange;
 
-            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
-            {
-                highlightBrush1 = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
-                highlightBrush2 = Application.Current.Resources["Match.Group.1.Highlight.Background"] as Brush ?? Brushes.Orange;
-                if (currentMatchIndex > -1 && currentMatchIndex < searchMatches.Count)
-                    ScrollToMatch(searchMatches[currentMatchIndex]);
-            };
+            WeakEventManager<AppTheme, System.EventArgs>.AddHandler(
+                AppTheme.Instance,
+                nameof(AppTheme.Instance.CurrentThemeChanged),
+                OnCurrentThemeChanged);
 
-            TranslationSource.Instance.CurrentCultureChanging += (s, e) =>
-            {
-                currentMatchIndex = -1;
-                searchMatches.Clear();
-                matchStatus.Text = "0/0";
-                findBox.Text = string.Empty;
-
-                RestoreOriginalTextBlocks();
-                ClearTextBlockCache();
-            };
+            WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+               TranslationSource.Instance,
+               nameof(TranslationSource.Instance.CurrentCultureChanging),
+               OnCurrentCultureChanging);
 
             PreviewKeyDown += OptionsView_PreviewKeyDown;
+        }
+
+        private void OnCurrentThemeChanged(object? sender, EventArgs e)
+        {
+            highlightBrush1 = Application.Current.Resources["Match.Highlight.Background"] as Brush ?? Brushes.Yellow;
+            highlightBrush2 = Application.Current.Resources["Match.Group.1.Highlight.Background"] as Brush ?? Brushes.Orange;
+            if (currentMatchIndex > -1 && currentMatchIndex < searchMatches.Count)
+                ScrollToMatch(searchMatches[currentMatchIndex]);
+        }
+
+        private void OnCurrentCultureChanging(object? sender, EventArgs e)
+        {
+            currentMatchIndex = -1;
+            searchMatches.Clear();
+            matchStatus.Text = "0/0";
+            findBox.Text = string.Empty;
+
+            RestoreOriginalTextBlocks();
+            ClearTextBlockCache();
         }
 
         public bool SearchListsCleared => viewModel.SearchListsCleared;
@@ -505,7 +515,7 @@ namespace dnGREP.WPF
         private void SmoothScrollTo(double targetOffset, double duration = 600)
         {
             double clampedOffset = Math.Max(0, Math.Min(targetOffset, scrollViewer.ScrollableHeight));
-            
+
             var animation = new DoubleAnimation
             {
                 From = scrollViewer.VerticalOffset,

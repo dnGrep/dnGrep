@@ -34,6 +34,9 @@ namespace dnGREP.Common
         private static readonly char[] chars =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
 
+        private static readonly string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
+        private static readonly string[] eolList = ["\r\n", "\n", "\r"];
+
         private static readonly string tempFolderName;
         private static readonly string undoFolderName;
 
@@ -2037,8 +2040,6 @@ namespace dnGREP.Common
             List<int> lineNumbers = [];
             List<GrepMatch> matches = [];
 
-            string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
-
             // Context line (before)
             Queue<string> beforeQueue = new();
             // Context line (after)
@@ -2085,7 +2086,7 @@ namespace dnGREP.Common
                             if (beforeQueue.Count >= beforeLines + 1)
                                 beforeQueue.Dequeue();
 
-                            beforeQueue.Enqueue(line.TrimEndOfLine());
+                            beforeQueue.Enqueue(line);
                         }
                         if (startRecordingAfterLines && currentAfterLine < afterLines)
                         {
@@ -2119,7 +2120,7 @@ namespace dnGREP.Common
                                         beforeQueue.Dequeue();
                                     else
                                         contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                            beforeQueue.Dequeue(), true, null)
+                                            beforeQueue.Dequeue().TrimEndOfLine(), true, null)
                                         { PageNumber = pageNumber });
                                 }
                             }
@@ -2147,7 +2148,7 @@ namespace dnGREP.Common
                                     string tempLine = lineQueue.Dequeue();
                                     lineStrings[i] = tempLine;
 
-                                    string fileMatchId = bodyMatchesClone[0].FileMatchId;
+                                    Guid fileMatchId = bodyMatchesClone[0].FileMatchId;
 
                                     List<GrepCaptureGroup> lineGroups;
                                     // for multiline regex, get just the groups on the current line
@@ -2234,7 +2235,6 @@ namespace dnGREP.Common
 
         private static List<GrepMatch> CloneAndSplitGroups(List<GrepMatch> bodyMatches)
         {
-            string[] eolList = ["\r\n", "\n", "\r"];
             List<GrepMatch> bodyMatchesClone = new(bodyMatches);
 
             // split the capture groups by line to makes display formatting easier
@@ -2315,7 +2315,7 @@ namespace dnGREP.Common
                     if (beforeQueue.Count >= beforeLines + 1)
                         beforeQueue.Dequeue();
 
-                    beforeQueue.Enqueue(line.TrimEndOfLine());
+                    beforeQueue.Enqueue(line);
                 }
                 if (startRecordingAfterLines && currentAfterLine < afterLines)
                 {
@@ -2351,7 +2351,7 @@ namespace dnGREP.Common
                             else
                             {
                                 contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                    beforeQueue.Dequeue(), true, null)
+                                    beforeQueue.Dequeue().TrimEndOfLine(), true, null)
                                 {
                                     IsHexFile = true
                                 });
@@ -2378,7 +2378,7 @@ namespace dnGREP.Common
                             string tempLine = lineQueue.Dequeue();
                             lineStrings[i] = tempLine;
 
-                            string fileMatchId = bodyMatchesClone[0].FileMatchId;
+                            Guid fileMatchId = bodyMatchesClone[0].FileMatchId;
                             // First and only line
                             if (i == startLine && i == lineNumber)
                                 matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups, bodyMatchesClone[0].RegexMatchValue));
@@ -2450,14 +2450,28 @@ namespace dnGREP.Common
 
         private static string GetHexText(byte[] buffer)
         {
-            StringBuilder sb = new();
+            if (buffer.Length == 0)
+                return string.Empty;
 
-            for (int idx = 0; idx < buffer.Length; idx++)
+            // 2 hex digits per byte, plus a separating space after each byte except the last
+            int length = buffer.Length * 3 - 1;
+
+            return string.Create(length, buffer, static (span, bytes) =>
             {
-                sb.AppendFormat("{0:x2}", buffer[idx]).Append(' ');
-            }
+                int pos = 0;
+                for (int idx = 0; idx < bytes.Length; idx++)
+                {
+                    if (idx > 0)
+                    {
+                        span[pos++] = ' ';
+                    }
 
-            return sb.ToString().TrimEnd();
+                    // Writes the 2 hex digits directly into the span, avoiding the
+                    // boxing and intermediate string allocation of AppendFormat("{0:x2}", ...).
+                    bytes[idx].TryFormat(span[pos..(pos + 2)], out int written, "x2");
+                    pos += written;
+                }
+            });
         }
 
         private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText, int pageNumber, bool isHexFile)
@@ -2732,6 +2746,23 @@ namespace dnGREP.Common
                 return false;
             }
         }
+
+        public static bool ContainsWhitespace(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return false;
+
+            var span = text.AsSpan();  
+            for (int i = 0; i < span.Length; i++)
+            {
+                if (char.IsWhiteSpace(span[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         [GeneratedRegex("\\p{IsArabic}|\\p{IsHebrew}")]
         private static partial Regex RtlRegex();

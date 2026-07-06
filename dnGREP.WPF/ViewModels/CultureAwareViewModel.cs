@@ -8,18 +8,25 @@ namespace dnGREP.WPF
     {
         public CultureAwareViewModel()
         {
-            TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
-            {
-                CultureFlowDirection = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ?
-                    FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-            };
+            WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+                TranslationSource.Instance,
+                nameof(TranslationSource.Instance.CurrentCultureChanged),
+                OnCurrentCultureChanged);
 
-            CultureFlowDirection = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ?
-                    FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            CultureFlowDirection = GetFlowDirection();
         }
+
+        private void OnCurrentCultureChanged(object? sender, System.EventArgs e)
+        {
+            CultureFlowDirection = GetFlowDirection();
+        }
+
+        private static FlowDirection GetFlowDirection() =>
+            TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft
+                ? FlowDirection.RightToLeft
+                : FlowDirection.LeftToRight;
 
         [ObservableProperty]
         private FlowDirection cultureFlowDirection = FlowDirection.LeftToRight;
-
     }
 }

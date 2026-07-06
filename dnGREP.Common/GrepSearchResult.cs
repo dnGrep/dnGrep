@@ -9,14 +9,14 @@ namespace dnGREP.Common
     {
         public GrepSearchResult()
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
 
             IsSuccess = true;
         }
 
         public GrepSearchResult(FileData fileInfo, Encoding encoding)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
             FileInfo = fileInfo;
 
             FileNameDisplayed = fileInfo.FullName;
@@ -46,7 +46,7 @@ namespace dnGREP.Common
 
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding, bool success)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
 
             FileNameDisplayed = file;
             Matches = matches;
@@ -74,7 +74,7 @@ namespace dnGREP.Common
 
         public GrepSearchResult(string file, string pattern, string errorMessage, bool success)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
 
             FileNameDisplayed = file;
             searchResults = [new GrepLine(-1, errorMessage, false, null)];
@@ -83,7 +83,7 @@ namespace dnGREP.Common
             FileInfo = new(file);
         }
 
-        public string Id { get; }
+        public Guid Id { get; }
 
         public Encoding Encoding { get; } = Encoding.UTF8;
 
@@ -131,15 +131,10 @@ namespace dnGREP.Common
             set { fileInfo = value; }
         }
 
-        public string FileSize
-        {
-            get { return NativeMethods.StrFormatByteSize(FileInfo.Length); }
-        }
+        private string? fileSize;
+        public string FileSize => fileSize ??= NativeMethods.StrFormatByteSize(FileInfo.Length);
 
-        public string FileType
-        {
-            get { return NativeMethods.GetFileTypeDescription(Path.GetExtension(FileNameDisplayed)); }
-        }
+        public string FileType => NativeMethods.GetFileTypeDescription(Path.GetExtension(FileNameDisplayed));
 
         /// <summary>
         /// Gets or sets additional information about the file to show in the results header
@@ -241,7 +236,7 @@ namespace dnGREP.Common
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode(StringComparison.Ordinal);
+            return Id.GetHashCode();
         }
     }
 }

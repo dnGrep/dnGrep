@@ -81,7 +81,10 @@ namespace dnGREP.WPF.UserControls
             InitializeComponent();
             DataContextChanged += ResultsTree_DataContextChanged;
 
-            TranslationSource.Instance.CurrentCultureChanged += UpdateColumnHeaders;
+            WeakEventManager<TranslationSource, System.EventArgs>.AddHandler(
+               TranslationSource.Instance,
+               nameof(TranslationSource.Instance.CurrentCultureChanged),
+               UpdateColumnHeaders);
 
             // used to map the editor menu items on the TextBlock context menu
             NameScope.SetNameScope(contextMenu, this);

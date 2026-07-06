@@ -283,5 +283,27 @@ namespace dnGREP.Common
             return input;
         }
 
+        public static StringBuilder AppendQuoted(this StringBuilder sb, string text)
+        {
+            if (text.Contains(',', StringComparison.Ordinal))
+            {
+                if (text.Contains('"', StringComparison.Ordinal))
+                {
+                    text = text.Replace("\"", "\"\"", StringComparison.Ordinal);
+                }
+                sb.Append('"').Append(text).Append('"');
+            }
+            else
+            {
+                sb.Append(text);
+            }
+            return sb;
+        }
+
+        public static StringBuilder AppendLineQuoted(this StringBuilder sb, string text)
+        {
+            sb.AppendQuoted(text).AppendLine();
+            return sb;
+        }
     }
 }
