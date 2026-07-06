@@ -42,6 +42,7 @@
     <None Remove="Images\SwapLight1.png" />
     <None Remove="Images\SwapLight2.png" />
     <None Remove="nlog.config" />
+    <None Remove="Resources\Zig.xshd" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfoCommon.cs">
@@ -186,6 +187,7 @@
     <EmbeddedResource Include="Resources\X10.xshd" />
     <EmbeddedResource Include="Resources\XC.xshd" />
     <EmbeddedResource Include="Resources\Xtend.xshd" />
+    <EmbeddedResource Include="Resources\Zig.xshd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nGREP.ico" />
