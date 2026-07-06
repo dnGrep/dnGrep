@@ -3462,4 +3462,7 @@ Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser 
   <data name="Test_SearchType_Fuzzy" xml:space="preserve">
     <value>Aproximat</value>
   </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>Missatge d'error</value>
+  </data>
 </root>
