@@ -554,7 +554,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [тип]
 -st [тип]
 -searchType [тип]
-    Задает тип поиска - должен быть одним из: "PlainText" (обычный текст), "Regex" (регулярное выражение), "XPath" или "Soundex" (фонетический).</value>
+    Задает тип поиска - должен быть одним из: "PlainText" (Обычный (точный) текст), "Regex" (Регулярное выражение), "XPath" (язык запросов XML/HTML) или "Fuzzy" (нечеткий (приблизительный) поиск).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -4332,5 +4332,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
     <value>Дата модификации</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Дополнительная информация</value>
   </data>
 </root>
