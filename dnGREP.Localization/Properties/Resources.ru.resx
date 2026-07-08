@@ -4324,4 +4324,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>Совпадения</value>
   </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Объем</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Дата модификации</value>
+  </data>
 </root>
