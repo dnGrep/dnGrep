@@ -4336,4 +4336,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ResultsHeader_Info" xml:space="preserve">
     <value>Дополнительная информация</value>
   </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Приблизительное сравнение строк (fuzzy search)</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (Нечеткий поиск)</value>
+  </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>По ошибкам</value>
+  </data>
 </root>
