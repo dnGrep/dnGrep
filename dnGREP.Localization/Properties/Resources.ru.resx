@@ -3253,7 +3253,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_enddate" xml:space="preserve">
-    <value>Фильтр даты/времени 'По'</value>
+    <value>Фильтр даты/времени по...</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
