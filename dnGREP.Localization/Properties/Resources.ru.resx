@@ -956,7 +956,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV-файл</value>
+    <value>CSV-файл (с запятой-разделителем)</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
