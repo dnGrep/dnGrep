@@ -3353,7 +3353,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
-    <value>Фильтр времени 'до' часов</value>
+    <value>Фильтр времени 'Последние от' часов</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_report_full" xml:space="preserve">
@@ -3488,7 +3488,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
-    <value>Фильтр времени 'до' часов</value>
+    <value>Фильтр времени 'Последние от' часов</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
