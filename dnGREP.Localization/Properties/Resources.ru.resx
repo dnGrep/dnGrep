@@ -3924,7 +3924,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>KB (Кбайт)</value>
+    <value>KB (КБайт)</value>
     <comment>Options dialog, label for file size</comment>
   </data>
   <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
@@ -4058,7 +4058,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/e [команды поиска]
 -e [команды поиска]
 -everything [команды поиска]
-    Задает текст поиска в Everything. Должен быть последним параметром в командной строке и копирует её остаток без изменений.</value>
+    Задает текст поиска в Everything.</value>
   </data>
   <data name="Main_StopAfter0Matches" xml:space="preserve">
     <value>Остановиться после количества совпадений: {0}</value>
@@ -4268,13 +4268,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Для имени файла в результатах поиска</value>
   </data>
   <data name="PasswordDialog_OK" xml:space="preserve">
-    <value>ОК</value>
+    <value>Ок</value>
   </data>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
   <data name="StringMap_Add" xml:space="preserve">
-    <value>Добавить:</value>
+    <value>Добавить</value>
   </data>
   <data name="StringMap_Save" xml:space="preserve">
     <value>Применить</value>
@@ -4283,7 +4283,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Отмена</value>
   </data>
   <data name="StringMap_Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Удалить</value>
   </data>
   <data name="Main_ViewWhitespace" xml:space="preserve">
     <value>Отображать пробелы</value>
