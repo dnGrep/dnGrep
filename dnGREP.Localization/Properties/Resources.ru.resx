@@ -250,7 +250,7 @@
     <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
-    <value>Максимальная глубина: </value>
+    <value>Максимальная глубина:</value>
     <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
@@ -688,7 +688,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>Последние от</value>
+    <value>Последние за</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
@@ -4344,5 +4344,137 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
     <value>По ошибкам</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Инструменты для сборки Windows Installer packages (*.msi)</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Отображать путь относительно базового пути поиска</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Каталоги</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Использовать каталоги по умолчанию</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Настройки и данные приложения:</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Файлы журналов приложения:</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [команды поиска]
+-e* [команды поиска]
+-everything* [команды поиска]
+    Задает текст поиска для Everything. Должен быть последним параметром в командной строке и копирует всю оставшуюся часть строки дословно.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [чтоИскать]
+-s* [чтоИскать]
+-searchFor* [чтоИскать]
+    Задает шаблон или текст для поиска внутри набора файлов. Должен быть последним параметром в командной строке и копирует всю оставшуюся часть строки дословно. При установке этого аргумента поиск будет запущен автоматически.</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Поменять местами «Найти» и «Заменить»</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Замена строк</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Добавить правило замен</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Исходный символ(ы)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Код(ы) Unicode</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>Исходная строка уже добавлена.</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Заменяющий(е) символ(ы)</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Очистка</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Заменяемый(е) символ(ы)</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>На этот(и) символ(ы)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Код(ы) Unicode</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Исходный</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Замененный</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Карта строк…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Применить карту строк</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Запрашивать пароль для защищенных PDF-файлов</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Запрашивать пароль для защищенных архивов</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>Введен неверный пароль.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Пароль для:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Включен Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Показать пароль</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>Настройки карты строк изменились. Удалить кэш (историю быстрого поиска)?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Скопировать «Искать содержимое» в «Заменить на:»</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Скопировать «Заменить на:» в «Искать содержимое:»</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Найти:</value>
+  </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Имя процесса Everything</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Подробный вид в дереве результатов</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Автоподбор ширины всех колонок</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (Нечеткий поиск)</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Нечёткий поиск (Fuzzy)</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Приблизительное сравнение строк (fuzzy search)</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (Нечеткий поиск)</value>
   </data>
 </root>
