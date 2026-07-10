@@ -478,6 +478,9 @@ namespace dnGREP.WPF
         private double matchThreshold;
 
         [ObservableProperty]
+        private bool confirmRemoveMRUItems;
+
+        [ObservableProperty]
         private int maxPathBookmarks;
 
         [ObservableProperty]
@@ -769,6 +772,7 @@ namespace dnGREP.WPF
                 ShowFileInfoTooltips != Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips) ||
                 MatchTimeout != Settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
                 MatchThreshold != Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
+                ConfirmRemoveMRUItems != Settings.Get<bool>(GrepSettings.Key.ConfirmRemoveMRUItems) ||
                 MaxSearchBookmarks != Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
                 MaxPathBookmarks != Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
                 MaxExtensionBookmarks != Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
@@ -1117,6 +1121,7 @@ namespace dnGREP.WPF
             ShowLinesInContext = Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = Settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = Settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
+            ConfirmRemoveMRUItems = Settings.Get<bool>(GrepSettings.Key.ConfirmRemoveMRUItems);
             MaxSearchBookmarks = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
             MaxPathBookmarks = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
             MaxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
@@ -1338,6 +1343,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             Settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
+            Settings.Set(GrepSettings.Key.ConfirmRemoveMRUItems, ConfirmRemoveMRUItems);
             Settings.Set(GrepSettings.Key.MaxSearchBookmarks, MaxSearchBookmarks);
             Settings.Set(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
             Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);

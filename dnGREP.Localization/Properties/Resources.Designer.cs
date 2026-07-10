@@ -4437,6 +4437,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not ask me again when removing recent items.
+        /// </summary>
+        public static string MessageBox_DoNotAskMeAgainWhenRemovingRecentItems {
+            get {
+                return ResourceManager.GetString("MessageBox_DoNotAskMeAgainWhenRemovingRecentItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not show this message again.
         /// </summary>
         public static string MessageBox_DoNotShowThisMessageAgain {
@@ -4622,6 +4631,24 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_PluginErrors {
             get {
                 return ResourceManager.GetString("MessageBox_PluginErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string MessageBox_Remove {
+            get {
+                return ResourceManager.GetString("MessageBox_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove item &quot;{0}&quot; from this list?.
+        /// </summary>
+        public static string MessageBox_RemoveItem0FromThisList {
+            get {
+                return ResourceManager.GetString("MessageBox_RemoveItem0FromThisList", resourceCulture);
             }
         }
         
@@ -5288,6 +5315,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_CompareCommand {
             get {
                 return ResourceManager.GetString("Options_CompareCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm when removing items from history lists.
+        /// </summary>
+        public static string Options_ConfirmWhenRemovingItemsFromHistoryLists {
+            get {
+                return ResourceManager.GetString("Options_ConfirmWhenRemovingItemsFromHistoryLists", resourceCulture);
             }
         }
         

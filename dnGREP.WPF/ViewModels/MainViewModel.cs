@@ -852,9 +852,9 @@ namespace dnGREP.WPF
             p => OpenAppLogsFolder(),
             q => true);
 
-        private RelayCommand? deleteMRUItemCommand;
-        public RelayCommand DeleteMRUItemCommand => deleteMRUItemCommand ??= new RelayCommand(
-            p => DeleteMRUItem(p as MRUViewModel),
+        private RelayCommand? removeMRUItemCommand;
+        public RelayCommand RemoveMRUItemCommand => removeMRUItemCommand ??= new RelayCommand(
+            p => RemoveMRUItem(p as MRUViewModel),
             q => true);
 
         private RelayCommand? filterComboBoxDropDownCommand;
@@ -3897,10 +3897,35 @@ namespace dnGREP.WPF
             }
         }
 
-        private void DeleteMRUItem(MRUViewModel? item)
+        private void RemoveMRUItem(MRUViewModel? item)
         {
             if (item != null)
             {
+                bool confirmRemove = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ConfirmRemoveMRUItems);
+                if (confirmRemove)
+                {
+                    MessageBoxCustoms customs = new()
+                    {
+                        OKButtonText = Resources.MessageBox_Remove,
+                        DoNotAskAgainCheckboxText = Resources.MessageBox_DoNotAskMeAgainWhenRemovingRecentItems,
+                        ShowDoNotAskAgainCheckbox = true,
+                    };
+                    var answer = CustomMessageBox.Show(TranslationSource.Format(Resources.MessageBox_RemoveItem0FromThisList, item.StringValue),
+                        Resources.MessageBox_DnGrep,
+                        MessageBoxButtonEx.OKCancel, MessageBoxImage.Question,
+                        MessageBoxResultEx.Cancel, customs,
+                        TranslationSource.Instance.FlowDirection);
+
+                    if (answer.Result == MessageBoxResultEx.Cancel)
+                    {
+                        return;
+                    }
+                    else if (answer.DoNotAskAgain)
+                    {
+                        GrepSettings.Instance.Set(GrepSettings.Key.ConfirmRemoveMRUItems, false);
+                    }
+                }
+
                 ObservableCollection<MRUViewModel>? list = null;
                 string? itemKey = null;
                 switch (item.ValueType)

@@ -400,6 +400,8 @@ namespace dnGREP.Common
             public const string TreeListViewColumnOrder = "TreeListViewColumnOrder";
             [DefaultValue("22,150,200,200,100,100,100,160,100")]
             public const string TreeListViewColumnWidths = "TreeListViewColumnWidths";
+            [DefaultValue(true)]
+            public const string ConfirmRemoveMRUItems = "ConfirmRemoveMRUItems";
         }
 
         public static class ObsoleteKey

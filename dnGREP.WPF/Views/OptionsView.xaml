@@ -1007,6 +1007,8 @@
 
                 <GroupBox Header="{l:Loc Key='Options_HistoryLists'}">
                     <StackPanel>
+                        <CheckBox Margin="3" Content="{l:Loc Key='Options_ConfirmWhenRemovingItemsFromHistoryLists'}"
+                                  IsChecked="{Binding ConfirmRemoveMRUItems}" />
                         <StackPanel Orientation="Horizontal">
                             <TextBox Margin="3,0"
                                      Text="{Binding MaxPathBookmarks, UpdateSourceTrigger=PropertyChanged}"

@@ -4632,4 +4632,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Error message</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
+  <data name="Options_ConfirmWhenRemovingItemsFromHistoryLists" xml:space="preserve">
+    <value>Confirm when removing items from history lists</value>
+    <comment>Options dialog, confirm remove checkbox label</comment>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_DoNotAskMeAgainWhenRemovingRecentItems" xml:space="preserve">
+    <value>Do not ask me again when removing recent items</value>
+    <comment>Message box text for: history list do not ask again checkbox</comment>
+  </data>
+  <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
+    <value>Remove item "{0}" from this list?</value>
+    <comment>Message box text for: Remove from history list message: {0} is the item to remove</comment>
+  </data>
 </root>
