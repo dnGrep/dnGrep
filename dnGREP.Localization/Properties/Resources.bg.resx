@@ -4493,4 +4493,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_Remove" xml:space="preserve">
     <value>Премахване</value>
   </data>
+  <data name="Options_ConfirmWhenRemovingItemsFromHistoryLists" xml:space="preserve">
+    <value>Потвърждаване при премахване на елементи от историята</value>
+  </data>
+  <data name="MessageBox_DoNotAskMeAgainWhenRemovingRecentItems" xml:space="preserve">
+    <value>Без повторно питане при премахване на история</value>
+  </data>
+  <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
+    <value>Премахване на елемент „{0}“ от списъка?</value>
+  </data>
 </root>
