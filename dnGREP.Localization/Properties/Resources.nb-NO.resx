@@ -391,7 +391,7 @@
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>_Helt ord</value>
+    <value>_Hele ordet</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
@@ -1239,7 +1239,7 @@
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value>Ressursfilen «{0}» er ikke en .resx-fil.</value>
+    <value>Resources file '{0}', is not a resx file.</value>
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
@@ -1279,7 +1279,7 @@
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>Filmønsteret «{0}» er ikke et gyldig regulært uttrykk:{1}{2}</value>
+    <value>Filmønsteret «{0}» er i</value>
     <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
@@ -2071,7 +2071,7 @@
     <comment>Test window title</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>_Helt ord</value>
+    <value>_Hele ordet</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
@@ -2469,5 +2469,8 @@
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>Treff</value>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
 </root>
