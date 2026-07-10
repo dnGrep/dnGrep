@@ -4487,4 +4487,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_FuzzySearch" xml:space="preserve">
     <value>Размито търсене</value>
   </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>Съобщение за грешка</value>
+  </data>
 </root>

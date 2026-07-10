@@ -61,4 +61,3404 @@
   <data name="ShellMenu_SearchWithDnGrep" xml:space="preserve">
     <value>dnGrep மூலம் தேடுங்கள்</value>
   </data>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>dnGrep பற்றி</value>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>அங்கீகாரங்கள்</value>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>கட்டப்பட்டது</value>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>PDF கோப்புகளை எளிய உரையாக மாற்றுகிறது</value>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>GitHub இல் dnGrep</value>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>கோப்பு முறைமை அட்டவணைப்படுத்தல், கோப்புகளை உடனடியாகக் கண்டறியவும்</value>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>வலைமம் க்கான சாதொபொகு கட்டமைப்பு</value>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>காப்பகக் கோப்புகளைப் படிக்கும் நூலகம்</value>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>.NET க்கான பதிவு கட்டமைப்பு</value>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>7-சிப்பிற்கான .NET நூலகம்</value>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>எழுத்துத் தொகுப்பைக் கண்டறிவதற்கான .NET நூலகம்</value>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>நுண்மென் எக்செல் கோப்புகளைப் படிக்க நெட் லைப்ரரி</value>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>ECMA-376 எண்களை அலச .NET நூலகம்</value>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>வேர்ட் மற்றும் எக்செல் ஆவணங்களுடன் வேலை செய்ய .NET நூலகம்</value>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>.NET WPF உரை திருத்தி கூறு</value>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>பதிப்பு</value>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>தொடர்புடைய கோப்புறைகள்:</value>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>புத்தகக்குறி பெயர்:</value>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>பூலியன் ஆபரேட்டர்கள்</value>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>வழக்கு உணர்திறன் (_a)</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>உள்ளடக்கம்</value>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>புக்மார்க்கில் உள்ளடக்க தேடல் பண்புகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>விளக்கம்:</value>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>புதிய வரியாக புள்ளி</value>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>குறியாக்கம்:</value>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>எல்லாம் குறியீட்டு பணி</value>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>கோப்பு முறை வகை</value>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>கோப்பு சான்று</value>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>புக்மார்க்கில் கோப்பு மூல பண்புகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>கோப்பு வடிப்பான்கள்</value>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>புக்மார்க்கில் கோப்பு வடிகட்டி பண்புகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>குறியீட்டு இணைப்புகளைப் பின்பற்றவும்</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>உதாரணமாக: *.txt;*.xml</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>எடுத்துக்காட்டாக: கோப்பு[0-9]{1,2}\\.txt</value>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>பைனரி கோப்புகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>மறைக்கப்பட்ட கோப்புறைகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>துணைக் கோப்புறைகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>அதிகபட்ச ஆழம்</value>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_மல்டிலைன்</value>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>விலக்க வேண்டிய வடிவங்கள்:</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>பொருந்தக்கூடிய வடிவங்கள்:</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>காடு அட்டை</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>எல்லாம்</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு</value>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>இதனுடன் மாற்றவும்:</value>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>தேட:</value>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>archives இல் தேடவும்</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>பைட்</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>எளிய உரை தேடல்</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>பைட் தேடல்: கோப்பை பைனரியாகப் படிக்கவும் மற்றும் பைட்டுகளை எக்சாடெசிமல் இலக்கங்களாகத் தேடவும்: 68 65 78 20</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு தேடல்</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_உரை</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_எக்ச்பாத்</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath தேடல் (XML ஆவணங்களுக்கு மட்டும்)</value>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>ரிமோட் முகில் ச்டோரேச் கோப்புகளைத் தவிர்க்கவும்</value>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>இந்த புத்தகக்குறி ஏற்கனவே உள்ளது</value>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>புத்தகக்குறி விவரங்கள்</value>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>தேடல் வகை</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>.gitignore ஐப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>கோப்புகளை வடிகட்ட .gitignore ஐப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_முழு சொல்</value>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_சேர்</value>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>மூடு (_C)</value>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_நீக்கு</value>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>விவரம்</value>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>நகல்</value>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>தொகு (_E)</value>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>கோப்பு முறை</value>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>வடிகட்டி:</value>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>கீழே நகர்த்தவும்</value>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>கீழே நகர்த்தவும்</value>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>மேலே நகர்த்தவும்</value>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>மேலே செல்லவும்</value>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>பெயர்</value>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>பிற பண்புகள்</value>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>உடன் மாற்றவும்</value>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>தேடுங்கள்</value>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>பிரிவுகள்</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>கேச் சென்சிட்டிவ்</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>அதிகபட்ச கோப்புறை ஆழம்: {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>பல வரி</value>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>பைனரி இல்லை</value>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>மறைக்கப்படவில்லை</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>துணை கோப்புறைகள் இல்லை</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>குறியீட்டு இணைப்புகள் இல்லை</value>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>காப்பகங்களில் தேடவும்</value>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>முழு சொல்</value>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>புக்மார்க்குகள்</value>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>வகை</value>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_பயன்படுத்தவும்</value>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>வாதங்கள்:</value>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [உண்மை/தவறு] 
+-போ [உண்மை/தவறு] 
+-பூலியன் ஆபரேட்டர்கள் [உண்மை/தவறு] 
+பூலியன் ஆபரேட்டர்கள் தேடல் கொடியை அமைக்கிறது - சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [உண்மை/தவறு] 
+-cs [உண்மை/தவறு] 
+-கேச் சென்சிடிவ் [உண்மை/தவறு] 
+கேச்-சென்சிட்டிவ் தேடல் கொடியை அமைக்கிறது - சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath] 
+-csv [filePath] 
+தேடல் முடிந்ததும் முடிவுகள் கோப்பை காபிம வடிவத்தில் உருவாக்கவும்.</value>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>குறிப்பிடப்படாத எந்த வாதங்களும் கடைசியாக சேமிக்கப்பட்ட பயனர் அமைப்புகளுக்கு இயல்புநிலையாக இருக்கும்.</value>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [உண்மை/தவறு] 
+-dn [உண்மை/தவறு] 
+-dotAsNewline [உண்மை/தவறு] 
+புள்ளியை புதிய வரி தேடல் கொடியாக அமைக்கிறது - சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [வாதங்கள்] 
+கீழே உள்ள பட்டியலிலிருந்து வாதங்களின் கலவையைப் பயன்படுத்துதல். 
+எடுத்துக்காட்டு: 
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st வழக்கவெளி</value>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [கோப்புறை பாதை] [தேடல்] 
+கொடிகள் இல்லாமல் ஒன்று அல்லது இரண்டு வாதங்கள்: முதல் உரையாடல் தேட வேண்டிய கோப்புறை, இரண்டாவது தேடுவதற்கான வழக்கமான வெளிப்பாடு. 
+எடுத்துக்காட்டு: 
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x 
+-x 
+- வெளியேறு 
+கட்டளை வரி செயல்பாடுகள் முடிந்ததும் dnGrep இலிருந்து வெளியேறவும்.</value>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [உண்மை/தவறு] 
+-fi [உண்மை/தவறு] 
+-கோப்புத் செய்தி [உண்மை/தவறு] 
+அறிக்கை வெளியீட்டில் கோப்பு மற்றும் வரி தகவலைச் சேர்க்க கொடியை அமைக்கிறது - உண்மை அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [கோப்புறை பாதை] 
+-f [கோப்புறை பாதை] 
+-கோப்புறை [கோப்புப்பாதை] 
+தேடுவதற்கான கோப்புறை பாதையை அமைக்கிறது. கோப்புறை பாதைகளின் கமா அல்லது அரைப்புள்ளியால் பிரிக்கப்பட்ட பட்டியலாக இருக்கலாம்.</value>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep: உரை கோப்புகள், வேர்ட் மற்றும் எக்செல் ஆவணங்கள், PDFகள் மற்றும் ஆவணங்கள் மூலம் உரை, வழக்கமான வெளிப்பாடு, XPath மற்றும் ஒலிப்பு வினவல்களைப் பயன்படுத்தி தேடவும்.</value>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/செப் [பிரிப்பான் எழுத்து அல்லது உரை] 
+-செப் [பிரிப்பான் எழுத்து அல்லது உரை] 
+-listItemSeparator [பிரிப்பான் எழுத்து அல்லது உரை] 
+அறிக்கை வெளியீட்டில் ஒரு வரியில் பட்டியல் உருப்படிகளை பிரிக்க எழுத்து அல்லது சரத்தை அமைக்கிறது.</value>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/மிலி [உண்மை/தவறு] 
+-ml [உண்மை/தவறு] 
+-பல வரி [உண்மை/தவறு] 
+மல்டிலைன் தேடல் கொடியை அமைக்கிறது - சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/பை [முறை] 
+-பை [முறை] 
+-பாதை புறக்கணிக்க [முறை] 
+தேடல் பாதையில் கோப்புகள் அல்லது கோப்புறைகளை விலக்க கோப்பு அல்லது கோப்பகத்தின் பெயர் வடிவத்தை அமைக்கிறது. கமா அல்லது அரைப்புள்ளியால் பிரிக்கப்பட்ட வடிவங்களின் பட்டியலாக இருக்கலாம்.</value>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [முறை] 
+-pm [முறை] 
+-pathToMatch [முறை] 
+தேடல் பாதையில் கோப்புகளை பொருத்த கோப்பு பெயர் வடிவத்தை அமைக்கிறது. கமா அல்லது அரைப்புள்ளியால் பிரிக்கப்பட்ட வடிவங்களின் பட்டியலாக இருக்கலாம்.</value>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [வகை] 
+-pt [வகை] 
+-வடிவ வகை [வகை] 
+பொருத்தம் மற்றும் புறக்கணிக்கும் வடிவத்தை அமைக்கிறது – இதில் ஒன்றாக இருக்க வேண்டும்: "விண்மீன்" (வைல்டு கார்டு), "வழக்கவெளி" (வழக்கமான வெளிப்பாடு) அல்லது "எல்லாம்" (எல்லாவற்றையும் தேடும் கருவி நிறுவப்பட்டிருந்தால்).</value>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [filePath] 
+-rpt [filePath] 
+-அறிக்கை [filePath] 
+தேடல் முடிந்ததும் அறிக்கை வடிவத்தில் முடிவுகள் கோப்பை உருவாக்கவும்.</value>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [பயன்முறை] 
+-rm [பயன்முறை] 
+-reportMode [mode] 
+வழக்கமான வெளிப்பாடு அறிக்கைகளுக்கான அறிக்கை வெளியீட்டு பயன்முறையை அமைக்கிறது - இதில் ஒன்றாக இருக்க வேண்டும்: "FullLine", "Matches" அல்லது "Groups".</value>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey] 
+-sc [scriptKey] 
+-ச்கிரிப்ட் [scriptKey] 
+ச்கிரிப்ட் விசையால் அடையாளம் காணப்பட்ட ச்கிரிப்டை இயக்குகிறது.</value>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [தேடு] 
+-கள் [தேடு] 
+-Search க்கு [search For] கோப்புகளின் தொகுப்பிற்குள் தேட பேட்டர்ன் அல்லது டெக்ச்ட் அமைக்கிறது. இந்த வாதத்தை அமைக்கும்போது, தேடல் தானாகவே இயங்கும்.</value>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [வகை] 
+-st [வகை] 
+-தேடல் வகை [வகை] 
+தேடலின் வகையை அமைக்கிறது – இதில் ஒன்றாக இருக்க வேண்டும்: "PlainText", "Regex" (வழக்கமான வெளிப்பாடு), "XPath" அல்லது "Fuzzy".</value>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [உண்மை/தவறு] 
+-sl [உண்மை/தவறு] 
+-தனி வரிகள் [உண்மை/தவறு] 
+வழக்கமான வெளிப்பாடு அறிக்கை வெளியீட்டில் ஒவ்வொரு போட்டி அல்லது குழுவையும் ஒரு தனி வரியில் வெளியிட கொடியை அமைக்கிறது - சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [filePath] 
+-txt [filePath] 
+-உரை [கோப்பு பாதை] 
+தேடல் முடிந்ததும் உரை வடிவத்தில் முடிவுகள் கோப்பை உருவாக்கவும்.</value>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/டிரிம் [உண்மை/தவறு] 
+-டிரிம் [உண்மை/தவறு] 
+-டிரிம் வைட்ச்பேச் [True/False] அறிக்கை வெளியீட்டில் இடைவெளியை ஒழுங்கமைக்க கொடியை அமைக்கவும் - சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/நோக்கம் [ச்கோப்] 
+-ச்கோப் [ச்கோப்] 
+-தனித்துவ நோக்கம் [நோக்கம்] 
+வழக்கமான வெளிப்பாடு அறிக்கை வெளியீட்டில் தனிப்பட்ட மதிப்புகளின் நோக்கத்தை அமைக்க கொடியை அமைக்கிறது – இதில் ஒன்றாக இருக்க வேண்டும்: "உலகளாவிய" அல்லது "PerFile".</value>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/தனித்துவம் [உண்மை/தவறு] 
+-தனித்துவம் [உண்மை/தவறு] 
+- தனித்துவமான மதிப்புகள் [உண்மை/தவறு] 
+வழக்கமான வெளிப்பாடு அறிக்கை வெளியீட்டில் தனிப்பட்ட பொருத்தம் அல்லது குழு மதிப்புகளை வெளியிட கொடியை அமைக்கிறது - சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>பயன்பாடு:</value>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>பதிப்பு {0} ஆனது {1} இல் கட்டப்பட்டது</value>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/www [உண்மை/தவறு] 
+-o [உண்மை/தவறு] 
+-wholeWord [True/False] முழு சொல் தேடல் கொடியை அமைக்கிறது – சரி அல்லது தவறு.</value>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>dnGrep உதவி</value>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>ஒன்று அல்லது அதற்கு மேற்பட்ட வாதங்கள் செல்லாது.</value>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>புக்மார்க்குகளில் தேடல் வடிவத்தைச் சேர்க்கவும்</value>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>அனைத்து தேதிகளும்</value>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>அனைத்து அளவுகள்</value>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>கோப்புறையுடன் புத்தகக்குறியை இணைக்கவும்</value>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>மாற்றப்பட்ட தேதி:</value>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>குறியாக்கம்:</value>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>கோப்பு:</value>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>அளவு:</value>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>தட்டச்சு:</value>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>தானியங்கு நிலை</value>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>பூலியன் ஆபரேட்டர்கள்</value>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>கோப்புறை அல்லது கோப்புகளை உலாவுக</value>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_ரத்துசெய்</value>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>குழு தேடலைப் பிடிக்கவும்</value>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>வழக்கு உணர்திறன் (_a)</value>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>முடிவுகள் மரத்தின் சூம் அளவை மாற்றுகிறது</value>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>புத்தகக்குறியை அழிக்கவும்</value>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>'AND' அல்லது 'OR' ஐப் பயன்படுத்தி பல தேடல் வடிவங்களை இணைக்கவும்</value>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>பிறகு</value>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>முன் மற்றும்</value>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>சூழல் வரி மாற்றங்கள் அடுத்த தேடலில் பயன்படுத்தப்படும்</value>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>சூழல் வரிகளைக் காட்டு</value>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>உருவாக்கப்பட்டது</value>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>இருந்து</value>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>Past</value>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>மணி</value>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>பெறுநர்</value>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>கப்பல் கூடம் கீழே</value>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>வலதுபுறம் இணைக்கவும்</value>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>புதிய வரியாக புள்ளி</value>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>காலி</value>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>குறியாக்கம்:</value>
+  </data>
+  <data name="Main_EncodingAutoDetection" xml:space="preserve">
+    <value>தானியங்கு கண்டறிதல் (இயல்புநிலை)</value>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>எல்லாம் குறியீட்டு பணி</value>
+  </data>
+  <data name="Main_EverythingSearch" xml:space="preserve">
+    <value>அனைத்து தேடல்:</value>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>தாள் [{0}]</value>
+  </data>
+  <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>கோப்புகளை வகை மற்றும் கோப்புறைகளை பெயரால் விலக்கவும்</value>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>அனைத்து கோப்புகள்</value>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>உருவாக்கப்பட்ட தேதி மூலம்</value>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>மாற்றியமைக்கப்பட்ட தேதியின்படி</value>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>அளவு மூலம்</value>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>அதிகபட்ச கோப்புறை ஆழம்: {0}</value>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>பைனரி இல்லை</value>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>மறைக்கப்படவில்லை</value>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>துணை கோப்புறைகள் இல்லை</value>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>குறியீட்டு இணைப்புகள் இல்லை</value>
+  </data>
+  <data name="Main_Folder" xml:space="preserve">
+    <value>F_older:</value>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>குறியீட்டு இணைப்புகளைப் பின்பற்றவும்</value>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>உதாரணமாக: *.txt;*.xml</value>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>எடுத்துக்காட்டாக: கோப்பு[0-9]{1,2}\\.txt</value>
+  </data>
+  <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
+    <value>நாள் தொடக்கத்தில் இருந்து</value>
+  </data>
+  <data name="Main_HideResultOptions" xml:space="preserve">
+    <value>முடிவு விருப்பங்களை மறை</value>
+  </data>
+  <data name="Main_HighlightGroups" xml:space="preserve">
+    <value>குழுக்களை முன்னிலைப்படுத்தவும்</value>
+  </data>
+  <data name="Main_HighlightMatches" xml:space="preserve">
+    <value>போட்டிகளை முன்னிலைப்படுத்தவும்</value>
+  </data>
+  <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு குழுக்களை முன்னிலைப்படுத்தவும். மாற்றங்கள் அடுத்த தேடலில் பயன்படுத்தப்படும்.</value>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>பைனரி கோப்புகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
+    <value>பெயர் அல்லது வகையின்படி கோப்புகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>மறைக்கப்பட்ட கோப்புறைகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>துணைக் கோப்புறைகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>அதிகபட்ச ஆழம்</value>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>முடிவுகளை அதிகரிக்கவும் (F7)</value>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>_About</value>
+  </data>
+  <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
+    <value>_dnGrep பற்றி…</value>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>பயன்பாடு _தரவு</value>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>புதுப்பிப்புகளைச் சரிபார்க்கவும்</value>
+  </data>
+  <data name="Main_Menu_About_Help" xml:space="preserve">
+    <value>உதவி (_H)</value>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>_புக்மார்க்குகள்…</value>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>ச்கிரிப்டை நீக்கறல்</value>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>ச்கிரிப்டைத் திருத்து…</value>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>புதிய ச்கிரிப்ட்…</value>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>_விருப்பங்கள்…</value>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>தனிப்பயனாக்கு</value>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>ச்கிரிப்டுகள்</value>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Setting_gs</value>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>_செயல்தவிர்</value>
+  </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>மாற்றியமைக்கப்பட்ட</value>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>மோர்_இ…</value>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>மேலும் (_M)</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>கோப்பு பெயர்களை நகலெடுக்கவும்</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>கோப்புகளை நகலெடு…</value>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>முடிவுகளை நகலெடுக்கவும்</value>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>கோப்புகளை நீக்கு…</value>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>கோப்புகளை நகர்த்தவும்…</value>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>விருப்பங்களைப் புகாரளி…</value>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>காபிம முடிவுகள்</value>
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value>அறிக்கை</value>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>உரை முடிவுகள்</value>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>முடிவுகளைச் சேமிக்கவும்</value>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_மல்டிலைன்</value>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>பெறுநர்</value>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>விலக்க வேண்டிய வடிவங்கள்:</value>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>பொருந்தக்கூடிய வடிவங்கள்:</value>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>காடு அட்டை</value>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>எல்லாம்</value>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு</value>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>ச்லைடு {0}</value>
+  </data>
+  <data name="Main_PreviewFile" xml:space="preserve">
+    <value>முன்_பார்வை கோப்பு</value>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>புத்தகக்குறி சங்கத்திலிருந்து கோப்புறையை அகற்று</value>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>மறுசீரமைப்பு (_R)</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>மாற்றுவதற்கு பொருத்தங்கள் இல்லை</value>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>முடிவுகளில் எழுதக்கூடிய கோப்புகள் இல்லை</value>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>பூலியன் ஆபரேட்டர்களைப் பயன்படுத்தி உரைத் தேடலை மட்டும் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>தேடல் அளவுருக்கள் மாற்றப்பட்டுள்ளன</value>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>இதனுடன் மறு_பொருத்தம்:</value>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>காபிம (கமாவால் பிரிக்கப்பட்டது)</value>
+  </data>
+  <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
+    <value>அறிக்கை வடிவம்</value>
+  </data>
+  <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
+    <value>உரை கோப்பு</value>
+  </data>
+  <data name="Main_ResetOptions" xml:space="preserve">
+    <value>வடிப்பான்களை மீட்டமைக்கவும்</value>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>முடிவுகளை மீட்டமை (F7)</value>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>கூடுதல் பொருத்தங்கள்:</value>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value>(வரியின் முடிவில்)</value>
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value>{0} நிலையில்</value>
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value>…(+{0:n0} எழுத்துகள்)</value>
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} போட்டிகள்)</value>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} {2} வரிகளில் பொருந்துகிறது)</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value>பொருத்தம் {0}{1}{2}</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value>பொருத்தம் {0}{1}குழு {2}: {3}</value>
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, +{0} மேலும் பொருத்தங்கள்</value>
+  </data>
+  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
+    <value>[படிக்க மட்டும்]</value>
+  </data>
+  <data name="Main_ResultsHeader_Name" xml:space="preserve">
+    <value>பெயர்</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>தகவல்</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>பாதை</value>
+  </data>
+  <data name="Main_ResultsHeader_ReadOnly" xml:space="preserve">
+    <value>படிக்க மட்டும்</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>அளவு</value>
+  </data>
+  <data name="Main_ResultsHeader_Type" xml:space="preserve">
+    <value>வகை</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>தேதி மாற்றப்பட்டது</value>
+  </data>
+  <data name="Main_ResultsHeader_Matches" xml:space="preserve">
+    <value>போட்டிகள்</value>
+  </data>
+  <data name="Main_Results_CollapseAll" xml:space="preserve">
+    <value>அனைத்தையும் சுருக்கவும்</value>
+  </data>
+  <data name="Main_Results_CompareFiles" xml:space="preserve">
+    <value>கோப்புகளை ஒப்பிடுக</value>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>கோப்பு பெயர்களை நகலெடுக்கவும்</value>
+  </data>
+  <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
+    <value>முழு கோப்பு பாதைகளையும் நகலெடுக்கவும்</value>
+  </data>
+  <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
+    <value>உரையின் வரிகளை நகலெடுக்கவும்</value>
+  </data>
+  <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
+    <value>முடிவுகளிலிருந்து விலக்கு</value>
+  </data>
+  <data name="Main_Results_ExpandAll" xml:space="preserve">
+    <value>அனைத்தையும் விரிவாக்கு</value>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>எழுதக்கூடியதாக ஆக்குங்கள்</value>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>கோப்புகளை மறுசுழற்சி தொட்டிக்கு நகர்த்தவும்</value>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>அடுத்த கோப்பு</value>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>அடுத்த போட்டி</value>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>திற</value>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>அடங்கிய கோப்புறையைத் திறக்கவும்</value>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>தனிப்பயன் எடிட்டருடன் திறக்கவும்</value>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>முந்தைய கோப்பு</value>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>முந்தைய போட்டி</value>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>கோப்பை மறுபெயரிடுங்கள்</value>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>பெரிதாக்கு மீட்டமைக்கவும்</value>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>எக்ச்ப்ளோரர் மெனுவைக் காட்டு</value>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>கோப்பு பண்புகளைக் காட்டு</value>
+  </data>
+  <data name="Main_SavingResultsToFile" xml:space="preserve">
+    <value>கோப்பில் முடிவுகளைச் சேமிக்கிறது…</value>
+  </data>
+  <data name="Main_SearchButton" xml:space="preserve">
+    <value>தேடல் (_S)</value>
+  </data>
+  <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>பல இழைகளில் கோப்புகளைத் தேடுங்கள்</value>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>தேடு:</value>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>தேடல்</value>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>archives இல் தேடவும்</value>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>தேடவும்</value>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>தேடல் முடிவுகள்</value>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>paralle_l தேடு</value>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>பைட்</value>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>எளிய உரை தேடல்</value>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>பைட் தேடல்: கோப்பை பைனரியாகப் படிக்கவும் மற்றும் பைட்டுகளை எக்சாடெசிமல் இலக்கங்களாகத் தேடவும்: 68 65 78 20</value>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு</value>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு தேடல்</value>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_உரை</value>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_எக்ச்பாத்</value>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath தேடல் (XML ஆவணங்களுக்கு மட்டும்)</value>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>ஒரு தேதியைத் தேர்ந்தெடுக்கவும்</value>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>முடிவு விருப்பங்களைக் காட்டு</value>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>அளவு உள்ளது</value>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>கேபி</value>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>பெறுநர்</value>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>ரிமோட் முகில் ச்டோரேச் கோப்புகளைத் தவிர்க்கவும்</value>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>வரிசைப்படுத்து</value>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>ஏறுதல்</value>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>இறங்கு</value>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>கோப்பு பெயர் மட்டும்</value>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>கோப்பு அளவு</value>
+  </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>கோப்பு வகை மற்றும் பெயர்</value>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>கடைசியாக எழுதும் நேரம்</value>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>போட்டி எண்ணிக்கை</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>பாதை மற்றும் கோப்பு பெயர், அகலம்-முதல்</value>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>பாதை மற்றும் கோப்பு பெயர், ஆழம்-முதல்</value>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>{0} விடுபட்ட கோப்புகள் விலக்கப்பட்டுள்ளன.</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>மாற்றீடு ரத்து செய்யப்பட்டது</value>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>மாற்றியமைக்கப்பட்டது - {0} கோப்புகளில் உரை மாற்றப்பட்டது.</value>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>மாற்ற முடியவில்லை</value>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>மாற்றுகிறது…</value>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>தேடல் ரத்து செய்யப்பட்டது</value>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>தேடல் ரத்துசெய்யப்பட்டது அல்லது தோல்வியடைந்தது</value>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>{0} இல் தேடல் முடிந்தது – {1} பொருத்தங்கள் {2} தேடப்பட்ட {3} கோப்புகளில் காணப்பட்டன.</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>{0} கோப்புகளைத் தேடினேன், பொருந்தக்கூடிய {1} கோப்புகள் கிடைத்தன.</value>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>{0} கோப்புகளைத் தேடியது, {1} பொருந்தக்கூடிய கோப்புகள் - செயலாக்கப்படுகிறது {2}</value>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>தேடுகிறது…</value>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>.gitignore ஐத் தேடுகிறது</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>ஆன்லைனில் போட்டி எண்ணிக்கை</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>கோப்பில் பொருத்த எண்/ பொருத்த எண்ணிக்கை</value>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>போட்டி எண்/ஒட்டுமொத்த போட்டி எண்ணிக்கை</value>
+  </data>
+  <data name="Main_StopAfterFirstMatch" xml:space="preserve">
+    <value>முதல் போட்டிக்குப் பிறகு நிறுத்துங்கள்</value>
+  </data>
+  <data name="Main_TestExpression" xml:space="preserve">
+    <value>சோதனை வெளிப்பாடு</value>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>through the end of the நாள்</value>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>'தேடல்' வடிவத்தில் 'பொருத்தத்திற்கான வடிவங்கள்' என்பதிலிருந்து பிடிப்பு குழுக்களைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>.gitignore ஐப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>கோப்புகளை வடிகட்ட .gitignore ஐப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>பூலியன் வெளிப்பாடு அறியப்படாத டோக்கனைக் கொண்டுள்ளது</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>பூலியன் வெளிப்பாடு அறியப்படாத பிழை உள்ளது</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>பூலியன் வெளிப்பாடு பொருந்தாத அடைப்புக்குறிகளைக் கொண்டுள்ளது</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>பூலியன் எக்ச்பிரசனில் பூலியன் ஆபரேட்டர் இல்லை</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>பூலியன் வெளிப்பாடு ஒரு தேடல் முறையைக் காணவில்லை</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>பூலியன் வெளிப்பாடு தவறானது</value>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>பூலியன் வெளிப்பாடு சரி</value>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>பைட் சரம் செல்லாது!</value>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>பைட் சரம் சரி</value>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு செல்லாது!</value>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு சரி</value>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>XPath தவறானது!</value>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>XPath சரி</value>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_முழு சொல்</value>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>"{1}" இல் {0} – dnGrep</value>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>உரையை மடக்கு</value>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>பெரிதாக்கு:</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>தொடரவா?</value>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>தேடல் வடிவத்தை வெற்று சரத்துடன் மாற்றவா?</value>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>"விருப்பங்கள்..." வழியாக எடிட்டர் பாதையை சரிபார்க்கவும்.</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>இந்த புத்தகக்குறியை அழிப்பது அந்த புக்மார்க்கும் அழிக்கப்படும்.</value>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>இந்த புத்தகக்குறியை அழிப்பது அந்த புக்மார்க்குகளையும் நீக்குகிறது.</value>
+  </data>
+  <data name="MessageBox_CopyFiles" xml:space="preserve">
+    <value>கோப்புகளை நகலெடுக்கவும்</value>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>'{0}' ஆதாரக் கோப்பை ஏற்ற முடியவில்லை: </value>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>'{0}' கருப்பொருள் ஏற்ற முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>{0} கோப்புகள் நகலெடுக்கப்பட்டன.</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} கோப்புகள் நீக்கப்பட்டன.</value>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>{0} கோப்புகள் நகர்த்தப்பட்டன.</value>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>தனிப்பயன் திருத்தி மூலம் கோப்பைத் திறக்க முடியவில்லை.</value>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>அதற்கு பதிலாக இயல்புநிலை இயந்திரம் பயன்படுத்தப்பட்டது.</value>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>கோப்புகளை நீக்கு</value>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep புதுப்பித்த நிலையில் உள்ளது.</value>
+  </data>
+  <data name="MessageBox_DoNotAskAgain" xml:space="preserve">
+    <value>மீண்டும் கேட்காதே</value>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>தொடரவா?</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>பிழை: </value>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>கோப்பை திறக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>இடைநிலைப்பலகை உரையை அமைக்க முடியவில்லை. இடைநிலைப்பலகை பூட்டப்பட்டுள்ளது</value>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>காப்பகத்திலிருந்து கோப்பைப் பிரித்தெடுக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>கோப்புகள் மாற்றப்பட்டன.</value>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>தவறான முறை: </value>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>வளங்களை ஏற்றவும்</value>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>கோப்புகளை நகர்த்தவும்</value>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>புதிய பதிப்பு</value>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>dnGrep இன் புதிய பதிப்பு ({0}) பதிவிறக்கம் செய்யக் கிடைக்கிறது.</value>
+  </data>
+  <data name="MessageBox_No" xml:space="preserve">
+    <value>_இல்லை</value>
+  </data>
+  <data name="MessageBox_NoToAll" xml:space="preserve">
+    <value>A_llக்கு இல்லை</value>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>மற்றொரு கோப்பகத்தைத் தேர்ந்தெடுத்து மீண்டும் முயற்சிக்கவும்.</value>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>செருகுநிரல் பிழைகள்</value>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>கோப்பை மறுபெயரிட முடியவில்லை: </value>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>கோப்பை மறுபெயரிடுங்கள்</value>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>மாற்றவும்</value>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>கோப்புகளில் உரையை மாற்ற முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>ஆதாரக் கோப்பு '{0}', resx கோப்பு அல்ல.</value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>சாளரங்கள் எக்ச்ப்ளோரரில் வலது சொடுக்கு பட்டியலில் dnGrep காட்டுவதை மாற்ற dnGrep ஐ நிர்வாகியாக இயக்கவும்</value>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>பயன்பாட்டு தொடக்க விருப்பத்தை மாற்ற dnGrep ஐ நிர்வாகியாக இயக்கவும்.</value>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} இல் சேமிக்கப்படாத மாற்றங்கள் உள்ளன. இப்போது சேமிக்கவா?</value>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} இல் சரிபார்ப்பு பிழைகள் உள்ளன. எப்படியும் சேமிக்கவா?</value>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>தேடலை முடிக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>தேடலை முடிக்கவோ மாற்றவோ முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>'{0}' புலத்தில் உள்ள தேடல் பாதை தவறானது, தேடல் ரத்துசெய்யப்பட்டது.</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>கவனம், சில கோப்புகள் தேர்ந்தெடுக்கப்பட்ட கோப்பகத்தில் அமைந்துள்ளன.</value>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>சில கோப்புகளை மாற்ற முடியாது. நீங்கள் தொடர்ந்தால், இந்தக் கோப்புகள் தவிர்க்கப்படும்.</value>
+  </data>
+  <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>dnGrep இல் ஏதோ உடைந்தது. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>'{0}' கோப்பு ஏற்கனவே {1} இல் உள்ளது. ஏற்கனவே உள்ளதை மேலெழுதவா?</value>
+  </data>
+  <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>'{0}' கோப்பு முறை சரியான வழக்கமான வெளிப்பாடு அல்ல:{1}{2}</value>
+  </data>
+  <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>பின்வரும் செருகுநிரல்களை ஏற்ற முடியவில்லை:</value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>சாளரங்கள் Explorer வலது சொடுக்கு பட்டியலில் dnGrep ஐ சேர்க்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>கோப்புகளை நகலெடுக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>கோப்பை உருவாக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>கோப்புகளை நீக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>கோப்புகளை நகர்த்த முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>தானியங்கு தொடக்கத்தை பதிவு செய்ய முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>சாளரங்கள் Explorer வலது சொடுக்கு மெனுவிலிருந்து dnGrep ஐ அகற்ற முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>கோப்புகளை மீட்டெடுக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>சோதனைச் சாளரத்தைத் திறக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>விருப்பங்களைச் சேமிக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>தானியங்கு தொடக்கத்தை பதிவுநீக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>இந்தப் புத்தகக்குறி மற்ற {0} கோப்புறைகளுடன் இணைக்கப்பட்டுள்ளது.</value>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>இந்த புத்தகக்குறி மற்றொரு கோப்புறையுடன் இணைக்கப்பட்டுள்ளது.</value>
+  </data>
+  <data name="MessageBox_Undo" xml:space="preserve">
+    <value>செயல்தவிர்</value>
+  </data>
+  <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>செயல்தவிர் என்பது மாற்றியமைக்கப்பட்ட கோப்பு(களை) அவற்றின் அசல் நிலைக்கு மாற்றும். மாற்றியமைத்த பிறகு கோப்பு(களில்) செய்யப்பட்ட மாற்றங்கள் மேலெழுதப்படும். தொடரவா?</value>
+  </data>
+  <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
+    <value>சாளரத்தின் தலைப்பு: {0}</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>தொடரவா?</value>
+  </data>
+  <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>இப்போதே பதிவிறக்கவா?</value>
+  </data>
+  <data name="MessageBox_Yes" xml:space="preserve">
+    <value>_ஆம்</value>
+  </data>
+  <data name="MessageBox_YesToAll" xml:space="preserve">
+    <value>_அனைவருக்கும் ஆம்</value>
+  </data>
+  <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>கவனம், தேடலின் போது கிடைத்த கோப்புகளை நீக்க உள்ளீர்கள்.</value>
+  </data>
+  <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>'தேடு' புலம் காலியாக இருக்கும் போது, கோப்புப் பெயர் வடிவத்தைப் பயன்படுத்தி கோப்புகளைப் பட்டியலிடுங்கள்</value>
+  </data>
+  <data name="Options_ApplicationFonts" xml:space="preserve">
+    <value>பயன்பாட்டு எழுத்துருக்கள்</value>
+  </data>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>நீட்டிப்புகள்:</value>
+  </data>
+  <data name="Options_ArchiveOptions" xml:space="preserve">
+    <value>கோப்புகளை காப்பகப்படுத்தவும்</value>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>மீட்டமை</value>
+  </data>
+  <data name="Options_Ask" xml:space="preserve">
+    <value>கேள்</value>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+  </data>
+  <data name="Options_CheckDays" xml:space="preserve">
+    <value>நாட்கள்</value>
+  </data>
+  <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>சாளரங்கள் தொடங்கும் போது புதிய பதிப்புகளைச் சரிபார்க்கவும்</value>
+  </data>
+  <data name="Options_CheckingForUpdates" xml:space="preserve">
+    <value>புதிய பதிப்புகள்</value>
+  </data>
+  <data name="Options_ClearOldSearches" xml:space="preserve">
+    <value>பழைய தேடல்களை அழிக்கவும்</value>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>மூடு (_C)</value>
+  </data>
+  <data name="Options_CompareApplication" xml:space="preserve">
+    <value>பயன்பாட்டை ஒப்பிடுக</value>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>கட்டளை</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>after</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>முன் மற்றும்</value>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>கோப்புகளை நகலெடுக்கவும்</value>
+  </data>
+  <data name="Options_CustomEditor" xml:space="preserve">
+    <value>தனிப்பயன் ஆசிரியர்</value>
+  </data>
+  <data name="Options_CustomEditorHelp" xml:space="preserve">
+    <value>கோப்பின் இருப்பிடத்திற்கு '{0}', பக்க எண்ணுக்கு '{5}', வரி எண்ணுக்கு '{1}', தேடல் முறைக்கு '{2}', வரியில் முதலில் பொருந்திய உரைக்கு '{3}' மற்றும் வரியின் முதல் பொருத்தத்தின் நெடுவரிசை எண்ணுக்கு '{4}' முக்கிய வார்த்தைகளைப் பயன்படுத்தவும்.</value>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>கோப்புகளை நீக்கு</value>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>நிரந்தரமாக நீக்கு</value>
+  </data>
+  <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>கோப்பு பெயர் வடிவத்தைப் பயன்படுத்தி கோப்புகளை பட்டியலிடும்போது கோப்பு குறியாக்கத்தைக் கண்டறியவும்</value>
+  </data>
+  <data name="Options_DialogFontSize" xml:space="preserve">
+    <value>மற்ற சாளரங்கள் எழுத்துரு அளவு</value>
+  </data>
+  <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>dnGrep தேர்ந்தெடுக்கப்பட்ட கோப்புகளை கட்டளை வரியின் முடிவில் சேர்க்கும்.</value>
+  </data>
+  <data name="Options_EditorArguments" xml:space="preserve">
+    <value>வாதங்கள்</value>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>கட்டளை</value>
+  </data>
+  <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
+    <value>ஒவ்வொன்றையும் தானாக சரிபார்க்கவும்</value>
+  </data>
+  <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
+    <value>சாளரங்கள் Explorer வலது சொடுக்கு சூழல் மெனுவிலிருந்து dnGrep ஐத் தொடங்குவதை இயக்குகிறது.</value>
+  </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>கோப்புகள் மற்றும் தனிப்பட்ட பொருத்தங்கள்</value>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>கோப்புகள் மட்டுமே</value>
+  </data>
+  <data name="Options_FollowWindowsTheme" xml:space="preserve">
+    <value>சாளரங்கள் கருப்பொருள் பின்பற்றவும்</value>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>எழுத்துரு குடும்பம்</value>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>dnGrep ஐ மொழிபெயர்க்க உதவவும்.</value>
+  </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>பைட் தேடல் முடிவு வரி நீளம்</value>
+  </data>
+  <data name="Options_HistoryLists" xml:space="preserve">
+    <value>வரலாறு பட்டியல்கள்</value>
+  </data>
+  <data name="Options_InOptionsExpander" xml:space="preserve">
+    <value>விருப்பங்களை விரிவாக்கி</value>
+  </data>
+  <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>கோப்பு வடிகட்டி வரலாறு பட்டியல்களில் காட்டப்படும் உருப்படிகள்</value>
+  </data>
+  <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>பாதை வரலாறு பட்டியலில் காட்டப்படும் உருப்படிகள்</value>
+  </data>
+  <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>தேடலில் காட்டப்படும் உருப்படிகள் மற்றும் வரலாற்றுப் பட்டியல்களை மாற்றவும்</value>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>மொழி</value>
+  </data>
+  <data name="Options_Layout" xml:space="preserve">
+    <value>மனையமைவு</value>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>வரி எண்கள்</value>
+  </data>
+  <data name="Options_LoadFromFile" xml:space="preserve">
+    <value>கோப்பிலிருந்து ஏற்றவும்…</value>
+  </data>
+  <data name="Options_MainFontSize" xml:space="preserve">
+    <value>முக்கிய சாளர எழுத்துரு அளவு</value>
+  </data>
+  <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
+    <value>0 - எல்லாவற்றையும் பொருத்து; 1.0 - சரியான பொருத்தம்</value>
+  </data>
+  <data name="Options_MatchThreshold" xml:space="preserve">
+    <value>போட்டி வரம்பு (0 முதல் 1.0 வரை)</value>
+  </data>
+  <data name="Options_MatchTimeout" xml:space="preserve">
+    <value>போட்டியின் நேரம் முடிந்தது</value>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>தேடலில் முடிவுகள் பேனலை அதிகரிக்கவும்</value>
+  </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>கோப்புகளை நகர்த்தவும்</value>
+  </data>
+  <data name="Options_No" xml:space="preserve">
+    <value>இல்லை</value>
+  </data>
+  <data name="Options_OnFileCopyOverwrite" xml:space="preserve">
+    <value>கோப்பு நகலில், இலக்கு கோப்பு இருக்கும் போது, ஏற்கனவே உள்ள கோப்பை மேலெழுத வேண்டுமா?</value>
+  </data>
+  <data name="Options_OnFileMoveOverwrite" xml:space="preserve">
+    <value>கோப்பு நகர்த்தலில், இலக்கு கோப்பு இருக்கும் போது, ஏற்கனவே உள்ள கோப்பை மேலெழுத வேண்டுமா?</value>
+  </data>
+  <data name="Options_OnMainPanel" xml:space="preserve">
+    <value>முதன்மையான குழுவில்</value>
+  </data>
+  <data name="Options_OptionsTitle" xml:space="preserve">
+    <value>விருப்பங்கள்</value>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>பக்க எண்கள்</value>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>PDF எண் நடை:</value>
+  </data>
+  <data name="Options_PDFToText" xml:space="preserve">
+    <value>உரைக்கு PDF</value>
+  </data>
+  <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>PdfToText.exe கட்டளை வரி விருப்பங்கள்:</value>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>மீட்டமை</value>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>நற்பொருத்தங்கள்</value>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>கோப்பு வடிகட்டி</value>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>முன்னோட்ட சாளரம்</value>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>முடிவு விருப்பங்கள்</value>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>முடிவுகள் மரம்</value>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>தேடல் விருப்பங்கள்</value>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>தேடல் வகை</value>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>சிறப்பு விருப்பங்கள்</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>கட்டுப்பாட்டுத் தெரிவுநிலையைத் தனிப்பயனாக்கு</value>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>தனிப்பயனாக்கம் இயக்கப்பட்டிருக்கும் போது கட்டுப்பாடுகளைக் காட்டு அல்லது மறை</value>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>இயக்கப்பட்டது</value>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>நீட்டிப்புகள்:</value>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>செருகுநிரல்கள்</value>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>மீட்டமை</value>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>மாதிரிக்காட்சியில் எளிய உரையைக் காட்டு</value>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>விருப்பங்களில் உதவிக்கு F1 ஐ அழுத்தவும்</value>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>மொழிபெயர்ப்பாளர்களுக்கான முன்னோட்டக் கருவி</value>
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடுகள்</value>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>ஏற்றவும்</value>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>தற்போதைய கருப்பொருள் கோப்பை மீண்டும் ஏற்றவும்</value>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>சாளர அமைப்பை மாற்றவும்</value>
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value>சாளர எழுத்துரு அளவை மாற்றவும்</value>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>முடிவுகள் எழுத்துரு குடும்பம்</value>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>முடிவுகள் எழுத்துரு அளவு</value>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>தேடல் முடிவுகளில் பயன்படுத்தப்படும் எழுத்துரு, பொதுவாக நிலையான அகல எழுத்துரு</value>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>தேடல் முடிவுகள்</value>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>மாதிரி உரை</value>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>சேமி</value>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>தேர்ந்தெடுக்கப்பட்ட கருப்பொருள்</value>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>மறுசுழற்சி தொட்டிக்கு அனுப்பவும்</value>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>சாளரங்கள் எக்ச்ப்ளோரரின் வலது சொடுக்கு பட்டியலில் dnGrep ஐக் காட்டு</value>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>கோப்பு செய்தி உதவிக்குறிப்புகளைக் காட்டு</value>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>முடிவுகள் பேனலில் கோப்பு பாதையைக் காட்டு</value>
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value>சூழலில் முடிவு வரிகளைக் காட்டு</value>
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value>முடிவுகளைக் காட்டு மரம் விரிவாக்கப்பட்டது</value>
+  </data>
+  <data name="Options_ShowSearchOptions" xml:space="preserve">
+    <value>தேடல் விருப்பங்களைக் காட்டு</value>
+  </data>
+  <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
+    <value>கண்டுபிடிக்கப்பட்ட பொருத்தங்கள் பற்றிய கூடுதல் விவரங்களைக் காட்டு</value>
+  </data>
+  <data name="Options_StartupOptions" xml:space="preserve">
+    <value>தொடங்கு</value>
+  </data>
+  <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
+    <value>வழக்கமான எக்ச்ப்ரெசன் எஞ்சின் நேரம் முடிவதற்குள் வழக்கமான எக்ச்ப்ரெசனைத் தீர்க்க எவ்வளவு நேரம் முயற்சிக்கிறது என்பதை மேட்ச் டைம்அவுட் கட்டுப்படுத்துகிறது. இது செயலாக்க வெளிப்பாடுகள் மற்றும் அதிகப்படியான பின்னடைவு தேவைப்படும் உள்ளீட்டு சரங்களைத் தடுக்கிறது.</value>
+  </data>
+  <data name="Options_Theme" xml:space="preserve">
+    <value>கருப்பொருள்</value>
+  </data>
+  <data name="Options_TimeoutSeconds" xml:space="preserve">
+    <value>நொடிகள்</value>
+  </data>
+  <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>இந்த அமைப்பை மாற்ற, dnGrep ஐ நிர்வாகியாக இயக்கவும்.</value>
+  </data>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value>இயல்பு எழுத்துருவைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Options_WantADifferentLanguage" xml:space="preserve">
+    <value>உங்களுக்கு வேறு மொழி வேண்டுமா?</value>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>கோப்புகளை நீக்கும் போது</value>
+  </data>
+  <data name="Options_Yes" xml:space="preserve">
+    <value>ஆம்</value>
+  </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>டெக்ச்ட் எடிட்டர் சூமை மாற்றுகிறது</value>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>அடுத்ததைக் கண்டுபிடி (F3)</value>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>முந்தையதைக் கண்டறியவும் (Shift+F3)</value>
+  </data>
+  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>அதிகமான பொருத்தங்கள் காணப்பட்டதால், சிறப்பம்சங்களைக் காட்டவில்லை.</value>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>போட்டி வழக்கு</value>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>முழு சொற்களையும் பொருத்தவும்</value>
+  </data>
+  <data name="Preview_PreviewAnyway" xml:space="preserve">
+    <value>எப்படியும் முன்னோட்டம்</value>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>தொடரியல்</value>
+  </data>
+  <data name="Preview_SyntaxNone" xml:space="preserve">
+    <value>எதுவுமில்லை</value>
+  </data>
+  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>இந்தக் கோப்பு பைனரி அல்லது காட்ட முடியாத அளவுக்குப் பெரிதாக உள்ளது.</value>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(உரையாக)</value>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடுகளைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>உரையை மடக்கு</value>
+  </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>பெரிதாக்கு:</value>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>இந்த கோப்பகத்தில் ஏற்கனவே கோப்பு பெயர் உள்ளது</value>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>கோப்பு பெயரில் தவறான எழுத்துகள் உள்ளன</value>
+  </data>
+  <data name="Rename_NewName" xml:space="preserve">
+    <value>புதிய பெயர்:</value>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>கோப்பை மறுபெயரிடுங்கள்</value>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>அனைத்து மாற்றீடுகளையும் நீக்கறல்</value>
+  </data>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value>டெக்ச்ட் எடிட்டர் சூமை மாற்றுகிறது</value>
+  </data>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>பிழை: இது பைனரி கோப்பு</value>
+  </data>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value>கோப்பு {0} of {1}: {2} ({3} {4} வரிகளில் பொருந்துகிறது)</value>
+  </data>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>கோப்புகள்</value>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>முந்தைய கோப்பு மாற்றியமைக்கப்பட்ட தேதியை வைத்திருங்கள்</value>
+  </data>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>மாற்றுவதற்கு இந்தக் கோப்பில் உள்ள எல்லாப் பொருத்தங்களையும் குறிக்கவும்</value>
+  </data>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value>மாற்றத்திற்கான பொருத்தத்தைக் குறிக்கவும்</value>
+  </data>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value>போட்டிகள்</value>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>இந்தக் கோப்பில் அடுத்த பொருத்தத்திற்குச் செல்லவும்</value>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>இந்தக் கோப்பில் முந்தைய பொருத்தத்திற்குச் செல்லவும்</value>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>அடுத்தது (_N)</value>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>அடுத்த _கோப்பு</value>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{1} இல் {0} பொருத்தங்கள் மாற்றாகக் குறிக்கப்பட்டன</value>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>முன்தைய (_P)</value>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>முந்தைய கோப்பு</value>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[படிக்க மட்டும்]</value>
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>எல்லா கோப்புகளிலும் உள்ள அனைத்து பொருத்தங்களையும் மாற்றி, விண்ணப்பிக்கவும்</value>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>மறுசீரமைப்பு (_R)</value>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>எல்லா கோப்புகளிலும் மாற்றவும்</value>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>கோப்பில் மாற்றவும்</value>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>உரை</value>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>தேர்ந்தெடுக்கப்பட்ட போட்டி</value>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>பொருத்தத்தை மாற்றவும்</value>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>போட்டியைத் தவிர்க்கவும்</value>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>மாற்றாகக் குறிக்கப்பட்ட பொருத்தங்களை மாற்றவும்</value>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>இதனுடன் மாற்றவும்:</value>
+  </data>
+  <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>இந்தக் கோப்பில் உள்ள அனைத்து பொருத்தங்களையும் மீட்டமைத்து தவிர்க்கவும்</value>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>தேட:</value>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value>அடுத்த கோப்பைக் காட்டு</value>
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value>முந்தைய கோப்பைக் காட்டு</value>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>எதுவுமில்லை</value>
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>இந்தக் கோப்பில் தனிப்பட்ட மாற்றத்திற்குப் பல பொருத்தங்கள் உள்ளன. அவை அனைத்தையும் மாற்றுவதற்கு 'கோப்பில் மாற்றவும்' என்பதைக் சொடுக்கு செய்யவும்.</value>
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value>உரையை மாற்றவும்</value>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_செயல்தவிர்</value>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value>கோப்பை செயல்தவிர்</value>
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>இந்தப் போட்டியில் குறி மாற்றியதைச் செயல்தவிர்க்கவும்</value>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>சரிபார்க்கும் போது, 'மாற்றியமைக்கப்பட்ட தேதி' மாற்றப்படாது</value>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>உரையை மடக்கு</value>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>பெரிதாக்கு:</value>
+  </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value>கோப்பு பெயர், வரி எண், சரம்</value>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>dnGrep தேடல் முடிவுகள்</value>
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[கோப்பு கிடைக்கவில்லை: அது நீக்கப்பட்டதா அல்லது நகர்த்தப்பட்டதா?]</value>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>{2} கோப்புகளில் {1} வரிகளில் {0} பொருத்தங்கள் உள்ளன</value>
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value>என்பதற்கான பொருத்தங்கள் கண்டறியப்பட்டன </value>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>எந்தப் பொருத்தமும் இல்லை </value>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>{1} வரிகளில் {0} பொருத்தங்கள் உள்ளன:</value>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>குழுக்களை மட்டும் பிடிக்கவும்</value>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>சிஎச்வி</value>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>தனிப்பட்ட மதிப்புகளுக்கு வடிகட்டி</value>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>முழு வரிகள்</value>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>உலகளாவிய</value>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Include file and வரி செய்தி</value>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>போட்டிகள் மட்டுமே</value>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>ஒரு கோப்புக்கு</value>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>உதவிக்கு F1 ஐ அழுத்தவும்</value>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>முன்னோட்டம்:</value>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>அறிக்கை விருப்பங்கள்</value>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>சேமி</value>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>ஒரு வரியில் பல போட்டிகள் அல்லது குழுக்களுக்கான பிரிப்பான்</value>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>ஒவ்வொரு போட்டியையும் அல்லது குழுவையும் தனித்தனி வரியில் காட்டு</value>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>உரை</value>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>இடைவெளியை ஒழுங்கமைக்கவும்</value>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>பூலியன் ஆபரேட்டர்கள்</value>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>கேச் சென்சிட்டிவ்</value>
+  </data>
+  <data name="ReportSummary_DotAsNewline" xml:space="preserve">
+    <value>புதிய வரியாக புள்ளி</value>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>குறியாக்கம்:</value>
+  </data>
+  <data name="ReportSummary_ExcludePattern" xml:space="preserve">
+    <value>கோப்பு வடிவத்தை விலக்கு:</value>
+  </data>
+  <data name="ReportSummary_FilePattern" xml:space="preserve">
+    <value>கோப்பு வடிவத்தைச் சேர்க்கவும்:</value>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>அதிகபட்ச கோப்புறை ஆழம்: {0}</value>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>பல வரி</value>
+  </data>
+  <data name="ReportSummary_NoArchives" xml:space="preserve">
+    <value>காப்பகங்கள் இல்லை</value>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>பைனரி இல்லை</value>
+  </data>
+  <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
+    <value>பைனரி கோப்புகள் இல்லை</value>
+  </data>
+  <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
+    <value>மறைக்கப்பட்ட கோப்புகள் இல்லை</value>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>துணை கோப்புறைகள் இல்லை</value>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>குறியீட்டு இணைப்புகள் இல்லை</value>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>தேட:</value>
+  </data>
+  <data name="ReportSummary_SearchIn" xml:space="preserve">
+    <value>இதில் தேடவும்:</value>
+  </data>
+  <data name="ReportSummary_SearchInResults" xml:space="preserve">
+    <value>முடிவுகளில் தேடவும்</value>
+  </data>
+  <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
+    <value>{0} முதல் {1} கி.பை வரை அளவு</value>
+  </data>
+  <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
+    <value>முதல் போட்டிக்குப் பிறகு நிறுத்துங்கள்</value>
+  </data>
+  <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
+    <value>{0} தேதி {1} முதல் {2} வரை</value>
+  </data>
+  <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
+    <value>கடந்த {2} முதல் {1} மணிநேரத்தில் {0} தேதி</value>
+  </data>
+  <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
+    <value>எல்லாம் குறியீட்டு தேடலைப் பயன்படுத்துதல்</value>
+  </data>
+  <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு கோப்பு வடிவத்தைப் பயன்படுத்துதல்</value>
+  </data>
+  <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
+    <value>{0} தேடலைப் பயன்படுத்துகிறது</value>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>முழு சொல்</value>
+  </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>மூடு (_C)</value>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>_நகல்</value>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>வித்_டி</value>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_நீக்கு</value>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>_வரியை நீக்கு</value>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>தொகு (_E)</value>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>கோப்பு (_F)</value>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>உதவி (_H)</value>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>தேர்ந்தெடுக்கப்பட்ட வரிகளை கீழே நகர்த்தவும்</value>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>தேர்ந்தெடுக்கப்பட்ட வரிகளை மேலே நகர்த்தவும்</value>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_புதிய…</value>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>_ஒட்டு</value>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>_மீண்டும் வெற்றி</value>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_ச்கிரிப்டை இயக்கவும்</value>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_சேமி</value>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>இவ்வாறு சேமி…</value>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_ச்கிரிப்டிங் கட்டளைகள்</value>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>பரிந்துரைக்கவும்</value>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>ச்கிரிப்ட் எடிட்டர்</value>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>கருவிகள் (_T)</value>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_செயல்தவிர்</value>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>யூ_லிடேட்</value>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>சரிபார்த்தல்</value>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>வரி</value>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>செய்தி</value>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>கட்டளை செல்லுபடியாகாது</value>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>ச்கிரிப்ட் கீ கிடைக்கவில்லை</value>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>இலக்கு பெயர் தவறானது</value>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>சரத்திலிருந்து மதிப்பை மாற்ற முடியாது</value>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>மதிப்பை சரியான வகைக்கு மாற்ற முடியவில்லை</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>இந்த கட்டளை சுழிய மதிப்பை அனுமதிக்காது</value>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>இந்த கட்டளைக்கு மதிப்பு அளவுரு தேவையில்லை</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>இந்த கட்டளைக்கு பூலியன் மதிப்பு தேவை</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>இந்த கட்டளைக்கு ஒரு சரம் மதிப்பு தேவை</value>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>இந்த கட்டளைக்கு இலக்கு அளவுரு தேவை</value>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>புத்தககுறி</value>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>புதிய புக்மார்க்கைச் சேர்க்கவும்</value>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>புதிய புக்மார்க்கின் பெயர் அல்லது காலியாக உள்ளது</value>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>தற்போதைய தேடல் கோப்புறையுடன் தொடர்புடைய புதிய புக்மார்க்கைச் சேர்க்கவும்</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>புத்தகக்குறியை அகற்று</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>அகற்ற வேண்டிய புக்மார்க்கின் பெயர் அல்லது தற்போதைய புக்மார்க்கிற்கு காலியாக உள்ளது</value>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>கோப்புறை புத்தகக்குறியை அகற்றவும்</value>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>புத்தகக்குறி அமைப்புகளைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>புக்மார்க்கின் பெயர்</value>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>முடிவுகளில் உள்ள கோப்பு பெயர்களை இடைநிலைப்பலகைக்கு நகலெடுக்கவும்</value>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>முடிவு கோப்புகளை புதிய இடத்திற்கு நகலெடுக்கவும்</value>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>இலக்கு கோப்புறை பாதை</value>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>இடைநிலைப்பலகைக்கு முடிவு உரையை நகலெடுக்கவும்</value>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>முடிவு கோப்புகளை நிரந்தரமாக நீக்கவும்</value>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>அனைத்து சாளரங்களையும் மூடிவிட்டு dnGrep இலிருந்து வெளியேறவும்</value>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>கோப்பு வடிப்பான்கள் பகுதியை விரிவாக்கவும் அல்லது மறைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>முடிவு விருப்பங்கள் பகுதியை விரிவாக்கவும் அல்லது மறைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Import தகவல்கள்</value>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>தற்போதைய ச்கிரிப்ட்டில் மற்றொரு ச்கிரிப்ட்டின் கட்டளைகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>ச்கிரிப்ட்டின் முக்கிய/கோப்பின் பெயர்</value>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>தேடல் முடிவுகள் மரத்தை பெரிதாக்கவும் அல்லது மீட்டமைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>ச்கிரிப்ட் முடிந்ததும் எப்போதும் ச்கிரிப்ட் செய்தி சாளரத்தைக் காட்டு</value>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>முடிவு கோப்புகளை புதிய இடத்திற்கு நகர்த்தவும்</value>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>இலக்கு கோப்புறை பாதை</value>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>கோப்புகளில் பொருத்தங்களை மாற்றவும்</value>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>ஒரு அறிக்கையை எழுதுங்கள்</value>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>அறிக்கைக்கான பாதை மற்றும் கோப்பு பெயர்</value>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>காபிம கோப்பாக முடிவு அறிக்கை</value>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>முழு அறிக்கை</value>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>முடிவு உரை மட்டுமே அறிக்கை</value>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>அறிக்கைக்கான பாதை மற்றும் கோப்பு பெயர்</value>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>கோப்பு வடிப்பான்களை அவற்றின் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>வெளிப்புற கட்டளையை இயக்கவும்</value>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>கட்டளை ச்கிரிப்டை இயக்கவும்</value>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>cmd அல்லது தொகுதி கோப்பின் முழு பாதை மற்றும் கோப்பு பெயர்</value>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>பவர்செல் ச்கிரிப்டை இயக்கவும்</value>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>.ps1 ச்கிரிப்ட் கோப்பின் முழு பாதை மற்றும் கோப்பு பெயர்</value>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>தேடத் தொடங்குங்கள்</value>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>இலக்கு சொத்தின் மதிப்பை அமைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>பூலியன் ஆபரேட்டர்கள்</value>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>குழு தேடலைப் பிடிக்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>கேச் சென்சிட்டிவ்</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>(எண்) பின் சூழல் கோடுகள்</value>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>முன் சூழல் கோடுகள் (எண்)</value>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>புதிய வரியாக புள்ளி</value>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>குறியாக்கம், ஒரு குறியீட்டு பக்க எண்ணாக</value>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>தானியங்கு கண்டறிதலுக்கு குறியீடு பக்க எண் அல்லது -1 ஐ அமைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>தேதி நேரம் 'டு' வடிகட்டி</value>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>திகதி வடிப்பி தேர்வு</value>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>Include கோப்பு செய்தி in report</value>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>Time வீச்சு வடிப்பி தேர்வு</value>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>கோப்பு அளவு வடிகட்டலை இயக்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>தேடல் இடம்: கோப்புறை அல்லது கோப்பு பாதை</value>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>கோப்புறை, கோப்பு பாதை அல்லது கமாவால் பிரிக்கப்பட்ட கோப்புறைகள் அல்லது கோப்புகளின் பட்டியல்</value>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>குறியீட்டு இணைப்புகளைப் பின்பற்றவும்</value>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>குழுக்களை முன்னிலைப்படுத்தவும்</value>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>போட்டிகளை முன்னிலைப்படுத்தவும்</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>தேதி நேரம் 'கடந்த மணிநேரங்கள்' வடிகட்டி</value>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>கடந்த மணிநேரங்களை வடிகட்டி குறைந்த வரம்பு (எண்)</value>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>தேதி நேரம் 'கடந்த மணிநேரங்கள்' வடிகட்டி</value>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>கடந்த மணிநேரங்களை வடிகட்டி மேல் வரம்பு (எண்)</value>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>பைனரி கோப்புகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>மறைக்கப்பட்ட கோப்புறைகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>துணைக் கோப்புறைகளைச் சேர்க்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>ஒரே வரியில் உள்ள உருப்படிகளுக்கு இடையே பிரிப்பான் அறிக்கை</value>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>எழுத்து or எழுத்துக்கள் such அச் comma or comma இடைவெளி</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>அதிகபட்ச துணை கோப்புறை ஆழம்</value>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>கோப்புறை ஆழ வரம்பு (எண்)</value>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>பல வரி</value>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>கோப்பு வடிகட்டி வடிவத்தின் வகை</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>வடிப்பானைத் தவிர்ப்பதற்கான வடிவங்கள்</value>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>சோதனை\\* அல்லது வடிப்பான்களின் பட்டியல் போன்ற கோப்பு வடிகட்டி முறை</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>வடிப்பானைப் பொருத்த வடிவங்கள்</value>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>*.txt அல்லது வடிப்பான்களின் பட்டியல் போன்ற கோப்பு வடிகட்டி வடிவம்</value>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>கோப்பு மாதிரிக்காட்சி</value>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>உடன் மாற்றவும்</value>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>மாற்று உரை அல்லது வெற்று சரம்</value>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>அறிக்கை வெளியீடு அமைப்பு</value>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>முடிவு மரத்திற்கான பெரிதாக்கு நிலை (எண்)</value>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>தேடுங்கள்</value>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>தேடல் முறை அல்லது வெற்று சரம்</value>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>காப்பகங்களில் தேடவும்</value>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>முடிவுகளில் தேடவும்</value>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>இணையாக தேடுங்கள்</value>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>தேடல் வடிவத்தின் வகை</value>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>தனித்தனி வரிகளில் வெளியீட்டைப் புகாரளிக்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>சூழல் வரிகளைக் காட்டு</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>இருந்து அளவு</value>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>அளவு வடிகட்டி குறைந்த வரம்பு (எண்)</value>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>அளவு</value>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>அளவு வடிகட்டி மேல் வரம்பு (எண்)</value>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>ரிமோட் முகில் ச்டோரேச் கோப்புகளைத் தவிர்க்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>திசையை வரிசைப்படுத்தவும்</value>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>வரிசை வகை அமைப்பு</value>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>தேதி நேரம் 'இருந்து' வடிகட்டி</value>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>ISO 8601 அல்லது உள்ளக தேதி நேர வடிவமைப்பைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>முதல் போட்டிக்குப் பிறகு நிறுத்துங்கள்</value>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>அறிக்கையில் இடைவெளியை ஒழுங்கமைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>தனிப்பட்ட மதிப்புகளின் நோக்கத்தைப் புகாரளிக்கவும்: கோப்பு அல்லது அனைத்து கோப்புகள் மூலம்</value>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>தனிப்பட்ட மதிப்புகள் மூலம் அறிக்கையை வடிகட்டவும்</value>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>.gitignore ஐப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>முழு சொல்</value>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>உரையை மடக்கு</value>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>முடிவுகளை வரிசைப்படுத்தவும்</value>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>கடைசி மாற்று செயல்பாட்டை செயல்தவிர்க்கவும்</value>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>வரிசையில்</value>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>கோப்புகளை நகலெடுக்க முடியவில்லை: </value>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>கோப்புகளை நீக்க முடியவில்லை: </value>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>{0} கோப்பு '{1}' கிடைக்கவில்லை</value>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>{0} கோப்பு நீட்டிப்பு {1} ஆக இருக்க வேண்டும்</value>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>கோப்புகளை நகர்த்த முடியவில்லை: </value>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>புதிய ச்கிரிப்ட்</value>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>ரன் கட்டளை பிழையுடன் வெளியேறியது: </value>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>இயக்க கட்டளை செல்லுபடியாகாது</value>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>ச்கிரிப்ட் ரத்து செய்யப்பட்டது</value>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>ச்கிரிப்ட் முடிந்தது</value>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>ச்கிரிப்ட் கோப்புகள்</value>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>ச்கிரிப்ட் செய்திகள்</value>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>பூலியன் ஆபரேட்டர்கள்</value>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>வழக்கு உணர்திறன் (_a)</value>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>மூடு (_C)</value>
+  </data>
+  <data name="Test_CopyToClipboard" xml:space="preserve">
+    <value>இடைநிலைப்பலகைக்கு நகலெடுக்கவும்</value>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>புதிய வரியாக புள்ளி</value>
+  </data>
+  <data name="Test_HighlightGroups" xml:space="preserve">
+    <value>குழுக்களை முன்னிலைப்படுத்தவும்</value>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_மல்டிலைன்</value>
+  </data>
+  <data name="Test_NoMatchesFound" xml:space="preserve">
+    <value>பொருத்தங்கள் எதுவும் இல்லை</value>
+  </data>
+  <data name="Test_ReplaceResult" xml:space="preserve">
+    <value>முடிவை மாற்றவும்:</value>
+  </data>
+  <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>மாற்று உரை தவறான நீகுமொ அல்ல!</value>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>இதனுடன் மாற்றவும்:</value>
+  </data>
+  <data name="Test_SampleInputText" xml:space="preserve">
+    <value>மாதிரி உள்ளீட்டு உரை:</value>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>தேட:</value>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>தேடல்</value>
+  </data>
+  <data name="Test_SearchResult" xml:space="preserve">
+    <value>தேடல் முடிவு:</value>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>பைட்</value>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடு</value>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_உரை</value>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_எக்ச்பாத்</value>
+  </data>
+  <data name="Test_Title" xml:space="preserve">
+    <value>தேர்வு</value>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>_முழு சொல்</value>
+  </data>
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
+    <value>. அனைத்து எழுத்துக்களுக்கும் பொருந்தும்</value>
+  </data>
+  <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
+    <value>\w ஆல்பா எண்களுடன் பொருந்துகிறது</value>
+  </data>
+  <data name="TTA3_MatchesDigits" xml:space="preserve">
+    <value>\d இலக்கங்களுடன் பொருந்துகிறது</value>
+  </data>
+  <data name="TTA4_MatchesSpace" xml:space="preserve">
+    <value>\s இடத்துடன் பொருந்துகிறது</value>
+  </data>
+  <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
+    <value>* எத்தனை எழுத்துகளுடன் பொருந்துகிறது</value>
+  </data>
+  <data name="TTA6_Matches1To3Characters" xml:space="preserve">
+    <value>{1,3} 1 முதல் 3 எழுத்துகளுடன் பொருந்துகிறது</value>
+  </data>
+  <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
+    <value>மேலும் வழக்கமான வெளிப்பாடு வடிவங்களுக்கு F1 ஐ அழுத்தவும்</value>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t தாவலைச் செருகுகிறது, \\r திரும்பச் செருகுகிறது, \\n புதிய வரியைச் செருகுகிறது</value>
+  </data>
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
+    <value>$&amp; வழக்கமான வெளிப்பாடு முழுவதையும் மாற்றுகிறது</value>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3, முதலியன... அடைப்புக்குறிக்குள் பொருத்தப்பட்ட உரையை மாற்று உரையில் செருகும்</value>
+  </data>
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+    <value>$$ ஒரு டாலர் அடையாளத்தை மாற்று உரையில் செருகுகிறது</value>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>மூடு</value>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>இந்த பாப்-அப்பை மீண்டும் முதன்மையான சாளரத்தில் இணைக்கவும்</value>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>அதிகப்படுத்து</value>
+  </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>குறைக்கவும்</value>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>இந்த பேனலை அதன் சொந்த சாளரத்தில் பாப் அவுட் செய்யவும்</value>
+  </data>
+  <data name="Window_RestoreDown" xml:space="preserve">
+    <value>கீழே மீட்டமை</value>
+  </data>
+  <data name="Options_SearchOptions" xml:space="preserve">
+    <value>தேடல் விருப்பங்கள்</value>
+  </data>
+  <data name="Options_MaximumNumberOfParallelSearches" xml:space="preserve">
+    <value>இணையான தேடல்களின் அதிகபட்ச எண்ணிக்கை</value>
+  </data>
+  <data name="Options_NoFixedLimit" xml:space="preserve">
+    <value>நிலையான வரம்பு இல்லை</value>
+  </data>
+  <data name="ScriptHint_env_cmd" xml:space="preserve">
+    <value>சூழல் மாறியை அமைக்கவும்</value>
+  </data>
+  <data name="ScriptHint_env_cmd_value" xml:space="preserve">
+    <value>மாறி=சரம் (ஒரு மாறியை அழிக்க சரம் காலியாக இருக்கலாம்)</value>
+  </data>
+  <data name="ScriptHint_log_cmd" xml:space="preserve">
+    <value>பதிவு கோப்பில் ஒரு சரம் அல்லது கழிந்த நேரத்தை எழுதவும்</value>
+  </data>
+  <data name="ScriptHint_log_cmd_value" xml:space="preserve">
+    <value>ஒரு செய்தி சரம் அல்லது கழிந்த நேரத்தை பதிவு செய்ய 'நேரம்'</value>
+  </data>
+  <data name="TextBox_Command_Cut" xml:space="preserve">
+    <value>வெட்டு</value>
+  </data>
+  <data name="TextBox_Command_Copy" xml:space="preserve">
+    <value>நகலெடு</value>
+  </data>
+  <data name="TextBox_Command_Paste" xml:space="preserve">
+    <value>ஒட்டு</value>
+  </data>
+  <data name="TextBox_Command_MakeUppercase" xml:space="preserve">
+    <value>பெரிய எழுத்தை உருவாக்கவும்</value>
+  </data>
+  <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
+    <value>சிறிய எழுத்தை உருவாக்கவும்</value>
+  </data>
+  <data name="Main_Results_CopyFiles" xml:space="preserve">
+    <value>கோப்புகளை நகலெடு…</value>
+  </data>
+  <data name="Main_Results_MoveFiles" xml:space="preserve">
+    <value>கோப்புகளை நகர்த்தவும்…</value>
+  </data>
+  <data name="Main_Results_DeleteFiles" xml:space="preserve">
+    <value>கோப்புகளை நீக்கு</value>
+  </data>
+  <data name="Main_Status_SearchCanceledIn01MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>{0} இல் தேடல் ரத்துசெய்யப்பட்டது - {3} தேடப்பட்ட கோப்புகளின் {2} கோப்புகளில் {1} பொருத்தங்கள் காணப்பட்டன.</value>
+  </data>
+  <data name="Main_Status_ReplaceCanceledReplacedTextIn0Files" xml:space="preserve">
+    <value>ரத்துசெய்யப்பட்டது - {0} கோப்புகளில் உரை மாற்றப்பட்டது.</value>
+  </data>
+  <data name="Main_ResumeButton" xml:space="preserve">
+    <value>ரெச்யூம்</value>
+  </data>
+  <data name="Main_PauseButton" xml:space="preserve">
+    <value>இடைநிறுத்தம்</value>
+  </data>
+  <data name="Main_Paused" xml:space="preserve">
+    <value>இடைநிறுத்தப்பட்டது</value>
+  </data>
+  <data name="Report_Page" xml:space="preserve">
+    <value>பக்கம்</value>
+  </data>
+  <data name="Main_Results_Tooltip_NotConfigured" xml:space="preserve">
+    <value>கட்டமைக்கப்படவில்லை</value>
+  </data>
+  <data name="Options_PreserveSourceFolderLayout" xml:space="preserve">
+    <value>மூல கோப்புறை அமைப்பைப் பாதுகாக்கவும்</value>
+  </data>
+  <data name="Validation_stringToDouble_IllegalCharacters" xml:space="preserve">
+    <value>சட்டவிரோத பாத்திரங்கள்</value>
+  </data>
+  <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
+    <value>வரம்பில் மதிப்பை உள்ளிடவும்: {0}-{1}.</value>
+  </data>
+  <data name="Validation_stringToDouble_InvalidInputType" xml:space="preserve">
+    <value>செல்லுபடியாகாத input வகை</value>
+  </data>
+  <data name="Main_Filter" xml:space="preserve">
+    <value>வடிகட்டி:</value>
+  </data>
+  <data name="BookmarkDetails_Filter" xml:space="preserve">
+    <value>வடிகட்டி:</value>
+  </data>
+  <data name="Options_ReuseExistingWindow" xml:space="preserve">
+    <value>Reuse existing சாளரம் (single instance) *</value>
+  </data>
+  <data name="Options_RestartRequiredWhenChanged" xml:space="preserve">
+    <value>* மறுதொடக்கம் required when changed</value>
+  </data>
+  <data name="MessageBox_ReplaceInFilesIsRunning" xml:space="preserve">
+    <value>மாற்றவும் in கோப்புகள் is running.</value>
+  </data>
+  <data name="MessageBox_AllowItCompleteOrCancelItBeforeExiting" xml:space="preserve">
+    <value>Allow it complete or நீக்கறல் it before exiting.</value>
+  </data>
+  <data name="MessageBox_AScriptIsRunning" xml:space="preserve">
+    <value>A script is running.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheScriptAndExit" xml:space="preserve">
+    <value>Do you want பெறுநர் நிறுத்து the script and exit?</value>
+  </data>
+  <data name="MessageBox_YesExitAnyway" xml:space="preserve">
+    <value>Yes, exit anyway</value>
+  </data>
+  <data name="MessageBox_DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Do not காட்டு this செய்தி again</value>
+  </data>
+  <data name="MessageBox_TheSearchIsRunning" xml:space="preserve">
+    <value>The தேடல் is running.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToStopTheSearchAndExit" xml:space="preserve">
+    <value>தேடலை நிறுத்திவிட்டு வெளியேற விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="MessageBox_SearchResultsWillBeClearedOnExit" xml:space="preserve">
+    <value>வெளியேறும்போது தேடல் முடிவுகள் அழிக்கப்படும்.</value>
+  </data>
+  <data name="MessageBox_DoYouWantToExit" xml:space="preserve">
+    <value>நீங்கள் வெளியேற விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenScriptIsRunning" xml:space="preserve">
+    <value>ச்கிரிப்ட் இயங்கும் போது வெளியேறும்போது உறுதிப்படுத்தல் கேட்கவும்</value>
+  </data>
+  <data name="Options_Exit" xml:space="preserve">
+    <value>வெளியேறு</value>
+  </data>
+  <data name="Options_AskForConfirmationOnExitWhenSearchRunsLongerThan" xml:space="preserve">
+    <value>தேடல் நீண்ட நேரம் இயங்கும் போது வெளியேறும்போது உறுதிப்படுத்தல் கேட்கவும்</value>
+  </data>
+  <data name="Options_Minutes" xml:space="preserve">
+    <value>நிமிடங்கள்</value>
+  </data>
+  <data name="Error_ErrorOpeningPDFFile" xml:space="preserve">
+    <value>PDF கோப்பை திறப்பதில் பிழை</value>
+  </data>
+  <data name="Error_ErrorOpeningAnOutputFile" xml:space="preserve">
+    <value>வெளியீட்டு கோப்பை திறப்பதில் பிழை</value>
+  </data>
+  <data name="Error_ErrorRelatedToPDFPermissions" xml:space="preserve">
+    <value>PDF அனுமதிகள் தொடர்பான பிழை</value>
+  </data>
+  <data name="Error_OtherError" xml:space="preserve">
+    <value>மற்ற பிழை</value>
+  </data>
+  <data name="Error_PdftotextReturned0Reading1" xml:space="preserve">
+    <value>pdftotext '{0}' ஐப் படித்து '{1}' திரும்பியது</value>
+  </data>
+  <data name="Error_FailedToSearchInsideArchive0" xml:space="preserve">
+    <value>Failed பெறுநர் தேடல் inside archive '{0}'</value>
+  </data>
+  <data name="Error_FailedExtractFile0FromArchive1" xml:space="preserve">
+    <value>'{1}' காப்பகத்திலிருந்து '{0}' கோப்பைப் பிரித்தெடுக்க முடியவில்லை</value>
+  </data>
+  <data name="Error_DocumentReadFailed" xml:space="preserve">
+    <value>ஆவணத்தைப் படிக்க முடியவில்லை</value>
+  </data>
+  <data name="Options_OpenTheWholeArchiveForTheseExtensions" xml:space="preserve">
+    <value>கோப்பு திறந்தவுடன், இந்த நீட்டிப்புகளுக்கான முழு காப்பகத்தையும் திறக்கவும்:</value>
+  </data>
+  <data name="Options_WordDocx" xml:space="preserve">
+    <value>சொல் (docx)</value>
+  </data>
+  <data name="Options_ExtractFootnotes" xml:space="preserve">
+    <value>அடிக்குறிப்புகளைப் பிரித்தெடுக்கவும்</value>
+  </data>
+  <data name="Options_FootnoteReferenceCharacters" xml:space="preserve">
+    <value>அடிக்குறிப்பு குறிப்பு எழுத்துக்கள்:</value>
+  </data>
+  <data name="Options_NotShown" xml:space="preserve">
+    <value>காட்டப்படவில்லை</value>
+  </data>
+  <data name="Options_Superscipt" xml:space="preserve">
+    <value>சூப்பர்ச்கிரிப்ட்</value>
+  </data>
+  <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
+    <value>எல்லா எழுத்துருக்களிலும் ஆதரிக்கப்படாமல் இருக்கலாம்</value>
+  </data>
+  <data name="Options_FullSizeCharacter" xml:space="preserve">
+    <value>முழு அளவு பாத்திரம்</value>
+  </data>
+  <data name="Options_FullSizeCharacterInParenthesis" xml:space="preserve">
+    <value>அடைப்புக்குறிக்குள் முழு அளவு எழுத்து</value>
+  </data>
+  <data name="Options_ExtractHeaders" xml:space="preserve">
+    <value>தலைப்புகளைப் பிரித்தெடுக்கவும்</value>
+  </data>
+  <data name="Options_ExtractFooters" xml:space="preserve">
+    <value>அடிக்குறிப்புகளை பிரித்தெடுக்கவும்</value>
+  </data>
+  <data name="Options_ExtractedHeaderAndFooterPosition" xml:space="preserve">
+    <value>பிரித்தெடுக்கப்பட்ட தலைப்பு மற்றும் அடிக்குறிப்பு நிலை:</value>
+  </data>
+  <data name="Options_SectionStart" xml:space="preserve">
+    <value>பிரிவு துவக்கம்</value>
+  </data>
+  <data name="Options_EndOfDocument" xml:space="preserve">
+    <value>ஆவணத்தின் முடிவு</value>
+  </data>
+  <data name="Options_ExtractComments" xml:space="preserve">
+    <value>கருத்துகளைப் பிரித்தெடுக்கவும்</value>
+  </data>
+  <data name="Options_Subscript" xml:space="preserve">
+    <value>சந்தா</value>
+  </data>
+  <data name="Options_FullSizeNumberInParenthesis" xml:space="preserve">
+    <value>அடைப்புக்குறிக்குள் முழு அளவு எண்</value>
+  </data>
+  <data name="Options_CommentReferenceNumbers" xml:space="preserve">
+    <value>கருத்து குறிப்பு எண்கள்:</value>
+  </data>
+  <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
+    <value>தேடல் பிழைகள் உள்ள கோப்புகளை முடிவுகள் பேனலில் காட்டு</value>
+  </data>
+  <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
+    <value>அனுமதிகள், பூட்டுகள் அல்லது பிழைகள் காரணமாக {0} கோப்புகளைத் தேட முடியவில்லை: விவரங்களுக்கு dnGrep பதிவு கோப்பைப் பார்க்கவும்</value>
+  </data>
+  <data name="Error_ThisPDFFileContainsNoText" xml:space="preserve">
+    <value>இந்த PDF கோப்பில் உரை இல்லை</value>
+  </data>
+  <data name="Error_PdftotextFailedToCreateTextFile" xml:space="preserve">
+    <value>pdftotext உரை கோப்பை உருவாக்க முடியவில்லை</value>
+  </data>
+  <data name="Error_PdftotextReturned0" xml:space="preserve">
+    <value>pdftotext திரும்பிய '{0}'</value>
+  </data>
+  <data name="ScriptHint_copy" xml:space="preserve">
+    <value>வழக்கமான வெளிப்பாடுகளைப் பயன்படுத்தி முடிவு கோப்புகளை நகலெடுத்து மறுபெயரிடவும்</value>
+  </data>
+  <data name="CopyCommand_ErrorPatternIsRequiredForArgument0" xml:space="preserve">
+    <value>பிழை: வாதத்திற்கு வடிவம் தேவை {0}</value>
+  </data>
+  <data name="CopyCommand_ErrorTrueOrFalseIsRequiredForArgument0" xml:space="preserve">
+    <value>பிழை: வாதத்திற்கு சரி அல்லது தவறு தேவை {0}</value>
+  </data>
+  <data name="CopyCommand_ErrorPathIsRequiredForArgument0" xml:space="preserve">
+    <value>பிழை: வாதத்திற்கு பாதை தேவை {0}</value>
+  </data>
+  <data name="CopyCommand_Error0ForArgument1" xml:space="preserve">
+    <value>பிழை: {0} வாதத்திற்கு {1}</value>
+  </data>
+  <data name="CopyCommand_CouldNotCreateDestinationDirectory0" xml:space="preserve">
+    <value>Could not create destination directory: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileExistsAndOverwriteIsFalse0" xml:space="preserve">
+    <value>Destination கோப்பு exists and overwrite is false: '{0}'</value>
+  </data>
+  <data name="CopyCommand_DestinationFileIsTheSameAsTheSourceFile0" xml:space="preserve">
+    <value>இலக்குக் கோப்பு மூலக் கோப்பைப் போலவே உள்ளது: {0}</value>
+  </data>
+  <data name="CopyCommand_Error0ProcessingFile1" xml:space="preserve">
+    <value>'{1}' கோப்பைச் செயலாக்குவதில் பிழை {0}</value>
+  </data>
+  <data name="CopyCommand_Copied0To1" xml:space="preserve">
+    <value>'{0}' ஐ '{1}' க்கு நகலெடுக்கப்பட்டது</value>
+  </data>
+  <data name="Options_CustomEditorEscapeQuotes" xml:space="preserve">
+    <value>'{0}' வாதத்தில் உள்ள எச்கேப் மேற்கோள்கள்</value>
+  </data>
+  <data name="Main_SortMenu_NaturalSortOrder" xml:space="preserve">
+    <value>இயற்கை வரிசை வரிசை</value>
+  </data>
+  <data name="Main_SortMenu_SortDigitsInNumericalOrder" xml:space="preserve">
+    <value>எண்களை எண் வரிசையில் வரிசைப்படுத்தவும்</value>
+  </data>
+  <data name="CopyCommand_TheMatchPatternFailedToMatchFilename0" xml:space="preserve">
+    <value>'{0}' என்ற கோப்பின் பெயரைப் பொருத்த முறை தோல்வியடைந்தது</value>
+  </data>
+  <data name="Main_Results_CurrentLine" xml:space="preserve">
+    <value>தற்போதைய வரி</value>
+  </data>
+  <data name="Options_ShowNavigationButtons" xml:space="preserve">
+    <value>வழிசெலுத்தல் பொத்தான்களைக் காட்டு</value>
+  </data>
+  <data name="Options_ButtonSize" xml:space="preserve">
+    <value>பொத்தான் அளவு:</value>
+  </data>
+  <data name="Options_Small" xml:space="preserve">
+    <value>சிறியது</value>
+  </data>
+  <data name="Options_Medium" xml:space="preserve">
+    <value>சராசரி</value>
+  </data>
+  <data name="Options_Large" xml:space="preserve">
+    <value>பெரியது</value>
+  </data>
+  <data name="Options_PanelPosition" xml:space="preserve">
+    <value>பேனல் நிலை:</value>
+  </data>
+  <data name="Options_AboveResultsTree" xml:space="preserve">
+    <value>முடிவு மரம் மேலே</value>
+  </data>
+  <data name="Options_DockedToSideOfResultsTree" xml:space="preserve">
+    <value>முடிவுகள் மரத்தின் பக்கமாக இணைக்கப்பட்டுள்ளது:</value>
+  </data>
+  <data name="Options_MultilineSearch" xml:space="preserve">
+    <value>பலவரிசை தேடல்</value>
+  </data>
+  <data name="Validation_ValueIsRequired" xml:space="preserve">
+    <value>மதிப்பு தேவை</value>
+  </data>
+  <data name="Validation_PathMustBeValid" xml:space="preserve">
+    <value>பாதை சரியானதாக இருக்க வேண்டும்</value>
+  </data>
+  <data name="Options_EditorOK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="Options_EditorCancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="Options_EditorAdd" xml:space="preserve">
+    <value>சேர்…</value>
+  </data>
+  <data name="Options_CustomEditor_Title" xml:space="preserve">
+    <value>தனிப்பயன் ஆசிரியர்</value>
+  </data>
+  <data name="Options_EditorLabel" xml:space="preserve">
+    <value>சிட்டை</value>
+  </data>
+  <data name="Options_EditorExtensions" xml:space="preserve">
+    <value>நீட்டிப்புகள்</value>
+  </data>
+  <data name="Options_EditorSetAsDefault" xml:space="preserve">
+    <value>பட்டியலிடப்படாத கோப்பு வகைகளுக்கு இயல்புநிலை திருத்தியாக அமைக்கவும்</value>
+  </data>
+  <data name="Options_EditorEdit" xml:space="preserve">
+    <value>திருத்து…</value>
+  </data>
+  <data name="Options_EditorDelete" xml:space="preserve">
+    <value>நீக்கு</value>
+  </data>
+  <data name="Main_Results_OpenWith" xml:space="preserve">
+    <value>உடன் திறக்கவும்</value>
+  </data>
+  <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
+    <value>முன்னோட்ட சாளரத்தில், பெரிய கோப்புகளை ஏற்றும் முன் கேட்கவும்</value>
+  </data>
+  <data name="Options_KB" xml:space="preserve">
+    <value>கேபி</value>
+  </data>
+  <data name="Options_EnableStickyScrollInResultsTree" xml:space="preserve">
+    <value>முடிவுகள் மரத்தில் ஒட்டும் உருளை இயக்கவும்</value>
+  </data>
+  <data name="Error_ThePluginFailedToExtractAnyText" xml:space="preserve">
+    <value>{0} செருகுநிரல் எந்த உரையையும் பிரித்தெடுக்க முடியவில்லை</value>
+  </data>
+  <data name="Error_TheFileCreatedByThePluginHasNoSearchableText" xml:space="preserve">
+    <value>{0} செருகுநிரலால் உருவாக்கப்பட்ட கோப்பில் தேடக்கூடிய உரை இல்லை</value>
+  </data>
+  <data name="Error_ThePluginCommandReturnedError" xml:space="preserve">
+    <value>{0} செருகுநிரல் கட்டளை பிழையை அளித்தது: {1}</value>
+  </data>
+  <data name="Main_DatePastWeeks" xml:space="preserve">
+    <value>வாரங்கள்</value>
+  </data>
+  <data name="Main_DatePastMinutes" xml:space="preserve">
+    <value>நிமிடங்கள்</value>
+  </data>
+  <data name="Main_DatePastDays" xml:space="preserve">
+    <value>நாட்கள்</value>
+  </data>
+  <data name="Main_DatePastMonths" xml:space="preserve">
+    <value>மாதங்கள்</value>
+  </data>
+  <data name="Main_DatePastYears" xml:space="preserve">
+    <value>ஆண்டுகள்</value>
+  </data>
+  <data name="ReportSummary_Type0DateInThePast1To23" xml:space="preserve">
+    <value>கடந்த {3} முதல் {1} {2} வரை {0} தேதி</value>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNamesWithMatchCount" xml:space="preserve">
+    <value>பொருத்த எண்ணிக்கையுடன் கோப்பு பெயர்களை நகலெடுக்கவும்</value>
+  </data>
+  <data name="Main_SortMenu_ReadOnly" xml:space="preserve">
+    <value>படிக்க மட்டும்</value>
+  </data>
+  <data name="Options_SortResultsAutomaticallyWhenSearchCompletes" xml:space="preserve">
+    <value>தேடல் முடிந்ததும் முடிவுகளை தானாகவே வரிசைப்படுத்தவும்</value>
+  </data>
+  <data name="Options_NewRightClickMenu" xml:space="preserve">
+    <value>சாளரங்கள் 11 வலது சொடுக்கு மெனு:</value>
+  </data>
+  <data name="Options_RequiresWindows11" xml:space="preserve">
+    <value>சாளரங்கள் 11 தேவை</value>
+  </data>
+  <data name="Options_OriginalRightClickMenu" xml:space="preserve">
+    <value>அசல் வலது சொடுக்கு மெனு:</value>
+  </data>
+  <data name="Help_CmdLineEverything" xml:space="preserve">
+    <value>/தேடல் கட்டளைகள்] 
+-தேடல் கட்டளைகள்] 
+-Everything [தேடல் கட்டளை] எல்லாம் தேடல் உரையை அமைக்கிறது.</value>
+  </data>
+  <data name="Main_StopAfter0Matches" xml:space="preserve">
+    <value>{0} போட்டிகளுக்குப் பிறகு நிறுத்தவும்</value>
+  </data>
+  <data name="Main_PauseAfterFirstMatch" xml:space="preserve">
+    <value>முதல் போட்டிக்குப் பிறகு இடைநிறுத்தம்</value>
+  </data>
+  <data name="Main_PauseAfter0Matches" xml:space="preserve">
+    <value>{0} போட்டிகளுக்குப் பிறகு இடைநிறுத்தவும்</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoStopSearch" xml:space="preserve">
+    <value>தேடலைத் தானாக நிறுத்துவதற்கான பொருத்தங்களின் எண்ணிக்கை</value>
+  </data>
+  <data name="Options_NumberOfMatchesToAutoPauseSearch" xml:space="preserve">
+    <value>தேடலைத் தானாக இடைநிறுத்துவதற்கான பொருத்தங்களின் எண்ணிக்கை</value>
+  </data>
+  <data name="Options_EnableAutocompleteInTextInputBoxes" xml:space="preserve">
+    <value>உரை உள்ளீட்டு பெட்டிகளில் தன்னிரப்பியை இயக்கவும்</value>
+  </data>
+  <data name="ReportSummary_NotGlobal" xml:space="preserve">
+    <value>உலகளாவியது அல்ல</value>
+  </data>
+  <data name="Bookmarks_Summary_NotGlobal" xml:space="preserve">
+    <value>உலகளாவியது அல்ல</value>
+  </data>
+  <data name="BookmarkDetails_Global" xml:space="preserve">
+    <value>உலகளாவிய</value>
+  </data>
+  <data name="Main_Global" xml:space="preserve">
+    <value>உலகளாவிய</value>
+  </data>
+  <data name="Main_GlobalTooltip_True" xml:space="preserve">
+    <value>ஒவ்வொரு கோப்பிலும் எல்லா பொருத்தங்களும்</value>
+  </data>
+  <data name="Main_GlobalTooltip_False" xml:space="preserve">
+    <value>ஒவ்வொரு கோப்பிலும் முதல் பொருத்தம்</value>
+  </data>
+  <data name="ScriptHint_set_global" xml:space="preserve">
+    <value>உலகளாவிய</value>
+  </data>
+  <data name="Options_SetKeyboardFocusTo" xml:space="preserve">
+    <value>தேடிய பிறகு, விசைப்பலகை ஃபோகசை அமைக்கவும்</value>
+  </data>
+  <data name="Options_FocusResultsTree" xml:space="preserve">
+    <value>முடிவுகள் மரம்</value>
+  </data>
+  <data name="Options_FocusSearchFor" xml:space="preserve">
+    <value>உள்ளீட்டைத் தேடுங்கள்</value>
+  </data>
+  <data name="Options_WithFilesInArchives" xml:space="preserve">
+    <value>காப்பகங்களில் உள்ள கோப்புகளுடன்</value>
+  </data>
+  <data name="Options_CopyTheWholeArchive" xml:space="preserve">
+    <value>முழு காப்பகத்தையும் நகலெடுக்கவும்</value>
+  </data>
+  <data name="Options_ExtractAndCopyFiles" xml:space="preserve">
+    <value>கோப்புகளைப் பிரித்தெடுத்து நகலெடுக்கவும்</value>
+  </data>
+  <data name="Options_MoveTheWholeArchive" xml:space="preserve">
+    <value>முழு காப்பகத்தையும் நகர்த்தவும்</value>
+  </data>
+  <data name="Options_ExtractAndMoveFiles" xml:space="preserve">
+    <value>கோப்புகளைப் பிரித்தெடுத்து நகர்த்தவும்</value>
+  </data>
+  <data name="Options_DeleteTheWholeArchive" xml:space="preserve">
+    <value>முழு காப்பகத்தையும் நீக்கு</value>
+  </data>
+  <data name="Options_DoNothing" xml:space="preserve">
+    <value>எதுவும் செய்யாதே</value>
+  </data>
+  <data name="Options_PlugInCache" xml:space="preserve">
+    <value>செருகுநிரல் தற்காலிக சேமிப்பு</value>
+  </data>
+  <data name="Options_CacheExtractedFiles" xml:space="preserve">
+    <value>கேச் பிரித்தெடுக்கப்பட்ட கோப்புகள்</value>
+  </data>
+  <data name="Options_CacheFilesInTempFolder" xml:space="preserve">
+    <value>தற்காலிக கோப்புறையில் கோப்புகளை சேமிக்கவும்</value>
+  </data>
+  <data name="Options_CacheFilesIn" xml:space="preserve">
+    <value>கேச் கோப்புகள்</value>
+  </data>
+  <data name="Options_DeleteFilesFromCacheIfNotUsedIn" xml:space="preserve">
+    <value>பயன்படுத்தப்படாவிட்டால், தற்காலிக சேமிப்பிலிருந்து கோப்புகளை நீக்கவும்</value>
+  </data>
+  <data name="MessageBox_ThePlugInCacheSettingsHaveChanged" xml:space="preserve">
+    <value>செருகுநிரல் தற்காலிக சேமிப்பு அமைப்புகள் மாற்றப்பட்டுள்ளன. பழைய கேச் கோப்புறையை நீக்கவா?</value>
+  </data>
+  <data name="Preview_ViewWhitespace" xml:space="preserve">
+    <value>வெண்வெளியைப் பார்க்கவும்</value>
+  </data>
+  <data name="Options_CreateCacheFileKeyUsing" xml:space="preserve">
+    <value>இதைப் பயன்படுத்தி கேச் கோப்பு விசையை உருவாக்கவும்:</value>
+  </data>
+  <data name="Options_HashOfFullFile" xml:space="preserve">
+    <value>முழு கோப்பின் ஆச்</value>
+  </data>
+  <data name="Options_HashOfFileSizeAndModifiedTime" xml:space="preserve">
+    <value>கோப்பு அளவு மற்றும் மாற்றியமைக்கப்பட்ட நேரம்</value>
+  </data>
+  <data name="Main_ReplaceMenu_UseReplaceDialog" xml:space="preserve">
+    <value>மாற்று உரையாடலைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Main_ReplaceMenu_ReplaceInSelectedFiles" xml:space="preserve">
+    <value>தேர்ந்தெடுக்கப்பட்ட கோப்புகளில் மாற்றவும்</value>
+  </data>
+  <data name="MessageBox_ThereAreNoFilesSelectedForReplace" xml:space="preserve">
+    <value>மாற்றுவதற்கு கோப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை.</value>
+  </data>
+  <data name="MessageBox_CouldNotRegisterTheNewKeyboardShortcut" xml:space="preserve">
+    <value>Could not register the புதிய keyboard குறுக்குவழி - is it in use?</value>
+  </data>
+  <data name="Options_MinimizeToNotificationArea" xml:space="preserve">
+    <value>அறிவிப்பு பகுதிக்கு குறைக்கவும் *</value>
+  </data>
+  <data name="Options_KeyboardShortcutToRestoreWindow" xml:space="preserve">
+    <value>dnGrep சாளரத்தை மீட்டமைக்க விசைப்பலகை குறுக்குவழி</value>
+  </data>
+  <data name="NotiyIcon_Menu_Open" xml:space="preserve">
+    <value>திற</value>
+  </data>
+  <data name="NotifyIcon_Menu_Exit" xml:space="preserve">
+    <value>வெளியேறு</value>
+  </data>
+  <data name="Keyboard_WindowsLogoKey" xml:space="preserve">
+    <value>சாளரங்கள்</value>
+  </data>
+  <data name="Keyboard_ControlKey" xml:space="preserve">
+    <value>கட்டுப்பாடு</value>
+  </data>
+  <data name="Keyboard_AltKey" xml:space="preserve">
+    <value>மாற்று</value>
+  </data>
+  <data name="Keyboard_ShiftKey" xml:space="preserve">
+    <value>உயர்த்து</value>
+  </data>
+  <data name="About_NETLibraryToGenerateTextualDifferences" xml:space="preserve">
+    <value>உரை வேறுபாடுகளை உருவாக்க .NET நூலகம்</value>
+  </data>
+  <data name="Replace_OpenFileCompare" xml:space="preserve">
+    <value>கோப்பை ஒப்பிட்டுப் பார்க்கவும்</value>
+  </data>
+  <data name="Replace_PreviewShowingReplacements" xml:space="preserve">
+    <value>மாற்றீடுகளைக் காட்டும் முன்னோட்டம்</value>
+  </data>
+  <data name="Options_ForwardCommandLineArgumentsToTheExistingWindow" xml:space="preserve">
+    <value>ஏற்கனவே உள்ள சாளரத்திற்கு கட்டளை வரி வாதங்களை முன்னோக்கி அனுப்பவும்</value>
+  </data>
+  <data name="Main_Menu_About_AppLogs" xml:space="preserve">
+    <value>பயன்பாடு _பதிவுகள்</value>
+  </data>
+  <data name="MessageBox_CopySettingsFileError" xml:space="preserve">
+    <value>சில கோப்புகளை புதிய கோப்பகங்களுக்கு நகலெடுக்க முடியவில்லை. விவரங்களுக்கு பிழைப் பதிவைச் சரிபார்க்கவும்: </value>
+  </data>
+  <data name="MessageBox_DirectoryNotEmptyWarning" xml:space="preserve">
+    <value>'{0}' கோப்பகத்தில் பயன்பாட்டின் பகுதியாக இல்லாத கோப்புகள் இருக்கலாம். எப்படியும் இந்தக் கோப்பகத்தைப் பயன்படுத்தவா?</value>
+  </data>
+  <data name="MessageBox_CopyApplicationDataFilesQuestion" xml:space="preserve">
+    <value>பயன்பாட்டு கோப்பகங்கள் மாற்றப்பட்டுள்ளன. புதிய கோப்பகங்களுக்கு கோப்புகளை நகலெடுக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="MessageBox_OverwriteExistingFileQuestion" xml:space="preserve">
+    <value>புதிய கோப்பகத்தில் ஏற்கனவே "{0}" என்ற கோப்பு உள்ளது. ஏற்கனவே உள்ள கோப்பை மாற்றவா?</value>
+  </data>
+  <data name="Preview_Error" xml:space="preserve">
+    <value>பிழை:</value>
+  </data>
+  <data name="Preview_NoMatchesFound" xml:space="preserve">
+    <value>பொருத்தங்கள் எதுவும் இல்லை!</value>
+  </data>
+  <data name="Options_ResultsFontWeight" xml:space="preserve">
+    <value>முடிவுகள் எழுத்துரு எடை</value>
+  </data>
+  <data name="Options_ForFileNameInSearchResults" xml:space="preserve">
+    <value>தேடல் முடிவுகளில் கோப்பு பெயருக்கு</value>
+  </data>
+  <data name="Keyboard_KeyboardShortcuts" xml:space="preserve">
+    <value>விசைப்பலகை குறுக்குவழிகள்</value>
+  </data>
+  <data name="Keyboard_WindowHeader" xml:space="preserve">
+    <value>சாளரம்</value>
+  </data>
+  <data name="Keyboard_LabelHeader" xml:space="preserve">
+    <value>சிட்டை</value>
+  </data>
+  <data name="Keyboard_CommandHeader" xml:space="preserve">
+    <value>கட்டளை</value>
+  </data>
+  <data name="Keyboard_ShortcutKeyHeader" xml:space="preserve">
+    <value>குறுக்குவழி விசை</value>
+  </data>
+  <data name="Keyboard_ShortcutForSelectedCommand" xml:space="preserve">
+    <value>தேர்ந்தெடுக்கப்பட்ட கட்டளைக்கான குறுக்குவழி</value>
+  </data>
+  <data name="Keyboard_PressShortcutKeys" xml:space="preserve">
+    <value>சார்ட்கட் கீகளை அழுத்தவும்:</value>
+  </data>
+  <data name="Keyboard_ShortcutCurrentlyUsedBy" xml:space="preserve">
+    <value>தற்போது பயன்படுத்தப்படும் குறுக்குவழி:</value>
+  </data>
+  <data name="Keyboard_Remove" xml:space="preserve">
+    <value>அகற்று</value>
+  </data>
+  <data name="Keyboard_Assign" xml:space="preserve">
+    <value>ஒதுக்கு</value>
+  </data>
+  <data name="Keyboard_ResetAllToDefaults" xml:space="preserve">
+    <value>அனைத்தையும் இயல்புநிலைக்கு மீட்டமைக்கவும்</value>
+  </data>
+  <data name="Keyboard_Save" xml:space="preserve">
+    <value>சேமி</value>
+  </data>
+  <data name="Keyboard_Close" xml:space="preserve">
+    <value>மூடு</value>
+  </data>
+  <data name="Keyboard_PressF1ForHelpOnKeyboardShortcuts" xml:space="preserve">
+    <value>விசைப்பலகை குறுக்குவழிகளில் உதவிக்கு F1 ஐ அழுத்தவும்</value>
+  </data>
+  <data name="Main_Menu_Keyboard" xml:space="preserve">
+    <value>_விசைப்பலகை…</value>
+  </data>
+  <data name="Window_Main" xml:space="preserve">
+    <value>முக்கிய</value>
+  </data>
+  <data name="Keyboard_UpArrowKey" xml:space="preserve">
+    <value>மேலே</value>
+  </data>
+  <data name="Keyboard_DownArrowKey" xml:space="preserve">
+    <value>கீழே</value>
+  </data>
+  <data name="Keyborard_LeftArrowKey" xml:space="preserve">
+    <value>இடது</value>
+  </data>
+  <data name="Keyboard_RightArrowKey" xml:space="preserve">
+    <value>வலது</value>
+  </data>
+  <data name="Keyboard_DeleteKey" xml:space="preserve">
+    <value>நீக்கு</value>
+  </data>
+  <data name="Keyboard_BackspaceKey" xml:space="preserve">
+    <value>பின்</value>
+  </data>
+  <data name="Keyboard_PageUpKey" xml:space="preserve">
+    <value>PgUp</value>
+  </data>
+  <data name="Keyboard_PageDownKey" xml:space="preserve">
+    <value>PgDn</value>
+  </data>
+  <data name="Keyboard_HomeKey" xml:space="preserve">
+    <value>வீடு</value>
+  </data>
+  <data name="Keyboard_EndKey" xml:space="preserve">
+    <value>முடிவு</value>
+  </data>
+  <data name="Keyboard_PrintScreenKey" xml:space="preserve">
+    <value>PrtScn</value>
+  </data>
+  <data name="Keyboard_SpaceKey" xml:space="preserve">
+    <value>இடைவெளி</value>
+  </data>
+  <data name="Keyboard_EscapeKey" xml:space="preserve">
+    <value>தப்பி</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>தேடல் பாதையுடன் தொடர்புடைய பாதையைக் காட்டு</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>கோப்பகங்கள்</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>இயல்புநிலை கோப்பகங்களைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>பயன்பாட்டு கட்டமைப்பு மற்றும் தரவு:</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>பயன்பாட்டு பதிவு கோப்புகள்:</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>கண்டுபிடி</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [தேடல் கட்டளைகள்] 
+-e* [தேடல் கட்டளைகள்] 
+-எல்லாம்* [தேடல் கட்டளைகள்] 
+எல்லாம் தேடல் உரையை அமைக்கிறது. கட்டளை வரியின் கடைசி விருப்பமாக இருக்க வேண்டும் மற்றும் கட்டளை வரியின் எஞ்சியதை வினைச்சொல்லாக நகலெடுக்கும்.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [தேடல்] 
+-கள்* [தேடல்] 
+-தேடு* [தேடு] 
+கோப்புகளின் தொகுப்பிற்குள் தேட பேட்டர்ன் அல்லது டெக்ச்ட் அமைக்கிறது. கட்டளை வரியின் கடைசி விருப்பமாக இருக்க வேண்டும் மற்றும் கட்டளை வரியின் எஞ்சியதை வினைச்சொல்லாக நகலெடுக்கும். இந்த வாதத்தை அமைக்கும்போது, தேடல் தானாகவே இயங்கும்.</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>தேடலை மாற்றவும் மற்றும் மாற்றவும்</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>சரம் மாற்று</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>மேப்பிங்கைச் சேர்க்கவும்</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>அசல் எழுத்து(கள்)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>யூனிகோட் குறியீடு புள்ளி(கள்)</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>அசல் மதிப்பு ஏற்கனவே உள்ளது.</value>
+  </data>
+  <data name="StringMap_Add" xml:space="preserve">
+    <value>கூட்டு</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>மாற்று எழுத்து(கள்)</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>தெளிவு</value>
+  </data>
+  <data name="StringMap_Save" xml:space="preserve">
+    <value>சேமி</value>
+  </data>
+  <data name="StringMap_Cancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="StringMap_Delete" xml:space="preserve">
+    <value>நீக்கு</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>இந்த எழுத்து அல்லது எழுத்துகளை மாற்றவும்</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>இந்த பாத்திரம் அல்லது பாத்திரங்களுடன்</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>யூனிகோட் குறியீடு புள்ளி</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>அசல்</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>மாற்று</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>சரம் வரைபடம்…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>சரம் வரைபடத்தைப் பயன்படுத்தவும்</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>பாதுகாப்பான PDF கோப்புகளுக்கான கடவுச்சொல்லைக் கோரவும்</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>பாதுகாப்பான காப்பகக் கோப்புகளுக்கான கடவுச்சொல்லைக் கோரவும்</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>கடவுச்சொல்</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>உள்ளிட்ட கடவுச்சொல் தவறானது.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>இதற்கான கடவுச்சொல்:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>கேப்ச் லாக்</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>கடவுச்சொல்லைக் காட்டு</value>
+  </data>
+  <data name="PasswordDialog_OK" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="PasswordDialog_Cancel" xml:space="preserve">
+    <value>ரத்துசெய்</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>சரம் வரைபட அமைப்புகள் மாற்றப்பட்டுள்ளன. தற்காலிக சேமிப்பு கோப்புறையை நீக்கவா?</value>
+  </data>
+  <data name="Main_ViewWhitespace" xml:space="preserve">
+    <value>வெண்வெளியைப் பார்க்கவும்</value>
+  </data>
+  <data name="StringMap_MoveToTop" xml:space="preserve">
+    <value>மேலே நகர்த்தவும்</value>
+  </data>
+  <data name="StringMap_MoveUp" xml:space="preserve">
+    <value>மேலே செல்லவும்</value>
+  </data>
+  <data name="StringMap_MoveDown" xml:space="preserve">
+    <value>கீழே நகர்த்தவும்</value>
+  </data>
+  <data name="StringMap_MoveToBottom" xml:space="preserve">
+    <value>கீழே நகர்த்தவும்</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>உடன் மாற்றுவதற்கு தேடலை நகலெடுக்கவும்</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>தேடுவதற்கு பதிலாக நகலெடு</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>கண்டுபிடி:</value>
+  </data>
+  <data name="Options_FindPrevious" xml:space="preserve">
+    <value>முந்தையதைக் கண்டுபிடி (Shift+F3)</value>
+  </data>
+  <data name="Options_FindNext" xml:space="preserve">
+    <value>அடுத்ததைக் கண்டுபிடி (F3)</value>
+  </data>
+  <data name="Options_MatchCase" xml:space="preserve">
+    <value>போட்டி வழக்கு</value>
+  </data>
+  <data name="Options_MatchWholeWords" xml:space="preserve">
+    <value>முழு சொற்களையும் பொருத்தவும்</value>
+  </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>அனைத்து நிகழ்வு பெயர்</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>முடிவு மரத்தில் விவரங்கள் பார்வையை இயக்கவும்</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>அனைத்து நெடுவரிசைகளையும் பொருத்துவதற்கு அளவு</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>சாளரங்கள் நிறுவி தொகுப்புகளுக்கான கருவிகளை உருவாக்கவும்</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>தெளிவற்ற</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Approximate சரம் matching</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>தெளிவற்ற தேடல்</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>தெளிவற்ற</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>தோராயமான சரம் பொருத்தம்</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>தெளிவற்ற</value>
+  </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>பிழை செய்தி</value>
+  </data>
 </root>
