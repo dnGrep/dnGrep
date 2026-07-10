@@ -4432,4 +4432,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
     <value>錯誤訊息</value>
   </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
 </root>
