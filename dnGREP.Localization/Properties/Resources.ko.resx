@@ -4032,16 +4032,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>문자열 맵 적용</value>
   </data>
   <data name="PasswordDialog_OK" xml:space="preserve">
-    <value>확인</value>
+    <value>OK</value>
   </data>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
-    <value>취소</value>
+    <value>Cancel</value>
   </data>
   <data name="Main_ViewWhitespace" xml:space="preserve">
     <value>공백 보기</value>
   </data>
   <data name="StringMap_MoveToTop" xml:space="preserve">
-    <value>맨 위로 이동</value>
+    <value>위로 이동</value>
   </data>
   <data name="StringMap_MoveUp" xml:space="preserve">
     <value>위로 이동</value>
@@ -4062,7 +4062,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>대소문자 일치</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
-    <value>전체 단어 일치</value>
+    <value>Match whole words</value>
   </data>
   <data name="Options_RequestPDFPassword" xml:space="preserve">
     <value>보안 PDF 파일에 대한 비밀번호 요청</value>
@@ -4104,9 +4104,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>읽기 전용</value>
   </data>
   <data name="Main_ResultsHeader_Type" xml:space="preserve">
-    <value>유형</value>
+    <value>Type</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>일치</value>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
 </root>
