@@ -4477,4 +4477,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
     <value>Fuzzy (Нечеткий поиск)</value>
   </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Удалить:</value>
+  </data>
 </root>
