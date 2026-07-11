@@ -4410,4 +4410,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_Remove" xml:space="preserve">
     <value>削除</value>
   </data>
+  <data name="Options_ConfirmWhenRemovingItemsFromHistoryLists" xml:space="preserve">
+    <value>履歴リストから項目を削除する際に確認する</value>
+  </data>
+  <data name="MessageBox_DoNotAskMeAgainWhenRemovingRecentItems" xml:space="preserve">
+    <value>最近の項目を削除する際に、再度確認しない</value>
+  </data>
+  <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
+    <value>このリストから項目 "{0}" を削除しますか？</value>
+  </data>
 </root>
