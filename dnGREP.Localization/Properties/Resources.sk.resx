@@ -864,7 +864,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>Bez skrytých</value>
+    <value>Neskryté</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
@@ -1040,5 +1040,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ResultsHeader_Type" xml:space="preserve">
     <value>Typ</value>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Odstrániť</value>
   </data>
 </root>

@@ -152,7 +152,7 @@
     <value>OK</value>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value>Zamjeni s:</value>
+    <value>Zamjeni s tekstom:</value>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
     <value>Pronađi:</value>
@@ -200,7 +200,7 @@
     <value>_Višelinijski</value>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>Zamjeni s:</value>
+    <value>Zamjeni s tekstom:</value>
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
     <value>Pronađi:</value>
@@ -1052,7 +1052,7 @@
     <value>Otkaži</value>
   </data>
   <data name="StringMap_MoveToTop" xml:space="preserve">
-    <value>Pomakni na vrh</value>
+    <value>Pomakni gore</value>
   </data>
   <data name="StringMap_MoveUp" xml:space="preserve">
     <value>Pomakni gore</value>

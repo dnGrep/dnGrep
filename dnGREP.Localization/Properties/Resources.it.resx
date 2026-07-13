@@ -191,7 +191,7 @@
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>M_aiuscolo/Minuscolo</value>
+    <value>C_ase sensitive</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Message box title</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -978,7 +978,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>No binari</value>
+    <value>No file binari</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
@@ -990,7 +990,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>Espressione _regolare</value>
+    <value>Espressione _Regolare</value>
     <comment>Main window, Regular expression search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
@@ -1038,7 +1038,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>Espressione _regolare</value>
+    <value>Espressione _Regolare</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
@@ -1162,7 +1162,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
@@ -1174,7 +1174,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box button text</comment>
   </data>
   <data name="MessageBox_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Message box button text</comment>
   </data>
   <data name="Bookmarks_MoveToTop" xml:space="preserve">
@@ -1214,7 +1214,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="Options_EditorOK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
     <comment>Options custom editor dialog, button label</comment>
   </data>
   <data name="Options_EditorCancel" xml:space="preserve">
@@ -1235,7 +1235,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Cerca</value>
   </data>
   <data name="PasswordDialog_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Conferma</value>
   </data>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Annulla</value>
