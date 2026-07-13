@@ -49,6 +49,7 @@ namespace dnGREP.Localization
                 { "sk", "slovenčina" },
                 { "sr", "српски" },
                 { "sv", "svenska" },
+                { "ta", "தமிழ்" },
                 { "th", "ไทย" },
                 { "tr", "Türkçe" },
                 { "uk", "українська" },

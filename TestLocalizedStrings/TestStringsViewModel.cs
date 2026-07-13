@@ -41,6 +41,7 @@ namespace dnGREP.TestLocalizedStrings
                 { "sk", "slovenčina" },
                 { "sr", "српски" },
                 { "sv", "svenska" },
+                { "ta", "தமிழ்" },
                 { "th", "ไทย" },
                 { "tr", "Türkçe" },
                 { "uk", "українська" },

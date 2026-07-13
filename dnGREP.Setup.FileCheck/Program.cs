@@ -45,12 +45,20 @@ namespace dnGREP.Setup.FileCheck
                         Console.WriteLine("{0}: Published files missing from installer:", platform);
                         foreach (var file in list2)
                         {
+                            var directory = Path.GetDirectoryName(file)?.Replace(publishDir, string.Empty).TrimStart('\\'); ;
                             var fileName = file.Replace(publishDir, string.Empty).TrimStart('\\');
                             var item = string.Format(wixFormat,
                                 "cmp" + Guid.NewGuid().ToString("N").ToUpperInvariant(),
                                 "{" + Guid.NewGuid().ToString("D").ToUpperInvariant() + "}",
                                 "fil" + Guid.NewGuid().ToString("N").ToUpperInvariant(),
                                 fileName);
+                            if (!string.IsNullOrEmpty(directory))
+                            {
+                                item = string.Format(wixDirFormat,
+                                    "dir" + Guid.NewGuid().ToString("N").ToUpperInvariant(),
+                                    directory,
+                                    item);
+                            }
                             Console.WriteLine(item);
                         }
                     }
@@ -93,8 +101,12 @@ namespace dnGREP.Setup.FileCheck
         };
         private static readonly string wixFormat =
             @"<Component Id=""{0}"" Guid=""{1}"">
-        <File Id=""{2}"" KeyPath=""yes"" Source=""$(var.PublishDir)\{3}"" />
+          <File Id=""{2}"" KeyPath=""yes"" Source=""$(var.PublishDir)\{3}"" />
       </Component>";
+        private static readonly string wixDirFormat =
+            @"      <Directory Id=""{0}"" Name=""{1}"">
+        {2}
+      </Directory>";
 
         private static List<string> GetAllFiles(string publishDir)
         {
