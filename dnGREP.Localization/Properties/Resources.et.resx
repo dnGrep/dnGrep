@@ -2708,13 +2708,13 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Olgu</value>
   </data>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
-    <value>Katkesta</value>
+    <value>Tühista</value>
   </data>
   <data name="StringMap_Save" xml:space="preserve">
     <value>Salvesta</value>
   </data>
   <data name="StringMap_Cancel" xml:space="preserve">
-    <value>Katkesta</value>
+    <value>Tühista</value>
   </data>
   <data name="StringMap_MoveToTop" xml:space="preserve">
     <value>Liiguta kõige üles</value>
@@ -2723,7 +2723,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Liiguta ülespoole</value>
   </data>
   <data name="StringMap_MoveDown" xml:space="preserve">
-    <value>Liiguta allapoole</value>
+    <value>Liiguta alla</value>
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Liiguta kõige alla</value>

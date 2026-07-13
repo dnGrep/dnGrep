@@ -4432,4 +4432,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
     <value>錯誤訊息</value>
   </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Options_ConfirmWhenRemovingItemsFromHistoryLists" xml:space="preserve">
+    <value>從歷程記錄清單移除項目時確認</value>
+  </data>
+  <data name="MessageBox_DoNotAskMeAgainWhenRemovingRecentItems" xml:space="preserve">
+    <value>從最近項目移除項目時，不要再詢問</value>
+  </data>
+  <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
+    <value>要從此清單移除項目 "{0}"？</value>
+  </data>
 </root>

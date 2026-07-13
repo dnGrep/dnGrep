@@ -4143,4 +4143,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
     <value>Ajustar largura de todas as colunas</value>
   </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Remover</value>
+  </data>
 </root>

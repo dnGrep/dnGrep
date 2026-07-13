@@ -230,7 +230,7 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>Например: file??.*</value>
+    <value>Например: *.pdf;*.doc;*.txt</value>
     <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
@@ -250,7 +250,7 @@
     <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
-    <value>Максимальная глубина: </value>
+    <value>Максимальная глубина</value>
     <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
@@ -274,7 +274,7 @@
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
-    <value>Everything</value>
+    <value>Everything (Мгновенный поиск файлов на основе индексации таблицы MFT NTFS)</value>
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
@@ -554,7 +554,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/st [тип]
 -st [тип]
 -searchType [тип]
-    Задает тип поиска - должен быть одним из: "PlainText" (обычный текст), "Regex" (регулярное выражение), "XPath" или "Soundex" (фонетический).</value>
+    Задает тип поиска - должен быть одним из: "PlainText" (Обычный (точный) текст), "Regex" (Регулярное выражение), "XPath" (язык запросов XML/HTML) или "Fuzzy" (нечеткий (приблизительный) поиск).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
@@ -688,7 +688,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>Последние от</value>
+    <value>Последние за</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
@@ -832,7 +832,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value>Максимальная глубина: </value>
+    <value>Максимальная глубина</value>
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
@@ -956,7 +956,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV-файл</value>
+    <value>CSV-файл (с запятой-разделителем)</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
@@ -1000,7 +1000,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Совпадение {0}{1}Группа {2}:   {3}</value>
+    <value>Совпадение {0}{1}Группа {2}: {3}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
@@ -1148,11 +1148,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>Размер от:</value>
+    <value>Размер от</value>
     <comment>Main window, filter size radio button label (accel)</comment>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
-    <value>KB (Кбайт)</value>
+    <value>KB (КБайт)</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
@@ -1816,7 +1816,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
-    <value>Показывать в результатах контекстные строчки: </value>
+    <value>Показывать в результатах контекстные строчки</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
@@ -1940,7 +1940,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>Файл {0} из {1}: {2}  (совпадений:{3} в строчках:{4})</value>
+    <value>Файл {0} из {1}: {2} (совпадений:{3} в строчках:{4})</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
@@ -2056,7 +2056,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>Этот файл содержит слишком много совпадений для индивидуальной замены.  Чтобы заменить их все, нажмите 'Заменить в файле'.</value>
+    <value>Этот файл содержит слишком много совпадений для индивидуальной замены. Чтобы заменить их все, нажмите 'Заменить в файле'.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -2180,7 +2180,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value>Размер от {0} до {1} KB (Кбайт)</value>
+    <value>Размер от {0} до {1} KB (КБайт)</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
@@ -2232,7 +2232,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>Подсвечивать группы</value>
+    <value>Подсвечивать Группы</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
@@ -3253,7 +3253,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_enddate" xml:space="preserve">
-    <value>Фильтр даты/времени 'По'</value>
+    <value>Фильтр даты/времени "До"</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
@@ -3353,7 +3353,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
-    <value>Фильтр времени 'до' часов</value>
+    <value>Фильтр времени 'Последние от' часов</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_report_full" xml:space="preserve">
@@ -3488,7 +3488,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
-    <value>Фильтр времени 'до' часов</value>
+    <value>Фильтр времени 'Последние от' часов</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Main_Results_CopyFiles" xml:space="preserve">
@@ -3604,7 +3604,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="Options_MayNotBeSupportedInAllFonts" xml:space="preserve">
-    <value>Может поддерживаться не всеми шрифтами</value>
+    <value>Может поддерживаться не всеми шрифтами gnGrep</value>
     <comment>Options dialog, radio button tooltip</comment>
   </data>
   <data name="TextBox_Command_MakeLowercase" xml:space="preserve">
@@ -3644,7 +3644,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, confirmation option check box label</comment>
   </data>
   <data name="Options_WordDocx" xml:space="preserve">
-    <value>Word (docx)</value>
+    <value>Word (формата docx)</value>
     <comment>Options dialog, section heading</comment>
   </data>
   <data name="Validation_stringToDouble_PleaseEnterAValueInTheRange01" xml:space="preserve">
@@ -3756,7 +3756,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Menu item text for text box context menu</comment>
   </data>
   <data name="Options_Subscript" xml:space="preserve">
-    <value>Subscript</value>
+    <value>Subscript (Подстрочный)</value>
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Main_Results_CurrentLine" xml:space="preserve">
@@ -3792,7 +3792,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Word plugin error message returned to results list</comment>
   </data>
   <data name="Options_Superscipt" xml:space="preserve">
-    <value>Superscript</value>
+    <value>Superscript (Надстрочный)</value>
     <comment>Options dialog, radio button label</comment>
   </data>
   <data name="Error_FilesCouldNotBeSearched" xml:space="preserve">
@@ -3924,7 +3924,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Validation message for user input of a path and file name</comment>
   </data>
   <data name="Options_KB" xml:space="preserve">
-    <value>KB (Кбайт)</value>
+    <value>KB (КБайт)</value>
     <comment>Options dialog, label for file size</comment>
   </data>
   <data name="Optionss_AskBeforeLoadingFiles" xml:space="preserve">
@@ -4058,7 +4058,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/e [команды поиска]
 -e [команды поиска]
 -everything [команды поиска]
-    Задает текст поиска в Everything. Должен быть последним параметром в командной строке и копирует её остаток без изменений.</value>
+    Задает текст поиска в Everything.</value>
   </data>
   <data name="Main_StopAfter0Matches" xml:space="preserve">
     <value>Остановиться после количества совпадений: {0}</value>
@@ -4268,13 +4268,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Для имени файла в результатах поиска</value>
   </data>
   <data name="PasswordDialog_OK" xml:space="preserve">
-    <value>ОК</value>
+    <value>Ок</value>
   </data>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
   <data name="StringMap_Add" xml:space="preserve">
-    <value>Добавить:</value>
+    <value>Добавить</value>
   </data>
   <data name="StringMap_Save" xml:space="preserve">
     <value>Применить</value>
@@ -4283,13 +4283,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Отмена</value>
   </data>
   <data name="StringMap_Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Удалить</value>
   </data>
   <data name="Main_ViewWhitespace" xml:space="preserve">
     <value>Отображать пробелы</value>
   </data>
   <data name="StringMap_MoveToTop" xml:space="preserve">
-    <value>Переместить в начало</value>
+    <value>Переместить в начало списка</value>
   </data>
   <data name="StringMap_MoveUp" xml:space="preserve">
     <value>Переместить выше</value>
@@ -4298,7 +4298,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Переместить ниже</value>
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
-    <value>Переместить в конец</value>
+    <value>Переместить в конец списка</value>
   </data>
   <data name="Options_FindPrevious" xml:space="preserve">
     <value>Найти предыдущее (Shift+F3)</value>
@@ -4307,10 +4307,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Найти следующее (F3)</value>
   </data>
   <data name="Options_MatchCase" xml:space="preserve">
-    <value>Сопоставлять чувствительность к регистру</value>
+    <value>Учитывать регистр букв</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
-    <value>Сопоставлять слова целиком</value>
+    <value>Только слова целиком</value>
   </data>
   <data name="Main_ResultsHeader_Name" xml:space="preserve">
     <value>Имя</value>
@@ -4323,5 +4323,161 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>Совпадения</value>
+  </data>
+  <data name="Main_ResultsHeader_Size" xml:space="preserve">
+    <value>Объем</value>
+  </data>
+  <data name="Main_ResultsHeader_Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="Main_ResultsHeader_DateModified" xml:space="preserve">
+    <value>Дата модификации</value>
+  </data>
+  <data name="Main_ResultsHeader_Info" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Приблизительное сравнение строк (fuzzy search)</value>
+  </data>
+  <data name="Test_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (Нечеткий поиск)</value>
+  </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>По ошибкам</value>
+  </data>
+  <data name="About_BuildToolsForWindowsInstallerPackages" xml:space="preserve">
+    <value>Инструменты для сборки Windows Installer packages (*.msi)</value>
+  </data>
+  <data name="Options_ShowPathRelativeToSearchPath" xml:space="preserve">
+    <value>Отображать путь относительно базового пути поиска</value>
+  </data>
+  <data name="Options_Directories" xml:space="preserve">
+    <value>Каталоги</value>
+  </data>
+  <data name="Options_UseDefaultDirectories" xml:space="preserve">
+    <value>Использовать каталоги по умолчанию</value>
+  </data>
+  <data name="Options_ApplicationConfigurationAndData" xml:space="preserve">
+    <value>Настройки и данные приложения:</value>
+  </data>
+  <data name="Options_ApplicationLogFiles" xml:space="preserve">
+    <value>Файлы журналов приложения:</value>
+  </data>
+  <data name="Preview_Find" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="Help_CmdLineEverythingVerbatim" xml:space="preserve">
+    <value>/e* [команды поиска]
+-e* [команды поиска]
+-everything* [команды поиска]
+    Задает текст поиска для Everything. Должен быть последним параметром в командной строке и копирует всю оставшуюся часть строки дословно.</value>
+  </data>
+  <data name="Help_CmdLineSearchForVerbatim" xml:space="preserve">
+    <value>/s* [чтоИскать]
+-s* [чтоИскать]
+-searchFor* [чтоИскать]
+    Задает шаблон или текст для поиска внутри набора файлов. Должен быть последним параметром в командной строке и копирует всю оставшуюся часть строки дословно. При установке этого аргумента поиск будет запущен автоматически.</value>
+  </data>
+  <data name="Main_FlipSearchAndReplaceStrings" xml:space="preserve">
+    <value>Поменять местами «Найти» и «Заменить»</value>
+  </data>
+  <data name="StringMap_StringReplacements" xml:space="preserve">
+    <value>Замена строк</value>
+  </data>
+  <data name="StringMap_AddMapping" xml:space="preserve">
+    <value>Добавить правило замен</value>
+  </data>
+  <data name="StringMap_OriginalCharacters" xml:space="preserve">
+    <value>Исходный символ(ы)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoints" xml:space="preserve">
+    <value>Код(ы) Unicode</value>
+  </data>
+  <data name="StringMap_OriginalValueAlreadyExists" xml:space="preserve">
+    <value>Исходная строка уже добавлена.</value>
+  </data>
+  <data name="StringMap_SubstituteCharacters" xml:space="preserve">
+    <value>Заменяющий(е) символ(ы)</value>
+  </data>
+  <data name="StringMap_Clear" xml:space="preserve">
+    <value>Очистка</value>
+  </data>
+  <data name="StringMap_ReplaceThisCharacterOrCharacters" xml:space="preserve">
+    <value>Заменяемый(е) символ(ы)</value>
+  </data>
+  <data name="StringMap_WithThisCharacterOrChararacters" xml:space="preserve">
+    <value>На этот(и) символ(ы)</value>
+  </data>
+  <data name="StringMap_UnicodeCodePoint" xml:space="preserve">
+    <value>Код(ы) Unicode</value>
+  </data>
+  <data name="StringMap_Original" xml:space="preserve">
+    <value>Исходный</value>
+  </data>
+  <data name="StringMap_Substitute" xml:space="preserve">
+    <value>Замененный</value>
+  </data>
+  <data name="Options_StringMap" xml:space="preserve">
+    <value>Карта строк…</value>
+  </data>
+  <data name="Options_ApplyStringMap" xml:space="preserve">
+    <value>Применить карту строк</value>
+  </data>
+  <data name="Options_RequestPDFPassword" xml:space="preserve">
+    <value>Запрашивать пароль для защищенных PDF-файлов</value>
+  </data>
+  <data name="Options_RequestArchivePassword" xml:space="preserve">
+    <value>Запрашивать пароль для защищенных архивов</value>
+  </data>
+  <data name="PasswordDialog_Title" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordDialog_ThePasswordEnteredIsIncorrect" xml:space="preserve">
+    <value>Введен неверный пароль.</value>
+  </data>
+  <data name="PasswordDialog_PasswordFor" xml:space="preserve">
+    <value>Пароль для:</value>
+  </data>
+  <data name="PasswordDialog_CapsLock" xml:space="preserve">
+    <value>Включен Caps Lock</value>
+  </data>
+  <data name="PasswordDialog_ShowPassword" xml:space="preserve">
+    <value>Показать пароль</value>
+  </data>
+  <data name="MessageBox_TheStringMapSettingsHaveChanged" xml:space="preserve">
+    <value>Настройки карты строк изменились. Удалить кэш (историю быстрого поиска)?</value>
+  </data>
+  <data name="Main_CopySearchForToReplaceWith" xml:space="preserve">
+    <value>Скопировать «Искать содержимое» в «Заменить на:»</value>
+  </data>
+  <data name="Main_CopyReplaceWithToSearchFor" xml:space="preserve">
+    <value>Скопировать «Заменить на:» в «Искать содержимое:»</value>
+  </data>
+  <data name="Options_Find" xml:space="preserve">
+    <value>Найти:</value>
+  </data>
+  <data name="Options_EverythingInstanceName" xml:space="preserve">
+    <value>Имя процесса Everything</value>
+  </data>
+  <data name="Options_EnableDetailsViewInResultsTree" xml:space="preserve">
+    <value>Подробный вид в дереве результатов</value>
+  </data>
+  <data name="Main_Results_SizeAllColumnsToFit" xml:space="preserve">
+    <value>Автоподбор ширины всех колонок</value>
+  </data>
+  <data name="Main_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (Нечеткий поиск)</value>
+  </data>
+  <data name="Options_FuzzySearch" xml:space="preserve">
+    <value>Нечёткий поиск (Fuzzy)</value>
+  </data>
+  <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
+    <value>Приблизительное сравнение строк (fuzzy search)</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
+    <value>Fuzzy (Нечеткий поиск)</value>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Удалить:</value>
   </data>
 </root>

@@ -3462,4 +3462,19 @@ Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser 
   <data name="Test_SearchType_Fuzzy" xml:space="preserve">
     <value>Aproximat</value>
   </data>
+  <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
+    <value>Missatge d'error</value>
+  </data>
+  <data name="Options_ConfirmWhenRemovingItemsFromHistoryLists" xml:space="preserve">
+    <value>Confirma quan s'eliminen elements de les llistes de l'historial</value>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="MessageBox_DoNotAskMeAgainWhenRemovingRecentItems" xml:space="preserve">
+    <value>No m'ho tornes a preguntar quan elimines elements recents</value>
+  </data>
+  <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
+    <value>Voleu eliminar l'element "{0}" d'esta llista?</value>
+  </data>
 </root>

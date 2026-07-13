@@ -2443,7 +2443,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
   <data name="Main_Results_PreviousFile" xml:space="preserve">
-    <value>Previous file</value>
+    <value>קובץ קודם</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
@@ -2499,7 +2499,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>הדגש קבוצות</value>
+    <value>Highlight groups</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
@@ -2519,11 +2519,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
-    <value>להחליף ב</value>
+    <value>Replace with</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
-    <value>חפש את</value>
+    <value>Search for</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
@@ -2587,7 +2587,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_MoveFiles" xml:space="preserve">
-    <value>העבר קבצים…</value>
+    <value>Move files…</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Filter" xml:space="preserve">
@@ -2599,7 +2599,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Bookmark details dialog, ignore filter combo box label (accel)</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
-    <value>הדגש התאמות</value>
+    <value>Highlight matches</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Options_EditorOK" xml:space="preserve">
@@ -2711,5 +2711,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>התאמות</value>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>הסר:</value>
   </data>
 </root>

@@ -211,7 +211,7 @@
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>Inga binära</value>
+    <value>Ingen binär</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
@@ -283,7 +283,7 @@
     <comment>Test window, search input label</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>Inga binära</value>
+    <value>Ingen binär</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="BookmarkDetails_Filter" xml:space="preserve">

@@ -2710,7 +2710,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
-    <value>Прати симболичне везе</value>
+    <value>Пратите симболичне везе</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
@@ -2742,7 +2742,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
-    <value>Тражи у архиве</value>
+    <value>Тражи у архивама</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinresults" xml:space="preserve">
@@ -2754,15 +2754,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
-    <value>Прескочити датотеке из облака</value>
+    <value>Прескочити удаљене датотеке из облака</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
-    <value>Заустави после првог налажења</value>
+    <value>Заустави после превог налажења</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
-    <value>Употреби .gitignore</value>
+    <value>Употребити .gitignore</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
@@ -3424,7 +3424,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>На доле</value>
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
-    <value>Премести као последње</value>
+    <value>Премести на крај</value>
   </data>
   <data name="Options_FindPrevious" xml:space="preserve">
     <value>Пронађи претходни (Shift+F3)</value>
@@ -3446,5 +3446,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Main_ResultsHeader_Matches" xml:space="preserve">
     <value>Налажења</value>
+  </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Уклонити</value>
   </data>
 </root>

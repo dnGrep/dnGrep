@@ -2205,7 +2205,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
-    <value>_Deshacer</value>
+    <value>_Undo</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
@@ -2389,7 +2389,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
-    <value>_Deshacer</value>
+    <value>_Undo</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
@@ -2545,10 +2545,10 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>De acuerdo</value>
   </data>
   <data name="PasswordDialog_Cancel" xml:space="preserve">
-    <value>Cancel·lar</value>
+    <value>Cancelar</value>
   </data>
   <data name="StringMap_Cancel" xml:space="preserve">
-    <value>Cancel·lar</value>
+    <value>Cancelar</value>
   </data>
   <data name="StringMap_Delete" xml:space="preserve">
     <value>Borrar</value>
@@ -2560,7 +2560,7 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>Mover hacia arriba</value>
   </data>
   <data name="StringMap_MoveDown" xml:space="preserve">
-    <value>Mover hacia abajo</value>
+    <value>Ir hacia abajo</value>
   </data>
   <data name="StringMap_MoveToBottom" xml:space="preserve">
     <value>Ir hasta abajo</value>

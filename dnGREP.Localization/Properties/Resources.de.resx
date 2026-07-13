@@ -3786,4 +3786,7 @@ dnGrep "C:\Programme\dnGrep" t\w*t</value>
   <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
     <value>Fehlermeldung</value>
   </data>
+  <data name="MessageBox_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>
