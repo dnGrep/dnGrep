@@ -226,6 +226,11 @@
           <File Id="filE22347F018AE4067B67D2B6E80D026FE" KeyPath="yes" Source="$(var.PublishDir)\sv\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
+      <Directory Id="dir315FBF07D5884358AA5B705FFFF26FE5" Name="ta">
+        <Component Id="cmpDD95572A2CCD4905A868DCE188461E88" Guid="{9BB91EBC-8C7D-40B4-B368-CE9F22F6D076}">
+          <File Id="fil2881657936F74FF9808FF88DC27216CE" KeyPath="yes" Source="$(var.PublishDir)\ta\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dirD3A3A41353C140CCBD18100868809117" Name="th">
         <Component Id="cmp6335FA99004B460885826BB9591C05F5" Guid="{2844F560-1356-4D13-B95C-73A5E298EDBD}">
           <File Id="filCE1CAF2E38894BC58F93079D4B0C7BB2" KeyPath="yes" Source="$(var.PublishDir)\th\dnGREP.Localization.resources.dll" />
@@ -324,6 +329,7 @@
       <ComponentRef Id="cmp52F1E0549173405581508FF71F024F99" />
       <ComponentRef Id="cmpB2EB07F7E92E4BD4938C28491950F8E9" />
       <ComponentRef Id="cmpBBD6394D685A464F8245AC34979232C6" />
+      <ComponentRef Id="cmpDD95572A2CCD4905A868DCE188461E88" />
       <ComponentRef Id="cmp6335FA99004B460885826BB9591C05F5" />
       <ComponentRef Id="cmpB7DBE238D9FE4572892D097082097953" />
       <ComponentRef Id="cmp4EFB78038A0B41759602338D082E1CEA" />
