@@ -601,6 +601,9 @@
       <Component Id="cmp94CFB88CE50BCFEDC1A82192088F6174" Guid="{9895C0D1-1893-42E1-8605-4013092AA13F}">
         <File Id="fil4279D5E987A0339B3DA8CA45B987CD2C" KeyPath="yes" Source="$(var.PublishDir)\System.ServiceProcess.dll" />
       </Component>
+      <Component Id="cmp296F39A5619F43A81D2903E4D1539FAA" Guid="{E2887D68-F0DF-4BEF-8403-CBA0D3F8BF6E}">
+        <File Id="fil17552FE11B657E078F6FE85B9E6B9F4D" KeyPath="yes" Source="$(var.PublishDir)\System.Text.Encoding.CodePages.dll" />
+      </Component>
       <Component Id="cmp08D072027983A81E43D0B0C829962D30" Guid="{7A3AAF3F-570C-40D5-907B-505B59F01EE8}">
         <File Id="fil0DE302910DB8463B30B83CCE24959C55" KeyPath="yes" Source="$(var.PublishDir)\System.Text.Encoding.dll" />
       </Component>
@@ -963,6 +966,7 @@
       <ComponentRef Id="cmpAC5022F8CFEE23504DFD4ED3AA985AA0" />
       <ComponentRef Id="cmpEADE325927FFD72B56B77B6F8C3C8094" />
       <ComponentRef Id="cmp94CFB88CE50BCFEDC1A82192088F6174" />
+      <ComponentRef Id="cmp296F39A5619F43A81D2903E4D1539FAA" />
       <ComponentRef Id="cmp08D072027983A81E43D0B0C829962D30" />
       <ComponentRef Id="cmpE392EE68F400FDAF2CF92E15EF792F80" />
       <ComponentRef Id="cmp47043562A6B3A0836B6C6D3CEA08D477" />
