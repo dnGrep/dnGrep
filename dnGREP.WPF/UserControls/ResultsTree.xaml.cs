@@ -932,6 +932,7 @@ namespace dnGREP.WPF.UserControls
             }
             else if (selectedLine != null)
             {
+                selectedLine.Parent.IsExpanded = false;
                 await SelectNextResult(selectedLine);
             }
             else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
@@ -1020,6 +1021,7 @@ namespace dnGREP.WPF.UserControls
             }
             else if (selectedLine != null)
             {
+                selectedLine.Parent.IsExpanded = false;
                 await SelectPreviousResult(selectedLine);
             }
             else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
