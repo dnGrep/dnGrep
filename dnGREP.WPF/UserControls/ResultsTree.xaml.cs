@@ -937,10 +937,12 @@ namespace dnGREP.WPF.UserControls
             }
             else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
             {
+                selectedResult.IsExpanded = false;
                 await SelectNextResult(selectedResult.FormattedLines.First());
             }
             else if (selectedResult != null)
             {
+                selectedResult.IsExpanded = false;
                 SelectNextFile(selectedResult);
             }
         }
@@ -1026,10 +1028,12 @@ namespace dnGREP.WPF.UserControls
             }
             else if (selectedResult != null && selectedResult.FormattedLines.Count > 0)
             {
+                selectedResult.IsExpanded = false;
                 await SelectPreviousResult(selectedResult);
             }
             else if (selectedResult != null)
             {
+                selectedResult.IsExpanded = false;
                 SelectPreviousFile(selectedResult);
             }
         }
