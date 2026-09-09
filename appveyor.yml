@@ -26,6 +26,16 @@ build:
   project: dnGREP.WPF.slnX
   parallel: true
   verbosity: normal
+# 1. Turn off the automatic runner
+test: off
+# 2. Run the tests explicitly in the test script block
+test_script:
+  - ps: |
+      if ($env:PLATFORM -ne "ARM64") {
+          dotnet test "C:\projects\dngrep\Tests\Tests.csproj" --no-build
+      } else {
+          Write-Host "Skipping tests for ARM64 build."
+      }
 after_build:
   - 7z a %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\publish\win-%PlATFORM%\* -xr@%APPVEYOR_BUILD_FOLDER%\excludeFiles_win-%PlATFORM%.txt
   - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\Bundle.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep*.msi %APPVEYOR_BUILD_FOLDER%\portable\%PlATFORM%\dnGrep*.zip
