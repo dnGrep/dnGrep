@@ -34,22 +34,27 @@
     <PlatformTarget>ARM64</PlatformTarget>
     <OutputPath>bin\ARM64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <!-- Tells 'dotnet test' and MSBuild that this is not a test project when compiling for ARM64 -->
+    <!-- do not run tests on ARM64 -->
     <IsTestProject>false</IsTestProject>
-    <!-- Prevents execution if VSTest attempts to force-run the assembly -->
     <IsTestExecutionAllowed>false</IsTestExecutionAllowed>
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <PlatformTarget>ARM64</PlatformTarget>
     <OutputPath>bin\ARM64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <DefineConstants>TRACE</DefineConstants>
-    <!-- Tells 'dotnet test' and MSBuild that this is not a test project when compiling for ARM64 -->
+    <!-- do not run tests on ARM64 -->
     <IsTestProject>false</IsTestProject>
-    <!-- Prevents execution if VSTest attempts to force-run the assembly -->
     <IsTestExecutionAllowed>false</IsTestExecutionAllowed>
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
   </PropertyGroup>
 
+  <!-- Remove the TestContainer capability for ARM64 to prevent test execution -->
+  <ItemGroup Condition="'$(Platform)' == 'ARM64'">
+    <ProjectCapability Remove="TestContainer" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Compile Remove="Files\**" />
     <EmbeddedResource Remove="Files\**" />
@@ -57,9 +62,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
-    <PackageReference Include="xunit.v3" Version="3.2.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+    <PackageReference Include="xunit.v3" Version="4.0.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
