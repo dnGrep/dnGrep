@@ -391,7 +391,7 @@
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>_Hele ordet</value>
+    <value>_Helt ord</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
@@ -2071,7 +2071,7 @@
     <comment>Test window title</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>_Hele ordet</value>
+    <value>_Helt ord</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
@@ -2339,7 +2339,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
-    <value>Stop after first match</value>
+    <value>Stopp etter første treff</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
