@@ -506,6 +506,9 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private bool autoCompleteEnabled;
 
+        [ObservableProperty]
+        private bool excludeIsBinaryControlCharacterTest;
+
         public int MaxDegreeOfParallelism
         {
             get
@@ -795,6 +798,7 @@ namespace dnGREP.WPF
                 SortAutomaticallyOnSearch != Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 AutoCompleteEnabled != Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled) ||
+                ExcludeIsBinaryControlCharacterTest != Settings.Get<bool>(GrepSettings.Key.ExcludeIsBinaryControlCharacterTest) ||
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
                 SearchAutoStopCount != Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount) ||
                 SearchAutoPauseCount != Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount) ||
@@ -1144,6 +1148,7 @@ namespace dnGREP.WPF
             SortAutomaticallyOnSearch = Settings.Get<bool>(GrepSettings.Key.SortAutomaticallyOnSearch);
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
             AutoCompleteEnabled = Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled);
+            ExcludeIsBinaryControlCharacterTest = Settings.Get<bool>(GrepSettings.Key.ExcludeIsBinaryControlCharacterTest);
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
             SearchAutoStopCount = Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount);
             SearchAutoPauseCount = Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount);
@@ -1354,6 +1359,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.SortAutomaticallyOnSearch, SortAutomaticallyOnSearch);
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
             Settings.Set(GrepSettings.Key.AutoCompleteEnabled, AutoCompleteEnabled);
+            Settings.Set(GrepSettings.Key.ExcludeIsBinaryControlCharacterTest, ExcludeIsBinaryControlCharacterTest);
             Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
             Settings.Set(GrepSettings.Key.SearchAutoStopCount, SearchAutoStopCount);
             Settings.Set(GrepSettings.Key.SearchAutoPauseCount, SearchAutoPauseCount);
@@ -1398,6 +1404,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.WordExtractHeaders, WordExtractHeaders);
             Settings.Set(GrepSettings.Key.WordExtractFooters, WordExtractFooters);
             Settings.Set(GrepSettings.Key.WordHeaderFooterPosition, WordHeaderFooterPosition);
+
+            Utils.ResetIsBinaryCache();
 
             if (!oldKeyboardShortcut.Equals(RestoreWindowKeyboardShortcut, StringComparison.Ordinal) &&
                 App.Current.MainWindow is MainForm mainWind)

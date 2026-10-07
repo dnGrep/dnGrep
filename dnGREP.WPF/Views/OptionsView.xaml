@@ -576,6 +576,9 @@
                         <CheckBox Content="{l:Loc Key='Options_EnableAutocompleteInTextInputBoxes'}" 
                                   Margin="0,3,3,3"
                                   IsChecked="{Binding AutoCompleteEnabled}"/>
+                        <CheckBox Content="{l:Loc Key='Options_IgnoreControlCharactersWhenDetectingBinaryFiles'}" 
+                                  Margin="0,3,3,3"
+                                  IsChecked="{Binding ExcludeIsBinaryControlCharacterTest}"/>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
