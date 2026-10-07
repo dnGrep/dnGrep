@@ -5596,7 +5596,16 @@ namespace dnGREP.Localization.Properties {
                 return ResourceManager.GetString("Options_EnableAutocompleteInTextInputBoxes", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore control characters when detecting binary files.
+        /// </summary>
+        public static string Options_IgnoreControlCharactersWhenDetectingBinaryFiles {
+            get {
+                return ResourceManager.GetString("Options_IgnoreControlCharactersWhenDetectingBinaryFiles", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Check automatically every.
         /// </summary>

@@ -4062,6 +4062,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Enable autocomplete in text input boxes</value>
     <comment>Options dialog, search option checkbox label</comment>
   </data>
+  <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
+    <value>Ignore control characters when detecting binary files</value>
+    <comment>Options dialog, search option checkbox label</comment>
+  </data>
   <data name="ReportSummary_NotGlobal" xml:space="preserve">
     <value>Not global</value>
     <comment>Report search options summary</comment>

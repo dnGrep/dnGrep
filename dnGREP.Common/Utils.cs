@@ -43,6 +43,18 @@ namespace dnGREP.Common
         private static readonly object regexLock = new();
         private static readonly Dictionary<string, Regex> regexCache = [];
 
+        private static bool? excludeIsBinaryControlCharacterTest;
+
+        /// <summary>
+        /// Clears the cached value of the ExcludeIsBinaryControlCharacterTest setting
+        /// used by <see cref="IsBinary(Stream)"/>. Call this after the setting is changed
+        /// so the new value takes effect.
+        /// </summary>
+        public static void ResetIsBinaryCache()
+        {
+            excludeIsBinaryControlCharacterTest = null;
+        }
+
         /// <summary>
         /// The tab size used for whitespace visualization in the results tree
         /// and the preview window. This size matches (as close as possible)
@@ -738,12 +750,21 @@ namespace dnGREP.Common
 
                 // --- Non-textual C0 control characters ---
                 // Excludes legitimate text controls: TAB (0x09), LF (0x0A), CR (0x0D).
-                for (int i = 0; i < count; i++)
+                // Users can opt out of this check for text files that legitimately contain
+                // other control characters. The setting is cached to avoid repeated
+                // dictionary lookups since IsBinary is called very frequently.
+                excludeIsBinaryControlCharacterTest ??=
+                    GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExcludeIsBinaryControlCharacterTest);
+
+                if (!excludeIsBinaryControlCharacterTest.Value)
                 {
-                    byte b = buffer[i];
-                    if ((b >= 0x01 && b <= 0x08) || b == 0x0B || b == 0x0C ||
-                        (b >= 0x0E && b <= 0x1F) || b == 0x7F)
-                        return true;
+                    for (int i = 0; i < count; i++)
+                    {
+                        byte b = buffer[i];
+                        if ((b >= 0x01 && b <= 0x08) || b == 0x0B || b == 0x0C ||
+                            (b >= 0x0E && b <= 0x1F) || b == 0x7F)
+                            return true;
+                    }
                 }
 
                 return false;

@@ -31,6 +31,8 @@ namespace dnGREP.Common
             public const string IncludeHidden = "IncludeHidden";
             [DefaultValue(true)]
             public const string IncludeBinary = "IncludeBinary";
+            [DefaultValue(false)]
+            public const string ExcludeIsBinaryControlCharacterTest = "ExcludeIsBinaryControlCharacterTest";
             [DefaultValue(true)]
             public const string IncludeArchive = "IncludeArchive";
             [DefaultValue(true)]
