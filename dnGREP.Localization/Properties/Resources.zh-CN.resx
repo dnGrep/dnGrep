@@ -4502,4 +4502,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
     <value>从此列表中删除 “{0}” 项目？</value>
   </data>
+  <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
+    <value>检测二进制文件时忽略控制字符</value>
+  </data>
 </root>
