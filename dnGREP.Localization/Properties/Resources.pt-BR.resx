@@ -3477,4 +3477,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
     <value>Remover o item "{0}" desta lista?</value>
   </data>
+  <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
+    <value>Ignorar caracteres de controle ao detectar arquivos binários</value>
+  </data>
 </root>
