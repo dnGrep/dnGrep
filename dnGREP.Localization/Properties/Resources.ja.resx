@@ -4419,4 +4419,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
     <value>このリストから項目 "{0}" を削除しますか？</value>
   </data>
+  <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
+    <value>バイナリファイルの検出時、制御文字を無視する</value>
+  </data>
 </root>
