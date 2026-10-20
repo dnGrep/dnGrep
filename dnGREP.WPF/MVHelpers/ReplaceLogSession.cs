@@ -63,7 +63,23 @@ namespace dnGREP.WPF.MVHelpers
             GrepMatch? previous = lastSelected;
             lastSelected = vm.SelectedGrepMatch;
 
-            if (previous != null && !ReferenceEquals(previous, lastSelected) && decided.Add(previous)) {
+            if (previous == null || ReferenceEquals(previous, lastSelected)) {
+                return;
+            }
+
+            bool changed = decided.Add(previous);
+
+            // moving to another file (Next/Previous File) skips the rest of the matches in the file left
+            int previousFile = files.FindIndex(f => f.Matches.Any(m => ReferenceEquals(m, previous)));
+            int currentFile = lastSelected == null ? -1
+                : files.FindIndex(f => f.Matches.Any(m => ReferenceEquals(m, lastSelected)));
+            if (previousFile >= 0 && currentFile >= 0 && currentFile != previousFile) {
+                foreach (GrepMatch match in files[previousFile].Matches) {
+                    changed |= decided.Add(match);
+                }
+            }
+
+            if (changed) {
                 Refresh();
             }
         }
