@@ -27,6 +27,7 @@ namespace dnGREP.WPF.MVHelpers
         private readonly HashSet<GrepMatch> decided = new(ReferenceEqualityComparer.Instance);
         private readonly Dictionary<GrepSearchResult, string> fileTexts = [];
         private GrepMatch? lastSelected;
+        private GrepSearchResult? lastFile;
 
         /// <summary>
         /// Called when a mark changes in the Replace window (replace, undo, bulk marks).
@@ -56,6 +57,22 @@ namespace dnGREP.WPF.MVHelpers
         /// </summary>
         public void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
+            if (sender is ReplaceViewModel fileVm && e.PropertyName == nameof(ReplaceViewModel.SelectedSearchResult)) {
+                // file-by-file mode has no selected match: leaving a file decides all of its matches
+                GrepSearchResult? previousResult = lastFile;
+                lastFile = fileVm.SelectedSearchResult;
+                if (previousResult != null && !ReferenceEquals(previousResult, lastFile)) {
+                    bool added = false;
+                    foreach (GrepMatch match in previousResult.Matches) {
+                        added |= decided.Add(match);
+                    }
+                    if (added) {
+                        Refresh();
+                    }
+                }
+                return;
+            }
+
             if (e.PropertyName != nameof(ReplaceViewModel.SelectedGrepMatch) || sender is not ReplaceViewModel vm) {
                 return;
             }
