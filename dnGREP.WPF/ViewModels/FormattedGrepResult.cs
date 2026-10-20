@@ -225,6 +225,12 @@ namespace dnGREP.WPF
                     MatchInfo = string.Format(Resources.Main_ResultList_CountMatches, string.Empty, matchCount).Trim().TrimStart('(').TrimEnd(')');
                 }
             }
+            if (GrepResult.LogSummary != null)
+            {
+                // a replacement log: show the replacement counts instead of the match count
+                infoText = " " + GrepResult.AdditionalInformation + " (" + GrepResult.LogSummary + ")";
+                MatchInfo = GrepResult.LogSummary;
+            }
             FileInfo = infoText;
 
             if (!IsTreeListViewEnabled && isFileReadOnly)

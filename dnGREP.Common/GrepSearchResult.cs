@@ -143,6 +143,12 @@ namespace dnGREP.Common
 
         public bool IsReadOnlyFileType { get; set; } = false;
 
+        /// <summary>
+        /// Set for the synthetic results that show a replacement log: the text shown in the
+        /// results header in place of the match count. Null for search results.
+        /// </summary>
+        public string? LogSummary { get; set; }
+
         public bool IsReadOnly
         {
             get

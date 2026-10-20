@@ -113,8 +113,8 @@ namespace dnGREP.WPF.MVHelpers
                 GrepLine line = linesWithContext[i];
                 bool isSectionBreak = false;
 
-                // Adding separator
-                if (tempList.Count > 0 &&
+                // Adding separator; replacement log lines are paired old/new lines with no separators
+                if (tempList.Count > 0 && line.LogKind == ReplaceLogLineKind.None &&
                     (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
                 {
                     isSectionBreak = true;

@@ -1127,6 +1127,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Re_place with:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>HTML page</value>
+    <comment>Main window, save replace log, html format label</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>Replace log as HTML</value>
+    <comment>Main window, More button menu item label, shown only while a replace log is displayed</comment>
+  </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
     <value>CSV (comma separated)</value>
     <comment>Main window, save report, report type format label</comment>
@@ -1170,6 +1178,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
     <value>{0} ({1} matches on {2} lines)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} replaced</value>
+    <comment>Main window, replacement log file header (kept short so it fits the column): {0} is the number of replacements in the file</comment>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} replaced, {1} skipped</value>
+    <comment>Main window, replacement log file header (kept short so it fits the column): {0} is the number of replacements in the file; {1} is the number of matches left alone</comment>
+  </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>Replace log: {0} replacements, {1} skipped, on {2} lines in {3} files</value>
+    <comment>Main window status bar while the replacement log is shown: {0} is the number of replacements; {1} is the number of matches left alone; {2} is the number of lines shown; {3} is the number of files</comment>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>Replace Log</value>
+    <comment>Main window: title shown above the results while the Results pane holds a replacement log</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Match {0}{1}{2}</value>
@@ -2426,6 +2450,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
     <value>Move to the previous match in this file</value>
     <comment>Replace window, Previous button tooltip</comment>
+  </data>
+  <data name="Replace_LastMatchReached" xml:space="preserve">
+    <value>Last match reached: click OK to apply</value>
+    <comment>Replace window, shown after the last match has been replaced or skipped</comment>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>Replace remaining</value>
+    <comment>Replace window, Replace remaining button label (accel)</comment>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>Replace this and all later matches, across files, then apply. Matches already replaced or skipped are unchanged.</value>
+    <comment>Replace window, Replace remaining button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
     <value>_Next</value>

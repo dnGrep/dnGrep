@@ -43,6 +43,7 @@ namespace dnGREP.WPF
 
             beenInitialized = true;
             KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceAllCommand), "Replace_ReplaceInAllFiles", "F10");
+            KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceRemainingCommand), "Replace_Remaining", string.Empty);            
             KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(PrevFileCommand), "Replace_PreviousFile", "Control+PageUp");
             KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(NextFileCommand), "Replace_NextFile", "Control+PageDown");
             KeyBindingManager.RegisterCommand(KeyCategory.Replace, nameof(ReplaceAllInFileCommand), "Replace_ReplaceInFile", "Control+A");
@@ -203,6 +204,13 @@ namespace dnGREP.WPF
             }
         }
 
+        /// <summary>
+        /// Moves to the next match, going on to the first match of the next file after the last
+        /// match of a file.  When there is no next match anywhere, the review is complete: the
+        /// current (last) match stays selected, <see cref="ReviewComplete"/> is set so the window
+        /// can say so, and ReplaceMatch is raised so the replacement log counts that last match
+        /// as decided (it would not otherwise, since the selection does not change).
+        /// </summary>
         private void SelectNextMatch()
         {
             if (SelectedSearchResult != null && IndividualReplaceEnabled)
@@ -212,9 +220,14 @@ namespace dnGREP.WPF
                     matchIndex++;
                     SelectedGrepMatch = SelectedSearchResult.Matches[matchIndex];
                 }
-                else
+                else if (SearchResults != null && fileIndex < SearchResults.Count - 1)
                 {
                     SelectNextFile();
+                }
+                else
+                {
+                    ReviewComplete = true;
+                    ReplaceMatch?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -591,10 +604,22 @@ namespace dnGREP.WPF
 
         public GrepSearchOption SearchOptions { get; set; }
 
+        /// <summary>
+        /// True after the user has moved past the last match of the last file.  Cleared when the
+        /// selection moves to another match, or the last match's mark is undone.
+        /// </summary>
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ReviewCompleteMessage))]
+        private bool reviewComplete;
+
+        public string ReviewCompleteMessage => ReviewComplete ? Resources.Replace_LastMatchReached : string.Empty;
+
         [ObservableProperty]
         private GrepMatch? selectedGrepMatch = null;
         partial void OnSelectedGrepMatchChanged(GrepMatch? value)
         {
+            ReviewComplete = false;
+
             if (SelectedGrepMatch != null && SelectedSearchResult != null)
             {
                 var lineMatch = SelectedSearchResult.SearchResults
@@ -715,6 +740,38 @@ namespace dnGREP.WPF
             CloseTrue?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// The Remaining button: marks the match under the cursor and every match after it
+        /// (rest of this file, then all later files) for replacement and closes with OK.
+        /// Decisions already made on earlier matches, and on matches before the cursor in this file,
+        /// are left alone. With no match selected it starts at the beginning of the current file.
+        /// </summary>
+        private void ReplaceRemaining()
+        {
+            if (SearchResults != null)
+            {
+                int startFile = Math.Max(fileIndex, 0);
+                for (int i = startFile; i < SearchResults.Count; i++)
+                {
+                    GrepSearchResult gsr = SearchResults[i];
+                    int first = 0;
+                    if (i == fileIndex && SelectedGrepMatch != null)
+                    {
+                        first = Math.Max(gsr.Matches.IndexOf(SelectedGrepMatch), 0);
+                    }
+                    for (int j = first; j < gsr.Matches.Count; j++)
+                    {
+                        gsr.Matches[j].ReplaceMatch = true;
+                    }
+                }
+                FormatFileReplaceStatus();
+
+                ReplaceMatch?.Invoke(this, EventArgs.Empty);
+            }
+
+            CloseTrue?.Invoke(this, EventArgs.Empty);
+        }
+
         private void MarkAllInFile()
         {
             if (SelectedSearchResult != null)
@@ -759,6 +816,7 @@ namespace dnGREP.WPF
 
         private void UndoMarkMatchForReplace()
         {
+            ReviewComplete = false;
             if (SelectedGrepMatch != null)
             {
                 SelectedGrepMatch.ReplaceMatch = false;
@@ -770,6 +828,12 @@ namespace dnGREP.WPF
         private RelayCommand? replaceAllCommand;
         public RelayCommand ReplaceAllCommand => replaceAllCommand ??= new RelayCommand(
             p => ReplaceAll(),
+            q => SearchResults != null);
+
+
+        private RelayCommand? replaceRemainingCommand;
+        public RelayCommand ReplaceRemainingCommand => replaceRemainingCommand ??= new RelayCommand(
+            p => ReplaceRemaining(),
             q => SearchResults != null);
 
 
@@ -791,7 +855,7 @@ namespace dnGREP.WPF
         private RelayCommand? nextMatchCommand;
         public RelayCommand NextMatchCommand => nextMatchCommand ??= new RelayCommand(
             p => SelectNextMatch(),
-            q => SelectedSearchResult != null && SelectedSearchResult.Matches.Count > 1 && IndividualReplaceEnabled);
+            q => SelectedSearchResult != null && IndividualReplaceEnabled && !ReviewComplete);
 
         private RelayCommand? replaceAllInFileCommand;
         public RelayCommand ReplaceAllInFileCommand => replaceAllInFileCommand ??= new RelayCommand(
@@ -863,9 +927,9 @@ namespace dnGREP.WPF
             {
                 if (!string.IsNullOrEmpty(NextMatchCommand.KeyGestureText))
                 {
-                    return $"{Resources.Replace_MoveToThePreviousMatchInThisFile} ({NextMatchCommand.KeyGestureText})";
+                    return $"{Resources.Replace_MoveToTheNextMatchInThisFile} ({NextMatchCommand.KeyGestureText})";
                 }
-                return Resources.Replace_MoveToThePreviousMatchInThisFile;
+                return Resources.Replace_MoveToTheNextMatchInThisFile;
             }
         }
 
@@ -878,6 +942,18 @@ namespace dnGREP.WPF
                     return $"{Resources.Replace_ReplaceAllMatchesInAllFilesAndApply} ({ReplaceAllCommand.KeyGestureText})";
                 }
                 return Resources.Replace_ReplaceAllMatchesInAllFilesAndApply;
+            }
+        }
+
+        public string ReplaceRemainingCommandToolTip
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ReplaceRemainingCommand.KeyGestureText))
+                {
+                    return $"{Resources.Replace_RemainingToolTip} ({ReplaceRemainingCommand.KeyGestureText})";
+                }
+                return Resources.Replace_RemainingToolTip;
             }
         }
 

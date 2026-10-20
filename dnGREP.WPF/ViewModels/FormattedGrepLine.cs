@@ -57,6 +57,11 @@ namespace dnGREP.WPF
             {
                 Style = "Context";
             }
+            if (line.LogKind == ReplaceLogLineKind.Note)
+            {
+                // explanatory text in a replacement log is shown in the gray context style
+                Style = "Context";
+            }
             if (line.LineNumber == -1 && string.IsNullOrEmpty(line.LineText))
             {
                 Style = "Empty";
@@ -199,8 +204,68 @@ namespace dnGREP.WPF
 
         public IEnumerable<ITreeItem> Children => [];
 
+        /// <summary>
+        /// Formats a line of a replacement log: the text is plain except for the spans, which use the
+        /// same theme brushes as the Replace window's preview (old text deleted, new text inserted,
+        /// and the skip colors for matches that were not replaced).
+        /// </summary>
+        /// <param name="line">a log line (LogKind is not None)</param>
+        /// <returns>the inlines to display</returns>
+        private InlineCollection FormatLogLine(GrepLine line)
+        {
+            Paragraph paragraph = new();
+            string text = line.LineText;
+            int column = 0;
+            int pos = 0;
+
+            foreach (ReplaceLogSpan span in (line.LogSpans ?? []).OrderBy(s => s.Start))
+            {
+                int start = Math.Max(span.Start, pos);
+                int end = Math.Min(span.Start + span.Length, text.Length);
+                if (end <= start)
+                {
+                    continue;
+                }
+
+                if (start > pos)
+                {
+                    paragraph.Inlines.Add(new Run(MarkWhitespace(text[pos..start], ref column)));
+                }
+
+                Run run = new(MarkWhitespace(text[start..end], ref column));
+                if (span.Kind == ReplaceLogSpanKind.Skipped)
+                {
+                    // a match that was found but left alone: the theme's skip colors, as in the Replace window
+                    run.SetResourceReference(Run.ForegroundProperty, "Match.Skip.Foreground");
+                    run.SetResourceReference(Run.BackgroundProperty, "Match.Skip.Background");
+                }
+                else if (line.LogKind == ReplaceLogLineKind.New)
+                {
+                    run.SetResourceReference(Run.BackgroundProperty, "DiffText.Inserted.Word.Background");
+                }
+                else
+                {
+                    run.SetResourceReference(Run.BackgroundProperty, "DiffText.Deleted.Word.Background");
+                }
+                paragraph.Inlines.Add(run);
+                pos = end;
+            }
+
+            if (pos < text.Length)
+            {
+                paragraph.Inlines.Add(new Run(MarkWhitespace(text[pos..], ref column)));
+            }
+
+            return paragraph.Inlines;
+        }
+
         private InlineCollection FormatLine(GrepLine line)
         {
+            if (line.LogKind != ReplaceLogLineKind.None)
+            {
+                return FormatLogLine(line);
+            }
+
             Paragraph paragraph = new();
 
             string fullLine = line.LineText;

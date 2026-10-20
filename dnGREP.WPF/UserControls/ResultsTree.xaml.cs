@@ -28,6 +28,9 @@ namespace dnGREP.WPF.UserControls
         private bool inNextPrevious;
         private bool stickyScrollEnabled;
 
+        // while the replacement log is being updated, the tree follows its end (see ViewModel_LogUpdated)
+        private DateTime logFollowUntil = DateTime.MinValue;
+
         public GridViewColumnCollection TreeListViewColumns { get; }
 
         // Logical column identifiers
@@ -694,6 +697,20 @@ namespace dnGREP.WPF.UserControls
             viewModel = (GrepSearchResultsViewModel)DataContext;
             viewModel.TreeControl = this;
             viewModel.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
+            viewModel.LogUpdated += ViewModel_LogUpdated;
+        }
+
+        /// <summary>
+        /// The replacement log was replaced by a newer one: scroll to its end, where the newest
+        /// entry is.  The lines of each file load after the tree is rebuilt, which changes the
+        /// scrollable height; for a short time after an update, ScrollViewer_ScrollChanged scrolls to
+        /// the end again whenever the height changes, so the newest entry is still in view when loading finishes.
+        /// </summary>
+        private void ViewModel_LogUpdated(object? sender, EventArgs e)
+        {
+            logFollowUntil = DateTime.UtcNow.AddMilliseconds(1500);
+            Dispatcher.BeginInvoke(() => treeView.ScrollViewer?.ScrollToEnd(),
+                System.Windows.Threading.DispatcherPriority.Background);
         }
 
         internal MultiSelectTreeView TreeView => treeView;
@@ -834,6 +851,12 @@ namespace dnGREP.WPF.UserControls
         {
             Dispatcher.BeginInvoke(() =>
             {
+                if (viewModel?.IsLogDisplayed == true) {
+                    // the replacement log follows its newest entry instead (ViewModel_LogUpdated)
+                    expandedTreeViewItem = null;
+                    return;
+                }
+
                 if (expandedTreeViewItem != null)
                 {
                     // This is used for navigating forward in the tree view
@@ -1689,6 +1712,12 @@ namespace dnGREP.WPF.UserControls
             if (stickyScrollEnabled && !inNextPrevious && e.VerticalChange != 0)
             {
                 ResetContextItemVisible();
+            }
+
+            // keep the newest replacement log entry in view while the log's lines are loading
+            if (e.ExtentHeightChange != 0 && viewModel?.IsLogDisplayed == true && DateTime.UtcNow < logFollowUntil &&
+                sender is ScrollViewer logScrollViewer) {
+                logScrollViewer.ScrollToEnd();
             }
         }
 
