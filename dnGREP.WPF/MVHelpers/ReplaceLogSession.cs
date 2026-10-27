@@ -136,7 +136,8 @@ namespace dnGREP.WPF.MVHelpers
                 // totals for the whole log go to the status bar: there is room for them there
                 showStatus(TranslationSource.Format(Resources.Main_ReplaceLog_StatusSummary,
                     logs.Sum(l => l.ReplacementCount), logs.Sum(l => l.SkippedCount),
-                    logs.Sum(l => l.Entries.Count), logs.Count));
+                    logs.Sum(l => l.Entries.SelectMany(e => e.OldLines)
+                        .Select(line => line.LineNumber).Distinct().Count()), logs.Count));
             }
         }
 
