@@ -98,10 +98,27 @@ namespace dnGREP.WPF
             }
         }
 
+        // matches the user moved past without marking; compared by reference because matches compare by position
+        private readonly HashSet<GrepMatch> skippedMatches = new(ReferenceEqualityComparer.Instance);
+        private GrepMatch? lastSelectedMatch;
+
+        private void SkipUnmarkedInCurrentFile()
+        {
+            if (SelectedSearchResult != null && IndividualReplaceEnabled)
+            {
+                foreach (var m in SelectedSearchResult.Matches)
+                {
+                    if (!m.ReplaceMatch)
+                        skippedMatches.Add(m);
+                }
+            }
+        }
+
         public void SelectNextFile()
         {
             if (SearchResults != null && fileIndex < SearchResults.Count - 1)
             {
+                SkipUnmarkedInCurrentFile();
                 fileIndex++;
                 FileNumber++;
 
@@ -122,6 +139,7 @@ namespace dnGREP.WPF
         {
             if (SearchResults != null && fileIndex > 0)
             {
+                SkipUnmarkedInCurrentFile();
                 fileIndex--;
                 FileNumber--;
 
@@ -620,6 +638,12 @@ namespace dnGREP.WPF
         {
             ReviewComplete = false;
 
+            if (lastSelectedMatch != null && !ReferenceEquals(lastSelectedMatch, value) && !lastSelectedMatch.ReplaceMatch)
+            {
+                skippedMatches.Add(lastSelectedMatch);
+            }
+            lastSelectedMatch = value;
+
             if (SelectedGrepMatch != null && SelectedSearchResult != null)
             {
                 var lineMatch = SelectedSearchResult.SearchResults
@@ -761,7 +785,10 @@ namespace dnGREP.WPF
                     }
                     for (int j = first; j < gsr.Matches.Count; j++)
                     {
-                        gsr.Matches[j].ReplaceMatch = true;
+                        var match = gsr.Matches[j];
+                        // the selected match is always replaced; matches already skipped stay skipped
+                        if (ReferenceEquals(match, SelectedGrepMatch) || !skippedMatches.Contains(match))
+                            match.ReplaceMatch = true;
                     }
                 }
                 FormatFileReplaceStatus();
@@ -820,6 +847,7 @@ namespace dnGREP.WPF
             if (SelectedGrepMatch != null)
             {
                 SelectedGrepMatch.ReplaceMatch = false;
+                skippedMatches.Remove(SelectedGrepMatch);
                 FormatFileReplaceStatus();
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
             }
