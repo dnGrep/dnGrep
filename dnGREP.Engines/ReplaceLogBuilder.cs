@@ -133,24 +133,22 @@ namespace dnGREP.Engines
                 return new ReplaceLogEntry(lineNumber, oldLines, [], 0, null, local.Count);
             }
 
-            // the new length of each replaced match comes from a run with only that match marked
-            Dictionary<int, string> single = [];
-            Dictionary<int, int> newLength = [];
-            foreach (int i in marked) {
-                string output = runner.Run(line, local, [i]);
-                single[i] = output;
-                newLength[i] = Math.Max(0, output.Length - line.Length + local[i].Length);
+            // one engine pass over the line with every marked match; the engine reports the
+            // length of each replacement it wrote
+            string newText = runner.Run(line, local, marked, out List<(int Start, int NewLength)> captured);
+            Dictionary<int, int> newLengthByStart = [];
+            foreach ((int start, int length) in captured) {
+                newLengthByStart.TryAdd(start, length);
             }
-
-            string newText = marked.Count == 1 ? single[marked[0]] : runner.Run(line, local, marked);
 
             List<ReplaceLogSpan> newSpans = [];
             int delta = 0;
             for (int i = 0; i < local.Count; i++) {
                 GrepMatch m = local[i];
                 if (m.ReplaceMatch) {
-                    newSpans.Add(new ReplaceLogSpan(m.StartLocation + delta, newLength[i], ReplaceLogSpanKind.Replaced));
-                    delta += newLength[i] - m.Length;
+                    int newLength = newLengthByStart.TryGetValue(m.StartLocation, out int len) ? len : m.Length;
+                    newSpans.Add(new ReplaceLogSpan(m.StartLocation + delta, newLength, ReplaceLogSpanKind.Replaced));
+                    delta += newLength - m.Length;
                 }
                 else {
                     newSpans.Add(new ReplaceLogSpan(m.StartLocation + delta, m.Length, ReplaceLogSpanKind.Skipped));
@@ -248,14 +246,23 @@ namespace dnGREP.Engines
             /// <param name="local">all matches on the line in line coordinates (line number 1)</param>
             /// <param name="marked">indexes into <paramref name="local"/> of the matches to replace</param>
             /// <returns>the line after replacement</returns>
-            public string Run(string line, List<GrepMatch> local, IReadOnlyCollection<int> marked)
+            public string Run(string line, List<GrepMatch> local, IReadOnlyCollection<int> marked,
+                out List<(int Start, int NewLength)> captured)
             {
-                List<GrepMatch> items = [.. local.Select((m, i) => m.Copy(marked.Contains(i)))];
+                HashSet<int> markedSet = [.. marked];
+                List<GrepMatch> items = [.. local.Select((m, i) => m.Copy(markedSet.Contains(i)))];
 
-                using MemoryStream input = new(encoding.GetBytes(line));
-                using MemoryStream output = new();
-                engine.Replace(input, output, searchPattern, replacePattern, searchType, searchOptions, encoding, items);
-                return encoding.GetString(output.ToArray());
+                captured = [];
+                engine.CapturedReplaceSpans = captured;
+                try {
+                    using MemoryStream input = new(encoding.GetBytes(line));
+                    using MemoryStream output = new();
+                    engine.Replace(input, output, searchPattern, replacePattern, searchType, searchOptions, encoding, items);
+                    return encoding.GetString(output.ToArray());
+                }
+                finally {
+                    engine.CapturedReplaceSpans = null;
+                }
             }
         }
     }
