@@ -220,8 +220,12 @@ namespace dnGREP.Common
         public int SkippedCount => Entries.Sum(e => e.SkippedCount);
 
         /// <summary>
-        /// Number of lines with at least one replacement.
+        /// Number of distinct original source lines with at least one replacement.
         /// </summary>
-        public int ReplacedLineCount => Entries.Count(e => e.IsReplaced);
+        public int ReplacedLineCount => Entries
+            .Where(e => e.IsReplaced)
+            .SelectMany(e => Enumerable.Range(e.LineNumber, System.Math.Max(1, e.OldLines.Count)))
+            .Distinct()
+            .Count();
     }
 }

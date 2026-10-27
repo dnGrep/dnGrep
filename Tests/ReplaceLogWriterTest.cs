@@ -60,6 +60,35 @@ namespace Tests
             Assert.DoesNotContain("\t", text);
         }
 
+        private static ReplaceLogEntry Entry(int lineNumber, int oldLineCount, int replacements)
+        {
+            List<ReplaceLogLine> oldLines = [];
+            for (int i = 0; i < oldLineCount; i++) {
+                oldLines.Add(new ReplaceLogLine(i == 0 ? lineNumber : 0, "x", []));
+            }
+            return new ReplaceLogEntry(lineNumber, oldLines, [], replacements);
+        }
+
+        [Fact]
+        public void ReplacedLineCountCountsSameLineOnce()
+        {
+            ReplaceLogFile file = new("test.txt");
+            file.Entries.Add(Entry(3, 1, 1));
+            file.Entries.Add(Entry(3, 1, 1));
+
+            Assert.Equal(1, file.ReplacedLineCount);
+        }
+
+        [Fact]
+        public void ReplacedLineCountCountsEveryLineOfSpanningMatch()
+        {
+            ReplaceLogFile file = new("test.txt");
+            file.Entries.Add(Entry(5, 3, 1));
+            file.Entries.Add(Entry(9, 1, 0));
+
+            Assert.Equal(3, file.ReplacedLineCount);
+        }
+
         [Fact]
         public void TextShowsSkippedLineAsBeforeAndAfter()
         {
