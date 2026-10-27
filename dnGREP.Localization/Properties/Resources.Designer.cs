@@ -7695,6 +7695,79 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to replaced text is not shown for multiline or XPath replace.
+        /// </summary>
+        public static string ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace {
+            get {
+                return ResourceManager.GetString("ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to replacement contains a GUID token; the GUID written to the file differs from any shown here.
+        /// </summary>
+        public static string ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere {
+            get {
+                return ResourceManager.GetString("ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShow" +
+                        "nHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to has {0} replacements on {1} lines.
+        /// </summary>
+        public static string ReplaceLogWriter_HasReplacements {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_HasReplacements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File,Line,Replacements,Unchanged,Old text,New text.
+        /// </summary>
+        public static string ReplaceLogWriter_HeaderText {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_HeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replaced {0} matches on {1} lines in {2} files.
+        /// </summary>
+        public static string ReplaceLogWriter_ReplacedMatches {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplacedMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} unchanged).
+        /// </summary>
+        public static string ReplaceLogWriter_ReplacedMatchesUnchanged {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplacedMatchesUnchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Log.
+        /// </summary>
+        public static string ReplaceLogWriter_ReplaceLog {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplaceLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace with: &apos;{0}&apos;.
+        /// </summary>
+        public static string ReplaceLogWriter_ReplaceWith {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplaceWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File Name,Line Number,String.
         /// </summary>
         public static string Report_CSVRecordHeaderText {

@@ -4688,4 +4688,36 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Remove item "{0}" from this list?</value>
     <comment>Message box text for: Remove from history list message: {0} is the item to remove</comment>
   </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>Replace Log</value>
+    <comment>Title for the replace log HTML report</comment>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>File,Line,Replacements,Unchanged,Old text,New text</value>
+    <comment>Replace log header for CSV report</comment>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>Replace with: '{0}'</value>
+    <comment>Label for HTML report</comment>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>has {0} replacements on {1} lines</value>
+    <comment>Replace log file summary. {0} is the number of replacements, {1} the number of lines</comment>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>Replaced {0} matches on {1} lines in {2} files</value>
+    <comment>Replace log totals. {0}, {1}, {2} are formatted numbers</comment>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} unchanged)</value>
+    <comment>Replace log totals with unchanged count. {0} is the totals text, {1} is the number of unchanged matches</comment>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>replacement contains a GUID token; the GUID written to the file differs from any shown here</value>
+    <comment>Note attached to replace log entries</comment>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>replaced text is not shown for multiline or XPath replace</value>
+    <comment>Note attached to replace log entries</comment>
+  </data>
 </root>

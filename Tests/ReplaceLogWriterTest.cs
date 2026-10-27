@@ -47,11 +47,11 @@ namespace Tests
 
             string text = ReplaceLogWriter.ToText([log], info);
 
-            Assert.Contains("dlGrep Replace Log", text);
+            Assert.Contains("dnGrep Replace Log", text);
             Assert.Contains("Replace with: 'quux'", text);
-            Assert.Contains("Replaced 2 matches on 2 lines in 1 files (1 left alone)", text);
+            Assert.Contains("Replaced 2 matches on 2 lines in 1 files (1 unchanged)", text);
             Assert.Contains("c:\\src\\test.txt", text);
-            Assert.Contains("has 2 replacements on 2 lines (1 left alone):", text);
+            Assert.Contains("has 2 replacements on 2 lines (1 unchanged):", text);
             Assert.Contains("- 1: one foo", text);
             Assert.Contains("+ 1: one quux", text);
             Assert.Contains("- 2: two foo bar foo", text);
@@ -110,7 +110,7 @@ namespace Tests
             string csv = ReplaceLogWriter.ToCsv([replaced, skipped]);
             string[] rows = csv.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries);
 
-            Assert.Equal("File,Line,Replacements,Left alone,Old text,New text", rows[0]);
+            Assert.Equal("File,Line,Replacements,Unchanged,Old text,New text", rows[0]);
             Assert.Equal("\"c:\\src\\test.txt\",1,1,0,\"say \"\"hi\"\", foo\",\"say \"\"hi\"\", quux\"", rows[1]);
             Assert.Equal("\"c:\\src\\test.txt\",1,0,1,\"one foo\",\"one foo\"", rows[2]);
         }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using dnGREP.Localization;
+using dnGREP.Localization.Properties;
 
 namespace dnGREP.Common
 {
@@ -40,11 +42,12 @@ namespace dnGREP.Common
         public static string ToText(IReadOnlyList<ReplaceLogFile> files, ReplaceLogInfo info)
         {
             StringBuilder sb = new();
-            sb.AppendLine("dlGrep Replace Log").AppendLine();
+            sb.Append(Resources.Main_DnGREP_Title).Append(' ');
+            sb.AppendLine(Resources.ReplaceLogWriter_ReplaceLog).AppendLine();
             sb.AppendLine(info.Time.ToString("F"));
             sb.AppendLine();
             sb.AppendLine(info.OptionsText.TrimEnd());
-            sb.Append("Replace with: '").Append(info.ReplaceWith).AppendLine("'");
+            sb.AppendLine(TranslationSource.Format(Resources.ReplaceLogWriter_ReplaceWith, info.ReplaceWith));
             sb.AppendLine(Totals(files));
             sb.AppendLine();
 
@@ -56,7 +59,7 @@ namespace dnGREP.Common
                 int width = NumberWidth(file);
                 foreach (ReplaceLogEntry entry in file.Entries) {
                     // an entry with nothing replaced shows the same line as "was" and as "became",
-                    // as the Results pane does; the highlighting alone shows which matches were left alone
+                    // as the Results pane does; the highlighting alone shows which matches were unchanged
                     AppendTextLines(sb, '-', entry.OldLines, width);
                     AppendTextLines(sb, '+', entry.IsReplaced ? entry.NewLines : entry.OldLines, width);
 
@@ -83,7 +86,7 @@ namespace dnGREP.Common
         public static string ToCsv(IReadOnlyList<ReplaceLogFile> files)
         {
             StringBuilder sb = new();
-            sb.AppendLine("File,Line,Replacements,Left alone,Old text,New text");
+            sb.AppendLine(Resources.ReplaceLogWriter_HeaderText);
             foreach (ReplaceLogFile file in files) {
                 foreach (ReplaceLogEntry entry in file.Entries) {
                     string oldText = string.Join("\n", entry.OldLines.Select(l => l.Text));
@@ -102,7 +105,7 @@ namespace dnGREP.Common
         /// <summary>
         /// The log as one standalone html page: a style block (no external files or scripts), the same
         /// header and per-file lines as the text report, and the old and new text wrapped in
-        /// span elements of class "old" and "new" ("skip" for matches that were left alone).
+        /// span elements of class "old" and "new" ("skip" for matches that were unchanged).
         /// Spacing is kept with white-space: pre, and all text is html-encoded.
         /// </summary>
         /// <param name="files">the log, one item per file</param>
@@ -113,10 +116,13 @@ namespace dnGREP.Common
         {
             StringBuilder sb = new();
             sb.AppendLine("<!DOCTYPE html>");
-            sb.AppendLine("<html lang=\"en\">");
+            sb.AppendLine($"<html lang=\"{TranslationSource.Instance.CurrentCulture.IetfLanguageTag}\">");
             sb.AppendLine("<head>");
             sb.AppendLine("<meta charset=\"utf-8\">");
-            sb.AppendLine("<title>dlGrep Replace Log</title>");
+            sb.Append("<title>")
+                .Append(Resources.Main_DnGREP_Title).Append(' ')
+                .Append(Resources.ReplaceLogWriter_ReplaceLog)
+                .AppendLine("</title>");
             sb.AppendLine("<style>");
             sb.AppendLine($"body {{ background: {colors.PageBackground}; color: {colors.PageForeground}; margin: 1em 2em; }}");
             sb.AppendLine("pre, .line { font-family: Consolas, 'Courier New', monospace; white-space: pre; margin: 0; }");
@@ -131,11 +137,14 @@ namespace dnGREP.Common
             sb.AppendLine("</style>");
             sb.AppendLine("</head>");
             sb.AppendLine("<body>");
-            sb.AppendLine("<h1>dlGrep Replace Log</h1>");
+            sb.Append("<h1>")
+                .Append(Resources.Main_DnGREP_Title).Append(' ')
+                .Append(Resources.ReplaceLogWriter_ReplaceLog)
+                .AppendLine("</h1>");
             sb.Append("<pre>").Append(Enc(info.Time.ToString("F"))).AppendLine("</pre>");
             sb.AppendLine("<pre>");
             sb.AppendLine(Enc(info.OptionsText.TrimEnd()));
-            sb.Append("Replace with: '").Append(Enc(info.ReplaceWith)).AppendLine("'");
+            sb.AppendLine(Enc(TranslationSource.Format(Resources.ReplaceLogWriter_ReplaceWith, info.ReplaceWith)));
             sb.AppendLine(Enc(Totals(files)));
             sb.AppendLine("</pre>");
 
@@ -165,7 +174,7 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// "Replaced N matches on M lines in K files" plus the number left alone, if any.
+        /// "Replaced N matches on M lines in K files" plus the number unchanged, if any.
         /// </summary>
         private static string Totals(IReadOnlyList<ReplaceLogFile> files)
         {
@@ -173,14 +182,20 @@ namespace dnGREP.Common
             int lines = files.Sum(f => f.ReplacedLineCount);
             int skipped = files.Sum(f => f.SkippedCount);
             int fileCount = files.Count(f => f.ReplacementCount > 0);
-            string text = $"Replaced {replaced:#,##0} matches on {lines:#,##0} lines in {fileCount:#,##0} files";
-            return skipped > 0 ? text + $" ({skipped:#,##0} left alone)" : text;
+            string text = TranslationSource.Format(Resources.ReplaceLogWriter_ReplacedMatches,
+                replaced.ToString("#,##0"), lines.ToString("#,##0"), fileCount.ToString("#,##0"));
+            return skipped > 0 ?
+                TranslationSource.Format(Resources.ReplaceLogWriter_ReplacedMatchesUnchanged, text, skipped.ToString("#,##0")) :
+                text;
         }
 
         private static string FileSummary(ReplaceLogFile file)
         {
-            string text = $"has {file.ReplacementCount} replacements on {file.ReplacedLineCount} lines";
-            return (file.SkippedCount > 0 ? text + $" ({file.SkippedCount} left alone)" : text) + ":";
+            string text = TranslationSource.Format(Resources.ReplaceLogWriter_HasReplacements,
+                file.ReplacementCount, file.ReplacedLineCount);
+            return (file.SkippedCount > 0 ?
+                TranslationSource.Format(Resources.ReplaceLogWriter_ReplacedMatchesUnchanged, text, file.SkippedCount) :
+                text) + ":";
         }
 
         /// <summary>
@@ -205,7 +220,7 @@ namespace dnGREP.Common
 
         /// <summary>
         /// One div per log line, with the matched ranges wrapped in spans.  A replaced range is
-        /// class "old" in the old lines and class "new" in the new lines; a range left alone is "skip".
+        /// class "old" in the old lines and class "new" in the new lines; a range unchanged is "skip".
         /// </summary>
         private static void AppendHtmlLines(StringBuilder sb, char sign, IReadOnlyList<ReplaceLogLine> lines, int width,
             string replacedClass)

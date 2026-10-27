@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.Localization.Properties;
 
 namespace dnGREP.Engines
 {
@@ -22,8 +23,8 @@ namespace dnGREP.Engines
     /// </summary>
     public static class ReplaceLogBuilder
     {
-        private const string NoteGuid = "replacement contains a GUID token; the GUID written to the file differs from any shown here";
-        private const string NoteNotShown = "replaced text is not shown for multi-line or XPath replace";
+        private static readonly string NoteGuid = Resources.ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere;
+        private static readonly string NoteNotShown = Resources.ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace;
 
         /// <summary>
         /// Builds the log for one file.

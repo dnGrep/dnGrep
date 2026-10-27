@@ -192,9 +192,10 @@ namespace dnGREP.Common
     /// </summary>
     public class ReplaceLogFile
     {
-        public ReplaceLogFile(string fileName)
+        public ReplaceLogFile(string fileName, string? note = null)
         {
             FileName = fileName;
+            Note = note;
         }
 
         public string FileName { get; }
@@ -207,7 +208,7 @@ namespace dnGREP.Common
         /// <summary>
         /// A note for the whole file (for example a write error), or null.
         /// </summary>
-        public string? Note { get; set; }
+        public string? Note { get; }
 
         /// <summary>
         /// Total matches replaced in the file.
