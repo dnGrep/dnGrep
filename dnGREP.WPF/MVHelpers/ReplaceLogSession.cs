@@ -118,8 +118,9 @@ namespace dnGREP.WPF.MVHelpers
                 }
 
                 try {
-                    ReplaceLogFile log = ReplaceLogBuilder.Build(file.FileNameReal, GetText(file), file.Matches,
-                        searchFor, replaceWith, searchType, searchOptions, null, decided.Contains);
+                    GrepEngineInitParams initParams = new(0, 0,
+                        GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold), false, false); ReplaceLogFile log = ReplaceLogBuilder.Build(file.FileNameReal, GetText(file), file.Matches,
+                        searchFor, replaceWith, searchType, searchOptions, initParams, decided.Contains);
                     if (log.Entries.Count > 0) {
                         logs.Add(log);
                     }
