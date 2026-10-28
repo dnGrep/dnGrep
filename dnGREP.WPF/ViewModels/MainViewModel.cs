@@ -1834,6 +1834,7 @@ namespace dnGREP.WPF
                     OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     ClearMatchCountStatus();
+                    ResultsViewModel.RefreshLogFileInfo();
                     if (ResultsViewModel.IsLogDisplayed && (canceled || e.Result == null || (int)e.Result == -1))
                     {
                         ResultsViewModel.EndLog(false);

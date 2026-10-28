@@ -149,10 +149,26 @@ namespace dnGREP.Common
         /// </summary>
         public string? LogSummary { get; set; }
 
+        /// <summary>
+        /// Reloads the file's size and timestamps, for example after the file was rewritten.
+        /// </summary>
+        public void RefreshFileInfo()
+        {
+            fileInfo = new FileData(FileNameReal);
+            fileSize = null;
+        }
+
         public bool IsReadOnly
         {
             get
             {
+                // a replacement log only exists for files that were writable; the file may be
+                // missing for a moment while a replace rewrites it
+                if (LogSummary != null)
+                {
+                    return false;
+                }
+
                 if (IsHexFile)
                 {
                     return true;

@@ -165,6 +165,15 @@ namespace dnGREP.WPF
                 FormattedLines_LoadFinished);
         }
 
+        internal void RefreshFileInfo()
+        {
+            GrepResult.RefreshFileInfo();
+            OnPropertyChanged(nameof(FileSize));
+            OnPropertyChanged(nameof(DateModified));
+            OnPropertyChanged(nameof(IsReadOnly));
+            SetLabel();
+        }
+
         internal void SetLabel()
         {
             bool isFileReadOnly = GrepResult.IsReadOnly;

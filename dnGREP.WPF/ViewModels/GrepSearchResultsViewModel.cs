@@ -195,7 +195,23 @@ namespace dnGREP.WPF
         }
 
         /// <summary>
-        /// Forgets the search results saved when the log was first shown, so the log stays
+        /// Reloads the file size and modified time of the files in the log, after the replace wrote them.
+        /// </summary>
+        public void RefreshLogFileInfo()
+        {
+            if (!IsLogDisplayed)
+            {
+                return;
+            }
+
+            foreach (FormattedGrepResult item in SearchResults)
+            {
+                item.RefreshFileInfo();
+            }
+        }
+
+        /// <summary>
+        /// Forgets the search results saved
         /// and can no longer be replaced by them.  Used when a replace is going ahead.
         /// </summary>
         public void DiscardSavedResults()
