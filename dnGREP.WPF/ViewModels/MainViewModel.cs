@@ -2477,7 +2477,8 @@ namespace dnGREP.WPF
 
                         // the files are back as they were, so the log no longer describes them
                         ResultsViewModel.EndLog(false);
-                        CanSearchInResults = false;
+                        CanSearchInResults = ResultsViewModel.SearchResults.Count > 0 && !IsSaveInProgress &&
+                            !ResultsViewModel.IsLogDisplayed;
                     }
                     else
                     {
