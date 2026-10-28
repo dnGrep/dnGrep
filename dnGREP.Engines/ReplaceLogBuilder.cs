@@ -312,18 +312,29 @@ namespace dnGREP.Engines
         }
 
         /// <summary>
-        /// Finds the index of the line that contains the file offset.
+        /// Finds the index of the line that contains the file offset, by binary search over the sorted line starts.
         /// </summary>
         /// <param name="lines">line start offsets and texts (texts include line endings)</param>
         /// <param name="position">file offset</param>
         /// <returns>line index, or -1 if the offset is outside the text</returns>
         private static int FindLine(List<(int Start, string Text)> lines, int position)
         {
-            for (int i = 0; i < lines.Count; i++)
+            int lo = 0, hi = lines.Count - 1;
+            while (lo <= hi)
             {
-                if (position >= lines[i].Start && position < lines[i].Start + lines[i].Text.Length)
+                int mid = lo + (hi - lo) / 2;
+                var (start, text) = lines[mid];
+                if (position < start)
                 {
-                    return i;
+                    hi = mid - 1;
+                }
+                else if (position >= start + text.Length)
+                {
+                    lo = mid + 1;
+                }
+                else
+                {
+                    return mid;
                 }
             }
             return -1;
