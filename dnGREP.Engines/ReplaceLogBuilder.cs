@@ -45,11 +45,14 @@ namespace dnGREP.Engines
         /// all matches are still passed to the engine. Null means every line with a match</param>
         /// /// <param name="encoding">the encoding the file was read with; stored on the returned log
         /// so results made from it report the real encoding. Null if not known</param>
+        /// <param name="outputEncoding">the encoding the replacement writes with; characters it cannot
+        /// represent are logged as the encoder writes them (for example '?'). Defaults to <paramref name="encoding"/>,
+        /// then UTF-8</param>
         /// <returns>the log for the file; no entries if there are no matches</returns>
         public static ReplaceLogFile Build(string fileName, string fileText, IEnumerable<GrepMatch> matches,
             string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions,
             GrepEngineInitParams? initParams = null, Func<GrepMatch, bool>? isDecided = null,
-            Encoding? encoding = null, Dictionary<int, LineCacheItem>? lineCache = null)
+            Encoding? encoding = null, Dictionary<int, LineCacheItem>? lineCache = null, Encoding? outputEncoding = null)
         {
             ReplaceLogFile file = new(fileName, encoding);
             List<GrepMatch> all = [.. matches.OrderBy(m => m.StartLocation)];
@@ -71,7 +74,8 @@ namespace dnGREP.Engines
 
             GrepEnginePlainText engine = new();
             engine.Initialize(initParams ?? GrepEngineInitParams.Default, FileFilter.Default, null);
-            LineRunner runner = new(engine, searchPattern, replacePattern, searchType, searchOptions);
+            LineRunner runner = new(engine, searchPattern, replacePattern, searchType, searchOptions,
+                            outputEncoding ?? encoding ?? new UTF8Encoding(false));
 
             string? guidNote = replacePattern.Contains("$(guid", StringComparison.OrdinalIgnoreCase) ? NoteGuid : null;
 
@@ -344,10 +348,11 @@ namespace dnGREP.Engines
         /// Runs the plain-text engine's replace on a single line held in memory.
         /// </summary>
         private sealed class LineRunner(GrepEnginePlainText engine, string searchPattern, string replacePattern,
-            SearchType searchType, GrepSearchOption searchOptions)
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            // no BOM, and not Encoding.UTF8, so the engine neither writes nor looks for a BOM
-            private static readonly UTF8Encoding encoding = new(false);
+            // the engine writes the encoding's preamble (BOM) at the start of every stream: the log
+            // lines are not whole files, so it is removed from the output
+            private readonly byte[] preamble = encoding.GetPreamble();
 
             /// <summary>
             /// Runs the engine on the line with only the matches at the given indexes marked.
@@ -365,7 +370,9 @@ namespace dnGREP.Engines
                 using MemoryStream input = new(encoding.GetBytes(line));
                 using MemoryStream output = new();
                 engine.Replace(input, output, searchPattern, replacePattern, searchType, searchOptions, encoding, items);
-                return encoding.GetString(output.ToArray());
+                byte[] bytes = output.ToArray();
+                int skip = preamble.Length > 0 && bytes.AsSpan().StartsWith(preamble) ? preamble.Length : 0;
+                return encoding.GetString(bytes, skip, bytes.Length - skip);
             }
         }
     }

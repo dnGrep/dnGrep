@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
@@ -19,7 +20,7 @@ namespace dnGREP.WPF.MVHelpers
     /// </summary>
     internal class ReplaceLogSession(GrepSearchResultsViewModel resultsViewModel, List<GrepSearchResult> files,
         string searchFor, string replaceWith, SearchType searchType, GrepSearchOption searchOptions,
-        Action<string> showStatus)
+        int codePage, Action<string> showStatus)
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -166,7 +167,7 @@ namespace dnGREP.WPF.MVHelpers
                             GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold), false, false); 
                         built = ReplaceLogBuilder.Build(file.FileNameReal, GetText(file), file.Matches,
                             searchFor, replaceWith, searchType, searchOptions, initParams, decided.Contains,
-                            file.Encoding, GetLineCache(file));
+                            file.Encoding, GetLineCache(file), GetOutputEncoding(file));
                     }
                     catch (Exception ex)
                     {
@@ -222,6 +223,14 @@ namespace dnGREP.WPF.MVHelpers
                 lineCaches[file] = cache;
             }
             return cache;
+        }
+
+        /// <summary>
+        /// The encoding the replace will write with: the selected code page, or else the file's own encoding.
+        /// </summary>
+        private Encoding GetOutputEncoding(GrepSearchResult file)
+        {
+            return codePage > -1 ? Encoding.GetEncoding(codePage) : file.Encoding;
         }
 
         /// <summary>

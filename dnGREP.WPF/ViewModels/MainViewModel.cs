@@ -2227,7 +2227,7 @@ namespace dnGREP.WPF
                     {
                         ResultsViewModel.LogInfo = new ReplaceLogInfo(SearchFor, ReplaceWith, GetSearchOptions(), DateTime.Now);
                         logSession = new(ResultsViewModel, replaceList, SearchFor, ReplaceWith,
-                            TypeOfSearch, SearchOptions, text => StatusMessage = text);
+                            TypeOfSearch, SearchOptions, CodePage, text => StatusMessage = text);
                         dlg.ViewModel.ReplaceMatch += logSession.OnReplaceMatch;
                         dlg.ViewModel.PropertyChanged += logSession.OnViewModelPropertyChanged;
                     }
