@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace dnGREP.Common
 {
@@ -95,22 +96,27 @@ namespace dnGREP.Common
 
             int segStart = 0;
             int i = 0;
-            while (i < text.Length) {
+            while (i < text.Length)
+            {
                 char ch = text[i];
-                if (ch == '\r' || ch == '\n') {
+                if (ch == '\r' || ch == '\n')
+                {
                     lines.Add(MakeLine(text, segStart, i - segStart, sorted, lines.Count == 0 ? lineNumber : 0));
-                    if (ch == '\r' && i + 1 < text.Length && text[i + 1] == '\n') {
+                    if (ch == '\r' && i + 1 < text.Length && text[i + 1] == '\n')
+                    {
                         i++;
                     }
                     i++;
                     segStart = i;
                 }
-                else {
+                else
+                {
                     i++;
                 }
             }
 
-            if (segStart < text.Length || lines.Count == 0) {
+            if (segStart < text.Length || lines.Count == 0)
+            {
                 lines.Add(MakeLine(text, segStart, text.Length - segStart, sorted, lines.Count == 0 ? lineNumber : 0));
             }
 
@@ -121,10 +127,12 @@ namespace dnGREP.Common
         {
             List<ReplaceLogSpan> clipped = [];
             int end = start + length;
-            foreach (ReplaceLogSpan span in sorted) {
+            foreach (ReplaceLogSpan span in sorted)
+            {
                 int s = System.Math.Max(span.Start, start);
                 int e = System.Math.Min(span.Start + span.Length, end);
-                if (e > s) {
+                if (e > s)
+                {
                     clipped.Add(span with { Start = s - start, Length = e - s });
                 }
             }
@@ -192,13 +200,21 @@ namespace dnGREP.Common
     /// </summary>
     public class ReplaceLogFile
     {
-        public ReplaceLogFile(string fileName, string? note = null)
+        public ReplaceLogFile(string fileName, Encoding? encoding = null, string? note = null)
         {
             FileName = fileName;
+            Encoding = encoding ?? GetEncoding(fileName);
             Note = note;
         }
 
         public string FileName { get; }
+
+        /// <summary>
+        /// The encoding the file was read with by the search.
+        /// Carried along so a result built from this log reports the file's real encoding
+        /// instead of assuming UTF-8.
+        /// </summary>
+        public Encoding Encoding { get; }
 
         /// <summary>
         /// Entries in file order.
@@ -223,10 +239,47 @@ namespace dnGREP.Common
         /// <summary>
         /// Number of distinct original source lines with at least one replacement.
         /// </summary>
-        public int ReplacedLineCount => Entries
-            .Where(e => e.IsReplaced)
-            .SelectMany(e => Enumerable.Range(e.LineNumber, System.Math.Max(1, e.OldLines.Count)))
-            .Distinct()
-            .Count();
+        /// Number of distinct source lines with at least one replacement.  Counted by source
+        /// line number, not by entry: in the whole-file fallback (Multiline, XPath, Hex) there is
+        /// one entry per match, so two matches on one line are two entries but one line.
+        /// </summary>
+        public int ReplacedLineCount => CountDistinctSourceLines(Entries.Where(e => e.IsReplaced));
+
+        /// <summary>
+        /// Number of distinct source lines shown in the log, replaced or skipped.
+        /// </summary>
+        public int LineCount => CountDistinctSourceLines(Entries);
+
+        /// <summary>
+        /// Counts the distinct original line numbers across the entries' old lines.
+        /// Continuation lines (line number 0) belong to the line before them and are not counted.
+        /// </summary>
+        /// <param name="entries">the entries to look at</param>
+        /// <returns>the number of different source lines</returns>
+        private static int CountDistinctSourceLines(IEnumerable<ReplaceLogEntry> entries)
+        {
+            return entries.SelectMany(e => e.OldLines)
+                .Where(l => l.LineNumber > 0)
+                .Select(l => l.LineNumber)
+                .Distinct()
+                .Count();
+        }
+
+        private static Encoding GetEncoding(string fileName)
+        {
+            try
+            {
+                if (System.IO.File.Exists(fileName))
+                {
+                    return Utils.GetFileEncoding(fileName);
+                }
+            }
+            catch (System.Exception)
+            {
+                // fall back to the default below
+            }
+            return Encoding.UTF8;
+        }
+
     }
 }

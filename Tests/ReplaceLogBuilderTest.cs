@@ -153,7 +153,8 @@ namespace Tests
                 SearchType.PlainText, GrepSearchOption.Global);
 
             Assert.Equal(2, log.Entries.Count);
-            Assert.All(log.Entries, e => {
+            Assert.All(log.Entries, e =>
+            {
                 Assert.False(e.IsReplaced);
                 Assert.Empty(e.NewLines);
                 Assert.Equal(ReplaceLogSpanKind.Skipped, Assert.Single(Assert.Single(e.OldLines).Spans).Kind);
@@ -245,12 +246,15 @@ namespace Tests
 
             string[] sourceLines = text.Split('\n');
             StringBuilder rebuilt = new();
-            for (int i = 0; i < sourceLines.Length - 1; i++) {
+            for (int i = 0; i < sourceLines.Length - 1; i++)
+            {
                 ReplaceLogEntry? entry = log.Entries.FirstOrDefault(e => e.LineNumber == i + 1);
-                if (entry != null && entry.IsReplaced) {
+                if (entry != null && entry.IsReplaced)
+                {
                     rebuilt.Append(string.Join("\n", entry.NewLines.Select(l => l.Text)));
                 }
-                else {
+                else
+                {
                     rebuilt.Append(sourceLines[i]);
                 }
                 rebuilt.Append('\n');
@@ -287,6 +291,96 @@ namespace Tests
             ReplaceLogFile log = ReplaceLogBuilder.Build("test.txt", "abc\n", [], "x", "y",
                 SearchType.PlainText, GrepSearchOption.Global);
             Assert.Empty(log.Entries);
+        }
+
+        [Fact]
+        public void WholeFileModeCountsDistinctLines()
+        {
+            // the Multiline option makes the builder use one entry per match, so the two matches
+            // on line 1 are two entries, but only one line
+            string text = "foo foo\nbar\n";
+            GrepSearchOption options = GrepSearchOption.Global | GrepSearchOption.Multiline;
+            List<GrepMatch> matches = Search(text, "foo", SearchType.PlainText, options);
+            Assert.Equal(2, matches.Count);
+            matches.ForEach(m => m.ReplaceMatch = true);
+
+            ReplaceLogFile log = ReplaceLogBuilder.Build("test.txt", text, matches, "foo", "x",
+                SearchType.PlainText, options);
+
+            Assert.Equal(2, log.Entries.Count);
+            Assert.Equal(2, log.ReplacementCount);
+            Assert.Equal(1, log.ReplacedLineCount);
+            Assert.Equal(1, log.LineCount);
+        }
+
+        [Fact]
+        public void LineCountsIncludeSkippedLinesButReplacedCountDoesNot()
+        {
+            string text = "foo\nbar foo\nbaz\n";
+            List<GrepMatch> matches = Search(text, "foo", SearchType.PlainText, GrepSearchOption.Global);
+            Assert.Equal(2, matches.Count);
+            matches[0].ReplaceMatch = true;
+
+            ReplaceLogFile log = ReplaceLogBuilder.Build("test.txt", text, matches, "foo", "x",
+                SearchType.PlainText, GrepSearchOption.Global);
+
+            Assert.Equal(1, log.ReplacedLineCount);
+            Assert.Equal(2, log.LineCount);
+        }
+
+        [Fact]
+        public void FileEncodingIsCarriedOnTheLog()
+        {
+            string text = "foo\n";
+            List<GrepMatch> matches = Search(text, "foo", SearchType.PlainText, GrepSearchOption.Global);
+
+            ReplaceLogFile withEncoding = ReplaceLogBuilder.Build("test.txt", text, matches, "foo", "x",
+                SearchType.PlainText, GrepSearchOption.Global, encoding: Encoding.Latin1);
+            // encoding is determined from the file or falls back to UTF-8
+            ReplaceLogFile without = ReplaceLogBuilder.Build("test.txt", text, matches, "foo", "x",
+                SearchType.PlainText, GrepSearchOption.Global);
+
+            Assert.Same(Encoding.Latin1, withEncoding.Encoding);
+            Assert.Same(Encoding.UTF8, without.Encoding);
+        }
+
+        [Fact]
+        public void UniformReplacementSpansCoverTheInsertedText()
+        {
+            // two of three matches replaced with text longer than the match: the new spans must
+            // sit on the inserted text and on the skipped match, not drift
+            string text = "foo bar foo baz foo\n";
+            List<GrepMatch> matches = Search(text, "foo", SearchType.PlainText, GrepSearchOption.Global);
+            Assert.Equal(3, matches.Count);
+            matches[0].ReplaceMatch = true;
+            matches[2].ReplaceMatch = true;
+
+            ReplaceLogFile log = ReplaceLogBuilder.Build("test.txt", text, matches, "foo", "longer text",
+                SearchType.PlainText, GrepSearchOption.Global);
+
+            ReplaceLogLine newLine = Assert.Single(Assert.Single(log.Entries).NewLines);
+            Assert.Equal("longer text bar foo baz longer text", newLine.Text);
+            Assert.Equal(new[] { "longer text", "foo", "longer text" },
+                newLine.Spans.Select(s => TextOf(newLine, s)).ToArray());
+            Assert.Equal(new[] { ReplaceLogSpanKind.Replaced, ReplaceLogSpanKind.Skipped, ReplaceLogSpanKind.Replaced },
+                newLine.Spans.Select(s => s.Kind).ToArray());
+        }
+
+        [Fact]
+        public void RegexReplacementsOfDifferentLengthGetTheirOwnSpans()
+        {
+            // regex replacements depend on the capture groups, so each match has its own length
+            string text = "a1 bb22 c333\n";
+            List<GrepMatch> matches = Search(text, @"[a-z]+(\d+)", SearchType.Regex, GrepSearchOption.Global);
+            Assert.Equal(3, matches.Count);
+            matches.ForEach(m => m.ReplaceMatch = true);
+
+            ReplaceLogFile log = ReplaceLogBuilder.Build("test.txt", text, matches, @"[a-z]+(\d+)", "<$1>",
+                SearchType.Regex, GrepSearchOption.Global);
+
+            ReplaceLogLine newLine = Assert.Single(Assert.Single(log.Entries).NewLines);
+            Assert.Equal("<1> <22> <333>", newLine.Text);
+            Assert.Equal(new[] { "<1>", "<22>", "<333>" }, newLine.Spans.Select(s => TextOf(newLine, s)).ToArray());
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Tests
         {
             List<ReplaceLogLine> oldLines = [];
             for (int i = 0; i < oldLineCount; i++) {
-                oldLines.Add(new ReplaceLogLine(i == 0 ? lineNumber : 0, "x", []));
+                oldLines.Add(new ReplaceLogLine(lineNumber + i, "x", []));
             }
             return new ReplaceLogEntry(lineNumber, oldLines, [], replacements);
         }

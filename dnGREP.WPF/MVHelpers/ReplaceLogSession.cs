@@ -29,21 +29,29 @@ namespace dnGREP.WPF.MVHelpers
         private GrepMatch? lastSelected;
         private GrepSearchResult? lastFile;
 
+        // the log last built for each file, with the decision state it was built from; a refresh
+        // only rebuilds the files whose decisions changed since then
+        private readonly Dictionary<GrepSearchResult, (byte[] State, ReplaceLogFile? Log)> logCache = [];
+
         /// <summary>
         /// Called when a mark changes in the Replace window (replace, undo, bulk marks).
         /// Every marked match is decided, as is the match under the cursor (covers Undo).
         /// </summary>
         public void OnReplaceMatch(object? sender, EventArgs e)
         {
-            foreach (GrepSearchResult file in files) {
-                foreach (GrepMatch match in file.Matches) {
-                    if (match.ReplaceMatch) {
+            foreach (GrepSearchResult file in files)
+            {
+                foreach (GrepMatch match in file.Matches)
+                {
+                    if (match.ReplaceMatch)
+                    {
                         decided.Add(match);
                     }
                 }
             }
 
-            if (lastSelected != null) {
+            if (lastSelected != null)
+            {
                 decided.Add(lastSelected);
             }
 
@@ -57,30 +65,36 @@ namespace dnGREP.WPF.MVHelpers
         /// </summary>
         public void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (sender is ReplaceViewModel fileVm && e.PropertyName == nameof(ReplaceViewModel.SelectedSearchResult)) {
+            if (sender is ReplaceViewModel fileVm && e.PropertyName == nameof(ReplaceViewModel.SelectedSearchResult))
+            {
                 // file-by-file mode has no selected match: leaving a file decides all of its matches
                 GrepSearchResult? previousResult = lastFile;
                 lastFile = fileVm.SelectedSearchResult;
-                if (previousResult != null && !ReferenceEquals(previousResult, lastFile)) {
+                if (previousResult != null && !ReferenceEquals(previousResult, lastFile))
+                {
                     bool added = false;
-                    foreach (GrepMatch match in previousResult.Matches) {
+                    foreach (GrepMatch match in previousResult.Matches)
+                    {
                         added |= decided.Add(match);
                     }
-                    if (added) {
+                    if (added)
+                    {
                         Refresh();
                     }
                 }
                 return;
             }
 
-            if (e.PropertyName != nameof(ReplaceViewModel.SelectedGrepMatch) || sender is not ReplaceViewModel vm) {
+            if (e.PropertyName != nameof(ReplaceViewModel.SelectedGrepMatch) || sender is not ReplaceViewModel vm)
+            {
                 return;
             }
 
             GrepMatch? previous = lastSelected;
             lastSelected = vm.SelectedGrepMatch;
 
-            if (previous == null || ReferenceEquals(previous, lastSelected)) {
+            if (previous == null || ReferenceEquals(previous, lastSelected))
+            {
                 return;
             }
 
@@ -90,13 +104,16 @@ namespace dnGREP.WPF.MVHelpers
             int previousFile = files.FindIndex(f => f.Matches.Any(m => ReferenceEquals(m, previous)));
             int currentFile = lastSelected == null ? -1
                 : files.FindIndex(f => f.Matches.Any(m => ReferenceEquals(m, lastSelected)));
-            if (previousFile >= 0 && currentFile >= 0 && currentFile != previousFile) {
-                foreach (GrepMatch match in files[previousFile].Matches) {
+            if (previousFile >= 0 && currentFile >= 0 && currentFile != previousFile)
+            {
+                foreach (GrepMatch match in files[previousFile].Matches)
+                {
                     changed |= decided.Add(match);
                 }
             }
 
-            if (changed) {
+            if (changed)
+            {
                 Refresh();
             }
         }
@@ -107,38 +124,73 @@ namespace dnGREP.WPF.MVHelpers
         /// </summary>
         private void Refresh()
         {
-            if (decided.Count == 0) {
+            if (decided.Count == 0)
+            {
                 return;
             }
 
             List<ReplaceLogFile> logs = [];
-            foreach (GrepSearchResult file in files) {
-                if (!file.Matches.Any(decided.Contains)) {
+            foreach (GrepSearchResult file in files)
+            {
+                if (!file.Matches.Any(decided.Contains))
+                {
                     continue;
                 }
 
-                try {
-                    GrepEngineInitParams initParams = new(0, 0,
-                        GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold), false, false); ReplaceLogFile log = ReplaceLogBuilder.Build(file.FileNameReal, GetText(file), file.Matches,
-                        searchFor, replaceWith, searchType, searchOptions, initParams, decided.Contains);
-                    if (log.Entries.Count > 0) {
-                        logs.Add(log);
+                byte[] state = GetDecisionState(file);
+                if (!logCache.TryGetValue(file, out var cached) || !cached.State.AsSpan().SequenceEqual(state))
+                {
+                    ReplaceLogFile? built = null;
+                    try
+                    {
+                        GrepEngineInitParams initParams = new(0, 0,
+                            GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold), false, false); 
+                        built = ReplaceLogBuilder.Build(file.FileNameReal, GetText(file), file.Matches,
+                            searchFor, replaceWith, searchType, searchOptions, initParams, decided.Contains,
+                            file.Encoding);
                     }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex, "Failure building the replacement log for " + file.FileNameReal);
+                    }
+
+                    // a failed build is cached too, so it is not retried (and logged) on every refresh
+                    cached = (state, built);
+                    logCache[file] = cached;
                 }
-                catch (Exception ex) {
-                    logger.Error(ex, "Failure building the replacement log for " + file.FileNameReal);
+
+                if (cached.Log != null && cached.Log.Entries.Count > 0)
+                {
+                    logs.Add(cached.Log);
                 }
             }
 
-            if (logs.Count > 0) {
+            if (logs.Count > 0)
+            {
                 resultsViewModel.ShowLog(logs, searchFor);
 
                 // totals for the whole log go to the status bar: there is room for them there
                 showStatus(TranslationSource.Format(Resources.Main_ReplaceLog_StatusSummary,
                     logs.Sum(l => l.ReplacementCount), logs.Sum(l => l.SkippedCount),
-                    logs.Sum(l => l.Entries.SelectMany(e => e.OldLines)
-                        .Select(line => line.LineNumber).Distinct().Count()), logs.Count));
+                    logs.Sum(l => l.LineCount), logs.Count));
             }
+        }
+
+        /// <summary>
+        /// Snapshot of the state that decides what a file's log looks like: for each match, whether
+        /// it is decided (bit 0) and whether it is marked for replacement (bit 1).
+        /// </summary>
+        /// <param name="file">the file</param>
+        /// <returns>one byte per match, in match order</returns>
+        private byte[] GetDecisionState(GrepSearchResult file)
+        {
+            byte[] state = new byte[file.Matches.Count];
+            for (int i = 0; i < state.Length; i++)
+            {
+                GrepMatch match = file.Matches[i];
+                state[i] = (byte)((decided.Contains(match) ? 1 : 0) | (match.ReplaceMatch ? 2 : 0));
+            }
+            return state;
         }
 
         /// <summary>
@@ -146,7 +198,8 @@ namespace dnGREP.WPF.MVHelpers
         /// </summary>
         private string GetText(GrepSearchResult file)
         {
-            if (!fileTexts.TryGetValue(file, out string? text)) {
+            if (!fileTexts.TryGetValue(file, out string? text))
+            {
                 using FileStream stream = new(file.FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 using StreamReader reader = new(stream, file.Encoding, false);
                 text = reader.ReadToEnd();

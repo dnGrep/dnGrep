@@ -32,7 +32,7 @@ namespace dnGREP.WPF.MVHelpers
                 matches.Add(new GrepMatch(searchPattern, -1, 0, 0));
             }
 
-            GrepSearchResult result = new(log.FileName, searchPattern, matches, GetEncoding(log.FileName))
+            GrepSearchResult result = new(log.FileName, searchPattern, matches, log.Encoding)
             {
                 LogSummary = log.SkippedCount > 0 ?
                     TranslationSource.Format(Resources.Main_ReplaceLog_CountReplacementsSkipped,
@@ -67,22 +67,6 @@ namespace dnGREP.WPF.MVHelpers
 
             result.SearchResults = lines;
             return result;
-        }
-
-        private static Encoding GetEncoding(string fileName)
-        {
-            try
-            {
-                if (System.IO.File.Exists(fileName))
-                {
-                    return Utils.GetFileEncoding(fileName);
-                }
-            }
-            catch (System.Exception)
-            {
-                // fall back to the default below
-            }
-            return Encoding.UTF8;
         }
 
         private static GrepLine MakeLine(ReplaceLogLine source, ReplaceLogLineKind kind)

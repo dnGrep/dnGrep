@@ -80,12 +80,6 @@ namespace dnGREP.Engines
             return list;
         }
 
-        /// <summary>
-        /// When not null, the replace methods add one entry per replaced match, in the order replaced:
-        /// the match start as reported by the search, and the length of the replacement text as written.
-        /// </summary>
-        public List<(int Start, int NewLength)>? CapturedReplaceSpans { get; set; }
-
         private string DoPatternReplacement(string searchPattern, string replaceText)
         {
             if (replaceText.Contains(KEYWORD_GUID_LOWER, StringComparison.Ordinal))
@@ -240,7 +234,7 @@ namespace dnGREP.Engines
             {
                 // The order of the matches should be the same.
                 // Get the indexes of matches to change in this text block
-                var indexes = toDo.Select((item, index) => new { item, index }).Where(t => t.item.ReplaceMatch).Select(t => t.index).ToHashSet();
+                var indexes = toDo.Select((item, index) => new { item, index }).Where(t => t.item.ReplaceMatch).Select(t => t.index).ToList();
 
                 int matchIndex = 0;
                 string replaceText = Regex.Replace(text, searchPattern, (match) =>
@@ -248,9 +242,7 @@ namespace dnGREP.Engines
                     if (indexes.Contains(matchIndex++))
                     {
                         var pattern = DoPatternReplacement(match.Value, replacePattern);
-                        string replacement = match.Result(pattern);
-                        CapturedReplaceSpans?.Add((match.Index + filePosition, MatchNewlineToOriginal(text, replacement).Length));
-                        return replacement;
+                        return match.Result(pattern);
                     }
                     else
                     {
@@ -455,9 +447,7 @@ namespace dnGREP.Engines
                 if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
                 {
                     sb.Append(text[counter..(match.StartLocation - filePosition)]);
-                    string replacement = DoPatternReplacement(searchText, replaceText);
-                    sb.Append(replacement);
-                    CapturedReplaceSpans?.Add((match.StartLocation, MatchNewlineToOriginal(text, replacement).Length));
+                    sb.Append(DoPatternReplacement(searchText, replaceText));
 
                     counter = match.StartLocation - filePosition + match.Length;
                 }
@@ -923,9 +913,7 @@ namespace dnGREP.Engines
                 if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
                 {
                     sb.Append(text[counter..(match.StartLocation - filePosition)]);
-                    string replacement = DoPatternReplacement(searchPattern, replacePattern);
-                    sb.Append(replacement);
-                    CapturedReplaceSpans?.Add((match.StartLocation, MatchNewlineToOriginal(text, replacement).Length));
+                    sb.Append(DoPatternReplacement(searchPattern, replacePattern));
 
                     counter = match.StartLocation - filePosition + match.Length;
                 }
