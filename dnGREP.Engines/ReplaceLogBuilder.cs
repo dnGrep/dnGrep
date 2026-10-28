@@ -49,7 +49,7 @@ namespace dnGREP.Engines
         public static ReplaceLogFile Build(string fileName, string fileText, IEnumerable<GrepMatch> matches,
             string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions,
             GrepEngineInitParams? initParams = null, Func<GrepMatch, bool>? isDecided = null,
-            Encoding? encoding = null)
+            Encoding? encoding = null, Dictionary<int, LineCacheItem>? lineCache = null)
         {
             ReplaceLogFile file = new(fileName, encoding);
             List<GrepMatch> all = [.. matches.OrderBy(m => m.StartLocation)];
@@ -108,9 +108,27 @@ namespace dnGREP.Engines
 
                 if (byLine.TryGetValue(lineNumber, out List<GrepMatch>? lineMatches))
                 {
-                    if (isDecided == null || lineMatches.Any(isDecided))
+                    // only lines whose matches changed state since the last build are run through the engine
+                    byte[] state = [.. lineMatches.Select(m => (byte)((isDecided == null || isDecided(m) ? 1 : 0) | (m.ReplaceMatch ? 2 : 0)))];
+                    ReplaceLogEntry? entry;
+                    if (lineCache != null && lineCache.TryGetValue(lineNumber, out LineCacheItem? item) &&
+                        item.State.AsSpan().SequenceEqual(state))
                     {
-                        file.Entries.Add(BuildEntry(runner, lineNumber, filePosition, line, lineMatches, guidNote, uniformReplacement));
+                        entry = item.Entry;
+                    }
+                    else
+                    {
+                        entry = state.Any(s => (s & 1) != 0)
+                            ? BuildEntry(runner, lineNumber, filePosition, line, lineMatches, guidNote, uniformReplacement)
+                            : null;
+                        if (lineCache != null)
+                        {
+                            lineCache[lineNumber] = new LineCacheItem(state, entry);
+                        }
+                    }
+                    if (entry != null)
+                    {
+                        file.Entries.Add(entry);
                     }
                     remaining--;
                 }
@@ -123,7 +141,12 @@ namespace dnGREP.Engines
         }
 
         /// <summary>
-        /// Builds the entry for one line: the old line with its spans, and, if any match on the line
+        /// A cached line entry (null if the line is not shown) with the match state it was built from.
+        /// </summary>
+        public sealed record LineCacheItem(byte[] State, ReplaceLogEntry? Entry);
+
+        /// <summary>
+        /// Builds the entry for one line:
         /// is marked, the new line(s) with their spans.
         /// </summary>
         /// <param name="runner">runs the engine on a single line</param>

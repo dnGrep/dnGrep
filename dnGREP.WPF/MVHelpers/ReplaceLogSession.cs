@@ -166,7 +166,7 @@ namespace dnGREP.WPF.MVHelpers
                             GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold), false, false); 
                         built = ReplaceLogBuilder.Build(file.FileNameReal, GetText(file), file.Matches,
                             searchFor, replaceWith, searchType, searchOptions, initParams, decided.Contains,
-                            file.Encoding);
+                            file.Encoding, GetLineCache(file));
                     }
                     catch (Exception ex)
                     {
@@ -212,8 +212,20 @@ namespace dnGREP.WPF.MVHelpers
             return state;
         }
 
+        private readonly Dictionary<GrepSearchResult, Dictionary<int, ReplaceLogBuilder.LineCacheItem>> lineCaches = [];
+
+        private Dictionary<int, ReplaceLogBuilder.LineCacheItem> GetLineCache(GrepSearchResult file)
+        {
+            if (!lineCaches.TryGetValue(file, out var cache))
+            {
+                cache = [];
+                lineCaches[file] = cache;
+            }
+            return cache;
+        }
+
         /// <summary>
-        /// Reads the file the way the search did (same encoding), once per file.
+        /// Reads the file the way
         /// </summary>
         private string GetText(GrepSearchResult file)
         {
