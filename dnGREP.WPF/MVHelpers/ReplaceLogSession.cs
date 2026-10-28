@@ -119,7 +119,26 @@ namespace dnGREP.WPF.MVHelpers
         }
 
         /// <summary>
-        /// Rebuilds the log for every file that has a decided match and shows it in the Results pane.
+        /// Called when OK is pressed: every match not yet decided will not be replaced, so it is logged as skipped.
+        /// </summary>
+        public void Complete()
+        {
+            bool added = false;
+            foreach (GrepSearchResult file in files)
+            {
+                foreach (GrepMatch match in file.Matches)
+                {
+                    added |= decided.Add(match);
+                }
+            }
+            if (added)
+            {
+                Refresh();
+            }
+        }
+
+        /// <summary>
+        /// Rebuilds the log for every file
         /// Does nothing until the first match is decided, so the search results stay until then.
         /// </summary>
         private void Refresh()

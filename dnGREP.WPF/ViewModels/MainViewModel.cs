@@ -2246,6 +2246,7 @@ namespace dnGREP.WPF
                     if (result.HasValue && result.Value)
                     {
                         doReplace = true;
+                        logSession.Complete();
                         if (ResultsViewModel.LogInfo is ReplaceLogInfo logInfo)
                         {
                             ResultsViewModel.LogInfo = logInfo with { Time = DateTime.Now };
