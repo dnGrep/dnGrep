@@ -104,7 +104,7 @@ namespace dnGREP.WPF
 
         private void SkipUnmarkedInCurrentFile()
         {
-            if (SelectedSearchResult != null && IndividualReplaceEnabled)
+            if (SelectedSearchResult != null)
             {
                 foreach (var m in SelectedSearchResult.Matches)
                 {
