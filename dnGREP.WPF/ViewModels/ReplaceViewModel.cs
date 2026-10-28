@@ -664,7 +664,7 @@ namespace dnGREP.WPF
         private bool isFullDialog = true;
         partial void OnIsFullDialogChanged(bool value)
         {
-            DialogSize = IsFullDialog ? new Size(980, 800) : new Size(680, 340);
+            DialogSize = IsFullDialog ? new Size(980, 800) : new Size(680, 360);
         }
 
         [ObservableProperty]
