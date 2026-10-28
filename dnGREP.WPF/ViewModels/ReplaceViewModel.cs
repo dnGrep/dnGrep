@@ -632,9 +632,21 @@ namespace dnGREP.WPF
 
         public string ReviewCompleteMessage => ReviewComplete ? Resources.Replace_LastMatchReached : string.Empty;
 
-        [ObservableProperty]
         private GrepMatch? selectedGrepMatch = null;
-        partial void OnSelectedGrepMatchChanged(GrepMatch? value)
+        // matches compare by position, so identical files would look unchanged: compare by reference
+        public GrepMatch? SelectedGrepMatch
+        {
+            get => selectedGrepMatch;
+            set
+            {
+                if (SetProperty(ref selectedGrepMatch, value, ReferenceEqualityComparer.Instance))
+                {
+                    OnSelectedGrepMatchChanged(value);
+                }
+            }
+        }
+
+        private void OnSelectedGrepMatchChanged(GrepMatch? value)
         {
             ReviewComplete = false;
 
