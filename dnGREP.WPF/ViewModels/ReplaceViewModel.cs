@@ -781,7 +781,7 @@ namespace dnGREP.WPF
                     int first = 0;
                     if (i == fileIndex && SelectedGrepMatch != null)
                     {
-                        first = Math.Max(gsr.Matches.IndexOf(SelectedGrepMatch), 0);
+                        first = Math.Max(gsr.Matches.FindIndex(m => ReferenceEquals(m, SelectedGrepMatch)), 0);
                     }
                     for (int j = first; j < gsr.Matches.Count; j++)
                     {
