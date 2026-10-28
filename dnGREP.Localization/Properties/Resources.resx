@@ -2263,6 +2263,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Show dnGrep in the right-click menu of Windows Explorer</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>Show replace log</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
     <value>Show file info tooltips</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>

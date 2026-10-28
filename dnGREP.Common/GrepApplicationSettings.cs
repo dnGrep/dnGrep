@@ -95,6 +95,8 @@ namespace dnGREP.Common
             public const string ExpandResults = "ExpandResults";
             [DefaultValue(true)]
             public const string ShowVerboseMatchCount = "ShowVerboseMatchCount";
+            [DefaultValue(true)]
+            public const string ReplaceLogEnabled = "ReplaceLogEnabled";
             [DefaultValue(false)]
             public const string IsFiltersExpanded = "IsFiltersExpanded";
             public const string FastSearchBookmarks = "FastSearchBookmarks";

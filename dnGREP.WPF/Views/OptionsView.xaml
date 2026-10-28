@@ -728,6 +728,10 @@
                                   Content="{l:Loc Key='Options_ShowVerboseMatchCount'}"
                                   IsChecked="{Binding Path=ShowVerboseMatchCount}" />
 
+                        <CheckBox Name="cbReplaceLogEnabled" Margin="3"
+                                  Content="{l:Loc Key='Options_ReplaceLogEnabled'}"
+                                  IsChecked="{Binding Path=ReplaceLogEnabled}" />
+
                         <CheckBox Name="cbShowFileInfoToolTips" Margin="3" 
                                   Content="{l:Loc Key='Options_ShowFileInfoToolTips'}"
                                   IsChecked="{Binding Path=ShowFileInfoTooltips}" />

@@ -6752,6 +6752,15 @@ namespace dnGREP.Localization.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show file info tooltips.
         /// </summary>
+        public static string Options_ReplaceLogEnabled {
+            get {
+                return ResourceManager.GetString("Options_ReplaceLogEnabled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show file info tooltips.
+        /// </summary>
         public static string Options_ShowFileInfoToolTips {
             get {
                 return ResourceManager.GetString("Options_ShowFileInfoToolTips", resourceCulture);

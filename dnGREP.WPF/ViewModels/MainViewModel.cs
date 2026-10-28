@@ -2221,22 +2221,33 @@ namespace dnGREP.WPF
                     // the replacement log is built live in the Results pane as decisions are made;
                     // hook up before the results are assigned so the first selection is seen
                     string statusBeforeLog = StatusMessage;
-                    ResultsViewModel.LogInfo = new ReplaceLogInfo(SearchFor, ReplaceWith, GetSearchOptions(), DateTime.Now);
-                    ReplaceLogSession logSession = new(ResultsViewModel, replaceList, SearchFor, ReplaceWith,
-                        TypeOfSearch, SearchOptions, text => StatusMessage = text);
-                    dlg.ViewModel.ReplaceMatch += logSession.OnReplaceMatch;
-                    dlg.ViewModel.PropertyChanged += logSession.OnViewModelPropertyChanged;
+                    bool logEnabled = Settings.Get<bool>(GrepSettings.Key.ReplaceLogEnabled);
+                    ReplaceLogSession? logSession = null;
+                    if (logEnabled)
+                    {
+                        ResultsViewModel.LogInfo = new ReplaceLogInfo(SearchFor, ReplaceWith, GetSearchOptions(), DateTime.Now);
+                        logSession = new(ResultsViewModel, replaceList, SearchFor, ReplaceWith,
+                            TypeOfSearch, SearchOptions, text => StatusMessage = text);
+                        dlg.ViewModel.ReplaceMatch += logSession.OnReplaceMatch;
+                        dlg.ViewModel.PropertyChanged += logSession.OnViewModelPropertyChanged;
+                    }
 
                     // the Results pane becomes the replacement log as soon as the window opens:
                     // the search results are saved and the pane is emptied; entries follow as
                     // decisions are made, and Cancel puts the search results back
-                    ResultsViewModel.ShowLog([], SearchFor);
+                    if (logEnabled)
+                    {
+                        ResultsViewModel.ShowLog([], SearchFor);
+                    }
 
                     dlg.ViewModel.SearchResults = replaceList;
                     var result = dlg.ShowDialog();
 
-                    dlg.ViewModel.ReplaceMatch -= logSession.OnReplaceMatch;
-                    dlg.ViewModel.PropertyChanged -= logSession.OnViewModelPropertyChanged;
+                    if (logSession != null)
+                    {
+                        dlg.ViewModel.ReplaceMatch -= logSession.OnReplaceMatch;
+                        dlg.ViewModel.PropertyChanged -= logSession.OnViewModelPropertyChanged;
+                    }
 
                     // the Replace window is closed: give the window back its search controls.
                     // After OK the log stays in the Results pane, at normal size (the maximize
@@ -2246,7 +2257,7 @@ namespace dnGREP.WPF
                     if (result.HasValue && result.Value)
                     {
                         doReplace = true;
-                        logSession.Complete();
+                        logSession?.Complete();
                         if (ResultsViewModel.LogInfo is ReplaceLogInfo logInfo)
                         {
                             ResultsViewModel.LogInfo = logInfo with { Time = DateTime.Now };
@@ -2257,8 +2268,11 @@ namespace dnGREP.WPF
                         // Cancel, Escape or closing the window: nothing is written, so
                         // put back the search results the log replaced, and clear the marks
                         // so the next Replace starts fresh instead of showing stale decisions
-                        ResultsViewModel.EndLog(true);
-                        StatusMessage = statusBeforeLog;
+                        if (logEnabled)
+                        {
+                            ResultsViewModel.EndLog(true);
+                            StatusMessage = statusBeforeLog;
+                        }
                         foreach (GrepSearchResult gsr in replaceList) {
                             foreach (GrepMatch match in gsr.Matches) {
                                 match.ReplaceMatch = false;
