@@ -4697,7 +4697,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Title for the replace log HTML report</comment>
   </data>
   <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
-    <value>File,Line,Replacements,Unchanged,Old text,New text</value>
+    <value>File,Line,Replacements,Unchanged,Old text,New text,Note</value>
     <comment>Replace log header for CSV report</comment>
   </data>
   <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">

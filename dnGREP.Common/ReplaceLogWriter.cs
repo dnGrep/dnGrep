@@ -78,7 +78,8 @@ namespace dnGREP.Common
 
         /// <summary>
         /// The log as csv, one row per affected line: file, line number, counts, the old text and
-        /// the new text (the same as the old text when nothing on the line was replaced).  Text containing line breaks
+        /// the new text (the same as the old text when nothing on the line was replaced), and the
+        /// entry note, which explains why the new text is unavailable (for example multiline replacements).  Text
         /// is quoted, with the lines joined by a line feed.
         /// </summary>
         /// <param name="files">the log, one item per file</param>
@@ -96,7 +97,8 @@ namespace dnGREP.Common
                       .Append(entry.ReplacementCount).Append(',')
                       .Append(entry.SkippedCount).Append(',')
                       .Append(Quote(oldText)).Append(',')
-                      .AppendLine(Quote(newText));
+                      .Append(Quote(newText)).Append(',')
+                      .AppendLine(Quote(entry.Note ?? string.Empty));
                 }
             }
             return sb.ToString();

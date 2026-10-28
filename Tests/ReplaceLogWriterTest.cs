@@ -110,9 +110,9 @@ namespace Tests
             string csv = ReplaceLogWriter.ToCsv([replaced, skipped]);
             string[] rows = csv.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries);
 
-            Assert.Equal("File,Line,Replacements,Unchanged,Old text,New text", rows[0]);
-            Assert.Equal("\"c:\\src\\test.txt\",1,1,0,\"say \"\"hi\"\", foo\",\"say \"\"hi\"\", quux\"", rows[1]);
-            Assert.Equal("\"c:\\src\\test.txt\",1,0,1,\"one foo\",\"one foo\"", rows[2]);
+            Assert.Equal("File,Line,Replacements,Unchanged,Old text,New text,Note", rows[0]);
+            Assert.Equal("\"c:\\src\\test.txt\",1,1,0,\"say \"\"hi\"\", foo\",\"say \"\"hi\"\", quux\",\"\"", rows[1]);
+            Assert.Equal("\"c:\\src\\test.txt\",1,0,1,\"one foo\",\"one foo\",\"\"", rows[2]);
         }
 
         [Fact]

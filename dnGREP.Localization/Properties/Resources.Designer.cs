@@ -6588,6 +6588,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show replace log.
+        /// </summary>
+        public static string Options_ReplaceLogEnabled {
+            get {
+                return ResourceManager.GetString("Options_ReplaceLogEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request password for secure archive files.
         /// </summary>
         public static string Options_RequestArchivePassword {
@@ -6749,15 +6758,6 @@ namespace dnGREP.Localization.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Show file info tooltips.
-        /// </summary>
-        public static string Options_ReplaceLogEnabled {
-            get {
-                return ResourceManager.GetString("Options_ReplaceLogEnabled", resourceCulture);
-            }
-        }
-
         /// <summary>
         ///   Looks up a localized string similar to Show file info tooltips.
         /// </summary>
@@ -7732,7 +7732,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File,Line,Replacements,Unchanged,Old text,New text.
+        ///   Looks up a localized string similar to File,Line,Replacements,Unchanged,Old text,New text,Note.
         /// </summary>
         public static string ReplaceLogWriter_HeaderText {
             get {
