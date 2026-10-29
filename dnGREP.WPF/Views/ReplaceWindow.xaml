@@ -241,6 +241,13 @@
                             <Label FontFamily="Segoe UI">&#x00a0;&#x00a0;&#x2192;</Label>
                         </StackPanel>
                     </Button>
+
+                    <Button Grid.Row="2" Grid.Column="5"
+                            TabIndex="5"
+                            Content="{l:Loc Key='Replace_Remaining'}"
+                            Command="{Binding ReplaceRemainingCommand}"
+                            ToolTip="{Binding ReplaceRemainingCommandToolTip}"
+                            Style="{StaticResource ReplaceButton}"/>
                 </Grid>
             </Grid>
 

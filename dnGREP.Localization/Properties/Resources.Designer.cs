@@ -2799,6 +2799,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace log as HTML.
+        /// </summary>
+        public static string Main_MoreMenu_Save_HtmlLog {
+            get {
+                return ResourceManager.GetString("Main_MoreMenu_Save_HtmlLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report.
         /// </summary>
         public static string Main_MoreMenu_Save_Report {
@@ -2970,6 +2979,42 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} replaced.
+        /// </summary>
+        public static string Main_ReplaceLog_CountReplacements {
+            get {
+                return ResourceManager.GetString("Main_ReplaceLog_CountReplacements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} replaced, {1} skipped.
+        /// </summary>
+        public static string Main_ReplaceLog_CountReplacementsSkipped {
+            get {
+                return ResourceManager.GetString("Main_ReplaceLog_CountReplacementsSkipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace log: {0} replacements, {1} skipped, on {2} lines in {3} files.
+        /// </summary>
+        public static string Main_ReplaceLog_StatusSummary {
+            get {
+                return ResourceManager.GetString("Main_ReplaceLog_StatusSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Log.
+        /// </summary>
+        public static string Main_ReplaceLog_Title {
+            get {
+                return ResourceManager.GetString("Main_ReplaceLog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace in selected files.
         /// </summary>
         public static string Main_ReplaceMenu_ReplaceInSelectedFiles {
@@ -3038,6 +3083,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_ReportOption_CSVFileFormat {
             get {
                 return ResourceManager.GetString("Main_ReportOption_CSVFileFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HTML page.
+        /// </summary>
+        public static string Main_ReportOption_HtmlFileFormat {
+            get {
+                return ResourceManager.GetString("Main_ReportOption_HtmlFileFormat", resourceCulture);
             }
         }
         
@@ -5596,16 +5650,7 @@ namespace dnGREP.Localization.Properties {
                 return ResourceManager.GetString("Options_EnableAutocompleteInTextInputBoxes", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Ignore control characters when detecting binary files.
-        /// </summary>
-        public static string Options_IgnoreControlCharactersWhenDetectingBinaryFiles {
-            get {
-                return ResourceManager.GetString("Options_IgnoreControlCharactersWhenDetectingBinaryFiles", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Check automatically every.
         /// </summary>
@@ -5918,6 +5963,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_HistoryLists {
             get {
                 return ResourceManager.GetString("Options_HistoryLists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore control characters when detecting binary files.
+        /// </summary>
+        public static string Options_IgnoreControlCharactersWhenDetectingBinaryFiles {
+            get {
+                return ResourceManager.GetString("Options_IgnoreControlCharactersWhenDetectingBinaryFiles", resourceCulture);
             }
         }
         
@@ -6530,6 +6584,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ReplaceFontSize {
             get {
                 return ResourceManager.GetString("Options_ReplaceFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show replace log.
+        /// </summary>
+        public static string Options_ReplaceLogEnabled {
+            get {
+                return ResourceManager.GetString("Options_ReplaceLogEnabled", resourceCulture);
             }
         }
         
@@ -7407,6 +7470,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace remaining.
+        /// </summary>
+        public static string Replace_Remaining {
+            get {
+                return ResourceManager.GetString("Replace_Remaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace this and all later matches, across files, then apply. Matches already replaced or skipped are unchanged..
+        /// </summary>
+        public static string Replace_RemainingToolTip {
+            get {
+                return ResourceManager.GetString("Replace_RemainingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace all matches in all files, and apply.
         /// </summary>
         public static string Replace_ReplaceAllMatchesInAllFilesAndApply {
@@ -7610,6 +7691,79 @@ namespace dnGREP.Localization.Properties {
         public static string Replace_Zoom {
             get {
                 return ResourceManager.GetString("Replace_Zoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to replaced text is not shown for multiline or XPath replace.
+        /// </summary>
+        public static string ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace {
+            get {
+                return ResourceManager.GetString("ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to replacement contains a GUID token; the GUID written to the file differs from any shown here.
+        /// </summary>
+        public static string ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere {
+            get {
+                return ResourceManager.GetString("ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShow" +
+                        "nHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to has {0} replacements on {1} lines.
+        /// </summary>
+        public static string ReplaceLogWriter_HasReplacements {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_HasReplacements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File,Line,Replacements,Unchanged,Old text,New text,Note.
+        /// </summary>
+        public static string ReplaceLogWriter_HeaderText {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_HeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replaced {0} matches on {1} lines in {2} files.
+        /// </summary>
+        public static string ReplaceLogWriter_ReplacedMatches {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplacedMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} unchanged).
+        /// </summary>
+        public static string ReplaceLogWriter_ReplacedMatchesUnchanged {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplacedMatchesUnchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Log.
+        /// </summary>
+        public static string ReplaceLogWriter_ReplaceLog {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplaceLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace with: &apos;{0}&apos;.
+        /// </summary>
+        public static string ReplaceLogWriter_ReplaceWith {
+            get {
+                return ResourceManager.GetString("ReplaceLogWriter_ReplaceWith", resourceCulture);
             }
         }
         

@@ -25,6 +25,16 @@ namespace dnGREP.Common
         public bool IsContext { get; } = false;
         public bool IsHexFile { get; set; }
 
+        /// <summary>
+        /// Set only for lines of a replacement log (old line, new line, note); None for search results
+        /// </summary>
+        public ReplaceLogLineKind LogKind { get; set; } = ReplaceLogLineKind.None;
+
+        /// <summary>
+        /// Highlighted ranges for replacement log lines; null for search results
+        /// </summary>
+        public IReadOnlyList<ReplaceLogSpan>? LogSpans { get; set; }
+
         public List<GrepMatch> Matches { get; }
 
 

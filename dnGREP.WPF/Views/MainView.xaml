@@ -1070,6 +1070,12 @@
                                           VerticalAlignment="Center"
                                           DataContext="{Binding NavTools}"
                                           Visibility="{Binding AbovePanelVisible, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    <TextBlock Grid.Column="2" Margin="12,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=4, FallbackValue=16}" 
+                               FontWeight="Bold"
+                               Style="{StaticResource ThemedTextBlock}"
+                               Text="{l:Loc Key='Main_ReplaceLog_Title'}"
+                               Visibility="{Binding ResultsViewModel.IsLogDisplayed, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <WrapPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
                         <CheckBox Margin="3,0" Content="{l:Loc Key='Main_SearchInResults'}"
                                   IsChecked="{Binding SearchInResultsContent}"
@@ -1168,7 +1174,7 @@
                         <Button Margin="3" Padding="8,3"
                                 Click="ButtonOtherActions_Click"
                                 ContextMenuService.Placement="Bottom"
-                                IsEnabled="{Binding CanSearchInResults}"
+                                IsEnabled="{Binding CanUseMoreMenu}"
                                 TabIndex="86"
                                 Visibility="{Binding MoreVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                             <Button.ContentTemplate >
@@ -1184,18 +1190,20 @@
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="advanceContextMenu"
                                              my:MenuProperties.ShowIconColumn="False">
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFiles'}" Command="{Binding CopyFilesCommand}" InputGestureText="{Binding CopyFilesCommand.KeyGestureText}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_MoveFiles'}" Command="{Binding MoveFilesCommand}" InputGestureText="{Binding MoveFilesCommand.KeyGestureText}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" InputGestureText="{Binding DeleteFilesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFiles'}" IsEnabled="{Binding CanUseResultActions}" Command="{Binding CopyFilesCommand}" InputGestureText="{Binding CopyFilesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_MoveFiles'}" IsEnabled="{Binding CanUseResultActions}" Command="{Binding MoveFilesCommand}" InputGestureText="{Binding MoveFilesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" IsEnabled="{Binding CanUseResultActions}" Command="{Binding DeleteFilesCommand}" InputGestureText="{Binding DeleteFilesCommand.KeyGestureText}" />
                                     <Separator />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" Command="{Binding CopyToClipboardCommand}" InputGestureText="{Binding CopyToClipboardCommand.KeyGestureText}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNamesWithMatchCount'}" Command="{Binding CopyFilesWithCountsCommand}" InputGestureText="{Binding CopyFilesWithCountsCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" IsEnabled="{Binding CanUseResultActions}" Command="{Binding CopyToClipboardCommand}" InputGestureText="{Binding CopyToClipboardCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNamesWithMatchCount'}" IsEnabled="{Binding CanUseResultActions}" Command="{Binding CopyFilesWithCountsCommand}" InputGestureText="{Binding CopyFilesWithCountsCommand.KeyGestureText}" />
                                     <Separator />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" InputGestureText="{Binding CopyMatchingLinesCommand.KeyGestureText}" />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" IsEnabled="{Binding CanUseResultActions}" Command="{Binding CopyMatchingLinesCommand}" InputGestureText="{Binding CopyMatchingLinesCommand.KeyGestureText}" />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_SaveResults'}">
                                         <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveReportCommand}" InputGestureText="{Binding SaveReportCommand.KeyGestureText}" />
                                         <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_TextResults'}" Command="{Binding SaveTextResultsCommand}" InputGestureText="{Binding SaveTextResultsCommand.KeyGestureText}" />
                                         <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_CSVResults'}" Command="{Binding SaveCsvResultsCommand}" InputGestureText="{Binding SaveCsvResultsCommand.KeyGestureText}" />
+                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_HtmlLog'}" Command="{Binding SaveHtmlLogCommand}" InputGestureText="{Binding SaveHtmlLogCommand.KeyGestureText}"
+                                                  Visibility="{Binding ResultsViewModel.IsLogDisplayed, Converter={StaticResource BoolToVisibilityConverter}}" />
                                     </MenuItem>
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_Report_Options'}" Command="{Binding ReportOptionsCommand}" InputGestureText="{Binding ReportOptionsCommand.KeyGestureText}" />
                                 </ContextMenu>

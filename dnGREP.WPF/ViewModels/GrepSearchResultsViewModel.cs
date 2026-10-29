@@ -128,6 +128,119 @@ namespace dnGREP.WPF
             SearchResults.Clear();
             FailureCount = 0;
             ClearSortIndicator();
+
+            // a new search discards any replacement log and the saved search results
+            stashedResults = null;
+            IsLogDisplayed = false;
+            CurrentLog = [];
+            LogInfo = null;
+        }
+
+        /// <summary>
+        /// True while the Results pane shows a replacement log instead of search results.
+        /// </summary>
+        [ObservableProperty]
+        private bool isLogDisplayed;
+
+        // the search results that were displayed when the log was first shown
+        private List<FormattedGrepResult>? stashedResults;
+
+        /// <summary>
+        /// The log now showing in the Results pane, one item per file; empty when no log is showing.
+        /// Used to save the log.
+        /// </summary>
+        public IReadOnlyList<ReplaceLogFile> CurrentLog { get; private set; } = [];
+
+        /// <summary>
+        /// The search and replace settings the log was made with (for the saved report's header).
+        /// </summary>
+        public ReplaceLogInfo? LogInfo { get; set; }
+
+        /// <summary>
+        /// Raised each time the log shown in the Results pane is replaced by a newer one,
+        /// so the tree can scroll the newest entry into view.
+        /// </summary>
+        public event EventHandler? LogUpdated;
+
+        /// <summary>
+        /// Shows the replacement log in the Results pane.  On the first call the current search
+        /// results are saved so they can be restored by <see cref="EndLog"/>.  Later calls replace
+        /// the log that is showing.
+        /// </summary>
+        /// <param name="logs">one log per file, in search order</param>
+        /// <param name="searchPattern">the search pattern used</param>
+        public void ShowLog(IEnumerable<ReplaceLogFile> logs, string searchPattern)
+        {
+            if (!IsLogDisplayed)
+            {
+                stashedResults = [.. SearchResults];
+                IsLogDisplayed = true;
+            }
+
+            SearchResults.Clear();
+            CurrentLog = [.. logs];
+            List<GrepSearchResult> results = [.. CurrentLog.Select(l => ReplaceLogConverter.ToSearchResult(l, searchPattern))];
+            foreach (GrepSearchResult r in results)
+            {
+                FormattedGrepResult item = new(r, FolderPath, ViewWhitespace)
+                {
+                    WrapText = WrapText,
+                    WrapWidth = WrapWidth,
+                    IsExpanded = true
+                };
+                SearchResults.Add(item);
+            }
+
+            LogUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Reloads the file size and modified time of the files in the log, after the replace wrote them.
+        /// </summary>
+        public void RefreshLogFileInfo()
+        {
+            if (!IsLogDisplayed)
+            {
+                return;
+            }
+
+            foreach (FormattedGrepResult item in SearchResults)
+            {
+                item.RefreshFileInfo();
+            }
+        }
+
+        /// <summary>
+        /// Forgets the search results saved
+        /// and can no longer be replaced by them.  Used when a replace is going ahead.
+        /// </summary>
+        public void DiscardSavedResults()
+        {
+            stashedResults = null;
+        }
+
+        /// <summary>
+        /// Removes the replacement log from the Results pane.
+        /// </summary>
+        /// <param name="restoreSearchResults">true to put back the search results that were showing
+        /// before the log (Cancel); false to leave the pane empty (after a completed replace the
+        /// search results are no longer valid)</param>
+        public void EndLog(bool restoreSearchResults)
+        {
+            if (!IsLogDisplayed)
+            {
+                return;
+            }
+
+            SearchResults.Clear();
+            if (restoreSearchResults && stashedResults != null)
+            {
+                AddRange(stashedResults);
+            }
+            stashedResults = null;
+            IsLogDisplayed = false;
+            CurrentLog = [];
+            LogInfo = null;
         }
 
         public void Clear(List<GrepSearchResult> list)

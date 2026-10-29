@@ -370,7 +370,29 @@ namespace dnGREP.WPF
         private bool canSearchInResults;
         partial void OnCanSearchInResultsChanged(bool value)
         {
+            OnPropertyChanged(nameof(CanUseMoreMenu));
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        /// <summary>
+        /// The More button works when there are results to search in, and also while a replacement
+        /// log is showing (its Save results menu saves the log).
+        /// </summary>
+        public bool CanUseMoreMenu => CanSearchInResults || ResultsViewModel.IsLogDisplayed;
+
+        /// <summary>
+        /// The More menu's file actions (copy, move, delete, copy names) are for search results,
+        /// not for the lines of a replacement log.
+        /// </summary>
+        public bool CanUseResultActions => !ResultsViewModel.IsLogDisplayed;
+
+        /// <summary>
+        /// Tells the More button and menu to re-check after the log appears or goes away.
+        /// </summary>
+        protected void RaiseLogMenuStateChanged()
+        {
+            OnPropertyChanged(nameof(CanUseMoreMenu));
+            OnPropertyChanged(nameof(CanUseResultActions));
         }
 
         [ObservableProperty]
@@ -692,7 +714,7 @@ namespace dnGREP.WPF
 
             if (name == nameof(CurrentGrepOperation) || name == nameof(IsSaveInProgress))
             {
-                if (ResultsViewModel.SearchResults.Count > 0 && !IsSaveInProgress)
+                if (ResultsViewModel.SearchResults.Count > 0 && !IsSaveInProgress && !ResultsViewModel.IsLogDisplayed)
                 {
                     CanSearchInResults = true;
                 }

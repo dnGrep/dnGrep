@@ -165,6 +165,15 @@ namespace dnGREP.WPF
                 FormattedLines_LoadFinished);
         }
 
+        internal void RefreshFileInfo()
+        {
+            GrepResult.RefreshFileInfo();
+            OnPropertyChanged(nameof(FileSize));
+            OnPropertyChanged(nameof(DateModified));
+            OnPropertyChanged(nameof(IsReadOnly));
+            SetLabel();
+        }
+
         internal void SetLabel()
         {
             bool isFileReadOnly = GrepResult.IsReadOnly;
@@ -224,6 +233,12 @@ namespace dnGREP.WPF
                     infoText = string.Format(Resources.Main_ResultList_CountMatches, infoText, matchCount);
                     MatchInfo = string.Format(Resources.Main_ResultList_CountMatches, string.Empty, matchCount).Trim().TrimStart('(').TrimEnd(')');
                 }
+            }
+            if (GrepResult.LogSummary != null)
+            {
+                // a replacement log: show the replacement counts instead of the match count
+                infoText = " " + GrepResult.AdditionalInformation + " (" + GrepResult.LogSummary + ")";
+                MatchInfo = GrepResult.LogSummary;
             }
             FileInfo = infoText;
 

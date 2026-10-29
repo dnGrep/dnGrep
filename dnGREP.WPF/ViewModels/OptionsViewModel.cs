@@ -471,6 +471,9 @@ namespace dnGREP.WPF
         private bool showVerboseMatchCount;
 
         [ObservableProperty]
+        private bool replaceLogEnabled;
+
+        [ObservableProperty]
         private bool showFileInfoTooltips;
 
         [ObservableProperty]
@@ -774,6 +777,7 @@ namespace dnGREP.WPF
                 DetectEncodingForFileNamePattern != Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern) ||
                 AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
                 ShowVerboseMatchCount != Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
+                ReplaceLogEnabled != Settings.Get<bool>(GrepSettings.Key.ReplaceLogEnabled) ||
                 ShowFileInfoTooltips != Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips) ||
                 MatchTimeout != Settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
                 MatchThreshold != Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
@@ -1121,6 +1125,7 @@ namespace dnGREP.WPF
             DetectEncodingForFileNamePattern = Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern);
             AutoExpandSearchTree = Settings.Get<bool>(GrepSettings.Key.ExpandResults);
             ShowVerboseMatchCount = Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+            ReplaceLogEnabled = Settings.Get<bool>(GrepSettings.Key.ReplaceLogEnabled);
             ShowFileInfoTooltips = Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips);
             MatchTimeout = Settings.Get<double>(GrepSettings.Key.MatchTimeout);
             MatchThreshold = Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
@@ -1344,6 +1349,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.DetectEncodingForFileNamePattern, DetectEncodingForFileNamePattern);
             Settings.Set(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
             Settings.Set(GrepSettings.Key.ShowVerboseMatchCount, ShowVerboseMatchCount);
+            Settings.Set(GrepSettings.Key.ReplaceLogEnabled, ReplaceLogEnabled);
             Settings.Set(GrepSettings.Key.ShowFileInfoTooltips, ShowFileInfoTooltips);
             Settings.Set(GrepSettings.Key.MatchTimeout, MatchTimeout);
             Settings.Set(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);

@@ -22,7 +22,12 @@ namespace dnGREP.Common
         public FileData(string fileName)
         {
             if (File.Exists(fileName))
+            {
                 systemFileInfo = new FileInfo(fileName);
+                // FileInfo loads its data lazily; read it now so a later access does not throw
+                // FileNotFoundException if the file is deleted in the middle of a replace
+                _ = systemFileInfo.Length;
+            }
             else
                 dummyFileName = fileName;
         }

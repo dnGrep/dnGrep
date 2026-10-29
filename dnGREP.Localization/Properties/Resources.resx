@@ -1127,6 +1127,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Re_place with:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>HTML page</value>
+    <comment>Main window, save replace log, html format label</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>Replace log as HTML</value>
+    <comment>Main window, More button menu item label, shown only while a replace log is displayed</comment>
+  </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
     <value>CSV (comma separated)</value>
     <comment>Main window, save report, report type format label</comment>
@@ -1170,6 +1178,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
     <value>{0} ({1} matches on {2} lines)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} replaced</value>
+    <comment>Main window, replacement log file header (kept short so it fits the column): {0} is the number of replacements in the file</comment>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} replaced, {1} skipped</value>
+    <comment>Main window, replacement log file header (kept short so it fits the column): {0} is the number of replacements in the file; {1} is the number of matches left alone</comment>
+  </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>Replace log: {0} replacements, {1} skipped, on {2} lines in {3} files</value>
+    <comment>Main window status bar while the replacement log is shown: {0} is the number of replacements; {1} is the number of matches left alone; {2} is the number of lines shown; {3} is the number of files</comment>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>Replace Log</value>
+    <comment>Main window: title shown above the results while the Results pane holds a replacement log</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Match {0}{1}{2}</value>
@@ -2239,6 +2263,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Show dnGrep in the right-click menu of Windows Explorer</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>Show replace log</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
     <value>Show file info tooltips</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
@@ -2426,6 +2454,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
     <value>Move to the previous match in this file</value>
     <comment>Replace window, Previous button tooltip</comment>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>Replace remaining</value>
+    <comment>Replace window, Replace remaining button label (accel)</comment>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>Replace this and all later matches, across files, then apply. Matches already replaced or skipped are unchanged.</value>
+    <comment>Replace window, Replace remaining button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
     <value>_Next</value>
@@ -4651,5 +4687,37 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
     <value>Remove item "{0}" from this list?</value>
     <comment>Message box text for: Remove from history list message: {0} is the item to remove</comment>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>Replace Log</value>
+    <comment>Title for the replace log HTML report</comment>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>File,Line,Replacements,Unchanged,Old text,New text,Note</value>
+    <comment>Replace log header for CSV report</comment>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>Replace with: '{0}'</value>
+    <comment>Label for HTML report</comment>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>has {0} replacements on {1} lines</value>
+    <comment>Replace log file summary. {0} is the number of replacements, {1} the number of lines</comment>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>Replaced {0} matches on {1} lines in {2} files</value>
+    <comment>Replace log totals. {0}, {1}, {2} are formatted numbers</comment>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} unchanged)</value>
+    <comment>Replace log totals with unchanged count. {0} is the totals text, {1} is the number of unchanged matches</comment>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>replacement contains a GUID token; the GUID written to the file differs from any shown here</value>
+    <comment>Note attached to replace log entries</comment>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>replaced text is not shown for multiline or XPath replace</value>
+    <comment>Note attached to replace log entries</comment>
   </data>
 </root>
