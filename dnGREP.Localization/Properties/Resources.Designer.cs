@@ -7344,15 +7344,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last match reached: click OK to apply.
-        /// </summary>
-        public static string Replace_LastMatchReached {
-            get {
-                return ResourceManager.GetString("Replace_LastMatchReached", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mark all matches in this file for replacement.
         /// </summary>
         public static string Replace_MarkAllMatchesInThisFileForReplacement {

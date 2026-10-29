@@ -627,10 +627,7 @@ namespace dnGREP.WPF
         /// selection moves to another match, or the last match's mark is undone.
         /// </summary>
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(ReviewCompleteMessage))]
         private bool reviewComplete;
-
-        public string ReviewCompleteMessage => ReviewComplete ? Resources.Replace_LastMatchReached : string.Empty;
 
         private GrepMatch? selectedGrepMatch = null;
         // matches compare by position, so identical files would look unchanged: compare by reference

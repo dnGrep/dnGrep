@@ -2455,10 +2455,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Move to the previous match in this file</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
-  <data name="Replace_LastMatchReached" xml:space="preserve">
-    <value>Last match reached: click OK to apply</value>
-    <comment>Replace window, shown after the last match has been replaced or skipped</comment>
-  </data>
   <data name="Replace_Remaining" xml:space="preserve">
     <value>Replace remaining</value>
     <comment>Replace window, Replace remaining button label (accel)</comment>
