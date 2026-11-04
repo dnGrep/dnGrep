@@ -3810,4 +3810,55 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
     <value>Ignorer les caractères de contrôle lors de la détection des fichiers binaires</value>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>Page HTML</value>
+  </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>Journal de remplacement au format HTML</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} replacé(s)</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} remplacé(s), {1} ignoré(s)</value>
+  </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>Journal de remplacement : {0} remplacé(s), {1} ignoré(s), sur {2} ligne(s) dans {3} fichier(s)</value>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>Journal de remplacement</value>
+  </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>Consulter le journal de remplacement</value>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>Remplacements restants</value>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>Remplacer cette occurrence ainsi que toutes les suivantes, dans tous les fichiers, puis appliquer les modifications. Les occurrences déjà remplacées ou ignorées restent inchangées.</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>Journal de remplacement</value>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>Fichier,Ligne,Remplacements,Inchangé,Texte précédent,Nouveau texte,Commentaire</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>Remplacer par : “{0}”</value>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>{0} remplacement(s) sur {1} ligne(s)</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>{0} occurrences remplacées sur {1} ligne(s) dans {2} fichier(s)</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} inchangé(s))</value>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>le remplacement contient un jeton unique (GUID) ; le jeton du fichier est différent de ce qui est indiqué ici</value>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>le texte remplacé n'apparaît pas si le remplacement a lieu sur plusieurs lignes ou via XPath</value>
+  </data>
 </root>

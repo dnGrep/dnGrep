@@ -3585,4 +3585,55 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
     <value>İkili dosyaları algılarken kontrol karakterlerini yoksay</value>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>HTML Sayfası</value>
+  </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>Günlüğü HTML olarak değiştir</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} değiştirildi</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} değiştirildi, {1} atlandı</value>
+  </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>Değiştirme günlüğü: {3} dosyada, {2} satır üzerinde {0} değişiklik yapıldı, {1} işlem atlandı</value>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>Değiştirme Günlüğü</value>
+  </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>Değiştirme günlüğünü göster</value>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>Kalanları değiştir</value>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>Bunu ve tüm sonraki eşleşmeleri, tüm dosyalarda değiştirin, ardından uygulayın. Zaten değiştirilmiş veya atlanmış eşleşmelerde herhangi bir değişiklik yapılmaz.</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>Değiştirme Günlüğü</value>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>Dosya,Satır,Değiştirilenler,Değişmeyenler,Eski Metin,Yeni Metin,Not</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>Şununla değiştir: '{0}'</value>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>{1} satırda {0} adet değiştirme var</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>{2} dosyadaki {1} satırda {0} eşleşme değiştirildi</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} değişmedi)</value>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>değiştirme işlemi bir GUID belirteci içeriyor; dosyaya yazılan GUID, burada gösterilenlerin hiçbiriyle aynı değil</value>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>Çok satırlı veya XPath tabanlı değiştirmelerde, değiştirilen metin gösterilmez</value>
+  </data>
 </root>
