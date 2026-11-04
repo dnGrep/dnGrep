@@ -1079,7 +1079,8 @@
                     <WrapPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
                         <CheckBox Margin="3,0" Content="{l:Loc Key='Main_SearchInResults'}"
                                   IsChecked="{Binding SearchInResultsContent}"
-                                  Visibility="{Binding CompositeSearchInResultsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                  IsEnabled="{Binding CanSearchInResults}"
+                                  Visibility="{Binding SearchInResultsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                                   TabIndex="80" />
                         <CheckBox x:Name="chkPreview" Margin="3,0" Content="{l:Loc Key='Main_PreviewFile'}"
                                   IsChecked="{Binding PreviewFileContent}"

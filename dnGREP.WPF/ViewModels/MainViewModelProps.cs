@@ -14,10 +14,6 @@ namespace dnGREP.WPF
                     OnPropertyChanged(nameof(CompositeSearchInArchivesVisible));
                     break;
 
-                case nameof(CanSearchInResults):
-                    OnPropertyChanged(nameof(CompositeSearchInResultsVisible));
-                    break;
-
                 case nameof(IsGitInstalled):
                     OnPropertyChanged(nameof(CompositeUseGitIgnoreVisible));
                     break;
@@ -162,11 +158,7 @@ namespace dnGREP.WPF
         private bool captureGroupSearchVisible = true;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(CompositeSearchInResultsVisible))]
         private bool searchInResultsVisible = true;
-
-        public bool CompositeSearchInResultsVisible => SearchInResultsVisible && CanSearchInResults;
-
 
         [ObservableProperty]
         private bool previewFileVisible = true;
