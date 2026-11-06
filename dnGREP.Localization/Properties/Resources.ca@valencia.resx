@@ -3477,4 +3477,58 @@ Defineix el patró o text que cal cercar dins del conjunt de fitxers. Ha de ser 
   <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
     <value>Voleu eliminar l'element "{0}" d'esta llista?</value>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>Pàgina HTML</value>
+  </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>Substitueix el registre per HTML</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} substituïts</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} substituïts, {1} omesos</value>
+  </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>Registre de substitucions: {0} substitucions, {1} omesos, en {2} línies de {3} fitxers</value>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>Registre de substitucions</value>
+  </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>Mostra registre de substitucions</value>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>Substitueix la resta</value>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>Substitueix esta coincidència i totes les posteriors, a tots els fitxers, i després aplica els canvis. Les coincidències que ja s'han substituït o omés romanen sense canvis.</value>
+  </data>
+  <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
+    <value>Ignora els caràcters de control en detectar fitxers binaris</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>Registre de substitucions</value>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>Fitxer,Línia,Substitucions,Sense canvis,Text antic,Text nou,Nota</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>Substitueix per: '{0}'</value>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>té {0} substitucions en {1} línies</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>S'han substituït {0} coincidències en {1} línies de {2} fitxers</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} sense canvis)</value>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>La substitució conté un testimoni GUID; el GUID escrit al fitxer difereix de qualsevol dels que es mostren ací</value>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>el text substituït no es mostra en les substitucions multilínia o mitjançant XPath</value>
+  </data>
 </root>
