@@ -4422,4 +4422,55 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
     <value>バイナリファイルの検出時、制御文字を無視する</value>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>HTML ページ</value>
+  </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>ログを HTML 形式で置き換える</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} が置き換えられました</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} 件を置換、{1} 件をスキップ</value>
+  </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>置換ログ : {0} 件を置換、{1} 件をスキップ、 {2} 行 ( {3} ファイル)</value>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>置換ログ</value>
+  </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>置換ログを表示</value>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>残りの置換</value>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>これと、それ以降のすべての一致箇所を、ファイル全体にわたって置換してから適用します。すでに置換済みまたはスキップされた一致箇所は変更されません。</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>置換ログ</value>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>ファイル、行、置換数、変更なし、元のテキスト、新しいテキスト、備考</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>置換後 : '{0}'</value>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>{0} 件の置換 ({1} 行)</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>{0} 件の一致を置換、{1} 行 ({2}ファイル)</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} 変更なし)</value>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>置換対象には GUID トークンが含まれています。ファイルに書き込まれた GUID は、ここに表示されているものとは異なります</value>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>複数行または XPath による置換の場合、置換されたテキストは表示されません</value>
+  </data>
 </root>

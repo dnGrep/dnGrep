@@ -4505,4 +4505,55 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
     <value>检测二进制文件时忽略控制字符</value>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>HTML 页面</value>
+  </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>HTML 格式的 Replace 日志</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} 处替换</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} 个替换, {1} 个跳过</value>
+  </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>Replace 日志：{0} 个替换， {1} 个跳过，发生在 {3} 个文件中的 {2} 行中</value>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>Replace 日志</value>
+  </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>显示 replace 日志</value>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>替换剩余项</value>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>替换这个匹配项及所有文件中之后全部的匹配项，然后应用。不会改变已替换或跳过的匹配项。</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>Replace 日志</value>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>文件,行,替换,未更改,旧文本,新文本,附注</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>替换为：'{0}'</value>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>{1} 行有 {0} 个替换</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>替换了 {2} 个文件 {1} 行中的 {0} 个匹配</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} 个未更改)</value>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>替换包含一个 GUID 令牌；写入该文件的 GUID 和显示在此处的任何一个 GUID 都不一样</value>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>多行或 XPath 替换不显示被替换文本</value>
+  </data>
 </root>
