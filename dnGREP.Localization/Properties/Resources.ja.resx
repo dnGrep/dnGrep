@@ -407,7 +407,7 @@
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>完全一致(_W)</value>
+    <value>単語全体(_W)</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilesWithSearchErrorsInResultsPanel" xml:space="preserve">
@@ -1243,7 +1243,7 @@
     <comment>Report options dialog, button label</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>完全一致</value>
+    <value>単語全体</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Options_Personalize_ResultsTree" xml:space="preserve">
@@ -2383,7 +2383,7 @@
     <comment>Main window, Regular expression search type tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
-    <value>単語の完全一致</value>
+    <value>単語全体</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
@@ -2747,7 +2747,7 @@
     <comment>Rename file dialog error message</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>完全一致(_W)</value>
+    <value>単語全体(_W)</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
@@ -2891,7 +2891,7 @@
     <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
-    <value>単語の完全一致</value>
+    <value>単語全体の一致</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
@@ -3439,7 +3439,7 @@
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
-    <value>完全一致</value>
+    <value>単語全体</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="ScriptHint_log_cmd_value" xml:space="preserve">
@@ -3519,7 +3519,7 @@
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>完全一致(_W)</value>
+    <value>単語全体(_W)</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
@@ -3682,7 +3682,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>/st [type]
 -st [type]
 -searchType [type]
-    検索の種類の設定 – 次のいずれか : "PlainText"、"Regex"(正規表現)、"XPath"、または "Fuzzy"。</value>
+    検索の種類の設定 – 次のいずれか : "PlainText"、"Regex"(正規表現)、"XPath"、または "あいまい"。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExit" xml:space="preserve">
@@ -4315,7 +4315,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>大文字と小文字を区別する</value>
   </data>
   <data name="Options_MatchWholeWords" xml:space="preserve">
-    <value>単語に完全一致</value>
+    <value>単語全体に一致</value>
   </data>
   <data name="Options_RequestPDFPassword" xml:space="preserve">
     <value>セキュリティで保護されたPDFファイルのパスワードを要求する</value>
@@ -4387,22 +4387,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Windowsインストーラーパッケージ用のビルドツール</value>
   </data>
   <data name="Main_SearchType_Fuzzy" xml:space="preserve">
-    <value>Fuzzy</value>
+    <value>あいまい</value>
   </data>
   <data name="Main_SearchType_ApproximateStringMatching" xml:space="preserve">
     <value>近似文字列一致</value>
   </data>
   <data name="Options_FuzzySearch" xml:space="preserve">
-    <value>Fuzzy 検索</value>
+    <value>あいまい検索</value>
   </data>
   <data name="BookmarkDetails_SearchType_Fuzzy" xml:space="preserve">
-    <value>Fuzzy</value>
+    <value>あいまい</value>
   </data>
   <data name="BookmarkDetails_SearchType_ApproximateStringMatching" xml:space="preserve">
     <value>近似文字列一致</value>
   </data>
   <data name="Test_SearchType_Fuzzy" xml:space="preserve">
-    <value>Fuzzy</value>
+    <value>あいまい</value>
   </data>
   <data name="Main_SortMenu_ErrorMessage" xml:space="preserve">
     <value>エラーメッセージ</value>
