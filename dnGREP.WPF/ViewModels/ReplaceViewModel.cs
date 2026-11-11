@@ -636,9 +636,12 @@ namespace dnGREP.WPF
             get => selectedGrepMatch;
             set
             {
-                if (SetProperty(ref selectedGrepMatch, value, ReferenceEqualityComparer.Instance))
+                if (!ReferenceEquals(selectedGrepMatch, value))
                 {
+                    OnPropertyChanging();
+                    selectedGrepMatch = value;
                     OnSelectedGrepMatchChanged(value);
+                    OnPropertyChanged();
                 }
             }
         }
