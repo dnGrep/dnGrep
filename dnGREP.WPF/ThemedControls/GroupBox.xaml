@@ -4,7 +4,7 @@
     <Style x:Key="ThemedGroupBox" TargetType="{x:Type GroupBox}">
 
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource WindowBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GroupBox.Border}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource GroupBox.Foreground}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
