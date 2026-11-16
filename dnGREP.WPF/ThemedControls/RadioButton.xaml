@@ -51,8 +51,8 @@
                                         <Setter Property="Control.Template">
                                             <Setter.Value>
                                                 <ControlTemplate>
-                                                    <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="True"
-                                                               Stroke="{DynamicResource ControlTextBrush}"
+                                                    <Rectangle Margin="18,0,0,0" SnapsToDevicePixels="True"
+                                                               Stroke="{DynamicResource Control.Foreground}"
                                                                StrokeThickness="1" StrokeDashArray="1 2" />
                                                 </ControlTemplate>
                                             </Setter.Value>
