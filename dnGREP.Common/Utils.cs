@@ -1051,10 +1051,15 @@ namespace dnGREP.Common
         }
 
         public static List<(string path, string pattern)> GetCompositeIgnoreList(string fileOrFolderPath,
-            string filePatternIgnore, bool isRegex, string ignoreFilePath)
+            string filePatternIgnore, FileSearchType fileSearchType, string ignoreFilePath)
         {
+            bool isRegex = fileSearchType == FileSearchType.Regex;
+            bool isEverything = fileSearchType == FileSearchType.Everything;
+
+            string[] paths = isEverything ? [fileOrFolderPath] : UiUtils.SplitPath(fileOrFolderPath, false);
+
             List<(string path, string pattern)> results = [];
-            foreach (var subPath in UiUtils.SplitPath(fileOrFolderPath, false))
+            foreach (var subPath in paths)
             {
                 List<Regex> regexList = [];
                 List<string> patterns = [];

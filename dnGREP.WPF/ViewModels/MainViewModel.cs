@@ -3640,7 +3640,7 @@ namespace dnGREP.WPF
             List<string> options = [];
 
             var excludePatterns = Utils.GetCompositeIgnoreList(FileOrFolderPath, FilePatternIgnore,
-                TypeOfFileSearch == FileSearchType.Regex, IgnoreFilter.FilePath);
+                TypeOfFileSearch, IgnoreFilter.FilePath);
 
             sb.Append(Resources.ReportSummary_SearchFor).Append(" '").Append(SearchFor).AppendLine("'")
               .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToLocalizedString())
