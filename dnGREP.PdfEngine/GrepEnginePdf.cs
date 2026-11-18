@@ -65,8 +65,8 @@ namespace dnGREP.Engines.Pdf
             // if the same file exists multiple places in the search tree, all will use the same temp file
             HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
             string cacheFileName = hashOption == HashOption.SizeTimestamp ?
-                Utils.GetTempTextFileName(new FileData(pdfFile)) :
-                Utils.GetTempTextFileName(pdfFile);
+                Utils.GetTempTextFileName(new FileData(pdfFile), true) :
+                Utils.GetTempTextFileName(pdfFile, true);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
             ExtractTextResults extracted;
             try
@@ -115,8 +115,8 @@ namespace dnGREP.Engines.Pdf
             // if the same file exists multiple places in the search tree, all will use the same temp file
             HashOption hashOption = GrepSettings.Instance.Get<HashOption>(GrepSettings.Key.CacheFileHashType);
             string cacheFileName = hashOption == HashOption.SizeTimestamp ?
-                Utils.GetTempTextFileName(fileData) :
-                Utils.GetTempTextFileName(input, fileName);
+                Utils.GetTempTextFileName(fileData, true) :
+                Utils.GetTempTextFileName(input, fileName, true);
             string cacheFilePath = Path.Combine(cacheFolder, cacheFileName);
 
             List<GrepSearchResult> results = [];
