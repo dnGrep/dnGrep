@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -2744,19 +2745,30 @@ namespace dnGREP.Common
             return 0xEF == b1 && 0xBB == b2 && 0xBF == b3;
         }
 
-        public static string GetTempTextFileName(string filePath)
+        public static string GetTempTextFileName(string filePath, bool shortName = false)
         {
             if (!string.IsNullOrEmpty(filePath))
             {
-                return string.Concat(Path.GetFileName(filePath), "_", HashSHA256(filePath), ".txt");
+                string fileName = Path.GetFileName(filePath);
+                if (shortName && fileName.Length > 120)
+                {
+                    fileName = GetUniqueString(fileName) + Path.GetExtension(fileName);
+                }
+
+                return string.Concat(fileName, "_", HashSHA256(filePath), ".txt");
             }
             return string.Empty;
         }
 
-        public static string GetTempTextFileName(Stream stream, string fileName)
+        public static string GetTempTextFileName(Stream stream, string fileName, bool shortName = false)
         {
             if (stream != null && !string.IsNullOrEmpty(fileName))
             {
+                if (shortName && fileName.Length > 120)
+                {
+                    fileName = GetUniqueString(fileName) + Path.GetExtension(fileName);
+                }
+
                 return string.Concat(Path.GetFileName(fileName), "_", HashSHA256(stream), ".txt");
             }
             return string.Empty;
@@ -2782,13 +2794,30 @@ namespace dnGREP.Common
             return hash;
         }
 
-        public static string GetTempTextFileName(FileData fileData)
+        public static string GetTempTextFileName(FileData fileData, bool shortName = false)
         {
             if (fileData != null)
             {
-                return string.Concat(Path.GetFileName(fileData.Name), "_", HashFileSizeModifiedTime(fileData), ".txt");
+                string fileName = fileData.Name;
+                if (shortName && fileName.Length > 120)
+                {
+                    fileName = GetUniqueString(fileName) + Path.GetExtension(fileName);
+                }
+
+                return string.Concat(Path.GetFileName(fileName), "_", HashFileSizeModifiedTime(fileData), ".txt");
             }
             return string.Empty;
+        }
+
+        public static string GetUniqueString(ReadOnlySpan<char> input)
+        {
+            ReadOnlySpan<byte> inputBytes = MemoryMarshal.AsBytes(input);
+
+            Span<byte> hashBytes = stackalloc byte[SHA256.HashSizeInBytes];
+            SHA256.HashData(inputBytes, hashBytes);
+
+            // Slice the hash bytes for a 32-char string to be used as a filename.
+            return Convert.ToHexString(hashBytes[..16]);
         }
 
         public static string HashFileSizeModifiedTime(FileData fileData)
