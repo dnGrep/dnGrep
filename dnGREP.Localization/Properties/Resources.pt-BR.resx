@@ -3480,4 +3480,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_IgnoreControlCharactersWhenDetectingBinaryFiles" xml:space="preserve">
     <value>Ignorar caracteres de controle ao detectar arquivos binários</value>
   </data>
+  <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
+    <value>Página HTML</value>
+  </data>
 </root>
