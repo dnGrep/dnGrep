@@ -35,7 +35,7 @@ namespace dnGREP.Common
         private int processedFilesCount;
         private int foundFilesCount;
         private bool autoPauseExecuted;
-        private SearchMemoryGate memoryGate = SearchMemoryGate.Create(0);
+        private SearchMemoryGate memoryGate = SearchMemoryGate.Create(SearchMemoryGate.DefaultBudgetPercent);
 
         private const long BaseSearchCost = 4L * 1024 * 1024;
         private const long PluginSearchCost = 16L * 1024 * 1024;
@@ -45,6 +45,23 @@ namespace dnGREP.Common
         private const int LongLineCostFactor = 4;
         private const int LineSearchSizeDivisor = 32;
         private const int LineSampleBytes = 1024 * 1024;
+
+        private static SearchMemoryGate CreateMemoryGate()
+        {
+            if (!GrepSettings.Instance.Get<bool>(GrepSettings.Key.LimitSearchMemory))
+            {
+                return SearchMemoryGate.Disabled;
+            }
+
+            return SearchMemoryGate.Create(GrepSettings.Instance.Get<int>(GrepSettings.Key.SearchMemoryBudgetPercent));
+        }
+
+        // skips the file size estimate, which reads part of the file, when the limit is off
+        private long EnterMemoryGate(string file, GrepSearchOption searchOptions, PauseCancelToken pauseCancelToken)
+        {
+            return memoryGate.IsEnabled ?
+                memoryGate.Enter(EstimateSearchCost(file, searchOptions), pauseCancelToken) : 0;
+        }
 
         /// <summary>
         /// Estimates the memory in bytes a file needs while it is searched. The estimate is
@@ -232,7 +249,7 @@ namespace dnGREP.Common
                 return searchResults;
 
             Initialize();
-            memoryGate = SearchMemoryGate.Create(GrepSettings.Instance.Get<int>(GrepSettings.Key.SearchMemoryBudgetMB));
+            memoryGate = CreateMemoryGate();
 
             processedFilesCount = 0;
             foundFilesCount = 0;
@@ -316,7 +333,7 @@ namespace dnGREP.Common
                 return searchResults;
 
             Initialize();
-            memoryGate = SearchMemoryGate.Create(GrepSettings.Instance.Get<int>(GrepSettings.Key.SearchMemoryBudgetMB));
+            memoryGate = CreateMemoryGate();
 
             processedFilesCount = 0;
             foundFilesCount = 0;
@@ -457,7 +474,7 @@ namespace dnGREP.Common
             long reservedMemory;
             try
             {
-                reservedMemory = memoryGate.Enter(EstimateSearchCost(file, searchOptions), pauseCancelToken);
+                reservedMemory = EnterMemoryGate(file, searchOptions, pauseCancelToken);
             }
             catch (OperationCanceledException)
             {
@@ -572,7 +589,7 @@ namespace dnGREP.Common
             long reservedMemory;
             try
             {
-                reservedMemory = memoryGate.Enter(EstimateSearchCost(file, searchOptions), pauseCancelToken);
+                reservedMemory = EnterMemoryGate(file, searchOptions, pauseCancelToken);
             }
             catch (OperationCanceledException)
             {

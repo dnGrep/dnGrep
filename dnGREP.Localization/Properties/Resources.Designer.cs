@@ -6705,6 +6705,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Memory limit for files searched in parallel (% of installed memory).
+        /// </summary>
+        public static string Options_SearchMemoryLimit {
+            get {
+                return ResourceManager.GetString("Options_SearchMemoryLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large files wait to start until other files finish. A lower limit uses less memory but can slow searches of very large files. A single file larger than the limit is still searched. The limit is an estimate, so the memory used can be somewhat higher. Select No fixed limit to turn the limit off..
+        /// </summary>
+        public static string Options_SearchMemoryLimitHint {
+            get {
+                return ResourceManager.GetString("Options_SearchMemoryLimitHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No fixed limit.
+        /// </summary>
+        public static string Options_SearchMemoryNoFixedLimit {
+            get {
+                return ResourceManager.GetString("Options_SearchMemoryNoFixedLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search options.
         /// </summary>
         public static string Options_SearchOptions {

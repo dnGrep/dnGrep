@@ -3559,6 +3559,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>No fixed limit</value>
     <comment>Options dialog, checkbox label</comment>
   </data>
+  <data name="Options_SearchMemoryLimit" xml:space="preserve">
+    <value>Memory limit for files searched in parallel (% of installed memory)</value>
+    <comment>Options dialog, search options label. The limit applies to the estimated memory used by all files being searched at the same time</comment>
+  </data>
+  <data name="Options_SearchMemoryLimitHint" xml:space="preserve">
+    <value>Large files wait to start until other files finish. A lower limit uses less memory but can slow searches of very large files. A single file larger than the limit is still searched. The limit is an estimate, so the memory used can be somewhat higher. Select No fixed limit to turn the limit off.</value>
+    <comment>Options dialog, search options description of the memory limit setting</comment>
+  </data>
+  <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
+    <value>No fixed limit</value>
+    <comment>Options dialog, checkbox label</comment>
+  </data>
   <data name="ScriptHint_env_cmd" xml:space="preserve">
     <value>Set an environment variable</value>
     <comment>Script editor command tooltip</comment>

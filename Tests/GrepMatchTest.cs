@@ -13,8 +13,8 @@ namespace Tests
             GrepMatch match = new("pattern", 1, 2, 3);
 
             Assert.Empty(match.Groups);
-            Assert.Equal(0, match.Groups.Count);
-            Assert.Empty(match.Groups.Where(g => g.Length > 0));
+            Assert.Empty(match.Groups);
+            Assert.DoesNotContain(match.Groups, g => g.Length > 0);
         }
 
         [Fact]

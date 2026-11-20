@@ -227,10 +227,65 @@ namespace Tests
         }
 
         [Fact]
-        public void CreateUsesAFixedBudgetWhenGiven()
+        public async Task DisabledGateNeverBlocksAndTracksNothing()
         {
-            Assert.Equal(512 * MB, SearchMemoryGate.Create(512).Budget);
-            Assert.True(SearchMemoryGate.Create(0).Budget > 0);
+            SearchMemoryGate gate = SearchMemoryGate.Disabled;
+            PauseCancelToken token = default;
+
+            long first = await Task.Run(() => gate.Enter(long.MaxValue, token), TestContext.Current.CancellationToken);
+            long second = await Task.Run(() => gate.Enter(long.MaxValue, token), TestContext.Current.CancellationToken);
+
+            Assert.False(gate.IsEnabled);
+            Assert.Equal(0, first);
+            Assert.Equal(0, second);
+            Assert.Equal(0, gate.ActiveCount);
+            Assert.Equal(0, gate.InUse);
+
+            gate.Exit(first);
+            gate.Exit(second);
+            Assert.Equal(0, gate.ActiveCount);
+        }
+
+        [Fact]
+        public void CreatedGateIsEnabled()
+        {
+            Assert.True(SearchMemoryGate.Create(25, 8L * 1024 * MB).IsEnabled);
+        }
+
+        [Fact]
+        public void CreateSizesTheBudgetAsAPercentOfTotalMemory()
+        {
+            long total = 16L * 1024 * MB;
+
+            Assert.Equal(4L * 1024 * MB, SearchMemoryGate.Create(25, total).Budget);
+            Assert.Equal(8L * 1024 * MB, SearchMemoryGate.Create(50, total).Budget);
+            Assert.Equal(total / 100, SearchMemoryGate.Create(1, total).Budget);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-5)]
+        public void CreateUsesTheDefaultPercentWhenInvalid(int percent)
+        {
+            long total = 8L * 1024 * MB;
+
+            Assert.Equal(SearchMemoryGate.Create(SearchMemoryGate.DefaultBudgetPercent, total).Budget,
+                SearchMemoryGate.Create(percent, total).Budget);
+        }
+
+        [Fact]
+        public void CreateWithAVeryLargePercentDoesNotOverflow()
+        {
+            SearchMemoryGate gate = SearchMemoryGate.Create(int.MaxValue, 16L * 1024 * MB);
+
+            Assert.True(gate.Budget > 16L * 1024 * MB);
+        }
+
+        [Fact]
+        public void CreateUsesTheMemoryOfTheMachine()
+        {
+            Assert.True(SearchMemoryGate.TotalMemoryBytes() > 0);
+            Assert.True(SearchMemoryGate.Create(SearchMemoryGate.DefaultBudgetPercent).Budget > 0);
         }
     }
 }

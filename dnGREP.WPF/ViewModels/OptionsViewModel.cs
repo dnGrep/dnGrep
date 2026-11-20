@@ -37,6 +37,9 @@ namespace dnGREP.WPF
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly string ellipsis = char.ConvertFromUtf32(0x2026);
 
+        public const int MinMemoryBudgetPercent = 1;
+        public const int MaxMemoryBudgetPercent = 75;
+
         public bool SearchListsCleared { get; private set; }
 
         private bool originalUsingStringMap = false;
@@ -44,6 +47,7 @@ namespace dnGREP.WPF
         public OptionsViewModel()
         {
             TaskLimit = Environment.ProcessorCount * 4;
+            TotalMemoryMB = SearchMemoryGate.TotalMemoryBytes() / (1024 * 1024);
 
             OptionsMessenger.Register("DeleteCustomEditor",
                 (Action<CustomEditorViewModel>)(vm => DeleteCustomEditor(vm)));
@@ -542,6 +546,30 @@ namespace dnGREP.WPF
         [ObservableProperty]
         private bool parallelismUnlimited = true;
 
+        /// <summary>
+        /// The limit for the estimated memory of files searched at the same time,
+        /// as a percent of the total memory.
+        /// </summary>
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SearchMemoryBudgetMB))]
+        private int searchMemoryBudgetPercent = SearchMemoryGate.DefaultBudgetPercent;
+
+        /// <summary>
+        /// When true, files are not held back to limit memory use.
+        /// </summary>
+        [ObservableProperty]
+        private bool searchMemoryUnlimited = false;
+
+        /// <summary>
+        /// The total memory the percent applies to, in MB.
+        /// </summary>
+        public long TotalMemoryMB { get; }
+
+        /// <summary>
+        /// The limit in MB that the percent works out to, shown beside the text box.
+        /// </summary>
+        public long SearchMemoryBudgetMB => TotalMemoryMB * Math.Max(0, SearchMemoryBudgetPercent) / 100;
+
         [ObservableProperty]
         private int searchAutoStopCount = 1;
 
@@ -804,6 +832,8 @@ namespace dnGREP.WPF
                 AutoCompleteEnabled != Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled) ||
                 ExcludeIsBinaryControlCharacterTest != Settings.Get<bool>(GrepSettings.Key.ExcludeIsBinaryControlCharacterTest) ||
                 MaxDegreeOfParallelism != Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism) ||
+                SearchMemoryUnlimited != !Settings.Get<bool>(GrepSettings.Key.LimitSearchMemory) ||
+                SearchMemoryBudgetPercent != Settings.Get<int>(GrepSettings.Key.SearchMemoryBudgetPercent) ||
                 SearchAutoStopCount != Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount) ||
                 SearchAutoPauseCount != Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount) ||
                 FocusElement != Settings.Get<FocusElement>(GrepSettings.Key.SetFocusElement) ||
@@ -1155,6 +1185,10 @@ namespace dnGREP.WPF
             AutoCompleteEnabled = Settings.Get<bool>(GrepSettings.Key.AutoCompleteEnabled);
             ExcludeIsBinaryControlCharacterTest = Settings.Get<bool>(GrepSettings.Key.ExcludeIsBinaryControlCharacterTest);
             MaxDegreeOfParallelism = Settings.Get<int>(GrepSettings.Key.MaxDegreeOfParallelism);
+            SearchMemoryUnlimited = !Settings.Get<bool>(GrepSettings.Key.LimitSearchMemory);
+            int memoryPercent = Settings.Get<int>(GrepSettings.Key.SearchMemoryBudgetPercent);
+            SearchMemoryBudgetPercent = memoryPercent < MinMemoryBudgetPercent ? SearchMemoryGate.DefaultBudgetPercent :
+                Math.Min(memoryPercent, MaxMemoryBudgetPercent);
             SearchAutoStopCount = Settings.Get<int>(GrepSettings.Key.SearchAutoStopCount);
             SearchAutoPauseCount = Settings.Get<int>(GrepSettings.Key.SearchAutoPauseCount);
             FocusElement = Settings.Get<FocusElement>(GrepSettings.Key.SetFocusElement);
@@ -1367,6 +1401,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.AutoCompleteEnabled, AutoCompleteEnabled);
             Settings.Set(GrepSettings.Key.ExcludeIsBinaryControlCharacterTest, ExcludeIsBinaryControlCharacterTest);
             Settings.Set(GrepSettings.Key.MaxDegreeOfParallelism, MaxDegreeOfParallelism);
+            Settings.Set(GrepSettings.Key.LimitSearchMemory, !SearchMemoryUnlimited);
+            Settings.Set(GrepSettings.Key.SearchMemoryBudgetPercent, SearchMemoryBudgetPercent);
             Settings.Set(GrepSettings.Key.SearchAutoStopCount, SearchAutoStopCount);
             Settings.Set(GrepSettings.Key.SearchAutoPauseCount, SearchAutoPauseCount);
             Settings.Set(GrepSettings.Key.SetFocusElement, FocusElement);

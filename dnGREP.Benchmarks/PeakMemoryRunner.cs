@@ -40,7 +40,8 @@ namespace dnGREP.Benchmarks
             int parallel = GetInt(options, "parallel", -1);
             bool serial = options.ContainsKey("serial");
             bool multiline = options.ContainsKey("multiline");
-            int budgetMB = GetInt(options, "budget", 0);
+            int budgetPercent = GetInt(options, "budget", SearchMemoryGate.DefaultBudgetPercent);
+            bool noGate = options.ContainsKey("no-gate");
             string label = options.GetValueOrDefault("label", string.Empty);
             string? csv = options.GetValueOrDefault("csv");
 
@@ -60,7 +61,8 @@ namespace dnGREP.Benchmarks
             List<string> files = PrepareFiles(length, eol, density, sizeMB, fileCount, out long expectedMatches);
 
             GrepSettings.Instance.Set(GrepSettings.Key.MaxDegreeOfParallelism, parallel);
-            GrepSettings.Instance.Set(GrepSettings.Key.SearchMemoryBudgetMB, budgetMB);
+            GrepSettings.Instance.Set(GrepSettings.Key.LimitSearchMemory, !noGate);
+            GrepSettings.Instance.Set(GrepSettings.Key.SearchMemoryBudgetPercent, budgetPercent);
             GrepCore.Initialize();
 
             GC.Collect(2, GCCollectionMode.Forced, true, true);
@@ -105,7 +107,7 @@ namespace dnGREP.Benchmarks
 
             Console.WriteLine();
             Console.WriteLine($"Files: {files.Count} x {sizeMB} MB, line length {(length <= 0 ? "single line" : length.ToString(CultureInfo.InvariantCulture))}, {eol}, density {density}, search {type}, " +
-                $"{(serial ? "serial" : $"parallel (max {parallel})")}, {(multiline ? "multiline" : "line by line")}, budget {(budgetMB > 0 ? budgetMB + " MB" : "auto")}");
+                $"{(serial ? "serial" : $"parallel (max {parallel})")}, {(multiline ? "multiline" : "line by line")}, budget {(noGate ? "off" : $"{budgetPercent}% of memory ({SearchMemoryGate.BudgetBytes(budgetPercent, SearchMemoryGate.TotalMemoryBytes()) / MB:N0} MB)")}");
             Console.WriteLine($"Elapsed:                       {sw.Elapsed.TotalSeconds,10:N2} s");
             Console.WriteLine($"Matches found:                 {matches,10:N0} (expected {expectedMatches * files.Count:N0})");
             Console.WriteLine($"Private bytes at start:        {startPrivate,10:N0} MB");
@@ -205,7 +207,8 @@ namespace dnGREP.Benchmarks
                   --parallel N    max degree of parallelism, -1 = default (default -1)
                   --serial        turn off the "search in parallel" option
                   --multiline     search with the Multiline option (reads each file as a whole)
-                  --budget N      search memory budget in MB for parallel files; 0 = automatic (default 0)
+                  --budget N      search memory budget for parallel files, as a percent of total memory (default 25)
+                                    --no-gate       turn the search memory limit off
                   --label TEXT    label for the csv row, e.g. "baseline"
                   --csv PATH      append a result row to this csv file
 

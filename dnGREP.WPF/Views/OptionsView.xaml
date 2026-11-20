@@ -642,8 +642,38 @@
                                       IsChecked="{Binding ParallelismUnlimited}"/>
                         </StackPanel>
 
+                        <TextBlock Margin="0,6,0,0" Text="{l:Loc Key='Options_SearchMemoryLimit'}"
+                                   ToolTip="{l:Loc Key='Options_SearchMemoryLimitHint'}"/>
+                        <StackPanel Orientation="Horizontal" 
+                                    ToolTip="{l:Loc Key='Options_SearchMemoryLimitHint'}">
+                            <TextBox Margin="3,0" HorizontalContentAlignment="Right"
+                                     IsEnabled="{Binding SearchMemoryUnlimited, Converter={StaticResource not}}">
+                                <TextBox.Text>
+                                    <Binding Path="SearchMemoryBudgetPercent" Mode="TwoWay" 
+                                             UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                        <Binding.ValidationRules>
+                                            <my:ValueRangeRule Min="1" Max="75"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="40" FallbackValue="40">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
+                            <TextBlock Text="%" VerticalAlignment="Center"/>
+                            <TextBlock Margin="12,0" VerticalAlignment="Center"
+                                       IsEnabled="{Binding SearchMemoryUnlimited, Converter={StaticResource not}}"
+                                       Text="{Binding SearchMemoryBudgetMB, StringFormat='≈ {0} MB'}"/>
+                            <CheckBox Margin="0,0,12,0" Content="{l:Loc Key='Options_SearchMemoryNoFixedLimit'}"
+                                      IsChecked="{Binding SearchMemoryUnlimited}"/>
+                        </StackPanel>
+
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{l:Loc Key='Options_SetKeyboardFocusTo'}"/>
+                            <TextBlock Margin="0,6,0,0" Text="{l:Loc Key='Options_SetKeyboardFocusTo'}"/>
                             <RadioButton Content="{l:Loc Key='Options_FocusResultsTree'}" 
                                          Margin="18,3" GroupName="FocusElement"
                                          IsChecked="{Binding FocusElement, Converter={StaticResource ebc}, ConverterParameter=ResultsTree}" />

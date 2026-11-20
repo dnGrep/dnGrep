@@ -39,9 +39,8 @@ pause time, and the memory retained after the search with the results alive and 
 `--csv results.csv --label baseline` appends a row so runs before and after a change can be compared.
 The exit code is 2 if the match count differs from what the generated files contain.
 
-`--multiline` searches each file as a whole, and `--budget N` sets the search memory budget in MB
-(0 = automatic, a quarter of the available memory). A very large budget turns the limit off, which
-gives a baseline for the memory gate that holds back large files when the search runs in parallel.
+`--multiline` searches each file as a whole, and `--budget N` sets the search memory budget as a
+percent of total memory (default 25, the same as the Options dialog). `--no-gate` turns the limit off, which gives a baseline for the memory gate that holds back large files when the search runs in parallel.
 
 ## Generating test files to use outside the benchmarks
 
