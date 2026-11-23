@@ -4498,4 +4498,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
     <value>多行或 XPath 取代不顯示已取代的文字</value>
   </data>
+  <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
+    <value>由系統自行決定並行任務數量</value>
+  </data>
 </root>
