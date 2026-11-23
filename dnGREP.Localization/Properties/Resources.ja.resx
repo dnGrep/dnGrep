@@ -4473,4 +4473,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
     <value>複数行または XPath による置換の場合、置換されたテキストは表示されません</value>
   </data>
+  <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
+    <value>固定制限なし</value>
+  </data>
 </root>
