@@ -5202,6 +5202,26 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract archive files to memory up to (MB).
+        /// </summary>
+        public static string Options_ArchiveMemoryThreshold {
+            get {
+                return ResourceManager.GetString("Options_ArchiveMemoryThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracts archived files up to this size into RAM for speed.
+        ///Larger files (and any over 2 GB) extract to temporary disk files. 
+        ///Set to 0 to always use disk. Maximum is 2047 MB..
+        /// </summary>
+        public static string Options_ArchiveMemoryThresholdHint {
+            get {
+                return ResourceManager.GetString("Options_ArchiveMemoryThresholdHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive files.
         /// </summary>
         public static string Options_ArchiveOptions {
@@ -6701,6 +6721,33 @@ namespace dnGREP.Localization.Properties {
         public static string Options_Save {
             get {
                 return ResourceManager.GetString("Options_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory limit for files searched in parallel (% of installed memory).
+        /// </summary>
+        public static string Options_SearchMemoryLimit {
+            get {
+                return ResourceManager.GetString("Options_SearchMemoryLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large files wait to start until other files finish. A lower limit uses less memory but can slow searches of very large files. A single file larger than the limit is still searched. The limit is an estimate, so the memory used can be somewhat higher. Select No fixed limit to turn the limit off..
+        /// </summary>
+        public static string Options_SearchMemoryLimitHint {
+            get {
+                return ResourceManager.GetString("Options_SearchMemoryLimitHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No fixed limit.
+        /// </summary>
+        public static string Options_SearchMemoryNoFixedLimit {
+            get {
+                return ResourceManager.GetString("Options_SearchMemoryNoFixedLimit", resourceCulture);
             }
         }
         

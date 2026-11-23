@@ -30,6 +30,14 @@
     <File Path="Performance1.psess" />
     <File Path="vs.testsettings" />
   </Folder>
+  <Project Path="dnGREP.Benchmarks/dnGREP.Benchmarks.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x64" />
+    <Build Solution="*|ARM64" Project="false" />
+    <Build Solution="*|x86" Project="false" />
+  </Project>
   <Project Path="dnGREP.Common.UI/dnGREP.Common.UI.csproj">
     <Platform Solution="*|Any CPU" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />

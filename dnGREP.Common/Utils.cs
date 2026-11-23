@@ -554,13 +554,7 @@ namespace dnGREP.Common
         public static Encoding GetFileEncoding(string srcFile)
         {
             using FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            var results = CharsetDetector.DetectFromStream(readStream);
-            // Get the best Detection
-            DetectionDetail resultDetected = results.Detected;
-            // Get the System.Text.Encoding of the found encoding (can be null if not available)
-            Encoding encoding = resultDetected?.Encoding ?? Encoding.Default;
-            encoding = CheckForUnicodeWithNoBOM(encoding, resultDetected, readStream);
-            return encoding;
+            return DetectEncoding(readStream);
         }
 
         /// <summary>
@@ -570,16 +564,38 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static Encoding GetFileEncoding(Stream stream)
         {
-            var results = CharsetDetector.DetectFromStream(stream);
-            // Get the best Detection
-            DetectionDetail resultDetected = results.Detected;
-            // Get the System.Text.Encoding of the found encoding (can be null if not available)
-            Encoding encoding = resultDetected?.Encoding ?? Encoding.Default;
-            encoding = CheckForUnicodeWithNoBOM(encoding, resultDetected, stream);
+            Encoding encoding = DetectEncoding(stream);
 
             // reset the stream back to the beginning
             stream.Seek(0, SeekOrigin.Begin);
             return encoding;
+        }
+
+        // The detector would otherwise read every byte of every file before the search reads it again.
+        private const long MaxEncodingDetectionBytes = 1024 * 1024;
+
+        private static Encoding DetectEncoding(Stream stream)
+        {
+            var results = CharsetDetector.DetectFromStream(stream, MaxEncodingDetectionBytes);
+            // Get the best Detection
+            DetectionDetail resultDetected = results.Detected;
+            // Get the System.Text.Encoding of the found encoding (can be null if not available)
+            Encoding encoding = resultDetected?.Encoding ?? Encoding.Default;
+            bool detectedAscii = resultDetected != null &&
+                resultDetected.EncodingName.Equals("ascii", StringComparison.OrdinalIgnoreCase);
+
+            Encoding checkedEncoding = CheckForUnicodeWithNoBOM(encoding, resultDetected, stream);
+
+            // Only the start of a large file was inspected, and it is plain ASCII. Non-ASCII text
+            // may follow, and a full scan would then have found UTF-8. UTF-8 decodes the ASCII text
+            // the same way, so use it rather than risk corrupting the rest of the file.
+            if (detectedAscii && ReferenceEquals(checkedEncoding, encoding) &&
+                stream.CanSeek && stream.Length > MaxEncodingDetectionBytes)
+            {
+                return Encoding.UTF8;
+            }
+
+            return checkedEncoding;
         }
 
         private static Encoding CheckForUnicodeWithNoBOM(Encoding encoding, DetectionDetail? resultDetected,
@@ -2273,7 +2289,7 @@ namespace dnGREP.Common
 
                                     Guid fileMatchId = bodyMatchesClone[0].FileMatchId;
 
-                                    List<GrepCaptureGroup> lineGroups;
+                                    IReadOnlyList<GrepCaptureGroup> lineGroups;
                                     // for multiline regex, get just the groups on the current line
                                     if (multilineMatch)
                                     {
@@ -2379,11 +2395,10 @@ namespace dnGREP.Common
                             string first = value[..pos];
                             string second = value[(pos + eol.Length)..];
 
-                            grepMatch.Groups.RemoveAt(idx);
-                            grepMatch.Groups.Insert(idx, new(name, start, first.Length, first, group.FullValue));
+                            grepMatch.SetGroup(idx, new(name, start, first.Length, first, group.FullValue));
                             if (second.Length > 0 && !second.Equals(eol, StringComparison.Ordinal))
                             {
-                                grepMatch.Groups.Add(new(name, start + first.Length + eol.Length, second.Length, second, group.FullValue));
+                                grepMatch.AddGroup(new(name, start + first.Length + eol.Length, second.Length, second, group.FullValue));
                             }
                             break;
                         }
@@ -2674,6 +2689,17 @@ namespace dnGREP.Common
             return !IsWordChar(beginText[^1]);
         }
 
+        /// <summary>
+        /// Span version of <see cref="IsValidBeginText(string)"/> that avoids copying the text.
+        /// </summary>
+        public static bool IsValidBeginText(ReadOnlySpan<char> beginText)
+        {
+            if (beginText.Length == 0)
+                return true;
+
+            return !IsWordChar(beginText[^1]);
+        }
+
         public static string ReplaceSpecialCharacters(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -2700,6 +2726,17 @@ namespace dnGREP.Common
         {
             if (endText == null)
                 return false;
+            if (endText.Length == 0)
+                return true;
+
+            return !IsWordChar(endText[0]);
+        }
+
+        /// <summary>
+        /// Span version of <see cref="IsValidEndText(string)"/> that avoids copying the text.
+        /// </summary>
+        public static bool IsValidEndText(ReadOnlySpan<char> endText)
+        {
             if (endText.Length == 0)
                 return true;
 

@@ -27,7 +27,12 @@ namespace dnGREP.Common
 
             FileMatchId = fileMatchId;
 
-            Groups.AddRange(toCopy);
+            if (toCopy is not IReadOnlyCollection<GrepCaptureGroup> { Count: 0 })
+            {
+                List<GrepCaptureGroup> copied = [.. toCopy];
+                if (copied.Count > 0)
+                    groups = copied;
+            }
         }
 
         public GrepMatch Copy(bool replaceMatch = true)
@@ -87,7 +92,19 @@ namespace dnGREP.Common
         /// </summary>
         public string RegexMatchValue { get; }
 
-        public List<GrepCaptureGroup> Groups { get; } = [];
+        // Most matches have no capture groups, so the list is only created when the first group is added
+        private List<GrepCaptureGroup>? groups;
+
+        public IReadOnlyList<GrepCaptureGroup> Groups => groups ?? (IReadOnlyList<GrepCaptureGroup>)Array.Empty<GrepCaptureGroup>();
+
+        public void AddGroup(GrepCaptureGroup group) => (groups ??= []).Add(group);
+
+        public void SetGroup(int index, GrepCaptureGroup group)
+        {
+            if (groups == null)
+                throw new ArgumentOutOfRangeException(nameof(index));
+            groups[index] = group;
+        }
 
         public string SearchPattern { get; private set; }
 

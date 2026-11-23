@@ -233,7 +233,7 @@ namespace dnGREP.Common
 
                 if (isAnonymousArchive || Utils.IsArchive(innerFileName))
                 {
-                    using Stream stream = new MemoryStream();
+                    using Stream stream = new ArchiveEntryStream(fileInfo.Size);
                     extractor.ExtractFile(index, stream);
 
                     var enumerator = EnumerateFiles(stream, fileName + ArchiveSeparator + innerFileName,
@@ -281,7 +281,7 @@ namespace dnGREP.Common
                         if (NeedsIncludeFileStream(fileName, fileFilter, checkEncoding,
                             includeSearchPatterns, includeShebangPatterns))
                         {
-                            using Stream stream = new MemoryStream(4096);
+                            using Stream stream = new ArchiveEntryStream(fileInfo.Size);
                             extractor.ExtractFile(index, stream);
 
                             if (IncludeFileStream(stream, fileFilter, fileData,
@@ -559,7 +559,7 @@ namespace dnGREP.Common
 
                     if (index > -1)
                     {
-                        using Stream stream = new MemoryStream(4096);
+                        using Stream stream = new ArchiveEntryStream(extractor.ArchiveFileData[index].Size);
                         extractor.ExtractFile(index, stream);
                         string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 
@@ -584,7 +584,7 @@ namespace dnGREP.Common
 
                     if (index > -1)
                     {
-                        using Stream stream = new MemoryStream(4096);
+                        using Stream stream = new ArchiveEntryStream(extractor.ArchiveFileData[index].Size);
                         try
                         {
                             extractor.ExtractFile(index, stream);
@@ -688,7 +688,7 @@ namespace dnGREP.Common
 
                 if (index > -1)
                 {
-                    using Stream stream = new MemoryStream(4096);
+                    using Stream stream = new ArchiveEntryStream(extractor.ArchiveFileData[index].Size);
                     extractor.ExtractFile(index, stream);
                     string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 

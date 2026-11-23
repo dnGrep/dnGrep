@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,122 @@ namespace dnGREP.Common
         private int processedFilesCount;
         private int foundFilesCount;
         private bool autoPauseExecuted;
+        private SearchMemoryGate memoryGate = SearchMemoryGate.Create(SearchMemoryGate.DefaultBudgetPercent);
+
+        private const long BaseSearchCost = 4L * 1024 * 1024;
+        private const long PluginSearchCost = 16L * 1024 * 1024;
+        private const long MinimumArchiveCost = 1024 * 1024;
+        private const int ArchiveExpansionEstimate = 4;
+        private const int MultilineCostFactor = 6;
+        private const int LongLineCostFactor = 4;
+        private const int LineSearchSizeDivisor = 32;
+        private const int LineSampleBytes = 1024 * 1024;
+
+        private static SearchMemoryGate CreateMemoryGate()
+        {
+            if (!GrepSettings.Instance.Get<bool>(GrepSettings.Key.LimitSearchMemory))
+            {
+                return SearchMemoryGate.Disabled;
+            }
+
+            return SearchMemoryGate.Create(GrepSettings.Instance.Get<int>(GrepSettings.Key.SearchMemoryBudgetPercent));
+        }
+
+        // skips the file size estimate, which reads part of the file, when the limit is off
+        private long EnterMemoryGate(string file, GrepSearchOption searchOptions, PauseCancelToken pauseCancelToken)
+        {
+            return memoryGate.IsEnabled ?
+                memoryGate.Enter(EstimateSearchCost(file, searchOptions), pauseCancelToken) : 0;
+        }
+
+        /// <summary>
+        /// Estimates the memory in bytes a file needs while it is searched. The estimate is
+        /// only used to limit how many large files are searched at once.
+        /// </summary>
+        public static long EstimateSearchCost(string file, GrepSearchOption searchOptions)
+        {
+            long size = 0;
+            try
+            {
+                size = new FileInfo(file).Length;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
+            {
+                // the search reports problems with the file, the estimate falls back to the base cost
+            }
+
+            if (Utils.IsArchive(file))
+            {
+                // entries are extracted into memory up to the spill threshold, then to a temp file
+                return Math.Min(Math.Max(size * ArchiveExpansionEstimate, MinimumArchiveCost),
+                    ArchiveEntryStream.DefaultMemoryThreshold);
+            }
+
+            if (Utils.IsPluginFile(file))
+            {
+                return PluginSearchCost;
+            }
+
+            if (searchOptions.HasFlag(GrepSearchOption.Multiline))
+            {
+                // the whole file is held as text, with copies made while it is read
+                return Math.Max(BaseSearchCost, size * MultilineCostFactor);
+            }
+
+            // files are read a line at a time, so the cost depends mostly on the line length
+            long lineCost = BaseSearchCost + size / LineSearchSizeDivisor;
+            if (size > LineSampleBytes)
+            {
+                lineCost = Math.Max(lineCost, BaseSearchCost + FindLongestLineInSample(file, size) * LongLineCostFactor);
+            }
+            return lineCost;
+        }
+
+        /// <summary>
+        /// Returns the longest line in the first part of the file. If the sample has no line break at all,
+        /// the file may be a single line, and the whole file size is returned.
+        /// </summary>
+        private static long FindLongestLineInSample(string file, long size)
+        {
+            byte[] buffer = ArrayPool<byte>.Shared.Rent(LineSampleBytes);
+            try
+            {
+                using FileStream stream = new(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 1, FileOptions.SequentialScan);
+                int count = 0;
+                int read;
+                while (count < LineSampleBytes &&
+                    (read = stream.Read(buffer, count, LineSampleBytes - count)) > 0)
+                {
+                    count += read;
+                }
+
+                ReadOnlySpan<byte> sample = buffer.AsSpan(0, count);
+                long longest = 0;
+                bool foundBreak = false;
+                while (!sample.IsEmpty)
+                {
+                    int idx = sample.IndexOfAny((byte)'\n', (byte)'\r');
+                    if (idx < 0)
+                    {
+                        longest = Math.Max(longest, sample.Length);
+                        break;
+                    }
+                    foundBreak = true;
+                    longest = Math.Max(longest, idx);
+                    sample = sample[(idx + 1)..];
+                }
+
+                return foundBreak ? longest : size;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
+            {
+                return 0;
+            }
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(buffer);
+            }
+        }
 
         public static TimeSpan MatchTimeout { get; private set; } = TimeSpan.FromSeconds(4);
 
@@ -132,6 +249,7 @@ namespace dnGREP.Common
                 return searchResults;
 
             Initialize();
+            memoryGate = CreateMemoryGate();
 
             processedFilesCount = 0;
             foundFilesCount = 0;
@@ -215,6 +333,7 @@ namespace dnGREP.Common
                 return searchResults;
 
             Initialize();
+            memoryGate = CreateMemoryGate();
 
             processedFilesCount = 0;
             foundFilesCount = 0;
@@ -352,6 +471,17 @@ namespace dnGREP.Common
         private void Search(string file, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage,
             ref int counter, ref int highWater, PauseCancelToken pauseCancelToken = default)
         {
+            long reservedMemory;
+            try
+            {
+                reservedMemory = EnterMemoryGate(file, searchOptions, pauseCancelToken);
+            }
+            catch (OperationCanceledException)
+            {
+                // expected for stop after first match or user cancel
+                return;
+            }
+
             try
             {
                 InterlockedMax(ref highWater, Interlocked.Increment(ref counter));
@@ -447,6 +577,7 @@ namespace dnGREP.Common
             finally
             {
                 Interlocked.Decrement(ref counter);
+                memoryGate.Exit(reservedMemory);
             }
         }
 
@@ -454,6 +585,18 @@ namespace dnGREP.Common
             ref int counter, ref int highWater, PauseCancelToken pauseCancelToken = default)
         {
             string searchPattern = string.Empty;
+
+            long reservedMemory;
+            try
+            {
+                reservedMemory = EnterMemoryGate(file, searchOptions, pauseCancelToken);
+            }
+            catch (OperationCanceledException)
+            {
+                // expected for stop after first match or user cancel
+                return;
+            }
+
             try
             {
                 InterlockedMax(ref highWater, Interlocked.Increment(ref counter));
@@ -592,6 +735,7 @@ namespace dnGREP.Common
             finally
             {
                 Interlocked.Decrement(ref counter);
+                memoryGate.Exit(reservedMemory);
             }
         }
 

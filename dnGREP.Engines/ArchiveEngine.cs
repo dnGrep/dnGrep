@@ -200,7 +200,7 @@ namespace dnGREP.Engines
 
                 if (isAnonymousArchive || Utils.IsArchive(innerFileName))
                 {
-                    using Stream stream = new MemoryStream(4096);
+                    using Stream stream = new ArchiveEntryStream(fileInfo.Size);
                     extractor.ExtractFile(index, stream);
 
                     var enumerator = SearchInsideArchive(stream, fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
@@ -243,7 +243,7 @@ namespace dnGREP.Engines
                         fileFilter, fileData, includeSearchPatterns,
                         includeRegexPatterns, excludeRegexPatterns))
                     {
-                        var res = SearchInnerFile(extractor, index, fileFilter, fileData,
+                        var res = SearchInnerFile(extractor, index, fileInfo.Size, fileFilter, fileData,
                             fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
                             searchPattern, searchType, searchOptions, encoding, pauseCancelToken);
 
@@ -257,7 +257,7 @@ namespace dnGREP.Engines
             }
         }
 
-        private List<GrepSearchResult>? SearchInnerFile(SevenZipExtractor extractor, int index,
+        private List<GrepSearchResult>? SearchInnerFile(SevenZipExtractor extractor, int index, ulong size,
             FileFilter fileFilter, FileData fileData, string innerFileName, string searchPattern,
             SearchType searchType, GrepSearchOption searchOptions, Encoding encoding,
             PauseCancelToken pauseCancelToken)
@@ -265,7 +265,7 @@ namespace dnGREP.Engines
             List<GrepSearchResult>? innerFileResults = null;
             try
             {
-                using Stream stream = new MemoryStream(4096);
+                using Stream stream = new ArchiveEntryStream(size);
                 extractor.ExtractFile(index, stream);
                 stream.Seek(0, SeekOrigin.Begin);
 

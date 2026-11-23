@@ -50,31 +50,35 @@ namespace dnGREP.Engines
             Utils.OpenFile(args);
         }
 
+        // Shared by every search of a single line, where the list is always empty. It is only read.
+        private static readonly List<int> emptyLineEndIndexes = [];
+
         private static List<int> GetLineEndIndexes(string text, PauseCancelToken pauseCancelToken)
         {
-            List<int> list = [];
-
-            if (!string.IsNullOrWhiteSpace(text))
+            if (string.IsNullOrWhiteSpace(text))
             {
-                int idx = 0;
-                while (idx > -1 && idx < text.Length)
+                return emptyLineEndIndexes;
+            }
+
+            List<int> list = [];
+            int idx = 0;
+            while (idx > -1 && idx < text.Length)
+            {
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+
+                idx = text.IndexOfAny(lineChars, idx);
+                if (idx == -1)
                 {
-                    pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
+                    list.Add(text.Length);
+                    break;
+                }
+                else
+                {
+                    list.Add(idx);
 
-                    idx = text.IndexOfAny(lineChars, idx);
-                    if (idx == -1)
-                    {
-                        list.Add(text.Length);
-                        break;
-                    }
-                    else
-                    {
-                        list.Add(idx);
-
+                    idx++;
+                    if (idx < text.Length && text[idx - 1] == '\r' && text[idx] == '\n')
                         idx++;
-                        if (idx < text.Length && text[idx - 1] == '\r' && text[idx] == '\n')
-                            idx++;
-                    }
                 }
             }
             return list;
@@ -187,21 +191,7 @@ namespace dnGREP.Engines
         protected List<GrepMatch> DoRegexSearch(int lineNumber, int filePosition, string text, string searchPattern,
             GrepSearchOption searchOptions, bool includeContext, PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> globalMatches = [];
-
-            foreach (var match in RegexSearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken))
-            {
-                globalMatches.Add(match);
-
-                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
-
-                if (!searchOptions.HasFlag(GrepSearchOption.Global))
-                {
-                    break;
-                }
-            }
-
-            return globalMatches;
+            return FindRegexMatches(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken);
         }
 
         protected string DoRegexReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern,
@@ -228,7 +218,7 @@ namespace dnGREP.Engines
 
             // check this block of text for any matches that are marked for replace
             // just return the original text if not
-            var matches = RegexSearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken);
+            var matches = FindRegexMatches(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken);
             var toDo = replaceItems.Intersect(matches);
             if (toDo.Any(r => r.ReplaceMatch))
             {
@@ -259,7 +249,7 @@ namespace dnGREP.Engines
             return result;
         }
 
-        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text,
+        private List<GrepMatch> FindRegexMatches(int lineNumber, int filePosition, string text,
             string searchPattern, GrepSearchOption searchOptions, PauseCancelToken pauseCancelToken)
         {
             RegexOptions regexOptions = RegexOptions.None;
@@ -278,38 +268,30 @@ namespace dnGREP.Engines
                 BooleanExpression exp = new();
                 if (exp.TryParse(searchPattern))
                 {
-                    return RegexSearchIteratorBoolean(lineNumber, filePosition,
+                    return FindRegexMatchesBoolean(lineNumber, filePosition,
                         text, exp, isWholeWord, isGlobal, regexOptions, pauseCancelToken);
                 }
             }
 
-            return RegexSearchIterator(lineNumber, filePosition, text, searchPattern, isWholeWord, isGlobal, regexOptions, pauseCancelToken);
+            return FindRegexMatches(lineNumber, filePosition, text, searchPattern, isWholeWord, isGlobal, regexOptions, pauseCancelToken);
         }
 
-        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text,
+        // Called for every line of a non-multiline search: it returns the list directly, instead of an
+        // iterator, to avoid an extra state machine object and list for each line.
+        private List<GrepMatch> FindRegexMatches(int lineNumber, int filePosition, string text,
             string searchPattern, bool isWholeWord, bool isGlobal, RegexOptions regexOptions,
             PauseCancelToken pauseCancelToken)
         {
             // pushed down to this level to handle the Boolean operators
-            if (isWholeWord)
-            {
-                // Issue #813
-                searchPattern = WrapPatternForWholeWord(searchPattern);
-            }
+            (searchPattern, Regex regex) = GetSearchRegex(searchPattern, isWholeWord, regexOptions);
 
-            if (regexOptions.HasFlag(RegexOptions.Multiline))
-            {
-                searchPattern = searchPattern.Replace(Environment.NewLine, @"\r?\n", StringComparison.Ordinal);
-            }
-
-            searchPattern = FixDollarPattern(searchPattern);
+            List<GrepMatch> results = [];
 
             string textToSearch = text;
             List<int> lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? textToSearch : string.Empty, pauseCancelToken);
 
-            Regex regex = new(searchPattern, regexOptions, GrepCore.MatchTimeout);
-            var matches = regex.Matches(textToSearch);
-            foreach (Match match in matches.Cast<Match>())
+            // same as enumerating regex.Matches(), without the MatchCollection
+            for (Match match = regex.Match(textToSearch); match.Success; match = match.NextMatch())
             {
                 if (match.Length < 1)
                 {
@@ -317,7 +299,7 @@ namespace dnGREP.Engines
                 }
 
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
-                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
+                    lineNumber = GetLineNumber(lineEndIndexes, match.Index);
 
                 int matchStart = match.Index;
                 int length = match.Length;
@@ -350,29 +332,74 @@ namespace dnGREP.Engines
                                 value = value.TrimEnd('\r');
                             }
 
-                            grepMatch.Groups.Add(
+                            grepMatch.AddGroup(
                                 new GrepCaptureGroup(regex.GroupNameFromNumber(idx), groupStart, length, value));
                         }
                     }
                 }
 
-                yield return grepMatch;
+                results.Add(grepMatch);
+
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                 if (!isGlobal)
                 {
                     break;
                 }
             }
+
+            return results;
         }
 
-        private List<GrepMatch> RegexSearchIteratorBoolean(int lineNumber, int filePosition, string text,
+        private readonly record struct RegexCacheKey(string Pattern, bool IsWholeWord, RegexOptions Options, TimeSpan Timeout);
+
+        private const int MaxCachedRegexes = 64;
+        private static readonly ConcurrentDictionary<RegexCacheKey, (string Pattern, Regex Regex)> regexCache = new();
+
+        /// <summary>
+        /// Searching one line at a time calls this for every line with the same pattern, so the
+        /// pattern rewrite and the Regex construction are done once and reused.
+        /// </summary>
+        private static (string Pattern, Regex Regex) GetSearchRegex(string searchPattern, bool isWholeWord, RegexOptions regexOptions)
+        {
+            RegexCacheKey key = new(searchPattern, isWholeWord, regexOptions, GrepCore.MatchTimeout);
+            if (regexCache.TryGetValue(key, out var cached))
+            {
+                return cached;
+            }
+
+            string pattern = searchPattern;
+            if (isWholeWord)
+            {
+                // Issue #813
+                pattern = WrapPatternForWholeWord(pattern);
+            }
+
+            if (regexOptions.HasFlag(RegexOptions.Multiline))
+            {
+                pattern = pattern.Replace(Environment.NewLine, @"\r?\n", StringComparison.Ordinal);
+            }
+
+            pattern = FixDollarPattern(pattern);
+
+            cached = (pattern, new Regex(pattern, regexOptions, key.Timeout));
+
+            if (regexCache.Count >= MaxCachedRegexes)
+            {
+                regexCache.Clear();
+            }
+            regexCache[key] = cached;
+            return cached;
+        }
+
+        private List<GrepMatch> FindRegexMatchesBoolean(int lineNumber, int filePosition, string text,
             BooleanExpression expression, bool isWholeWord, bool isGlobal, RegexOptions regexOptions,
             PauseCancelToken pauseCancelToken)
         {
             List<GrepMatch> results = [];
             foreach (var operand in expression.Operands)
             {
-                var matches = RegexSearchIterator(lineNumber, filePosition, text,
+                var matches = FindRegexMatches(lineNumber, filePosition, text,
                     operand.Value, isWholeWord, isGlobal, regexOptions, pauseCancelToken);
 
                 operand.EvaluatedResult = matches.Any();
@@ -419,16 +446,7 @@ namespace dnGREP.Engines
             string searchText, GrepSearchOption searchOptions, bool includeContext,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> globalMatches = [];
-
-            foreach (var match in TextSearchIterator(lineNumber, filePosition, text, searchText, searchOptions, pauseCancelToken))
-            {
-                globalMatches.Add(match);
-
-                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
-            }
-
-            return globalMatches;
+            return FindTextMatches(lineNumber, filePosition, text, searchText, searchOptions, pauseCancelToken);
         }
 
         protected string DoTextReplace(int lineNumber, int filePosition, string text, string searchText, string replaceText,
@@ -442,7 +460,7 @@ namespace dnGREP.Engines
             StringBuilder sb = new();
             int counter = 0;
 
-            foreach (var match in TextSearchIterator(lineNumber, filePosition, text, searchText, searchOptions, pauseCancelToken))
+            foreach (var match in FindTextMatches(lineNumber, filePosition, text, searchText, searchOptions, pauseCancelToken))
             {
                 if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
                 {
@@ -463,7 +481,7 @@ namespace dnGREP.Engines
             return result;
         }
 
-        private IEnumerable<GrepMatch> TextSearchIterator(int lineNumber, int filePosition, string text,
+        private List<GrepMatch> FindTextMatches(int lineNumber, int filePosition, string text,
             string searchText, GrepSearchOption searchOptions, PauseCancelToken pauseCancelToken)
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : string.Empty, pauseCancelToken);
@@ -477,18 +495,22 @@ namespace dnGREP.Engines
                 BooleanExpression exp = new();
                 if (exp.TryParse(searchText))
                 {
-                    return TextSearchIteratorBoolean(lineNumber, filePosition,
+                    return FindTextMatchesBoolean(lineNumber, filePosition,
                         text, exp, lineEndIndexes, isWholeWord, isGlobal, comparisonType, pauseCancelToken);
                 }
             }
 
-            return TextSearchIterator(lineNumber, filePosition, text, searchText, lineEndIndexes, isWholeWord, isGlobal, comparisonType, pauseCancelToken);
+            return FindTextMatches(lineNumber, filePosition, text, searchText, lineEndIndexes, isWholeWord, isGlobal, comparisonType, pauseCancelToken);
         }
 
-        private IEnumerable<GrepMatch> TextSearchIterator(int lineNumber, int filePosition, string text,
+        // Called for every line of a non-multiline search: it returns the list directly, instead of an
+        // iterator, to avoid an extra state machine object, closure and list for each line.
+        private List<GrepMatch> FindTextMatches(int lineNumber, int filePosition, string text,
             string searchText, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal,
             StringComparison comparisonType, PauseCancelToken pauseCancelToken)
         {
+            List<GrepMatch> results = [];
+
             int index = 0;
             while (index >= 0)
             {
@@ -497,8 +519,8 @@ namespace dnGREP.Engines
                 index = text.IndexOf(searchText, index, comparisonType);
                 if (index >= 0)
                 {
-                    if (isWholeWord && (!Utils.IsValidBeginText(text[..index]) ||
-                        !Utils.IsValidEndText(text[(index + searchText.Length)..])))
+                    if (isWholeWord && (!Utils.IsValidBeginText(text.AsSpan(0, index)) ||
+                        !Utils.IsValidEndText(text.AsSpan(index + searchText.Length))))
                     {
                         index++;
                         continue;
@@ -506,10 +528,10 @@ namespace dnGREP.Engines
 
                     if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     {
-                        lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
+                        lineNumber = GetLineNumber(lineEndIndexes, index);
                     }
 
-                    yield return new GrepMatch(searchText, lineNumber, index + filePosition, searchText.Length);
+                    results.Add(new GrepMatch(searchText, lineNumber, index + filePosition, searchText.Length));
 
                     if (!isGlobal)
                     {
@@ -519,16 +541,29 @@ namespace dnGREP.Engines
                     index += searchText.Length;
                 }
             }
+
+            return results;
         }
 
-        private List<GrepMatch> TextSearchIteratorBoolean(int lineNumber, int filePosition, string text,
+        // the 1-based number of the first line that ends after the position
+        private static int GetLineNumber(List<int> lineEndIndexes, int position)
+        {
+            for (int i = 0; i < lineEndIndexes.Count; i++)
+            {
+                if (lineEndIndexes[i] > position)
+                    return i + 1;
+            }
+            return 0;
+        }
+
+        private List<GrepMatch> FindTextMatchesBoolean(int lineNumber, int filePosition, string text,
             BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, bool isGlobal,
             StringComparison comparisonType, PauseCancelToken pauseCancelToken)
         {
             List<GrepMatch> results = [];
             foreach (var operand in expression.Operands)
             {
-                var matches = TextSearchIterator(lineNumber, filePosition, text, operand.Value,
+                var matches = FindTextMatches(lineNumber, filePosition, text, operand.Value,
                     lineEndIndexes, isWholeWord, isGlobal, comparisonType, pauseCancelToken);
 
                 operand.EvaluatedResult = matches.Any();
@@ -885,16 +920,7 @@ namespace dnGREP.Engines
             string searchPattern, GrepSearchOption searchOptions, bool includeContext,
             PauseCancelToken pauseCancelToken)
         {
-            List<GrepMatch> globalMatches = [];
-
-            foreach (var match in FuzzySearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken))
-            {
-                globalMatches.Add(match);
-
-                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
-            }
-
-            return globalMatches;
+            return FindFuzzyMatches(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken);
         }
 
         public string DoFuzzyReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
@@ -908,7 +934,7 @@ namespace dnGREP.Engines
             StringBuilder sb = new();
             int counter = 0;
 
-            foreach (var match in FuzzySearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken))
+            foreach (var match in FindFuzzyMatches(lineNumber, filePosition, text, searchPattern, searchOptions, pauseCancelToken))
             {
                 if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
                 {
@@ -927,9 +953,11 @@ namespace dnGREP.Engines
             return result;
         }
 
-        private IEnumerable<GrepMatch> FuzzySearchIterator(int lineNumber, int filePosition, string text,
+        private List<GrepMatch> FindFuzzyMatches(int lineNumber, int filePosition, string text,
             string searchPattern, GrepSearchOption searchOptions, PauseCancelToken pauseCancelToken)
         {
+            List<GrepMatch> results = [];
+
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : string.Empty, pauseCancelToken);
 
             fuzzyMatchEngine ??= new FuzzyMatch();
@@ -956,12 +984,16 @@ namespace dnGREP.Engines
                 }
 
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
-                    lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
+                    lineNumber = GetLineNumber(lineEndIndexes, matchLocation + counter);
 
-                yield return new GrepMatch(searchPattern, lineNumber, matchLocation + filePosition + counter, matchLength);
+                results.Add(new GrepMatch(searchPattern, lineNumber, matchLocation + filePosition + counter, matchLength));
+
+                pauseCancelToken.WaitWhilePausedOrThrowIfCancellationRequested();
 
                 counter = counter + matchLocation + matchLength;
             }
+
+            return results;
         }
 
         #endregion
