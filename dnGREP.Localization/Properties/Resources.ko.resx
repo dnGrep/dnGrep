@@ -4166,4 +4166,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_RemoveItem0FromThisList" xml:space="preserve">
     <value>이 목록에서 "{0}" 항목을 제거하시겠습니까?</value>
   </data>
+  <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
+    <value>고정 제한 없음</value>
+  </data>
 </root>
