@@ -13,10 +13,39 @@ namespace dnGREP.Common
         private const int DefaultCapacity = 4096;
         private const int FileBufferSize = 81920;
 
+        /// <summary>The setting default, in MB.</summary>
+        public const int DefaultThresholdMB = 64;
+
         /// <summary>
-        /// The largest archive entry, in bytes, that is held in memory.
+        /// The largest threshold the setting allows, in MB. A <see cref="MemoryStream"/> cannot hold more than
+        /// about 2 GB, so an entry larger than that always goes to a temp file.
         /// </summary>
-        public static long DefaultMemoryThreshold { get; set; } = 64L * 1024 * 1024;
+        public const int MaxThresholdMB = 2047;
+
+        /// <summary>
+        /// Replaces the threshold from the application settings. Used by tests; set to null to use the setting.
+        /// </summary>
+        public static long? MemoryThresholdOverride { get; set; }
+
+        /// <summary>
+        /// The largest archive entry, in bytes, that is held in memory. Read from the
+        /// <see cref="GrepSettings.Key.ArchiveMemoryThresholdMB"/> setting. Zero extracts every entry to a temp file.
+        /// </summary>
+        public static long DefaultMemoryThreshold =>
+            MemoryThresholdOverride ?? ThresholdBytes(GrepSettings.Instance.Get<int>(GrepSettings.Key.ArchiveMemoryThresholdMB));
+
+        /// <summary>
+        /// Converts a threshold setting in MB to bytes. A negative value uses the default.
+        /// </summary>
+        public static long ThresholdBytes(int megabytes)
+        {
+            if (megabytes < 0)
+            {
+                megabytes = DefaultThresholdMB;
+            }
+
+            return Math.Min(megabytes, MaxThresholdMB) * 1024L * 1024;
+        }
 
         private readonly long memoryThreshold;
         private Stream inner;

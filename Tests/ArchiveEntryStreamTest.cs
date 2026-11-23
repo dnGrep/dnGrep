@@ -30,6 +30,50 @@ namespace Tests
             return data;
         }
 
+        [Theory]
+        [InlineData(64, 64L * 1024 * 1024)]
+        [InlineData(1, 1024 * 1024)]
+        [InlineData(0, 0)]
+        [InlineData(-1, 64L * 1024 * 1024)]
+        [InlineData(2047, 2047L * 1024 * 1024)]
+        [InlineData(1_000_000, 2047L * 1024 * 1024)]
+        public void ThresholdBytesConvertsAndLimitsTheSetting(int megabytes, long expected)
+        {
+            Assert.Equal(expected, ArchiveEntryStream.ThresholdBytes(megabytes));
+        }
+
+        [Fact]
+        public void HighestThresholdFitsInAMemoryStream()
+        {
+            Assert.True(ArchiveEntryStream.ThresholdBytes(int.MaxValue) <= Array.MaxLength);
+        }
+
+        [Fact]
+        public void ZeroThresholdWritesEverythingToDisk()
+        {
+            using ArchiveEntryStream stream = new(0, 0);
+
+            stream.Write(Data(10));
+
+            Assert.False(stream.IsInMemory);
+            Assert.Equal(10, stream.Length);
+        }
+
+        [Fact]
+        public void OverrideReplacesTheThresholdFromTheSetting()
+        {
+            // the shared settings are not touched here: other tests load and convert them in parallel
+            try
+            {
+                ArchiveEntryStream.MemoryThresholdOverride = 123;
+                Assert.Equal(123, ArchiveEntryStream.DefaultMemoryThreshold);
+            }
+            finally
+            {
+                ArchiveEntryStream.MemoryThresholdOverride = null;
+            }
+        }
+
         [Fact]
         public void KnownSizeBelowThresholdStaysInMemory()
         {
@@ -137,10 +181,9 @@ namespace Tests
                 }
             }
 
-            long saved = ArchiveEntryStream.DefaultMemoryThreshold;
             try
             {
-                ArchiveEntryStream.DefaultMemoryThreshold = threshold;
+                ArchiveEntryStream.MemoryThresholdOverride = threshold;
 
                 GrepCore core = new()
                 {
@@ -157,7 +200,7 @@ namespace Tests
             }
             finally
             {
-                ArchiveEntryStream.DefaultMemoryThreshold = saved;
+                ArchiveEntryStream.MemoryThresholdOverride = null;
             }
         }
     }

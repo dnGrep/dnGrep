@@ -550,6 +550,12 @@ namespace dnGREP.WPF
         /// The limit for the estimated memory of files searched at the same time,
         /// as a percent of the total memory.
         /// </summary>
+        /// <summary>
+        /// The largest archive entry, in MB, that is extracted to memory instead of a temp file.
+        /// </summary>
+        [ObservableProperty]
+        private int archiveMemoryThresholdMB = ArchiveEntryStream.DefaultThresholdMB;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SearchMemoryBudgetMB))]
         private int searchMemoryBudgetPercent = SearchMemoryGate.DefaultBudgetPercent;
@@ -861,6 +867,7 @@ namespace dnGREP.WPF
                 PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
                 RequestPDFPassword != Settings.Get<bool>(GrepSettings.Key.RequestPDFPassword) ||
                 RequestArchivePassword != Settings.Get<bool>(GrepSettings.Key.RequestArchivePassword) ||
+                ArchiveMemoryThresholdMB != Settings.Get<int>(GrepSettings.Key.ArchiveMemoryThresholdMB) ||
                 WordExtractFootnotes != Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes) ||
                 WordFootnoteReference != Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference) ||
                 WordExtractComments != Settings.Get<bool>(GrepSettings.Key.WordExtractComments) ||
@@ -1227,6 +1234,9 @@ namespace dnGREP.WPF
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
             RequestPDFPassword = Settings.Get<bool>(GrepSettings.Key.RequestPDFPassword);
             RequestArchivePassword = Settings.Get<bool>(GrepSettings.Key.RequestArchivePassword);
+            int archiveThreshold = Settings.Get<int>(GrepSettings.Key.ArchiveMemoryThresholdMB);
+            ArchiveMemoryThresholdMB = archiveThreshold < 0 ? ArchiveEntryStream.DefaultThresholdMB :
+                Math.Min(archiveThreshold, ArchiveEntryStream.MaxThresholdMB);
 
             WordExtractFootnotes = Settings.Get<bool>(GrepSettings.Key.WordExtractFootnotes);
             WordFootnoteReference = Settings.Get<FootnoteRefType>(GrepSettings.Key.WordFootnoteReference);
@@ -1439,6 +1449,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
             Settings.Set(GrepSettings.Key.RequestPDFPassword, RequestPDFPassword);
             Settings.Set(GrepSettings.Key.RequestArchivePassword, RequestArchivePassword);
+            Settings.Set(GrepSettings.Key.ArchiveMemoryThresholdMB, ArchiveMemoryThresholdMB);
             Settings.Set(GrepSettings.Key.WordExtractFootnotes, WordExtractFootnotes);
             Settings.Set(GrepSettings.Key.WordFootnoteReference, WordFootnoteReference);
             Settings.Set(GrepSettings.Key.WordExtractComments, WordExtractComments);

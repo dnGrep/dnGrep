@@ -319,6 +319,8 @@ namespace dnGREP.Common
             public const string MaxDegreeOfParallelism = "MaxDegreeOfParallelism";
             [DefaultValue(true)]
             public const string LimitSearchMemory = "LimitSearchMemory";
+            [DefaultValue(64)]
+            public const string ArchiveMemoryThresholdMB = "ArchiveMemoryThresholdMB";
             [DefaultValue(25)]
             public const string SearchMemoryBudgetPercent = "SearchMemoryBudgetPercent";
             [DefaultValue(true)]
@@ -1476,35 +1478,33 @@ namespace dnGREP.Common
 
         private static bool IsNullable(Type type) => Nullable.GetUnderlyingType(type) != null;
 
-        private List<FieldInfo>? constantKeys;
         private static readonly char[] separators = [',', ';', ' '];
 
-        private void InitializeConstantKeys()
+        // Built once, and safe to use from the search worker threads. The dictionary is only
+        // published after it is complete, so no thread can see a partly filled collection.
+        private static readonly Lazy<Dictionary<string, DefaultValueAttribute>> defaultValueAttributes =
+            new(BuildDefaultValueAttributes, LazyThreadSafetyMode.ExecutionAndPublication);
+
+        private static Dictionary<string, DefaultValueAttribute> BuildDefaultValueAttributes()
         {
-            if (constantKeys == null)
+            Dictionary<string, DefaultValueAttribute> defaults = [];
+            foreach (FieldInfo fi in typeof(Key).GetFields())
             {
-                constantKeys = [];
-                FieldInfo[] thisObjectProperties = typeof(Key).GetFields();
-                foreach (FieldInfo fi in thisObjectProperties)
+                if (fi.IsLiteral &&
+                    fi.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr &&
+                    attr.Length == 1)
                 {
-                    if (fi.IsLiteral)
-                    {
-                        constantKeys.Add(fi);
-                    }
+                    defaults[fi.Name] = attr[0];
                 }
             }
+            return defaults;
         }
 
         private T GetDefaultValue<T>(string key)
         {
-            InitializeConstantKeys();
-            FieldInfo? info = constantKeys?.Find(fi => fi.Name == key);
-
-            if (info != null &&
-                info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr &&
-                attr.Length == 1)
+            if (defaultValueAttributes.Value.TryGetValue(key, out DefaultValueAttribute? attr))
             {
-                if (attr[0].Value is T val)
+                if (attr.Value is T val)
                 {
                     return val;
                 }
@@ -1546,14 +1546,9 @@ namespace dnGREP.Common
 
         private T? GetDefaultValueNullable<T>(string key)
         {
-            InitializeConstantKeys();
-            FieldInfo? info = constantKeys?.Find(fi => fi.Name == key);
-
-            if (info != null &&
-                info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr &&
-                attr.Length == 1)
+            if (defaultValueAttributes.Value.TryGetValue(key, out DefaultValueAttribute? attr))
             {
-                return (T?)attr[0].Value;
+                return (T?)attr.Value;
             }
 
             return default;

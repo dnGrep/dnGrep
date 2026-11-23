@@ -5202,6 +5202,26 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract archive files to memory up to (MB).
+        /// </summary>
+        public static string Options_ArchiveMemoryThreshold {
+            get {
+                return ResourceManager.GetString("Options_ArchiveMemoryThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracts archived files up to this size into RAM for speed.
+        ///Larger files (and any over 2 GB) extract to temporary disk files. 
+        ///Set to 0 to always use disk. Maximum is 2047 MB..
+        /// </summary>
+        public static string Options_ArchiveMemoryThresholdHint {
+            get {
+                return ResourceManager.GetString("Options_ArchiveMemoryThresholdHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive files.
         /// </summary>
         public static string Options_ArchiveOptions {
