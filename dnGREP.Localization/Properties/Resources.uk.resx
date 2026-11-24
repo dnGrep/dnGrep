@@ -3615,4 +3615,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="MessageBox_Remove" xml:space="preserve">
     <value>Вилучити</value>
   </data>
+  <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
+    <value>Немає фіксованого ліміту</value>
+  </data>
 </root>
