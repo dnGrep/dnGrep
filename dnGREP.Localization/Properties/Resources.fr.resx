@@ -3861,4 +3861,21 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
     <value>le texte remplacé n'apparaît pas si le remplacement a lieu sur plusieurs lignes ou via XPath</value>
   </data>
+  <data name="Options_SearchMemoryLimit" xml:space="preserve">
+    <value>Mémoire maximale réservée pour la recherche en parallèle (% de la mémoire installée)</value>
+  </data>
+  <data name="Options_SearchMemoryLimitHint" xml:space="preserve">
+    <value>Les fichiers volumineux attendent le traitement des autres fichiers avant de démarrer. Une limite basse utilise moins de mémoire, mais peut ralentir les recherches avec des fichiers très volumineux. La recherche est effectuée pour un fichier unique, même si sa taille dépasse la limite. La limite reste une indication et la mémoire utilisée peut donc être légèrement supérieure. Sélectionnez “Aucune limite” pour désactiver la limite.</value>
+  </data>
+  <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
+    <value>Aucune limite</value>
+  </data>
+  <data name="Options_ArchiveMemoryThreshold" xml:space="preserve">
+    <value>Extraire les archives en mémoire jusqu'à (Mo)</value>
+  </data>
+  <data name="Options_ArchiveMemoryThresholdHint" xml:space="preserve">
+    <value>Extrait les archives dont la taille ne dépasse pas celle spécifiée en RAM afin gagner en rapidité.
+Les fichiers volumineux (et ceux dont la taille dépasse 2 Go) sont extraits via des fichiers temporaires sur le disque. 
+Mettre à 0 pour toujours utiliser le disque. La valeur maximale est de 2 047 Mo.</value>
+  </data>
 </root>
