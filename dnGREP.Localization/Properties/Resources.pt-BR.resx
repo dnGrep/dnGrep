@@ -3483,4 +3483,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ReportOption_HtmlFileFormat" xml:space="preserve">
     <value>Página HTML</value>
   </data>
+  <data name="Main_MoreMenu_Save_HtmlLog" xml:space="preserve">
+    <value>Log de substituição em HTML</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacements" xml:space="preserve">
+    <value>{0} substituído(s)</value>
+  </data>
+  <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
+    <value>{0} substituído(s), {1} ignorado(s)</value>
+  </data>
 </root>
