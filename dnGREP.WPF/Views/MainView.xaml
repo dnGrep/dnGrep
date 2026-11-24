@@ -1023,7 +1023,8 @@
                                             Command="{Binding FlipSelectedActionCommand}"
                                             Margin="2,0,0,0"
                                             Height="32"
-                                            TabIndex="62">
+                                            TabIndex="62"
+                                            Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <Button.Content>
                                     <Image Source="{Binding SwapButtonImagePath}"
                                            MinWidth="24" Stretch="None"/>
