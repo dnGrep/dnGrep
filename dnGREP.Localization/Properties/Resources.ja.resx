@@ -4476,4 +4476,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
     <value>固定制限なし</value>
   </data>
+  <data name="Options_SearchMemoryLimit" xml:space="preserve">
+    <value>並列検索されるファイルに対するメモリ制限 (搭載メモリに対する割合)</value>
+  </data>
+  <data name="Options_SearchMemoryLimitHint" xml:space="preserve">
+    <value>大きなファイルは、他のファイルの処理が完了するまで待機します。制限値を低く設定するとメモリ使用量は抑えられますが、非常に大きなファイルを検索する際に時間がかかる可能性があります。制限値を超える単一のファイルであっても、検索は実行されます。この制限値は目安であり、実際のメモリ使用量はこれより多少多くなる場合があります。制限を無効にするには、「制限なし」を選択してください。</value>
+  </data>
+  <data name="Options_ArchiveMemoryThreshold" xml:space="preserve">
+    <value>アーカイブファイルをメモリに展開する際の上限 (MB)</value>
+  </data>
+  <data name="Options_ArchiveMemoryThresholdHint" xml:space="preserve">
+    <value>指定したサイズまでのアーカイブファイルは、高速化のためにRAM上に展開されます。
+それより大きなファイル (および 2GB を超えるファイル) は、一時的なディスクファイルとして展開されます。
+0 に設定すると、常にディスクが使用されます。最大値は 2047MB です。</value>
+  </data>
 </root>
