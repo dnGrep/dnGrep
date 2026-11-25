@@ -3492,4 +3492,60 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ReplaceLog_CountReplacementsSkipped" xml:space="preserve">
     <value>{0} substituído(s), {1} ignorado(s)</value>
   </data>
+  <data name="Main_ReplaceLog_StatusSummary" xml:space="preserve">
+    <value>Log de substituição: {0} substituição(ões), {1} ignorada(s), em {2} linha(s) de {3} arquivo(s)</value>
+  </data>
+  <data name="Main_ReplaceLog_Title" xml:space="preserve">
+    <value>Log de Substituição</value>
+  </data>
+  <data name="Options_ReplaceLogEnabled" xml:space="preserve">
+    <value>Mostrar log de substituição</value>
+  </data>
+  <data name="Replace_Remaining" xml:space="preserve">
+    <value>Substituir restantes</value>
+  </data>
+  <data name="Replace_RemainingToolTip" xml:space="preserve">
+    <value>Substituir esta e todas as correspondências posteriores, em todos os arquivos, e aplicar. Correspondências já substituídas ou ignoradas permanecem inalteradas.</value>
+  </data>
+  <data name="Options_SearchMemoryLimit" xml:space="preserve">
+    <value>Limite de memória para arquivos pesquisados em paralelo (% da memória instalada)</value>
+  </data>
+  <data name="Options_SearchMemoryLimitHint" xml:space="preserve">
+    <value>Arquivos grandes aguardam para iniciar até que outros arquivos terminem. Um limite menor usa menos memória, mas pode deixar as pesquisas em arquivos muito grandes mais lentas. Um único arquivo maior que o limite ainda será pesquisado. O limite é uma estimativa, portanto a memória utilizada pode ser um pouco maior. Selecione Sem limite fixo para desativar o limite.</value>
+  </data>
+  <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
+    <value>Sem limite fixo</value>
+  </data>
+  <data name="Options_ArchiveMemoryThreshold" xml:space="preserve">
+    <value>Extrair arquivos compactados para a memória até (MB)</value>
+  </data>
+  <data name="Options_ArchiveMemoryThresholdHint" xml:space="preserve">
+    <value>Extrai arquivos compactados até este tamanho para a RAM para maior velocidade.
+Arquivos maiores (e qualquer um acima de 2 GB) são extraídos para arquivos temporários em disco. 
+Defina como 0 para usar sempre o disco. O máximo é 2047 MB.</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceLog" xml:space="preserve">
+    <value>Log de Substituição</value>
+  </data>
+  <data name="ReplaceLogWriter_HeaderText" xml:space="preserve">
+    <value>Arquivo,Linha,Substituições,Inalterado,Texto antigo,Novo texto,Observação</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplaceWith" xml:space="preserve">
+    <value>Substituir por: '{0}'</value>
+  </data>
+  <data name="ReplaceLogWriter_HasReplacements" xml:space="preserve">
+    <value>tem {0} substituição(ões) em {1} linha(s)</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatches" xml:space="preserve">
+    <value>{0} correspondência(s) substituída(s) em {1} linha(s) de {2} arquivo(s)</value>
+  </data>
+  <data name="ReplaceLogWriter_ReplacedMatchesUnchanged" xml:space="preserve">
+    <value>{0} ({1} sem alteração)</value>
+  </data>
+  <data name="ReplaceLog_ReplacementContainsAGUIDTokenTheGUIDWrittenToTheFileDiffersFromAnyShownHere" xml:space="preserve">
+    <value>a substituição contém um token GUID; o GUID gravado no arquivo difere de qualquer um exibido aqui</value>
+  </data>
+  <data name="ReplaceLog_ReplacedTextIsNotShownForMultilineOrXPathReplace" xml:space="preserve">
+    <value>o texto substituído não é exibido para substituição multilinha ou XPath</value>
+  </data>
 </root>
