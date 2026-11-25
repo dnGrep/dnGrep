@@ -4557,6 +4557,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>多行或 XPath 替换不显示被替换文本</value>
   </data>
   <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
-    <value>系统自行决定并行任务数</value>
+    <value>无固定限制</value>
+  </data>
+  <data name="Options_SearchMemoryLimit" xml:space="preserve">
+    <value>并行搜索的文件的内存限制（已安装内存的 %）</value>
+  </data>
+  <data name="Options_SearchMemoryLimitHint" xml:space="preserve">
+    <value>大文件在其他文件完成前一直等待，不会开始。较低的限制使用的内存较少，但可能降低非常大的文件的搜索速度。仍会搜索超出限制的单个文件。限制是一个预估，因此所用内存可能略高于限制。选择“无固定限制”来关闭限制。</value>
+  </data>
+  <data name="Options_ArchiveMemoryThreshold" xml:space="preserve">
+    <value>将最大多少 MB 的压缩文件提取到内存（MB）</value>
+  </data>
+  <data name="Options_ArchiveMemoryThresholdHint" xml:space="preserve">
+    <value>将最多这个大小的压缩文件提取到内存以加快处理速度。
+更大的文件（及任何超出 2 GB 的文件）会提取到临时磁盘文件。
+设为 0 始终使用磁盘。最大为 2047 MB。</value>
   </data>
 </root>
