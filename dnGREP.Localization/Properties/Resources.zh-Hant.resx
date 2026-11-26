@@ -4499,6 +4499,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>多行或 XPath 取代不顯示已取代的文字</value>
   </data>
   <data name="Options_SearchMemoryNoFixedLimit" xml:space="preserve">
-    <value>由系統自行決定並行任務數量</value>
+    <value>無固定上限</value>
+  </data>
+  <data name="Options_SearchMemoryLimit" xml:space="preserve">
+    <value>平行搜尋檔案的記憶體上限 (佔已安裝記憶體的 %)</value>
+  </data>
+  <data name="Options_SearchMemoryLimitHint" xml:space="preserve">
+    <value>大型檔案會等待其他檔案處理完畢後才開始搜尋. 設定較低的上限可減少記憶體使用量, 但可能會降低搜尋極大型檔案的速度. 即使單一檔案大於此上限, 仍會進行搜尋. 此上限僅為估算值, 因此實際使用的記憶體可能會略高一些. 選擇 "無固定上限" 可關閉此限制.</value>
+  </data>
+  <data name="Options_ArchiveMemoryThreshold" xml:space="preserve">
+    <value>將壓縮檔解壓縮至記憶體的上限 (MB)</value>
+  </data>
+  <data name="Options_ArchiveMemoryThresholdHint" xml:space="preserve">
+    <value>將此大小以內的壓縮檔解壓縮至記憶體中, 以提升處理速度.
+較大的檔案 (及任何超過 2 GB 的檔案) 將解壓縮至硬碟暫存檔.
+設為 0 表示一律使用硬碟. 最大值為 2047 MB.</value>
   </data>
 </root>
